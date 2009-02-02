@@ -58,6 +58,7 @@ tokens {
 	package org.unbunt.sqlscript;
 
 	import org.unbunt.sqlscript.antlr.TreeHolderToken;
+	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
 }
 
 @lexer::header {
@@ -80,6 +81,9 @@ tokens {
 	
 	//@Override
 	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+		if (((TokenStream)input).LT(1).getType() == EOF) {
+			throw new UnexpectedEOFException(ttype, input);
+		}
 		throw new MismatchedTokenException(ttype, input);
 	}
 }

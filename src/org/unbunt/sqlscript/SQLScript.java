@@ -1,15 +1,5 @@
 package org.unbunt.sqlscript;
 
-import org.unbunt.sqlscript.annotations.DescriptionAnnotation;
-import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
-import org.unbunt.sqlscript.exception.SQLScriptIOException;
-import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.support.Drivers;
-import static org.unbunt.utils.StringUtils.isNullOrEmpty;
-import org.unbunt.utils.res.FilesystemResourceLoader;
-import org.unbunt.utils.res.SimpleResource;
-import org.unbunt.utils.VolatileObservable;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -23,6 +13,13 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.unbunt.sqlscript.annotations.DescriptionAnnotation;
+import org.unbunt.sqlscript.exception.*;
+import org.unbunt.sqlscript.support.Drivers;
+import static org.unbunt.utils.StringUtils.isNullOrEmpty;
+import org.unbunt.utils.VolatileObservable;
+import org.unbunt.utils.res.FilesystemResourceLoader;
+import org.unbunt.utils.res.SimpleResource;
 
 import java.io.*;
 import java.util.*;
@@ -45,6 +42,43 @@ public class SQLScript extends VolatileObservable implements Observer {
         this.script = script;
         this.scriptName = script.getFilename();
         context.setScript(script);
+    }
+
+    public void executeInteractive() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String line;
+            StringBuilder buf = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                buf.append(line);
+                InputStream input = new ByteArrayInputStream(buf.toString().getBytes());
+
+                boolean incompleteInput = false;
+                try {
+                    try {
+                        tokenize(input);
+                        parseTokens();
+                        parseAndRunTree();
+                    } catch (SQLScriptParseException e) {
+                        if (e.isCausedBy(UnexpectedEOFException.class)) {
+                            incompleteInput = true;
+                        }
+                        else {
+                            throw e;
+                        }
+                    }
+                } catch (Exception e) {
+                    System.err.println("ERROR: " + e.getMessage());
+                }
+
+                // keep current statement buffer in case it was an incomplete statement
+                if (!incompleteInput) {
+                    buf.setLength(0);
+                }
+            }
+        } catch (IOException e) {
+            throw new SQLScriptIOException(e);
+        }
     }
 
     public void execute() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
@@ -97,11 +131,18 @@ public class SQLScript extends VolatileObservable implements Observer {
         }
     }
 
-
     protected void tokenize() throws SQLScriptIOException {
+        try {
+            tokenize(script.getInputStream());
+        } catch (Exception e) {
+            throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
+        }
+    }
+
+    protected void tokenize(InputStream stream) throws SQLScriptIOException {
         ANTLRInputStream input;
         try {
-            input = new ANTLRInputStream(script.getInputStream());
+            input = new ANTLRInputStream(stream);
         } catch (Exception e) {
             throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
         }
@@ -169,7 +210,7 @@ public class SQLScript extends VolatileObservable implements Observer {
      */
 
     protected static void usage(CmdLineParser parser) {
-        System.err.println("usage: SQLScript OPTION... [FILE]");
+        System.err.println("usage: SQLScript OPTION... {-i | [FILE]}");
         parser.printUsage(System.err);
         System.exit(1);
     }
@@ -244,11 +285,14 @@ public class SQLScript extends VolatileObservable implements Observer {
             @Option(name = "-pass", usage = "the password to use for connections")
             public String pass = null;
 
-            @Option(name = "-ast", usage = "show AST instead of executing script")
+            @Option(name = "-ast", usage = "show AST instead of executing script (not available in interactive mode)")
             public boolean ast = false;
 
-            @Option(name = "-verbose")
+            @Option(name = "-verbose", usage = "echo executed statements")
             public boolean verbose = false;
+
+            @Option(name = "-i", usage = "operate in interactive mode")
+            public boolean interactive = false;
 
             @Argument
             public List<String> args = new ArrayList<String>();
@@ -267,6 +311,9 @@ public class SQLScript extends VolatileObservable implements Observer {
             usage(parser);
         }
         String file = pargs.args.isEmpty() ? null : pargs.args.get(0);
+        if (pargs.interactive && file != null) {
+            usage(parser);
+        }
 
         DriverManagerDataSource ds = new SingleConnectionDataSource();
 
@@ -367,11 +414,16 @@ public class SQLScript extends VolatileObservable implements Observer {
             if (pargs.verbose) {
                 interp.addObserver(new ScriptObserver());
             }
-            if (pargs.ast) {
-                interp.showAST();
+            if (pargs.interactive) {
+                interp.executeInteractive();
             }
             else {
-                interp.execute();
+                if (pargs.ast) {
+                    interp.showAST();
+                }
+                else {
+                    interp.execute();
+                }
             }
         } catch (SQLScriptIOException e) {
             die(e.getMessage(), e, 2);
