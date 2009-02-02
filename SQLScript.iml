@@ -13,7 +13,7 @@
     </containerInfo>
     <setting name="jarUrl" value="file://$MODULE_DIR$/dist/SQLScript.jar" />
     <setting name="buildJar" value="true" />
-    <setting name="mainClass" value="com.marketoolz.sqlscript.SQLScript" />
+    <setting name="mainClass" value="org.unbunt.sqlscript.SQLScript" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
