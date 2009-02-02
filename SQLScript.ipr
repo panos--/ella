@@ -420,6 +420,7 @@
         <root url="file:///home/panos/java-lib/args4j-2.0.9/src" />
         <root url="file:///home/panos/java-lib/antlr-3.1/src" />
         <root url="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src" />
+        <root url="file:///home/panos/java-lib/libreadline-java-0.8.0/src" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
     </library>

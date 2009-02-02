@@ -20,9 +20,14 @@ import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;
 import org.unbunt.utils.res.SimpleResource;
+import org.gnu.readline.ReadlineLibrary;
+import org.gnu.readline.Readline;
 
 import java.io.*;
 import java.util.*;
+
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
 
 public class SQLScript extends VolatileObservable implements Observer {
     protected SQLScriptContext context;
@@ -44,14 +49,76 @@ public class SQLScript extends VolatileObservable implements Observer {
         context.setScript(script);
     }
 
+    protected boolean interactiveCancel = false;
+
+    protected void initInteractive() {
+        // init readline library
+        ReadlineLibrary[] libs = new ReadlineLibrary[] {
+            ReadlineLibrary.GnuReadline,
+            ReadlineLibrary.Editline,
+            ReadlineLibrary.Getline,
+            ReadlineLibrary.PureJava
+        };
+        Readline.setVar(Readline.RL_CATCH_SIGNALS, 1);
+        Readline.setVar(Readline.RL_CATCH_SIGWINCH, 1);
+        for (ReadlineLibrary lib : libs) {
+            try {
+                Readline.load(lib);
+                break;
+            } catch (UnsatisfiedLinkError ignored) {
+                System.err.println("Readling lib " + lib.getName() + " not found...");
+            } catch (Exception ignored) {
+            }
+        }
+        Readline.initReadline("SQLScript");
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                Readline.cleanup();
+            }
+        });
+
+        // install signal handlers (naughty - using sun.misc.*)
+        SignalHandler signalHandler = new SignalHandler() { // TODO: ensure thread-safety
+            public void handle(Signal signal) {
+                if (!interactiveCancel) {
+                    System.out.println();
+                }
+                interactiveCancel = true;
+//                Readline.setVar(Readline.RL_PENDING_INPUT, (int) '\n');
+                Readline.setVar(Readline.RL_DONE, 1);
+//                System.out.println("Caught sigTerm");
+            }
+        };
+        Signal.handle(new Signal("TERM"), signalHandler);
+        Signal.handle(new Signal("INT"), signalHandler);
+    }
+
     public void executeInteractive() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        initInteractive();
+
         try {
             String line;
             StringBuilder buf = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
+            while (true) {
+                try {
+                    boolean continued = buf.length() != 0;
+                    line = Readline.readline(continued ? "-> " : "=> ", false);
+                    if (interactiveCancel) {
+                        interactiveCancel = false;
+                        buf.setLength(0);
+                        continue;
+                    }
+                    if (line == null) { // just pressed enter
+                        continue;
+                    }
+                } catch (EOFException e) { // input closed
+                    break;
+                } catch (IOException e) {
+                    throw new SQLScriptIOException(e);
+                }
                 buf.append(line);
-                InputStream input = new ByteArrayInputStream(buf.toString().getBytes());
+                String unit = buf.toString();
+                InputStream input = new ByteArrayInputStream(unit.getBytes());
 
                 boolean incompleteInput = false;
                 try {
@@ -73,11 +140,13 @@ public class SQLScript extends VolatileObservable implements Observer {
 
                 // keep current statement buffer in case it was an incomplete statement
                 if (!incompleteInput) {
+                    Readline.addToHistory(unit);
                     buf.setLength(0);
                 }
             }
-        } catch (IOException e) {
-            throw new SQLScriptIOException(e);
+        }
+        finally {
+            Readline.cleanup();
         }
     }
 

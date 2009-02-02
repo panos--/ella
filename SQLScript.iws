@@ -36,6 +36,21 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <line_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java" line="65" class="org.unbunt.sqlscript.SQLScript" package="org.unbunt.sqlscript">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -92,7 +107,7 @@
       <file leaf-file-name="SQLScript.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="21" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.7398274">
+            <state line="49" column="39" selection-start="1760" selection-end="1760" vertical-scroll-proportion="0.018495684">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,7 +118,7 @@
       <file leaf-file-name="SQLScriptWalker.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="188" column="34" selection-start="7521" selection-end="7521" vertical-scroll-proportion="0.3329223">
+            <state line="188" column="34" selection-start="7521" selection-end="7521" vertical-scroll-proportion="0.018495684">
               <folding />
             </state>
           </provider>
@@ -112,11 +127,8 @@
       <file leaf-file-name="UnexpectedEOFException.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/UnexpectedEOFException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="37" selection-start="301" selection-end="301" vertical-scroll-proportion="0.16343826">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;method#UnexpectedEOFException#0;class#UnexpectedEOFException#0" expanded="true" />
-              </folding>
+            <state line="9" column="37" selection-start="301" selection-end="301" vertical-scroll-proportion="0.10895884">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -133,7 +145,7 @@
       <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="34" selection-start="342" selection-end="342" vertical-scroll-proportion="0.23607749">
+            <state line="13" column="34" selection-start="342" selection-end="342" vertical-scroll-proportion="0.018159807">
               <folding />
             </state>
           </provider>
@@ -142,66 +154,8 @@
       <file leaf-file-name="SQLScriptParser.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="156" column="30" selection-start="6883" selection-end="6883" vertical-scroll-proportion="0.3329223">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#setTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTokenNames#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#script_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#statement_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#block_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#evalStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#evalCommand_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#evalParam_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStmtName_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlParam_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlToken_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlSpecialChar_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptAssignStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptAssign_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFuncDefStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFuncDef_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#argumentsDef_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptExpressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptIfElse_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptTry_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptCatch_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFinally_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptThrow_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptReturn_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptExit_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#parenExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#expressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#expression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#assignExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#conditionalExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#conditionalResult_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#orCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#andCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#eqCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#unaryExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#callExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#callExpressionSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#slotSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#indexSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#callSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#simpleExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#objectLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#objectSlot_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#argumentsList_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#argument_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#identifier_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#annotation_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#annotationParam_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#paramName_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#paramValue_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#keyword_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#stringLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#booleanLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-              </folding>
+            <state line="156" column="30" selection-start="6883" selection-end="6883" vertical-scroll-proportion="0.018495684">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -227,7 +181,7 @@
       <file leaf-file-name="RecognitionException.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/RecognitionException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="17" selection-start="4613" selection-end="4613" vertical-scroll-proportion="0.40556902">
+            <state line="105" column="17" selection-start="4613" selection-end="4613" vertical-scroll-proportion="0.018159807">
               <folding />
             </state>
           </provider>
@@ -781,31 +735,16 @@
       <recent name="com.marketoolz.sqlscript" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SQLScript">
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+  <component name="RunManager" selected="Application.SQLScript Interactive">
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -829,15 +768,37 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
@@ -868,13 +829,6 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="false" name="SQLScript" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.SQLScript" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
@@ -895,6 +849,28 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="false" name="SQLScript Interactive" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.SQLScript" />
+      <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
+      <option name="PROGRAM_PARAMETERS" value="-verbose -type mysql -props cfg/db.properties -i" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="SQLScript" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="36451" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -947,10 +923,11 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Application.SQLScript" />
-      <item index="1" class="java.lang.String" itemvalue="Application.SQLScript AST Viewer" />
-      <item index="2" class="java.lang.String" itemvalue="Application.SQLScript Test" />
+      <item index="1" class="java.lang.String" itemvalue="Application.SQLScript Interactive" />
+      <item index="2" class="java.lang.String" itemvalue="Application.SQLScript AST Viewer" />
+      <item index="3" class="java.lang.String" itemvalue="Application.SQLScript Test" />
     </list>
   </component>
   <component name="SQLPlugin.ProjectConfiguration">
@@ -1193,13 +1170,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/utils/res/StdinResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="14" selection-start="287" selection-end="287" vertical-scroll-proportion="0.10895884">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptOptions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.018159807">
@@ -1209,38 +1179,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="34" selection-start="7521" selection-end="7521" vertical-scroll-proportion="0.3329223">
+        <state line="188" column="34" selection-start="7521" selection-end="7521" vertical-scroll-proportion="0.018495684">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/UnexpectedEOFException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="37" selection-start="301" selection-end="301" vertical-scroll-proportion="0.16343826">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#UnexpectedEOFException#0;class#UnexpectedEOFException#0" expanded="true" />
-          </folding>
+        <state line="9" column="37" selection-start="301" selection-end="301" vertical-scroll-proportion="0.10895884">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/utils/res/StdinResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="14" selection-start="287" selection-end="287" vertical-scroll-proportion="0.10895884">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="34" selection-start="342" selection-end="342" vertical-scroll-proportion="0.23607749">
+        <state line="13" column="34" selection-start="342" selection-end="342" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/RecognitionException.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="17" selection-start="4613" selection-end="4613" vertical-scroll-proportion="0.40556902">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/MismatchedTokenException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="10" selection-start="1800" selection-end="1800" vertical-scroll-proportion="0.19975787">
+        <state line="156" column="30" selection-start="6883" selection-end="6883" vertical-scroll-proportion="0.018495684">
           <folding />
         </state>
       </provider>
@@ -1252,74 +1219,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java">
+    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/MismatchedTokenException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="30" selection-start="6883" selection-end="6883" vertical-scroll-proportion="0.3329223">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTokenNames#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#script_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#statement_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#block_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#evalStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#evalCommand_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#evalParam_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStmtName_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlParam_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlToken_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlSpecialChar_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptAssignStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptAssign_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFuncDefStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFuncDef_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#argumentsDef_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptExpressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptIfElse_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptTry_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptCatch_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFinally_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptThrow_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptReturn_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptExit_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#parenExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#expressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#expression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#assignExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#conditionalExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#conditionalResult_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#orCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#andCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#eqCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#unaryExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#callExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#callExpressionSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#slotSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#indexSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#callSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#simpleExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#objectLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#objectSlot_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#argumentsList_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#argument_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#identifier_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#annotation_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#annotationParam_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#paramName_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#paramValue_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#keyword_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#stringLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#booleanLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-          </folding>
+        <state line="37" column="10" selection-start="1800" selection-end="1800" vertical-scroll-proportion="0.19975787">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/RecognitionException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="17" selection-start="4613" selection-end="4613" vertical-scroll-proportion="0.018159807">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="21" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.7398274">
+        <state line="49" column="39" selection-start="1760" selection-end="1760" vertical-scroll-proportion="0.018495684">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
