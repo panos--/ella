@@ -1,0 +1,6 @@
+a = { foo = 'bar', proto = { init = fun() { this.qux = 'bla'; } } };
+  ->	a.foo		// static
+  	a.proto.init()	// ctor
+
+b = new a();
+  ->	b.proto.parent == a.proto

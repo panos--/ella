@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+    <author id="huxley" name="Aldous Huxley">
+        <book ref="brave-new-world"/>
+    </author>
+
+    <book id="brave-new-world" title="Brave New World">
+        <author ref="huxley"/>
+    </book>
+</library>
