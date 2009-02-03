@@ -154,6 +154,7 @@ public class SQLScript extends VolatileObservable implements Observer {
         finally {
             finish();
             Readline.cleanup();
+            System.out.println();
         }
     }
 
@@ -323,9 +324,11 @@ public class SQLScript extends VolatileObservable implements Observer {
 
     protected static void die(String msg, Exception e, int err) {
         System.err.println(msg);
+        /*
         if (e != null) {
             e.printStackTrace();
         }
+        */
         System.exit(err);
     }
 
@@ -399,6 +402,14 @@ public class SQLScript extends VolatileObservable implements Observer {
 
             @Option(name = "-i", usage = "operate in interactive mode")
             public boolean interactive = false;
+
+            /**
+             * This option is intended to be used by wrapper scripts to indicate that interactive mode should
+             * be activated if input is stdin.
+             * This avoids the need for wrapper scripts to contain logic determining when stdin would be used as input.
+             */
+            @Option(name = "-I")
+            public boolean possiblyInteractive = false;
 
             @Argument
             public List<String> args = new ArrayList<String>();
@@ -520,16 +531,14 @@ public class SQLScript extends VolatileObservable implements Observer {
             if (pargs.verbose) {
                 interp.addObserver(new ScriptObserver());
             }
-            if (pargs.interactive) {
+            if (pargs.interactive || (pargs.possiblyInteractive && file == null)) {
                 interp.executeInteractive();
             }
+            else if (pargs.ast) {
+                interp.showAST();
+            }
             else {
-                if (pargs.ast) {
-                    interp.showAST();
-                }
-                else {
-                    interp.execute();
-                }
+                interp.execute();
             }
         } catch (SQLScriptIOException e) {
             die(e.getMessage(), e, 2);

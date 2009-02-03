@@ -1,0 +1,11 @@
+#!/bin/sh
+
+ME="$0"
+MYDIR="`dirname "$ME"`"
+APPDIR="`dirname "$MYDIR"`"
+JAR="$APPDIR/dist/SQLScript.jar"
+
+# request interactive mode if stdin is a tty
+test -t 0 && opt_int=-I || opt_int=
+
+exec java -jar "$JAR" $opt_int "$@"
