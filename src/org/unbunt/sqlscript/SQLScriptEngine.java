@@ -107,13 +107,15 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
 
     protected Statement stmt;
     protected Obj val;
-    protected Env env;
+    protected Env env = null;
     protected Stack<Continuation> cont;
 
     public void process(Block block) throws SQLScriptRuntimeException {
         stmt = block;
-        val = null;
-        env = new Env();
+        val = null; // FIXME: should val be left as is if we continue running incrementally (i.e. env != null)
+        if (env == null) {
+            env = new Env();
+        }
         cont = new Stack<Continuation>();
         cont.push(new EndCont());
 
@@ -137,7 +139,9 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
 
     protected boolean eval() {
         if (stmt instanceof Block) {
-            cont.push(new BlockCont((Block) stmt, env.clone()));
+            Block block = (Block) stmt;
+            BlockCont blockCont = block.isKeepEnv() ? new BlockCont(block) : new BlockCont(block, env.clone());
+            cont.push(blockCont);
             return CONT;
         }
         else if (stmt instanceof IdentifierExpression) {
@@ -375,7 +379,11 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
             int curStmt = blockCont.getCurStmt();
             if (curStmt >= block.getStatements().size()) {
                 // aleady processed last statement of block, leaving
-                this.env = blockCont.getEnv();
+                Env savedEnv = blockCont.getEnv();
+                if (savedEnv != null) {
+                    // not restoring environment is important for incremental running of script in interactive mode
+                    this.env = blockCont.getEnv();
+                }
                 this.cont.pop();
                 return CONT;
             }

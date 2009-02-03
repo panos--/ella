@@ -10,6 +10,9 @@ import java.util.LinkedList;
 public class Block extends AbstractStatement implements StatementContainer {
     protected List<Statement> statements = new LinkedList<Statement>();
 
+    // indicates that after processing this block the environment should not be reset
+    protected boolean keepEnv = false;
+
     public Block() {
     }
 
@@ -36,5 +39,13 @@ public class Block extends AbstractStatement implements StatementContainer {
     public void addStatement(Statement statement) {
         statement.setScope(getScope());
         statements.add(statement);
+    }
+
+    public boolean isKeepEnv() {
+        return keepEnv;
+    }
+
+    public void setKeepEnv(boolean keepEnv) {
+        this.keepEnv = keepEnv;
     }
 }

@@ -8,6 +8,10 @@ public class BlockCont implements Continuation {
     protected Env env;
     protected int curStmt;
 
+    public BlockCont(Block block) {
+        this(block, null);
+    }
+
     public BlockCont(Block block, Env env) {
         this.block = block;
         this.env = env;

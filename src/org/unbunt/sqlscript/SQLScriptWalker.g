@@ -36,8 +36,17 @@ scope Block {
 	protected static int POS_RHS = 1;
 	protected static int POS_LHS = 2;
 
-	protected Observer[] observers = new Observer[] {};
+	//protected Observer[] observers = new Observer[] {};
 
+	public Block walk() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+		return parse();
+	}
+
+	public Block parse() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+		return script();
+	}
+	
+	/*
 	public void run(Observer... observers) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
 		this.observers = observers;
 
@@ -56,7 +65,9 @@ scope Block {
 			}
 		}
 	}
+	*/
 
+	/*
 	protected SQLScriptContext scriptContext = null;
 	
 	public SQLScriptContext getScriptContext() {
@@ -89,6 +100,7 @@ scope Block {
 			scriptEngine.finish();
 		}
 	}
+	*/
 	
 	protected boolean verbose = false;
 
@@ -140,15 +152,16 @@ scope Block {
 	}
 }
 
-script
+script returns [ Block value ]
 scope Block, Scope;
 @init {
 	$Scope::scope = new Scope();
 	$Block::block = new Block($Scope::scope);
 }
 @after{
-	engine().process((Block)$Block::block);
-	engine().finish();
+	$value = (Block)$Block::block;
+	//engine().process();
+	//engine().finish();
 }
 	:	statement*
 	;

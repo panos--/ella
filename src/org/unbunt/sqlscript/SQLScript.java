@@ -16,6 +16,7 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.unbunt.sqlscript.annotations.DescriptionAnnotation;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.support.Drivers;
+import org.unbunt.sqlscript.statement.Block;
 import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;
@@ -41,6 +42,9 @@ public class SQLScript extends VolatileObservable implements Observer {
     protected CommonTree tree;
 
     protected SQLScriptWalker walker;
+
+    protected SQLScriptEngine engine = null;
+    protected Block block; // the parsed script to be run by the engine
 
     public SQLScript(SQLScriptContext context, SimpleResource script) {
         this.context = context;
@@ -95,6 +99,7 @@ public class SQLScript extends VolatileObservable implements Observer {
 
     public void executeInteractive() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
         initInteractive();
+        initEngine();
 
         try {
             String line;
@@ -125,7 +130,8 @@ public class SQLScript extends VolatileObservable implements Observer {
                     try {
                         tokenize(input);
                         parseTokens();
-                        parseAndRunTree();
+                        parseTree();
+                        runBlock();
                     } catch (SQLScriptParseException e) {
                         if (e.isCausedBy(UnexpectedEOFException.class)) {
                             incompleteInput = true;
@@ -146,6 +152,7 @@ public class SQLScript extends VolatileObservable implements Observer {
             }
         }
         finally {
+            finish();
             Readline.cleanup();
         }
     }
@@ -153,7 +160,8 @@ public class SQLScript extends VolatileObservable implements Observer {
     public void execute() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
         tokenize();
         parseTokens();
-        parseAndRunTree();
+        parseTree();
+        run();
     }
 
     public void showAST() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
@@ -251,14 +259,14 @@ public class SQLScript extends VolatileObservable implements Observer {
         tree = (CommonTree) r.getTree();
     }
 
-    protected void parseAndRunTree() throws SQLScriptParseException, SQLScriptRuntimeException {
+    protected void parseTree() throws SQLScriptParseException, SQLScriptRuntimeException {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
         nodes.setTokenStream(tokens);
 
         SQLScriptWalker walker = new SQLScriptWalker(nodes);
-        walker.setScriptContext(context);
+        //walker.setScriptContext(context);
         try {
-            walker.run(this);
+            block = walker.parse();
         } catch (RecognitionException e) {
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
                                               walker.getErrorHeader(e) + " " +
@@ -269,6 +277,35 @@ public class SQLScript extends VolatileObservable implements Observer {
         } catch (RuntimeException e) {
             throw new SQLScriptRuntimeException(e.getMessage(), e);
         }
+    }
+
+    protected void run() {
+        initEngine();
+        runBlock();
+        finish();
+    }
+
+    protected void runBlock() {
+        // for interactive mode it is important to keep environment between
+        // the separate run cycles
+        block.setKeepEnv(true);
+        engine.process(block);
+    }
+
+    protected void initEngine() {
+        if (context == null) {
+            throw new RuntimeException("Internal error: No script context provided"); // should not be reached
+        }
+
+        engine = new SQLScriptEngine(context);
+        engine.addObserver(this);
+    }
+
+    protected void finish() {
+        if (engine == null) {
+            return;
+        }
+        engine.finish();
     }
 
     public void update(Observable o, Object arg) {
