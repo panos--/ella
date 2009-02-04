@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.lang;
 
 public class Bool extends Obj {
-    public static Bool TRUE = new Bool(true);
-    public static Bool FALSE = new Bool(false);
+    public final static Bool TRUE = new Bool(true);
+    public final static Bool FALSE = new Bool(false);
 
     protected boolean value;
 

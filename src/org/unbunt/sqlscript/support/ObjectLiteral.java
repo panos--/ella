@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectLiteral {
-    public class SlotEntry {
+    public static class SlotEntry {
         public Expression key;
         public Expression value;
 

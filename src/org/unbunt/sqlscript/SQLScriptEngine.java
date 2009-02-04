@@ -26,9 +26,9 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
 
     protected SQLScriptContext context;
 
-    protected static Map<String, String> commands;
+    protected final static Map<String, String> commands;
 
-    protected static Map<String, String> annotations;
+    protected final static Map<String, String> annotations;
 
     public static final String SLOT_PARENT = "parent";
     public static final Str STR_SLOT_PARENT = new Str(SLOT_PARENT);
@@ -122,9 +122,10 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
         process();
     }
 
-    protected static boolean CONT = true;
-    protected static boolean EVAL = false;
+    protected final static boolean CONT = true;
+    protected final static boolean EVAL = false;
 
+    @SuppressWarnings({"PointlessBooleanExpression"})
     protected void process() throws SQLScriptRuntimeException {
         boolean next = EVAL;
 
@@ -858,6 +859,16 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
     protected void process(SQLStatement sqlStmt) throws SQLScriptRuntimeException {
         logger.debug("Executing SQL: " + sqlStmt);
 
+        // first, close last statement, if exists
+        java.sql.Statement lastStmt = context.getLastSQLStatementResource();
+        if (lastStmt != null) {
+            try {
+                lastStmt.close();
+            } catch (SQLException e) {
+                throw new StatementFailedException(e);
+            }
+        }
+
         SQLScriptOptions options = context.getOptions();
 
         boolean quiet = options.quiet;
@@ -904,6 +915,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
                                   ? java.sql.Statement.RETURN_GENERATED_KEYS
                                   : java.sql.Statement.NO_GENERATED_KEYS);
                 context.setLastSQLStatement(sqlStmt);
+                context.setLastSQLStatementResource(stmt);
                 context.setLastSQLResult(stmt.getResultSet());
                 context.setLastUpdateCount(stmt.getUpdateCount());
                 printSQLResult();
@@ -928,6 +940,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
         }
     }
 
+    @SuppressWarnings({"MalformedFormatString"})
     protected void printSQLResult() throws SQLException {
         ResultSet rs = context.getLastSQLResult();
         int updateCount = context.getLastUpdateCount();
@@ -959,7 +972,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
                         case Types.ROWID:
                         case Types.SMALLINT:
                         case Types.TINYINT:
-                            currWidth = String.format("%d", rs.getObject(i)).length();
+                            currWidth = String.format("%d", (Number)rs.getObject(i)).length();
                             break;
                         default:
                             currWidth = ("" + rs.getObject(i)).length();

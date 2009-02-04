@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Map;
 
 public class DefaultSQLScriptChildContext implements SQLScriptChildContext {
@@ -66,6 +67,10 @@ public class DefaultSQLScriptChildContext implements SQLScriptChildContext {
         return baseContext.getLastSQLStatement();
     }
 
+    public Statement getLastSQLStatementResource() {
+        return baseContext.getLastSQLStatementResource();
+    }
+
     public int getLastUpdateCount() {
         return baseContext.getLastUpdateCount();
     }
@@ -104,6 +109,10 @@ public class DefaultSQLScriptChildContext implements SQLScriptChildContext {
 
     public void setLastSQLStatement(SQLStatement lastSQLStatement) {
         baseContext.setLastSQLStatement(lastSQLStatement);
+    }
+
+    public void setLastSQLStatementResource(Statement stmt) {
+        baseContext.setLastSQLStatementResource(stmt);
     }
 
     public void setLastUpdateCount(int lastUpdateCount) {

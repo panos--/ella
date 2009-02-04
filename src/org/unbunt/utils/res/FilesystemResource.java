@@ -19,7 +19,7 @@ public class FilesystemResource implements SimpleResource {
 
     protected File file;
 
-    protected static FileSystemPathUtil pathUtil = FileSystemPathUtil.getInstance();
+    protected final static FileSystemPathUtil pathUtil = FileSystemPathUtil.getInstance();
 
     public FilesystemResource(String path) {
         this.path = path;

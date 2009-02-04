@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class DefaultSQLScriptContext implements SQLScriptContext {
     protected SimpleResourceLoader resourceLoader = new FilesystemResourceLoader();
 
     protected SQLStatement lastSQLStatement = null;
+    protected Statement lastSQLStatementResource = null;
     protected ResultSet lastSQLResult = null;
     protected int lastUpdateCount = -1;
 
@@ -100,6 +102,14 @@ public class DefaultSQLScriptContext implements SQLScriptContext {
 
     public void setLastSQLStatement(SQLStatement lastSQLStatement) {
         this.lastSQLStatement = lastSQLStatement;
+    }
+
+    public Statement getLastSQLStatementResource() {
+        return lastSQLStatementResource;
+    }
+
+    public void setLastSQLStatementResource(Statement lastSQLStatementResource) {
+        this.lastSQLStatementResource = lastSQLStatementResource;
     }
 
     public int getLastUpdateCount() {

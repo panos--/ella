@@ -33,8 +33,8 @@ scope Block {
 }
 
 @members {
-	protected static int POS_RHS = 1;
-	protected static int POS_LHS = 2;
+	protected final static int POS_RHS = 1;
+	protected final static int POS_LHS = 2;
 
 	//protected Observer[] observers = new Observer[] {};
 

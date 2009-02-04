@@ -28,7 +28,9 @@ public class ConnectCommand implements Command {
         if (!isNullOrEmpty(properties)) {
             props = new Properties();
             try {
-                props.load(new FileInputStream(properties));
+                FileInputStream in = new FileInputStream(properties);
+                props.load(in);
+                in.close();
             } catch (IOException e) {
                 throw new CommandFailedException("Failed to load properties: " + e.getMessage(), e);
             }

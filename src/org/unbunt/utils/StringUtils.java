@@ -144,8 +144,9 @@ public class StringUtils {
         boolean start = true;
         StringBuilder buf = new StringBuilder();
 
-        for (String key : query.keySet()) {
-            String val = query.get(key);
+        for (Map.Entry<String,String> entry : query.entrySet()) {
+            String key = entry.getKey();
+            String val = entry.getValue();
             if (val == null) val = "";
 
             if (start) start = false;

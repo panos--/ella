@@ -75,17 +75,20 @@ public class TransferCommand extends VolatileObservable implements Command {
             throw new IllegalCommandArgumentsException("Invalid arguments: validate-count specified but no dst-count given");
         }
 
+        ResultSet rs = null;
         try {
             long srcCount = -1;
             if (srcCountStmt != null) {
-                ResultSet rs = srcCountStmt.executeQuery();
+                rs = srcCountStmt.executeQuery();
                 if (!rs.next()) {
                     throw new CommandFailedException("Source count statement returned no result");
                 }
                 srcCount = rs.getLong(1);
+                rs.close();
+                rs = null;
             }
 
-            ResultSet rs = srcStmt.executeQuery();
+            rs = srcStmt.executeQuery();
             int ncols = -1;
             int nrows = 0;
             int lastInsertCount = 0;
@@ -135,6 +138,9 @@ public class TransferCommand extends VolatileObservable implements Command {
             }
         } catch (SQLException e) {
             throw new CommandFailedException("Transfer failed: " + e.getMessage(), e);
+        } finally {
+            try { if (rs != null) { rs.close(); } }
+            catch (Exception ignored) {}
         }
     }
 }

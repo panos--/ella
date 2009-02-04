@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.Map;
 
 public interface SQLScriptContext {
@@ -45,6 +46,10 @@ public interface SQLScriptContext {
     SQLStatement getLastSQLStatement();
 
     void setLastSQLStatement(SQLStatement lastSQLStatement);
+
+    Statement getLastSQLStatementResource();
+
+    void setLastSQLStatementResource(Statement stmt);
 
     int getLastUpdateCount();
 
