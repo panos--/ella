@@ -44,7 +44,8 @@ public class LazyInputStream implements CharStream {
      * use this on streams that don't support it.
      */
     public String substring(int start, int stop) {
-        throw new RuntimeException("Not implemented");
+        readTo(stop);
+        return buf.substring(start, stop + 1);
     }
 
     /**
@@ -76,10 +77,8 @@ public class LazyInputStream implements CharStream {
             }
         }
 
-        while (j > read) {
-            if (!tryRead()) {
-                return CharStream.EOF;
-            }
+        if (!readTo(j)) {
+            return CharStream.EOF;
         }
 
         return buf.charAt(j);
@@ -212,6 +211,15 @@ public class LazyInputStream implements CharStream {
         }
 
         pos++;
+    }
+
+    protected boolean readTo(int offset) {
+        while (offset >= read) {
+            if (!tryRead()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected boolean tryRead() {

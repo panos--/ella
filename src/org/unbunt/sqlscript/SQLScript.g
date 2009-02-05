@@ -570,6 +570,9 @@ KW_NEW	:	'new'
 	;
 
 VARIABLE:	'@' var=VARNAME {
+			// TODO: avoid using var.text somehow - this causes CommonToken to call substring()
+			// on the input stream which should be considered unsupported for the LazyInputStream
+			// used when parsing in incrementally
 			setText($var.text);
 		}
 	;
