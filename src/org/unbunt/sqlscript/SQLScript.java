@@ -20,6 +20,7 @@ import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.Drivers;
 import org.unbunt.sqlscript.antlr.LazyInputStream;
+import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;
@@ -159,9 +160,17 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     public void executeIncremental() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
-        parseTokensIncremental();
-        parseTree();
-        run();
+        initParserIncremental();
+        initEngine();
+        try {
+            while (parseTokensIncremental() && !engine.isFinished()) {
+                parseTree();
+                runBlock();
+            }
+        }
+        finally {
+            finish();
+        }
     }
 
     public void execute() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
@@ -266,7 +275,7 @@ public class SQLScript extends VolatileObservable implements Observer {
         tree = (CommonTree) r.getTree();
     }
 
-    protected void parseTokensIncremental()
+    protected void initParserIncremental()
             throws SQLScriptParseException, SQLScriptRuntimeException, SQLScriptIOException {
         InputStream stream;
         try {
@@ -275,19 +284,18 @@ public class SQLScript extends VolatileObservable implements Observer {
             throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
         }
 
-        parseTokensIncremental(stream);
+        initParserIncremental(stream);
     }
 
-    protected void parseTokensIncremental(InputStream stream)
+    protected void initParserIncremental(InputStream stream)
             throws SQLScriptParseException, SQLScriptRuntimeException {
         LazyInputStream input = new LazyInputStream(stream);
 
         lexer = new SQLScriptLexer(input);
-        tokens = new CommonTokenStream(lexer);
+        LazyTokenStream lazyTokens = new LazyTokenStream(lexer);
 
-        SQLScriptParser parser;
         try {
-            parser = new SQLScriptParser(tokens);
+            parser = new SQLScriptParser(lazyTokens);
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
@@ -295,17 +303,22 @@ public class SQLScript extends VolatileObservable implements Observer {
                                               lexer.getErrorMessage(e, lexer.getTokenNames()),
                                               e);
         }
+    }
 
-        SQLScriptParser.script_return r;
+    protected boolean parseTokensIncremental()
+            throws SQLScriptParseException, SQLScriptRuntimeException {
+        SQLScriptParser.scriptIncremental_return r;
         try {
-            r = parser.script();
+            r = parser.scriptIncremental();
         } catch (RecognitionException e) {
+            e.printStackTrace();
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
                                               parser.getErrorHeader(e) + " " +
                                               parser.getErrorMessage(e, parser.getTokenNames()),
                                               e);
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
+            re.printStackTrace();
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
                                               lexer.getErrorHeader(e) + " " +
                                               lexer.getErrorMessage(e, lexer.getTokenNames()),
@@ -313,6 +326,8 @@ public class SQLScript extends VolatileObservable implements Observer {
         }
 
         tree = (CommonTree) r.getTree();
+
+        return !parser.isEOF();
     }
 
     protected void parseTree() throws SQLScriptParseException, SQLScriptRuntimeException {

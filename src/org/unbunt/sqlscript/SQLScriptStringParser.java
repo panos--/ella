@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-02-02 16:37:02
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-02-08 23:09:49
 
 	package org.unbunt.sqlscript;
 
@@ -166,7 +166,7 @@ public class SQLScriptStringParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: start, end, content
+                    // elements: start, content, end
                     // token labels: start, end
                     // rule labels: retval
                     // token list labels: content
@@ -352,7 +352,7 @@ public class SQLScriptStringParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: content, end, start
+                    // elements: end, content, start
                     // token labels: start, end
                     // rule labels: retval
                     // token list labels: content

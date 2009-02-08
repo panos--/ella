@@ -8,4 +8,4 @@ JAR="$APPDIR/dist/SQLScript.jar"
 # request interactive mode if stdin is a tty
 test -t 0 && opt_int=-I || opt_int=
 
-exec java -jar "$JAR" $opt_int "$@"
+exec java $JAVA_OPTS -jar "$JAR" $opt_int "$@"

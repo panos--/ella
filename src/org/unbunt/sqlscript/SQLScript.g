@@ -72,6 +72,8 @@ tokens {
 // stop on first parser error
 @parser::members {
 	public static final int WHITESPACE_CHANNEL = 42;
+	
+	protected boolean eof = false;
 
 	//@Override
 	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
@@ -85,6 +87,11 @@ tokens {
 			throw new UnexpectedEOFException(ttype, input);
 		}
 		throw new MismatchedTokenException(ttype, input);
+	}
+	
+	// indicates end of file condition in incremental parsing mode
+	public boolean isEOF() {
+		return eof;
 	}
 }
 
@@ -125,6 +132,11 @@ tokens {
 }
 
 script	:	statement* EOF
+	;
+
+scriptIncremental
+	:	statement
+	|	EOF { eof = true; }
 	;
 
 statement

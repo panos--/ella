@@ -25,6 +25,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
     protected Log logger = LogFactory.getLog(getClass());
 
     protected SQLScriptContext context;
+    protected boolean finished = false;
 
     protected final static Map<String, String> commands;
 
@@ -131,7 +132,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
 
         while (true) {
             if (next == CONT && this.cont.isEmpty()) {
-                System.out.println("Computation finished. Continuation stack empty.");
+//                System.out.println("Computation finished. Continuation stack empty.");
                 return;
             }
             next = next == CONT ? cont() : eval();
@@ -370,7 +371,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
     protected boolean cont() {
         Continuation cont = this.cont.peek();
         if (cont instanceof EndCont) {
-            System.out.println("Computation finished. End continuation reached.");
+//            System.out.println("Computation finished. End continuation reached.");
             this.cont.pop();
             return CONT;
         }
@@ -741,6 +742,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
         else if (cont instanceof ExitCont) {
             System.out.println("Computation finished. Exit continuation reached.");
             this.cont.setSize(0);
+            finished = true;
             return CONT;
         }
         else if (cont instanceof InitParamCont) {
@@ -1381,5 +1383,9 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
 
     public void setContext(SQLScriptContext context) {
         this.context = context;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }
