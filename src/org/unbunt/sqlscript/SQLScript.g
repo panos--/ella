@@ -155,8 +155,7 @@ scriptIncremental
 	;
 
 statement
-	:	(annotation* BACKSLASH)=> evalStmt SEP!
-	|	sqlStmt SEP!
+	:	annotations! (evalStmt[$annotations.tree] | sqlStmt[$annotations.tree]) SEP!
 	|	scriptStmt
 	|	block
 	|	SEP!
@@ -165,8 +164,8 @@ statement
 block	:	LCURLY statement* RCURLY -> ^(BLOCK statement*)
 	;
 
-evalStmt
-	:	annotation* BACKSLASH evalCommand evalParam* -> ^(EVAL_CMD evalCommand evalParam* annotation*)
+evalStmt [ CommonTree annotations ]
+	:	BACKSLASH evalCommand evalParam* -> ^(EVAL_CMD evalCommand evalParam* { $annotations })
 	;
 
 evalCommand
@@ -178,7 +177,8 @@ evalParam
 	|	paramName                   -> ^(EVAL_ARG PARAM_NAME paramName)
 	;
 
-sqlStmt	:	annotation* sqlStmtName sqlParam* -> ^(SQL_CMD sqlStmtName sqlParam* annotation*)
+sqlStmt	[ CommonTree annotations ]
+	:	sqlStmtName sqlParam* -> ^(SQL_CMD sqlStmtName sqlParam* { $annotations })
 	;
 
 sqlStmtName
@@ -490,6 +490,10 @@ argument:	identifier
 
 identifier
 	:	(WORD | IDENTIFIER)
+	;
+
+annotations
+	:	annotation*
 	;
 
 annotation	// NOTE: Variable syntax is currently identical with annotation syntax

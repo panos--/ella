@@ -1,3 +1,6 @@
+@describe(title = 'foo')
+\echo msg='hello';
+
 var @ClassA := {
     init = fun(arg) {
         \echo msg='in ClassA constructor';

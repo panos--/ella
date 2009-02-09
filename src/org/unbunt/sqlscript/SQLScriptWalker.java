@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-02-08 23:11:46
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-02-09 12:32:08
 
 	package org.unbunt.sqlscript;
 
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class SQLScriptWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "SQUOT", "STRING_CONTENT", "EMBEDDED_VARIABLE", "DQUOT", "BTICK", "SSTRING_CONTENT", "DSTRING_CONTENT", "BTSTRING_CONTENT", "ATSIGN", "VARNAME", "WORD_CHAR", "BLOCK", "EVAL_CMD", "EVAL_ARG", "SQL_CMD", "ANNOT", "ANNOT_ARG", "PARAM_NAME", "PARAM_VALUE", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "ARGS", "ARG_EXPR", "ARG_TRUE", "ARG_FALSE", "IF", "IF_BLOCK", "ELSE_BLOCK", "TRY", "CATCH", "FINALLY", "THROW", "RETURN", "EXIT", "COND_EXPR", "COND_AND", "COND_OR", "COMP_EQ", "NOT", "TRUE", "FALSE", "OBJ", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "THIS", "NEW", "SEP", "LCURLY", "RCURLY", "BACKSLASH", "EQUALS", "KW_SQL", "WORD", "VARIABLE", "SQL_SPECIAL_CHAR", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "KW_VAR", "KW_FUN", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_RETURN", "KW_EXIT", "KW_NEW", "KW_THIS", "IDENTIFIER", "KW_TRUE", "KW_FALSE", "STRING_START", "WS", "NL", "COMMENT", "LINE_COMMENT"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "SQUOT", "STRING_CONTENT", "EMBEDDED_VARIABLE", "DQUOT", "BTICK", "SSTRING_CONTENT", "DSTRING_CONTENT", "BTSTRING_CONTENT", "ATSIGN", "VARNAME", "WORD_CHAR", "BLOCK", "EVAL_CMD", "EVAL_ARG", "SQL_CMD", "ANNOT", "ANNOT_ARG", "PARAM_NAME", "PARAM_VALUE", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "ARGS", "ARG_EXPR", "ARG_TRUE", "ARG_FALSE", "IF", "IF_BLOCK", "ELSE_BLOCK", "TRY", "CATCH", "FINALLY", "THROW", "RETURN", "EXIT", "COND_EXPR", "COND_AND", "COND_OR", "COMP_EQ", "NOT", "TRUE", "FALSE", "OBJ", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "THIS", "NEW", "SEP", "LCURLY", "RCURLY", "BACKSLASH", "EQUALS", "KW_SQL", "WORD", "VARIABLE", "SQL_SPECIAL_CHAR", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "KW_VAR", "KW_FUN", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_RETURN", "KW_EXIT", "KW_NEW", "KW_THIS", "IDENTIFIER", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "WS", "NL", "COMMENT", "LINE_COMMENT"
     };
     public static final int ELSE_BLOCK=36;
     public static final int LSQUARE=71;
@@ -49,27 +49,28 @@ public class SQLScriptWalker extends TreeParser {
     public static final int ARGS=30;
     public static final int IDX_CALL=54;
     public static final int ATSIGN=14;
-    public static final int NL=99;
-    public static final int COMMENT=100;
+    public static final int NL=101;
+    public static final int COMMENT=102;
     public static final int KW_EXIT=91;
     public static final int PARAM_VALUE=24;
     public static final int EXIT=42;
     public static final int ARG_EXPR=31;
-    public static final int STRING_START=97;
-    public static final int LINE_COMMENT=101;
+    public static final int LINE_COMMENT=103;
     public static final int EVAL_CMD=18;
     public static final int KW_CATCH=87;
     public static final int LCURLY=61;
     public static final int FUNC_DEF=28;
     public static final int SLOT_CALL=52;
     public static final int TRY=37;
+    public static final int STR_BTICK=99;
     public static final int IF_BLOCK=35;
     public static final int KW_FINALLY=88;
-    public static final int WS=98;
+    public static final int WS=100;
     public static final int KW_THROW=89;
     public static final int VARIABLE=67;
     public static final int SLOT=51;
     public static final int COND_EXPR=43;
+    public static final int STR_SQUOT=97;
     public static final int CALL=57;
     public static final int CATCH=38;
     public static final int FALSE=49;
@@ -104,6 +105,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final int KW_THIS=93;
     public static final int KW_IF=84;
     public static final int ANNOT_ARG=22;
+    public static final int STR_DQUOT=98;
     public static final int SQL_CMD=20;
     public static final int KW_FALSE=96;
     public static final int EVAL_ARG=19;
