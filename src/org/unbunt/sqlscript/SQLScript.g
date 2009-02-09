@@ -60,6 +60,7 @@ tokens {
 	import org.unbunt.sqlscript.antlr.LazyTokenStream;
 	import org.unbunt.sqlscript.antlr.TreeHolderToken;
 	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
+	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 }
 
 @lexer::header {
@@ -75,6 +76,35 @@ tokens {
 	public static final int WHITESPACE_CHANNEL = 42;
 	
 	protected boolean eof = false;
+	
+	public static class StringSyntaxRules {
+		public final boolean doubleQuote;
+		public final boolean singleQuote;
+		public final boolean backTick;
+		
+		public StringSyntaxRules(boolean doubleQuote, boolean singleQuote, boolean backTick) {
+			this.doubleQuote = doubleQuote;
+			this.singleQuote = singleQuote;
+			this.backTick = backTick;
+		}
+	}
+	
+	public static enum StringType {
+		sql92 (new StringSyntaxRules(true, true, false)),
+		mysql (new StringSyntaxRules(true, true, true));
+		
+		protected StringSyntaxRules rules;
+		
+		StringType(StringSyntaxRules rules) {
+			this.rules = rules;
+		}
+		
+		public StringSyntaxRules getRules() {
+			return this.rules;
+		}
+	}
+	
+	protected StringType stringType = StringType.sql92;
 
 	//@Override
 	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
@@ -158,6 +188,7 @@ statement
 	:	annotations! (evalStmt[$annotations.tree] | sqlStmt[$annotations.tree]) SEP!
 	|	scriptStmt
 	|	block
+	|	parseDirective! SEP!
 	|	SEP!
 	;
 
@@ -200,7 +231,7 @@ sqlToken:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
 
 sqlSpecialChar
 	:	SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
-	|	EQUALS | BACKSLASH | ATSIGN
+	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH | ATSIGN
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
 	|	EXCLAM | QUESTION | COLON | DOT | COMMA
 	;
@@ -521,20 +552,25 @@ keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | K
 stringLiteral
 @init { CommonTree tree = null; }
 	:	//str=STRING_START -> ^( { ((TreeHolderToken)$str).getTree() } )
-		(STR_SQUOT|STR_DQUOT) {
+		( {stringType.rules.singleQuote}? STR_SQUOT
+		| {stringType.rules.doubleQuote}? STR_DQUOT
+		| {stringType.rules.backTick}?    STR_BTICK
+		) {
 			LazyTokenStream tokens = (LazyTokenStream) input;
 			SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
 			CharStream chars = lexer.getCharStream();
 			int lastStringStartMarker = lexer.getLastStringStartMarker();
-			
-			// push back starting literal (single or double quote) on input stream
-			// for processing by string parser
+
+			// rewind input to string start
 			chars.rewind(lastStringStartMarker);
-			
+
 			// call string parser to handle the string
 			SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
-			CommonTokenStream strTokens = new CommonTokenStream(strLexer);
-			SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
+			//CommonTokenStream strTokens = new CommonTokenStream(strLexer);
+			//SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
+			tokens.replaceTokenSource(strLexer);
+			SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
+			
 			SQLScriptStringParser.string_return result = strParser.string();
 			
 			// remember generated tree, emit() uses it later on to attach it to the current token
@@ -545,6 +581,9 @@ stringLiteral
 			// closing string delimiter kept on input, must consume explicitly
 			// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
 			chars.consume();
+			
+			// set our lexer as token source in the token stream again
+			tokens.replaceTokenSource(lexer);
 		}
 		-> ^( {tree} )
 	;
@@ -556,6 +595,29 @@ sqlStringLiteral
 booleanLiteral
 	:	KW_TRUE  -> TRUE
 	|	KW_FALSE -> FALSE
+	;
+
+parseDirective
+	:	DOUBLE_BACKSLASH dir=WORD arg=WORD EQUALS (valId=IDENTIFIER|valWord=WORD) {
+			String directive = $dir.text;
+			String argument = $arg.text;
+			String value = $valId == null ? $valWord.text : $valId.text;
+			
+			if (!"set".equals(directive)) {
+				throw new SQLScriptRuntimeException("Unknown parse directive: " + directive);
+			}
+			
+			if (!"quotes".equals(argument)) {
+				throw new SQLScriptRuntimeException("Invalid argument to parse directive: " + argument);
+			}
+			
+			try {
+				this.stringType = StringType.valueOf(("" + value).toLowerCase());
+			} catch (IllegalArgumentException e) {
+				throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
+			}
+		}
+		-> // omit tree generation
 	;
 
 STR_SQUOT
@@ -678,6 +740,10 @@ WORD_CHAR
 
 BACKSLASH
 	:	'\\'
+	;
+
+DOUBLE_BACKSLASH
+	:	'\\\\'
 	;
 
 ATSIGN	:	'@'

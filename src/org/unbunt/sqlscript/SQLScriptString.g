@@ -21,6 +21,8 @@ tokens {
 
 @lexer::header {
 	package org.unbunt.sqlscript;
+	
+	import java.util.LinkedList;
 }
 
 @lexer::members {
@@ -29,18 +31,45 @@ tokens {
 	protected boolean atStart = true;
 	protected boolean inString = false;
 	
-	List<Token> tokens = new ArrayList<Token>(2);
+	// the following two methods allow us to inject an additional token
+	// into the stream, namely the EOF_TOKEN used to tell the parser it
+	// should stop parsing
+	
+	LinkedList<Token> tokens = new LinkedList<Token>(); // = new ArrayList<Token>(2);
+	
+	@Override
 	public void emit(Token token) {
 		state.token = token;
 		tokens.add(token);
 	}
 
+	@Override
 	public Token nextToken() {
 		super.nextToken();
-		if ( tokens.size()==0 ) {
+		if (tokens.isEmpty()) {
 			return Token.EOF_TOKEN;
 		}
-		return tokens.remove(0);
+		return tokens.removeFirst();
+	}
+	
+	// support methods for some lexer rules
+	
+	protected int marker;
+	
+	protected void preProcessSep() {
+		marker = input.mark();
+	}
+	
+	protected void postProcessSep(int type) {
+		if (atStart) {
+			atStart = false;
+			stringType = type;
+		}
+		else if (!inString) {
+			emit();
+			emit(Token.EOF_TOKEN);
+			input.rewind(marker);
+		}
 	}
 }
 
@@ -50,20 +79,20 @@ string	:	start=SQUOT (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end
 	;
 
 DQUOT
-@init { int marker = input.mark(); }
-@after { if (atStart) { atStart = false; stringType = DQUOT; } else if (!inString) { emit(); emit(Token.EOF_TOKEN); input.rewind(marker); } }
+@init { preProcessSep(); }
+@after { postProcessSep(DQUOT); }
 	:	'"'
 	;
 
 SQUOT
-@init { int marker = input.mark(); }
-@after { if (atStart) { atStart = false; stringType = SQUOT; } else if (!inString) { emit(); emit(Token.EOF_TOKEN); input.rewind(marker); } }
+@init { preProcessSep(); }
+@after { postProcessSep(SQUOT); }
 	:	'\''
 	;
 
 BTICK
-@init { int marker = input.mark(); }
-@after { if (atStart) { atStart = false; stringType = BTICK; } else if (!inString) { emit(); emit(Token.EOF_TOKEN); input.rewind(marker); } }
+@init { preProcessSep(); }
+@after { postProcessSep(BTICK); }
 	:	'`'
 	;
 

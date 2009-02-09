@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-02-08 23:09:49
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-02-09 23:24:14
 
 	package org.unbunt.sqlscript;
 
@@ -61,7 +61,7 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "string"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:1: string : (start= SQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= SQUOT -> ^( STRING $start ( $content)* $end) | start= DQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= DQUOT -> ^( STRING $start ( $content)* $end) | start= BTICK (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= BTICK -> ^( STRING $start ( $content)* $end) );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:1: string : (start= SQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= SQUOT -> ^( STRING $start ( $content)* $end) | start= DQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= DQUOT -> ^( STRING $start ( $content)* $end) | start= BTICK (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= BTICK -> ^( STRING $start ( $content)* $end) );
     public final SQLScriptStringParser.string_return string() throws RecognitionException {
         SQLScriptStringParser.string_return retval = new SQLScriptStringParser.string_return();
         retval.start = input.LT(1);
@@ -83,7 +83,7 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_STRING_CONTENT=new RewriteRuleTokenStream(adaptor,"token STRING_CONTENT");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:8: (start= SQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= SQUOT -> ^( STRING $start ( $content)* $end) | start= DQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= DQUOT -> ^( STRING $start ( $content)* $end) | start= BTICK (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= BTICK -> ^( STRING $start ( $content)* $end) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:8: (start= SQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= SQUOT -> ^( STRING $start ( $content)* $end) | start= DQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= DQUOT -> ^( STRING $start ( $content)* $end) | start= BTICK (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= BTICK -> ^( STRING $start ( $content)* $end) )
             int alt4=3;
             switch ( input.LA(1) ) {
             case SQUOT:
@@ -110,12 +110,12 @@ public class SQLScriptStringParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:10: start= SQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= SQUOT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:10: start= SQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= SQUOT
                     {
                     start=(Token)match(input,SQUOT,FOLLOW_SQUOT_in_string78);  
                     stream_SQUOT.add(start);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:22: (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:22: (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )*
                     loop1:
                     do {
                         int alt1=3;
@@ -131,7 +131,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:23: content+= STRING_CONTENT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:23: content+= STRING_CONTENT
                     	    {
                     	    content=(Token)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_string83);  
                     	    stream_STRING_CONTENT.add(content);
@@ -143,7 +143,7 @@ public class SQLScriptStringParser extends Parser {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:49: content+= EMBEDDED_VARIABLE
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:49: content+= EMBEDDED_VARIABLE
                     	    {
                     	    content=(Token)match(input,EMBEDDED_VARIABLE,FOLLOW_EMBEDDED_VARIABLE_in_string89);  
                     	    stream_EMBEDDED_VARIABLE.add(content);
@@ -166,7 +166,7 @@ public class SQLScriptStringParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: start, content, end
+                    // elements: content, end, start
                     // token labels: start, end
                     // rule labels: retval
                     // token list labels: content
@@ -178,15 +178,15 @@ public class SQLScriptStringParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 47:88: -> ^( STRING $start ( $content)* $end)
+                    // 76:88: -> ^( STRING $start ( $content)* $end)
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:91: ^( STRING $start ( $content)* $end)
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:91: ^( STRING $start ( $content)* $end)
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, stream_start.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:47:107: ( $content)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:76:107: ( $content)*
                         while ( stream_content.hasNext() ) {
                             adaptor.addChild(root_1, stream_content.nextNode());
 
@@ -203,12 +203,12 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:48:4: start= DQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= DQUOT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:77:4: start= DQUOT (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= DQUOT
                     {
                     start=(Token)match(input,DQUOT,FOLLOW_DQUOT_in_string118);  
                     stream_DQUOT.add(start);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:48:16: (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:77:16: (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )*
                     loop2:
                     do {
                         int alt2=3;
@@ -224,7 +224,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:48:17: content+= STRING_CONTENT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:77:17: content+= STRING_CONTENT
                     	    {
                     	    content=(Token)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_string123);  
                     	    stream_STRING_CONTENT.add(content);
@@ -236,7 +236,7 @@ public class SQLScriptStringParser extends Parser {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:48:43: content+= EMBEDDED_VARIABLE
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:77:43: content+= EMBEDDED_VARIABLE
                     	    {
                     	    content=(Token)match(input,EMBEDDED_VARIABLE,FOLLOW_EMBEDDED_VARIABLE_in_string129);  
                     	    stream_EMBEDDED_VARIABLE.add(content);
@@ -259,7 +259,7 @@ public class SQLScriptStringParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: end, start, content
+                    // elements: end, content, start
                     // token labels: start, end
                     // rule labels: retval
                     // token list labels: content
@@ -271,15 +271,15 @@ public class SQLScriptStringParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 48:82: -> ^( STRING $start ( $content)* $end)
+                    // 77:82: -> ^( STRING $start ( $content)* $end)
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:48:85: ^( STRING $start ( $content)* $end)
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:77:85: ^( STRING $start ( $content)* $end)
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, stream_start.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:48:101: ( $content)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:77:101: ( $content)*
                         while ( stream_content.hasNext() ) {
                             adaptor.addChild(root_1, stream_content.nextNode());
 
@@ -296,12 +296,12 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:49:4: start= BTICK (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= BTICK
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:78:4: start= BTICK (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )* end= BTICK
                     {
                     start=(Token)match(input,BTICK,FOLLOW_BTICK_in_string158);  
                     stream_BTICK.add(start);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:49:16: (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:78:16: (content+= STRING_CONTENT | content+= EMBEDDED_VARIABLE )*
                     loop3:
                     do {
                         int alt3=3;
@@ -317,7 +317,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt3) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:49:17: content+= STRING_CONTENT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:78:17: content+= STRING_CONTENT
                     	    {
                     	    content=(Token)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_string163);  
                     	    stream_STRING_CONTENT.add(content);
@@ -329,7 +329,7 @@ public class SQLScriptStringParser extends Parser {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:49:43: content+= EMBEDDED_VARIABLE
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:78:43: content+= EMBEDDED_VARIABLE
                     	    {
                     	    content=(Token)match(input,EMBEDDED_VARIABLE,FOLLOW_EMBEDDED_VARIABLE_in_string169);  
                     	    stream_EMBEDDED_VARIABLE.add(content);
@@ -352,7 +352,7 @@ public class SQLScriptStringParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: end, content, start
+                    // elements: end, start, content
                     // token labels: start, end
                     // rule labels: retval
                     // token list labels: content
@@ -364,15 +364,15 @@ public class SQLScriptStringParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 49:82: -> ^( STRING $start ( $content)* $end)
+                    // 78:82: -> ^( STRING $start ( $content)* $end)
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:49:85: ^( STRING $start ( $content)* $end)
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:78:85: ^( STRING $start ( $content)* $end)
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, stream_start.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:49:101: ( $content)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:78:101: ( $content)*
                         while ( stream_content.hasNext() ) {
                             adaptor.addChild(root_1, stream_content.nextNode());
 

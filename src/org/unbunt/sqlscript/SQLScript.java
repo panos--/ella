@@ -164,6 +164,9 @@ public class SQLScript extends VolatileObservable implements Observer {
         initEngine();
         try {
             while (parseTokensIncremental() && !engine.isFinished()) {
+                if (tree == null) {
+                    continue;
+                }
                 parseTree();
                 runBlock();
             }
@@ -390,11 +393,11 @@ public class SQLScript extends VolatileObservable implements Observer {
     @SuppressWarnings({"UnusedDeclaration"})
     protected static void die(String msg, Exception e, int err) {
         System.err.println(msg);
-        /*
+
         if (e != null) {
             e.printStackTrace();
         }
-        */
+
         System.exit(err);
     }
 

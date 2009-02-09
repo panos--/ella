@@ -1,5 +1,10 @@
+\\set quotes=mysql;
+
 @describe(title = 'foo')
-\echo msg='hello';
+\echo msg=`hello`;
+
+\\set quotes=sql92;
+\echo msg=`fooobar`;
 
 var @ClassA := {
     init = fun(arg) {

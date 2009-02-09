@@ -155,9 +155,6 @@ public class LazyTokenStream implements TokenStream {
         if (posCursor.hasNext()) {
             posCursor.next();
         }
-        else {
-            new Object().hashCode();
-        }
 
         ltCacheIdx = 0;
         lbCacheIdx = 0;
@@ -320,20 +317,7 @@ public class LazyTokenStream implements TokenStream {
             return;
         }
 
-        // removed last marker - trash all previously buffered tokens
-        ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
-
-        // leave one token for look-back (LT(-1))
-        if (cursor.hasPrevious()) {
-            cursor.previous();
-        }
-
-        while (cursor.hasPrevious()) {
-            cursor.previous();
-            cursor.remove();
-        }
-
-        cursor.close();
+        discardLookBack();
     }
 
     /**
@@ -401,7 +385,47 @@ public class LazyTokenStream implements TokenStream {
         setPosCursor(tokens.cursor());
     }
 
-	public void setTokenTypeChannel(int ttype, int channel) {
+    public TokenSource replaceTokenSource(TokenSource tokenSource) {
+        TokenSource oldTokenSource = this.tokenSource;
+        this.tokenSource = tokenSource;
+        discardLookAhead();
+        return oldTokenSource;
+    }
+
+    protected void discardLookAhead() {
+        ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
+
+        while (cursor.hasNext()) {
+            cursor.next();
+            cursor.remove();
+        }
+
+        cursor.close();
+
+        ltCacheIdx = 0;
+    }
+
+    protected void discardLookBack() {
+        // removed last marker - trash all previously buffered tokens
+        ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
+
+        // leave one token for look-back (LT(-1))
+        if (cursor.hasPrevious()) {
+            cursor.previous();
+        }
+
+        while (cursor.hasPrevious()) {
+            cursor.previous();
+            cursor.remove();
+        }
+
+        cursor.close();
+
+        // TODO: has look-back cache to be reset?
+        //lbCacheIdx = 0;
+    }
+
+    public void setTokenTypeChannel(int ttype, int channel) {
         channelOverride.put(ttype, channel);
 	}
 
