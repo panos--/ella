@@ -57,6 +57,7 @@ tokens {
 @parser::header {
 	package org.unbunt.sqlscript;
 
+	import org.unbunt.sqlscript.antlr.LazyTokenStream;
 	import org.unbunt.sqlscript.antlr.TreeHolderToken;
 	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
 }
@@ -105,7 +106,10 @@ tokens {
 // stop on first lexer error
 @lexer::members {
 	protected CommonTree currentStringTree = null;
+	
+	protected int lastStringStartMarker = -1;
 
+	/*
 	@Override
 	public void emit(Token token) {
 		if (token.getType() == STRING_START) {
@@ -117,17 +121,28 @@ tokens {
 		}
 		super.emit(token);
 	}
+	*/
 
 	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
 		throw new RuntimeRecognitionException(e);
 	}
 	
+	/*
 	protected void setCurrentStringTree(CommonTree tree) {
 		currentStringTree = tree;
 	}
 	
 	protected CommonTree getCurrentStringTree() {
 		return currentStringTree;
+	}
+	*/
+	
+	protected int getLastStringStartMarker() {
+		return lastStringStartMarker;
+	}
+	
+	protected void setLastStringStartMarker(int lastStringStartMarker) {
+		this.lastStringStartMarker = lastStringStartMarker;
 	}
 }
 
@@ -178,7 +193,7 @@ sqlParam
 	:	sqlToken
 	;
 
-sqlToken:	keyword | stringLiteral | identifier | sqlSpecialChar
+sqlToken:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
 	|	VARIABLE
 	|	EMBEDDED_VARIABLE
 	;
@@ -500,7 +515,38 @@ keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | K
 	;
 
 stringLiteral
-	:	str=STRING_START -> ^( { ((TreeHolderToken)$str).getTree() } )
+@init { CommonTree tree = null; }
+	:	//str=STRING_START -> ^( { ((TreeHolderToken)$str).getTree() } )
+		(STR_SQUOT|STR_DQUOT) {
+			LazyTokenStream tokens = (LazyTokenStream) input;
+			SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+			CharStream chars = lexer.getCharStream();
+			int lastStringStartMarker = lexer.getLastStringStartMarker();
+			
+			// push back starting literal (single or double quote) on input stream
+			// for processing by string parser
+			chars.rewind(lastStringStartMarker);
+			
+			// call string parser to handle the string
+			SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
+			CommonTokenStream strTokens = new CommonTokenStream(strLexer);
+			SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
+			SQLScriptStringParser.string_return result = strParser.string();
+			
+			// remember generated tree, emit() uses it later on to attach it to the current token
+			tree = (CommonTree)result.getTree();
+			//setCurrentStringTree(tree);
+			//System.out.println(tree.toStringTree());
+			
+			// closing string delimiter kept on input, must consume explicitly
+			// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
+			chars.consume();
+		}
+		-> ^( {tree} )
+	;
+
+sqlStringLiteral
+	:	stringLiteral
 	;
 
 booleanLiteral
@@ -508,8 +554,24 @@ booleanLiteral
 	|	KW_FALSE -> FALSE
 	;
 
+STR_SQUOT
+@init { lastStringStartMarker = input.mark(); }
+	:	'\''
+	;
+
+STR_DQUOT
+@init { lastStringStartMarker = input.mark(); }
+	:	'"'
+	;
+
+STR_BTICK
+@init { lastStringStartMarker = input.mark(); }
+	:	'`'
+	;
+
 // Parses string literal using an island grammar because of embedded variables.
 // The island grammar generates an AST that is injected into our AST later on.
+/*
 STRING_START
 @init { int marker = input.mark(); }
 	:	('\'' | '"' | '`') {
@@ -533,6 +595,7 @@ STRING_START
 			input.consume();
 		}
 	;
+*/
 
 KW_SQL	:	('S'|'s') ('Q'|'q') ('L'|'l')
 	;
