@@ -27,6 +27,8 @@ public class LazyTokenStream implements TokenStream {
     protected Set<Integer> discardTypes = new HashSet<Integer>();
     protected boolean discardOffChannelTokens = false;
 
+    protected StringBuilder collectBuffer = new StringBuilder();
+
     protected int ltCacheIdx = 0;
     protected Token[] ltCache = new Token[11];
 
@@ -164,7 +166,8 @@ public class LazyTokenStream implements TokenStream {
         int i = 0;
         while (cursor.hasNext() || read(cursor)) {
             Token token = (Token) cursor.next();
-            if (token.getChannel() == channel) {
+            int tokenChannel = token.getChannel();
+            if (tokenChannel == channel) {
                 if (cursor.hasPrevious()) {
                     cursor.previous();
                 }
@@ -190,6 +193,25 @@ public class LazyTokenStream implements TokenStream {
         }
 
         return i;
+    }
+
+    public String collectOffChannelTokenText(int collectChannel) {
+        ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
+        collectBuffer.setLength(0);
+
+        while (cursor.hasNext() || read(cursor)) {
+            Token token = (Token) cursor.next();
+            int tokenChannel = token.getChannel();
+            if (tokenChannel == channel) {
+                break;
+            }
+            else if (tokenChannel == collectChannel) {
+                collectBuffer.append(token.getText());
+            }
+        }
+
+        cursor.close();
+        return collectBuffer.toString();
     }
 
     protected boolean read(CursorableLinkedList.Cursor cursor) {

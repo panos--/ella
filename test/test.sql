@@ -1,10 +1,12 @@
 \\set quotes=mysql;
 
 @describe(title = 'foo')
-\echo msg=`hello`;
+\echo msg='hello';
 
 \\set quotes=sql92;
-\echo msg=`fooobar`;
+\echo msg='fooobar';
+
+select  `select foo`  from bar;
 
 var @ClassA := {
     init = fun(arg) {

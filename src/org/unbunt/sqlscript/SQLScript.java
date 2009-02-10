@@ -37,7 +37,7 @@ public class SQLScript extends VolatileObservable implements Observer {
     protected String scriptName;
 
     protected SQLScriptLexer lexer;
-    protected CommonTokenStream tokens;
+    protected LazyTokenStream tokens;
 
     protected SQLScriptParser parser;
     protected CommonTree tree;
@@ -236,15 +236,15 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected void tokenize(InputStream stream) throws SQLScriptIOException {
-        ANTLRInputStream input;
+        LazyInputStream input;
         try {
-            input = new ANTLRInputStream(stream);
+            input = new LazyInputStream(stream);
         } catch (Exception e) {
             throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
         }
 
         lexer = new SQLScriptLexer(input);
-        tokens = new CommonTokenStream(lexer);
+        tokens = new LazyTokenStream(lexer);
     }
 
     protected void parseTokens() throws SQLScriptParseException, SQLScriptRuntimeException {
@@ -295,10 +295,10 @@ public class SQLScript extends VolatileObservable implements Observer {
         LazyInputStream input = new LazyInputStream(stream);
 
         lexer = new SQLScriptLexer(input);
-        LazyTokenStream lazyTokens = new LazyTokenStream(lexer);
+        tokens = new LazyTokenStream(lexer);
 
         try {
-            parser = new SQLScriptParser(lazyTokens);
+            parser = new SQLScriptParser(tokens);
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +

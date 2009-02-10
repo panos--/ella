@@ -124,6 +124,39 @@ tokens {
 	public boolean isEOF() {
 		return eof;
 	}
+	
+	protected CommonTree parseString() throws RecognitionException {
+		LazyTokenStream tokens = (LazyTokenStream) input;
+		SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+		CharStream chars = lexer.getCharStream();
+		int lastStringStartMarker = lexer.getLastStringStartMarker();
+
+			// rewind input to string start
+		chars.rewind(lastStringStartMarker);
+
+			// call string parser to handle the string
+		SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
+		//CommonTokenStream strTokens = new CommonTokenStream(strLexer);
+		//SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
+		tokens.replaceTokenSource(strLexer);
+		SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
+		
+		SQLScriptStringParser.string_return result = strParser.string();
+		
+		// remember generated tree, emit() uses it later on to attach it to the current token
+		CommonTree tree = (CommonTree)result.getTree();
+		//setCurrentStringTree(tree);
+		//System.out.println(tree.toStringTree());
+		
+		// closing string delimiter kept on input, must consume explicitly
+		// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
+		chars.consume();
+		
+		// set our lexer as token source in the token stream again
+		tokens.replaceTokenSource(lexer);
+		
+		return tree;
+	}
 }
 
 @rulecatch {
@@ -224,7 +257,12 @@ sqlParam
 	:	sqlToken
 	;
 
-sqlToken:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
+sqlToken
+@init {
+	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(WHITESPACE_CHANNEL);
+	System.out.println("collected whitespace: <" + collectedWhitespace + ">");
+}
+	:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
 	|	VARIABLE
 	|	EMBEDDED_VARIABLE
 	;
@@ -550,46 +588,20 @@ keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | K
 	;
 
 stringLiteral
-@init { CommonTree tree = null; }
-	:	//str=STRING_START -> ^( { ((TreeHolderToken)$str).getTree() } )
-		( {stringType.rules.singleQuote}? STR_SQUOT
-		| {stringType.rules.doubleQuote}? STR_DQUOT
-		| {stringType.rules.backTick}?    STR_BTICK
-		) {
-			LazyTokenStream tokens = (LazyTokenStream) input;
-			SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
-			CharStream chars = lexer.getCharStream();
-			int lastStringStartMarker = lexer.getLastStringStartMarker();
-
-			// rewind input to string start
-			chars.rewind(lastStringStartMarker);
-
-			// call string parser to handle the string
-			SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
-			//CommonTokenStream strTokens = new CommonTokenStream(strLexer);
-			//SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
-			tokens.replaceTokenSource(strLexer);
-			SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
-			
-			SQLScriptStringParser.string_return result = strParser.string();
-			
-			// remember generated tree, emit() uses it later on to attach it to the current token
-			tree = (CommonTree)result.getTree();
-			//setCurrentStringTree(tree);
-			//System.out.println(tree.toStringTree());
-			
-			// closing string delimiter kept on input, must consume explicitly
-			// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
-			chars.consume();
-			
-			// set our lexer as token source in the token stream again
-			tokens.replaceTokenSource(lexer);
-		}
-		-> ^( {tree} )
+@init { CommonTree result = null; }
+	:	( STR_SQUOT | STR_DQUOT ) { result = parseString(); } -> ^( {result} )
 	;
 
 sqlStringLiteral
-	:	stringLiteral
+@init { CommonTree result = null; }
+	:	( {stringType.rules.singleQuote}? STR_SQUOT
+		| {stringType.rules.doubleQuote}? STR_DQUOT
+		| {stringType.rules.backTick}?    STR_BTICK
+		) { result = parseString(); } -> ^( {result} )
+	|	( {!stringType.rules.singleQuote}? delim=STR_SQUOT -> STR_SQUOT
+		| {!stringType.rules.doubleQuote}? delim=STR_DQUOT -> STR_DQUOT
+		| {!stringType.rules.backTick}?    delim=STR_BTICK -> STR_BTICK
+		)
 	;
 
 booleanLiteral
@@ -602,6 +614,8 @@ parseDirective
 			String directive = $dir.text;
 			String argument = $arg.text;
 			String value = $valId == null ? $valWord.text : $valId.text;
+			
+			// TODO: throw RecognitionException instead of SQLScriptRuntimeException
 			
 			if (!"set".equals(directive)) {
 				throw new SQLScriptRuntimeException("Unknown parse directive: " + directive);

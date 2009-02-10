@@ -247,7 +247,7 @@ sqlParam returns [ String whitespace, Object value ]
 sqlToken returns [ Object value ]
 	:	str=stringLiteral     { $value = $str.value; }
 	|	id=identifier         { $value = $id.value; }
-	|	chr=sqlSpecialChars   { $value = $chr.text; }
+	|	chr=sqlSpecialChars   { $value = $chr.value; }
 	|	kw=keyword            { $value = $kw.text; }
 	|	var=VARIABLE          { $value = $Scope::scope.getVariable($var.text); }
 	;
@@ -629,10 +629,12 @@ identifier returns [ String value ]
 	:	id=(WORD | IDENTIFIER) { $value = $id.text; }
 	;
 
-sqlSpecialChars
-	:	SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN
-	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
-	|	EXCLAM | QUESTION | COLON
+sqlSpecialChars returns [ String value ]
+	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN
+		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ
+		  | EXCLAM | QUESTION | COLON
+		  | STR_SQUOT | STR_DQUOT | STR_BTICK
+		  ) { $value = $c.text; }
 	;
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE
