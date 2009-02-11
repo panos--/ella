@@ -1,4 +1,2 @@
 \\set quotes=sql92;
-select  `select foo`  from bar;
-
-\echo msg='foo';
+select  q'Xoracle 'Xquoted@{foo} stringX' as foo, 'squot {foo}string' as bar, "dquot ""string" as qux from bar;

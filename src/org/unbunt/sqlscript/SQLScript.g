@@ -148,7 +148,7 @@ tokens {
 		
 		// closing string delimiter kept on input, must consume explicitly
 		// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
-		chars.consume();
+		//chars.consume();
 		
 		// set our lexer as token source in the token stream again
 		tokens.replaceTokenSource(lexer);
@@ -580,6 +580,7 @@ sqlStringLiteral
 	:	( {stringType.rules.singleQuote}? STR_SQUOT
 		| {stringType.rules.doubleQuote}? STR_DQUOT
 		| {stringType.rules.backTick}?    STR_BTICK
+		|                                 STR_QQUOT
 		) { result = parseString(); } -> ^( {result} )
 	|	( {!stringType.rules.singleQuote}? STR_SQUOT
 		| {!stringType.rules.doubleQuote}? STR_DQUOT
@@ -630,6 +631,11 @@ STR_DQUOT
 STR_BTICK
 @init { lastStringStartMarker = input.mark(); }
 	:	'`'
+	;
+
+STR_QQUOT
+@init { lastStringStartMarker = input.mark(); }
+	:	'q\''
 	;
 
 KW_SQL	:	('S'|'s') ('Q'|'q') ('L'|'l')

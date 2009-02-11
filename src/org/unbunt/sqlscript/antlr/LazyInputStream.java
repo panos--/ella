@@ -210,6 +210,8 @@ public class LazyInputStream implements CharStream {
             tryRead();
         }
 
+        System.out.println("consumed: <" + c + ">");
+
         pos++;
     }
 
