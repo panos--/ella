@@ -635,7 +635,7 @@ STR_BTICK
 
 STR_QQUOT
 @init { lastStringStartMarker = input.mark(); }
-	:	'q\''
+	:	('N'|'n')? ('Q'|'q') '\''
 	;
 
 KW_SQL	:	('S'|'s') ('Q'|'q') ('L'|'l')

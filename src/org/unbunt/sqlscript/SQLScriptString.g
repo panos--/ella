@@ -14,6 +14,8 @@ tokens {
 	STRING;
 	QUOTTED_IDENFITIER;
 	QQUOT;
+	QQUOT_END;
+	CHARS;
 }
 
 @parser::header {
@@ -26,11 +28,34 @@ tokens {
 	import java.util.LinkedList;
 }
 
+@parser::members {
+	
+	protected boolean matchQQuoteDelim(Token start, Token end) {
+		String startText = start.getText();
+		String endText = end.getText();
+		
+		char startDelim = startText.charAt(startText.length() - 1);
+		char endDelim = endText.charAt(endText.length() - 1);
+
+		switch (startDelim) {
+			case '(': return endDelim == ')';
+			case '<': return endDelim == '>';
+			case '[': return endDelim == ']';
+			case '{': return endDelim == '}';
+			default:
+				return endDelim == startDelim;
+		}
+	}
+	
+}
+
 @lexer::members {
 	protected int stringType = -1;
 
 	protected boolean atStart = true;
 	protected boolean inString = false;
+	
+	protected int quoteStyle = -1;
 	
 	protected char qQuoteDelim;
 	
@@ -114,113 +139,70 @@ tokens {
 	}
 }
 
-string	:	start=SQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=SQUOT     -> ^(STRING $start $content* $end)
+string	/*:	start=SQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=SQUOT     -> ^(STRING $start $content* $end)
 	|	start=DQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=DQUOT     -> ^(STRING $start $content* $end)
 	|	start=BTICK       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=BTICK     -> ^(STRING $start $content* $end)
-	|	start=QQUOT_START (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=QQUOT_END -> ^(STRING $start $content* $end)
+	|	start=QQUOT_START (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=QQUOT_END -> ^(STRING $start $content* $end)*/
+	:	start=QQUOT_START qQuoteContent qQuoteEnd[$start]
+	;
+
+qQuoteContent
+	:	ATSIGN
+	;
+
+qQuoteEnd [ Token start ]
+	:	{input.LT(2).getType() == SQUOT && matchQQuoteDelim($start, input.LT(1))}?
+		( c=CHAR SQUOT		-> QQUOT_END[$c]
+		| v=VARNAME SQUOT {
+			String varText = $v.text;
+			
+			CommonTree prefixToken = null;
+			if (varText.length() > 1) {
+				String prefixText = varText.substring(0, varText.length() - 2);
+				prefixToken = (CommonTree)adaptor.create(CHARS, $v, prefixText);
+			}
+			
+			String quoteEnd = varText.substring(varText.length() - 1, 1) + "'";
+			CommonTree quoteEndToken = (CommonTree)adaptor.create(QQUOT_END, $v, quoteEnd);
+		  }
+		  -> { prefixToken != null }? {prefixToken} {quoteEndToken}
+		  ->                                        {quoteEndToken}
+		)
 	;
 
 DQUOT
-@init { preProcessSep(); }
-@after { postProcessSep(DQUOT); }
-	:	'"'
+@after { if (atStart) { atStart = false; } }
+	:	'"' { if (atStart) { quoteStyle = DQUOT; } }
 	;
 
 SQUOT
-@init { preProcessSep(); }
-@after { postProcessSep(SQUOT); }
-	:	SQUOT_FRAG
-	;
-
-fragment
-SQUOT_FRAG
-	:	'\''
+@after { if (atStart) { atStart = false; } }
+	:	'\'' { if (atStart) { quoteStyle = SQUOT; } }
 	;
 
 BTICK
-@init { preProcessSep(); }
-@after { postProcessSep(BTICK); }
-	:	'`'
+@after { if (atStart) { atStart = false; } }
+	:	'`' { if (atStart) { quoteStyle = BTICK; } }
 	;
-
-/*
-QQUOT
-@init { preProcessSep(); }
-@after { postProcessSep(QQUOT); }
-	:	{atStart && !inString}? => ('Q'|'q') SQUOT_FRAG delim=QQUOT_DELIM { setQQuoteDelim($delim); }
-	|	{!atStart && matchQQuoteDelim((char)input.LA(1)) && ((char)input.LA(2)) == '\''}? => QQUOT_DELIM SQUOT_FRAG
-	;
-*/
 
 QQUOT_START
-@init { preProcessSep(); }
-@after { postProcessSep(QQUOT); }
-	:	{atStart}?=> ('Q'|'q') SQUOT_FRAG delim=QQUOT_DELIM { setQQuoteDelim($delim); }
-	;
-
-QQUOT_END
-@init { preProcessSep(); }
-@after { postProcessSep(QQUOT); }
-	:	/*{!atStart && matchQQuoteDelim((char)input.LA(1)) && ((char)input.LA(2)) == '\''}? =>*/ QQUOT_DELIM SQUOT_FRAG
+	:	{atStart}?=> ('N'|'n')? ('Q'|'q') SQUOT delim=QQUOT_DELIM { setQQuoteDelim($delim); }
 	;
 
 fragment
 QQUOT_DELIM
 	:	~(' '|'\t'|'\n')
 	;
-
-STRING_CONTENT
-@init { inString = true; }
-@after { inString = false; System.out.println("after string_content"); }
-	:	{ stringType == SQUOT }? => SSTRING_CONTENT
-	|	{ stringType == DQUOT }? => DSTRING_CONTENT
-	|	{ stringType == BTICK }? => BTSTRING_CONTENT
-	|	{ stringType == QQUOT }? =>
-			// NOTE: the second line of the predicate is essentially the same as the
-			//       syntactic predicate (ATSIGN ~'{')=> in the QSTRING_CONTENT rule
-			//       but the latter one has no effect for some unknown reason...
-			// TODO: investigate above issue...
-			({(((char)input.LA(2)) != '\'' || !matchQQuoteDelim((char)input.LA(1)))
-			  && !(((char)input.LA(1)) == '@' && ((char)input.LA(2)) == '{')}?=> QSTRING_CONTENT)+
+	
+ATSIGN	:	'@'
 	;
 
-fragment
-SSTRING_CONTENT
-	:	(SQUOT SQUOT) => SQUOT SQUOT
-	|	(ATSIGN ATSIGN '{') => ATSIGN ATSIGN '{' { setText("@{"); }
-	|	(ATSIGN ~'{') => ATSIGN
-	|	~(SQUOT | ATSIGN | '\r' | '\n')+
+LCURLY	:	'{'
 	;
 
-fragment
-DSTRING_CONTENT
-	:	(DQUOT DQUOT) => DQUOT DQUOT
-	|	(ATSIGN ATSIGN '{') => ATSIGN ATSIGN '{' { setText("@{"); }
-	|	(ATSIGN ~'{') => ATSIGN
-	|	~(DQUOT | ATSIGN | '\r' | '\n')+
+RCURLY	:	'}'
 	;
 
-fragment
-BTSTRING_CONTENT
-	:	(BTICK BTICK) => BTICK BTICK
-	|	(ATSIGN ATSIGN '{') => ATSIGN ATSIGN '{' { setText("@{"); }
-	|	(ATSIGN ~'{') => ATSIGN
-	|	~(BTICK | ATSIGN | '\r' | '\n')+
-	;
-
-fragment
-QSTRING_CONTENT
-	:	(QQUOT_DELIM SQUOT_FRAG)=> QQUOT_DELIM SQUOT_FRAG
-	|	(ATSIGN ATSIGN '{') => ATSIGN ATSIGN '{' { setText("@{"); }
-	|	(ATSIGN ~'{') => ATSIGN
-	|	~(ATSIGN | '\r' | '\n')
-	;
-
-EMBEDDED_VARIABLE
-	:	'@{' var=VARNAME '}' { setText($var.text); }
-	;
-
-fragment
 VARNAME	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | '0'..'9')*
 	;
 
@@ -229,6 +211,5 @@ WORD_CHAR
 	:	('a'..'z' | 'A'..'Z')
 	;
 
-fragment
-ATSIGN	:	'@'
+CHAR	:	'\u0000'..'\uffff'
 	;
