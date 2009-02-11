@@ -1,6 +1,3 @@
-// TODO:
-// - Handle variable references in parameter values
-
 tree grammar SQLScriptWalker;
 
 options {
@@ -36,8 +33,6 @@ scope Block {
 	protected final static int POS_RHS = 1;
 	protected final static int POS_LHS = 2;
 
-	//protected Observer[] observers = new Observer[] {};
-
 	public Block walk() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
 		return parse();
 	}
@@ -45,62 +40,6 @@ scope Block {
 	public Block parse() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
 		return script();
 	}
-	
-	/*
-	public void run(Observer... observers) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
-		this.observers = observers;
-
-		boolean success = false;
-		try {
-			script();
-			success = true;
-		}
-		finally {
-			if (success) {
-				finish();
-			}
-			else {
-				try { finish(); }
-				catch (Exception ignored) {}
-			}
-		}
-	}
-	*/
-
-	/*
-	protected SQLScriptContext scriptContext = null;
-	
-	public SQLScriptContext getScriptContext() {
-		return scriptContext;
-	}
-	
-	public void setScriptContext(SQLScriptContext scriptContext) {
-		this.scriptContext = scriptContext;
-	}
-	
-	protected SQLScriptEngine scriptEngine = null;
-	
-	protected SQLScriptEngine engine() {
-		if (scriptEngine == null) {
-			if (scriptContext == null) {
-				throw new RuntimeException("No script context provided");
-			}
-			
-			scriptEngine = new SQLScriptEngine(scriptContext);
-			
-			for (Observer o : observers) {
-				scriptEngine.addObserver(o);
-			}
-		}
-		return scriptEngine;
-	}
-	
-	protected void finish() {
-		if (scriptEngine != null) {
-			scriptEngine.finish();
-		}
-	}
-	*/
 	
 	protected boolean verbose = false;
 
@@ -114,42 +53,6 @@ scope Block {
 	public static String extractString(String s) {
 		return s.substring(1, s.length() - 1).replace("''", "'");
 	}
-	
-	protected List<Token> getOffchannelTokensBefore(int channel, int index) {
-		TokenStream tokens = input.getTokenStream();
-
-		List<Token> result = new LinkedList<Token>();
-		while (--index >= 0) {
-			Token token;
-			try {
-				token = tokens.get(index);
-			} catch (IndexOutOfBoundsException e) {
-				break;
-			}
-
-			if (channel != Token.HIDDEN_CHANNEL && token.getChannel() == Token.HIDDEN_CHANNEL) {
-				continue;
-			}
-
-			if (token.getChannel() == channel) {
-				result.add(0, token);
-			}
-			else {
-				break;
-			}
-		}
-
-		return result;
-	}
-
-	protected List<Token> getOffchannelTokensBefore(int channel, Object tree) {
-		if (tree == null) {
-			return getOffchannelTokensBefore(channel, -1);
-		}
-
-		int index = ((CommonTree)tree).getTokenStartIndex();
-		return getOffchannelTokensBefore(channel, index);
-	}
 }
 
 script returns [ Block value ]
@@ -160,8 +63,6 @@ scope Block, Scope;
 }
 @after{
 	$value = (Block)$Block::block;
-	//engine().process();
-	//engine().finish();
 }
 	:	statement*
 	;
@@ -217,12 +118,7 @@ sqlStmt
 @after { $Block::block.addStatement(stmt); }
 	:	^(SQL_CMD
 			name=sqlStmtName  { stmt.addPart($name.value); }
-			(param=sqlParam   {
-				if ($param.whitespace.length() > 0) {
-					stmt.addPart($param.whitespace);
-				}
-				stmt.addPart($param.value);
-			})*
+			(param=sqlParam   { stmt.addPart($param.value); })*
 			(annot=annotation { $annot.value.setSubject(stmt); })*
 		)
 	;
@@ -232,23 +128,12 @@ sqlStmtName returns [ Object value ]
 	|	var=(VARIABLE | EMBEDDED_VARIABLE) { $value = $Scope::scope.getVariable($var.text); }
 	;
 
-sqlParam returns [ String whitespace, Object value ]
-	:	token=sqlToken {
-			$value = $token.value;
-
-			$whitespace = "";
-			List<Token> wsBefore = getOffchannelTokensBefore(SQLScriptParser.WHITESPACE_CHANNEL, $sqlToken.start);
-			for (Token ws : wsBefore) {
-				$whitespace += ws.getText();
-			}
-		}
-	;
-
-sqlToken returns [ Object value ]
+sqlParam returns [ Object value ]
 	:	str=stringLiteral     { $value = $str.value; }
 	|	id=identifier         { $value = $id.value; }
 	|	chr=sqlSpecialChars   { $value = $chr.value; }
-	|	kw=keyword            { $value = $kw.text; }
+	|	kw=keyword            { $value = $kw.value; }
+	|	ws=WS                 { $value = $ws.text; }
 	|	var=VARIABLE          { $value = $Scope::scope.getVariable($var.text); }
 	;
 
@@ -637,7 +522,8 @@ sqlSpecialChars returns [ String value ]
 		  ) { $value = $c.text; }
 	;
 
-keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE
+keyword returns [ String value ]
+	:	kw=(KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE) { $value = $kw.text; }
 	;
 
 stringLiteral returns [ StringLiteral value ]

@@ -6,7 +6,7 @@
 \\set quotes=sql92;
 \echo msg='fooobar';
 
-select  `select foo`  from bar;
+select  `select foo; select`  from bar;
 
 var @ClassA := {
     init = fun(arg) {

@@ -156,7 +156,7 @@ public class LazyInputStream implements CharStream {
      * you have to release resources for depths 2..5.
      */
     public void release(int marker) {
-		markDepth = marker - 1;
+        markDepth = marker - 1;
     }
 
     /**
@@ -192,7 +192,7 @@ public class LazyInputStream implements CharStream {
     }
 
     public void consume() {
-        if (pos > read) {
+        if (pos >= read && !readTo(pos)) {
             return;
         }
 

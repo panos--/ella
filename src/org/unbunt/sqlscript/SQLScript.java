@@ -1,7 +1,5 @@
 package org.unbunt.sqlscript;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
@@ -16,11 +14,11 @@ import org.kohsuke.args4j.Option;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.unbunt.sqlscript.annotations.DescriptionAnnotation;
+import org.unbunt.sqlscript.antlr.LazyInputStream;
+import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.Drivers;
-import org.unbunt.sqlscript.antlr.LazyInputStream;
-import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;

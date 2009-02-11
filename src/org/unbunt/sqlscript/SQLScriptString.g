@@ -64,6 +64,7 @@ tokens {
 		if (atStart) {
 			atStart = false;
 			stringType = type;
+			input.release(marker);
 		}
 		else if (!inString) {
 			emit();

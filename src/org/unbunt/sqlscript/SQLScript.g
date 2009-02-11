@@ -2,8 +2,6 @@ grammar SQLScript;
 
 options {
 	output = AST;
-//	backtrack = true;
-//	memoize = true;
 	ASTLabelType = CommonTree;
 	tokenVocab = SQLScriptString;
 }
@@ -131,10 +129,10 @@ tokens {
 		CharStream chars = lexer.getCharStream();
 		int lastStringStartMarker = lexer.getLastStringStartMarker();
 
-			// rewind input to string start
+		// rewind input to string start
 		chars.rewind(lastStringStartMarker);
 
-			// call string parser to handle the string
+		// call string parser to handle the string
 		SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
 		//CommonTokenStream strTokens = new CommonTokenStream(strLexer);
 		//SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
@@ -157,6 +155,13 @@ tokens {
 		
 		return tree;
 	}
+	
+	protected void releaseStringStartMarker() {
+		LazyTokenStream tokens = (LazyTokenStream) input;
+		SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+		CharStream chars = lexer.getCharStream();
+		chars.release(lexer.getLastStringStartMarker());
+	}
 }
 
 @rulecatch {
@@ -172,33 +177,9 @@ tokens {
 	
 	protected int lastStringStartMarker = -1;
 
-	/*
-	@Override
-	public void emit(Token token) {
-		if (token.getType() == STRING_START) {
-			CommonTree tree = getCurrentStringTree();
-			if (tree != null) {
-				super.emit(new TreeHolderToken(token, tree));
-				return;
-			}
-		}
-		super.emit(token);
-	}
-	*/
-
 	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
 		throw new RuntimeRecognitionException(e);
 	}
-	
-	/*
-	protected void setCurrentStringTree(CommonTree tree) {
-		currentStringTree = tree;
-	}
-	
-	protected CommonTree getCurrentStringTree() {
-		return currentStringTree;
-	}
-	*/
 	
 	protected int getLastStringStartMarker() {
 		return lastStringStartMarker;
@@ -254,14 +235,16 @@ sqlStmtName
 	;
 
 sqlParam
+@init {
+	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(WHITESPACE_CHANNEL);
+	boolean hasWhitespace = collectedWhitespace.length() != 0;
+}
 	:	sqlToken
+		-> {hasWhitespace}? {(CommonTree)adaptor.create(WS, collectedWhitespace)} sqlToken
+		->                  sqlToken
 	;
 
 sqlToken
-@init {
-	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(WHITESPACE_CHANNEL);
-	System.out.println("collected whitespace: <" + collectedWhitespace + ">");
-}
 	:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
 	|	VARIABLE
 	|	EMBEDDED_VARIABLE
@@ -598,10 +581,10 @@ sqlStringLiteral
 		| {stringType.rules.doubleQuote}? STR_DQUOT
 		| {stringType.rules.backTick}?    STR_BTICK
 		) { result = parseString(); } -> ^( {result} )
-	|	( {!stringType.rules.singleQuote}? delim=STR_SQUOT -> STR_SQUOT
-		| {!stringType.rules.doubleQuote}? delim=STR_DQUOT -> STR_DQUOT
-		| {!stringType.rules.backTick}?    delim=STR_BTICK -> STR_BTICK
-		)
+	|	( {!stringType.rules.singleQuote}? STR_SQUOT
+		| {!stringType.rules.doubleQuote}? STR_DQUOT
+		| {!stringType.rules.backTick}?    STR_BTICK
+		) { releaseStringStartMarker(); }
 	;
 
 booleanLiteral
@@ -648,34 +631,6 @@ STR_BTICK
 @init { lastStringStartMarker = input.mark(); }
 	:	'`'
 	;
-
-// Parses string literal using an island grammar because of embedded variables.
-// The island grammar generates an AST that is injected into our AST later on.
-/*
-STRING_START
-@init { int marker = input.mark(); }
-	:	('\'' | '"' | '`') {
-			// push back starting literal (single or double quote) on input stream
-			// for processing by string parser
-			input.rewind(marker);
-			
-			// call string parser to handle the string
-			SQLScriptStringLexer lexer = new SQLScriptStringLexer(input);
-			CommonTokenStream tokens = new CommonTokenStream(lexer);
-			SQLScriptStringParser parser = new SQLScriptStringParser(tokens);
-			SQLScriptStringParser.string_return result = parser.string();
-			
-			// remember generated tree, emit() uses it later on to attach it to the current token
-			CommonTree tree = (CommonTree)result.getTree();
-			setCurrentStringTree(tree);
-			//System.out.println(tree.toStringTree());
-			
-			// closing string delimiter kept on input, must consume explicitly
-			// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
-			input.consume();
-		}
-	;
-*/
 
 KW_SQL	:	('S'|'s') ('Q'|'q') ('L'|'l')
 	;

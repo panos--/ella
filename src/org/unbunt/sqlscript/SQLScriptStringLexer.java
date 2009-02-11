@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-02-09 23:24:14
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-02-11 00:59:45
 
 	package org.unbunt.sqlscript;
 	
@@ -65,6 +65,7 @@ public class SQLScriptStringLexer extends Lexer {
     		if (atStart) {
     			atStart = false;
     			stringType = type;
+    			input.release(marker);
     		}
     		else if (!inString) {
     			emit();
@@ -93,8 +94,8 @@ public class SQLScriptStringLexer extends Lexer {
             int _type = DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              preProcessSep(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:84:2: ( '\"' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:84:4: '\"'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:85:2: ( '\"' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:85:4: '\"'
             {
             match('\"'); if (state.failed) return ;
 
@@ -116,8 +117,8 @@ public class SQLScriptStringLexer extends Lexer {
             int _type = SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              preProcessSep(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:90:2: ( '\\'' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:90:4: '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:91:2: ( '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:91:4: '\\''
             {
             match('\''); if (state.failed) return ;
 
@@ -139,8 +140,8 @@ public class SQLScriptStringLexer extends Lexer {
             int _type = BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              preProcessSep(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:96:2: ( '`' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:96:4: '`'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:97:2: ( '`' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:97:4: '`'
             {
             match('`'); if (state.failed) return ;
 
@@ -162,7 +163,7 @@ public class SQLScriptStringLexer extends Lexer {
             int _type = STRING_CONTENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              inString = true; 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:102:2: ({...}? => SSTRING_CONTENT | {...}? => DSTRING_CONTENT | {...}? => BTSTRING_CONTENT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:103:2: ({...}? => SSTRING_CONTENT | {...}? => DSTRING_CONTENT | {...}? => BTSTRING_CONTENT )
             int alt1=3;
             int LA1_0 = input.LA(1);
 
@@ -275,7 +276,7 @@ public class SQLScriptStringLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:102:4: {...}? => SSTRING_CONTENT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:103:4: {...}? => SSTRING_CONTENT
                     {
                     if ( !(( stringType == SQUOT )) ) {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -286,7 +287,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:103:4: {...}? => DSTRING_CONTENT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:104:4: {...}? => DSTRING_CONTENT
                     {
                     if ( !(( stringType == DQUOT )) ) {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -297,7 +298,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:104:4: {...}? => BTSTRING_CONTENT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:105:4: {...}? => BTSTRING_CONTENT
                     {
                     if ( !(( stringType == BTICK )) ) {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -322,7 +323,7 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "SSTRING_CONTENT"
     public final void mSSTRING_CONTENT() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:109:2: ( ( SQUOT SQUOT )=> SQUOT SQUOT | ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{' | ( ATSIGN ~ '{' )=> ATSIGN | (~ ( SQUOT | ATSIGN | '\\r' | '\\n' ) )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:2: ( ( SQUOT SQUOT )=> SQUOT SQUOT | ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{' | ( ATSIGN ~ '{' )=> ATSIGN | (~ ( SQUOT | ATSIGN | '\\r' | '\\n' ) )+ )
             int alt3=4;
             int LA3_0 = input.LA(1);
 
@@ -350,7 +351,7 @@ public class SQLScriptStringLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:109:4: ( SQUOT SQUOT )=> SQUOT SQUOT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:4: ( SQUOT SQUOT )=> SQUOT SQUOT
                     {
                     mSQUOT(); if (state.failed) return ;
                     mSQUOT(); if (state.failed) return ;
@@ -358,7 +359,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:4: ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:111:4: ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{'
                     {
                     mATSIGN(); if (state.failed) return ;
                     mATSIGN(); if (state.failed) return ;
@@ -370,16 +371,16 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:111:4: ( ATSIGN ~ '{' )=> ATSIGN
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:112:4: ( ATSIGN ~ '{' )=> ATSIGN
                     {
                     mATSIGN(); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:112:4: (~ ( SQUOT | ATSIGN | '\\r' | '\\n' ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:113:4: (~ ( SQUOT | ATSIGN | '\\r' | '\\n' ) )+
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:112:4: (~ ( SQUOT | ATSIGN | '\\r' | '\\n' ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:113:4: (~ ( SQUOT | ATSIGN | '\\r' | '\\n' ) )+
                     int cnt2=0;
                     loop2:
                     do {
@@ -393,7 +394,7 @@ public class SQLScriptStringLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:112:4: ~ ( SQUOT | ATSIGN | '\\r' | '\\n' )
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:113:4: ~ ( SQUOT | ATSIGN | '\\r' | '\\n' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='?')||(input.LA(1)>='A' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -433,7 +434,7 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "DSTRING_CONTENT"
     public final void mDSTRING_CONTENT() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:117:2: ( ( DQUOT DQUOT )=> DQUOT DQUOT | ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{' | ( ATSIGN ~ '{' )=> ATSIGN | (~ ( DQUOT | ATSIGN | '\\r' | '\\n' ) )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:2: ( ( DQUOT DQUOT )=> DQUOT DQUOT | ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{' | ( ATSIGN ~ '{' )=> ATSIGN | (~ ( DQUOT | ATSIGN | '\\r' | '\\n' ) )+ )
             int alt5=4;
             int LA5_0 = input.LA(1);
 
@@ -461,7 +462,7 @@ public class SQLScriptStringLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:117:4: ( DQUOT DQUOT )=> DQUOT DQUOT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:4: ( DQUOT DQUOT )=> DQUOT DQUOT
                     {
                     mDQUOT(); if (state.failed) return ;
                     mDQUOT(); if (state.failed) return ;
@@ -469,7 +470,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:4: ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:119:4: ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{'
                     {
                     mATSIGN(); if (state.failed) return ;
                     mATSIGN(); if (state.failed) return ;
@@ -481,16 +482,16 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:119:4: ( ATSIGN ~ '{' )=> ATSIGN
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:120:4: ( ATSIGN ~ '{' )=> ATSIGN
                     {
                     mATSIGN(); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:120:4: (~ ( DQUOT | ATSIGN | '\\r' | '\\n' ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:121:4: (~ ( DQUOT | ATSIGN | '\\r' | '\\n' ) )+
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:120:4: (~ ( DQUOT | ATSIGN | '\\r' | '\\n' ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:121:4: (~ ( DQUOT | ATSIGN | '\\r' | '\\n' ) )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -504,7 +505,7 @@ public class SQLScriptStringLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:120:4: ~ ( DQUOT | ATSIGN | '\\r' | '\\n' )
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:121:4: ~ ( DQUOT | ATSIGN | '\\r' | '\\n' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='?')||(input.LA(1)>='A' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -544,7 +545,7 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "BTSTRING_CONTENT"
     public final void mBTSTRING_CONTENT() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:125:2: ( ( BTICK BTICK )=> BTICK BTICK | ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{' | ( ATSIGN ~ '{' )=> ATSIGN | (~ ( BTICK | ATSIGN | '\\r' | '\\n' ) )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:2: ( ( BTICK BTICK )=> BTICK BTICK | ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{' | ( ATSIGN ~ '{' )=> ATSIGN | (~ ( BTICK | ATSIGN | '\\r' | '\\n' ) )+ )
             int alt7=4;
             int LA7_0 = input.LA(1);
 
@@ -572,7 +573,7 @@ public class SQLScriptStringLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:125:4: ( BTICK BTICK )=> BTICK BTICK
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:4: ( BTICK BTICK )=> BTICK BTICK
                     {
                     mBTICK(); if (state.failed) return ;
                     mBTICK(); if (state.failed) return ;
@@ -580,7 +581,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:4: ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:127:4: ( ATSIGN ATSIGN '{' )=> ATSIGN ATSIGN '{'
                     {
                     mATSIGN(); if (state.failed) return ;
                     mATSIGN(); if (state.failed) return ;
@@ -592,16 +593,16 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:127:4: ( ATSIGN ~ '{' )=> ATSIGN
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:128:4: ( ATSIGN ~ '{' )=> ATSIGN
                     {
                     mATSIGN(); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:128:4: (~ ( BTICK | ATSIGN | '\\r' | '\\n' ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:129:4: (~ ( BTICK | ATSIGN | '\\r' | '\\n' ) )+
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:128:4: (~ ( BTICK | ATSIGN | '\\r' | '\\n' ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:129:4: (~ ( BTICK | ATSIGN | '\\r' | '\\n' ) )+
                     int cnt6=0;
                     loop6:
                     do {
@@ -615,7 +616,7 @@ public class SQLScriptStringLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:128:4: ~ ( BTICK | ATSIGN | '\\r' | '\\n' )
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:129:4: ~ ( BTICK | ATSIGN | '\\r' | '\\n' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='?')||(input.LA(1)>='A' && input.LA(1)<='_')||(input.LA(1)>='a' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -659,8 +660,8 @@ public class SQLScriptStringLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token var=null;
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:132:2: ( '@{' var= VARNAME '}' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:132:4: '@{' var= VARNAME '}'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:133:2: ( '@{' var= VARNAME '}' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:133:4: '@{' var= VARNAME '}'
             {
             match("@{"); if (state.failed) return ;
 
@@ -685,8 +686,8 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "VARNAME"
     public final void mVARNAME() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:136:9: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | '0' .. '9' )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:136:11: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | '0' .. '9' )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:137:9: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | '0' .. '9' )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:137:11: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | '0' .. '9' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -698,7 +699,7 @@ public class SQLScriptStringLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:136:29: ( WORD_CHAR | '_' | '0' .. '9' )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:137:29: ( WORD_CHAR | '_' | '0' .. '9' )*
             loop8:
             do {
                 int alt8=2;
@@ -744,8 +745,8 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "WORD_CHAR"
     public final void mWORD_CHAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:141:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:141:4: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:142:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:142:4: ( 'a' .. 'z' | 'A' .. 'Z' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -769,8 +770,8 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "ATSIGN"
     public final void mATSIGN() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:145:8: ( '@' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:145:10: '@'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:146:8: ( '@' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:146:10: '@'
             {
             match('@'); if (state.failed) return ;
 
@@ -829,8 +830,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred1_SQLScriptString
     public final void synpred1_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:109:4: ( SQUOT SQUOT )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:109:5: SQUOT SQUOT
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:4: ( SQUOT SQUOT )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:5: SQUOT SQUOT
         {
         mSQUOT(); if (state.failed) return ;
         mSQUOT(); if (state.failed) return ;
@@ -841,8 +842,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred2_SQLScriptString
     public final void synpred2_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:4: ( ATSIGN ATSIGN '{' )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:110:5: ATSIGN ATSIGN '{'
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:111:4: ( ATSIGN ATSIGN '{' )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:111:5: ATSIGN ATSIGN '{'
         {
         mATSIGN(); if (state.failed) return ;
         mATSIGN(); if (state.failed) return ;
@@ -854,8 +855,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred3_SQLScriptString
     public final void synpred3_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:111:4: ( ATSIGN ~ '{' )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:111:5: ATSIGN ~ '{'
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:112:4: ( ATSIGN ~ '{' )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:112:5: ATSIGN ~ '{'
         {
         mATSIGN(); if (state.failed) return ;
         if ( (input.LA(1)>='\u0000' && input.LA(1)<='z')||(input.LA(1)>='|' && input.LA(1)<='\uFFFF') ) {
@@ -875,8 +876,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred4_SQLScriptString
     public final void synpred4_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:117:4: ( DQUOT DQUOT )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:117:5: DQUOT DQUOT
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:4: ( DQUOT DQUOT )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:5: DQUOT DQUOT
         {
         mDQUOT(); if (state.failed) return ;
         mDQUOT(); if (state.failed) return ;
@@ -887,8 +888,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred5_SQLScriptString
     public final void synpred5_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:4: ( ATSIGN ATSIGN '{' )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:118:5: ATSIGN ATSIGN '{'
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:119:4: ( ATSIGN ATSIGN '{' )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:119:5: ATSIGN ATSIGN '{'
         {
         mATSIGN(); if (state.failed) return ;
         mATSIGN(); if (state.failed) return ;
@@ -900,8 +901,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred6_SQLScriptString
     public final void synpred6_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:119:4: ( ATSIGN ~ '{' )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:119:5: ATSIGN ~ '{'
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:120:4: ( ATSIGN ~ '{' )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:120:5: ATSIGN ~ '{'
         {
         mATSIGN(); if (state.failed) return ;
         if ( (input.LA(1)>='\u0000' && input.LA(1)<='z')||(input.LA(1)>='|' && input.LA(1)<='\uFFFF') ) {
@@ -921,8 +922,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred7_SQLScriptString
     public final void synpred7_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:125:4: ( BTICK BTICK )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:125:5: BTICK BTICK
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:4: ( BTICK BTICK )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:5: BTICK BTICK
         {
         mBTICK(); if (state.failed) return ;
         mBTICK(); if (state.failed) return ;
@@ -933,8 +934,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred8_SQLScriptString
     public final void synpred8_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:4: ( ATSIGN ATSIGN '{' )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:126:5: ATSIGN ATSIGN '{'
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:127:4: ( ATSIGN ATSIGN '{' )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:127:5: ATSIGN ATSIGN '{'
         {
         mATSIGN(); if (state.failed) return ;
         mATSIGN(); if (state.failed) return ;
@@ -946,8 +947,8 @@ public class SQLScriptStringLexer extends Lexer {
 
     // $ANTLR start synpred9_SQLScriptString
     public final void synpred9_SQLScriptString_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:127:4: ( ATSIGN ~ '{' )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:127:5: ATSIGN ~ '{'
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:128:4: ( ATSIGN ~ '{' )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:128:5: ATSIGN ~ '{'
         {
         mATSIGN(); if (state.failed) return ;
         if ( (input.LA(1)>='\u0000' && input.LA(1)<='z')||(input.LA(1)>='|' && input.LA(1)<='\uFFFF') ) {
