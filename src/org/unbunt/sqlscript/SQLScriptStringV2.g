@@ -14,7 +14,7 @@ tokens {
 	STRING;
 	QUOTTED_IDENFITIER;
 	QQUOT;
-	//QQUOT_END;
+	QQUOT_END;
 	CHARS;
 	EMBEDDED_VARIABLE;
 }
@@ -66,15 +66,10 @@ tokens {
 	
 	LinkedList<Token> tokens = new LinkedList<Token>(); // = new ArrayList<Token>(2);
 	
-	protected Token lastToken = null;
-	
-	// originally taken from ANTLR FAQ page
 	@Override
 	public void emit(Token token) {
-		System.out.println("emitting token: " + token);
 		state.token = token;
 		tokens.add(token);
-		lastToken = token;
 	}
 
 	@Override
@@ -149,32 +144,43 @@ string	/*:	start=SQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIAB
 	|	start=DQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=DQUOT     -> ^(STRING $start $content* $end)
 	|	start=BTICK       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=BTICK     -> ^(STRING $start $content* $end)
 	|	start=QQUOT_START (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=QQUOT_END -> ^(STRING $start $content* $end)*/
-	:	start=QQUOT_START (content+=qQuoteContent)* end=qQuoteEnd -> ^(STRING $start $content* $end)
+	:	start=QQUOT_START ({input.LT(2).getType() != SQUOT || !matchQQuoteDelim($start, input.LT(1))}?=> content+=qQuoteContent)* end=qQuoteEnd[$start] -> ^(STRING $start $content $end)
 	;
 
 qQuoteContent
 	:	a1=ATSIGN
-		( lc=LCURLY
-		  ( RCURLY		-> $a1
+		( a2=ATSIGN lc=LCURLY
+		  ( RCURLY		-> $a2
 		  | var=VARNAME RCURLY	-> EMBEDDED_VARIABLE[$var]
-		  |			-> $a1 $lc
+		  |			-> $a2 $lc
 		  )
 		|			-> $a1
 		)
-	|	CHAR
-	|	VARNAME
-	|	SQUOT
-	|	DQUOT
-	|	BTICK
+	|	chars
 	;
 
-qQuoteEnd
-	:	QQUOT_END
+qQuoteEnd [ Token start ]
+	:	
+		( c=CHAR SQUOT		-> QQUOT_END[$c]
+		| v=VARNAME SQUOT {
+			String varText = $v.text;
+			
+			CommonTree prefixToken = null;
+			if (varText.length() > 1) {
+				String prefixText = varText.substring(0, varText.length() - 2);
+				prefixToken = (CommonTree)adaptor.create(CHARS, $v, prefixText);
+			}
+			
+			String quoteEnd = varText.substring(varText.length() - 1, 1) + "'";
+			CommonTree quoteEndToken = (CommonTree)adaptor.create(QQUOT_END, $v, quoteEnd);
+		  }
+		  -> { prefixToken != null }? {prefixToken} {quoteEndToken}
+		  ->                                        {quoteEndToken}
+		)
 	;
 
 chars
 @init { StringBuilder chars = new StringBuilder(); }
-@aftet { System.out.println("matched chars: " + chars.toString()); }
 	:	(c=CHAR { chars.append($c.text.charAt(0)); })+ { CommonTree charsTree = (CommonTree)adaptor.create(CHARS, chars.toString()); }
 		-> {charsTree}
 	;
@@ -185,26 +191,8 @@ DQUOT
 	;
 
 SQUOT
-@after {
-	if (atStart) { atStart = false; }
-	if (atStart) { quoteStyle = SQUOT; }
-	
-	// handle qquote end delimiter
-	if (quoteStyle == QQUOT && matchQQuoteDelim((char)input.LT(-2))) {
-		System.out.println("got qquote end");
-		if (lastToken == null) {
-			throw new RuntimeException("should not happen");
-		}
-		// last emitted token contains our ending delimiter
-		Token t = lastToken;
-		t.setText(t.getText().substring(0, t.getText().length() - 1));
-		state.type = QQUOT_END;
-		state.text = ((char)input.LT(-2)) + "'";
-		state.tokenStartCharIndex--;
-		state.tokenStartCharPositionInLine--;
-	}
-}
-	:	'\''
+@after { if (atStart) { atStart = false; } }
+	:	'\'' { if (atStart) { quoteStyle = SQUOT; } }
 	;
 
 BTICK
@@ -213,11 +201,7 @@ BTICK
 	;
 
 QQUOT_START
-	:	{atStart}?=> ('N'|'n')? ('Q'|'q') SQUOT delim=QQUOT_DELIM { quoteStyle = QQUOT; setQQuoteDelim($delim); }
-	;
-
-QQUOT_END
-	:	{false}?=> 'just to disable warning'
+	:	{atStart}?=> ('N'|'n')? ('Q'|'q') SQUOT delim=QQUOT_DELIM { setQQuoteDelim($delim); }
 	;
 
 fragment
@@ -234,12 +218,12 @@ LCURLY	:	'{'
 RCURLY	:	'}'
 	;
 
-VARNAME	:	(WORD_CHAR) (WORD_CHAR | '0'..'9')*
+VARNAME	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | '0'..'9')*
 	;
 
 fragment
 WORD_CHAR
-	:	('a'..'z' | 'A'..'Z' | '_')
+	:	('a'..'z' | 'A'..'Z')
 	;
 
 CHAR	:	'\u0000'..'\uffff'
