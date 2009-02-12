@@ -121,6 +121,10 @@ public class LazyTokenStream implements TokenStream {
                 j--;
             }
 
+            if (!lookCursor.hasPrevious()) {
+                return null;
+            }
+
             Token token = (Token) lookCursor.previous();
 //            System.out.println(token);
             if (k < lbCache.length) {

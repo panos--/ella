@@ -79,17 +79,24 @@ tokens {
 		public final boolean doubleQuote;
 		public final boolean singleQuote;
 		public final boolean backTick;
+		public final boolean qQuote;
+		public final boolean dollarQuote;
 		
-		public StringSyntaxRules(boolean doubleQuote, boolean singleQuote, boolean backTick) {
+		public StringSyntaxRules(boolean doubleQuote, boolean singleQuote, boolean backTick,
+		                         boolean qQuote, boolean dollarQuote) {
 			this.doubleQuote = doubleQuote;
 			this.singleQuote = singleQuote;
 			this.backTick = backTick;
+			this.qQuote = qQuote;
+			this.dollarQuote = dollarQuote;
 		}
 	}
 	
 	public static enum StringType {
-		sql92 (new StringSyntaxRules(true, true, false)),
-		mysql (new StringSyntaxRules(true, true, true));
+		sql92 (new StringSyntaxRules(true, true, false, false, false)),
+		oracle (new StringSyntaxRules(true, true, false, true, false)),
+		postgresql (new StringSyntaxRules(true, true, false, false, true)),
+		mysql (new StringSyntaxRules(true, true, true, false, false));
 		
 		protected StringSyntaxRules rules;
 		
@@ -176,6 +183,9 @@ tokens {
 	protected CommonTree currentStringTree = null;
 	
 	protected int lastStringStartMarker = -1;
+	
+	protected boolean allowQQuote = false;
+	protected boolean allowDollarQuote = false;
 
 	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
 		throw new RuntimeRecognitionException(e);
@@ -187,6 +197,22 @@ tokens {
 	
 	protected void setLastStringStartMarker(int lastStringStartMarker) {
 		this.lastStringStartMarker = lastStringStartMarker;
+	}
+	
+	protected void setAllowQQuote(boolean allowQQuote) {
+		this.allowQQuote = allowQQuote;
+	}
+	
+	protected boolean isAllowQQuote() {
+		return allowQQuote;
+	}
+	
+	protected void setAllowDollarQuote(boolean allowDollarQuote) {
+		this.allowDollarQuote = allowDollarQuote;
+	}
+	
+	protected boolean isAllowDollarQuote() {
+		return allowDollarQuote;
 	}
 }
 
@@ -223,6 +249,17 @@ evalParam
 	;
 
 sqlStmt	[ CommonTree annotations ]
+@init {
+	LazyTokenStream tokens = (LazyTokenStream) input;
+	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+
+	lexer.setAllowQQuote(stringType.rules.qQuote);
+	lexer.setAllowDollarQuote(stringType.rules.dollarQuote);
+}
+@after {
+	lexer.setAllowQQuote(false);
+	lexer.setAllowDollarQuote(false);
+}
 	:	sqlStmtName sqlParam* -> ^(SQL_CMD sqlStmtName sqlParam* { $annotations })
 	;
 
@@ -254,7 +291,7 @@ sqlSpecialChar
 	:	SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
 	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH | ATSIGN
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
-	|	EXCLAM | QUESTION | COLON | DOT | COMMA
+	|	EXCLAM | QUESTION | COLON | DOT | COMMA | DOLLAR
 	;
 
 scriptStmt
@@ -577,10 +614,11 @@ stringLiteral
 
 sqlStringLiteral
 @init { CommonTree result = null; }
-	:	( {stringType.rules.singleQuote}? STR_SQUOT
-		| {stringType.rules.doubleQuote}? STR_DQUOT
-		| {stringType.rules.backTick}?    STR_BTICK
-		|                                 STR_QQUOT
+	:	( {stringType.rules.singleQuote}?	STR_SQUOT
+		| {stringType.rules.doubleQuote}?	STR_DQUOT
+		| {stringType.rules.backTick}?		STR_BTICK
+		| {stringType.rules.qQuote}?		STR_QQUOT
+		| {stringType.rules.dollarQuote}?	STR_DOLQUOT
 		) { result = parseString(); } -> ^( {result} )
 	|	( {!stringType.rules.singleQuote}? STR_SQUOT
 		| {!stringType.rules.doubleQuote}? STR_DQUOT
@@ -635,7 +673,29 @@ STR_BTICK
 
 STR_QQUOT
 @init { lastStringStartMarker = input.mark(); }
-	:	('N'|'n')? ('Q'|'q') '\''
+	:	{allowQQuote}?=> ('N'|'n')? ('Q'|'q') '\''
+	;
+
+// TODO: add semantic predicate to activate this rule in postgresql quoting mode only
+STR_DOLQUOT
+@init { lastStringStartMarker = input.mark(); }
+	:	{allowDollarQuote}?=> ('$$' | '$' DOLQUOT_TAG '$')
+	;
+
+fragment
+DOLQUOT_TAG
+	:	DOLQUOT_TAG_START DOLQUOT_TAG_END*
+	;
+
+fragment
+DOLQUOT_TAG_START
+	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\uffff' | '_')
+	;
+
+fragment
+DOLQUOT_TAG_END
+	:	DOLQUOT_TAG_START
+	|	'0'..'9'
 	;
 
 KW_SQL	:	('S'|'s') ('Q'|'q') ('L'|'l')
@@ -773,8 +833,11 @@ DOT	:	'.'
 COMMA	:	','
 	;
 
+DOLLAR	:	'$'
+	;
+
 SQL_SPECIAL_CHAR
-	:	('0'..'9'|'<'|'>'|'*'|'/'|'-'|'='|'$'|'%'|'#'|'&'|'|')
+	:	('0'..'9'|'<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|')
 	;
 
 SEP	:	';'

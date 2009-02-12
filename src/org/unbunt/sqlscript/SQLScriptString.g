@@ -59,6 +59,7 @@ tokens {
 	protected int quoteStyle = -1;
 	
 	protected char qQuoteDelim;
+	protected String dollarQuoteDelim = null;
 	
 	// the following two methods allow us to inject an additional token
 	// into the stream, namely the EOF_TOKEN used to tell the parser it
@@ -149,18 +150,12 @@ string	/*:	start=SQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIAB
 	|	start=DQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=DQUOT     -> ^(STRING $start $content* $end)
 	|	start=BTICK       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=BTICK     -> ^(STRING $start $content* $end)
 	|	start=QQUOT_START (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=QQUOT_END -> ^(STRING $start $content* $end)*/
-	:	start=QQUOT_START (content+=qQuoteContent)* end=qQuoteEnd -> ^(STRING $start $content* $end)
+	:	start=QQUOT_START (content+=unquotedContent)* end=qQuoteEnd	-> ^(STRING $start $content* $end)
+	|	start=DOLQUOT     (content+=unquotedContent)* dend=DOLQUOT	-> ^(STRING $start $content* $dend)
 	;
 
-qQuoteContent
-	:	a1=ATSIGN
-		( lc=LCURLY
-		  ( RCURLY		-> $a1
-		  | var=VARNAME RCURLY	-> EMBEDDED_VARIABLE[$var]
-		  |			-> $a1 $lc
-		  )
-		|			-> $a1
-		)
+unquotedContent
+	:	embeddedVariable
 	|	CHAR
 	|	VARNAME
 	|	SQUOT
@@ -170,6 +165,17 @@ qQuoteContent
 
 qQuoteEnd
 	:	QQUOT_END
+	;
+
+embeddedVariable
+	:	a1=ATSIGN
+		( lc=LCURLY
+		  ( RCURLY		-> $a1
+		  | var=VARNAME RCURLY	-> EMBEDDED_VARIABLE[$var]
+		  |			-> $a1 $lc
+		  )
+		|			-> $a1
+		)
 	;
 
 chars
@@ -224,7 +230,50 @@ fragment
 QQUOT_DELIM
 	:	~(' '|'\t'|'\n')
 	;
-	
+
+DOLQUOT
+@init {
+	int marker = input.mark();
+	boolean matched = false;
+	String endDelim;
+}
+@after {
+	if (atStart) { atStart = false; }
+	if (matched) {
+		input.release(marker);
+	}
+	else {
+		input.rewind(marker);
+		char dollar = (char)input.LT(1);
+		state.text = "" + dollar;
+		state.type = CHAR;
+	}
+}
+	:	'$$' { matched = true; if (atStart) { dollarQuoteDelim = null; } else { endDelim = null; } }
+	|	{atStart}?=> '$' stag=DOLQUOT_TAG '$'	{ dollarQuoteDelim = $stag.getText(); }
+			{ quoteStyle = DOLQUOT; matched = true; }
+	|	{!atStart}?=> {quoteStyle == DOLQUOT}?=> (
+			'$' etag=DOLQUOT_TAG '$'	{ endDelim = $etag.getText(); }
+			{ matched = endDelim == dollarQuoteDelim || (endDelim != null && endDelim.equals(dollarQuoteDelim)); }
+		)
+	;
+
+fragment
+DOLQUOT_TAG
+	:	DOLQUOT_TAG_START DOLQUOT_TAG_END*
+	;
+
+fragment
+DOLQUOT_TAG_START
+	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\uffff' | '_')
+	;
+
+fragment
+DOLQUOT_TAG_END
+	:	DOLQUOT_TAG_START
+	|	'0'..'9'
+	;
+
 ATSIGN	:	'@'
 	;
 
