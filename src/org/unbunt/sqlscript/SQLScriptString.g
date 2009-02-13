@@ -72,7 +72,7 @@ tokens {
 	// originally taken from ANTLR FAQ page
 	@Override
 	public void emit(Token token) {
-		System.out.println("emitting token: " + token);
+		//System.out.println("emitting token: " + token);
 		state.token = token;
 		tokens.add(token);
 		lastToken = token;
@@ -146,21 +146,45 @@ tokens {
 	}
 }
 
-string	/*:	start=SQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=SQUOT     -> ^(STRING $start $content* $end)
-	|	start=DQUOT       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=DQUOT     -> ^(STRING $start $content* $end)
-	|	start=BTICK       (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=BTICK     -> ^(STRING $start $content* $end)
-	|	start=QQUOT_START (content+=STRING_CONTENT | content+=EMBEDDED_VARIABLE)* end=QQUOT_END -> ^(STRING $start $content* $end)*/
-	:	start=QQUOT_START (content+=unquotedContent)* end=qQuoteEnd	-> ^(STRING $start $content* $end)
-	|	start=DOLQUOT     (content+=unquotedContent)* dend=DOLQUOT	-> ^(STRING $start $content* $dend)
+string	:	start=SQUOT       (content+=singleQuoteContent)* endt=SQUOT	-> ^(STRING $start $content* $endt)
+	|	start=DQUOT       (content+=doubleQuoteContent)* endt=DQUOT	-> ^(STRING $start $content* $endt)
+	|	start=BTICK       (content+=backTickContent)*    endt=BTICK	-> ^(STRING $start $content* $endt)
+	|	start=QQUOT_START (content+=unquotedContent)*    end=qQuoteEnd	-> ^(STRING $start $content* $end)
+	|	start=DOLQUOT     (content+=unquotedContent)*    endt=DOLQUOT	-> ^(STRING $start $content* $endt)
+	;
+
+singleQuoteContent
+	:	(SQUOT SQUOT)=> SQUOT SQUOT -> SQUOT
+	|	genericContent
+	|	DQUOT
+	|	BTICK
+	;
+
+doubleQuoteContent
+	:	(DQUOT DQUOT)=> DQUOT DQUOT -> DQUOT
+	|	genericContent
+	|	SQUOT
+	|	BTICK
+	;
+
+backTickContent
+	:	(BTICK BTICK)=> BTICK BTICK -> BTICK
+	|	genericContent
+	|	SQUOT
+	|	DQUOT
 	;
 
 unquotedContent
-	:	embeddedVariable
-	|	CHAR
-	|	VARNAME
+	:	genericContent
 	|	SQUOT
 	|	DQUOT
 	|	BTICK
+	;
+
+genericContent
+	:	embeddedVariable
+	|	CHAR
+	|	VARNAME
 	;
 
 qQuoteEnd
@@ -178,12 +202,14 @@ embeddedVariable
 		)
 	;
 
+/*
 chars
 @init { StringBuilder chars = new StringBuilder(); }
 @aftet { System.out.println("matched chars: " + chars.toString()); }
 	:	(c=CHAR { chars.append($c.text.charAt(0)); })+ { CommonTree charsTree = (CommonTree)adaptor.create(CHARS, chars.toString()); }
 		-> {charsTree}
 	;
+*/
 
 DQUOT
 @after { if (atStart) { atStart = false; } }
@@ -192,8 +218,8 @@ DQUOT
 
 SQUOT
 @after {
-	if (atStart) { atStart = false; }
 	if (atStart) { quoteStyle = SQUOT; }
+	if (atStart) { atStart = false; }
 	
 	// handle qquote end delimiter
 	if (quoteStyle == QQUOT && matchQQuoteDelim((char)input.LT(-2))) {

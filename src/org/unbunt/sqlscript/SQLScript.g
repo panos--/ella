@@ -55,6 +55,9 @@ tokens {
 @parser::header {
 	package org.unbunt.sqlscript;
 
+	import java.util.Map;
+	import java.util.HashMap;
+
 	import org.unbunt.sqlscript.antlr.LazyTokenStream;
 	import org.unbunt.sqlscript.antlr.TreeHolderToken;
 	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
@@ -94,18 +97,47 @@ tokens {
 	
 	public static enum StringType {
 		sql92 (new StringSyntaxRules(true, true, false, false, false)),
-		oracle (new StringSyntaxRules(true, true, false, true, false)),
-		postgresql (new StringSyntaxRules(true, true, false, false, true)),
+		oracle (new StringSyntaxRules(true, true, false, true, false), "ora"),
+		postgresql (new StringSyntaxRules(true, true, false, false, true), "postgres", "pg"),
 		mysql (new StringSyntaxRules(true, true, true, false, false));
 		
 		protected StringSyntaxRules rules;
-		
-		StringType(StringSyntaxRules rules) {
+		protected String[] aliases;
+
+		private static final Map<String, StringType> aliasMap = new HashMap<String, StringType>();
+
+		static {
+			for (StringType stringType : StringType.class.getEnumConstants()) {
+				String[] aliases = stringType.getAliases();
+					for (String alias : aliases) {
+					if (aliasMap.containsKey(alias)) {
+						throw new RuntimeException("Duplicate string type alias: " + alias + "; " +
+									   "String types: " + stringType + ", " + aliasMap.get(alias));
+					}
+					aliasMap.put(alias, stringType);
+				}
+			}
+		}
+
+		StringType(StringSyntaxRules rules, String... aliases) {
 			this.rules = rules;
+			this.aliases = aliases;
 		}
 		
 		public StringSyntaxRules getRules() {
 			return this.rules;
+		}
+		
+		protected String[] getAliases() {
+			return this.aliases;
+		}
+		
+		public static StringType valueOfAlias(String alias) throws IllegalArgumentException {
+			StringType stringType = aliasMap.get(alias);
+			if (stringType == null) {
+				throw new IllegalArgumentException("Unknown string type alias: " + alias);
+			}
+			return stringType;
 		}
 	}
 	
@@ -650,7 +682,12 @@ parseDirective
 			try {
 				this.stringType = StringType.valueOf(("" + value).toLowerCase());
 			} catch (IllegalArgumentException e) {
-				throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
+				try {
+					this.stringType = StringType.valueOfAlias(("" + value).toLowerCase());
+				}
+				catch (IllegalArgumentException e2) {
+					throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
+				}
 			}
 		}
 		-> // omit tree generation
@@ -660,8 +697,8 @@ STR_SQUOT
 @init { lastStringStartMarker = input.mark(); }
 	:	'\''
 	;
-
-STR_DQUOT
+	
+		STR_DQUOT
 @init { lastStringStartMarker = input.mark(); }
 	:	'"'
 	;
