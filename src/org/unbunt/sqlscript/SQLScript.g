@@ -886,11 +886,33 @@ WS	:	(' '|'\r'|'\t'|'\u000C') { $channel = SQLScriptParser.WHITESPACE_CHANNEL; }
 NL	:	'\n' { $channel = SQLScriptParser.WHITESPACE_CHANNEL; }
 	;
 
-/* TODO: Replace multiline comments with exactly one white space character. */
-COMMENT	:	('-' | '/') '*' (options { greedy=false; }: .)* '*' ('-' | '/') { $channel = HIDDEN; }
+COMMENT	:	'/*' {
+			int level = 1;
+			while (true) {
+				if (input.LA(1) == EOF) {
+					break;
+				}
+				if (input.LA(1) == '*' && input.LA(2) == '/') {
+					input.consume();
+					input.consume();
+					if (--level == 0) {
+						break;
+					}
+				}
+				else if (input.LA(1) == '/' && input.LA(2) == '*') {
+					input.consume();
+					input.consume();
+					level++;
+				}
+				else {
+					input.consume();
+				}
+			}
+			$channel = HIDDEN;
+		}
 	;
 
 // NOTE: Terminating newline not included since SQL92 requires line comments to be replaced by a single newline
 LINE_COMMENT
-	:	('--' | '//' | '#') ~('\n' | '\r')* { $channel = HIDDEN; }
+	:	('--') ~('\n' | '\r')* { $channel = HIDDEN; }
 	;

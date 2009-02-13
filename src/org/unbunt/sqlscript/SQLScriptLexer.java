@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-02-13 08:43:53
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-02-13 14:50:22
 
 	package org.unbunt.sqlscript;
 
@@ -1553,67 +1553,35 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:890:9: ( ( '-' | '/' ) '*' ( options {greedy=false; } : . )* '*' ( '-' | '/' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:890:11: ( '-' | '/' ) '*' ( options {greedy=false; } : . )* '*' ( '-' | '/' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:889:9: ( '/*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:889:11: '/*'
             {
-            if ( input.LA(1)=='-'||input.LA(1)=='/' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            match('*'); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:890:27: ( options {greedy=false; } : . )*
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
-
-                if ( (LA7_0=='*') ) {
-                    int LA7_1 = input.LA(2);
-
-                    if ( (LA7_1=='-'||LA7_1=='/') ) {
-                        alt7=2;
-                    }
-                    else if ( ((LA7_1>='\u0000' && LA7_1<=',')||LA7_1=='.'||(LA7_1>='0' && LA7_1<='\uFFFF')) ) {
-                        alt7=1;
-                    }
+            match("/*"); 
 
 
-                }
-                else if ( ((LA7_0>='\u0000' && LA7_0<=')')||(LA7_0>='+' && LA7_0<='\uFFFF')) ) {
-                    alt7=1;
-                }
-
-
-                switch (alt7) {
-            	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:890:55: .
-            	    {
-            	    matchAny(); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop7;
-                }
-            } while (true);
-
-            match('*'); 
-            if ( input.LA(1)=='-'||input.LA(1)=='/' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-             _channel = HIDDEN; 
+            			int level = 1;
+            			while (true) {
+            				if (input.LA(1) == EOF) {
+            					break;
+            				}
+            				if (input.LA(1) == '*' && input.LA(2) == '/') {
+            					input.consume();
+            					input.consume();
+            					if (--level == 0) {
+            						break;
+            					}
+            				}
+            				else if (input.LA(1) == '/' && input.LA(2) == '*') {
+            					input.consume();
+            					input.consume();
+            					level++;
+            				}
+            				else {
+            					input.consume();
+            				}
+            			}
+            			_channel = HIDDEN;
+            		
 
             }
 
@@ -1630,75 +1598,31 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:2: ( ( '--' | '//' | '#' ) (~ ( '\\n' | '\\r' ) )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:4: ( '--' | '//' | '#' ) (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:4: ( '--' | '//' | '#' )
-            int alt8=3;
-            switch ( input.LA(1) ) {
-            case '-':
-                {
-                alt8=1;
-                }
-                break;
-            case '/':
-                {
-                alt8=2;
-                }
-                break;
-            case '#':
-                {
-                alt8=3;
-                }
-                break;
-            default:
-                NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:4: ( '--' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:5: '--'
+            {
+            match("--"); 
 
-                throw nvae;
-            }
-
-            switch (alt8) {
-                case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:5: '--'
-                    {
-                    match("--"); 
-
-
-                    }
-                    break;
-                case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:12: '//'
-                    {
-                    match("//"); 
-
-
-                    }
-                    break;
-                case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:19: '#'
-                    {
-                    match('#'); 
-
-                    }
-                    break;
 
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:24: (~ ( '\\n' | '\\r' ) )*
-            loop9:
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:11: (~ ( '\\n' | '\\r' ) )*
+            loop7:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( ((LA9_0>='\u0000' && LA9_0<='\t')||(LA9_0>='\u000B' && LA9_0<='\f')||(LA9_0>='\u000E' && LA9_0<='\uFFFF')) ) {
-                    alt9=1;
+                if ( ((LA7_0>='\u0000' && LA7_0<='\t')||(LA7_0>='\u000B' && LA7_0<='\f')||(LA7_0>='\u000E' && LA7_0<='\uFFFF')) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt7) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:24: ~ ( '\\n' | '\\r' )
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:11: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1714,7 +1638,7 @@ public class SQLScriptLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop7;
                 }
             } while (true);
 
@@ -1732,9 +1656,9 @@ public class SQLScriptLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:8: ( STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_NEW | VARIABLE | EMBEDDED_VARIABLE | WORD | IDENTIFIER | BACKSLASH | DOUBLE_BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | DOLLAR | SQL_SPECIAL_CHAR | SEP | WS | NL | COMMENT | LINE_COMMENT )
-        int alt10=50;
-        alt10 = dfa10.predict(input);
-        switch (alt10) {
+        int alt8=50;
+        alt8 = dfa8.predict(input);
+        switch (alt8) {
             case 1 :
                 // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:10: STR_SQUOT
                 {
@@ -2091,79 +2015,79 @@ public class SQLScriptLexer extends Lexer {
     }
 
 
-    protected DFA10 dfa10 = new DFA10(this);
-    static final String DFA10_eotS =
-        "\4\uffff\2\54\1\57\11\54\1\76\1\54\1\uffff\1\100\1\102\2\50\1\106"+
-        "\12\uffff\1\50\3\uffff\2\50\1\uffff\3\54\4\uffff\2\54\1\114\11\54"+
-        "\15\uffff\1\130\1\131\1\132\1\uffff\2\54\1\135\6\54\1\144\1\54\3"+
-        "\uffff\1\146\1\147\1\uffff\1\150\1\54\1\152\3\54\1\uffff\1\54\3"+
-        "\uffff\1\157\1\uffff\1\160\1\54\1\162\1\54\2\uffff\1\54\1\uffff"+
-        "\1\165\1\166\2\uffff";
-    static final String DFA10_eofS =
-        "\167\uffff";
-    static final String DFA10_minS =
+    protected DFA8 dfa8 = new DFA8(this);
+    static final String DFA8_eotS =
+        "\4\uffff\2\52\1\56\11\52\1\75\1\52\1\uffff\1\77\1\101\2\47\1\105"+
+        "\12\uffff\1\47\3\uffff\1\47\1\uffff\2\52\1\uffff\1\52\3\uffff\2"+
+        "\52\1\113\11\52\15\uffff\1\127\1\130\1\131\1\uffff\2\52\1\134\6"+
+        "\52\1\143\1\52\3\uffff\1\145\1\146\1\uffff\1\147\1\52\1\151\3\52"+
+        "\1\uffff\1\52\3\uffff\1\156\1\uffff\1\157\1\52\1\161\1\52\2\uffff"+
+        "\1\52\1\uffff\1\164\1\165\2\uffff";
+    static final String DFA8_eofS =
+        "\166\uffff";
+    static final String DFA8_minS =
         "\1\11\3\uffff\1\55\1\47\1\44\11\55\1\101\1\55\1\uffff\1\134\1\75"+
-        "\1\46\1\174\1\75\12\uffff\1\52\3\uffff\1\0\1\52\1\uffff\1\55\1\47"+
-        "\1\55\4\uffff\14\55\15\uffff\3\55\1\uffff\13\55\3\uffff\2\55\1\uffff"+
-        "\6\55\1\uffff\1\55\3\uffff\1\55\1\uffff\4\55\2\uffff\1\55\1\uffff"+
-        "\2\55\2\uffff";
-    static final String DFA10_maxS =
+        "\1\46\1\174\1\75\12\uffff\1\52\3\uffff\1\55\1\uffff\1\55\1\47\1"+
+        "\uffff\1\55\3\uffff\14\55\15\uffff\3\55\1\uffff\13\55\3\uffff\2"+
+        "\55\1\uffff\6\55\1\uffff\1\55\3\uffff\1\55\1\uffff\4\55\2\uffff"+
+        "\1\55\1\uffff\2\55\2\uffff";
+    static final String DFA8_maxS =
         "\1\175\3\uffff\2\172\1\uffff\11\172\1\173\1\172\1\uffff\1\134\1"+
-        "\75\1\46\1\174\1\75\12\uffff\1\55\3\uffff\1\uffff\1\57\1\uffff\3"+
-        "\172\4\uffff\14\172\15\uffff\3\172\1\uffff\13\172\3\uffff\2\172"+
+        "\75\1\46\1\174\1\75\12\uffff\1\52\3\uffff\1\55\1\uffff\2\172\1\uffff"+
+        "\1\172\3\uffff\14\172\15\uffff\3\172\1\uffff\13\172\3\uffff\2\172"+
         "\1\uffff\6\172\1\uffff\1\172\3\uffff\1\172\1\uffff\4\172\2\uffff"+
         "\1\172\1\uffff\2\172\2\uffff";
-    static final String DFA10_acceptS =
+    static final String DFA8_acceptS =
         "\1\uffff\1\1\1\2\1\3\16\uffff\1\30\5\uffff\1\41\1\42\1\43\1\44\1"+
-        "\45\1\46\1\47\1\50\1\52\1\53\1\uffff\1\56\1\57\1\60\2\uffff\1\55"+
-        "\3\uffff\1\27\1\4\1\5\1\54\14\uffff\1\26\1\25\1\33\1\32\1\31\1\34"+
-        "\1\51\1\35\1\36\1\37\1\40\1\61\1\62\3\uffff\1\10\13\uffff\1\24\1"+
-        "\6\1\7\2\uffff\1\12\6\uffff\1\22\1\uffff\1\11\1\17\1\20\1\uffff"+
-        "\1\23\4\uffff\1\15\1\13\1\uffff\1\21\2\uffff\1\16\1\14";
-    static final String DFA10_specialS =
-        "\5\uffff\1\3\1\0\37\uffff\1\2\3\uffff\1\1\114\uffff}>";
-    static final String[] DFA10_transitionS = {
-            "\1\44\1\45\1\uffff\2\44\22\uffff\1\44\1\36\1\2\1\46\1\6\1\50"+
-            "\1\25\1\1\1\30\1\31\1\50\1\uffff\1\41\1\42\1\40\1\47\12\50\1"+
-            "\24\1\43\1\50\1\27\1\50\1\37\1\20\15\21\1\17\2\21\1\5\1\21\1"+
+        "\45\1\46\1\47\1\50\1\52\1\53\1\uffff\1\56\1\57\1\60\1\uffff\1\55"+
+        "\2\uffff\1\27\1\uffff\1\4\1\5\1\54\14\uffff\1\26\1\25\1\33\1\32"+
+        "\1\31\1\34\1\51\1\35\1\36\1\37\1\40\1\61\1\62\3\uffff\1\10\13\uffff"+
+        "\1\24\1\6\1\7\2\uffff\1\12\6\uffff\1\22\1\uffff\1\11\1\17\1\20\1"+
+        "\uffff\1\23\4\uffff\1\15\1\13\1\uffff\1\21\2\uffff\1\16\1\14";
+    static final String DFA8_specialS =
+        "\5\uffff\1\2\1\1\42\uffff\1\0\114\uffff}>";
+    static final String[] DFA8_transitionS = {
+            "\1\44\1\45\1\uffff\2\44\22\uffff\1\44\1\36\1\2\1\47\1\6\1\47"+
+            "\1\25\1\1\1\30\1\31\1\47\1\uffff\1\41\1\46\1\40\1\42\12\47\1"+
+            "\24\1\43\1\47\1\27\1\47\1\37\1\20\15\21\1\17\2\21\1\5\1\21\1"+
             "\7\7\21\1\34\1\23\1\35\1\uffff\1\22\1\3\2\21\1\14\1\21\1\12"+
             "\1\15\2\21\1\11\4\21\1\4\2\21\1\5\1\16\1\7\1\13\1\21\1\10\4"+
             "\21\1\32\1\26\1\33",
             "",
             "",
             "",
-            "\1\22\2\uffff\12\22\7\uffff\20\53\1\52\11\53\4\uffff\1\22\1"+
-            "\uffff\4\53\1\51\13\53\1\52\11\53",
-            "\1\55\5\uffff\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22"+
+            "\1\22\2\uffff\12\22\7\uffff\20\53\1\51\11\53\4\uffff\1\22\1"+
+            "\uffff\4\53\1\50\13\53\1\51\11\53",
+            "\1\54\5\uffff\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22"+
             "\1\uffff\32\53",
-            "\1\56\34\uffff\32\56\4\uffff\1\56\1\uffff\32\56\5\uffff\uff80"+
-            "\56",
-            "\1\22\2\uffff\12\22\7\uffff\20\53\1\60\11\53\4\uffff\1\22\1"+
-            "\uffff\20\53\1\60\11\53",
-            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\61"+
+            "\1\55\34\uffff\32\55\4\uffff\1\55\1\uffff\32\55\5\uffff\uff80"+
+            "\55",
+            "\1\22\2\uffff\12\22\7\uffff\20\53\1\57\11\53\4\uffff\1\22\1"+
+            "\uffff\20\53\1\57\11\53",
+            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\60"+
             "\31\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\5\53"+
-            "\1\62\24\53",
+            "\1\61\24\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\13\53"+
-            "\1\63\13\53\1\64\2\53",
+            "\1\62\13\53\1\63\2\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\7\53"+
-            "\1\66\11\53\1\65\10\53",
-            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\67"+
+            "\1\65\11\53\1\64\10\53",
+            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\66"+
             "\31\53",
-            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\71"+
-            "\7\53\1\70\13\53\1\72\5\53",
+            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\70"+
+            "\7\53\1\67\13\53\1\71\5\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\4\53"+
-            "\1\73\25\53",
-            "\1\22\2\uffff\12\22\7\uffff\20\53\1\52\11\53\4\uffff\1\22\1"+
-            "\uffff\20\53\1\52\11\53",
-            "\32\75\4\uffff\1\75\1\uffff\32\75\1\74",
+            "\1\72\25\53",
+            "\1\22\2\uffff\12\22\7\uffff\20\53\1\51\11\53\4\uffff\1\22\1"+
+            "\uffff\20\53\1\51\11\53",
+            "\32\74\4\uffff\1\74\1\uffff\32\74\1\73",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "",
-            "\1\77",
-            "\1\101",
+            "\1\76",
+            "\1\100",
+            "\1\102",
             "\1\103",
             "\1\104",
-            "\1\105",
             "",
             "",
             "",
@@ -2174,45 +2098,44 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "",
-            "\1\107\2\uffff\1\110",
+            "\1\106",
             "",
             "",
             "",
-            "\12\110\1\uffff\2\110\1\uffff\ufff2\110",
-            "\1\107\4\uffff\1\110",
+            "\1\107",
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\26\53"+
-            "\1\111\3\53",
-            "\1\55\5\uffff\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22"+
+            "\1\110\3\53",
+            "\1\54\5\uffff\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22"+
             "\1\uffff\32\53",
+            "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "",
             "",
             "",
-            "",
-            "\1\22\2\uffff\12\22\7\uffff\13\53\1\112\16\53\4\uffff\1\22"+
-            "\1\uffff\13\53\1\112\16\53",
+            "\1\22\2\uffff\12\22\7\uffff\13\53\1\111\16\53\4\uffff\1\22"+
+            "\1\uffff\13\53\1\111\16\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\21\53"+
-            "\1\113\10\53",
+            "\1\112\10\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\22\53"+
-            "\1\115\7\53",
+            "\1\114\7\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\10\53"+
-            "\1\116\21\53",
+            "\1\115\21\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\24\53"+
-            "\1\120\3\53\1\117\1\53",
+            "\1\117\3\53\1\116\1\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\10\53"+
-            "\1\122\10\53\1\121\10\53",
+            "\1\121\10\53\1\120\10\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\23\53"+
-            "\1\123\6\53",
+            "\1\122\6\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\15\53"+
-            "\1\124\14\53",
+            "\1\123\14\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\13\53"+
-            "\1\125\16\53",
+            "\1\124\16\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\15\53"+
-            "\1\126\14\53",
+            "\1\125\14\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\23\53"+
-            "\1\127\6\53",
+            "\1\126\6\53",
             "",
             "",
             "",
@@ -2231,25 +2154,25 @@ public class SQLScriptLexer extends Lexer {
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\4\53"+
-            "\1\133\25\53",
+            "\1\132\25\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\23\53"+
-            "\1\134\6\53",
+            "\1\133\6\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\4\53"+
-            "\1\136\25\53",
+            "\1\135\25\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\16\53"+
-            "\1\137\13\53",
+            "\1\136\13\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\22\53"+
-            "\1\140\7\53",
+            "\1\137\7\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\2\53"+
-            "\1\141\27\53",
-            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\142"+
+            "\1\140\27\53",
+            "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\1\141"+
             "\31\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\22\53"+
-            "\1\143\7\53",
+            "\1\142\7\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\24\53"+
-            "\1\145\5\53",
+            "\1\144\5\53",
             "",
             "",
             "",
@@ -2258,17 +2181,17 @@ public class SQLScriptLexer extends Lexer {
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\26\53"+
-            "\1\151\3\53",
+            "\1\150\3\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\7\53"+
-            "\1\153\22\53",
+            "\1\152\22\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\13\53"+
-            "\1\154\16\53",
+            "\1\153\16\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\4\53"+
-            "\1\155\25\53",
+            "\1\154\25\53",
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\21\53"+
-            "\1\156\10\53",
+            "\1\155\10\53",
             "",
             "",
             "",
@@ -2276,14 +2199,14 @@ public class SQLScriptLexer extends Lexer {
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\13\53"+
-            "\1\161\16\53",
+            "\1\160\16\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\15\53"+
-            "\1\163\14\53",
+            "\1\162\14\53",
             "",
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\30\53"+
-            "\1\164\1\53",
+            "\1\163\1\53",
             "",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
             "\1\22\2\uffff\12\22\7\uffff\32\53\4\uffff\1\22\1\uffff\32\53",
@@ -2291,34 +2214,34 @@ public class SQLScriptLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
-    static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
-    static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
-    static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
-    static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
-    static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
-    static final short[][] DFA10_transition;
+    static final short[] DFA8_eot = DFA.unpackEncodedString(DFA8_eotS);
+    static final short[] DFA8_eof = DFA.unpackEncodedString(DFA8_eofS);
+    static final char[] DFA8_min = DFA.unpackEncodedStringToUnsignedChars(DFA8_minS);
+    static final char[] DFA8_max = DFA.unpackEncodedStringToUnsignedChars(DFA8_maxS);
+    static final short[] DFA8_accept = DFA.unpackEncodedString(DFA8_acceptS);
+    static final short[] DFA8_special = DFA.unpackEncodedString(DFA8_specialS);
+    static final short[][] DFA8_transition;
 
     static {
-        int numStates = DFA10_transitionS.length;
-        DFA10_transition = new short[numStates][];
+        int numStates = DFA8_transitionS.length;
+        DFA8_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+            DFA8_transition[i] = DFA.unpackEncodedString(DFA8_transitionS[i]);
         }
     }
 
-    class DFA10 extends DFA {
+    class DFA8 extends DFA {
 
-        public DFA10(BaseRecognizer recognizer) {
+        public DFA8(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 10;
-            this.eot = DFA10_eot;
-            this.eof = DFA10_eof;
-            this.min = DFA10_min;
-            this.max = DFA10_max;
-            this.accept = DFA10_accept;
-            this.special = DFA10_special;
-            this.transition = DFA10_transition;
+            this.decisionNumber = 8;
+            this.eot = DFA8_eot;
+            this.eof = DFA8_eof;
+            this.min = DFA8_min;
+            this.max = DFA8_max;
+            this.accept = DFA8_accept;
+            this.special = DFA8_special;
+            this.transition = DFA8_transition;
         }
         public String getDescription() {
             return "1:1: Tokens : ( STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_NEW | VARIABLE | EMBEDDED_VARIABLE | WORD | IDENTIFIER | BACKSLASH | DOUBLE_BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | DOLLAR | SQL_SPECIAL_CHAR | SEP | WS | NL | COMMENT | LINE_COMMENT );";
@@ -2328,71 +2251,61 @@ public class SQLScriptLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA10_6 = input.LA(1);
+                        int LA8_41 = input.LA(1);
 
                          
-                        int index10_6 = input.index();
+                        int index8_41 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_6=='$'||(LA10_6>='A' && LA10_6<='Z')||LA10_6=='_'||(LA10_6>='a' && LA10_6<='z')||(LA10_6>='\u0080' && LA10_6<='\uFFFF')) && ((allowDollarQuote))) {s = 46;}
+                        if ( (LA8_41=='\'') && ((allowQQuote))) {s = 44;}
 
-                        else s = 47;
+                        else if ( ((LA8_41>='A' && LA8_41<='Z')||(LA8_41>='a' && LA8_41<='z')) ) {s = 43;}
+
+                        else if ( (LA8_41=='-'||(LA8_41>='0' && LA8_41<='9')||LA8_41=='_') ) {s = 18;}
+
+                        else s = 42;
 
                          
-                        input.seek(index10_6);
+                        input.seek(index8_41);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA10_42 = input.LA(1);
+                        int LA8_6 = input.LA(1);
 
                          
-                        int index10_42 = input.index();
+                        int index8_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_42=='\'') && ((allowQQuote))) {s = 45;}
+                        if ( (LA8_6=='$'||(LA8_6>='A' && LA8_6<='Z')||LA8_6=='_'||(LA8_6>='a' && LA8_6<='z')||(LA8_6>='\u0080' && LA8_6<='\uFFFF')) && ((allowDollarQuote))) {s = 45;}
 
-                        else if ( ((LA10_42>='A' && LA10_42<='Z')||(LA10_42>='a' && LA10_42<='z')) ) {s = 43;}
-
-                        else if ( (LA10_42=='-'||(LA10_42>='0' && LA10_42<='9')||LA10_42=='_') ) {s = 18;}
-
-                        else s = 44;
+                        else s = 46;
 
                          
-                        input.seek(index10_42);
+                        input.seek(index8_6);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA10_38 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA10_38>='\u0000' && LA10_38<='\t')||(LA10_38>='\u000B' && LA10_38<='\f')||(LA10_38>='\u000E' && LA10_38<='\uFFFF')) ) {s = 72;}
-
-                        else s = 40;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA10_5 = input.LA(1);
+                        int LA8_5 = input.LA(1);
 
                          
-                        int index10_5 = input.index();
+                        int index8_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_5=='\'') && ((allowQQuote))) {s = 45;}
+                        if ( (LA8_5=='\'') && ((allowQQuote))) {s = 44;}
 
-                        else if ( ((LA10_5>='A' && LA10_5<='Z')||(LA10_5>='a' && LA10_5<='z')) ) {s = 43;}
+                        else if ( ((LA8_5>='A' && LA8_5<='Z')||(LA8_5>='a' && LA8_5<='z')) ) {s = 43;}
 
-                        else if ( (LA10_5=='-'||(LA10_5>='0' && LA10_5<='9')||LA10_5=='_') ) {s = 18;}
+                        else if ( (LA8_5=='-'||(LA8_5>='0' && LA8_5<='9')||LA8_5=='_') ) {s = 18;}
 
-                        else s = 44;
+                        else s = 42;
 
                          
-                        input.seek(index10_5);
+                        input.seek(index8_5);
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 10, _s, input);
+                new NoViableAltException(getDescription(), 8, _s, input);
             error(nvae);
             throw nvae;
         }

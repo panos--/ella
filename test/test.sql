@@ -1,6 +1,6 @@
 \\set quotes=mysql;
 
-@describe(title = 'foo')
+--@describe(title = 'foo')
 \echo msg='hello';
 
 \\set quotes=sql92;
