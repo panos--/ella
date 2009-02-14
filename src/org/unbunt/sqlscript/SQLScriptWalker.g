@@ -33,6 +33,28 @@ scope Block {
 	protected final static int POS_RHS = 1;
 	protected final static int POS_LHS = 2;
 
+	@Override
+	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
+		//System.out.println("recovering from mismatched set" + e.getMessage());
+		throw e;
+	}
+	
+	@Override
+	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+		CommonTree tree = (CommonTree) ((TreeNodeStream) input).LT(1);
+		Token nextToken = tree.getToken();
+		if (nextToken.getType() == EOF) {
+			throw new UnexpectedEOFException(ttype, input);
+		}
+		throw new MismatchedTokenException(ttype, input);
+	}
+
+	@Override
+	public String getErrorHeader(RecognitionException e) {
+		return "node from "+
+			   (e.approximateLineInfo?"after ":"")+"line "+e.line+":"+e.charPositionInLine;
+	}
+
 	public Block walk() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
 		return parse();
 	}
@@ -52,6 +74,13 @@ scope Block {
 	
 	public static String extractString(String s) {
 		return s.substring(1, s.length() - 1).replace("''", "'");
+	}
+}
+
+@rulecatch {
+	catch (RecognitionException e) {
+		//System.out.println("caught RecognitionException: " + e.getMessage());
+		throw e;
 	}
 }
 
@@ -528,11 +557,11 @@ keyword returns [ String value ]
 
 stringLiteral returns [ StringLiteral value ]
 @init { List<Object> parts = new ArrayList<Object>(); }
-	:	^(STRING start=(SQUOT | DQUOT | BTICK)
+	:	^(STRING start=STRING_START
 			( str=STRING_CONTENT    { parts.add($str.text); }
 			| var=EMBEDDED_VARIABLE { parts.add(new Variable($var.text)); /*System.out.println("embedded str var: " + $var.text);*/ }
 			)*
-			(SQUOT | DQUOT | BTICK))
+			STRING_END)
 		{ $value = new StringLiteral($start.text, parts); }
 	;
 

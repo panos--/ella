@@ -3,7 +3,7 @@
 --@describe(title = 'foo')
 \echo msg='hello';
 
-\\set quotes=sql92;
+\\set quotes=mysql;
 \echo msg='fooobar';
 
 select  `select foo; select`  from bar;

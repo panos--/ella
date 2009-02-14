@@ -103,10 +103,29 @@ public class SQLScript extends VolatileObservable implements Observer {
         try {
             String line;
             StringBuilder buf = new StringBuilder();
+            boolean incompleteString = false;
+            int stringType = -1;
             while (true) {
+                boolean continued = buf.length() != 0;
+
+                String prompt = "=>";
+                if (continued) {
+                    if (incompleteString) {
+                        switch (stringType) {
+                            case SQLScriptParser.SQUOT:   prompt = "'>";  break;
+                            case SQLScriptParser.DQUOT:   prompt = "\">"; break;
+                            case SQLScriptParser.BTICK:   prompt = "`>";  break;
+                            case SQLScriptParser.QQUOT:   prompt = "Q>";  break;
+                            case SQLScriptParser.DOLQUOT: prompt = "$>";  break;
+                        }
+                    }
+                    else {
+                        prompt = "->";
+                    }
+                }
+
                 try {
-                    boolean continued = buf.length() != 0;
-                    line = Readline.readline(continued ? "-> " : "=> ", false);
+                    line = Readline.readline(prompt + " ", false);
                     if (interactiveCancel) {
                         interactiveCancel = false;
                         buf.setLength(0);
@@ -120,7 +139,12 @@ public class SQLScript extends VolatileObservable implements Observer {
                 } catch (IOException e) {
                     throw new SQLScriptIOException(e);
                 }
+
+                if (continued) {
+                    buf.append('\n');
+                }
                 buf.append(line);
+
                 String unit = buf.toString();
                 InputStream input = new ByteArrayInputStream(unit.getBytes());
 
@@ -132,8 +156,16 @@ public class SQLScript extends VolatileObservable implements Observer {
                         parseTree();
                         runBlock();
                     } catch (SQLScriptParseException e) {
-                        if (e.isCausedBy(UnexpectedEOFException.class)) {
+                        if (e.isCausedBy(UnterminatedStringException.class)) {
+                            UnterminatedStringException ex =
+                                    (UnterminatedStringException) e.getCause(UnterminatedStringException.class);
+                            stringType = ex.getStringType();
                             incompleteInput = true;
+                            incompleteString = true;
+                        }
+                        else if (e.isCausedBy(UnexpectedEOFException.class)) {
+                            incompleteInput = true;
+                            incompleteString = false;
                         }
                         else {
                             throw e;
@@ -141,6 +173,7 @@ public class SQLScript extends VolatileObservable implements Observer {
                     }
                 } catch (Exception e) {
                     System.err.println("ERROR: " + e.getMessage());
+                    e.printStackTrace();
                 }
 
                 // keep current statement buffer in case it was an incomplete statement
@@ -246,9 +279,14 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected void parseTokens() throws SQLScriptParseException, SQLScriptRuntimeException {
-        SQLScriptParser parser;
+//        SQLScriptParser parser;
         try {
-            parser = new SQLScriptParser(tokens);
+            if (parser == null) {
+                parser = new SQLScriptParser(tokens);
+            }
+            else {
+                parser.setTokenStream(tokens);
+            }
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
@@ -348,6 +386,8 @@ public class SQLScript extends VolatileObservable implements Observer {
             throw e;
         } catch (RuntimeException e) {
             throw new SQLScriptRuntimeException(e.getMessage(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -61,7 +61,7 @@ public class StringLiteral {
         for (Object part : parts) {
             String str = part instanceof Variable
                          ? StringUtils.escapeSQLString(((Variable) part).getValue().toString(), delim)
-                         : part.toString();
+                         : StringUtils.escapeSQLString(part.toString(), delim);
             buf.append(str);
         }
         buf.append(delim);
@@ -73,7 +73,7 @@ public class StringLiteral {
         for (Object part : parts) {
             String str = part instanceof Variable
                          ? ((Variable) part).getValue().toString()
-                         : StringUtils.unescapeSQLString(part.toString(), delim);
+                         : part.toString();
             buf.append(str);
         }
         return buf.toString();

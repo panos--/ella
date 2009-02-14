@@ -143,13 +143,13 @@ tokens {
 	
 	protected StringType stringType = StringType.sql92;
 
-	//@Override
+	@Override
 	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
 		//System.out.println("recovering from mismatched set" + e.getMessage());
 		throw e;
 	}
 	
-	//@Override
+	@Override
 	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
 		if (((TokenStream)input).LT(1).getType() == EOF) {
 			throw new UnexpectedEOFException(ttype, input);
@@ -219,6 +219,7 @@ tokens {
 	protected boolean allowQQuote = false;
 	protected boolean allowDollarQuote = false;
 
+	@Override
 	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
 		throw new RuntimeRecognitionException(e);
 	}

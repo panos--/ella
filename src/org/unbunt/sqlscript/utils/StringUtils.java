@@ -6,6 +6,6 @@ public class StringUtils {
     }
 
     public static String escapeSQLString(String str, String delim) {
-        return str.replace(delim, delim + delim);
+        return delim.length() == 1 ? str.replace(delim, delim + delim) : str;
     }
 }

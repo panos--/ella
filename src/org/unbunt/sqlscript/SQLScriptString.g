@@ -17,20 +17,46 @@ tokens {
 	//QQUOT_END;
 	CHARS;
 	EMBEDDED_VARIABLE;
+	STRING_START;
+	STRING_CONTENT;
+	STRING_END;
 }
 
 @parser::header {
 	package org.unbunt.sqlscript;
+	
+	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
+	import org.unbunt.sqlscript.exception.UnterminatedStringException;
+	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 }
 
 @lexer::header {
 	package org.unbunt.sqlscript;
 	
 	import java.util.LinkedList;
+	import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
 }
 
 @parser::members {
+
+	protected int stringType = -1;
+
+	@Override
+	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
+		//System.out.println("recovering from mismatched set" + e.getMessage());
+		throw e;
+	}
 	
+	@Override
+	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+		if (((TokenStream)input).LT(1).getType() == EOF) {
+			throw stringType != -1
+				? new UnterminatedStringException(ttype, input, stringType)
+				: new UnexpectedEOFException(ttype, input);
+		}
+		throw new MismatchedTokenException(ttype, input);
+	}
+		
 	protected boolean matchQQuoteDelim(Token start, Token end) {
 		String startText = start.getText();
 		String endText = end.getText();
@@ -48,6 +74,13 @@ tokens {
 		}
 	}
 	
+}
+
+@rulecatch {
+	catch (RecognitionException e) {
+		//System.out.println("caught RecognitionException: " + e.getMessage());
+		throw e;
+	}
 }
 
 @lexer::members {
@@ -89,6 +122,11 @@ tokens {
 		}
 		return tokens.removeFirst();
 	}
+
+	@Override
+	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+		throw new RuntimeRecognitionException(e);
+	}
 	
 	// support methods for some lexer rules
 	
@@ -117,7 +155,7 @@ tokens {
 	}
 	
 	protected boolean matchQQuoteDelim(char delim) {
-		System.out.println("matching delim <" + qQuoteDelim + "> with <" + delim + ">");
+		// System.out.println("matching delim <" + qQuoteDelim + "> with <" + delim + ">");
 		switch (qQuoteDelim) {
 			case '(': return delim == ')';
 			case '<': return delim == '>';
@@ -146,59 +184,59 @@ tokens {
 	}
 }
 
-string	:	start=SQUOT       (content+=singleQuoteContent)* endt=SQUOT	-> ^(STRING $start $content* $endt)
-	|	start=DQUOT       (content+=doubleQuoteContent)* endt=DQUOT	-> ^(STRING $start $content* $endt)
-	|	start=BTICK       (content+=backTickContent)*    endt=BTICK	-> ^(STRING $start $content* $endt)
-	|	start=QQUOT_START (content+=unquotedContent)*    end=qQuoteEnd	-> ^(STRING $start $content* $end)
-	|	start=DOLQUOT     (content+=unquotedContent)*    endt=DOLQUOT	-> ^(STRING $start $content* $endt)
+string	:	start=SQUOT       { stringType = SQUOT; }   (content+=singleQuoteContent)* endt=SQUOT		-> ^(STRING STRING_START[$start] $content* STRING_END[$endt])
+	|	start=DQUOT       { stringType = DQUOT; }   (content+=doubleQuoteContent)* endt=DQUOT		-> ^(STRING STRING_START[$start] $content* STRING_END[$endt])
+	|	start=BTICK       { stringType = BTICK; }   (content+=backTickContent)*    endt=BTICK		-> ^(STRING STRING_START[$start] $content* STRING_END[$endt])
+	|	start=QQUOT_START { stringType = QQUOT; }   (content+=unquotedContent)*    end=qQuoteEnd	-> ^(STRING STRING_START[$start] $content* STRING_END[$end.token])
+	|	start=DOLQUOT     { stringType = DOLQUOT; } (content+=unquotedContent)*    endt=DOLQUOT		-> ^(STRING STRING_START[$start] $content* STRING_END[$endt])
 	;
 
 singleQuoteContent
-	:	(SQUOT SQUOT)=> SQUOT SQUOT -> SQUOT
+	:	(SQUOT SQUOT)=> q=SQUOT SQUOT	-> STRING_CONTENT[$q]
 	|	genericContent
-	|	DQUOT
-	|	BTICK
+	|	q=DQUOT				-> STRING_CONTENT[$q]
+	|	q=BTICK				-> STRING_CONTENT[$q]
 	;
 
 doubleQuoteContent
-	:	(DQUOT DQUOT)=> DQUOT DQUOT -> DQUOT
+	:	(DQUOT DQUOT)=> q=DQUOT DQUOT	-> STRING_CONTENT[$q]
 	|	genericContent
-	|	SQUOT
-	|	BTICK
+	|	q=SQUOT				-> STRING_CONTENT[$q]
+	|	q=BTICK				-> STRING_CONTENT[$q]
 	;
 
 backTickContent
-	:	(BTICK BTICK)=> BTICK BTICK -> BTICK
+	:	(BTICK BTICK)=> q=BTICK BTICK	-> STRING_CONTENT[$q]
 	|	genericContent
-	|	SQUOT
-	|	DQUOT
+	|	q=SQUOT				-> STRING_CONTENT[$q]
+	|	q=DQUOT				-> STRING_CONTENT[$q]
 	;
 
 unquotedContent
 	:	genericContent
-	|	SQUOT
-	|	DQUOT
-	|	BTICK
+	|	q=SQUOT				-> STRING_CONTENT[$q]
+	|	q=DQUOT				-> STRING_CONTENT[$q]
+	|	q=BTICK				-> STRING_CONTENT[$q]
 	;
 
 genericContent
 	:	embeddedVariable
-	|	CHAR
-	|	VARNAME
+	|	q=CHAR				-> STRING_CONTENT[$q]
+	|	q=VARNAME			-> STRING_CONTENT[$q]
 	;
 
-qQuoteEnd
-	:	QQUOT_END
+qQuoteEnd returns [ Token token ]
+	:	q=QQUOT_END { $token = $q; }	-> STRING_END[$q]
 	;
 
 embeddedVariable
 	:	a1=ATSIGN
 		( lc=LCURLY
-		  ( RCURLY		-> $a1
+		  ( RCURLY		-> STRING_CONTENT[$a1]
 		  | var=VARNAME RCURLY	-> EMBEDDED_VARIABLE[$var]
-		  |			-> $a1 $lc
+		  |			-> STRING_CONTENT[$a1] STRING_CONTENT[$lc]
 		  )
-		|			-> $a1
+		|			-> STRING_CONTENT[$a1]
 		)
 	;
 
@@ -223,7 +261,7 @@ SQUOT
 	
 	// handle qquote end delimiter
 	if (quoteStyle == QQUOT && matchQQuoteDelim((char)input.LT(-2))) {
-		System.out.println("got qquote end");
+		// System.out.println("got qquote end");
 		if (lastToken == null) {
 			throw new RuntimeException("should not happen");
 		}

@@ -1,11 +1,9 @@
 package org.unbunt.sqlscript.antlr;
 
-import org.antlr.runtime.TokenStream;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenSource;
-import org.antlr.runtime.CharStream;
+import org.antlr.runtime.*;
 import org.apache.commons.collections.list.CursorableLinkedList;
 import org.unbunt.sqlscript.utils.ExtendedCursorableLinkedList;
+import org.unbunt.sqlscript.SQLScriptStringLexer;
 
 import java.util.*;
 
@@ -34,6 +32,9 @@ public class LazyTokenStream implements TokenStream {
 
     protected int lbCacheIdx = 0;
     protected Token[] lbCache = new Token[11];
+
+    protected CharStream inputStream;
+    protected LinkedList<Integer> inputOffsets;
 
     protected List<ExtendedCursorableLinkedList.Cursor> markers = new ArrayList<ExtendedCursorableLinkedList.Cursor>();
 
@@ -77,6 +78,7 @@ public class LazyTokenStream implements TokenStream {
             Token token = null;
             int i = k;
             while (i > 0) {
+
                 skipOffChannelTokens(lookCursor);
                 if (lookCursor.hasNext()) {
                     token = (Token) lookCursor.next();
@@ -154,16 +156,24 @@ public class LazyTokenStream implements TokenStream {
     public void consume() {
 //        System.out.println("consume");
 //        System.out.println("LazyTokenStream.consume");
-        skipOffChannelTokens(posCursor);
+        int n = skipOffChannelTokens(posCursor);
 //        if (!posCursor.hasNext() && !read(posCursor)) {
 //            return;
 //        }
         if (posCursor.hasNext()) {
             posCursor.next();
+            n++;
         }
 
         ltCacheIdx = 0;
         lbCacheIdx = 0;
+
+        if (inputStream != null) {
+            while (n > 0 && !inputOffsets.isEmpty()) {
+                inputOffsets.removeFirst();
+                n--;
+            }
+        }
     }
 
     protected int skipOffChannelTokens(CursorableLinkedList.Cursor cursor) {
@@ -228,6 +238,10 @@ public class LazyTokenStream implements TokenStream {
             i--;
             if (cursor.hasNext()) {
                 continue;
+            }
+
+            if (inputStream != null) {
+                inputOffsets.addLast(inputStream.index());
             }
 
             Token token = tokenSource.nextToken();
@@ -409,12 +423,14 @@ public class LazyTokenStream implements TokenStream {
         channel = Token.DEFAULT_CHANNEL;
         tokens.clear();
         setPosCursor(tokens.cursor());
+        initInputTracking();
     }
 
     public TokenSource replaceTokenSource(TokenSource tokenSource) {
         TokenSource oldTokenSource = this.tokenSource;
         this.tokenSource = tokenSource;
         discardLookAhead();
+        initInputTracking();
         return oldTokenSource;
     }
 
@@ -429,6 +445,10 @@ public class LazyTokenStream implements TokenStream {
         cursor.close();
 
         ltCacheIdx = 0;
+
+        if (inputStream != null && !inputOffsets.isEmpty()) {
+            inputStream.seek(inputOffsets.getFirst());
+        }
     }
 
     protected void discardLookBack() {
@@ -449,6 +469,12 @@ public class LazyTokenStream implements TokenStream {
 
         // TODO: has look-back cache to be reset?
         //lbCacheIdx = 0;
+    }
+
+    protected void initInputTracking() {
+        inputStream = tokenSource instanceof SQLScriptStringLexer
+                      ? ((SQLScriptStringLexer) tokenSource).getCharStream() : null;
+        inputOffsets = new LinkedList<Integer>();
     }
 
     public void setTokenTypeChannel(int ttype, int channel) {
