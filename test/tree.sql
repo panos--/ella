@@ -2,5 +2,6 @@
 --select $foo;bar$foo@{blablubb}bar$foobar$ from bar;
 --\\set quotes=pg;
 --select $$fooo$$ from bar;
+/* foo /* bar */ bla /* blubb /* baz */ */ */
 \\set quotes = pg;
 select $foo$foo@{bar$foo$ from bar;

@@ -105,7 +105,7 @@ public class SQLScript extends VolatileObservable implements Observer {
             StringBuilder buf = new StringBuilder();
             boolean incompleteString = false;
             int stringType = -1;
-            while (true) {
+            while (!engine.isFinished()) {
                 boolean continued = buf.length() != 0;
 
                 String prompt = "=>";
@@ -163,7 +163,9 @@ public class SQLScript extends VolatileObservable implements Observer {
                             incompleteInput = true;
                             incompleteString = true;
                         }
-                        else if (e.isCausedBy(UnexpectedEOFException.class)) {
+                        else if (e.isCausedBy(UnexpectedEOFException.class)
+                                || (e.isCausedBy(RecognitionException.class)
+                                    && ((RecognitionException) e.getCause(RecognitionException.class)).getUnexpectedType() == SQLScriptParser.EOF)) {
                             incompleteInput = true;
                             incompleteString = false;
                         }
@@ -194,13 +196,28 @@ public class SQLScript extends VolatileObservable implements Observer {
         initParserIncremental();
         initEngine();
         try {
+            int i = 0;
             while (parseTokensIncremental() && !engine.isFinished()) {
                 if (tree == null) {
                     continue;
                 }
-                parseTree();
-                runBlock();
+                i++;
+//                if (++i == 1000) {
+//                    System.gc();
+//                    i = 0;
+//                }
+//                parseTree();
+//                runBlock();
+                if (i == 1040000) {
+                    System.out.println("dump!");
+                    try {
+                        System.in.read();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+            System.out.println("statements: " + i);
         }
         finally {
             finish();

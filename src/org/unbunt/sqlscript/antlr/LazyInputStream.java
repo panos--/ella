@@ -126,7 +126,7 @@ public class LazyInputStream implements CharStream {
      */
     public void rewind(int marker) {
 		CharStreamState state = markers.get(marker);
-		seek(state.pos);
+        seek(state.pos);
 		lineNo = state.lineNo;
 		charNoInLine = state.charNoInLine;
 		release(marker);
@@ -181,7 +181,8 @@ public class LazyInputStream implements CharStream {
      * first element in the stream.
      */
     public void seek(int index) {
-		if (index <= read) {
+//        System.out.println("seek " + pos + " => " + index);
+        if (index <= read) {
 			pos = index;
 			return;
 		}

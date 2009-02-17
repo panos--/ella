@@ -174,6 +174,14 @@ public class LazyTokenStream implements TokenStream {
                 n--;
             }
         }
+
+//        System.out.println("LazyTokenStream.consume: tokens: " + tokens.size());
+        if (markers.isEmpty()) {
+            discardLookBack();
+        }
+        else {
+            System.out.println("LazyTokenStream.consume: markers: " + markers.size());
+        }
     }
 
     protected int skipOffChannelTokens(CursorableLinkedList.Cursor cursor) {
@@ -292,7 +300,7 @@ public class LazyTokenStream implements TokenStream {
     public int mark() {
         markers.add(tokens.cursor(posCursor));
         int i = markers.size();
-//        System.out.println("LazyTokenStream.mark = " + i);
+        System.out.println("LazyTokenStream.mark = " + i);
         return i;
     }
 
@@ -383,7 +391,8 @@ public class LazyTokenStream implements TokenStream {
      */
     public void seek(int index) {
 //        System.out.println("LazyTokenStream.seek(" + index + ")");
-        setPosCursor(tokens.cursor(index));
+//        setPosCursor(tokens.cursor(index));
+        throw new RuntimeException("Unsupported operation");
     }
 
     /**

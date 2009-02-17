@@ -97,42 +97,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SQLScript.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
+      <file leaf-file-name="LazyInputStream.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyInputStream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="175" column="38" selection-start="6816" selection-end="6816" vertical-scroll-proportion="0.41778976">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;field#possiblyInteractive#0;class#Args#0;class#SQLScript#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LazyTokenStream.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyTokenStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="171" column="51" selection-start="5239" selection-end="5239" vertical-scroll-proportion="0.5336927">
-              <folding>
-                <element signature="docComment;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#LT#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#LA#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#get#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#mark#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#index#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#rewind#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#rewind#1;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#release#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#seek#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#size#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#getSourceName#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#getTokenSource#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="method#getTokenSource#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="method#isDiscardOffChannelTokens#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="method#setDiscardOffChannelTokens#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#toString#0;class#LazyTokenStream#0" expanded="true" />
-                <element signature="docComment;method#toString#1;class#LazyTokenStream#0" expanded="true" />
-              </folding>
+            <state line="188" column="18" selection-start="6292" selection-end="6292" vertical-scroll-proportion="0.018159807">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,7 +109,7 @@
       <file leaf-file-name="Parser.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="16" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.7277628">
+            <state line="46" column="16" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.018159807">
               <folding />
             </state>
           </provider>
@@ -149,7 +118,7 @@
       <file leaf-file-name="BaseRecognizer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/BaseRecognizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="16" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.75842696">
+            <state line="72" column="16" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.018495684">
               <folding />
             </state>
           </provider>
@@ -158,25 +127,16 @@
       <file leaf-file-name="SQLScriptStringParser.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptStringParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="0" selection-start="3241" selection-end="3241" vertical-scroll-proportion="0.33146068">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getTree#0;class#singleQuoteContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#doubleQuoteContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#backTickContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#unquotedContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#genericContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#qQuoteEnd_return#0;class#SQLScriptStringParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#embeddedVariable_return#0;class#SQLScriptStringParser#0" expanded="true" />
-              </folding>
+            <state line="84" column="0" selection-start="3241" selection-end="3241" vertical-scroll-proportion="0.018495684">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tree.sql" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="tree.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/tree.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="20" selection-start="191" selection-end="191" vertical-scroll-proportion="0.20215634">
+            <state line="4" column="45" selection-start="197" selection-end="197" vertical-scroll-proportion="0.07263923">
               <folding />
             </state>
           </provider>
@@ -185,25 +145,34 @@
       <file leaf-file-name="SQLScriptParser.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7372" column="0" selection-start="293683" selection-end="293683" vertical-scroll-proportion="0.33146068">
+            <state line="5855" column="0" selection-start="232994" selection-end="232994" vertical-scroll-proportion="0.018495684">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="String.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/String.java">
+      <file leaf-file-name="LazyTokenStream.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyTokenStream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2496" column="0" selection-start="95894" selection-end="95894" vertical-scroll-proportion="0.33153638">
+            <state line="254" column="42" selection-start="7681" selection-end="7681" vertical-scroll-proportion="0.8716707">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StringBuilder.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/StringBuilder.java">
+      <file leaf-file-name="SQLScriptStringLexer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptStringLexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="429" column="0" selection-start="12959" selection-end="12959" vertical-scroll-proportion="1.1752021">
+            <state line="72" column="21" selection-start="2434" selection-end="2434" vertical-scroll-proportion="0.40690506">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Lexer.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/Lexer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="16" selection-start="2066" selection-end="2066" vertical-scroll-proportion="0.018159807">
               <folding />
             </state>
           </provider>
@@ -212,10 +181,8 @@
       <file leaf-file-name="SQLScriptLexer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptLexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="0" selection-start="5937" selection-end="5937" vertical-scroll-proportion="0.33146068">
-              <folding>
-                <element signature="method#setAllowQQuote#0;class#SQLScriptLexer#0" expanded="true" />
-              </folding>
+            <state line="159" column="0" selection-start="5937" selection-end="5937" vertical-scroll-proportion="0.018495684">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -233,8 +200,8 @@
     <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -1122,16 +1089,25 @@
       <recent name="com.marketoolz.sqlscript" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SQLScript AST Viewer">
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+  <component name="RunManager" selected="Application.SQLScript Interactive">
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -1155,17 +1131,28 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
@@ -1195,26 +1182,6 @@
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="false" name="SQLScript" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.SQLScript" />
@@ -1392,7 +1359,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1400" height="1000" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -1400,7 +1367,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328" order="1" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.512" order="3" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.512" order="3" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -1511,20 +1478,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptStringLexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="338" column="12" selection-start="11072" selection-end="11072" vertical-scroll-proportion="0.018495684">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/Lexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="39" selection-start="4107" selection-end="4107" vertical-scroll-proportion="0.018159807">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///home/panos/java-lib/commons-collections-3.2.1/commons-collections-3.2.1-sources.jar!/org/apache/commons/collections/list/AbstractLinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="780" column="0" selection-start="24469" selection-end="24469" vertical-scroll-proportion="0.04043127">
@@ -1549,13 +1502,6 @@
     <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/TokenSource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="17" selection-start="2310" selection-end="2310" vertical-scroll-proportion="0.16172507">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyInputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="0" selection-start="6268" selection-end="6268" vertical-scroll-proportion="2.1455526">
           <folding />
         </state>
       </provider>
@@ -1642,105 +1588,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/StringBuilder.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyInputBuffer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="429" column="0" selection-start="12959" selection-end="12959" vertical-scroll-proportion="1.1752021">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/String.java">
+    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/io/BufferedInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2496" column="0" selection-start="95894" selection-end="95894" vertical-scroll-proportion="0.33153638">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptLexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="0" selection-start="5937" selection-end="5937" vertical-scroll-proportion="0.33146068">
-          <folding>
-            <element signature="method#setAllowQQuote#0;class#SQLScriptLexer#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="16" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.7277628">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/BaseRecognizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="16" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.75842696">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7372" column="0" selection-start="293683" selection-end="293683" vertical-scroll-proportion="0.33146068">
+        <state line="266" column="21" selection-start="9414" selection-end="9414" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="38" selection-start="6816" selection-end="6816" vertical-scroll-proportion="0.41778976">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#possiblyInteractive#0;class#Args#0;class#SQLScript#0" expanded="true" />
-          </folding>
+        <state line="167" column="103" selection-start="6615" selection-end="6615" vertical-scroll-proportion="0.018495684">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyTokenStream.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="51" selection-start="5239" selection-end="5239" vertical-scroll-proportion="0.5336927">
-          <folding>
-            <element signature="docComment;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#LT#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#LA#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#get#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#mark#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#index#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#rewind#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#rewind#1;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#release#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#seek#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#size#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#getSourceName#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#getTokenSource#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="method#getTokenSource#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="method#isDiscardOffChannelTokens#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="method#setDiscardOffChannelTokens#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#toString#0;class#LazyTokenStream#0" expanded="true" />
-            <element signature="docComment;method#toString#1;class#LazyTokenStream#0" expanded="true" />
-          </folding>
+        <state line="188" column="18" selection-start="6292" selection-end="6292" vertical-scroll-proportion="0.018159807">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="16" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.018159807">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/BaseRecognizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="16" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.018495684">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptStringParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="0" selection-start="3241" selection-end="3241" vertical-scroll-proportion="0.33146068">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getTree#0;class#singleQuoteContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#doubleQuoteContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#backTickContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#unquotedContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#genericContent_return#0;class#SQLScriptStringParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#qQuoteEnd_return#0;class#SQLScriptStringParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#embeddedVariable_return#0;class#SQLScriptStringParser#0" expanded="true" />
-          </folding>
+        <state line="84" column="0" selection-start="3241" selection-end="3241" vertical-scroll-proportion="0.018495684">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptLexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="0" selection-start="5937" selection-end="5937" vertical-scroll-proportion="0.018495684">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/tree.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="20" selection-start="191" selection-end="191" vertical-scroll-proportion="0.20215634">
+        <state line="4" column="45" selection-start="197" selection-end="197" vertical-scroll-proportion="0.07263923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5855" column="0" selection-start="232994" selection-end="232994" vertical-scroll-proportion="0.018495684">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/antlr/LazyTokenStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="254" column="42" selection-start="7681" selection-end="7681" vertical-scroll-proportion="0.8716707">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptStringLexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="21" selection-start="2434" selection-end="2434" vertical-scroll-proportion="0.40690506">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src/org/antlr/runtime/Lexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="16" selection-start="2066" selection-end="2066" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
