@@ -354,7 +354,36 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
             return CONT;
         }
         else if (stmt instanceof SQLStatement) {
-            process((SQLStatement) stmt);
+            SQLStatement sqlStmt = (SQLStatement) stmt;
+            StringBuilder buf = new StringBuilder();
+            for (Object part : sqlStmt.getParts()) {
+                if (part instanceof Variable) {
+                    buf.append(env.getVar(((Variable) part).getName()).getValue().toString());
+                }
+                else if (part instanceof StringLiteral) {
+                    StringBuilder strBuf = new StringBuilder();
+                    StringLiteral str = (StringLiteral) part;
+                    for (Object strPart : str.getParts()) {
+                        if (strPart instanceof Variable) {
+                            String s = env.getVar(((Variable) strPart).getName()).getValue().toString();
+                            strBuf.append(StringUtils.escapeSQLString(s, str.getDelim()));
+                        }
+                        else {
+                            strBuf.append(part.toString());
+                        }
+                    }
+                    buf.append(str.getDelim());
+                    buf.append(strBuf);
+                    buf.append(str.getDelim());
+                }
+                else {
+                    buf.append(part.toString());
+                }
+            }
+            SQLStatement statement = new SQLStatement();
+            statement.setAnnotations(sqlStmt.getAnnotations());
+            statement.addPart(buf.toString());
+            process(statement);
             return CONT;
         }
         else {
@@ -862,7 +891,7 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
 
         connect();
 
-        String sql = sqlStmt.toSQLString();
+        String sql = sqlStmt.toString();
         SQLStatementState state = new SQLStatementState(sqlStmt, sql);
         if (!quiet) {
             notifyObservers(state);

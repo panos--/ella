@@ -1,3 +1,8 @@
+var @z := 'zones';
+var @x := 'WILT';
+select * from @{z} where zone_code = '@{x}';
+exit;
+
 var @ClassA := {
     init = fun(arg) {
         \echo msg='in ClassA constructor';

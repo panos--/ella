@@ -10,6 +10,14 @@ public abstract class AbstractAnnotatableStatement extends AbstractStatement imp
     protected Map<Class<? extends Annotation>, Annotation> annotations =
             new HashMap<Class<? extends Annotation>, Annotation>();
 
+    public Map<Class<? extends Annotation>, Annotation> getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(Map<Class<? extends Annotation>, Annotation> annotations) {
+        this.annotations = annotations;
+    }
+
     public void addAnnotation(Annotation annotation) {
         annotations.put(annotation.getClass(), annotation);
     }

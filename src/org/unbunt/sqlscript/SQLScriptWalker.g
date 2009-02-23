@@ -216,7 +216,10 @@ sqlStmt
 
 sqlStmtName returns [ Object value ]
 	:	name=WORD { $value = $name.text; }
-	|	var=(VARIABLE | EMBEDDED_VARIABLE) { $value = $Scope::scope.getVariable($var.text); }
+	|	var=(VARIABLE | EMBEDDED_VARIABLE) {
+			/* $value = $Scope::scope.getVariable($var.text); */
+			$value = new Variable($var.text);
+		}
 	;
 
 sqlParam returns [ String whitespace, Object value ]
@@ -236,7 +239,10 @@ sqlToken returns [ Object value ]
 	|	id=identifier         { $value = $id.value; }
 	|	chr=sqlSpecialChars   { $value = $chr.text; }
 	|	kw=keyword            { $value = $kw.text; }
-	|	var=VARIABLE          { $value = $Scope::scope.getVariable($var.text); }
+	|	var=(VARIABLE|EMBEDDED_VARIABLE) {
+			/*$value = $Scope::scope.getVariable($var.text);*/
+			$value = new Variable($var.text);
+		}
 	;
 
 annotation returns [ AnnotationCommand value ] // generated command returned so that annotation subject can be set in calling context

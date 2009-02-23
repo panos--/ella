@@ -80,33 +80,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SQLScriptChildContext.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptChildContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.018159807">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQLScriptContext.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.049636804">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultSQLScriptChildContext.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/DefaultSQLScriptChildContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.018159807">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DefaultSQLScriptContext.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/DefaultSQLScriptContext.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -116,11 +89,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQLScriptEngine.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SQLScriptEngine.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="766" selection-end="766" vertical-scroll-proportion="0.018159807">
+            <state line="879" column="0" selection-start="33773" selection-end="33773" vertical-scroll-proportion="0.20338982">
+              <folding>
+                <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
+                <element signature="method#setContext#0;class#SQLScriptEngine#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/StringUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="25" selection-start="89" selection-end="89" vertical-scroll-proportion="0.05447942">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLStatement.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/statement/SQLStatement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="42" selection-start="320" selection-end="320" vertical-scroll-proportion="0.07263923">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractAnnotatableStatement.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/statement/AbstractAnnotatableStatement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="74" selection-start="514" selection-end="514" vertical-scroll-proportion="0.14527845">
+              <folding>
+                <element signature="method#setAnnotations#0;class#AbstractAnnotatableStatement#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -137,16 +142,16 @@
       <file leaf-file-name="SQLScript.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="283" column="0" selection-start="11216" selection-end="11216" vertical-scroll-proportion="-0.31442663">
+            <state line="283" column="0" selection-start="11216" selection-end="11216" vertical-scroll-proportion="0.018495684">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.sql" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="34" selection-start="342" selection-end="342" vertical-scroll-proportion="0.23607749">
+            <state line="1" column="13" selection-start="32" selection-end="32" vertical-scroll-proportion="0.018159807">
               <folding />
             </state>
           </provider>
@@ -479,6 +484,40 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/statement" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/exception" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -633,6 +672,16 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.SQLScript">
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -645,50 +694,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
@@ -719,12 +724,46 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="false" name="SQLScript" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.SQLScript" />
@@ -981,13 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/StringUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="36" selection-end="36" vertical-scroll-proportion="0.018159807">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptLexer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="13" selection-start="348" selection-end="348" vertical-scroll-proportion="0.1109741">
@@ -1004,35 +1036,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptChildContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.018159807">
+        <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.040650405">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.049636804">
+        <state line="10" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.11111111">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/DefaultSQLScriptChildContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.018159807">
+        <state line="10" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.040650405">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/DefaultSQLScriptContext.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptOptions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="399" selection-end="399" vertical-scroll-proportion="0.018159807">
+        <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="766" selection-end="766" vertical-scroll-proportion="0.018159807">
+        <state line="283" column="0" selection-start="11216" selection-end="11216" vertical-scroll-proportion="0.018495684">
           <folding />
         </state>
       </provider>
@@ -1051,24 +1083,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptOptions.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/DefaultSQLScriptContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.018159807">
+        <state line="13" column="0" selection-start="399" selection-end="399" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/StringUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="283" column="0" selection-start="11216" selection-end="11216" vertical-scroll-proportion="-0.31442663">
+        <state line="3" column="25" selection-start="89" selection-end="89" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/statement/AbstractAnnotatableStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="74" selection-start="514" selection-end="514" vertical-scroll-proportion="0.14527845">
+          <folding>
+            <element signature="method#setAnnotations#0;class#AbstractAnnotatableStatement#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/statement/SQLStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="42" selection-start="320" selection-end="320" vertical-scroll-proportion="0.07263923">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="34" selection-start="342" selection-end="342" vertical-scroll-proportion="0.23607749">
+        <state line="1" column="13" selection-start="32" selection-end="32" vertical-scroll-proportion="0.018159807">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="879" column="0" selection-start="33773" selection-end="33773" vertical-scroll-proportion="0.20338982">
+          <folding>
+            <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
+            <element signature="method#setContext#0;class#SQLScriptEngine#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
