@@ -1,3 +1,8 @@
+var @z := 'zones';
+var @x := 'WILT';
+select * from @{z} where zone_code = '@{x}';
+exit;
+
 \\set quotes=mysql;
 
 --@describe(title = 'foo')
