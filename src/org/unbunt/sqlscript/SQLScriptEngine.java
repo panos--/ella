@@ -120,7 +120,7 @@ public class SQLScriptEngine
             env = new Env();
         }
         pc = 0;
-        cont[++pc] = new EndCont();
+        cont[pc] = new EndCont();
 
         try {
             process();

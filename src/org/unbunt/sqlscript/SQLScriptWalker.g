@@ -107,6 +107,10 @@ block returns [ Statement value ]
 	:	blk=blockStmt { $Block::block.addStatement($blk.value); }
 	;
 
+unscopedBlock returns [ Statement value ]
+	:	blk=blockStmt_ { $Block::block.addStatement($blk.value); }
+	;
+
 // NOTE: ANTLRWorks currently has problems with the "scope ScopeA, ScopeB;" syntax.
 // NOTE: Therefore we just split the block rule in two separate rules. (a form of currying)
 blockStmt returns [ Statement value ]
@@ -154,7 +158,7 @@ sqlStmt
 
 sqlStmtName returns [ Object value ]
 	:	name=WORD             { $value = $name.text; }
-	|	var=EMBEDDED_VAR { $value = new Variable($var.text); }
+	|	var=embeddedVarRef    { $value = $var.value; }
 	;
 
 sqlParam returns [ Object value ]
@@ -163,7 +167,7 @@ sqlParam returns [ Object value ]
 	|	chr=sqlSpecialChars   { $value = $chr.value; }
 	|	kw=keyword            { $value = $kw.value; }
 	|	ws=WS                 { $value = $ws.text; }
-	|	var=EMBEDDED_VAR { $value = new Variable($var.text); }
+	|	var=embeddedVarRef    { $value = $var.value; }
 	;
 
 annotation returns [ AnnotationCommand value ] // generated command returned so that annotation subject can be set in calling context
@@ -201,7 +205,7 @@ scope Block;
 scriptIf returns [ Statement value ]
 scope Scope;
 @init { $Scope::scope = new Scope($Scope[-1]::scope); }
-	:	expr=expression block { $Block::block.addStatement($expr.value); }
+	:	expr=expression unscopedBlock { $Block::block.addStatement($expr.value); }
 	;
 
 scriptElse returns [ Statement value ]
@@ -219,7 +223,7 @@ scriptTry returns [ TryStatement value ]
 	;
 
 scriptCatch returns [ CatchStatement value ]
-	:	^(CATCH var=identifier blk=blockStmt) {
+	:	^(CATCH var=varDef blk=blockStmt) {
 			$value = new CatchStatement($var.value, $blk.value);
 		}
 	;
@@ -278,7 +282,7 @@ scope Block;
 	$value = new FunctionDefinitionExpression(function);
 	$Block::block = $value;
 }
-	:	^(FUNC_DEF (name=identifier { function.setName($name.value); })?
+	:	^(FUNC_DEF (var=varDef { function.setVariable($var.value); })?
 	                   (args=argumentsDef { function.setArguments($args.value); })?
 	                   block)
 	;
@@ -286,15 +290,15 @@ scope Block;
 // TODO: Forbid duplicate arguments
 argumentsDef returns [ List<String> value ]
 @init { $value = new ArrayList<String>(); }
-	:	^(ARGS (name=identifier { $value.add($name.value); })+)
+	:	^(ARGS (name=varDef { $value.add($name.value); })+)
 	;
 
 // TODO: Forbid duplicate arguments
 argumentsList returns [ Map<String, Expression> value ]
 @init { $value = new HashMap<String, Expression>(); }
-	:	^(ARGS ((^(ARG_EXPR name=identifier expr=expression { $value.put($name.value, $expr.value); })
-	                |^(ARG_TRUE name=identifier { $value.put($name.value, new BooleanLiteralExpression(Bool.TRUE)); })
-	                |^(ARG_FALSE name=identifier { $value.put($name.value, new BooleanLiteralExpression(Bool.FALSE)); })
+	:	^(ARGS ((^(ARG_EXPR name=varRef expr=expression { $value.put($name.value, $expr.value); })
+	                |^(ARG_TRUE name=varRef { $value.put($name.value, new BooleanLiteralExpression(Bool.TRUE)); })
+	                |^(ARG_FALSE name=varRef { $value.put($name.value, new BooleanLiteralExpression(Bool.FALSE)); })
 	                )
 	               )+)
 	;
@@ -316,10 +320,7 @@ scriptDeclareAndAssign returns [ Expression value ]
 
 // TODO: Warning, if already declared
 scriptDeclare returns [ DeclareVariableExpression value ]
-	:	^(DECLARE var=IDENTIFIER {
-			$Scope::scope.setVariable(new Variable($var.text));
-			$value = new DeclareVariableExpression($var.text);
-		})
+	:	^(DECLARE var=varDef { $value = new DeclareVariableExpression($var.text); })
 	;
 
 //scriptAssignStmt
@@ -336,7 +337,7 @@ scriptAssign returns [ Expression value ]
 	;
 
 assignVariable returns [ Expression value ]
-	:	lval=IDENTIFIER rval=expression {
+	:	lval=varRef rval=expression {
 			Variable variable = $Scope::scope.getVariable($lval.text);
 			if (variable == null) {
 				// TODO: Warning, if not yet declared
@@ -466,7 +467,7 @@ newExpression returns [ Expression value ]
 	;
 
 simpleExpression returns [ Expression value ]
-	:	var=IDENTIFIER { // TODO: factor out into separate rule
+	:	var=varRef { // TODO: factor out into separate rule
 			//Variable v = $Scope::scope.getVariable($var.text);
 			//if (v == null) {
 			//	// TODO: throw warning (variable not set)
@@ -529,6 +530,18 @@ paramValue returns [ Expression value ]
 
 identifierExpression returns [ Expression value ]
 	:	id=identifier { $value = new IdentifierExpression($id.value); }
+	;
+
+embeddedVarRef returns [ Variable value ]
+	:	var=EMBEDDED_VAR { $value = new Variable(0); }
+	;
+
+varDef returns [ Variable value ]
+	:	id=identifier { $value = new Variable(0); }
+	;
+
+varRef returns [ Variable value ]
+	:	id=identifier { $value = new Variable(0); }
 	;
 
 identifier returns [ String value ]
