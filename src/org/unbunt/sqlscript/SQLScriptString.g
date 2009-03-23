@@ -14,12 +14,11 @@ tokens {
 	STRING;
 	QUOTTED_IDENFITIER;
 	QQUOT;
-	//QQUOT_END;
 	CHARS;
-	EMBEDDED_VARIABLE;
 	STRING_START;
 	STRING_CONTENT;
 	STRING_END;
+	EMBEDDED_VAR;
 }
 
 @parser::header {
@@ -233,7 +232,7 @@ embeddedVariable
 	:	a1=ATSIGN
 		( lc=LCURLY
 		  ( RCURLY		-> STRING_CONTENT[$a1]
-		  | var=VARNAME RCURLY	-> EMBEDDED_VARIABLE[$var]
+		  | var=VARNAME RCURLY	-> EMBEDDED_VAR[$var]
 		  |			-> STRING_CONTENT[$a1] STRING_CONTENT[$lc]
 		  )
 		|			-> STRING_CONTENT[$a1]

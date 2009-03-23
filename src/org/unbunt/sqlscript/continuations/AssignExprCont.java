@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.AssignExpression;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class AssignExprCont implements Continuation {
     protected AssignExpression assign;
@@ -11,5 +12,9 @@ public class AssignExprCont implements Continuation {
 
     public AssignExpression getAssign() {
         return assign;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

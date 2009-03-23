@@ -4,6 +4,7 @@ import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.StringLiteral;
 import org.unbunt.sqlscript.support.Variable;
 import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class CreateString extends AbstractStatement {
     protected StringLiteral stringLiteral;
@@ -24,5 +25,9 @@ public class CreateString extends AbstractStatement {
 
     public void accept(ScriptProcessor processor, Env env) {
         processor.process(env, this);
+    }
+
+    public void accept(ExpressionVisitor visitor) {
+        throw new UnsupportedOperationException();
     }
 }

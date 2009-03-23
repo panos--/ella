@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 import java.util.Map;
 
@@ -24,5 +25,9 @@ public class FunCont implements Continuation {
 
     public Map<String, Expression> getArgs() {
         return args;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

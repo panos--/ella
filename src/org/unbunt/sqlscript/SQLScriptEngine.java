@@ -4,10 +4,7 @@ import org.unbunt.sqlscript.annotations.*;
 import org.unbunt.sqlscript.commands.*;
 import org.unbunt.sqlscript.continuations.*;
 import org.unbunt.sqlscript.exception.*;
-import org.unbunt.sqlscript.lang.Bool;
-import org.unbunt.sqlscript.lang.Func;
-import org.unbunt.sqlscript.lang.Obj;
-import org.unbunt.sqlscript.lang.Str;
+import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.statement.*;
 import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.*;
@@ -21,7 +18,9 @@ import java.lang.reflect.Constructor;
 import java.sql.*;
 import java.util.*;
 
-public class SQLScriptEngine extends VolatileObservable implements ScriptProcessor {
+public class SQLScriptEngine
+        extends VolatileObservable
+        implements ScriptProcessor, ExpressionVisitor, ContinuationVisitor {
     protected Log logger = LogFactory.getLog(getClass());
 
     protected SQLScriptContext context;
@@ -109,683 +108,790 @@ public class SQLScriptEngine extends VolatileObservable implements ScriptProcess
     protected Statement stmt;
     protected Obj val;
     protected Env env = null;
-    protected Stack<Continuation> cont;
+
+    protected int MAX_CONT_STACK = 4096;
+    protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
+    protected int pc;
 
     public void process(Block block) throws SQLScriptRuntimeException {
         stmt = block;
-        val = null; // FIXME: should val be left as is if we continue running incrementally (i.e. env != null)
+        val = null;
         if (env == null) {
             env = new Env();
         }
-        cont = new Stack<Continuation>();
-        cont.push(new EndCont());
+        pc = 0;
+        cont[++pc] = new EndCont();
 
-        process();
+        try {
+            process();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SQLScriptRuntimeException("Continuation stack overflow");
+        }
     }
 
     protected final static boolean CONT = true;
     protected final static boolean EVAL = false;
 
+    protected boolean next;
+
     @SuppressWarnings({"PointlessBooleanExpression"})
     protected void process() throws SQLScriptRuntimeException {
-        boolean next = EVAL;
-
         while (true) {
-            if (next == CONT && this.cont.isEmpty()) {
-//                System.out.println("Computation finished. Continuation stack empty.");
+            if (next == CONT) {
+                if (pc == 0) {
+                    return;
+                }
+                cont();
+            }
+            else {
+                eval();
+            }
+        }
+    }
+
+    protected void eval() {
+        stmt.accept(this);
+    }
+
+    public void processExpression(Block blockExpression) {
+        BlockCont blockCont = blockExpression.isKeepEnv()
+                              ? new BlockCont(blockExpression)
+                              : new BlockCont(blockExpression, env.clone());
+        cont[++pc] = blockCont;
+        next = CONT;
+    }
+
+    public void processExpression(IdentifierExpression identifierExpression) {
+        val = new Str(identifierExpression.getIdentifier());
+        next = CONT;
+    }
+
+    public void processExpression(IntegerLiteralExpression integerLiteralExpression) {
+        val = integerLiteralExpression.getValue();
+        next = CONT;
+    }
+
+    public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {
+        val = booleanLiteralExpression.getBool();
+        next = CONT;
+    }
+
+    public void processExpression(StringLiteralExpression stringLiteralExpression) {
+        StringLiteral stringLiteral = stringLiteralExpression.getStringLiteral();
+
+        StringBuilder buf = new StringBuilder();
+        String delim = stringLiteral.getDelim();
+        for (Object part : stringLiteral.getParts()) {
+            String str = part instanceof Variable
+                         ? env.getVar(((Variable) part).getName()).getValue().toString()
+                         : StringUtils.unescapeSQLString(part.toString(), delim);
+            buf.append(str);
+        }
+
+        val = new Str(buf.toString());
+        next = CONT;
+    }
+
+    public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
+        cont[++pc] = new ObjLitCont(objectLiteralExpression.getObjectLiteral());
+        next = CONT;
+    }
+
+    public void processExpression(NotExpression notExpression) {
+        stmt = notExpression.getExpression();
+        cont[++pc] = new LogicNotCont();
+        next = EVAL;
+    }
+
+    public void processExpression(ConditionAnd conditionAnd) {
+        assert conditionAnd.getExpressions().size() > 1;
+        LogicAndCont logicAndCont = new LogicAndCont(conditionAnd.getExpressions());
+        stmt = logicAndCont.next();
+        cont[++pc] = logicAndCont;
+        next = EVAL;
+    }
+
+    public void processExpression(ConditionOr conditionOr) {
+        assert conditionOr.getExpressions().size() > 1;
+        LogicOrCont logicOrCont = new LogicOrCont(conditionOr.getExpressions());
+        stmt = logicOrCont.next();
+        cont[++pc] = logicOrCont;
+        next = EVAL;
+    }
+
+    public void processExpression(TernaryCondExpression ternaryCondExpression) {
+        stmt = ternaryCondExpression.getCondition();
+        cont[++pc] = new TernCont(ternaryCondExpression.getTrueExpression(), ternaryCondExpression.getFalseExpression());
+        next = EVAL;
+    }
+
+    public void processExpression(DeclareVariableExpression declareVariableExpression) {
+        env.addVar(declareVariableExpression.getName());
+        next = CONT;
+    }
+
+    public void processExpression(AssignExpression assignExpression) {
+        cont[++pc] = new AssignCont(assignExpression.getVariable());
+        stmt = assignExpression.getRvalue();
+        next = EVAL;
+    }
+
+    public void processExpression(DeclareAndAssignExpression declareAndAssignExpression) {
+        stmt = declareAndAssignExpression.getDeclareExpr();
+        cont[++pc] = new AssignExprCont(declareAndAssignExpression.getAssignExpr());
+        next = EVAL;
+    }
+
+    public void processExpression(SlotSetExpression slotSetExpression) {
+        SlotExpression slotExpression = slotSetExpression.getSlotExpression();
+        stmt = slotExpression.getReceiver();
+        cont[++pc] = new SlotSetReceiverCont(slotExpression.getSlot(), slotSetExpression.getValueExpression());
+        next = EVAL;
+    }
+
+    public void processExpression(SlotExpression slotExpression) {
+        stmt = slotExpression.getReceiver();
+        cont[++pc] = new SlotGetReceiverCont(slotExpression.getSlot());
+        next = EVAL;
+    }
+
+    public void processExpression(VariableExpression variableExpression) {
+        val = env.getVar(variableExpression.getName()).getValue();
+        next = CONT;
+    }
+
+    public void processExpression(IfStatement ifStatement) {
+        stmt = ifStatement.getCondition();
+        Statement trueStmt = ifStatement.getTrueStatement();
+        Statement falseStmt = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
+        cont[++pc] = new IfCont(trueStmt, falseStmt);
+        next = EVAL;
+    }
+
+    public void processExpression(TryStatement tryStatement) {
+        stmt = tryStatement.getBody();
+        Env saveEnv = env.clone();
+        if (tryStatement.hasFinallyClause()) {
+            cont[++pc] = new FinallyCont(tryStatement.getFinallyClause().getBody(), saveEnv);
+        }
+        if (tryStatement.hasCatchClause()) {
+            cont[++pc] = new TryCont(tryStatement.getCatchClause(), saveEnv);
+        }
+        next = EVAL;
+    }
+
+    public void processExpression(ThrowStatement throwStatement) {
+        stmt = throwStatement.getExpression();
+        cont[++pc] = new ThrowCont();
+        next = EVAL;
+    }
+
+    public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
+        Function func = functionDefinitionExpression.getFunction();
+        String funcName = func.getName();
+        val = new Func(func);
+        if (funcName != null) {
+            env.addVar(funcName).setValue(val);
+        }
+        func.setEnv(env.clone());
+        next = CONT;
+    }
+
+    public void processExpression(FunctionCallExpression functionCallExpression) {
+        stmt = functionCallExpression.getExpression();
+        cont[++pc] = new FunCont(functionCallExpression.getArguments());
+        next = EVAL;
+    }
+
+    public void processExpression(SlotCallExpression slotCallExpression) {
+        SlotExpression slotExpression = slotCallExpression.getSlotExpression();
+        stmt = slotExpression.getReceiver();
+        cont[++pc] = new SlotCallReceiverCont(slotExpression.getSlot(), slotCallExpression.getArguments());
+        next = EVAL;
+    }
+
+    public void processExpression(ReturnStatement returnStatement) {
+        // tail-call optimization
+        boolean pushCont = true;
+        for (int i = pc; i >= 0; i--) {
+            Continuation c = cont[i];
+            if (c instanceof FunRetCont) {
+                pc = i + 1;
+                pushCont = false;
+                break;
+            }
+            if (c instanceof TryCont || c instanceof FinallyCont) {
+                break;
+            }
+        }
+
+        if (pushCont) {
+            cont[++pc] = new ReturnCont();
+        }
+
+        if (returnStatement.hasExpression()) {
+            stmt = returnStatement.getExpression();
+            next = EVAL;
+        }
+        else {
+            val = null;
+            next = CONT;
+        }
+    }
+
+    public void processExpression(NewExpression newExpression) {
+        stmt = newExpression.getExpression();
+        this.cont[++pc] = new NewCont(newExpression.getArgs());
+        next = EVAL;
+    }
+
+    public void processExpression(ExitStatement exitStatement) {
+        cont[++pc] = new ExitCont();
+        if (exitStatement.hasExpression()) {
+            stmt = exitStatement.getExpression();
+            next = EVAL;
+        }
+        else {
+            val = null;
+            next = CONT;
+        }
+    }
+
+    public void processExpression(InitParameter initParameter) {
+        stmt = initParameter.getExpression();
+        cont[++pc] = new InitParamCont(initParameter.getParameter());
+        next = EVAL;
+    }
+
+    public void processExpression(AnnotationCommand annotationCommand) {
+        process(annotationCommand);
+        next = CONT;
+    }
+
+    public void processExpression(EvalCommand evalCommand) {
+        process(evalCommand);
+        next = CONT;
+    }
+
+    public void processExpression(SQLStatement sqlStatement) {
+        StringBuilder buf = new StringBuilder();
+        for (Object part : sqlStatement.getParts()) {
+            if (part instanceof Variable) {
+                buf.append(env.getVar(((Variable) part).getName()).getValue().toString());
+            }
+            else if (part instanceof StringLiteral) {
+                StringBuilder strBuf = new StringBuilder();
+                StringLiteral str = (StringLiteral) part;
+                for (Object strPart : str.getParts()) {
+                    if (strPart instanceof Variable) {
+                        String s = env.getVar(((Variable) strPart).getName()).getValue().toString();
+                        strBuf.append(StringUtils.escapeSQLString(s, str.getDelim()));
+                    }
+                    else {
+                        strBuf.append(part.toString());
+                    }
+                }
+                buf.append(str.getDelim());
+                buf.append(strBuf);
+                buf.append(str.getDelim());
+            }
+            else {
+                buf.append(part.toString());
+            }
+        }
+        SQLStatement statement = new SQLStatement();
+        statement.setAnnotations(sqlStatement.getAnnotations());
+        statement.addPart(buf.toString());
+        process(statement);
+        next = CONT;
+    }
+
+    public void processExpression(PrimIdExpression primIdExpression) {
+        Obj o1 = val;
+        Obj o2 = primIdExpression.getArguments().get("value");
+        val = o1 == o2 ? Bool.TRUE : Bool.FALSE;
+        next = CONT;
+    }
+
+    public void processExpression(PrimNiExpression primNiExpression) {
+        Obj o1 = val;
+        Obj o2 = primNiExpression.getArguments().get("value");
+        val = o1 != o2 ? Bool.TRUE : Bool.FALSE;
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntEqExpression primIntEqExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntEqExpression.getArguments().get("value");
+        val = int1.getValue() == int2.getValue() ? Bool.TRUE : Bool.FALSE;
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntNeExpression primIntNeExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntNeExpression.getArguments().get("value");
+        val = int1.getValue() != int2.getValue() ? Bool.TRUE : Bool.FALSE;
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntAddExpression primIntAddExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntAddExpression.getArguments().get("value");
+        val = new IntInst(int1.getValue() + int2.getValue());
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntSubExpression primIntSubExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntSubExpression.getArguments().get("value");
+        val = new IntInst(int1.getValue() - int2.getValue());
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntMulExpression primIntMulExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntMulExpression.getArguments().get("value");
+        val = new IntInst(int1.getValue() * int2.getValue());
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntDivExpression primIntDivExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntDivExpression.getArguments().get("value");
+        val = new IntInst(int1.getValue() / int2.getValue());
+        next = CONT;
+    }
+
+    public void processExpression(PrimIntModExpression primIntModExpression) {
+        IntInst int1 = (IntInst) val;
+        IntInst int2 = (IntInst) primIntModExpression.getArguments().get("value");
+        val = new IntInst(int1.getValue() % int2.getValue());
+        next = CONT;
+    }
+
+    protected void cont() {
+        cont[pc].accept(this);
+    }
+
+    public void processContinuation(EndCont endCont) {
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(BlockCont blockCont) {
+        Block block = blockCont.getBlock();
+        int curStmt = blockCont.getCurStmt();
+        if (curStmt >= block.getStatements().size()) {
+            // aleady processed last statement of block, leaving
+            Env savedEnv = blockCont.getEnv();
+            if (savedEnv != null) {
+                // not restoring environment is important for incremental running of script in interactive mode
+                env = blockCont.getEnv();
+            }
+            pc--;
+            next = CONT;
+        }
+        else {
+            stmt = block.getStatements().get(curStmt);
+            blockCont.setCurStmt(++curStmt);
+            // tail-call optimization
+            if (curStmt >= block.getStatements().size()) {
+                if (cont[pc - 1] instanceof FunRetCont) {
+                    pc--;
+                }
+            }
+            next = EVAL;
+        }
+    }
+
+    public void processContinuation(ObjLitCont objLitCont) {
+        if (objLitCont.hasNextSlot()) {
+            ObjectLiteral.SlotEntry slot = objLitCont.getNextSlot();
+            stmt = slot.key;
+            cont[++pc] = new ObjLitSlotCont(objLitCont.getObj(), slot.value);
+            next = EVAL;
+        }
+        else {
+            pc--;
+            val = objLitCont.getObj();
+            next = CONT;
+        }
+    }
+
+    public void processContinuation(ObjLitSlotCont objLitSlotCont) {
+        pc--;
+        stmt = objLitSlotCont.getSlotValue();
+        cont[++pc] = new ObjLitSlotValueCont(objLitSlotCont.getObj(), val);
+        next = EVAL;
+    }
+
+    public void processContinuation(ObjLitSlotValueCont objLitSlotValueCont) {
+        pc--;
+        objLitSlotValueCont.getObj().addSlot(objLitSlotValueCont.getSlot(), val);
+        next = CONT;
+    }
+
+    public void processContinuation(LogicNotCont logicNotCont) {
+        val = toBool(val).equals(Bool.TRUE) ? Bool.FALSE : Bool.TRUE;
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(LogicAndCont logicAndCont) {
+        Bool curVal = toBool(val);
+        if (curVal.equals(Bool.FALSE) || !logicAndCont.hasNext()) {
+            val = curVal;
+            pc--;
+            next = CONT;
+        }
+        else {
+            stmt = logicAndCont.next();
+            next = EVAL;
+        }
+    }
+
+    public void processContinuation(LogicOrCont logicOrCont) {
+        Bool curVal = toBool(val);
+        if (curVal.equals(Bool.TRUE) || !logicOrCont.hasNext()) {
+            val = curVal;
+            pc--;
+            next = CONT;
+        }
+        else {
+            stmt = logicOrCont.next();
+            next = EVAL;
+        }
+    }
+
+    public void processContinuation(CondEqCont condEqCont) {
+        stmt = condEqCont.getExpression();
+        pc--;
+        cont[++pc] = new CondEq2Cont(val);
+        next = EVAL;
+    }
+
+    public void processContinuation(CondEq2Cont condEq2Cont) {
+        Obj val1 = condEq2Cont.getValue();
+        Obj val2 = val;
+
+        val = (val1 != null && val1.equals(val2)) || val1 == val2 ? Bool.TRUE : Bool.FALSE;
+
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(TernCont ternCont) {
+        if (toBool(val).equals(Bool.TRUE)) {
+            stmt = ternCont.getTrueExpression();
+        }
+        else {
+            stmt = ternCont.getFalseExpression();
+        }
+        pc--;
+        next = EVAL;
+    }
+
+    public void processContinuation(AssignExprCont assignExprCont) {
+        stmt = assignExprCont.getAssign();
+        pc--;
+        next = EVAL;
+    }
+
+    public void processContinuation(AssignCont assignCont) {
+        env.getVar(assignCont.getVariable()).setValue(val);
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(SlotSetReceiverCont slotSetReceiverCont) {
+        pc--;
+        stmt = slotSetReceiverCont.getSlotExpression();
+        Obj receiver = val;
+        cont[++pc] = new SlotSetSlotCont(receiver, slotSetReceiverCont.getValueExpression());
+        next = EVAL;
+    }
+
+    public void processContinuation(SlotSetSlotCont slotSetSlotCont) {
+        pc--;
+
+        Obj receiver = slotSetSlotCont.getReceiver();
+        Obj slot = val;
+
+        stmt = slotSetSlotCont.getValueExpression();
+        cont[++pc] = new SlotSetValueCont(receiver, slot);
+        next = EVAL;
+    }
+
+    public void processContinuation(SlotSetValueCont slotSetValueCont) {
+        pc--;
+
+        Obj receiver = slotSetValueCont.getReceiver();
+        Obj slot = slotSetValueCont.getSlot();
+        Obj value = val;
+
+        receiver.setSlot(slot, value);
+        next = CONT;
+    }
+
+    public void processContinuation(SlotGetReceiverCont slotGetReceiverCont) {
+        pc--;
+
+        Obj receiver = val;
+        stmt = slotGetReceiverCont.getSlotExpression();
+
+        cont[++pc] = new SlotGetSlotCont(receiver);
+        next = EVAL;
+    }
+
+    public void processContinuation(SlotGetSlotCont slotGetSlotCont) {
+        pc--;
+        Obj receiver = slotGetSlotCont.getReceiver();
+        Obj slot = val;
+        Obj obj = receiver;
+        while (true) {
+            val = obj.getSlot(slot);
+            if (val != null) {
+                break;
+            }
+            Obj parent = obj.getSlot(STR_SLOT_PARENT);
+            if (parent == null) {
+                break;
+            }
+            obj = parent;
+        }
+        next = CONT;
+    }
+
+    public void processContinuation(IfCont ifCont) {
+        pc--;
+        if (toBool(val).equals(Bool.TRUE)) {
+            stmt = ifCont.getTrueStatement();
+            next = EVAL;
+        }
+        else if (ifCont.hasFalseStatement()) {
+            stmt = ifCont.getFalseStatement();
+            next = EVAL;
+        }
+        else {
+            next = CONT;
+        }
+    }
+
+    public void processContinuation(TryCont tryCont) {
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(ThrowCont throwCont) {
+        pc--;
+        TryCont tryCont = null;
+        for (int i = pc; i >= 0; i--) {
+            Continuation c = cont[i];
+            if (c instanceof TryCont) {
+                tryCont = (TryCont) c;
+                pc = i;
+            }
+            else if (c instanceof FinallyCont) {
+                FinallyCont finallyCont = (FinallyCont) c;
+                throwCont.setSavedValue(val);
+                pc = i;
+                cont[++pc] = throwCont;
+                cont[++pc] = finallyCont;
+                next = CONT;
                 return;
             }
-            next = next == CONT ? cont() : eval();
         }
+        if (tryCont == null) {
+            throw new SQLScriptRuntimeException("Unhandled execption: " +
+                                                (val == null ? "null" : val.toString()));
+        }
+        CatchStatement catchStmt = tryCont.getCatchClause();
+        Env savedEnv = tryCont.getEnv();
+        env = savedEnv;
+        Variable variable = env.addVar(catchStmt.getVariable());
+        variable.setValue(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
+        stmt = catchStmt.getBody();
+        cont[++pc] = new CatchCont(savedEnv);
+        next = EVAL;
     }
 
-    protected boolean eval() {
-        if (stmt instanceof Block) {
-            Block block = (Block) stmt;
-            BlockCont blockCont = block.isKeepEnv() ? new BlockCont(block) : new BlockCont(block, env.clone());
-            cont.push(blockCont);
-            return CONT;
-        }
-        else if (stmt instanceof IdentifierExpression) {
-            val = new Str(((IdentifierExpression) stmt).getIdentifier());
-            return CONT;
-        }
-        else if (stmt instanceof BooleanLiteralExpression) {
-            val = ((BooleanLiteralExpression) stmt).getBool();
-            return CONT;
-        }
-        else if (stmt instanceof StringLiteralExpression) {
-            StringLiteralExpression stringExpr = (StringLiteralExpression) stmt;
-            StringLiteral stringLiteral = stringExpr.getStringLiteral();
+    public void processContinuation(CatchCont catchCont) {
+        pc--;
+        env = catchCont.getEnv();
+        next = CONT;
+    }
 
-            StringBuilder buf = new StringBuilder();
-            String delim = stringLiteral.getDelim();
-            for (Object part : stringLiteral.getParts()) {
-                String str = part instanceof Variable
-                             ? env.getVar(((Variable) part).getName()).getValue().toString()
-                             : StringUtils.unescapeSQLString(part.toString(), delim);
-                buf.append(str);
+    public void processContinuation(FinallyCont finallyCont) {
+        pc--;
+        env = finallyCont.getEnv();
+        stmt = finallyCont.getBody();
+        next = EVAL;
+    }
+
+    public void processContinuation(SlotCallReceiverCont slotCallReceiverCont) {
+        pc--;
+
+        Obj receiver = val;
+        stmt = slotCallReceiverCont.getSlotExpression();
+        cont[++pc] = new SlotCallSlotCont(receiver, slotCallReceiverCont.getArguments());
+
+        next = EVAL;
+    }
+
+    public void processContinuation(SlotCallSlotCont slotCallSlotCont) {
+        pc--;
+
+        Obj receiver = slotCallSlotCont.getReceiver();
+        Obj slot = val;
+
+        Obj obj = receiver;
+        while (true) {
+            if (obj.hasPrimitiveInSlot(slot)) {
+                cont[++pc] = new PrimitiveCont(obj.getPrimitiveForSlot(slot), receiver, slotCallSlotCont.getArguments());
+                next = CONT;
+                return;
             }
 
-            val = new Str(buf.toString());
-            return CONT;
-        }
-        else if (stmt instanceof ObjectLiteralExpression) {
-            ObjectLiteralExpression objExpr = (ObjectLiteralExpression) stmt;
-            cont.push(new ObjLitCont(objExpr.getObjectLiteral()));
-            return CONT;
-        }
-        else if (stmt instanceof NotExpression) {
-            NotExpression notExpr = (NotExpression) stmt;
-            stmt = notExpr.getExpression();
-            cont.push(new LogicNotCont());
-            return EVAL;
-        }
-        else if (stmt instanceof ConditionAnd) {
-            ConditionAnd condAnd = (ConditionAnd) stmt;
-            assert condAnd.getExpressions().size() > 1;
-            LogicAndCont logicAndCont = new LogicAndCont(condAnd.getExpressions());
-            stmt = logicAndCont.next();
-            cont.push(logicAndCont);
-            return EVAL;
-        }
-        else if (stmt instanceof ConditionOr) {
-            ConditionOr condOr = (ConditionOr) stmt;
-            assert condOr.getExpressions().size() > 1;
-            LogicOrCont logicOrCont = new LogicOrCont(condOr.getExpressions());
-            stmt = logicOrCont.next();
-            cont.push(logicOrCont);
-            return EVAL;
-        }
-        else if (stmt instanceof ConditionEq) {
-            ConditionEq condEq = (ConditionEq) stmt;
-            stmt = condEq.getOp1();
-            cont.push(new CondEqCont(condEq.getOp2()));
-            return EVAL;
-        }
-        else if (stmt instanceof TernaryCondExpression) {
-            TernaryCondExpression tern = (TernaryCondExpression) stmt;
-            stmt = tern.getCondition();
-            cont.push(new TernCont(tern.getTrueExpression(), tern.getFalseExpression()));
-            return EVAL;
-        }
-        else if (stmt instanceof DeclareVariableExpression) {
-            env.addVar(((DeclareVariableExpression) stmt).getName());
-            return CONT;
-        }
-        else if (stmt instanceof AssignExpression) {
-            AssignExpression assignExpr = (AssignExpression) stmt;
-            cont.push(new AssignCont(assignExpr.getVariable()));
-            stmt = assignExpr.getRvalue();
-            return EVAL;
-        }
-        else if (stmt instanceof DeclareAndAssignExpression) {
-            DeclareAndAssignExpression exp = (DeclareAndAssignExpression) stmt;
-            stmt = exp.getDeclareExpr();
-            cont.push(new AssignExprCont(exp.getAssignExpr()));
-            return EVAL;
-        }
-        else if (stmt instanceof SlotSetExpression) {
-            SlotSetExpression exp = (SlotSetExpression) stmt;
-            stmt = exp.getSlotExpression().getReceiver();
-            cont.push(new SlotSetReceiverCont(exp.getSlotExpression().getSlot(), exp.getValueExpression()));
-            return EVAL;
-        }
-        else if (stmt instanceof SlotExpression) {
-            SlotExpression exp = (SlotExpression) stmt;
-            stmt = exp.getReceiver();
-            cont.push(new SlotGetReceiverCont(exp.getSlot()));
-            return EVAL;
-        }
-        else if (stmt instanceof VariableExpression) {
-            val = env.getVar(((VariableExpression) stmt).getName()).getValue();
-            return CONT;
-        }
-        else if (stmt instanceof IfStatement) {
-            IfStatement ifStmt = (IfStatement) stmt;
-            stmt = ifStmt.getCondition();
-            Statement trueStmt = ifStmt.getTrueStatement();
-            Statement falseStmt = ifStmt.hasFalseStatement() ? ifStmt.getFalseStatement() : null;
-            cont.push(new IfCont(trueStmt, falseStmt));
-            return EVAL;
-        }
-        else if (stmt instanceof TryStatement) {
-            TryStatement tryStmt = (TryStatement) stmt;
-            stmt = tryStmt.getBody();
-            Env saveEnv = env.clone();
-            if (tryStmt.hasFinallyClause()) {
-                cont.push(new FinallyCont(tryStmt.getFinallyClause().getBody(), saveEnv));
+            val = obj.getSlot(slot);
+            if (val != null) {
+                break;
             }
-            if (tryStmt.hasCatchClause()) {
-                cont.push(new TryCont(tryStmt.getCatchClause(), saveEnv));
+
+            Obj parent = obj.getSlot(STR_SLOT_PARENT);
+            if (parent == null) {
+                break;
             }
-            return EVAL;
+
+            obj = parent;
         }
-        else if (stmt instanceof ThrowStatement) {
-            ThrowStatement throwStmt = (ThrowStatement) stmt;
-            stmt = throwStmt.getExpression();
-            cont.push(new ThrowCont());
-            return EVAL;
+
+        cont[++pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
+        next = CONT;
+    }
+
+    public void processContinuation(FunCont funCont) {
+        if (val == null || !(val instanceof Func)) {
+            throw new SQLScriptRuntimeException("Not a function");
         }
-        else if (stmt instanceof FunctionDefinitionExpression) {
-            FunctionDefinitionExpression funDef = (FunctionDefinitionExpression) stmt;
-            Function func = funDef.getFunction();
-            String funcName = func.getName();
-            if (funcName != null) {
-                env.addFunc(func);
-            }
-            func.setEnv(env.clone());
-            val = new Func(func);
-            return CONT;
+        Function func = ((Func) val).getFunction();
+        Map<String, Expression> args = funCont.getArgs();
+        checkFunArgs(func, args);
+        pc--;
+        Env funcEnv = func.getEnv().clone();
+        Env savedEnv = env.clone();
+        Obj context = funCont.getContext();
+        if (context != null) {
+            funcEnv.addVar("this").setValue(context);
         }
-        else if (stmt instanceof NamedFunctionCallExpression) {
-            NamedFunctionCallExpression funCall = (NamedFunctionCallExpression) stmt;
-            Function func = env.getFunc(funCall.getFunction());
-            Map<String, Expression> args = funCall.getArguments();
-            checkFunArgs(func, args);
-            cont.push(new FunArgCont(func, args, env.clone()));
-            return CONT;
+        cont[++pc] = new FunArgCont(func, args, funcEnv, savedEnv);
+        next = CONT;
+    }
+
+    public void processContinuation(FunArgCont funArgCont) {
+        if (funArgCont.hasNext()) {
+            Map.Entry<String, Expression> arg = funArgCont.next();
+            stmt = arg.getValue();
+            cont[++pc] = new FunArgAssignCont(arg.getKey(), funArgCont.getFuncEnv());
+            next = EVAL;
         }
-        else if (stmt instanceof FunctionCallExpression) {
-            FunctionCallExpression funCall = (FunctionCallExpression) stmt;
-            stmt = funCall.getExpression();
-            cont.push(new FunCont(funCall.getArguments()));
-            return EVAL;
-        }
-        else if (stmt instanceof SlotCallExpression) {
-            SlotCallExpression exp = (SlotCallExpression) stmt;
-            stmt = exp.getSlotExpression().getReceiver();
-            cont.push(new SlotCallReceiverCont(exp.getSlotExpression().getSlot(), exp.getArguments()));
-            return EVAL;
-        }
-        else if (stmt instanceof ReturnStatement) {
-            ReturnStatement returnStmt = (ReturnStatement) stmt;
+        else {
+            pc--;
             // tail-call optimization
-            boolean pushCont = true;
-            for (int i = cont.size() - 1; i >= 0; i--) {
-                Continuation c = cont.elementAt(i);
-                if (c instanceof FunRetCont) {
-                    cont.setSize(i + 1);
-                    pushCont = false;
-                    break;
-                }
-                if (c instanceof TryCont || c instanceof FinallyCont) {
-                    break;
-                }
+            if (!(cont[pc - 1] instanceof FunRetCont)) {
+                cont[++pc] = new FunRetCont(funArgCont.getSavedEnv());
             }
-
-            if (pushCont) {
-                cont.push(new ReturnCont());
-            }
-
-            if (returnStmt.hasExpression()) {
-                stmt = returnStmt.getExpression();
-                return EVAL;
-            }
-            else {
-                val = null;
-                return CONT;
-            }
-        }
-        else if (stmt instanceof NewExpression) {
-            NewExpression exp = (NewExpression) stmt;
-            stmt = exp.getExpression();
-            this.cont.push(new NewCont(exp.getArgs()));
-            return EVAL;
-        }
-        else if (stmt instanceof ExitStatement) {
-            ExitStatement exitStmt = (ExitStatement) stmt;
-            cont.push(new ExitCont());
-            if (exitStmt.hasExpression()) {
-                stmt = exitStmt.getExpression();
-                return EVAL;
-            }
-            else {
-                val = null;
-                return CONT;
-            }
-        }
-        else if (stmt instanceof InitParameter) {
-            InitParameter initParam = (InitParameter) stmt;
-            stmt = initParam.getExpression();
-            cont.push(new InitParamCont(initParam.getParameter()));
-            return EVAL;
-        }
-        else if (stmt instanceof AnnotationCommand) {
-            process((AnnotationCommand) stmt);
-            return CONT;
-        }
-        else if (stmt instanceof EvalCommand) {
-            process((EvalCommand) stmt);
-            return CONT;
-        }
-        else if (stmt instanceof SQLStatement) {
-            SQLStatement sqlStmt = (SQLStatement) stmt;
-            StringBuilder buf = new StringBuilder();
-            for (Object part : sqlStmt.getParts()) {
-                if (part instanceof Variable) {
-                    buf.append(env.getVar(((Variable) part).getName()).getValue().toString());
-                }
-                else if (part instanceof StringLiteral) {
-                    StringBuilder strBuf = new StringBuilder();
-                    StringLiteral str = (StringLiteral) part;
-                    for (Object strPart : str.getParts()) {
-                        if (strPart instanceof Variable) {
-                            String s = env.getVar(((Variable) strPart).getName()).getValue().toString();
-                            strBuf.append(StringUtils.escapeSQLString(s, str.getDelim()));
-                        }
-                        else {
-                            strBuf.append(part.toString());
-                        }
-                    }
-                    buf.append(str.getDelim());
-                    buf.append(strBuf);
-                    buf.append(str.getDelim());
-                }
-                else {
-                    buf.append(part.toString());
-                }
-            }
-            SQLStatement statement = new SQLStatement();
-            statement.setAnnotations(sqlStmt.getAnnotations());
-            statement.addPart(buf.toString());
-            process(statement);
-            return CONT;
-        }
-        else {
-            throw new SQLScriptRuntimeException("Unhandled statement: " + stmt.getClass().getSimpleName());
+            env = funArgCont.getFuncEnv();
+            stmt = funArgCont.getBody();
+            next = EVAL;
         }
     }
 
-    protected boolean cont() {
-        Continuation cont = this.cont.peek();
-        if (cont instanceof EndCont) {
-//            System.out.println("Computation finished. End continuation reached.");
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof BlockCont) {
-            BlockCont blockCont = (BlockCont) cont;
-            Block block = blockCont.getBlock();
-            int curStmt = blockCont.getCurStmt();
-            if (curStmt >= block.getStatements().size()) {
-                // aleady processed last statement of block, leaving
-                Env savedEnv = blockCont.getEnv();
-                if (savedEnv != null) {
-                    // not restoring environment is important for incremental running of script in interactive mode
-                    this.env = blockCont.getEnv();
+    public void processContinuation(FunArgAssignCont funArgAssignCont) {
+        Env funcEnv = funArgAssignCont.getEnv();
+        funcEnv.addVar(funArgAssignCont.getName()).setValue(val);
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(FunRetCont funRetCont) {
+        env = funRetCont.getSavedEnv();
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(ReturnCont returnCont) {
+        pc--;
+        for (int i = pc; i >= 0; i--) {
+            Continuation c = cont[i];
+            if (c instanceof FunRetCont) {
+                pc = i + 1;
+                if (returnCont.hasSavedValue()) {
+                    val = returnCont.getSavedValue();
                 }
-                this.cont.pop();
-                return CONT;
+                next = CONT;
+                return;
             }
-            else {
-                this.stmt = block.getStatements().get(curStmt);
-                blockCont.setCurStmt(++curStmt);
-                // tail-call optimization
-                if (curStmt >= block.getStatements().size()) {
-                    // a little awkward way to look at last but one element on the cont stack
-                    Continuation curCont = this.cont.pop();
-                    if (!(this.cont.peek() instanceof FunRetCont)) {
-                        this.cont.push(curCont);
-                    }
+            else if (c instanceof FinallyCont) {
+                FinallyCont finallyCont = (FinallyCont) c;
+                if (!returnCont.hasSavedValue()) {
+                    returnCont.setSavedValue(val);
                 }
-                return EVAL;
+                pc = i;
+                cont[++pc] = returnCont;
+                cont[++pc] = finallyCont;
+                next = CONT;
+                return;
             }
         }
-        else if (cont instanceof ObjLitCont) {
-            ObjLitCont objLitCont = (ObjLitCont) cont;
-            if (objLitCont.hasNextSlot()) {
-                ObjectLiteral.SlotEntry slot = objLitCont.getNextSlot();
-                this.stmt = slot.key;
-                this.cont.push(new ObjLitSlotCont(objLitCont.getObj(), slot.value));
-                return EVAL;
-            }
-            else {
-                this.cont.pop();
-                val = objLitCont.getObj();
-                return CONT;
-            }
-        }
-        else if (cont instanceof ObjLitSlotCont) {
-            this.cont.pop();
-            ObjLitSlotCont objLitSlotCont = (ObjLitSlotCont) cont;
-            this.stmt = objLitSlotCont.getSlotValue();
-            this.cont.push(new ObjLitSlotValueCont(objLitSlotCont.getObj(), val));
-            return EVAL;
-        }
-        else if (cont instanceof ObjLitSlotValueCont) {
-            this.cont.pop();
-            ObjLitSlotValueCont objLitSlotValueCont = (ObjLitSlotValueCont) cont;
-            objLitSlotValueCont.getObj().addSlot(objLitSlotValueCont.getSlot(), val);
-            return CONT;
-        }
-        else if (cont instanceof LogicNotCont) {
-            val = toBool(val).equals(Bool.TRUE) ? Bool.FALSE : Bool.TRUE;
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof LogicAndCont) {
-            LogicAndCont logicAndCont = (LogicAndCont) cont;
-            Bool curVal = toBool(val);
-            if (curVal.equals(Bool.FALSE) || !logicAndCont.hasNext()) {
-                val = curVal;
-                this.cont.pop();
-                return CONT;
-            }
-            else {
-                this.stmt = logicAndCont.next();
-                return EVAL;
-            }
-        }
-        else if (cont instanceof LogicOrCont) {
-            LogicOrCont logicOrCont = (LogicOrCont) cont;
-            Bool curVal = toBool(val);
-            if (curVal.equals(Bool.TRUE) || !logicOrCont.hasNext()) {
-                val = curVal;
-                this.cont.pop();
-                return CONT;
-            }
-            else {
-                this.stmt = logicOrCont.next();
-                return EVAL;
-            }
-        }
-        else if (cont instanceof CondEqCont) {
-            CondEqCont condEqCont = (CondEqCont) cont;
-            this.stmt = condEqCont.getExpression();
-            this.cont.pop();
-            this.cont.push(new CondEq2Cont(val));
-            return EVAL;
-        }
-        else if (cont instanceof CondEq2Cont) {
-            Obj val1 = ((CondEq2Cont) cont).getValue();
-            Obj val2 = val;
+        throw new SQLScriptRuntimeException("Found return statement outside of function block");
+    }
 
-            val = (val1 != null && val1.equals(val2)) || val1 == val2 ? Bool.TRUE : Bool.FALSE;
-
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof TernCont) {
-            TernCont ternCont = (TernCont) cont;
-            if (toBool(val).equals(Bool.TRUE)) {
-                stmt = ternCont.getTrueExpression();
-            }
-            else {
-                stmt = ternCont.getFalseExpression();
-            }
-            this.cont.pop();
-            return EVAL;
-        }
-        else if (cont instanceof AssignExprCont) {
-            AssignExprCont assignExprCont = (AssignExprCont) cont;
-            this.stmt = assignExprCont.getAssign();
-            this.cont.pop();
-            return EVAL;
-        }
-        else if (cont instanceof AssignCont) {
-            env.getVar(((AssignCont) cont).getVariable()).setValue(val);
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof SlotSetReceiverCont) {
-            SlotSetReceiverCont c = (SlotSetReceiverCont) cont;
-            this.cont.pop();
-
-            stmt = c.getSlotExpression();
-            Obj receiver = val;
-            this.cont.push(new SlotSetSlotCont(receiver, c.getValueExpression()));
-            return EVAL;
-        }
-        else if (cont instanceof SlotSetSlotCont) {
-            SlotSetSlotCont c = (SlotSetSlotCont) cont;
-            this.cont.pop();
-
-            Obj receiver = c.getReceiver();
-            Obj slot = val;
-
-            stmt = c.getValueExpression();
-            this.cont.push(new SlotSetValueCont(receiver, slot));
-            return EVAL;
-        }
-        else if (cont instanceof SlotSetValueCont) {
-            SlotSetValueCont c = (SlotSetValueCont) cont;
-            this.cont.pop();
-
-            Obj receiver = c.getReceiver();
-            Obj slot = c.getSlot();
-            Obj value = val;
-
-            receiver.setSlot(slot, value);
-            return CONT;
-        }
-        else if (cont instanceof SlotGetReceiverCont) {
-            SlotGetReceiverCont c = (SlotGetReceiverCont) cont;
-            this.cont.pop();
-
-            Obj receiver = val;
-            stmt = c.getSlotExpression();
-
-            this.cont.push(new SlotGetSlotCont(receiver));
-            return EVAL;
-        }
-        else if (cont instanceof SlotGetSlotCont) {
-            SlotGetSlotCont c = (SlotGetSlotCont) cont;
-            this.cont.pop();
-            Obj receiver = c.getReceiver();
-            Obj slot = val;
-            Obj obj = receiver;
-            while (true) {
-                val = obj.getSlot(slot);
-                if (val != null) {
-                    break;
-                }
-                Obj parent = obj.getSlot(STR_SLOT_PARENT);
-                if (parent == null) {
-                    break;
-                }
-                obj = parent;
-            }
-            return CONT;
-        }
-        else if (cont instanceof IfCont) {
-            IfCont ifCont = (IfCont) cont;
-            this.cont.pop();
-            if (toBool(val).equals(Bool.TRUE)) {
-                stmt = ifCont.getTrueStatement();
-                return EVAL;
-            }
-            else if (ifCont.hasFalseStatement()) {
-                stmt = ifCont.getFalseStatement();
-                return EVAL;
-            }
-            else {
-                return CONT;
-            }
-        }
-        else if (cont instanceof TryCont) {
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof ThrowCont) {
-            this.cont.pop();
-            ThrowCont throwCont = (ThrowCont) cont;
-            TryCont tryCont = null;
-            for (int i = this.cont.size() - 1; i >= 0; i--) {
-                Continuation c = this.cont.get(i);
-                if (c instanceof TryCont) {
-                    tryCont = (TryCont) c;
-                    this.cont.setSize(i);
-                }
-                else if (c instanceof FinallyCont) {
-                    FinallyCont finallyCont = (FinallyCont) c;
-                    throwCont.setSavedValue(val);
-                    this.cont.setSize(i);
-                    this.cont.push(throwCont);
-                    this.cont.push(finallyCont);
-                    return CONT;
-                }
-            }
-            if (tryCont == null) {
-                throw new SQLScriptRuntimeException("Unhandled execption: " +
-                                                    (val == null ? "null" : val.toString()));
-            }
-            CatchStatement catchStmt = tryCont.getCatchClause();
-            Env savedEnv = tryCont.getEnv();
-            this.env = savedEnv;
-            Variable variable = this.env.addVar(catchStmt.getVariable());
-            variable.setValue(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
-            this.stmt = catchStmt.getBody();
-            this.cont.push(new CatchCont(savedEnv));
-            return EVAL;
-        }
-        else if (cont instanceof CatchCont) {
-            this.cont.pop();
-            this.env = ((CatchCont) cont).getEnv();
-            return CONT;
-        }
-        else if (cont instanceof FinallyCont) {
-            this.cont.pop();
-            FinallyCont finallyCont = (FinallyCont) cont;
-            this.env = finallyCont.getEnv();
-            this.stmt = finallyCont.getBody();
-            return EVAL;
-        }
-        else if (cont instanceof SlotCallReceiverCont) {
-            SlotCallReceiverCont c = (SlotCallReceiverCont) cont;
-            this.cont.pop();
-
-            Obj receiver = val;
-            stmt = c.getSlotExpression();
-            this.cont.push(new SlotCallSlotCont(receiver, c.getArguments()));
-
-            return EVAL;
-        }
-        else if (cont instanceof SlotCallSlotCont) {
-            SlotCallSlotCont c = (SlotCallSlotCont) cont;
-            this.cont.pop();
-
-            Obj receiver = c.getReceiver();
-            Obj slot = val;
-            val = receiver.getSlot(slot);
-
-            this.cont.push(new FunCont(receiver, c.getArguments()));
-            return CONT;
-        }
-        else if (cont instanceof FunCont) {
-            if (val == null || !(val instanceof Func)) {
-                throw new SQLScriptRuntimeException("Not a function");
-            }
-            FunCont c = (FunCont) cont;
-            Function func = ((Func) val).getFunction();
-            Map<String, Expression> args = c.getArgs();
-            checkFunArgs(func, args);
-            this.cont.pop();
-            Env funcEnv = func.getEnv().clone();
-            Env savedEnv = env.clone();
-            Obj context = c.getContext();
-            if (context != null) {
-                funcEnv.addVar("this").setValue(context);
-            }
-            this.cont.push(new FunArgCont(func, args, funcEnv, savedEnv));
-            return CONT;
-        }
-        else if (cont instanceof FunArgCont) {
-            FunArgCont funArgCont = (FunArgCont) cont;
-            if (funArgCont.hasNext()) {
-                Map.Entry<String, Expression> arg = funArgCont.next();
-                this.stmt = arg.getValue();
-                this.cont.push(new FunArgAssignCont(arg.getKey(), funArgCont.getFuncEnv()));
-                return EVAL;
-            }
-            else {
-                this.cont.pop();
-//                System.err.println("Function call - cont stack size: " + this.cont.size());
-//                for (Continuation c : this.cont) {
-//                    System.err.println("\t" + c.getClass().getSimpleName());
-//                }
-                // tail-call optimization
-                if (!(this.cont.peek() instanceof FunRetCont)) {
-                    this.cont.push(new FunRetCont(funArgCont.getSavedEnv()));
-                }
-                this.env = funArgCont.getFuncEnv();
-                this.stmt = funArgCont.getBody();
-                return EVAL;
-            }
-        }
-        else if (cont instanceof FunArgAssignCont) {
-            FunArgAssignCont funArgAssignCont = (FunArgAssignCont) cont;
-            Env funcEnv = funArgAssignCont.getEnv();
-            funcEnv.addVar(funArgAssignCont.getName()).setValue(val);
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof FunRetCont) {
-            FunRetCont funRetCont = (FunRetCont) cont;
-            this.env = funRetCont.getSavedEnv();
-            this.cont.pop();
-            return CONT;
-        }
-        else if (cont instanceof ReturnCont) {
-            this.cont.pop();
-            ReturnCont returnCont = (ReturnCont) cont;
-            for (int i = this.cont.size() - 1; i >= 0; i--) {
-                Continuation c = this.cont.elementAt(i);
-                if (c instanceof FunRetCont) {
-                    this.cont.setSize(i + 1);
-                    if (returnCont.hasSavedValue()) {
-                        val = returnCont.getSavedValue();
-                    }
-                    return CONT;
-                }
-                else if (c instanceof FinallyCont) {
-                    FinallyCont finallyCont = (FinallyCont) c;
-                    if (!returnCont.hasSavedValue()) {
-                        returnCont.setSavedValue(val);
-                    }
-                    this.cont.setSize(i);
-                    this.cont.push(returnCont);
-                    this.cont.push(finallyCont);
-                    return CONT;
-                }
-            }
-            throw new SQLScriptRuntimeException("Found return statement outside of function block");
-        }
-        else if (cont instanceof NewCont) {
-            NewCont c = (NewCont) cont;
-            this.cont.pop();
-            Obj newObj = new Obj();
-            newObj.setSlot(STR_SLOT_PARENT, val);
-            val = STR_SLOT_INIT;
-            this.cont.push(new NewResultCont(newObj));
-            this.cont.push(new FunCont(newObj, c.getArgs())); // make NewCont support args
-            this.cont.push(new SlotGetSlotCont(newObj));
-            return CONT;
-        }
-        else if (cont instanceof NewResultCont) {
-            this.cont.pop();
-            NewResultCont c = (NewResultCont) cont;
-            val = c.getNewObject();
-            return CONT;
-        }
-        else if (cont instanceof ExitCont) {
-            System.out.println("Computation finished. Exit continuation reached.");
-            this.cont.setSize(0);
-            finished = true;
-            return CONT;
-        }
-        else if (cont instanceof InitParamCont) {
-            InitParamCont initParamCont = (InitParamCont) cont;
-            Variable variable = new Variable();
-            variable.setValue(val);
-            Parameter param = initParamCont.getParameter();
-            param.setValue(variable);
-            this.cont.pop();
-            return CONT;
+    public void processContinuation(PrimitiveCont primitiveCont) {
+        primitiveCont.setArgumentValue(val);
+        if (primitiveCont.hasNextArgument()) {
+            stmt = primitiveCont.getNextArgument();
         }
         else {
-            throw new SQLScriptRuntimeException("Unhandled continuation: " + cont.getClass().getSimpleName());
+            this.pc--;
+            PrimitiveExpression p = primitiveCont.getPrimitiveExpression();
+            p.setArguments(primitiveCont.getEvaluatedArguments());
+            stmt = p;
+            val = primitiveCont.getArgument1();
         }
+        next = EVAL;
+    }
+
+    public void processContinuation(NewCont newCont) {
+        pc--;
+        Obj newObj = new Obj();
+        newObj.setSlot(STR_SLOT_PARENT, val);
+        val = STR_SLOT_INIT;
+        cont[++pc] = new NewResultCont(newObj);
+        cont[++pc] = new FunCont(newObj, newCont.getArgs()); // make NewCont support args
+        cont[++pc] = new SlotGetSlotCont(newObj);
+        next = CONT;
+    }
+
+    public void processContinuation(NewResultCont newResultCont) {
+        pc--;
+        val = newResultCont.getNewObject();
+        next = CONT;
+    }
+
+    public void processContinuation(ExitCont exitCont) {
+        System.out.println("Computation finished. Exit continuation reached.");
+        pc = 0;
+        finished = true;
+        next = CONT;
+    }
+
+    public void processContinuation(InitParamCont initParamCont) {
+        Variable variable = new Variable();
+        variable.setValue(val);
+        Parameter param = initParamCont.getParameter();
+        param.setValue(variable);
+        pc--;
+        next = CONT;
     }
 
     public void process(Env env, Block block) throws SQLScriptRuntimeException {

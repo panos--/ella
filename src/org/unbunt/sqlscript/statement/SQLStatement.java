@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.support.Variable;
 import org.unbunt.sqlscript.support.StringLiteral;
 import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.ScriptProcessor;
 
 import java.util.List;
@@ -49,5 +50,9 @@ public class SQLStatement extends AbstractAnnotatableStatement {
 
     public void accept(ScriptProcessor processor, Env env) {
         processor.process(env, this);
+    }
+
+    public void accept(ExpressionVisitor visitor) {
+        visitor.processExpression(this);
     }
 }

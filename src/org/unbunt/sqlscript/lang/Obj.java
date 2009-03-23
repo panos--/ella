@@ -1,12 +1,31 @@
 package org.unbunt.sqlscript.lang;
 
-import java.util.Map;
+import org.unbunt.sqlscript.statement.PrimitiveExpression;
+import org.unbunt.sqlscript.statement.PrimIdExpression;
+import org.unbunt.sqlscript.statement.PrimNiExpression;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class Obj {
     protected Map<Obj, Obj> slots = new HashMap<Obj, Obj>();
 
+    protected static Map<Obj, PrimitiveExpression> primitives = new HashMap<Obj, PrimitiveExpression>();
+
+    static {
+        primitives.put(new Str("==="), new PrimIdExpression());
+        primitives.put(new Str("!=="), new PrimNiExpression());
+    }
+
     public Obj() {
+    }
+
+    public boolean hasPrimitiveInSlot(Obj key) {
+        return primitives.containsKey(key);
+    }
+
+    public PrimitiveExpression getPrimitiveForSlot(Obj key) {
+        return primitives.get(key);
     }
 
     public Obj addSlot(Obj key, Obj value) {

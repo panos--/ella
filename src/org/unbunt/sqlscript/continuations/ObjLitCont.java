@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.support.ObjectLiteral;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 import org.unbunt.sqlscript.lang.Obj;
 
 import java.util.Iterator;
@@ -24,5 +25,9 @@ public class ObjLitCont implements Continuation {
 
     public boolean hasNextSlot() {
         return slots.hasNext();
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

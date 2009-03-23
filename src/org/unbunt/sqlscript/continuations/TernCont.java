@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class TernCont implements Continuation {
     protected Expression trueExpression;
@@ -17,5 +18,9 @@ public class TernCont implements Continuation {
 
     public Expression getFalseExpression() {
         return falseExpression;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

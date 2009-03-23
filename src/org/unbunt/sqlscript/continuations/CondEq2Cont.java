@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class CondEq2Cont implements Continuation {
     protected Obj value;
@@ -11,5 +12,9 @@ public class CondEq2Cont implements Continuation {
 
     public Obj getValue() {
         return value;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

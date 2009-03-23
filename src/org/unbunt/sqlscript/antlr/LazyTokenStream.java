@@ -180,7 +180,7 @@ public class LazyTokenStream implements TokenStream {
             discardLookBack();
         }
         else {
-            System.out.println("LazyTokenStream.consume: markers: " + markers.size());
+//            System.out.println("LazyTokenStream.consume: markers: " + markers.size());
         }
     }
 
@@ -300,7 +300,7 @@ public class LazyTokenStream implements TokenStream {
     public int mark() {
         markers.add(tokens.cursor(posCursor));
         int i = markers.size();
-        System.out.println("LazyTokenStream.mark = " + i);
+//        System.out.println("LazyTokenStream.mark = " + i);
         return i;
     }
 

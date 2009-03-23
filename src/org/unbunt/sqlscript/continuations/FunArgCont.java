@@ -4,6 +4,7 @@ import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.Function;
 import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 import java.util.Map;
 import java.util.Iterator;
@@ -55,5 +56,9 @@ public class FunArgCont implements Continuation {
 
     public Statement getBody() {
         return func.getBody();
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

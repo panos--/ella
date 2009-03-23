@@ -48,8 +48,10 @@ tokens {
 	IDX_GET;
 	INDEX;
 	CALL;
+	CALL_BINARY;
 	THIS;
 	NEW;
+	EMBEDDED_VAR;
 }
 
 @parser::header {
@@ -298,7 +300,7 @@ sqlStmt	[ CommonTree annotations ]
 
 sqlStmtName
 	:	KW_SQL!
-		( keyword | WORD | VARIABLE | EMBEDDED_VARIABLE
+		( keyword | WORD | embeddedVar
 		| LCURLY // to support JDBC escape syntax for generic stored procedure calls
 		)
 	|	WORD
@@ -316,15 +318,14 @@ sqlParam
 
 sqlToken
 	:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
-	|	VARIABLE
-	|	EMBEDDED_VARIABLE
+	|	embeddedVar
 	;
 
 sqlSpecialChar
 	:	SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
-	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH | ATSIGN
+	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH //| ATSIGN
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
-	|	EXCLAM | QUESTION | COLON | DOT | COMMA | DOLLAR
+	|	EXCLAM | QUESTION | COLON | DOT | COMMA //| DOLLAR
 	;
 
 scriptStmt
@@ -343,10 +344,10 @@ scriptAssignStmt
 	;
 
 scriptAssign
-	:	VARIABLE
-		( OP_DEFINE expression	-> ^(DECLARE_ASSIGN ^(DECLARE VARIABLE) ^(ASSIGN VARIABLE expression))
-		| EQUALS expression	-> ^(ASSIGN VARIABLE expression)
-		|			-> ^(DECLARE VARIABLE)
+	:	identifier
+		( OP_DEFINE expression	-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier expression))
+		| EQUALS expression	-> ^(ASSIGN identifier expression)
+		|			-> ^(DECLARE identifier)
 		)
 	;
 
@@ -435,7 +436,7 @@ expression
 	;
 
 assignExpression
-	:	VARIABLE OP_DEFINE expression	-> ^(DECLARE_ASSIGN ^(DECLARE VARIABLE) ^(ASSIGN VARIABLE expression))
+	:	identifier OP_DEFINE expression	-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier expression))
 	|	conditionalExpression
 		( EQUALS expression		-> ^(ASSIGN conditionalExpression expression)
 		|				-> conditionalExpression
@@ -470,9 +471,30 @@ andCondition
 	;
 
 eqCondition
-	:	unaryExpression
-		( OP_EQ unaryExpression	-> ^(COMP_EQ unaryExpression unaryExpression)
-		|			-> unaryExpression
+	:	multExpression
+		( (op=OP_EQ|op=OP_NE|op=OP_ID|op=OP_NI) multExpression	-> ^(CALL_BINARY multExpression IDENTIFIER[$op] multExpression)
+		|							-> multExpression
+		)
+	;
+	
+multExpression
+	:	(addExpression						-> addExpression)
+		( ((op=OP_MUL|op=OP_DIV|op=OP_MOD) addExpression	-> ^(CALL_BINARY {$multExpression.tree} IDENTIFIER[$op] addExpression))+
+		|
+		)
+	;
+
+addExpression
+	:	(binaryExpression				-> binaryExpression)
+		( ((op=OP_ADD|op=OP_SUB) binaryExpression	-> ^(CALL_BINARY {$addExpression.tree} IDENTIFIER[$op] binaryExpression))+
+		|
+		)
+	;
+
+binaryExpression
+	:	(unaryExpression			-> unaryExpression)
+		( (identifierNoOps unaryExpression	-> ^(CALL_BINARY {$binaryExpression.tree} identifierNoOps unaryExpression))+
+		|
 		)
 	;
 
@@ -480,14 +502,6 @@ unaryExpression
 	:	EXCLAM unaryExpression -> ^(NOT unaryExpression)
 	|	callExpression         -> callExpression
 	;
-
-//lvalueExpression
-//options { backtrack=true; }
-//	:	simpleExpression callExpressionSuffix+ indexSuffix
-//	|	(callExpression slotSuffix)=> simpleExpression callExpressionSuffix* slotSuffix
-//	|	(callExpression)=> callExpression
-//	|	VARIABLE
-//	;
 
 callExpression
 	:	(KW_NEW simpleExpression argumentsList) -> ^(NEW simpleExpression argumentsList?)
@@ -517,69 +531,14 @@ callSuffix
 	:	argumentsList
 	;
 
-/*
-objectSlotExpression
-	:	(simpleExpression -> simpleExpression)
-		( DOT identifier
-			(argumentsList	-> ^(SLOT_CALL $objectSlotExpression identifier argumentsList?)
-			|		-> ^(SLOT_GET $objectSlotExpression identifier)
-			)
-		| LCURLY expression RCURLY
-			(argumentsList	-> ^(SLOT_CALL $objectSlotExpression expression argumentsList?)
-			|		-> ^(SLOT_GET $objectSlotExpression expression)
-			)
-		| LSQUARE expression RSQUARE
-			(argumentsList	-> ^(IDX_CALL $objectSlotExpression expression argumentsList?)
-			|		-> ^(IDX_GET $objectSlotExpression expression)
-			)
-		)*
-	;
-*/
-
-/*
-// TODO: factor out function calls. current implementation doesn't prevent calling literals nonetheless
-simpleExpression
-	:	parenExpression
-		( argumentsList	-> ^(FUNC_CALL parenExpression argumentsList?)
-		|		-> parenExpression
-		)
-	|	identifier argumentsList -> ^(FUNC_CALL identifier argumentsList?)
-	|	VARIABLE
-		( argumentsList	-> ^(FUNC_CALL VARIABLE argumentsList?)
-		|		-> VARIABLE
-		)
-	|	stringLiteral
-	|	booleanLiteral
-	;
-*/
-
 simpleExpression
 	:	parenExpression
 	|	identifier
-	|	VARIABLE
 	|	stringLiteral
 	|	booleanLiteral
+	|	INT
 	|	KW_THIS -> THIS
 	;
-
-/*
-lvalueExpression
-	:	(VARIABLE -> VARIABLE)
-		( DOT identifier
-			(argumentsList	-> ^(SLOT_CALL $objectSlotExpression identifier argumentsList?)
-			|		-> ^(SLOT_GET $objectSlotExpression identifier)
-			)
-		| LCURLY expression RCURLY
-			(argumentsList	-> ^(SLOT_CALL $objectSlotExpression expression argumentsList?)
-			|		-> ^(SLOT_GET $objectSlotExpression expression)
-			)
-		| LSQUARE expression RSQUARE
-			(argumentsList	-> ^(IDX_CALL $objectSlotExpression expression argumentsList?)
-			|		-> ^(IDX_GET $objectSlotExpression expression)
-			)
-		)*
-	;
-*/
 
 objectLiteral
 	:	LCURLY
@@ -611,7 +570,23 @@ argument:	identifier
 	;
 
 identifier
-	:	(WORD | IDENTIFIER)
+	: asterisk=OP_MUL	-> IDENTIFIER[$asterisk]
+	| slash=OP_DIV		-> IDENTIFIER[$slash]
+	| plus=OP_ADD		-> IDENTIFIER[$plus]
+	| minus=OP_SUB	-> IDENTIFIER[$minus]
+	| identifierNoOps	-> identifierNoOps
+	;
+
+// NOTE: ordinary identifiers separated out as required by binaryExpression rule to prevent non-LL(*) decision
+identifierNoOps
+	:	( word=WORD		-> IDENTIFIER[$word]
+		| annot=ANNOTATION	-> IDENTIFIER[$annot] // annotations are a special case of the identifier syntax
+		| IDENTIFIER		-> IDENTIFIER
+		)
+	;
+
+embeddedVar
+	:	EMB_VAR_START id=identifier RCURLY -> EMBEDDED_VAR[$id.start]
 	;
 
 annotations
@@ -619,8 +594,9 @@ annotations
 	;
 
 annotation	// NOTE: Variable syntax is currently identical with annotation syntax
-	:	ATSIGN identifier (LPAREN annotationParam+ RPAREN)? -> ^(ANNOT identifier annotationParam*)
-	|	var=VARIABLE (LPAREN annotationParam+ RPAREN)?		-> ^(ANNOT IDENTIFIER[$var.text] annotationParam*)
+	//:	ATSIGN identifier (LPAREN annotationParam+ RPAREN)? -> ^(ANNOT identifier annotationParam*)
+	:	ANNOTATION (LPAREN annotationParam+ RPAREN)? -> ^(ANNOT ANNOTATION annotationParam*)
+	//|	var=VARIABLE (LPAREN annotationParam+ RPAREN)?		-> ^(ANNOT IDENTIFIER[$var.text] annotationParam*)
 	;
 
 annotationParam
@@ -633,7 +609,7 @@ paramName
 	;
 
 paramValue
-	:	expression
+	:	simpleExpression
 	;
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
@@ -694,6 +670,41 @@ parseDirective
 		-> // omit tree generation
 	;
 
+// NOTE: handles nested comments
+// TODO: allow disabling nested parsing via parse directive (not all dbms support this)
+COMMENT	:	'/*' {
+			int level = 1;
+			while (true) {
+				if (input.LA(1) == EOF) {
+					break;
+				}
+				if (input.LA(1) == '*' && input.LA(2) == '/') {
+					input.consume();
+					input.consume();
+					if (--level == 0) {
+						break;
+					}
+				}
+				else if (input.LA(1) == '/' && input.LA(2) == '*') {
+					input.consume();
+					input.consume();
+					level++;
+				}
+				else {
+					input.consume();
+				}
+			}
+			$channel = HIDDEN;
+		}
+	;
+
+// NOTE: Terminating newline not included since SQL92 requires line comments to be replaced by a single newline
+// NOTE: Defined before any other rule because the '--' conflicts with identifier syntax - we should eventually
+// NOTE: put SQL parsing into a separate island grammer and use sql comments in SQL context only
+LINE_COMMENT
+	:	('--') ~('\n' | '\r')* { $channel = HIDDEN; }
+	;
+
 STR_SQUOT
 @init { lastStringStartMarker = input.mark(); }
 	:	'\''
@@ -733,7 +744,14 @@ DOLQUOT_TAG_START
 fragment
 DOLQUOT_TAG_END
 	:	DOLQUOT_TAG_START
-	|	'0'..'9'
+	|	DIGIT
+	;
+
+INT	:	DIGIT+
+	;
+
+fragment
+DIGIT	:	'0'..'9'
 	;
 
 KW_SQL	:	('S'|'s') ('Q'|'q') ('L'|'l')
@@ -783,32 +801,16 @@ KW_THIS	:	'this'
 KW_NEW	:	'new'
 	;
 
-VARIABLE:	'@' var=VARNAME {
-			// TODO: avoid using var.text somehow - this causes CommonToken to call substring()
-			// on the input stream which should be considered unsupported for the LazyInputStream
-			// used when parsing in incrementally
-			setText($var.text);
-		}
-	;
-
-EMBEDDED_VARIABLE
-	:	'@{' var=VARNAME '}' { setText($var.text); }
-	;
-
-fragment
-VARNAME	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | '0'..'9')*
-	;
-
 WORD	:	WORD_CHAR+
-	;
-
-IDENTIFIER
-	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | '-' | '0'..'9')*
 	;
 
 fragment
 WORD_CHAR
 	:	('a'..'z' | 'A'..'Z')
+	;
+
+EMB_VAR_START
+	:	'@{'
 	;
 
 BACKSLASH
@@ -817,9 +819,6 @@ BACKSLASH
 
 DOUBLE_BACKSLASH
 	:	'\\\\'
-	;
-
-ATSIGN	:	'@'
 	;
 
 OP_DEFINE
@@ -833,6 +832,48 @@ OP_OR	:	'||'
 	;
 
 OP_EQ	:	'=='
+	;
+
+OP_NE	:	'!='
+	;
+
+OP_ID	:	'==='
+	;
+
+OP_NI	:	'!=='
+	;
+
+OP_MUL	:	'*'
+	;
+
+OP_DIV	:	'/'
+	;
+
+OP_MOD	:	'%'
+	;
+
+OP_ADD	:	'+'
+	;
+
+OP_SUB	:	'-'
+	;
+
+ANNOTATION
+	:	'@' SIMPLE_IDENTIFIER
+	;
+
+fragment
+SIMPLE_IDENTIFIER
+	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | DIGIT)*
+	;
+
+IDENTIFIER
+	:	(WORD_CHAR | IDENTIFIER_SPECIAL) (WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT)*
+	;
+
+fragment
+IDENTIFIER_SPECIAL
+	:	'+'|'-'|'~'|'@'|'$'|'%'|'^'|'&'|'*'|'/'|'_'|'|'
 	;
 
 EQUALS	:	'='
@@ -871,11 +912,8 @@ DOT	:	'.'
 COMMA	:	','
 	;
 
-DOLLAR	:	'$'
-	;
-
 SQL_SPECIAL_CHAR
-	:	('0'..'9'|'<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|')
+	:	('<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|'|DIGIT)
 	;
 
 SEP	:	';'
@@ -885,35 +923,4 @@ WS	:	(' '|'\r'|'\t'|'\u000C') { $channel = SQLScriptParser.WHITESPACE_CHANNEL; }
 	;
 
 NL	:	'\n' { $channel = SQLScriptParser.WHITESPACE_CHANNEL; }
-	;
-
-COMMENT	:	'/*' {
-			int level = 1;
-			while (true) {
-				if (input.LA(1) == EOF) {
-					break;
-				}
-				if (input.LA(1) == '*' && input.LA(2) == '/') {
-					input.consume();
-					input.consume();
-					if (--level == 0) {
-						break;
-					}
-				}
-				else if (input.LA(1) == '/' && input.LA(2) == '*') {
-					input.consume();
-					input.consume();
-					level++;
-				}
-				else {
-					input.consume();
-				}
-			}
-			$channel = HIDDEN;
-		}
-	;
-
-// NOTE: Terminating newline not included since SQL92 requires line comments to be replaced by a single newline
-LINE_COMMENT
-	:	('--') ~('\n' | '\r')* { $channel = HIDDEN; }
 	;

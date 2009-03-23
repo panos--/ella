@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class BlockCont implements Continuation {
     protected Block block;
@@ -32,5 +33,9 @@ public class BlockCont implements Continuation {
 
     public void setCurStmt(int curStmt) {
         this.curStmt = curStmt;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

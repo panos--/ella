@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.statement.Expression;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 import java.util.Map;
 
@@ -20,5 +21,9 @@ public class SlotCallSlotCont implements Continuation {
 
     public Map<String, Expression> getArguments() {
         return arguments;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

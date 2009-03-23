@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class SlotSetReceiverCont implements Continuation {
     protected Expression slotExpression;
@@ -17,5 +18,9 @@ public class SlotSetReceiverCont implements Continuation {
 
     public Expression getValueExpression() {
         return valueExpression;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

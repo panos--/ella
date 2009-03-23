@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
+import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class CondEqCont implements Continuation {
     protected Expression expression;
@@ -11,5 +12,9 @@ public class CondEqCont implements Continuation {
 
     public Expression getExpression() {
         return expression;
+    }
+
+    public void accept(ContinuationVisitor visitor) {
+        visitor.processContinuation(this);
     }
 }

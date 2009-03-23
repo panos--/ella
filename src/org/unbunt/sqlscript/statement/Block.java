@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.Scope;
 import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -47,5 +48,9 @@ public class Block extends AbstractStatement implements StatementContainer {
 
     public void setKeepEnv(boolean keepEnv) {
         this.keepEnv = keepEnv;
+    }
+
+    public void accept(ExpressionVisitor visitor) {
+        visitor.processExpression(this);
     }
 }

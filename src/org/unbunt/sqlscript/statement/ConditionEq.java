@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class ConditionEq extends AbstractCondition {
     protected Expression op1;
@@ -30,5 +31,9 @@ public class ConditionEq extends AbstractCondition {
 
     public void accept(ScriptProcessor processor, Env env) {
         processor.process(env, this);
+    }
+
+    public void accept(ExpressionVisitor visitor) {
+        throw new UnsupportedOperationException();
     }
 }
