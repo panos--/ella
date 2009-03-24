@@ -346,7 +346,7 @@ public class SQLScriptEngine
 
     public void processExpression(NewExpression newExpression) {
         stmt = newExpression.getExpression();
-        cont[++pc] = new NewCont(newExpression.getArgs());
+        cont[++pc] = new NewCont(newExpression.getArguments());
         next = EVAL;
     }
 
@@ -413,63 +413,63 @@ public class SQLScriptEngine
 
     public void processExpression(PrimIdExpression primIdExpression) {
         Obj o1 = val;
-        Obj o2 = primIdExpression.getArguments().get("value");
+        Obj o2 = primIdExpression.getArguments()[0];
         val = o1 == o2 ? Bool.TRUE : Bool.FALSE;
         next = CONT;
     }
 
     public void processExpression(PrimNiExpression primNiExpression) {
         Obj o1 = val;
-        Obj o2 = primNiExpression.getArguments().get("value");
+        Obj o2 = primNiExpression.getArguments()[0];
         val = o1 != o2 ? Bool.TRUE : Bool.FALSE;
         next = CONT;
     }
 
     public void processExpression(PrimIntEqExpression primIntEqExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntEqExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntEqExpression.getArguments()[0];
         val = int1.getValue() == int2.getValue() ? Bool.TRUE : Bool.FALSE;
         next = CONT;
     }
 
     public void processExpression(PrimIntNeExpression primIntNeExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntNeExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntNeExpression.getArguments()[0];
         val = int1.getValue() != int2.getValue() ? Bool.TRUE : Bool.FALSE;
         next = CONT;
     }
 
     public void processExpression(PrimIntAddExpression primIntAddExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntAddExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntAddExpression.getArguments()[0];
         val = new IntInst(int1.getValue() + int2.getValue());
         next = CONT;
     }
 
     public void processExpression(PrimIntSubExpression primIntSubExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntSubExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntSubExpression.getArguments()[0];
         val = new IntInst(int1.getValue() - int2.getValue());
         next = CONT;
     }
 
     public void processExpression(PrimIntMulExpression primIntMulExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntMulExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntMulExpression.getArguments()[0];
         val = new IntInst(int1.getValue() * int2.getValue());
         next = CONT;
     }
 
     public void processExpression(PrimIntDivExpression primIntDivExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntDivExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntDivExpression.getArguments()[0];
         val = new IntInst(int1.getValue() / int2.getValue());
         next = CONT;
     }
 
     public void processExpression(PrimIntModExpression primIntModExpression) {
         IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntModExpression.getArguments().get("value");
+        IntInst int2 = (IntInst) primIntModExpression.getArguments()[0];
         val = new IntInst(int1.getValue() % int2.getValue());
         next = CONT;
     }
@@ -489,9 +489,7 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(BlockCont blockCont) {
-        Block block = blockCont.getBlock();
-        int curStmt = blockCont.getCurStmt();
-        if (curStmt >= block.getStatements().size()) {
+        if (!blockCont.hasNextStatement()) {
             // aleady processed last statement of block, leaving
             Env savedEnv = blockCont.getEnv();
             if (savedEnv != null) {
@@ -502,10 +500,9 @@ public class SQLScriptEngine
             next = CONT;
         }
         else {
-            stmt = block.getStatements().get(curStmt);
-            blockCont.setCurStmt(++curStmt);
+            stmt = blockCont.nextStatement();
             // tail-call optimization
-            if (curStmt >= block.getStatements().size()) {
+            if (!blockCont.hasNextStatement()) {
                 if (cont[pc - 1] instanceof FunRetCont) {
                     pc--;
                 }
@@ -529,9 +526,8 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(ObjLitSlotCont objLitSlotCont) {
-        pc--;
         stmt = objLitSlotCont.getSlotValue();
-        cont[++pc] = new ObjLitSlotValueCont(objLitSlotCont.getObj(), val);
+        cont[pc] = new ObjLitSlotValueCont(objLitSlotCont.getObj(), val);
         next = EVAL;
     }
 
@@ -575,8 +571,7 @@ public class SQLScriptEngine
 
     public void processContinuation(CondEqCont condEqCont) {
         stmt = condEqCont.getExpression();
-        pc--;
-        cont[++pc] = new CondEq2Cont(val);
+        cont[pc] = new CondEq2Cont(val);
         next = EVAL;
     }
 
@@ -614,21 +609,18 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(SlotSetReceiverCont slotSetReceiverCont) {
-        pc--;
         stmt = slotSetReceiverCont.getSlotExpression();
         Obj receiver = val;
-        cont[++pc] = new SlotSetSlotCont(receiver, slotSetReceiverCont.getValueExpression());
+        cont[pc] = new SlotSetSlotCont(receiver, slotSetReceiverCont.getValueExpression());
         next = EVAL;
     }
 
     public void processContinuation(SlotSetSlotCont slotSetSlotCont) {
-        pc--;
-
         Obj receiver = slotSetSlotCont.getReceiver();
         Obj slot = val;
 
         stmt = slotSetSlotCont.getValueExpression();
-        cont[++pc] = new SlotSetValueCont(receiver, slot);
+        cont[pc] = new SlotSetValueCont(receiver, slot);
         next = EVAL;
     }
 
@@ -644,12 +636,10 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(SlotGetReceiverCont slotGetReceiverCont) {
-        pc--;
-
         Obj receiver = val;
         stmt = slotGetReceiverCont.getSlotExpression();
 
-        cont[++pc] = new SlotGetSlotCont(receiver);
+        cont[pc] = new SlotGetSlotCont(receiver);
         next = EVAL;
     }
 
@@ -739,25 +729,21 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(SlotCallReceiverCont slotCallReceiverCont) {
-        pc--;
-
         Obj receiver = val;
         stmt = slotCallReceiverCont.getSlotExpression();
-        cont[++pc] = new SlotCallSlotCont(receiver, slotCallReceiverCont.getArguments());
+        cont[pc] = new SlotCallSlotCont(receiver, slotCallReceiverCont.getArguments());
 
         next = EVAL;
     }
 
     public void processContinuation(SlotCallSlotCont slotCallSlotCont) {
-        pc--;
-
         Obj receiver = slotCallSlotCont.getReceiver();
         Obj slot = val;
 
         Obj obj = receiver;
         while (true) {
             if (obj.hasPrimitiveInSlot(slot)) {
-                cont[++pc] = new PrimitiveCont(obj.getPrimitiveForSlot(slot), receiver, slotCallSlotCont.getArguments());
+                cont[pc] = new PrimitiveCont(obj.getPrimitiveForSlot(slot), receiver, slotCallSlotCont.getArguments());
                 next = CONT;
                 return;
             }
@@ -775,7 +761,7 @@ public class SQLScriptEngine
             obj = parent;
         }
 
-        cont[++pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
+        cont[pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
         next = CONT;
     }
 
@@ -784,14 +770,13 @@ public class SQLScriptEngine
             throw new SQLScriptRuntimeException("Not a function");
         }
         Function func = ((Func) val).getFunction();
-        Map<String, Expression> args = funCont.getArgs();
+        List<Expression> args = funCont.getArguments();
         checkFunArgs(func, args);
-        pc--;
         Env funcEnv = func.getEnv().clone();
         Env savedEnv = env.clone();
         Obj context = funCont.getContext();
         funcEnv.setThis(context);
-        cont[++pc] = new FunArgCont(func, args, funcEnv, savedEnv);
+        cont[pc] = new FunArgCont(func, args, funcEnv, savedEnv);
         next = CONT;
     }
 
@@ -860,7 +845,7 @@ public class SQLScriptEngine
             stmt = primitiveCont.getNextArgument();
         }
         else {
-            this.pc--;
+            pc--;
             PrimitiveExpression p = primitiveCont.getPrimitiveExpression();
             p.setArguments(primitiveCont.getEvaluatedArguments());
             stmt = p;
@@ -870,12 +855,11 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(NewCont newCont) {
-        pc--;
         Obj newObj = new Obj();
         newObj.setSlot(STR_SLOT_PARENT, val);
         val = STR_SLOT_INIT;
-        cont[++pc] = new NewResultCont(newObj);
-        cont[++pc] = new FunCont(newObj, newCont.getArgs()); // make NewCont support args
+        cont[pc]   = new NewResultCont(newObj);
+        cont[++pc] = new FunCont(newObj, newCont.getArguments()); // make NewCont support args
         cont[++pc] = new SlotGetSlotCont(newObj);
         next = CONT;
     }
@@ -1155,8 +1139,9 @@ public class SQLScriptEngine
         annCmd.getSubject().addAnnotation(annotation);
     }
 
-    protected void checkFunArgs(Function function, Map<String, Expression> args) {
-        if (!matchesFunArgs(function, args)) {
+    protected void checkFunArgs(Function function, List<Expression> args) {
+//        if (!matchesFunArgs(function, args)) {
+        if (function.getArguments().size() != args.size()) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
         }
     }

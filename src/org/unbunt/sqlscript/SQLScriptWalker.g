@@ -302,10 +302,17 @@ scope Scope;
 
 // TODO: Forbid duplicate arguments
 argumentsDef returns [ List<String> value ]
-@init { $value = new ArrayList<String>(); }
+@init { $value = new ArrayList<String>(10); }
 	:	^(ARGS (name=varDef { $value.add($name.value.getName()); })+)
 	;
 
+// TODO: Forbid duplicate arguments
+argumentsList returns [ List<Expression> value ]
+@init { $value = new ArrayList<Expression>(10); }
+	:	^(ARGS ( expr=expression { $value.add($expr.value); } )+ )
+	;
+
+/*
 // TODO: Forbid duplicate arguments
 argumentsList returns [ Map<String, Expression> value ]
 @init { $value = new HashMap<String, Expression>(); }
@@ -315,6 +322,7 @@ argumentsList returns [ Map<String, Expression> value ]
 	                )
 	               )+)
 	;
+*/
 
 scriptDeclareAndAssign returns [ Expression value ]
 @init { Expression decl = null; }
@@ -432,8 +440,8 @@ callBinaryExpression returns [ SlotCallExpression value ]
 			arg=expression
 		) {
 			$value = new SlotCallExpression(new SlotExpression($receiver.value, $op.value));
-			Map<String, Expression> args = new HashMap<String, Expression>();
-			args.put("value", $arg.value);
+			List<Expression> args = new ArrayList<Expression>(1);
+			args.add($arg.value);
 			$value.setArguments(args);
 		}
 	;

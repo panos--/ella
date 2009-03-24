@@ -1,29 +1,29 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.statement.PrimitiveExpression;
-import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.statement.Expression;
+import org.unbunt.sqlscript.statement.PrimitiveExpression;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 
-import java.util.Map;
-import java.util.Iterator;
-import java.util.HashMap;
+import java.util.List;
 
 public class PrimitiveCont implements Continuation {
     protected PrimitiveExpression primitiveExpression;
     protected Obj argument1;
-    protected Map<String, Expression> arguments;
-    protected Map<String, Obj> evaluatedArguments;
-    protected Iterator<Map.Entry<String, Expression>> argumentsIterator;
+    protected List<Expression> arguments;
+    protected int argsSize;
+    protected int currArg;
+    protected boolean firstArg = true;
 
-    protected String currentArgument = null;
+    protected Obj[] evaluatedArguments;
 
-    public PrimitiveCont(PrimitiveExpression primitiveExpression, Obj argument1, Map<String, Expression> arguments) {
+    public PrimitiveCont(PrimitiveExpression primitiveExpression, Obj argument1, List<Expression> arguments) {
         this.primitiveExpression = primitiveExpression;
         this.argument1 = argument1;
         this.arguments = arguments;
-        argumentsIterator = arguments.entrySet().iterator();
-        evaluatedArguments = new HashMap<String, Obj>();
+        this.argsSize = arguments.size();
+        this.currArg = 0;
+        this.evaluatedArguments = new Obj[argsSize];
     }
 
     public PrimitiveExpression getPrimitiveExpression() {
@@ -31,28 +31,36 @@ public class PrimitiveCont implements Continuation {
     }
 
     public boolean hasNextArgument() {
-        return argumentsIterator.hasNext();
+        return currArg < argsSize;
     }
 
+    /**
+     * NOTE: Does not alter the arguments iterator. That one is moved ahead on a call to setArgumentValue() only.
+     * @return Expression the expressed value of the current argument
+     */
     public Expression getNextArgument() {
-        Map.Entry<String, Expression> entry = argumentsIterator.next();
-        currentArgument = entry.getKey();
-        return entry.getValue();
+        return arguments.get(currArg);
     }
 
     public Obj getArgument1() {
         return argument1;
     }
 
-    public Map<String, Obj> getEvaluatedArguments() {
+    public Obj[] getEvaluatedArguments() {
         return evaluatedArguments;
     }
 
+    /**
+     * FIXME: Has to be called once before the first call to getNextArgument(). The value given with this first call
+     *        will be ignored...
+     * @param value the current argument's value
+     */
     public void setArgumentValue(Obj value) {
-        if (currentArgument == null) {
+        if (firstArg) {
+            firstArg = false;
             return;
         }
-        evaluatedArguments.put(currentArgument, value);
+        evaluatedArguments[currArg++] = value;
     }
 
     public void accept(ContinuationVisitor visitor) {

@@ -1,13 +1,20 @@
 package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Block;
+import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
+
+import java.util.List;
+import java.util.Iterator;
 
 public class BlockCont implements Continuation {
     protected Block block;
     protected Env env;
-    protected int curStmt;
+
+    protected List<Statement> statements;
+    protected int stmtCount;
+    protected int currStmt;
 
     public BlockCont(Block block) {
         this(block, null);
@@ -16,7 +23,17 @@ public class BlockCont implements Continuation {
     public BlockCont(Block block, Env env) {
         this.block = block;
         this.env = env;
-        curStmt = 0;
+        this.statements = block.getStatements();
+        this.stmtCount = this.statements.size();
+        this.currStmt = 0;
+    }
+
+    public boolean hasNextStatement() {
+        return currStmt < stmtCount;
+    }
+
+    public Statement nextStatement() {
+        return statements.get(currStmt++);
     }
 
     public Block getBlock() {
@@ -25,14 +42,6 @@ public class BlockCont implements Continuation {
 
     public Env getEnv() {
         return env;
-    }
-
-    public int getCurStmt() {
-        return curStmt;
-    }
-
-    public void setCurStmt(int curStmt) {
-        this.curStmt = curStmt;
     }
 
     public void accept(ContinuationVisitor visitor) {

@@ -7,9 +7,10 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Block extends AbstractStatement implements StatementContainer {
-    protected List<Statement> statements = new LinkedList<Statement>();
+    protected List<Statement> statements = new ArrayList<Statement>(16);
 
     // indicates that after processing this block the environment should not be reset
     protected boolean keepEnv = false;

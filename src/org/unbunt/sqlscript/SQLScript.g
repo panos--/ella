@@ -323,9 +323,9 @@ sqlToken
 
 sqlSpecialChar
 	:	SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
-	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH //| ATSIGN
+	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
-	|	EXCLAM | QUESTION | COLON | DOT | COMMA //| DOLLAR
+	|	EXCLAM | QUESTION | COLON | DOT | COMMA
 	;
 
 scriptStmt
@@ -370,15 +370,6 @@ argumentsDef
 scriptExpressionStmt
 	:	DOT! expressionStmt SEP!
 	;
-
-//scriptFuncCall
-//	:	(identifier      -> ^(FUNC_CALL identifier)
-//		|VARIABLE        -> ^(FUNC_CALL VARIABLE)
-//		|parenExpression -> ^(FUNC_CALL parenExpression)
-//		) LPAREN RPAREN
-//	:	simpleExpression LPAREN RPAREN -> ^(FUNC_CALL simpleExpression)
-//	|	identifier LPAREN RPAREN -> ^(FUNC_CALL identifier)
-//	;
 
 scriptIfElse
 	:	KW_IF parenExpression block
@@ -556,18 +547,20 @@ objectSlot
 
 argumentsList
 	:	LPAREN
-		( argument (COMMA argument)* -> ^(ARGS argument+)
+		( expression (COMMA expression)* -> ^(ARGS expression+)
 		|
 		)
 		RPAREN 
 	;
 
+/*
 argument:	identifier
 		( EQUALS expression	-> ^(ARG_EXPR identifier expression)
 		|			-> ^(ARG_TRUE identifier)
 		)
 	|	EXCLAM identifier	-> ^(ARG_FALSE identifier)
 	;
+*/
 
 identifier
 	: asterisk=OP_MUL	-> IDENTIFIER[$asterisk]

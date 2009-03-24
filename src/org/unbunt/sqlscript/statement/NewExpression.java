@@ -4,15 +4,15 @@ import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
-import java.util.Map;
+import java.util.List;
 
 public class NewExpression extends AbstractExpression {
     protected Expression expression;
-    protected Map<String, Expression> args = null;
+    protected List<Expression> arguments = null;
 
-    public NewExpression(Expression expression, Map<String, Expression> args) {
+    public NewExpression(Expression expression, List<Expression> arguments) {
         this.expression = expression;
-        this.args = args;
+        this.arguments = arguments;
     }
 
     public NewExpression() {
@@ -26,12 +26,12 @@ public class NewExpression extends AbstractExpression {
         this.expression = expression;
     }
 
-    public Map<String, Expression> getArgs() {
-        return args;
+    public List<Expression> getArguments() {
+        return arguments;
     }
 
-    public void setArgs(Map<String, Expression> args) {
-        this.args = args;
+    public void setArguments(List<Expression> arguments) {
+        this.arguments = arguments;
     }
 
     public void accept(ScriptProcessor processor, Env env) {

@@ -4,12 +4,12 @@ fun loop(n) {
         return 0;
     }
 
-    --\echo msg='@{n}';
+    -- \echo msg='@{n}';
 
-    return loop(n = n - 1);
+    return loop(n - 1);
 }
 
-.loop(n = 1000000);
+.loop(1000000);
 exit;
 
 /*

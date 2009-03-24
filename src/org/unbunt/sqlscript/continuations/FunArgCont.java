@@ -2,34 +2,36 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.statement.Statement;
-import org.unbunt.sqlscript.support.Function;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
+import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.support.Function;
 
-import java.util.Map;
-import java.util.Iterator;
+import java.util.List;
 
 public class FunArgCont implements Continuation {
     protected Function func;
 
-    protected Map<String, Expression> args;
-    protected Iterator<String> iterator;
+    protected List<Expression> args;
+    protected int argsSize;
+    protected int currArg;
 
     protected Env funcEnv;
     protected Env savedEnv;
 
-    public FunArgCont(Function func, Map<String, Expression> args, Env savedEnv) {
+    public FunArgCont(Function func, List<Expression> args, Env savedEnv) {
         this.func = func;
         this.args = args;
-        this.iterator = func.getArguments().iterator();
+        this.argsSize = args.size();
+        this.currArg = 0;
         this.funcEnv = func.getEnv().clone();
         this.savedEnv = savedEnv;
     }
 
-    public FunArgCont(Function func, Map<String, Expression> args, Env funcEnv, Env savedEnv) {
+    public FunArgCont(Function func, List<Expression> args, Env funcEnv, Env savedEnv) {
         this.func = func;
         this.args = args;
-        this.iterator = func.getArguments().iterator();
+        this.argsSize = args.size();
+        this.currArg = 0;
         this.funcEnv = funcEnv;
         this.savedEnv = savedEnv;
     }
@@ -39,11 +41,11 @@ public class FunArgCont implements Continuation {
     }
 
     public boolean hasNext() {
-        return iterator != null && iterator.hasNext();
+        return currArg < argsSize;
     }
 
     public Expression next() {
-        return args.get(iterator.next());
+        return args.get(currArg++);
     }
 
     public Env getFuncEnv() {

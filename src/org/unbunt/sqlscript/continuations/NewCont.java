@@ -3,17 +3,17 @@ package org.unbunt.sqlscript.continuations;
 import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 
-import java.util.Map;
+import java.util.List;
 
 public class NewCont implements Continuation {
-    protected Map<String, Expression> args;
+    protected List<Expression> arguments;
 
-    public NewCont(Map<String, Expression> args) {
-        this.args = args;
+    public NewCont(List<Expression> arguments) {
+        this.arguments = arguments;
     }
 
-    public Map<String, Expression> getArgs() {
-        return args;
+    public List<Expression> getArguments() {
+        return arguments;
     }
 
     public void accept(ContinuationVisitor visitor) {
