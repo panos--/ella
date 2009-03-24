@@ -1,17 +1,18 @@
 
-fun foo(n) {
+fun loop(n) {
     if (n == 0) {
         return 0;
     }
 
     --\echo msg='@{n}';
 
-    return foo(n = n - 1);
+    return loop(n = n - 1);
 }
 
-.foo(n = 1000000);
+.loop(n = 1000000);
 exit;
 
+/*
 fun fib(n) {
 	fun fib-helper(f1, f2, i) {
 		if  (i == n) {
@@ -430,3 +431,4 @@ var stmt = 'select @{foobar} foo from barbar';
 --sql @stmt;
 
 --select 'b@{foobar}la', foo from bar;
+*/

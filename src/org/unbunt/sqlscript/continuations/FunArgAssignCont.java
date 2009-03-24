@@ -4,16 +4,10 @@ import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 public class FunArgAssignCont implements Continuation {
-    protected String name;
     protected Env env;
 
-    public FunArgAssignCont(String name, Env env) {
-        this.name = name;
+    public FunArgAssignCont(Env env) {
         this.env = env;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Env getEnv() {

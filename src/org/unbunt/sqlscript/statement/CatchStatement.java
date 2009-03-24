@@ -3,21 +3,22 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.Variable;
 
 public class CatchStatement extends AbstractStatement {
-    protected String variable;
+    protected Variable variable;
     protected Statement body;
 
-    public CatchStatement(String variable, Statement body) {
+    public CatchStatement(Variable variable, Statement body) {
         this.variable = variable;
         this.body = body;
     }
 
-    public String getVariable() {
+    public Variable getVariable() {
         return variable;
     }
 
-    public void setVariable(String variable) {
+    public void setVariable(Variable variable) {
         this.variable = variable;
     }
 

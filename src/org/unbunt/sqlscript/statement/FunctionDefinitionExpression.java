@@ -4,9 +4,12 @@ import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.Function;
 import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.Variable;
 
 public class FunctionDefinitionExpression extends AbstractExpression implements StatementContainer {
     protected Function function;
+    protected Variable variable;
+    protected boolean declareVariable;
 
     public FunctionDefinitionExpression(Function function) {
         this.function = function;
@@ -18,6 +21,22 @@ public class FunctionDefinitionExpression extends AbstractExpression implements 
 
     public void setFunction(Function function) {
         this.function = function;
+    }
+
+    public Variable getVariable() {
+        return variable;
+    }
+
+    public void setVariable(Variable variable) {
+        this.variable = variable;
+    }
+
+    public boolean isDeclareVariable() {
+        return declareVariable;
+    }
+
+    public void setDeclareVariable(boolean declareVariable) {
+        this.declareVariable = declareVariable;
     }
 
     public void addStatement(Statement statement) {

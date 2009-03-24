@@ -1,8 +1,10 @@
 package org.unbunt.sqlscript.support;
 
+import org.unbunt.sqlscript.lang.Obj;
+
 public class Parameter {
     protected String name = null;
-    protected Variable value = null;
+    protected Obj value = null;
 
     public Parameter() {
     }
@@ -11,7 +13,7 @@ public class Parameter {
         this(name, null);
     }
 
-    public Parameter(String name, Variable value) {
+    public Parameter(String name, Obj value) {
         this.name = name;
         this.value = value;
     }
@@ -24,16 +26,16 @@ public class Parameter {
         this.name = name;
     }
 
-    public Variable getValue() {
+    public Obj getValue() {
         return value;
     }
 
-    public void setValue(Variable value) {
+    public void setValue(Obj value) {
         this.value = value;
     }
 
     public String getValueAsString() {
-        return value == null || value.getValue() == null ? "" : value.getValue().toString();
+        return value == null ? "" : value.toString();
     }
 
     public String toString() {

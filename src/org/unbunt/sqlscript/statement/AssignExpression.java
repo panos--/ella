@@ -2,23 +2,23 @@ package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.Variable;
 import org.unbunt.sqlscript.ScriptProcessor;
 
 public class AssignExpression extends AbstractExpression {
-//    protected Variable variable;
-    protected String variable;
+    protected Variable variable;
     protected Expression rvalue;
 
-    public AssignExpression(String variable, Expression rvalue) {
+    public AssignExpression(Variable variable, Expression rvalue) {
         this.variable = variable;
         this.rvalue = rvalue;
     }
 
-    public String getVariable() {
+    public Variable getVariable() {
         return variable;
     }
 
-    public void setVariable(String variable) {
+    public void setVariable(Variable variable) {
         this.variable = variable;
     }
 

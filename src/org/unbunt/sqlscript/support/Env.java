@@ -1,82 +1,51 @@
 package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.lang.Obj;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Env implements Cloneable {
-    protected LinkedList<Variable> variables = new LinkedList<Variable>();
-    protected LinkedList<Function> functions = new LinkedList<Function>();
+    protected ArrayList<Obj> vars = new ArrayList<Obj>();
+    protected int size = 0;
+    protected int top = -1;
 
-    protected List<Integer[]> saves = null;
+    protected Obj thisRef = null;
 
     public Env() {
     }
 
-    public Variable addVar(String name) {
-        Variable var = new Variable(name);
-        variables.add(var);
-        return var;
+    public void setThis(Obj thisRef) {
+        this.thisRef = thisRef;
     }
 
-    public Variable getVar(String name) {
-        for (int i = variables.size() - 1; i >= 0; i--) {
-            Variable var = variables.get(i);
-            if (name.equals(var.getName())) {
-                return var;
-            }
+    public Obj getThis() {
+        return thisRef;
+    }
+
+    public void extend() {
+        if (++top == size) {
+            vars.add(null);
+            size++;
         }
-
-        //throw new SQLScriptRuntimeException("Undefined variable: " + name);
-        System.err.println("Warning: Undefined variable: " + name);
-        return addVar(name);
     }
 
-    public Function addFunc(Function func) {
-        functions.add(func);
-        return func;
+    public Obj get(int index) {
+        return vars.get(top - index);
     }
 
-    public Function getFunc(String name) {
-        for (int i = functions.size() - 1; i >= 0; i--) {
-            Function func = functions.get(i);
-            if (name.equals(func.getName())) {
-                return func;
-            }
-        }
-
-        throw new SQLScriptRuntimeException("Undefined function: " + name);
+    public void set(int index, Obj value) {
+        vars.set(top - index, value);
     }
 
     public int save() {
-        if (saves == null) {
-            saves = new ArrayList<Integer[]>();
-        }
-
-        int id = saves.size();
-        saves.add(new Integer[] { variables.size(), functions.size() });
-
-        return id;
+        return top;
     }
 
     public void restore(int id) {
-        if (saves == null || id >= saves.size()) {
-            throw new SQLScriptRuntimeException("Invalid env restore: " + id);
-        }
-
-        Integer[] save = saves.get(id);
-
-        int varsize = save[0];
-        while (variables.size() > varsize) {
-            variables.removeLast();
-        }
-
-        int funcsize = save[1];
-        while (functions.size() > funcsize) {
-            functions.removeLast();
-        }
+        this.top = id;
     }
 
     @Override
@@ -88,8 +57,7 @@ public class Env implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new SQLScriptRuntimeException(e.getMessage(), e);
         }
-        copy.variables = (LinkedList<Variable>) variables.clone();
-        copy.functions = (LinkedList<Function>) functions.clone();
+        copy.vars = (ArrayList<Obj>) vars.clone();
         return copy;
     }
 }

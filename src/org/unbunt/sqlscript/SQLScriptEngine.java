@@ -20,7 +20,7 @@ import java.util.*;
 
 public class SQLScriptEngine
         extends VolatileObservable
-        implements ScriptProcessor, ExpressionVisitor, ContinuationVisitor {
+        implements ExpressionVisitor, ContinuationVisitor {
     protected Log logger = LogFactory.getLog(getClass());
 
     protected SQLScriptContext context;
@@ -183,7 +183,7 @@ public class SQLScriptEngine
         String delim = stringLiteral.getDelim();
         for (Object part : stringLiteral.getParts()) {
             String str = part instanceof Variable
-                         ? env.getVar(((Variable) part).getName()).getValue().toString()
+                         ? env.get(((Variable) part).getAddress()).toString()
                          : StringUtils.unescapeSQLString(part.toString(), delim);
             buf.append(str);
         }
@@ -226,7 +226,9 @@ public class SQLScriptEngine
     }
 
     public void processExpression(DeclareVariableExpression declareVariableExpression) {
-        env.addVar(declareVariableExpression.getName());
+        if (!declareVariableExpression.isNoop()) {
+            env.extend();
+        }
         next = CONT;
     }
 
@@ -256,7 +258,7 @@ public class SQLScriptEngine
     }
 
     public void processExpression(VariableExpression variableExpression) {
-        val = env.getVar(variableExpression.getName()).getValue();
+        val = env.get(variableExpression.getVariable().getAddress());
         next = CONT;
     }
 
@@ -291,7 +293,10 @@ public class SQLScriptEngine
         String funcName = func.getName();
         val = new Func(func);
         if (funcName != null) {
-            env.addVar(funcName).setValue(val);
+            if (functionDefinitionExpression.isDeclareVariable()) {
+                env.extend();
+            }
+            env.set(functionDefinitionExpression.getVariable().getAddress(), val);
         }
         func.setEnv(env.clone());
         next = CONT;
@@ -341,7 +346,7 @@ public class SQLScriptEngine
 
     public void processExpression(NewExpression newExpression) {
         stmt = newExpression.getExpression();
-        this.cont[++pc] = new NewCont(newExpression.getArgs());
+        cont[++pc] = new NewCont(newExpression.getArgs());
         next = EVAL;
     }
 
@@ -377,14 +382,14 @@ public class SQLScriptEngine
         StringBuilder buf = new StringBuilder();
         for (Object part : sqlStatement.getParts()) {
             if (part instanceof Variable) {
-                buf.append(env.getVar(((Variable) part).getName()).getValue().toString());
+                buf.append(env.get(((Variable) part).getAddress()).toString());
             }
             else if (part instanceof StringLiteral) {
                 StringBuilder strBuf = new StringBuilder();
                 StringLiteral str = (StringLiteral) part;
                 for (Object strPart : str.getParts()) {
                     if (strPart instanceof Variable) {
-                        String s = env.getVar(((Variable) strPart).getName()).getValue().toString();
+                        String s = env.get(((Variable) strPart).getAddress()).toString();
                         strBuf.append(StringUtils.escapeSQLString(s, str.getDelim()));
                     }
                     else {
@@ -466,6 +471,11 @@ public class SQLScriptEngine
         IntInst int1 = (IntInst) val;
         IntInst int2 = (IntInst) primIntModExpression.getArguments().get("value");
         val = new IntInst(int1.getValue() % int2.getValue());
+        next = CONT;
+    }
+
+    public void processExpression(ThisExpression thisExpression) {
+        val = env.getThis();
         next = CONT;
     }
 
@@ -598,7 +608,7 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(AssignCont assignCont) {
-        env.getVar(assignCont.getVariable()).setValue(val);
+        env.set(assignCont.getVariable().getAddress(), val);
         pc--;
         next = CONT;
     }
@@ -708,8 +718,8 @@ public class SQLScriptEngine
         CatchStatement catchStmt = tryCont.getCatchClause();
         Env savedEnv = tryCont.getEnv();
         env = savedEnv;
-        Variable variable = env.addVar(catchStmt.getVariable());
-        variable.setValue(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
+        env.extend();
+        env.set(catchStmt.getVariable().getAddress(), throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
         stmt = catchStmt.getBody();
         cont[++pc] = new CatchCont(savedEnv);
         next = EVAL;
@@ -780,18 +790,15 @@ public class SQLScriptEngine
         Env funcEnv = func.getEnv().clone();
         Env savedEnv = env.clone();
         Obj context = funCont.getContext();
-        if (context != null) {
-            funcEnv.addVar("this").setValue(context);
-        }
+        funcEnv.setThis(context);
         cont[++pc] = new FunArgCont(func, args, funcEnv, savedEnv);
         next = CONT;
     }
 
     public void processContinuation(FunArgCont funArgCont) {
         if (funArgCont.hasNext()) {
-            Map.Entry<String, Expression> arg = funArgCont.next();
-            stmt = arg.getValue();
-            cont[++pc] = new FunArgAssignCont(arg.getKey(), funArgCont.getFuncEnv());
+            stmt = funArgCont.next();
+            cont[++pc] = new FunArgAssignCont(funArgCont.getFuncEnv());
             next = EVAL;
         }
         else {
@@ -808,7 +815,8 @@ public class SQLScriptEngine
 
     public void processContinuation(FunArgAssignCont funArgAssignCont) {
         Env funcEnv = funArgAssignCont.getEnv();
-        funcEnv.addVar(funArgAssignCont.getName()).setValue(val);
+        funcEnv.extend();
+        funcEnv.set(0, val);
         pc--;
         next = CONT;
     }
@@ -886,24 +894,10 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(InitParamCont initParamCont) {
-        Variable variable = new Variable();
-        variable.setValue(val);
         Parameter param = initParamCont.getParameter();
-        param.setValue(variable);
+        param.setValue(val);
         pc--;
         next = CONT;
-    }
-
-    public void process(Env env, Block block) throws SQLScriptRuntimeException {
-        int envsave = env.save();
-        for (Statement statement : block.getStatements()) {
-            statement.accept(this, env);
-        }
-        env.restore(envsave);
-    }
-
-    public void process(Env env, EvalCommand command) throws SQLScriptRuntimeException {
-        process(command);
     }
 
     protected void process(EvalCommand command) throws SQLScriptRuntimeException {
@@ -987,10 +981,6 @@ public class SQLScriptEngine
             state.state = CommandState.FINISHED;
             notifyObservers(state);
         }
-    }
-
-    public void process(Env env, SQLStatement sqlStmt) throws SQLScriptRuntimeException {
-        process(sqlStmt);
     }
 
     protected void process(SQLStatement sqlStmt) throws SQLScriptRuntimeException {
@@ -1158,98 +1148,11 @@ public class SQLScriptEngine
         }
     }
 
-    public void process(Env env, AnnotationCommand annCmd) {
-        process(annCmd);
-    }
-
     protected void process(AnnotationCommand annCmd) {
         logger.debug("Executing annotation: " + annCmd);
 
         Annotation annotation = loadAnnotation(annCmd.getName(), annCmd.getParams());
         annCmd.getSubject().addAnnotation(annotation);
-    }
-
-    /*
-    public void process(Env env, Assign assign) {
-        assign.getVariable().setValue(assign.getValue());
-    }
-
-    public void process(Env env, AssignVariable assign) {
-        assign.getVariable().setValue(assign.getValue().getValue());
-    }
-    */
-
-    public void process(Env env, CreateString createString) {
-        StringLiteral stringLiteral = createString.getStringLiteral();
-        Variable dest = createString.getDestVariable();
-
-        dest.setValue(new Str(stringLiteral.toLiteralStringUnescaped()));
-    }
-
-    public void process(Env env, DeclareVariableExpression dec) {
-        env.addVar(dec.getName());
-    }
-
-    public void process(Env env, VariableExpression varExpr) {
-        varExpr.setVariable(env.getVar(varExpr.getName()));
-    }
-
-    public void process(Env env, AssignExpression assignExpr) {
-        Expression rvalExpr = assignExpr.getRvalue();
-        rvalExpr.accept(this, env);
-        String varName = assignExpr.getVariable();
-        Variable var = env.getVar(varName);
-        var.setValue(rvalExpr.getValue());
-        assignExpr.setValue(var.getValue());
-    }
-
-    public void process(Env env, DeclareAndAssignExpression expr) {
-        expr.getDeclareExpr().accept(this, env);
-        AssignExpression assign = expr.getAssignExpr();
-        assign.accept(this, env);
-        expr.setValue(assign.getValue());
-    }
-
-    public void process(Env env, FunctionDefinitionExpression funDef) {
-        Function func = funDef.getFunction();
-        String funcName = func.getName();
-        if (funcName != null) {
-            env.addFunc(func);
-        }
-        func.setEnv(env.clone());
-        funDef.setValue(new Func(func));
-    }
-
-    // TODO: merge with process(Env env, FunctionCallExpression funCall) as far as possible
-    public void process(Env env, NamedFunctionCallExpression funCall) {
-        Function func = env.getFunc(funCall.getFunction());
-        checkFunArgs(func, funCall.getArguments());
-        Statement body = func.getBody();
-        // TODO: replace clone() with something more efficient
-        Env funcEnv = func.getEnv().clone();
-        pushFunArgs(funcEnv, func.getArguments(), funCall.getArguments());
-        body.accept(this, funcEnv);
-        funCall.setValue(Bool.TRUE); // TODO: implement return value for functions
-    }
-
-    public void process(Env env, FunctionCallExpression funCall) {
-        Expression expr = funCall.getExpression();
-        expr.accept(this, env);
-        Func func;
-        try {
-            func = (Func) expr.getValue();
-        } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException("Not a function");
-        }
-
-        Function function = func.getFunction();
-        checkFunArgs(function, funCall.getArguments());
-        Statement body = function.getBody();
-        // TODO: replace clone() with something more efficient
-        Env funcEnv = function.getEnv().clone();
-        pushFunArgs(funcEnv, function.getArguments(), funCall.getArguments());
-        body.accept(this, funcEnv);
-        funCall.setValue(Bool.TRUE); // TODO: implement return value for functions
     }
 
     protected void checkFunArgs(Function function, Map<String, Expression> args) {
@@ -1278,120 +1181,6 @@ public class SQLScriptEngine
         }
 
         return true;
-    }
-
-    protected void pushFunArgs(Env env, List<String> decArgs, Map<String, Expression> args) {
-        if (decArgs == null) {
-            return;
-        }
-        for (String decArg : decArgs) {
-            Expression expr = args.get(decArg);
-            expr.accept(this, env);
-            env.addVar(decArg).setValue(expr.getValue());
-        }
-    }
-
-    public void process(Env env, BooleanLiteralExpression boolExpr) {
-        // nothing to do here
-    }
-
-    public void process(Env env, StringLiteralExpression stringExpr) {
-        StringLiteral stringLiteral = stringExpr.getStringLiteral();
-
-        StringBuilder buf = new StringBuilder();
-        String delim = stringLiteral.getDelim();
-        for (Object part : stringLiteral.getParts()) {
-            String str = part instanceof Variable
-                         ? env.getVar(((Variable) part).getName()).getValue().toString()
-                         : StringUtils.unescapeSQLString(part.toString(), delim);
-            buf.append(str);
-        }
-
-        stringExpr.setValue(new Str(buf.toString()));
-    }
-
-    public void process(Env env, NotExpression notExpr) {
-        Expression expr = notExpr.getExpression();
-        expr.accept(this, env);
-        Obj exprVal = expr.getValue();
-        Bool result = toBool(exprVal).isTrue() ? Bool.FALSE : Bool.TRUE;
-        notExpr.setValue(result);
-    }
-
-    public void process(Env env, ConditionEq cond) {
-        Expression op1 = cond.getOp1();
-        Expression op2 = cond.getOp2();
-
-        op1.accept(this, env);
-        op2.accept(this, env);
-
-        Obj val1 = op1.getValue();
-        Obj val2 = op2.getValue();
-
-        Bool result = (val1 != null && val1.equals(val2)) || val1 == val2 ? Bool.TRUE : Bool.FALSE;
-
-        cond.setValue(result);
-    }
-
-    public void process(Env env, ConditionAnd cond) {
-        for (Expression expression : cond.getExpressions()) {
-            expression.accept(this, env);
-            Bool result = toBool(expression.getValue());
-            if (result.isTrue()) {
-                continue;
-            }
-            cond.setValue(Bool.FALSE);
-            return;
-        }
-        cond.setValue(Bool.TRUE);
-    }
-
-    public void process(Env env, ConditionOr cond) {
-        for (Expression expression : cond.getExpressions()) {
-            expression.accept(this, env);
-            Bool result = toBool(expression.getValue());
-            if (result.isFalse()) {
-                continue;
-            }
-            cond.setValue(Bool.TRUE);
-            return;
-        }
-        cond.setValue(Bool.FALSE);
-    }
-
-    public void process(Env env, IfStatement ifStmt) {
-        Expression condition = ifStmt.getCondition();
-        condition.accept(this, env);
-        if (Bool.TRUE.equals(condition.getValue())) {
-            ifStmt.getTrueStatement().accept(this, env);
-        }
-        else if (ifStmt.hasFalseStatement()) {
-            ifStmt.getFalseStatement().accept(this, env);
-        }
-    }
-
-    public void process(Env env, TernaryCondExpression tern) {
-        Expression condition = tern.getCondition();
-        condition.accept(this, env);
-        Expression resultExpr;
-        if (Bool.TRUE.equals(condition.getValue())) {
-            resultExpr = tern.getTrueExpression();
-        }
-        else {
-            resultExpr = tern.getFalseExpression();
-        }
-        resultExpr.accept(this, env);
-        tern.setValue(resultExpr.getValue());
-    }
-
-    public void process(Env env, InitParameter init) {
-        Parameter param = init.getParameter();
-        Expression expr = init.getExpression();
-        expr.accept(this, env);
-        // XXX: TODO: Remove temp variable
-        Variable value = new Variable();
-        value.setValue(expr.getValue());
-        param.setValue(value);
     }
 
     protected Bool toBool(Obj value) {
@@ -1487,30 +1276,6 @@ public class SQLScriptEngine
             throw new SQLScriptRuntimeException("Failed to load annotation: " + annotation + ": " + e.getMessage(), e);
         }
     }
-
-    /*
-    // TODO: Quick-and-dirty prototype, implement real solution
-    protected Map<String, Variable> variables = new HashMap<String, Variable>();
-
-    public Variable assignVar(String name, String value) {
-        Variable var = variables.get(name);
-        if (var == null) {
-            var = new Variable(name);
-            variables.put(name, var);
-        }
-
-        var.setValue(value);
-        return var;
-    }
-
-    public Variable getVarRef(String name) {
-        Variable var = variables.get(name);
-        if (var == null) {
-            throw new SQLScriptRuntimeException("Undefined variable: " + name);
-        }
-        return var;
-    }
-    */
 
     public SQLScriptContext getContext() {
         return context;

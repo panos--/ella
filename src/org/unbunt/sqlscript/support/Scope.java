@@ -1,13 +1,11 @@
 package org.unbunt.sqlscript.support;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Scope {
     protected Scope parent;
 
-    protected Map<String, Variable> variables = new HashMap<String, Variable>();
-    protected Map<String, Function> functions = new HashMap<String, Function>();
+    protected List<String> vars = new LinkedList<String>();
 
     public Scope() {
         this(null);
@@ -17,28 +15,53 @@ public class Scope {
         this.parent = parent;
     }
 
-    public void setVariable(Variable variable) {
-        variables.put(variable.getName(), variable);
+    public Variable addVariable(String name) {
+        int index = -1;
+        int i = -1;
+        ListIterator<String> it = vars.listIterator(vars.size());
+        while (it.hasPrevious()) {
+            i++;
+            String n = it.previous();
+            if (n.equals(name)) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            System.err.println("Warning: Variable " + name + " is already defined");
+            return new Variable(index, name, true);
+        }
+        vars.add(name);
+        return new Variable(0, name, false);
     }
 
     public Variable getVariable(String name) {
-        Variable variable = variables.get(name);
-        if (variable != null) {
-            // TODO: throw warning if not set
-            return variable;
+        int index = findVariable(name);
+        if (index == -1) {
+            System.err.println("Warning: Undefined variable: " + name);
+            return addVariable(name);
         }
-        return parent == null ? null : parent.getVariable(name);
+        return new Variable(index, name, true);
     }
 
-    public void setFunction(String name, Function function) {
-        functions.put(name, function);
-    }
+    protected int findVariable(String name) {
+        int index = -1;
 
-    public Function getFunction(String name) {
-        Function function = functions.get(name);
-        if (function != null) {
-            return function;
+        ListIterator<String> it = vars.listIterator(vars.size());
+        while (it.hasPrevious()) {
+            index++;
+            String n = it.previous();
+            if (n.equals(name)) {
+                return index;
+            }
         }
-        return parent == null ? null : parent.getFunction(name);
+
+        if (parent == null) {
+            return -1;
+        }
+
+        int pindex = parent.findVariable(name);
+
+        return pindex != -1 ? ++index + pindex : -1;
     }
 }

@@ -7,19 +7,14 @@ import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class VariableExpression extends AbstractStatement implements Expression {
-    protected String name;
     protected Variable variable;
 
-    public VariableExpression(String name) {
-        this.name = name;
+    public VariableExpression(Variable variable) {
+        this.variable = variable;
     }
 
     public Obj getValue() {
         return variable.getValue();
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Variable getVariable() {

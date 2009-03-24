@@ -78,4 +78,6 @@ public interface ExpressionVisitor {
     void processExpression(PrimIntDivExpression primIntDivExpression);
 
     void processExpression(PrimIntModExpression primIntModExpression);
+
+    void processExpression(ThisExpression thisExpression);
 }

@@ -13,7 +13,7 @@ public class FunArgCont implements Continuation {
     protected Function func;
 
     protected Map<String, Expression> args;
-    protected Iterator<Map.Entry<String,Expression>> iterator;
+    protected Iterator<String> iterator;
 
     protected Env funcEnv;
     protected Env savedEnv;
@@ -21,7 +21,7 @@ public class FunArgCont implements Continuation {
     public FunArgCont(Function func, Map<String, Expression> args, Env savedEnv) {
         this.func = func;
         this.args = args;
-        this.iterator = args == null ? null : args.entrySet().iterator();
+        this.iterator = func.getArguments().iterator();
         this.funcEnv = func.getEnv().clone();
         this.savedEnv = savedEnv;
     }
@@ -29,7 +29,7 @@ public class FunArgCont implements Continuation {
     public FunArgCont(Function func, Map<String, Expression> args, Env funcEnv, Env savedEnv) {
         this.func = func;
         this.args = args;
-        this.iterator = args == null ? null : args.entrySet().iterator();
+        this.iterator = func.getArguments().iterator();
         this.funcEnv = funcEnv;
         this.savedEnv = savedEnv;
     }
@@ -42,8 +42,8 @@ public class FunArgCont implements Continuation {
         return iterator != null && iterator.hasNext();
     }
 
-    public Map.Entry<String, Expression> next() {
-        return iterator.next();
+    public Expression next() {
+        return args.get(iterator.next());
     }
 
     public Env getFuncEnv() {

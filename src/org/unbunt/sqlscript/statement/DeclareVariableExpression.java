@@ -3,16 +3,21 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.Variable;
 
 public class DeclareVariableExpression extends AbstractExpression {
-    protected String name;
+    protected Variable variable;
 
-    public DeclareVariableExpression(String name) {
-        this.name = name;
+    public DeclareVariableExpression(Variable variable) {
+        this.variable = variable;
     }
 
-    public String getName() {
-        return name;
+    public boolean isNoop() {
+        return variable == null;
+    }
+
+    public Variable getVariable() {
+        return variable;
     }
 
     public void accept(ScriptProcessor processor, Env env) {
