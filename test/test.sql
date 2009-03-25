@@ -13,6 +13,14 @@ fun loop(n) {
 exit;
 
 /*
+fun loop2(n) {
+	return n == 0 ? 0 : loop2(n - 1);
+}
+
+.loop2(1000000);
+
+exit;
+
 fun fib(n) {
 	fun fib-helper(f1, f2, i) {
 		if  (i == n) {

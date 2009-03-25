@@ -162,7 +162,7 @@ public class SQLScriptEngine
     }
 
     public void processExpression(IdentifierExpression identifierExpression) {
-        val = new Str(identifierExpression.getIdentifier());
+        val = identifierExpression.getValue();
         next = CONT;
     }
 
@@ -742,8 +742,9 @@ public class SQLScriptEngine
 
         Obj obj = receiver;
         while (true) {
-            if (obj.hasPrimitiveInSlot(slot)) {
-                cont[pc] = new PrimitiveCont(obj.getPrimitiveForSlot(slot), receiver, slotCallSlotCont.getArguments());
+            PrimitiveExpression prim = obj.getPrimitiveForSlot(slot);
+            if (prim != null) {
+                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
                 next = CONT;
                 return;
             }
@@ -1141,7 +1142,7 @@ public class SQLScriptEngine
 
     protected void checkFunArgs(Function function, List<Expression> args) {
 //        if (!matchesFunArgs(function, args)) {
-        if (function.getArguments().size() != args.size()) {
+        if (function.getArgCount() != args.size()) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
         }
     }

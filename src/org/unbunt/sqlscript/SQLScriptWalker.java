@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-03-24 21:09:43
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-03-25 08:52:57
 
 	package org.unbunt.sqlscript;
 
@@ -4196,12 +4196,12 @@ public class SQLScriptWalker extends TreeParser {
     };
 
     // $ANTLR start "objectSlot"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:507:1: objectSlot returns [ Expression key, Expression value ] : ^( SLOT (id= identifierStringLiteral | str= stringLiteral ) expr= expression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:507:1: objectSlot returns [ Expression key, Expression value ] : ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) ;
     public final SQLScriptWalker.objectSlot_return objectSlot() throws RecognitionException {
         SQLScriptWalker.objectSlot_return retval = new SQLScriptWalker.objectSlot_return();
         retval.start = input.LT(1);
 
-        StringLiteral id = null;
+        Expression id = null;
 
         StringLiteral str = null;
 
@@ -4209,13 +4209,13 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:508:2: ( ^( SLOT (id= identifierStringLiteral | str= stringLiteral ) expr= expression ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:508:4: ^( SLOT (id= identifierStringLiteral | str= stringLiteral ) expr= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:508:2: ( ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:508:4: ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression )
             {
             match(input,SLOT,FOLLOW_SLOT_in_objectSlot2067); if (state.failed) return retval;
 
             match(input, Token.DOWN, null); if (state.failed) return retval;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:509:4: (id= identifierStringLiteral | str= stringLiteral )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:509:4: (id= identifierExpression | str= stringLiteral )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -4234,15 +4234,15 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt34) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:509:6: id= identifierStringLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:509:6: id= identifierExpression
                     {
-                    pushFollow(FOLLOW_identifierStringLiteral_in_objectSlot2076);
-                    id=identifierStringLiteral();
+                    pushFollow(FOLLOW_identifierExpression_in_objectSlot2076);
+                    id=identifierExpression();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                       retval.key = new StringLiteralExpression(id); 
+                       retval.key = id; 
                     }
 
                     }
@@ -5048,7 +5048,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_OBJ_in_objectLiteral2041 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_objectSlot_in_objectLiteral2046 = new BitSet(new long[]{0x4000000000000008L});
     public static final BitSet FOLLOW_SLOT_in_objectSlot2067 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_identifierStringLiteral_in_objectSlot2076 = new BitSet(new long[]{0x7DF920F000000010L,0x00048000000000F8L});
+    public static final BitSet FOLLOW_identifierExpression_in_objectSlot2076 = new BitSet(new long[]{0x7DF920F000000010L,0x00048000000000F8L});
     public static final BitSet FOLLOW_stringLiteral_in_objectSlot2087 = new BitSet(new long[]{0x7DF920F000000010L,0x00048000000000F8L});
     public static final BitSet FOLLOW_expression_in_objectSlot2101 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_PARAM_NAME_in_parameter2127 = new BitSet(new long[]{0x0000000000000000L,0x0004000000000000L});

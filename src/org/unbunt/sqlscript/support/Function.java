@@ -7,6 +7,7 @@ import java.util.List;
 public class Function {
     protected String name = null;
     protected List<String> arguments = null;
+    protected int argCount = 0;
     protected Statement body = null;
     protected Env env = null;
 
@@ -40,6 +41,11 @@ public class Function {
 
     public void setArguments(List<String> arguments) {
         this.arguments = arguments;
+        this.argCount = arguments.size();
+    }
+
+    public int getArgCount() {
+        return argCount;
     }
 
     public Statement getBody() {

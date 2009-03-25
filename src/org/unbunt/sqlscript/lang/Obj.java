@@ -13,8 +13,8 @@ public class Obj {
     protected static Map<Obj, PrimitiveExpression> primitives = new HashMap<Obj, PrimitiveExpression>();
 
     static {
-        primitives.put(new Str("==="), new PrimIdExpression());
-        primitives.put(new Str("!=="), new PrimNiExpression());
+        primitives.put(new Str("===").intern(), new PrimIdExpression());
+        primitives.put(new Str("!==").intern(), new PrimNiExpression());
     }
 
     public Obj() {

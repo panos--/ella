@@ -1,7 +1,12 @@
 package org.unbunt.sqlscript.lang;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Str extends Obj {
     protected String value;
+
+    protected static Map<String, Str> pool = new HashMap<String, Str>();
 
     public Str(String value) {
         this.value = value;
@@ -30,5 +35,18 @@ public class Str extends Obj {
 
     public String toString() {
         return value;
+    }
+
+    public synchronized Str intern() {
+        if (pool == null) {
+            return this;
+        }
+        Str interned = pool.get(value);
+        if (interned != null) {
+            return interned;
+        }
+
+        pool.put(value, this);
+        return this;
     }
 }

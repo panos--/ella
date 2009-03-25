@@ -506,7 +506,7 @@ objectLiteral returns [ ObjectLiteral value ]
 
 objectSlot returns [ Expression key, Expression value ]
 	:	^(SLOT
-			( id=identifierStringLiteral { $key = new StringLiteralExpression($id.value); }
+			( id=identifierExpression { $key = $id.value; }
 			| str=stringLiteral { $key = new StringLiteralExpression($str.value); }
 			)
 			expr=expression { $value = $expr.value; }

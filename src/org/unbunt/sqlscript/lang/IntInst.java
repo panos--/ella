@@ -7,7 +7,7 @@ public class IntInst extends Obj {
 
     public IntInst(int value) {
         this.value = value;
-        addSlot(new Str("parent"), Int.getInstance());
+        addSlot(new Str("parent").intern(), Int.getInstance());
     }
 
     // NOTE: parent overrides === operator from object
