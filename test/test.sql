@@ -9,7 +9,7 @@ fun loop(n) {
     return loop(n - 1);
 }
 
-.loop(10000000);
+.loop(1000000);
 exit;
 
 /*

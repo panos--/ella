@@ -20,7 +20,7 @@ import java.util.*;
 
 public class SQLScriptEngine
         extends VolatileObservable
-        implements ExpressionVisitor {
+        implements ExpressionVisitor, ContinuationVisitor {
     protected Log logger = LogFactory.getLog(getClass());
 
     protected SQLScriptContext context;
@@ -110,44 +110,8 @@ public class SQLScriptEngine
     protected Env env = null;
 
     protected int MAX_CONT_STACK = 4096;
-    protected int MAX_CONT_SIZE = 6;
-//    protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
-    protected Object[][] cont = new Object[MAX_CONT_STACK][MAX_CONT_SIZE];
+    protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
     protected int pc;
-
-    public static final int CONT_END = 0;
-    public static final int CONT_BLOCK = 1;
-    public static final int CONT_FUN_RET = 2;
-    public static final int CONT_OBJ_LIT = 3;
-    public static final int CONT_OBJ_LIT_SLOT = 4;
-    public static final int CONT_OBJ_LIT_SLOT_VALUE = 5;
-    public static final int CONT_LOGIC_NOT = 6;
-    public static final int CONT_LOGIC_AND = 7;
-    public static final int CONT_LOGIC_OR = 8;
-    public static final int CONT_TERN = 9;
-    public static final int CONT_ASSIGN = 10;
-    public static final int CONT_ASSIGN_EXPR = 11;
-    public static final int CONT_SLOT_SET_RECEIVER = 12;
-    public static final int CONT_SLOT_SET_SLOT = 13;
-    public static final int CONT_SLOT_SET_VALUE = 14;
-    public static final int CONT_SLOT_GET_RECEIVER = 15;
-    public static final int CONT_SLOT_GET_SLOT = 16;
-    public static final int CONT_IF = 17;
-    public static final int CONT_TRY = 18;
-    public static final int CONT_FINALLY = 19;
-    public static final int CONT_THROW = 20;
-    public static final int CONT_CATCH = 21;
-    public static final int CONT_FUN = 22;
-    public static final int CONT_FUN_ARG = 23;
-    public static final int CONT_FUN_ARG_ASSIGN = 24;
-    public static final int CONT_SLOT_CALL_RECEIVER = 25;
-    public static final int CONT_SLOT_CALL_SLOT = 26;
-    public static final int CONT_PRIM = 27;
-    public static final int CONT_RETURN = 28;
-    public static final int CONT_NEW = 29;
-    public static final int CONT_NEW_RESULT = 30;
-    public static final int CONT_EXIT = 31;
-    public static final int CONT_INIT_PARAM = 32;
 
     public void process(Block block) throws SQLScriptRuntimeException {
         stmt = block;
@@ -156,7 +120,7 @@ public class SQLScriptEngine
             env = new Env();
         }
         pc = 0;
-        cont[pc][0] = CONT_END;
+        cont[pc] = new EndCont();
 
         try {
             process();
@@ -190,11 +154,10 @@ public class SQLScriptEngine
     }
 
     public void processExpression(Block blockExpression) {
-//        BlockCont blockCont = blockExpression.isKeepEnv()
-//                              ? new BlockCont(blockExpression)
-//                              : new BlockCont(blockExpression, env.clone());
-//        cont[++pc] = blockCont;
-        createContBlock(cont[++pc], blockExpression);
+        BlockCont blockCont = blockExpression.isKeepEnv()
+                              ? new BlockCont(blockExpression)
+                              : new BlockCont(blockExpression, env.clone());
+        cont[++pc] = blockCont;
         next = CONT;
     }
 
@@ -230,32 +193,35 @@ public class SQLScriptEngine
     }
 
     public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
-//        cont[++pc] = new ObjLitCont(objectLiteralExpression.getObjectLiteral());
-        createContObjLit(cont[++pc], objectLiteralExpression);
+        cont[++pc] = new ObjLitCont(objectLiteralExpression.getObjectLiteral());
         next = CONT;
     }
 
     public void processExpression(NotExpression notExpression) {
         stmt = notExpression.getExpression();
-        cont[++pc][0] = CONT_LOGIC_NOT;
+        cont[++pc] = new LogicNotCont();
         next = EVAL;
     }
 
     public void processExpression(ConditionAnd conditionAnd) {
         assert conditionAnd.getExpressions().size() > 1;
-        createContLogicAnd(cont[++pc], conditionAnd);
-        next = CONT;
+        LogicAndCont logicAndCont = new LogicAndCont(conditionAnd.getExpressions());
+        stmt = logicAndCont.next();
+        cont[++pc] = logicAndCont;
+        next = EVAL;
     }
 
     public void processExpression(ConditionOr conditionOr) {
         assert conditionOr.getExpressions().size() > 1;
-        createContLogicOr(cont[++pc], conditionOr);
-        next = CONT;
+        LogicOrCont logicOrCont = new LogicOrCont(conditionOr.getExpressions());
+        stmt = logicOrCont.next();
+        cont[++pc] = logicOrCont;
+        next = EVAL;
     }
 
     public void processExpression(TernaryCondExpression ternaryCondExpression) {
         stmt = ternaryCondExpression.getCondition();
-        createContTern(cont[++pc], ternaryCondExpression);
+        cont[++pc] = new TernCont(ternaryCondExpression.getTrueExpression(), ternaryCondExpression.getFalseExpression());
         next = EVAL;
     }
 
@@ -267,31 +233,27 @@ public class SQLScriptEngine
     }
 
     public void processExpression(AssignExpression assignExpression) {
-//        cont[++pc] = new AssignCont(assignExpression.getVariable());
-        createContAssign(cont[++pc], assignExpression);
+        cont[++pc] = new AssignCont(assignExpression.getVariable());
         stmt = assignExpression.getRvalue();
         next = EVAL;
     }
 
     public void processExpression(DeclareAndAssignExpression declareAndAssignExpression) {
         stmt = declareAndAssignExpression.getDeclareExpr();
-//        cont[++pc] = new AssignExprCont(declareAndAssignExpression.getAssignExpr());
-        createContAssignExpr(cont[++pc], declareAndAssignExpression);
+        cont[++pc] = new AssignExprCont(declareAndAssignExpression.getAssignExpr());
         next = EVAL;
     }
 
     public void processExpression(SlotSetExpression slotSetExpression) {
         SlotExpression slotExpression = slotSetExpression.getSlotExpression();
         stmt = slotExpression.getReceiver();
-//        cont[++pc] = new SlotSetReceiverCont(slotExpression.getSlot(), slotSetExpression.getValueExpression());
-        createContSlotSetReceiver(cont[++pc], slotSetExpression);
+        cont[++pc] = new SlotSetReceiverCont(slotExpression.getSlot(), slotSetExpression.getValueExpression());
         next = EVAL;
     }
 
     public void processExpression(SlotExpression slotExpression) {
         stmt = slotExpression.getReceiver();
-//        cont[++pc] = new SlotGetReceiverCont(slotExpression.getSlot());
-        createContSlotGetReceiver(cont[++pc], slotExpression);
+        cont[++pc] = new SlotGetReceiverCont(slotExpression.getSlot());
         next = EVAL;
     }
 
@@ -302,10 +264,9 @@ public class SQLScriptEngine
 
     public void processExpression(IfStatement ifStatement) {
         stmt = ifStatement.getCondition();
-//        Statement trueStmt = ifStatement.getTrueStatement();
-//        Statement falseStmt = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
-//        cont[++pc] = new IfCont(trueStmt, falseStmt);
-        createContIf(cont[++pc], ifStatement);
+        Statement trueStmt = ifStatement.getTrueStatement();
+        Statement falseStmt = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
+        cont[++pc] = new IfCont(trueStmt, falseStmt);
         next = EVAL;
     }
 
@@ -313,19 +274,17 @@ public class SQLScriptEngine
         stmt = tryStatement.getBody();
         Env saveEnv = env.clone();
         if (tryStatement.hasFinallyClause()) {
-//            cont[++pc] = new FinallyCont(tryStatement.getFinallyClause().getBody(), saveEnv);
-            createContFinally(cont[++pc], tryStatement.getFinallyClause().getBody(), saveEnv);
+            cont[++pc] = new FinallyCont(tryStatement.getFinallyClause().getBody(), saveEnv);
         }
         if (tryStatement.hasCatchClause()) {
-//            cont[++pc] = new TryCont(tryStatement.getCatchClause(), saveEnv);
-            createContTry(cont[++pc], tryStatement.getCatchClause(), saveEnv);
+            cont[++pc] = new TryCont(tryStatement.getCatchClause(), saveEnv);
         }
         next = EVAL;
     }
 
     public void processExpression(ThrowStatement throwStatement) {
         stmt = throwStatement.getExpression();
-        createContThrow(cont[++pc]);
+        cont[++pc] = new ThrowCont();
         next = EVAL;
     }
 
@@ -345,38 +304,34 @@ public class SQLScriptEngine
 
     public void processExpression(FunctionCallExpression functionCallExpression) {
         stmt = functionCallExpression.getExpression();
-//        cont[++pc] = new FunCont(functionCallExpression.getArguments());
-        createContFun(cont[++pc], functionCallExpression);
+        cont[++pc] = new FunCont(functionCallExpression.getArguments());
         next = EVAL;
     }
 
     public void processExpression(SlotCallExpression slotCallExpression) {
         SlotExpression slotExpression = slotCallExpression.getSlotExpression();
         stmt = slotExpression.getReceiver();
-//        cont[++pc] = new SlotCallReceiverCont(slotExpression.getSlot(), slotCallExpression.getArguments());
-        createContSlotCallReceiver(cont[++pc], slotCallExpression);
+        cont[++pc] = new SlotCallReceiverCont(slotExpression.getSlot(), slotCallExpression.getArguments());
         next = EVAL;
     }
 
     public void processExpression(ReturnStatement returnStatement) {
         // tail-call optimization
         boolean pushCont = true;
-        OUTER:
         for (int i = pc; i >= 0; i--) {
-            Object[] cc = cont[i];
-            switch ((Integer) cc[0]) {
-                case CONT_FUN_RET:
-                    pc = i + 1;
-                    pushCont = false;
-                    break OUTER;
-                case CONT_TRY:
-                case CONT_FINALLY:
-                    break OUTER;
+            Continuation c = cont[i];
+            if (c instanceof FunRetCont) {
+                pc = i + 1;
+                pushCont = false;
+                break;
+            }
+            if (c instanceof TryCont || c instanceof FinallyCont) {
+                break;
             }
         }
 
         if (pushCont) {
-            createContReturn(cont[++pc]);
+            cont[++pc] = new ReturnCont();
         }
 
         if (returnStatement.hasExpression()) {
@@ -391,13 +346,12 @@ public class SQLScriptEngine
 
     public void processExpression(NewExpression newExpression) {
         stmt = newExpression.getExpression();
-//        cont[++pc] = new NewCont(newExpression.getArguments());
-        createContNew(cont[++pc], newExpression);
+        cont[++pc] = new NewCont(newExpression.getArguments());
         next = EVAL;
     }
 
     public void processExpression(ExitStatement exitStatement) {
-        cont[++pc][0] = CONT_EXIT;
+        cont[++pc] = new ExitCont();
         if (exitStatement.hasExpression()) {
             stmt = exitStatement.getExpression();
             next = EVAL;
@@ -410,8 +364,7 @@ public class SQLScriptEngine
 
     public void processExpression(InitParameter initParameter) {
         stmt = initParameter.getExpression();
-//        cont[++pc] = new InitParamCont(initParameter.getParameter());
-        createContInitParam(cont[++pc], initParameter);
+        cont[++pc] = new InitParamCont(initParameter.getParameter());
         next = EVAL;
     }
 
@@ -527,81 +480,30 @@ public class SQLScriptEngine
     }
 
     protected void cont() {
-//        cont[pc].accept(this);
-        int contType = (Integer) cont[pc][0];
-        switch (contType) {
-            case CONT_ASSIGN: processContAssign(); break;
-            case CONT_ASSIGN_EXPR: processContAssignExpr(); break;
-            case CONT_BLOCK: processContBlock(); break;
-            case CONT_CATCH: processContCatch(); break;
-            case CONT_END: processContEnd(); break;
-            case CONT_EXIT: processContExit(); break;
-            case CONT_FINALLY: processContFinally(); break;
-            case CONT_FUN: processContFun(); break;
-            case CONT_FUN_ARG: processContFunArg(); break;
-            case CONT_FUN_ARG_ASSIGN: processContFunArgAssign(); break;
-            case CONT_FUN_RET: processContFunRet(); break;
-            case CONT_IF: processContIf(); break;
-            case CONT_INIT_PARAM: processContInitParam(); break;
-            case CONT_LOGIC_AND: processContLogicAnd(); break;
-            case CONT_LOGIC_NOT: processContLogicNot(); break;
-            case CONT_LOGIC_OR: processContLogicOr(); break;
-            case CONT_NEW: processContNew(); break;
-            case CONT_NEW_RESULT: processContNewResult(); break;
-            case CONT_OBJ_LIT: processContObjLit(); break;
-            case CONT_OBJ_LIT_SLOT: processContObjLitSlot(); break;
-            case CONT_OBJ_LIT_SLOT_VALUE: processContObjLitSlotValue(); break;
-            case CONT_PRIM: processContPrim(); break;
-            case CONT_RETURN: processContReturn(); break;
-            case CONT_SLOT_CALL_RECEIVER: processContSlotCallReceiver(); break;
-            case CONT_SLOT_CALL_SLOT: processContSlotCallSlot(); break;
-            case CONT_SLOT_GET_RECEIVER: processContSlotGetReceiver(); break;
-            case CONT_SLOT_GET_SLOT: processContSlotGetSlot(); break;
-            case CONT_SLOT_SET_RECEIVER: processContSlotSetReceiver(); break;
-            case CONT_SLOT_SET_SLOT: processContSlotSetSlot(); break;
-            case CONT_SLOT_SET_VALUE: processContSlotSetValue(); break;
-            case CONT_TERN: processContTern(); break;
-            case CONT_THROW: processContThrow(); break;
-            case CONT_TRY: processContTry(); break;
-            default:
-                throw new SQLScriptRuntimeException("Internal error: Unhandled continuation: " + contType);
-        }
+        cont[pc].accept(this);
     }
 
-    public void processContEnd() {
+    public void processContinuation(EndCont endCont) {
         pc--;
         next = CONT;
     }
 
-    protected void createContBlock(Object[] cont, Block blockExpression) {
-        cont[0] = CONT_BLOCK;
-        cont[1] = blockExpression.isKeepEnv() ? env.clone() : null;
-        cont[2] = 0;
-        cont[3] = blockExpression.getStatementsArray();
-    }
-
-    public void processContBlock() {
-        Object[] cc = cont[pc];
-        int curStmt = (Integer) cc[2];
-        Statement[] stmts = (Statement[]) cc[3];
-
-        if (curStmt == stmts.length) {
-            Env savedEnv = (Env) cc[1];
+    public void processContinuation(BlockCont blockCont) {
+        if (!blockCont.hasNextStatement()) {
             // aleady processed last statement of block, leaving
+            Env savedEnv = blockCont.getEnv();
             if (savedEnv != null) {
                 // not restoring environment is important for incremental running of script in interactive mode
-                env = savedEnv;
+                env = blockCont.getEnv();
             }
             pc--;
             next = CONT;
         }
         else {
-            stmt = stmts[curStmt];
-            curStmt++;
-            cc[2] = curStmt;
+            stmt = blockCont.nextStatement();
             // tail-call optimization
-            if (curStmt == stmts.length) {
-                if (((Integer) cont[pc - 1][0]) == CONT_FUN_RET) {
+            if (!blockCont.hasNextStatement()) {
+                if (cont[pc - 1] instanceof FunRetCont) {
                     pc--;
                 }
             }
@@ -609,385 +511,141 @@ public class SQLScriptEngine
         }
     }
 
-//    public void processContinuation(BlockCont blockCont) {
-//        if (!blockCont.hasNextStatement()) {
-//            // aleady processed last statement of block, leaving
-//            Env savedEnv = blockCont.getEnv();
-//            if (savedEnv != null) {
-//                // not restoring environment is important for incremental running of script in interactive mode
-//                env = blockCont.getEnv();
-//            }
-//            pc--;
-//            next = CONT;
-//        }
-//        else {
-//            stmt = blockCont.nextStatement();
-//            // tail-call optimization
-//            if (!blockCont.hasNextStatement()) {
-//                if (cont[pc - 1] instanceof FunRetCont) {
-//                    pc--;
-//                }
-//            }
-//            next = EVAL;
-//        }
-//    }
-
-    protected void createContObjLit(Object[] cont, ObjectLiteralExpression objectLiteralExpression) {
-        cont[0] = CONT_OBJ_LIT;
-        cont[1] = new Obj();
-        cont[2] = 0;
-        cont[3] = objectLiteralExpression.getObjectLiteral().getSlots().toArray(new ObjectLiteral.SlotEntry[0]);
-    }
-
-    public void processContObjLit() {
-        Object[] cc = cont[pc];
-        Obj obj = (Obj) cc[1];
-        int curSlot = (Integer) cc[2];
-        ObjectLiteral.SlotEntry[] slots = (ObjectLiteral.SlotEntry[]) cont[3];
-        if (curSlot == slots.length) {
-            ObjectLiteral.SlotEntry slot = slots[curSlot];
+    public void processContinuation(ObjLitCont objLitCont) {
+        if (objLitCont.hasNextSlot()) {
+            ObjectLiteral.SlotEntry slot = objLitCont.getNextSlot();
             stmt = slot.key;
-            createContObjLitSlot(cont[++pc], obj, slot.value);
+            cont[++pc] = new ObjLitSlotCont(objLitCont.getObj(), slot.value);
             next = EVAL;
         }
         else {
             pc--;
-            val = obj;
+            val = objLitCont.getObj();
             next = CONT;
         }
     }
 
-//    public void processContinuation(ObjLitCont objLitCont) {
-//        if (objLitCont.hasNextSlot()) {
-//            ObjectLiteral.SlotEntry slot = objLitCont.getNextSlot();
-//            stmt = slot.key;
-//            cont[++pc] = new ObjLitSlotCont(objLitCont.getObj(), slot.value);
-//            next = EVAL;
-//        }
-//        else {
-//            pc--;
-//            val = objLitCont.getObj();
-//            next = CONT;
-//        }
-//    }
-
-    protected void createContObjLitSlot(Object[] cont, Obj obj, Expression value) {
-        cont[0] = CONT_OBJ_LIT_SLOT;
-        cont[1] = obj;
-        cont[2] = value;
-    }
-
-    public void processContObjLitSlot() {
-        Object[] cc = cont[pc];
-        Obj obj = (Obj) cc[1];
-        //noinspection UnnecessaryLocalVariable
-        Expression valueExp = (Expression) cc[2];
-        stmt = valueExp;
-        createContObjLitSlotValue(cont[pc], obj, val);
+    public void processContinuation(ObjLitSlotCont objLitSlotCont) {
+        stmt = objLitSlotCont.getSlotValue();
+        cont[pc] = new ObjLitSlotValueCont(objLitSlotCont.getObj(), val);
         next = EVAL;
     }
 
-//    public void processContinuation(ObjLitSlotCont objLitSlotCont) {
-//        stmt = objLitSlotCont.getSlotValue();
-//        cont[pc] = new ObjLitSlotValueCont(objLitSlotCont.getObj(), val);
-//        next = EVAL;
-//    }
-
-    protected void createContObjLitSlotValue(Object[] cont, Obj obj, Obj slot) {
-        cont[0] = CONT_OBJ_LIT_SLOT_VALUE;
-        cont[1] = obj;
-        cont[2] = slot;
-    }
-
-    public void processContObjLitSlotValue() {
-        Object[] cc = cont[pc];
-        Obj obj = (Obj) cc[1];
-        Obj slot = (Obj) cc[2];
-        obj.addSlot(slot, val);
+    public void processContinuation(ObjLitSlotValueCont objLitSlotValueCont) {
         pc--;
+        objLitSlotValueCont.getObj().addSlot(objLitSlotValueCont.getSlot(), val);
         next = CONT;
     }
 
-//    public void processContinuation(ObjLitSlotValueCont objLitSlotValueCont) {
-//        pc--;
-//        objLitSlotValueCont.getObj().addSlot(objLitSlotValueCont.getSlot(), val);
-//        next = CONT;
-//    }
-
-    public void processContLogicNot() {
+    public void processContinuation(LogicNotCont logicNotCont) {
         val = toBool(val).equals(Bool.TRUE) ? Bool.FALSE : Bool.TRUE;
         pc--;
         next = CONT;
     }
 
-//    public void processContinuation(LogicNotCont logicNotCont) {
-//        val = toBool(val).equals(Bool.TRUE) ? Bool.FALSE : Bool.TRUE;
-//        pc--;
-//        next = CONT;
-//    }
-
-    protected void createContLogicAnd(Object[] cont, ConditionAnd conditionAnd) {
-        cont[0] = CONT_LOGIC_AND;
-        cont[1] = -1;
-        cont[2] = conditionAnd.getExpressions().toArray(new Expression[0]);
-    }
-
-    public void processContLogicAnd() {
-        Object[] cc = cont[pc];
-        int curExp = (Integer) cc[1];
-        Expression[] exps = (Expression[]) cc[2];
-        boolean first = curExp == -1;
-        Bool curVal = first ? null : toBool(val);
-        if (!first && (curVal.equals(Bool.FALSE) || curExp == exps.length)) {
+    public void processContinuation(LogicAndCont logicAndCont) {
+        Bool curVal = toBool(val);
+        if (curVal.equals(Bool.FALSE) || !logicAndCont.hasNext()) {
             val = curVal;
             pc--;
             next = CONT;
         }
         else {
-            stmt = exps[++curExp];
-            cc[1] = curExp;
+            stmt = logicAndCont.next();
             next = EVAL;
         }
     }
 
-//    public void processContinuation(LogicAndCont logicAndCont) {
-//        Bool curVal = toBool(val);
-//        if (curVal.equals(Bool.FALSE) || !logicAndCont.hasNext()) {
-//            val = curVal;
-//            pc--;
-//            next = CONT;
-//        }
-//        else {
-//            stmt = logicAndCont.next();
-//            next = EVAL;
-//        }
-//    }
-
-    protected void createContLogicOr(Object[] cont, ConditionOr conditionOr) {
-        cont[0] = CONT_LOGIC_OR;
-        cont[1] = -1;
-        cont[2] = conditionOr.getExpressions().toArray(new Expression[0]);
-    }
-
-    public void processContLogicOr() {
-        Object[] cc = cont[pc];
-        int curExp = (Integer) cc[1];
-        Expression[] exps = (Expression[]) cc[2];
-        boolean first = curExp == -1;
-        Bool curVal = first ? null : toBool(val);
-        if (!first && (curVal.equals(Bool.TRUE) || curExp == exps.length)) {
+    public void processContinuation(LogicOrCont logicOrCont) {
+        Bool curVal = toBool(val);
+        if (curVal.equals(Bool.TRUE) || !logicOrCont.hasNext()) {
             val = curVal;
             pc--;
             next = CONT;
         }
         else {
-            stmt = exps[++curExp];
-            cc[2] = curExp;
+            stmt = logicOrCont.next();
             next = EVAL;
         }
     }
 
-//    public void processContinuation(CondEqCont condEqCont) {
-//        stmt = condEqCont.getExpression();
-//        cont[pc] = new CondEq2Cont(val);
-//        next = EVAL;
-//    }
-
-//    public void processContinuation(CondEq2Cont condEq2Cont) {
-//        Obj val1 = condEq2Cont.getValue();
-//        Obj val2 = val;
-//
-//        val = (val1 != null && val1.equals(val2)) || val1 == val2 ? Bool.TRUE : Bool.FALSE;
-//
-//        pc--;
-//        next = CONT;
-//    }
-
-    protected void createContTern(Object[] cont, TernaryCondExpression ternaryCondExpression) {
-        cont[0] = CONT_TERN;
-        cont[1] = ternaryCondExpression.getTrueExpression();
-        cont[2] = ternaryCondExpression.getFalseExpression();
-    }
-
-    public void processContTern() {
-        Object[] cc = cont[pc];
-        if (toBool(val).equals(Bool.TRUE)) {
-            stmt = (Statement) cc[1];
-        }
-        else {
-            stmt = (Statement) cc[2];
-        }
-        pc--;
+    public void processContinuation(CondEqCont condEqCont) {
+        stmt = condEqCont.getExpression();
+        cont[pc] = new CondEq2Cont(val);
         next = EVAL;
     }
 
-//    public void processContinuation(TernCont ternCont) {
-//        if (toBool(val).equals(Bool.TRUE)) {
-//            stmt = ternCont.getTrueExpression();
-//        }
-//        else {
-//            stmt = ternCont.getFalseExpression();
-//        }
-//        pc--;
-//        next = EVAL;
-//    }
+    public void processContinuation(CondEq2Cont condEq2Cont) {
+        Obj val1 = condEq2Cont.getValue();
+        Obj val2 = val;
 
-    protected void createContAssignExpr(Object[] cont, DeclareAndAssignExpression declareAndAssignExpression) {
-        cont[0] = CONT_ASSIGN_EXPR;
-        cont[1] = declareAndAssignExpression.getAssignExpr();
-    }
+        val = (val1 != null && val1.equals(val2)) || val1 == val2 ? Bool.TRUE : Bool.FALSE;
 
-    public void processContAssignExpr() {
-        Object[] cc = cont[pc];
-        stmt = (Statement) cc[1];
-        pc--;
-        next = EVAL;
-    }
-
-//    public void processContinuation(AssignExprCont assignExprCont) {
-//        stmt = assignExprCont.getAssign();
-//        pc--;
-//        next = EVAL;
-//    }
-
-    protected void createContAssign(Object[] cont, AssignExpression assignExpression) {
-        cont[0] = CONT_ASSIGN;
-        cont[1] = assignExpression.getVariable();
-    }
-
-    public void processContAssign() {
-        Object[] cc = cont[pc];
-        Variable var = (Variable) cc[1];
-        env.set(var.getAddress(), val);
         pc--;
         next = CONT;
     }
 
-//    public void processContinuation(AssignCont assignCont) {
-//        env.set(assignCont.getVariable().getAddress(), val);
-//        pc--;
-//        next = CONT;
-//    }
-
-    protected void createContSlotSetReceiver(Object[] cont, SlotSetExpression slotSetExpression) {
-        cont[0] = CONT_SLOT_SET_RECEIVER;
-        cont[1] = slotSetExpression.getSlotExpression();
-        cont[2] = slotSetExpression.getValueExpression();
+    public void processContinuation(TernCont ternCont) {
+        if (toBool(val).equals(Bool.TRUE)) {
+            stmt = ternCont.getTrueExpression();
+        }
+        else {
+            stmt = ternCont.getFalseExpression();
+        }
+        pc--;
+        next = EVAL;
     }
 
-    public void processContSlotSetReceiver() {
-        Object[] cc = cont[pc];
-        //noinspection UnnecessaryLocalVariable
-        Expression slotExpression = (Expression) cc[1];
-        Expression valueExpression = (Expression) cc[2];
-        stmt = slotExpression;
+    public void processContinuation(AssignExprCont assignExprCont) {
+        stmt = assignExprCont.getAssign();
+        pc--;
+        next = EVAL;
+    }
+
+    public void processContinuation(AssignCont assignCont) {
+        env.set(assignCont.getVariable().getAddress(), val);
+        pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(SlotSetReceiverCont slotSetReceiverCont) {
+        stmt = slotSetReceiverCont.getSlotExpression();
         Obj receiver = val;
-//        cont[pc] = new SlotSetSlotCont(receiver, slotSetReceiverCont.getValueExpression());
-        createContSlotSetSlot(cont[pc], receiver, valueExpression);
+        cont[pc] = new SlotSetSlotCont(receiver, slotSetReceiverCont.getValueExpression());
         next = EVAL;
     }
 
-//    public void processContinuation(SlotSetReceiverCont slotSetReceiverCont) {
-//        stmt = slotSetReceiverCont.getSlotExpression();
-//        Obj receiver = val;
-//        cont[pc] = new SlotSetSlotCont(receiver, slotSetReceiverCont.getValueExpression());
-//        next = EVAL;
-//    }
-
-    protected void createContSlotSetSlot(Object[] cont, Obj receiver, Expression valueExpression) {
-        cont[0] = CONT_SLOT_SET_SLOT;
-        cont[1] = receiver;
-        cont[2] = valueExpression;
-    }
-
-    public void processContSlotSetSlot() {
-        Object[] cc = cont[pc];
-        Obj receiver = (Obj) cc[1];
+    public void processContinuation(SlotSetSlotCont slotSetSlotCont) {
+        Obj receiver = slotSetSlotCont.getReceiver();
         Obj slot = val;
-        //noinspection UnnecessaryLocalVariable
-        Expression valueExp = (Expression) cc[2];
 
-        stmt = valueExp;
-//        cont[pc] = new SlotSetValueCont(receiver, slot);
-        createContSlotSetValue(cont[pc], receiver, slot);
+        stmt = slotSetSlotCont.getValueExpression();
+        cont[pc] = new SlotSetValueCont(receiver, slot);
         next = EVAL;
     }
 
-//    public void processContinuation(SlotSetSlotCont slotSetSlotCont) {
-//        Obj receiver = slotSetSlotCont.getReceiver();
-//        Obj slot = val;
-//
-//        stmt = slotSetSlotCont.getValueExpression();
-//        cont[pc] = new SlotSetValueCont(receiver, slot);
-//        next = EVAL;
-//    }
-
-    protected void createContSlotSetValue(Object[] cont, Obj receiver, Obj slot) {
-        cont[0] = CONT_SLOT_SET_VALUE;
-        cont[1] = receiver;
-        cont[2] = slot;
-    }
-
-    public void processContSlotSetValue() {
-        Object[] cc = cont[pc];
+    public void processContinuation(SlotSetValueCont slotSetValueCont) {
         pc--;
 
-        Obj receiver = (Obj) cc[1];
-        Obj slot = (Obj) cc[2];
+        Obj receiver = slotSetValueCont.getReceiver();
+        Obj slot = slotSetValueCont.getSlot();
         Obj value = val;
 
         receiver.setSlot(slot, value);
         next = CONT;
     }
 
-//    public void processContinuation(SlotSetValueCont slotSetValueCont) {
-//        pc--;
-//
-//        Obj receiver = slotSetValueCont.getReceiver();
-//        Obj slot = slotSetValueCont.getSlot();
-//        Obj value = val;
-//
-//        receiver.setSlot(slot, value);
-//        next = CONT;
-//    }
-
-    protected void createContSlotGetReceiver(Object[] cont, SlotExpression slotExpression) {
-        cont[0] = CONT_SLOT_GET_RECEIVER;
-        cont[1] = slotExpression.getSlot();
-    }
-
-    public void processContSlotGetReceiver() {
-        Object[] cc = cont[pc];
-        //noinspection UnnecessaryLocalVariable
-        Expression slotExp = (Expression) cc[1];
-
-        stmt = slotExp;
-
+    public void processContinuation(SlotGetReceiverCont slotGetReceiverCont) {
         Obj receiver = val;
+        stmt = slotGetReceiverCont.getSlotExpression();
 
-//        cont[pc] = new SlotGetSlotCont(receiver);
-        createContSlotGetSlot(cont[pc], receiver);
+        cont[pc] = new SlotGetSlotCont(receiver);
         next = EVAL;
     }
 
-//    public void processContinuation(SlotGetReceiverCont slotGetReceiverCont) {
-//        Obj receiver = val;
-//        stmt = slotGetReceiverCont.getSlotExpression();
-//
-//        cont[pc] = new SlotGetSlotCont(receiver);
-//        next = EVAL;
-//    }
-
-    protected void createContSlotGetSlot(Object[] cont, Obj receiver) {
-        cont[0] = CONT_SLOT_GET_SLOT;
-        cont[1] = receiver;
-    }
-
-    public void processContSlotGetSlot() {
-        Object[] cc = cont[pc];
+    public void processContinuation(SlotGetSlotCont slotGetSlotCont) {
         pc--;
-
-        Obj receiver = (Obj) cc[1];
+        Obj receiver = slotGetSlotCont.getReceiver();
         Obj slot = val;
         Obj obj = receiver;
         while (true) {
@@ -1004,246 +662,89 @@ public class SQLScriptEngine
         next = CONT;
     }
 
-//    public void processContinuation(SlotGetSlotCont slotGetSlotCont) {
-//        pc--;
-//        Obj receiver = slotGetSlotCont.getReceiver();
-//        Obj slot = val;
-//        Obj obj = receiver;
-//        while (true) {
-//            val = obj.getSlot(slot);
-//            if (val != null) {
-//                break;
-//            }
-//            Obj parent = obj.getSlot(STR_SLOT_PARENT);
-//            if (parent == null) {
-//                break;
-//            }
-//            obj = parent;
-//        }
-//        next = CONT;
-//    }
-
-    protected void createContIf(Object[] cont, IfStatement ifStatement) {
-        cont[0] = CONT_IF;
-        cont[1] = ifStatement.getTrueStatement();
-        cont[2] = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
-    }
-
-    public void processContIf() {
-        Object[] cc = cont[pc];
+    public void processContinuation(IfCont ifCont) {
         pc--;
-
         if (toBool(val).equals(Bool.TRUE)) {
-            stmt = (Statement) cc[1];
+            stmt = ifCont.getTrueStatement();
+            next = EVAL;
+        }
+        else if (ifCont.hasFalseStatement()) {
+            stmt = ifCont.getFalseStatement();
             next = EVAL;
         }
         else {
-            Statement falseStatement = (Statement) cc[2];
-            if (falseStatement != null) {
-                stmt = falseStatement;
-                next = EVAL;
-            }
-            else {
-                next = CONT;
-            }
+            next = CONT;
         }
     }
 
-//    public void processContinuation(IfCont ifCont) {
-//        pc--;
-//        if (toBool(val).equals(Bool.TRUE)) {
-//            stmt = ifCont.getTrueStatement();
-//            next = EVAL;
-//        }
-//        else if (ifCont.hasFalseStatement()) {
-//            stmt = ifCont.getFalseStatement();
-//            next = EVAL;
-//        }
-//        else {
-//            next = CONT;
-//        }
-//    }
-
-    protected void createContTry(Object[] cont, CatchStatement catchClause, Env savedEnv) {
-        cont[0] = CONT_TRY;
-        cont[1] = catchClause;
-        cont[2] = savedEnv;
-    }
-
-    public void processContTry() {
+    public void processContinuation(TryCont tryCont) {
         pc--;
         next = CONT;
     }
 
-//    public void processContinuation(TryCont tryCont) {
-//        pc--;
-//        next = CONT;
-//    }
-
-    protected void createContThrow(Object[] cont) {
-        cont[0] = CONT_THROW;
-        cont[1] = false; // has saved value?
-        cont[2] = null; // saved value
-    }
-
-    public void processContThrow() {
-        Object[] throwCont = cont[pc];
+    public void processContinuation(ThrowCont throwCont) {
         pc--;
-        Object[] tryCont = null;
+        TryCont tryCont = null;
         for (int i = pc; i >= 0; i--) {
-            Object[] cc = cont[i];
-            switch ((Integer) cc[0]) {
-                case CONT_TRY:
-                    tryCont = cc;
-                    pc = i;
-                    break;
-                case CONT_FINALLY:
-                    //noinspection UnnecessaryLocalVariable
-                    Object[] finallyCont = cc;
-                    throwCont[1] = true;
-                    throwCont[2] = val;
-                    pc = i;
-                    cont[++pc] = throwCont;
-                    cont[++pc] = finallyCont;
-                    next = CONT;
-                    return;
+            Continuation c = cont[i];
+            if (c instanceof TryCont) {
+                tryCont = (TryCont) c;
+                pc = i;
+            }
+            else if (c instanceof FinallyCont) {
+                FinallyCont finallyCont = (FinallyCont) c;
+                throwCont.setSavedValue(val);
+                pc = i;
+                cont[++pc] = throwCont;
+                cont[++pc] = finallyCont;
+                next = CONT;
+                return;
             }
         }
         if (tryCont == null) {
             throw new SQLScriptRuntimeException("Unhandled execption: " +
                                                 (val == null ? "null" : val.toString()));
         }
-        CatchStatement catchStmt = (CatchStatement) tryCont[1];
-        Env savedEnv = (Env) tryCont[2];
+        CatchStatement catchStmt = tryCont.getCatchClause();
+        Env savedEnv = tryCont.getEnv();
         env = savedEnv;
-        boolean hasSavedValue = (Boolean) throwCont[1];
-        Obj savedValue = (Obj) throwCont[2];
         env.extend();
-        env.set(catchStmt.getVariable().getAddress(), hasSavedValue ? savedValue : val);
+        env.set(catchStmt.getVariable().getAddress(), throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
         stmt = catchStmt.getBody();
-//        cont[++pc] = new CatchCont(savedEnv);
-        createCatchCont(cont[++pc], savedEnv);
+        cont[++pc] = new CatchCont(savedEnv);
         next = EVAL;
     }
 
-//    public void processContinuation(ThrowCont throwCont) {
-//        pc--;
-//        Object[] tryCont = null;
-//        for (int i = pc; i >= 0; i--) {
-//            Object[] cc = cont[i];
-//            switch ((Integer) cc[0]) {
-//                case CONT_TRY:
-//                    tryCont = cc;
-//                    pc = i;
-//                    break;
-//                case CONT_FINALLY:
-//                    //noinspection UnnecessaryLocalVariable
-//                    Object[] finallyCont = cc;
-//                    throwCont.setSavedValue(val);
-//                    pc = i;
-//                    cont[++pc] = throwCont;
-//                    cont[++pc] = finallyCont;
-//                    next = CONT;
-//                    return;
-//            }
-//        }
-//        if (tryCont == null) {
-//            throw new SQLScriptRuntimeException("Unhandled execption: " +
-//                                                (val == null ? "null" : val.toString()));
-//        }
-//        CatchStatement catchStmt = tryCont.getCatchClause();
-//        Env savedEnv = tryCont.getEnv();
-//        env = savedEnv;
-//        env.extend();
-//        env.set(catchStmt.getVariable().getAddress(), throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
-//        stmt = catchStmt.getBody();
-//        cont[++pc] = new CatchCont(savedEnv);
-//        next = EVAL;
-//    }
-
-    protected void createCatchCont(Object[] cont, Env savedEnv) {
-        cont[0] = CONT_CATCH;
-        cont[1] = savedEnv;
-    }
-
-    public void processContCatch() {
-        Object[] cc = cont[pc];
+    public void processContinuation(CatchCont catchCont) {
         pc--;
-        env = (Env) cc[1];
+        env = catchCont.getEnv();
         next = CONT;
     }
 
-//    public void processContinuation(CatchCont catchCont) {
-//        pc--;
-//        env = catchCont.getEnv();
-//        next = CONT;
-//    }
-
-    protected void createContFinally(Object[] cont, Statement body, Env savedEnv) {
-        cont[0] = CONT_FINALLY;
-        cont[1] = body;
-        cont[2] = savedEnv;
-    }
-
-    public void processContFinally() {
-        Object[] cc = cont[pc];
+    public void processContinuation(FinallyCont finallyCont) {
         pc--;
-
-        Statement body = (Statement) cc[1];
-        Env savedEnv = (Env) cc[2];
-
-        stmt = body;
-        env = savedEnv;
-
+        env = finallyCont.getEnv();
+        stmt = finallyCont.getBody();
         next = EVAL;
     }
 
-//    public void processContinuation(FinallyCont finallyCont) {
-//        pc--;
-//        env = finallyCont.getEnv();
-//        stmt = finallyCont.getBody();
-//        next = EVAL;
-//    }
-
-    protected void createContSlotCallReceiver(Object[] cont, SlotCallExpression slotCallExpression) {
-        cont[0] = CONT_SLOT_CALL_RECEIVER;
-        cont[1] = slotCallExpression.getSlotExpression().getSlot();
-        cont[2] = slotCallExpression.getArgumentsArray();
-    }
-
-    public void processContSlotCallReceiver() {
-        Object[] cc = cont[pc];
-        Expression slotExp = (Expression) cc[1];
-        Expression[] args = (Expression[]) cc[2];
-
+    public void processContinuation(SlotCallReceiverCont slotCallReceiverCont) {
         Obj receiver = val;
-        stmt = slotExp;
-//        cont[pc] = new SlotCallSlotCont(receiver, slotCallReceiverCont.getArguments());
-        createContSlotCallSlot(cont[pc], receiver, args);
+        stmt = slotCallReceiverCont.getSlotExpression();
+        cont[pc] = new SlotCallSlotCont(receiver, slotCallReceiverCont.getArguments());
 
         next = EVAL;
     }
 
-    protected static Str slotSub = new Str("-").intern();
-
-    protected void createContSlotCallSlot(Object[] cont, Obj receiver, Expression[] args) {
-        cont[0] = CONT_SLOT_CALL_SLOT;
-        cont[1] = receiver;
-        cont[2] = args;
-    }
-
-    public void processContSlotCallSlot() {
-        Object[] cc = cont[pc];
-        Obj receiver = (Obj) cc[1];
-        Expression[] args = (Expression[]) cc[2];
+    public void processContinuation(SlotCallSlotCont slotCallSlotCont) {
+        Obj receiver = slotCallSlotCont.getReceiver();
         Obj slot = val;
 
         Obj obj = receiver;
         while (true) {
             PrimitiveExpression prim = obj.getPrimitiveForSlot(slot);
             if (prim != null) {
-//                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
-                createContPrim(cont[pc], prim, receiver, args);
+                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
                 next = CONT;
                 return;
             }
@@ -1261,376 +762,128 @@ public class SQLScriptEngine
             obj = parent;
         }
 
-//        cont[pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
-        createContFun(cont[pc], receiver, args);
+        cont[pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
         next = CONT;
     }
 
-//    public void processContinuation(SlotCallSlotCont slotCallSlotCont) {
-//        Obj receiver = slotCallSlotCont.getReceiver();
-//        Obj slot = val;
-//
-//        Obj obj = receiver;
-//        while (true) {
-//            PrimitiveExpression prim = obj.getPrimitiveForSlot(slot);
-//            if (prim != null) {
-//                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
-//                next = CONT;
-//                return;
-//            }
-//
-//            val = obj.getSlot(slot);
-//            if (val != null) {
-//                break;
-//            }
-//
-//            Obj parent = obj.getSlot(STR_SLOT_PARENT);
-//            if (parent == null) {
-//                break;
-//            }
-//
-//            obj = parent;
-//        }
-//
-//        cont[pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
-//        next = CONT;
-//    }
-
-    protected void createContFun(Object[] cont, Obj receiver, Expression[] args) {
-        cont[0] = CONT_FUN;
-        cont[1] = args;
-        cont[2] = receiver;
-    }
-
-    protected void createContFun(Object[] cont, FunctionCallExpression functionCallExpression) {
-        cont[0] = CONT_FUN;
-        cont[1] = functionCallExpression.getArgumentsArray();
-        cont[2] = null; // context
-    }
-
-    public void processContFun() {
+    public void processContinuation(FunCont funCont) {
         if (val == null || !(val instanceof Func)) {
             throw new SQLScriptRuntimeException("Not a function");
         }
-
-        Object[] cc = cont[pc];
-        Expression[] args = (Expression[]) cc[1];
-        Obj context = (Obj) cc[2];
-
         Function func = ((Func) val).getFunction();
+        List<Expression> args = funCont.getArguments();
         checkFunArgs(func, args);
-
         Env funcEnv = func.getEnv().clone();
         Env savedEnv = env.clone();
+        Obj context = funCont.getContext();
         funcEnv.setThis(context);
-//        cont[pc] = new FunArgCont(func, args, funcEnv, savedEnv);
-        createFunArgCont(cont[pc], func, args, funcEnv, savedEnv);
+        cont[pc] = new FunArgCont(func, args, funcEnv, savedEnv);
         next = CONT;
     }
 
-//    public void processContinuation(FunCont funCont) {
-//        if (val == null || !(val instanceof Func)) {
-//            throw new SQLScriptRuntimeException("Not a function");
-//        }
-//        Function func = ((Func) val).getFunction();
-//        List<Expression> args = funCont.getArguments();
-//        checkFunArgs(func, args);
-//        Env funcEnv = func.getEnv().clone();
-//        Env savedEnv = env.clone();
-//        Obj context = funCont.getContext();
-//        funcEnv.setThis(context);
-//        cont[pc] = new FunArgCont(func, args, funcEnv, savedEnv);
-//        next = CONT;
-//    }
-
-    protected void createFunArgCont(Object[] cont, Function func, Expression[] args, Env funcEnv, Env savedEnv) {
-        cont[0] = CONT_FUN_ARG;
-        cont[1] = func;
-        cont[2] = 0;
-        cont[3] = args;
-        cont[4] = funcEnv;
-        cont[5] = savedEnv;
-    }
-
-    public void processContFunArg() {
-        Object[] cc = cont[pc];
-        int curArg = (Integer) cc[2];
-        Expression[] args = (Expression[]) cc[3];
-        Env funcEnv = (Env) cc[4];
-        if (curArg < args.length) {
-            stmt = args[curArg];
-            curArg++;
-            cc[2] = curArg;
-//            cont[++pc] = new FunArgAssignCont(funArgCont.getFuncEnv());
-            createContFunArgAssign(cont[++pc], funcEnv);
+    public void processContinuation(FunArgCont funArgCont) {
+        if (funArgCont.hasNext()) {
+            stmt = funArgCont.next();
+            cont[++pc] = new FunArgAssignCont(funArgCont.getFuncEnv());
             next = EVAL;
         }
         else {
-            Function func = (Function) cc[1];
             pc--;
             // tail-call optimization
-            if (((Integer)cont[pc - 1][0]) != CONT_FUN_RET) {
-                Env savedEnv = (Env) cc[5];
-//                cont[++pc] = new FunRetCont(savedEnv);
-                createContFunRet(cont[++pc], savedEnv);
+            if (!(cont[pc - 1] instanceof FunRetCont)) {
+                cont[++pc] = new FunRetCont(funArgCont.getSavedEnv());
             }
-            env = funcEnv;
-            stmt = func.getBody();
+            env = funArgCont.getFuncEnv();
+            stmt = funArgCont.getBody();
             next = EVAL;
         }
     }
 
-//    public void processContinuation(FunArgCont funArgCont) {
-//        if (funArgCont.hasNext()) {
-//            stmt = funArgCont.next();
-//            cont[++pc] = new FunArgAssignCont(funArgCont.getFuncEnv());
-//            next = EVAL;
-//        }
-//        else {
-//            pc--;
-//            // tail-call optimization
-//            if (!(cont[pc - 1] instanceof FunRetCont)) {
-//                cont[++pc] = new FunRetCont(funArgCont.getSavedEnv());
-//            }
-//            env = funArgCont.getFuncEnv();
-//            stmt = funArgCont.getBody();
-//            next = EVAL;
-//        }
-//    }
-
-    protected void createContFunArgAssign(Object[] cont, Env funcEnv) {
-        cont[0] = CONT_FUN_ARG_ASSIGN;
-        cont[1] = funcEnv;
-    }
-
-    public void processContFunArgAssign() {
-        Object[] cc = cont[pc];
-        Env funcEnv = (Env) cc[1];
+    public void processContinuation(FunArgAssignCont funArgAssignCont) {
+        Env funcEnv = funArgAssignCont.getEnv();
         funcEnv.extend();
         funcEnv.set(0, val);
         pc--;
         next = CONT;
     }
 
-//    public void processContinuation(FunArgAssignCont funArgAssignCont) {
-//        Env funcEnv = funArgAssignCont.getEnv();
-//        funcEnv.extend();
-//        funcEnv.set(0, val);
-//        pc--;
-//        next = CONT;
-//    }
-
-    protected void createContFunRet(Object[] cont, Env savedEnv) {
-        cont[0] = CONT_FUN_RET;
-        cont[1] = savedEnv;
-    }
-
-    public void processContFunRet() {
-        Object[] cc = cont[pc];
-        env = (Env) cc[1];
+    public void processContinuation(FunRetCont funRetCont) {
+        env = funRetCont.getSavedEnv();
         pc--;
         next = CONT;
     }
 
-//    public void processContinuation(FunRetCont funRetCont) {
-//        Object[] cc = cont[pc];
-//        env = (Env) cc[1];
-//        pc--;
-//        next = CONT;
-//    }
-
-    protected void createContReturn(Object[] cont) {
-        cont[0] = CONT_RETURN;
-        cont[1] = false; // has saved value?
-        cont[2] = null; // saved value
-    }
-
-    public void processContReturn() {
-        Object[] cc = cont[pc];
-        boolean hasSavedValue = (Boolean) cc[1];
+    public void processContinuation(ReturnCont returnCont) {
         pc--;
         for (int i = pc; i >= 0; i--) {
-            Object[] c = cont[i];
-            switch ((Integer) c[0]) {
-                case CONT_FUN_RET:
-                    pc = i + 1;
-                    if (hasSavedValue) {
-                        val = (Obj) cc[2];
-                    }
-                    next = CONT;
-                    return;
-                case CONT_FINALLY:
-                    Object[] finallyCont = c;
-                    if (!hasSavedValue) {
-                        cc[2] = val;
-                    }
-                    pc = i;
-                    cont[++pc] = cc;
-                    cont[++pc] = finallyCont;
-                    next = CONT;
-                    return;
+            Continuation c = cont[i];
+            if (c instanceof FunRetCont) {
+                pc = i + 1;
+                if (returnCont.hasSavedValue()) {
+                    val = returnCont.getSavedValue();
+                }
+                next = CONT;
+                return;
+            }
+            else if (c instanceof FinallyCont) {
+                FinallyCont finallyCont = (FinallyCont) c;
+                if (!returnCont.hasSavedValue()) {
+                    returnCont.setSavedValue(val);
+                }
+                pc = i;
+                cont[++pc] = returnCont;
+                cont[++pc] = finallyCont;
+                next = CONT;
+                return;
             }
         }
         throw new SQLScriptRuntimeException("Found return statement outside of function block");
     }
 
-//    public void processContinuation(ReturnCont returnCont) {
-//        pc--;
-//        for (int i = pc; i >= 0; i--) {
-//            Continuation c = cont[i];
-//            if (c instanceof FunRetCont) {
-//                pc = i + 1;
-//                if (returnCont.hasSavedValue()) {
-//                    val = returnCont.getSavedValue();
-//                }
-//                next = CONT;
-//                return;
-//            }
-//            else if (c instanceof FinallyCont) {
-//                FinallyCont finallyCont = (FinallyCont) c;
-//                if (!returnCont.hasSavedValue()) {
-//                    returnCont.setSavedValue(val);
-//                }
-//                pc = i;
-//                cont[++pc] = returnCont;
-//                cont[++pc] = finallyCont;
-//                next = CONT;
-//                return;
-//            }
-//        }
-//        throw new SQLScriptRuntimeException("Found return statement outside of function block");
-//    }
-
-    protected void createContPrim(Object[] cont, Expression primExp, Obj receiver, Expression[] args) {
-        cont[0] = CONT_PRIM;
-        cont[1] = primExp;
-        cont[2] = receiver;
-        cont[3] = -1;
-        cont[4] = args;
-        cont[5] = new Obj[args.length];
-    }
-
-    public void processContPrim() {
-        Object[] cc = cont[pc];
-        int curArg = (Integer) cc[3];
-        Expression[] args = (Expression[]) cc[4];
-        Obj[] results = (Obj[]) cc[5];
-
-        if (curArg != -1) {
-            results[curArg] = val;
-        }
-        curArg++;
-        if (curArg < args.length) {
-            stmt = args[curArg];
-            cc[3] = curArg;
+    public void processContinuation(PrimitiveCont primitiveCont) {
+        primitiveCont.setArgumentValue(val);
+        if (primitiveCont.hasNextArgument()) {
+            stmt = primitiveCont.getNextArgument();
         }
         else {
             pc--;
-            PrimitiveExpression p = (PrimitiveExpression) cc[1];
-            p.setArguments(results);
+            PrimitiveExpression p = primitiveCont.getPrimitiveExpression();
+            p.setArguments(primitiveCont.getEvaluatedArguments());
             stmt = p;
-            val = (Obj) cc[2];
+            val = primitiveCont.getArgument1();
         }
         next = EVAL;
     }
 
-//    public void processContinuation(PrimitiveCont primitiveCont) {
-//        primitiveCont.setArgumentValue(val);
-//        if (primitiveCont.hasNextArgument()) {
-//            stmt = primitiveCont.getNextArgument();
-//        }
-//        else {
-//            pc--;
-//            PrimitiveExpression p = primitiveCont.getPrimitiveExpression();
-//            p.setArguments(primitiveCont.getEvaluatedArguments());
-//            stmt = p;
-//            val = primitiveCont.getArgument1();
-//        }
-//        next = EVAL;
-//    }
-
-    protected void createContNew(Object[] cont, NewExpression newExpression) {
-        cont[0] = CONT_NEW;
-        cont[1] = newExpression.getArguments().toArray(new Expression[0]);
-    }
-
-    public void processContNew() {
-        Object[] cc = cont[pc];
-        Expression[] args = (Expression[]) cc[1];
-
+    public void processContinuation(NewCont newCont) {
         Obj newObj = new Obj();
         newObj.setSlot(STR_SLOT_PARENT, val);
         val = STR_SLOT_INIT;
-//        cont[pc]   = new NewResultCont(newObj);
-        createContNewResult(cont[pc], newObj);
-//        cont[++pc] = new FunCont(newObj, newCont.getArguments()); // make NewCont support args
-        createContFun(cont[++pc], newObj, args);
-//        cont[++pc] = new SlotGetSlotCont(newObj);
-        createContSlotGetSlot(cont[++pc], newObj);
+        cont[pc]   = new NewResultCont(newObj);
+        cont[++pc] = new FunCont(newObj, newCont.getArguments()); // make NewCont support args
+        cont[++pc] = new SlotGetSlotCont(newObj);
         next = CONT;
     }
 
-//    public void processContinuation(NewCont newCont) {
-//        Obj newObj = new Obj();
-//        newObj.setSlot(STR_SLOT_PARENT, val);
-//        val = STR_SLOT_INIT;
-//        cont[pc]   = new NewResultCont(newObj);
-//        cont[++pc] = new FunCont(newObj, newCont.getArguments()); // make NewCont support args
-//        cont[++pc] = new SlotGetSlotCont(newObj);
-//        next = CONT;
-//    }
-
-    protected void createContNewResult(Object[] cont, Obj newObj) {
-        cont[0] = CONT_NEW_RESULT;
-        cont[1] = newObj;
-    }
-
-    public void processContNewResult() {
-        Object[] cc = cont[pc];
+    public void processContinuation(NewResultCont newResultCont) {
         pc--;
-        val = (Obj) cc[1];
+        val = newResultCont.getNewObject();
         next = CONT;
     }
 
-//    public void processContinuation(NewResultCont newResultCont) {
-//        pc--;
-//        val = newResultCont.getNewObject();
-//        next = CONT;
-//    }
-
-    public void processContExit() {
+    public void processContinuation(ExitCont exitCont) {
         System.out.println("Computation finished. Exit continuation reached.");
         pc = 0;
         finished = true;
         next = CONT;
     }
 
-//    public void processContinuation(ExitCont exitCont) {
-//        System.out.println("Computation finished. Exit continuation reached.");
-//        pc = 0;
-//        finished = true;
-//        next = CONT;
-//    }
-
-    protected void createContInitParam(Object[] cont, InitParameter initParameter) {
-        cont[0] = CONT_INIT_PARAM;
-        cont[1] = initParameter.getParameter();
-    }
-
-    public void processContInitParam() {
-        Object[] cc = cont[pc];
-        Parameter param = (Parameter) cc[1];
+    public void processContinuation(InitParamCont initParamCont) {
+        Parameter param = initParamCont.getParameter();
         param.setValue(val);
         pc--;
         next = CONT;
     }
-
-//    public void processContinuation(InitParamCont initParamCont) {
-//        Parameter param = initParamCont.getParameter();
-//        param.setValue(val);
-//        pc--;
-//        next = CONT;
-//    }
 
     protected void process(EvalCommand command) throws SQLScriptRuntimeException {
         logger.debug("Executing CMD: " + command);
@@ -1890,13 +1143,6 @@ public class SQLScriptEngine
     protected void checkFunArgs(Function function, List<Expression> args) {
 //        if (!matchesFunArgs(function, args)) {
         if (function.getArgCount() != args.size()) {
-            throw new SQLScriptRuntimeException("Arguments do not match function");
-        }
-    }
-
-    protected void checkFunArgs(Function function, Expression[] args) {
-//        if (!matchesFunArgs(function, args)) {
-        if (function.getArgCount() != args.length) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
         }
     }
