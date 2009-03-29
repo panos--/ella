@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Block extends AbstractStatement implements StatementContainer {
     protected List<Statement> statements = new ArrayList<Statement>(16);
+    protected Statement[] statementsArray = new Statement[0];
 
     // indicates that after processing this block the environment should not be reset
     protected boolean keepEnv = false;
@@ -24,6 +25,10 @@ public class Block extends AbstractStatement implements StatementContainer {
 
     public void accept(ScriptProcessor processor, Env env) {
         processor.process(env, this);
+    }
+
+    public Statement[] getStatementsArray() {
+        return statementsArray;
     }
 
     public List<Statement> getStatements() {
@@ -41,6 +46,7 @@ public class Block extends AbstractStatement implements StatementContainer {
     public void addStatement(Statement statement) {
         statement.setScope(getScope());
         statements.add(statement);
+        statementsArray = statements.toArray(new Statement[statements.size()]);
     }
 
     public boolean isKeepEnv() {
