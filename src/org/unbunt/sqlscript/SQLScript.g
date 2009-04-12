@@ -20,6 +20,7 @@ tokens {
 	ASSIGN;
 	FUNC_DEF;
 	FUNC_CALL;
+	BLOCK_CLOSURE;
 	ARGS;
 	ARG_EXPR;
 	ARG_TRUE;
@@ -260,12 +261,31 @@ scriptIncremental
 	;
 
 statement
-	:	annotations! (evalStmt[$annotations.tree] | sqlStmt[$annotations.tree]) SEP!
-	|	scriptStmt
-	|	block
-	|	parseDirective! SEP!
+	:	statementSep SEP!
+		//( (SEP)=> SEP!
+		//| (RCURLY)=> RCURLY
+		//| SEP!
+		//)
+	|	statementNoSep
 	|	SEP!
 	;
+
+statementSep
+	:	annotations! (evalStmt[$annotations.tree] | sqlStmt[$annotations.tree])
+	|	scriptStmtSep
+	|	parseDirective!
+	;
+
+statementNoSep
+	:	scriptStmtNoSep
+	|	block
+	;
+
+/*
+statementList
+	:	(statementSep SEP! | statementNoSep)*
+	;
+*/
 
 block	:	LCURLY statement* RCURLY -> ^(BLOCK statement*)
 	;
@@ -326,21 +346,32 @@ sqlSpecialChar
 	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
 	|	EXCLAM | QUESTION | COLON | DOT | COMMA
+	|	DOUBLE_ARROW
 	;
 
+/*
 scriptStmt
+	:	scriptStmtSep SEP!
+	|	scriptStmtNoSep
+	;
+*/
+
+scriptStmtSep
 	:	scriptAssignStmt
-	|	scriptFuncDefStmt
 	|	scriptExpressionStmt
-	|	scriptIfElse
-	|	scriptTry
 	|	scriptThrow
 	|	scriptReturn
 	|	scriptExit
 	;
 
+scriptStmtNoSep
+	:	scriptFuncDefStmt
+	|	scriptIfElse
+	|	scriptTry
+	;
+
 scriptAssignStmt
-	:	KW_VAR scriptAssign (COMMA scriptAssign)* SEP -> scriptAssign+
+	:	KW_VAR scriptAssign (COMMA scriptAssign)* -> scriptAssign+
 	;
 
 scriptAssign
@@ -367,8 +398,17 @@ argumentsDef
 		RPAREN
 	;
 
+blockClosure
+	:	LCURLY blockArgumentsDef statement* RCURLY -> ^(BLOCK_CLOSURE blockArgumentsDef? ^(BLOCK statement*))
+	;
+
+blockArgumentsDef
+	:	identifier+ DOUBLE_ARROW -> ^(ARGS identifier*)
+	|	DOUBLE_ARROW!
+	;
+
 scriptExpressionStmt
-	:	DOT! expressionStmt SEP!
+	:	DOT! expressionStmt
 	;
 
 scriptIfElse
@@ -397,16 +437,16 @@ scriptFinally
 	;
 
 scriptThrow
-	:	KW_THROW expression SEP -> ^(THROW expression)
+	:	KW_THROW expression -> ^(THROW expression)
 	;
 
 // TODO: Allow return only inside of function blocks
 scriptReturn
-	:	KW_RETURN expression? SEP -> ^(RETURN expression?)
+	:	KW_RETURN expression? -> ^(RETURN expression?)
 	;
 
 scriptExit
-	:	KW_EXIT expression? SEP -> ^(EXIT expression?)
+	:	KW_EXIT expression? -> ^(EXIT expression?)
 	;
 
 // Expressions
@@ -415,7 +455,7 @@ parenExpression
 	:	LPAREN! expression RPAREN!
 	;
 
-// NOTE: No objectLiteral here as it would interfere with block statements
+// NOTE: No objectLiteral, no block closure here as it would interfere with block statements
 expressionStmt
 	:	assignExpression
 	|	scriptFuncDef
@@ -520,10 +560,15 @@ indexSuffix
 
 callSuffix
 	:	argumentsList
+		( (LCURLY)=> blockClosure
+		|
+		)
+	|	blockClosure
 	;
 
 simpleExpression
 	:	parenExpression
+	|	blockClosure
 	|	identifier
 	|	stringLiteral
 	|	booleanLiteral
@@ -812,6 +857,10 @@ BACKSLASH
 
 DOUBLE_BACKSLASH
 	:	'\\\\'
+	;
+
+DOUBLE_ARROW
+	:	'=>'
 	;
 
 OP_DEFINE

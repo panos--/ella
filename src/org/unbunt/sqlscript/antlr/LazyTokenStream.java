@@ -300,7 +300,7 @@ public class LazyTokenStream implements TokenStream {
     public int mark() {
         markers.add(tokens.cursor(posCursor));
         int i = markers.size();
-//        System.out.println("LazyTokenStream.mark = " + i);
+        System.out.println("LazyTokenStream.mark = " + i);
         return i;
     }
 
@@ -310,7 +310,9 @@ public class LazyTokenStream implements TokenStream {
      * read not the most recently read symbol.
      */
     public int index() {
-        return pos + 1;
+        int i = posCursor.nextIndex();
+        System.out.println("LazyTokenStream.index = " + i);
+        return i;
     }
 
     /**
@@ -323,6 +325,7 @@ public class LazyTokenStream implements TokenStream {
      * was created.
      */
     public void rewind(int marker) {
+        System.out.println("LazyTokenStream.rewind(" + marker + ")");
         int index = marker - 1;
         setPosCursor(tokens.cursor(markers.get(index)));
         releaseMarkerInternal(index);
@@ -339,6 +342,7 @@ public class LazyTokenStream implements TokenStream {
      * the marker off.  It's like seek(last marker's input position).
      */
     public void rewind() {
+        System.out.println("LazyTokenStream.rewind()");
         setPosCursor(tokens.cursor(markers.get(markers.size() - 1)));
     }
 
@@ -390,9 +394,9 @@ public class LazyTokenStream implements TokenStream {
      * first element in the stream.
      */
     public void seek(int index) {
-//        System.out.println("LazyTokenStream.seek(" + index + ")");
-//        setPosCursor(tokens.cursor(index));
-        throw new RuntimeException("Unsupported operation");
+        System.out.println("LazyTokenStream.seek(" + index + ")");
+        setPosCursor(tokens.cursor(index));
+//        throw new RuntimeException("Unsupported operation");
     }
 
     /**
@@ -416,6 +420,7 @@ public class LazyTokenStream implements TokenStream {
     protected void setPosCursor(ExtendedCursorableLinkedList.Cursor cursor) {
         posCursor.close();
         posCursor = cursor;
+        ltCacheIdx = 0;
     }
 
     /**

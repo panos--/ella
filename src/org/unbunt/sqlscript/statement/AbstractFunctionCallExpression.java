@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public abstract class AbstractFunctionCallExpression extends AbstractExpression {
 
@@ -14,4 +15,10 @@ public abstract class AbstractFunctionCallExpression extends AbstractExpression 
         this.arguments = arguments;
     }
 
+    public void addArgument(Expression argument) {
+        if (arguments == null) {
+            arguments = new ArrayList<Expression>();
+        }
+        arguments.add(argument);
+    }
 }

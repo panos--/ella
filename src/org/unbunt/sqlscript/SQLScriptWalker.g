@@ -262,6 +262,7 @@ expression returns [ Expression value ]
 
 expressionNoSlotExp returns [ Expression value ]
 	:	fd=scriptFuncDef { $value = $fd.value; }
+	|	bc=blockClosure { $value = $bc.value; }
 	|	da=scriptDeclareAndAssign { $value = $da.value; }
 	|	de=scriptDeclare { $value = $de.value; }
 	|	ae=scriptAssign { $value = $ae.value; }
@@ -293,6 +294,16 @@ scope Block;
 		)
 	;
 
+blockClosure returns [ FunctionDefinitionExpression value ]
+scope Block;
+@init {
+	Function function = new Function();
+	$value = new FunctionDefinitionExpression(function);
+	$Block::block = $value;
+}
+	:	^(BLOCK_CLOSURE funcDefRest[function])
+	;
+
 funcDefRest [ Function function ]
 scope Scope;
 @init { $Scope::scope = new Scope($Scope[-1]::scope); }
@@ -311,18 +322,6 @@ argumentsList returns [ List<Expression> value ]
 @init { $value = new ArrayList<Expression>(10); }
 	:	^(ARGS ( expr=expression { $value.add($expr.value); } )+ )
 	;
-
-/*
-// TODO: Forbid duplicate arguments
-argumentsList returns [ Map<String, Expression> value ]
-@init { $value = new HashMap<String, Expression>(); }
-	:	^(ARGS ((^(ARG_EXPR name=identifier expr=expression { $value.put($name.value, $expr.value); })
-	                |^(ARG_TRUE name=identifier { $value.put($name.value, new BooleanLiteralExpression(Bool.TRUE)); })
-	                |^(ARG_FALSE name=identifier { $value.put($name.value, new BooleanLiteralExpression(Bool.FALSE)); })
-	                )
-	               )+)
-	;
-*/
 
 scriptDeclareAndAssign returns [ Expression value ]
 @init { Expression decl = null; }
@@ -426,11 +425,13 @@ callExpression returns [ Expression value ]
 slotCallExpression returns [ SlotCallExpression value ]
 	:	slotExpr=slotExpressionRHS { $value = new SlotCallExpression($slotExpr.value); }
 		(callArgs=argumentsList { $value.setArguments($callArgs.value); })?
+		(blockArg=blockClosure { $value.addArgument($blockArg.value); })?
 	;
 
 funcCallExpression returns [ AbstractFunctionCallExpression value ]
 	:	expr=expressionNoSlotExp { $value = new FunctionCallExpression($expr.value); }
 		(callArgs=argumentsList { $value.setArguments($callArgs.value); })?
+		(blockArg=blockClosure { $value.addArgument($blockArg.value); })?
 	;
 
 callBinaryExpression returns [ SlotCallExpression value ]

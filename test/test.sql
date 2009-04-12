@@ -1,3 +1,20 @@
+var obj := {
+    foo = fun (block) {
+        . block('hello world!');
+    }
+};
+
+. obj foo { msg => \echo msg='bin msg: @{msg}'; };
+
+exit;
+
+fun foo(block) {
+    . block('hello world!');
+}
+
+. foo { msg => \echo msg='@{msg}'; };
+
+exit;
 
 fun loop(n) {
     if (n == 0) {
@@ -9,7 +26,7 @@ fun loop(n) {
     return loop(n - 1);
 }
 
-.loop(1000000);
+.loop(10000000);
 exit;
 
 /*
