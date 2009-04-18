@@ -2,14 +2,14 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.statement.Statement;
+import org.unbunt.sqlscript.support.Callable;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 import org.unbunt.sqlscript.support.Env;
-import org.unbunt.sqlscript.support.Function;
 
 import java.util.List;
 
-public class FunArgCont implements Continuation {
-    protected Function func;
+public class CallArgCont implements Continuation {
+    protected Callable callable;
 
     protected List<Expression> args;
     protected int argsSize;
@@ -18,17 +18,17 @@ public class FunArgCont implements Continuation {
     protected Env funcEnv;
     protected Env savedEnv;
 
-    public FunArgCont(Function func, List<Expression> args, Env savedEnv) {
-        this.func = func;
+    public CallArgCont(Callable callable, List<Expression> args, Env savedEnv) {
+        this.callable = callable;
         this.args = args;
         this.argsSize = args.size();
         this.currArg = 0;
-        this.funcEnv = func.getEnv().clone();
+        this.funcEnv = callable.getEnv().clone();
         this.savedEnv = savedEnv;
     }
 
-    public FunArgCont(Function func, List<Expression> args, Env funcEnv, Env savedEnv) {
-        this.func = func;
+    public CallArgCont(Callable callable, List<Expression> args, Env funcEnv, Env savedEnv) {
+        this.callable = callable;
         this.args = args;
         this.argsSize = args.size();
         this.currArg = 0;
@@ -36,8 +36,8 @@ public class FunArgCont implements Continuation {
         this.savedEnv = savedEnv;
     }
 
-    public Function getFunc() {
-        return func;
+    public Callable getCallable() {
+        return callable;
     }
 
     public boolean hasNext() {
@@ -48,7 +48,7 @@ public class FunArgCont implements Continuation {
         return args.get(currArg++);
     }
 
-    public Env getFuncEnv() {
+    public Env getCallEnv() {
         return funcEnv;
     }
 
@@ -57,7 +57,7 @@ public class FunArgCont implements Continuation {
     }
 
     public Statement getBody() {
-        return func.getBody();
+        return callable.getBody();
     }
 
     public void accept(ContinuationVisitor visitor) {

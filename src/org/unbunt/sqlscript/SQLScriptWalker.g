@@ -294,20 +294,27 @@ scope Block;
 		)
 	;
 
-blockClosure returns [ FunctionDefinitionExpression value ]
-scope Block;
-@init {
-	Function function = new Function();
-	$value = new FunctionDefinitionExpression(function);
-	$Block::block = $value;
-}
-	:	^(BLOCK_CLOSURE funcDefRest[function])
-	;
-
 funcDefRest [ Function function ]
 scope Scope;
 @init { $Scope::scope = new Scope($Scope[-1]::scope); }
 	:	( args=argumentsDef { function.setArguments($args.value); } )?
+		unscopedBlock
+	;
+
+blockClosure returns [ BlockClosureExpression value ]
+scope Block;
+@init {
+	BlockClosure blockClosure = new BlockClosure();
+	$value = new BlockClosureExpression(blockClosure);
+	$Block::block = $value;
+}
+	:	^(BLOCK_CLOSURE blockClosureRest[blockClosure])
+	;
+
+blockClosureRest [ BlockClosure blockClosure ]
+scope Scope;
+@init { $Scope::scope = new Scope($Scope[-1]::scope); }
+	:	( args=argumentsDef { blockClosure.setArguments($args.value); } )?
 		unscopedBlock
 	;
 

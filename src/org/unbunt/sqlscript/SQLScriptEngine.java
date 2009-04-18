@@ -302,9 +302,27 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    public void processExpression(BlockClosureExpression blockClosureExpression) {
+        BlockClosure clos = blockClosureExpression.getBlockClosure();
+
+        for (int i = pc; i >= 0; i--) {
+            Continuation c = cont[i];
+            if (c instanceof FunRetCont) {
+                clos.setHomeOffset(i);
+                clos.setHomeCont(c);
+                break;
+            }
+        }
+
+        val = new Clos(clos);
+        clos.setEnv(env.clone());
+
+        next = CONT;
+    }
+
     public void processExpression(FunctionCallExpression functionCallExpression) {
         stmt = functionCallExpression.getExpression();
-        cont[++pc] = new FunCont(functionCallExpression.getArguments());
+        cont[++pc] = new CallCont(functionCallExpression.getArguments());
         next = EVAL;
     }
 
@@ -320,6 +338,9 @@ public class SQLScriptEngine
         boolean pushCont = true;
         for (int i = pc; i >= 0; i--) {
             Continuation c = cont[i];
+            if (c instanceof ClosRetCont) {
+                break;
+            }
             if (c instanceof FunRetCont) {
                 pc = i + 1;
                 pushCont = false;
@@ -762,47 +783,75 @@ public class SQLScriptEngine
             obj = parent;
         }
 
-        cont[pc] = new FunCont(receiver, slotCallSlotCont.getArguments());
+        cont[pc] = new CallCont(receiver, slotCallSlotCont.getArguments());
         next = CONT;
     }
 
-    public void processContinuation(FunCont funCont) {
-        if (val == null || !(val instanceof Func)) {
-            throw new SQLScriptRuntimeException("Not a function");
+    public void processContinuation(CallCont callCont) {
+        // TODO: merge if-branches as far as possible
+        if (val instanceof Func) {
+            Function func = ((Func) val).getFunction();
+            List<Expression> args = callCont.getArguments();
+            checkFunArgs(func, args);
+            Env funcEnv = func.getEnv().clone();
+            Env savedEnv = env.clone();
+            Obj context = callCont.getContext();
+            funcEnv.setThis(context);
+            cont[pc] = new CallArgCont(func, args, funcEnv, savedEnv);
+            next = CONT;
         }
-        Function func = ((Func) val).getFunction();
-        List<Expression> args = funCont.getArguments();
-        checkFunArgs(func, args);
-        Env funcEnv = func.getEnv().clone();
-        Env savedEnv = env.clone();
-        Obj context = funCont.getContext();
-        funcEnv.setThis(context);
-        cont[pc] = new FunArgCont(func, args, funcEnv, savedEnv);
-        next = CONT;
-    }
-
-    public void processContinuation(FunArgCont funArgCont) {
-        if (funArgCont.hasNext()) {
-            stmt = funArgCont.next();
-            cont[++pc] = new FunArgAssignCont(funArgCont.getFuncEnv());
-            next = EVAL;
+        else if (val instanceof Clos) {
+            Clos closObj = (Clos) val;
+            BlockClosure clos = closObj.getClosure();
+            List<Expression> args = callCont.getArguments();
+            checkFunArgs(clos, args);
+            Env closEnv = clos.getEnv();
+            Env savedEnv = env.clone();
+            Obj context = callCont.getContext();
+            closEnv.setThis(context);
+            cont[pc] = new CallArgCont(clos, args, closEnv, savedEnv);
+            next = CONT;
         }
         else {
+            throw new SQLScriptRuntimeException("Invalid call: Neither block nor function");
+        }
+    }
+
+    public void processContinuation(CallArgCont callArgCont) {
+        if (callArgCont.hasNext()) {
+            stmt = callArgCont.next();
+            cont[++pc] = new CallArgAssignCont(callArgCont.getCallEnv());
+            next = EVAL;
+            return;
+        }
+
+        Callable callable = callArgCont.getCallable();
+        if (callable instanceof Function) {
             pc--;
             // tail-call optimization
             if (!(cont[pc - 1] instanceof FunRetCont)) {
-                cont[++pc] = new FunRetCont(funArgCont.getSavedEnv());
+                cont[++pc] = new FunRetCont(callArgCont.getSavedEnv());
             }
-            env = funArgCont.getFuncEnv();
-            stmt = funArgCont.getBody();
+            env = callArgCont.getCallEnv();
+            stmt = callArgCont.getBody();
             next = EVAL;
+        }
+        else if (callable instanceof BlockClosure) {
+            BlockClosure clos = (BlockClosure) callable;
+            cont[pc] = new ClosRetCont(clos, callArgCont.getSavedEnv());
+            env = callArgCont.getCallEnv();
+            stmt = callArgCont.getBody();
+            next = EVAL;
+        }
+        else {
+            throw new SQLScriptRuntimeException("Internal error: Unhandled callable");
         }
     }
 
-    public void processContinuation(FunArgAssignCont funArgAssignCont) {
-        Env funcEnv = funArgAssignCont.getEnv();
-        funcEnv.extend();
-        funcEnv.set(0, val);
+    public void processContinuation(CallArgAssignCont callArgAssignCont) {
+        Env callEnv = callArgAssignCont.getEnv();
+        callEnv.extend();
+        callEnv.set(0, val);
         pc--;
         next = CONT;
     }
@@ -813,11 +862,31 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    public void processContinuation(ClosRetCont closRetCont) {
+        env = closRetCont.getSavedEnv();
+        pc--;
+        next = CONT;
+    }
+
     public void processContinuation(ReturnCont returnCont) {
         pc--;
         for (int i = pc; i >= 0; i--) {
             Continuation c = cont[i];
-            if (c instanceof FunRetCont) {
+            if (c instanceof ClosRetCont) {
+                BlockClosure closure = ((ClosRetCont) c).getClosure();
+                int homeOffset = closure.getHomeOffset();
+                Continuation homeCont = closure.getHomeCont();
+                if (homeOffset >= i || cont[homeOffset] != homeCont) {
+                    throw new SQLScriptRuntimeException("Non-local return");
+                }
+                pc = homeOffset;
+                if (returnCont.hasSavedValue()) {
+                    val = returnCont.getSavedValue();
+                }
+                next = CONT;
+                return;
+            }
+            else if (c instanceof FunRetCont) {
                 pc = i + 1;
                 if (returnCont.hasSavedValue()) {
                     val = returnCont.getSavedValue();
@@ -860,7 +929,7 @@ public class SQLScriptEngine
         newObj.setSlot(STR_SLOT_PARENT, val);
         val = STR_SLOT_INIT;
         cont[pc]   = new NewResultCont(newObj);
-        cont[++pc] = new FunCont(newObj, newCont.getArguments()); // make NewCont support args
+        cont[++pc] = new CallCont(newObj, newCont.getArguments()); // make NewCont support args
         cont[++pc] = new SlotGetSlotCont(newObj);
         next = CONT;
     }
@@ -1140,9 +1209,9 @@ public class SQLScriptEngine
         annCmd.getSubject().addAnnotation(annotation);
     }
 
-    protected void checkFunArgs(Function function, List<Expression> args) {
+    protected void checkFunArgs(Callable callable, List<Expression> args) {
 //        if (!matchesFunArgs(function, args)) {
-        if (function.getArgCount() != args.size()) {
+        if (callable.getArgCount() != args.size()) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
         }
     }

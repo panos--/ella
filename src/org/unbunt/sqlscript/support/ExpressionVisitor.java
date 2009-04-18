@@ -80,4 +80,6 @@ public interface ExpressionVisitor {
     void processExpression(PrimIntModExpression primIntModExpression);
 
     void processExpression(ThisExpression thisExpression);
+
+    void processExpression(BlockClosureExpression blockClosureExpression);
 }

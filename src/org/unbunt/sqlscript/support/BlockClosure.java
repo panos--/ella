@@ -1,38 +1,24 @@
 package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.statement.Statement;
+import org.unbunt.sqlscript.continuations.Continuation;
 
 import java.util.List;
 
-public class Function implements Callable {
-    protected String name = null;
+public class BlockClosure implements Callable {
     protected List<String> arguments = null;
     protected int argCount = 0;
     protected Statement body = null;
     protected Env env = null;
 
-    public Function() {
+    protected int homeOffset = -1;
+    protected Continuation homeCont = null;
+
+    public BlockClosure() {
     }
 
-    public Function(String name) {
-        this.name = name;
-    }
-
-    public Function(Statement body) {
-        this(null, body);
-    }
-
-    public Function(String name, Statement body) {
-        this.name = name;
+    public BlockClosure(Statement body) {
         this.body = body;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<String> getArguments() {
@@ -64,7 +50,23 @@ public class Function implements Callable {
         this.env = env;
     }
 
+    public int getHomeOffset() {
+        return homeOffset;
+    }
+
+    public void setHomeOffset(int homeOffset) {
+        this.homeOffset = homeOffset;
+    }
+
+    public Continuation getHomeCont() {
+        return homeCont;
+    }
+
+    public void setHomeCont(Continuation homeCont) {
+        this.homeCont = homeCont;
+    }
+
     public String toString() {
-        return name == null ? "FUN<anon>" : "FUN[" + name + "]";
+        return "BLOCK";
     }
 }

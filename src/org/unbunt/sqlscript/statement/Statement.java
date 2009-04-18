@@ -8,6 +8,6 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
 public interface Statement {
     public Scope getScope();
     public void setScope(Scope scope);
-    public void accept(ScriptProcessor processor, Env env);
+//    public void accept(ScriptProcessor processor, Env env);
     public void accept(ExpressionVisitor visitor);
 }

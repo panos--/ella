@@ -1,3 +1,21 @@
+fun foo(block) {
+    \echo msg='before block call';
+    . block('bla');
+    \echo msg='after block call';
+}
+
+fun bar() {
+
+    \echo msg='before foo call';
+    . foo { msg => \echo msg='invoked block: @{msg}'; return 'result from block'; };
+    \echo msg='after foo call';
+}
+
+var result := bar();
+\echo msg='bar result: @{result}';
+
+exit;
+
 var obj := {
     foo = fun (block) {
         . block('hello world!');

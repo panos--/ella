@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractFunctionCallExpression extends AbstractExpression {
 
-    protected List<Expression> arguments = null;
+    protected List<Expression> arguments = new ArrayList<Expression>();
 
     public List<Expression> getArguments() {
         return arguments;
@@ -16,9 +16,6 @@ public abstract class AbstractFunctionCallExpression extends AbstractExpression 
     }
 
     public void addArgument(Expression argument) {
-        if (arguments == null) {
-            arguments = new ArrayList<Expression>();
-        }
         arguments.add(argument);
     }
 }

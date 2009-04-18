@@ -53,13 +53,15 @@ public interface ContinuationVisitor {
 
     void processContinuation(SlotCallSlotCont slotCallSlotCont);
 
-    void processContinuation(FunCont funCont);
+    void processContinuation(CallCont callCont);
 
-    void processContinuation(FunArgCont funArgCont);
+    void processContinuation(CallArgCont callArgCont);
 
-    void processContinuation(FunArgAssignCont funArgAssignCont);
+    void processContinuation(CallArgAssignCont callArgAssignCont);
 
     void processContinuation(FunRetCont funRetCont);
+
+    void processContinuation(ClosRetCont closRetCont);
 
     void processContinuation(ReturnCont returnCont);
 
