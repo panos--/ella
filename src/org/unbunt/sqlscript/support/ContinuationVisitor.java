@@ -59,6 +59,8 @@ public interface ContinuationVisitor {
 
     void processContinuation(CallArgAssignCont callArgAssignCont);
 
+    void processContinuation(NativeArgCont nativeArgCont);
+
     void processContinuation(FunRetCont funRetCont);
 
     void processContinuation(ClosRetCont closRetCont);

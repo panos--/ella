@@ -21,6 +21,9 @@ import java.util.*;
 public class SQLScriptEngine
         extends VolatileObservable
         implements ExpressionVisitor, ContinuationVisitor {
+    @SuppressWarnings({"UnusedDeclaration"})
+    private static final boolean STEP = false;
+
     protected Log logger = LogFactory.getLog(getClass());
 
     protected SQLScriptContext context;
@@ -149,6 +152,21 @@ public class SQLScriptEngine
         }
     }
 
+    @SuppressWarnings({"PointlessBooleanExpression"})
+    protected boolean step() throws SQLScriptRuntimeException {
+        if (next == CONT) {
+            if (pc == 0) {
+                return false;
+            }
+            cont();
+        }
+        else {
+            eval();
+        }
+
+        return true;
+    }
+
     protected void eval() {
         stmt.accept(this);
     }
@@ -156,7 +174,7 @@ public class SQLScriptEngine
     public void processExpression(Block blockExpression) {
         BlockCont blockCont = blockExpression.isKeepEnv()
                               ? new BlockCont(blockExpression)
-                              : new BlockCont(blockExpression, env.clone());
+                              : new BlockCont(blockExpression, new Env(env));
         cont[++pc] = blockCont;
         next = CONT;
     }
@@ -272,12 +290,12 @@ public class SQLScriptEngine
 
     public void processExpression(TryStatement tryStatement) {
         stmt = tryStatement.getBody();
-        Env saveEnv = env.clone();
+        Env savedEnv = env;
         if (tryStatement.hasFinallyClause()) {
-            cont[++pc] = new FinallyCont(tryStatement.getFinallyClause().getBody(), saveEnv);
+            cont[++pc] = new FinallyCont(tryStatement.getFinallyClause().getBody(), savedEnv);
         }
         if (tryStatement.hasCatchClause()) {
-            cont[++pc] = new TryCont(tryStatement.getCatchClause(), saveEnv);
+            cont[++pc] = new TryCont(tryStatement.getCatchClause(), savedEnv);
         }
         next = EVAL;
     }
@@ -298,7 +316,7 @@ public class SQLScriptEngine
             }
             env.set(functionDefinitionExpression.getVariable().getAddress(), val);
         }
-        func.setEnv(env.clone());
+        func.setEnv(env);
         next = CONT;
     }
 
@@ -315,7 +333,7 @@ public class SQLScriptEngine
         }
 
         val = new Clos(clos);
-        clos.setEnv(env.clone());
+        clos.setEnv(env);
 
         next = CONT;
     }
@@ -728,7 +746,7 @@ public class SQLScriptEngine
         }
         CatchStatement catchStmt = tryCont.getCatchClause();
         Env savedEnv = tryCont.getEnv();
-        env = savedEnv;
+        env = new Env(savedEnv);
         env.extend();
         env.set(catchStmt.getVariable().getAddress(), throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
         stmt = catchStmt.getBody();
@@ -793,10 +811,9 @@ public class SQLScriptEngine
             Function func = ((Func) val).getFunction();
             List<Expression> args = callCont.getArguments();
             checkFunArgs(func, args);
-            Env funcEnv = func.getEnv().clone();
-            Env savedEnv = env.clone();
-            Obj context = callCont.getContext();
-            funcEnv.setThis(context);
+            Env savedEnv = env;
+            Env funcEnv = new Env(func.getEnv());
+            funcEnv.setThis(callCont.getContext());
             cont[pc] = new CallArgCont(func, args, funcEnv, savedEnv);
             next = CONT;
         }
@@ -805,11 +822,15 @@ public class SQLScriptEngine
             BlockClosure clos = closObj.getClosure();
             List<Expression> args = callCont.getArguments();
             checkFunArgs(clos, args);
-            Env closEnv = clos.getEnv();
-            Env savedEnv = env.clone();
-            Obj context = callCont.getContext();
-            closEnv.setThis(context);
+            Env savedEnv = env;
+            Env closEnv = new Env(clos.getEnv());
+            closEnv.setThis(callCont.getContext());
             cont[pc] = new CallArgCont(clos, args, closEnv, savedEnv);
+            next = CONT;
+        }
+        else if (val instanceof Native) {
+            Native nat = (Native) val;
+            cont[pc] = new NativeArgCont(nat, callCont.getContext(), callCont.getArguments());
             next = CONT;
         }
         else {
@@ -853,6 +874,25 @@ public class SQLScriptEngine
         callEnv.extend();
         callEnv.set(0, val);
         pc--;
+        next = CONT;
+    }
+
+    public void processContinuation(NativeArgCont nativeArgCont) {
+        nativeArgCont.addArgsValue(val);
+        if (nativeArgCont.hasNext()) {
+            stmt = nativeArgCont.next();
+            next = EVAL;
+            return;
+        }
+
+        pc--;
+        Obj context = nativeArgCont.getContext();
+        List<Obj> args = nativeArgCont.getArgsValues();
+        try {
+            nativeArgCont.getNative().call(this, context, args.toArray(new Obj[args.size()]));
+        } catch (ClosureTerminatedException ignored) {
+        }
+
         next = CONT;
     }
 
@@ -1209,13 +1249,14 @@ public class SQLScriptEngine
         annCmd.getSubject().addAnnotation(annotation);
     }
 
-    protected void checkFunArgs(Callable callable, List<Expression> args) {
+    protected void checkFunArgs(Callable callable, List args) {
 //        if (!matchesFunArgs(function, args)) {
         if (callable.getArgCount() != args.size()) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
         }
     }
 
+    /*
     protected boolean matchesFunArgs(Function function, Map<String, Expression> args) {
         List<String> decArgs = function.getArguments();
         if (decArgs == null) {
@@ -1237,8 +1278,9 @@ public class SQLScriptEngine
 
         return true;
     }
+    */
 
-    protected Bool toBool(Obj value) {
+    public Bool toBool(Obj value) {
         return value != null && (!(value instanceof Bool) || value.equals(Bool.TRUE)) ? Bool.TRUE : Bool.FALSE;
     }
 
@@ -1342,5 +1384,26 @@ public class SQLScriptEngine
 
     public boolean isFinished() {
         return finished;
+    }
+
+    // native interface
+
+    public Obj invoke(Clos clos, Obj context, Obj... args) throws ClosureTerminatedException {
+        BlockClosure closure = clos.getClosure();
+        List<Obj> argsList = Arrays.asList(args);
+        checkFunArgs(closure, argsList);
+        Env savedEnv = env;
+        env = new Env(closure.getEnv());
+        env.setThis(context);
+        stmt = closure.getBody();
+        int callFrame = pc;
+        cont[++pc] = new ClosRetCont(closure, savedEnv);
+        next = EVAL;
+        while (step() && pc > callFrame) {
+        }
+        if (pc < callFrame) {
+            throw new ClosureTerminatedException();
+        }
+        return val;
     }
 }

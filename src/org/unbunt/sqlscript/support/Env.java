@@ -1,20 +1,23 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.Obj;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ArrayList;
 
-public class Env implements Cloneable {
+public class Env /*implements Cloneable*/ {
+    protected Env parent;
     protected ArrayList<Obj> vars = new ArrayList<Obj>();
-    protected int size = 0;
-    protected int top = -1;
+//    protected int size = 0;
+//    protected int top = -1;
 
     protected Obj thisRef = null;
 
     public Env() {
+        this.parent = null;
+    }
+
+    public Env(Env parent) {
+        this.parent = parent;
     }
 
     public void setThis(Obj thisRef) {
@@ -26,20 +29,29 @@ public class Env implements Cloneable {
     }
 
     public void extend() {
-        if (++top == size) {
+//        if (++top == size) {
             vars.add(null);
-            size++;
+//            size++;
+//        }
+    }
+
+    public Obj get(int addr) {
+        if (addr > 0xFFFF) {
+            return parent.get(addr - 0x10000);
+        }
+        return vars.get(addr);
+    }
+
+    public void set(int addr, Obj value) {
+        if (addr > 0xFFFF) {
+            parent.set(addr - 0x10000, value);
+        }
+        else {
+            vars.set(addr, value);
         }
     }
 
-    public Obj get(int index) {
-        return vars.get(top - index);
-    }
-
-    public void set(int index, Obj value) {
-        vars.set(top - index, value);
-    }
-
+    /*
     public int save() {
         return top;
     }
@@ -47,7 +59,9 @@ public class Env implements Cloneable {
     public void restore(int id) {
         this.top = id;
     }
+    */
 
+    /*
     @Override
     @SuppressWarnings({"unchecked", "CloneDoesntDeclareCloneNotSupportedException"})
     public Env clone() {
@@ -60,4 +74,5 @@ public class Env implements Cloneable {
         copy.vars = (ArrayList<Obj>) vars.clone();
         return copy;
     }
+    */
 }

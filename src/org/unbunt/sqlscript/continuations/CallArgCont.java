@@ -18,6 +18,7 @@ public class CallArgCont implements Continuation {
     protected Env funcEnv;
     protected Env savedEnv;
 
+    /*
     public CallArgCont(Callable callable, List<Expression> args, Env savedEnv) {
         this.callable = callable;
         this.args = args;
@@ -26,6 +27,7 @@ public class CallArgCont implements Continuation {
         this.funcEnv = callable.getEnv().clone();
         this.savedEnv = savedEnv;
     }
+    */
 
     public CallArgCont(Callable callable, List<Expression> args, Env funcEnv, Env savedEnv) {
         this.callable = callable;

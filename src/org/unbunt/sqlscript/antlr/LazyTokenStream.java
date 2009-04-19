@@ -300,7 +300,7 @@ public class LazyTokenStream implements TokenStream {
     public int mark() {
         markers.add(tokens.cursor(posCursor));
         int i = markers.size();
-        System.out.println("LazyTokenStream.mark = " + i);
+//        System.out.println("LazyTokenStream.mark = " + i);
         return i;
     }
 
@@ -325,7 +325,7 @@ public class LazyTokenStream implements TokenStream {
      * was created.
      */
     public void rewind(int marker) {
-        System.out.println("LazyTokenStream.rewind(" + marker + ")");
+//        System.out.println("LazyTokenStream.rewind(" + marker + ")");
         int index = marker - 1;
         setPosCursor(tokens.cursor(markers.get(index)));
         releaseMarkerInternal(index);

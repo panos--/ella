@@ -1,3 +1,32 @@
+/*
+var i := 0;
+
+fun a() {
+    var i = i + 1;
+    \echo msg='ai: @{i}';
+}
+
+fun b() {
+    \echo msg='bi: @{i}';
+}
+
+. a();
+. b();
+. a();
+. b();
+. a();
+. b();
+
+exit;
+*/
+
+var block := {=> \echo msg='inside block'; };
+
+var i := 0;
+. {=> var i = i + 1; . i != 4; } while {=> \echo msg='iter: @{i}'; };
+
+exit;
+
 fun foo(block) {
     \echo msg='before block call';
     . block('bla');
