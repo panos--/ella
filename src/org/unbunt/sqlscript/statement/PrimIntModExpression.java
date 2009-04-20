@@ -9,6 +9,6 @@ public class PrimIntModExpression extends AbstractPrimitiveExpression {
     }
 
     public void accept(ExpressionVisitor visitor) {
-        visitor.processExpression(this);
+//        visitor.processExpression(this);
     }
 }

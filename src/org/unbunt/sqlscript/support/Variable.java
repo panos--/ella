@@ -9,10 +9,6 @@ public class Variable {
 
     protected Obj value;
 
-    private Variable() {
-        this(null);
-    }
-
     private Variable(String name) {
         this.name = name;
     }

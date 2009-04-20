@@ -244,9 +244,7 @@ public class SQLScriptEngine
     }
 
     public void processExpression(DeclareVariableExpression declareVariableExpression) {
-        if (!declareVariableExpression.isNoop()) {
-            env.extend();
-        }
+        env.extend();
         next = CONT;
     }
 
@@ -284,6 +282,8 @@ public class SQLScriptEngine
         stmt = ifStatement.getCondition();
         Statement trueStmt = ifStatement.getTrueStatement();
         Statement falseStmt = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
+        cont[++pc] = new RestoreEnvCont(env);
+        env = new Env(env);
         cont[++pc] = new IfCont(trueStmt, falseStmt);
         next = EVAL;
     }
@@ -312,9 +312,11 @@ public class SQLScriptEngine
         val = new Func(func);
         if (funcName != null) {
             if (functionDefinitionExpression.isDeclareVariable()) {
-                env.extend();
+                env.add(val);
             }
-            env.set(functionDefinitionExpression.getVariable().getAddress(), val);
+            else {
+                env.set(functionDefinitionExpression.getVariable().getAddress(), val);
+            }
         }
         func.setEnv(env);
         next = CONT;
@@ -360,7 +362,7 @@ public class SQLScriptEngine
                 break;
             }
             if (c instanceof FunRetCont) {
-                pc = i + 1;
+                pc = i;
                 pushCont = false;
                 break;
             }
@@ -450,6 +452,7 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    /*
     public void processExpression(PrimIdExpression primIdExpression) {
         Obj o1 = val;
         Obj o2 = primIdExpression.getArguments()[0];
@@ -512,6 +515,7 @@ public class SQLScriptEngine
         val = new IntInst(int1.getValue() % int2.getValue());
         next = CONT;
     }
+    */
 
     public void processExpression(ThisExpression thisExpression) {
         val = env.getThis();
@@ -747,8 +751,7 @@ public class SQLScriptEngine
         CatchStatement catchStmt = tryCont.getCatchClause();
         Env savedEnv = tryCont.getEnv();
         env = new Env(savedEnv);
-        env.extend();
-        env.set(catchStmt.getVariable().getAddress(), throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
+        env.add(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
         stmt = catchStmt.getBody();
         cont[++pc] = new CatchCont(savedEnv);
         next = EVAL;
@@ -781,12 +784,12 @@ public class SQLScriptEngine
 
         Obj obj = receiver;
         while (true) {
-            PrimitiveExpression prim = obj.getPrimitiveForSlot(slot);
-            if (prim != null) {
-                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
-                next = CONT;
-                return;
-            }
+//            PrimitiveExpression prim = obj.getPrimitiveForSlot(slot);
+//            if (prim != null) {
+//                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
+//                next = CONT;
+//                return;
+//            }
 
             val = obj.getSlot(slot);
             if (val != null) {
@@ -807,7 +810,10 @@ public class SQLScriptEngine
 
     public void processContinuation(CallCont callCont) {
         // TODO: merge if-branches as far as possible
-        if (val instanceof Func) {
+        if (val instanceof Primitive) {
+            cont[pc] = new PrimitiveArgCont((Primitive) val, callCont.getContext(), callCont.getArguments());
+        }
+        else if (val instanceof Func) {
             Function func = ((Func) val).getFunction();
             List<Expression> args = callCont.getArguments();
             checkFunArgs(func, args);
@@ -815,7 +821,6 @@ public class SQLScriptEngine
             Env funcEnv = new Env(func.getEnv());
             funcEnv.setThis(callCont.getContext());
             cont[pc] = new CallArgCont(func, args, funcEnv, savedEnv);
-            next = CONT;
         }
         else if (val instanceof Clos) {
             Clos closObj = (Clos) val;
@@ -826,16 +831,15 @@ public class SQLScriptEngine
             Env closEnv = new Env(clos.getEnv());
             closEnv.setThis(callCont.getContext());
             cont[pc] = new CallArgCont(clos, args, closEnv, savedEnv);
-            next = CONT;
         }
         else if (val instanceof Native) {
-            Native nat = (Native) val;
-            cont[pc] = new NativeArgCont(nat, callCont.getContext(), callCont.getArguments());
-            next = CONT;
+            cont[pc] = new NativeArgCont((Native) val, callCont.getContext(), callCont.getArguments());
         }
         else {
             throw new SQLScriptRuntimeException("Invalid call: Neither block nor function");
         }
+
+        next = CONT;
     }
 
     public void processContinuation(CallArgCont callArgCont) {
@@ -871,8 +875,7 @@ public class SQLScriptEngine
 
     public void processContinuation(CallArgAssignCont callArgAssignCont) {
         Env callEnv = callArgAssignCont.getEnv();
-        callEnv.extend();
-        callEnv.set(0, val);
+        callEnv.add(val);
         pc--;
         next = CONT;
     }
@@ -891,6 +894,102 @@ public class SQLScriptEngine
         try {
             nativeArgCont.getNative().call(this, context, args.toArray(new Obj[args.size()]));
         } catch (ClosureTerminatedException ignored) {
+        }
+
+        next = CONT;
+    }
+
+    public void processContinuation(PrimitiveArgCont primitiveArgCont) {
+        primitiveArgCont.addArgsValue(val);
+        if (primitiveArgCont.hasNext()) {
+            stmt = primitiveArgCont.next();
+            next = EVAL;
+            return;
+        }
+
+        pc--;
+        List<Obj> args = primitiveArgCont.getArgsValues();
+        switch (primitiveArgCont.getPrimitive().type) {
+            case ID: {
+                Obj o1 = primitiveArgCont.getContext();
+                Obj o2 = args.get(0);
+                val = o1 == o2 ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case NI: {
+                Obj o1 = primitiveArgCont.getContext();
+                Obj o2 = args.get(0);
+                val = o1 != o2 ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case INT_ADD: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = new IntInst(int1.value + int2.value);
+                break;
+            }
+            case INT_SUB: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = new IntInst(int1.value - int2.value);
+                break;
+            }
+            case INT_MUL: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = new IntInst(int1.value * int2.value);
+                break;
+            }
+            case INT_DIV: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = new IntInst(int1.value / int2.value);
+                break;
+            }
+            case INT_MOD: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = new IntInst(int1.value % int2.value);
+                break;
+            }
+            case INT_EQ: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = int1.value == int2.value ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case INT_NE: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = int1.value != int2.value ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case INT_LT: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = int1.value < int2.value ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case INT_LE: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = int1.value <= int2.value ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case INT_GT: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = int1.value > int2.value ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            case INT_GE: {
+                IntInst int1 = (IntInst) primitiveArgCont.getContext();
+                IntInst int2 = (IntInst) args.get(0);
+                val = int1.value >= int2.value ? Bool.TRUE : Bool.FALSE;
+                break;
+            }
+            default:
+                throw new SQLScriptRuntimeException("Unhandled primitive: " + primitiveArgCont.getPrimitive());
         }
 
         next = CONT;
@@ -949,6 +1048,7 @@ public class SQLScriptEngine
         throw new SQLScriptRuntimeException("Found return statement outside of function block");
     }
 
+    /*
     public void processContinuation(PrimitiveCont primitiveCont) {
         primitiveCont.setArgumentValue(val);
         if (primitiveCont.hasNextArgument()) {
@@ -963,6 +1063,7 @@ public class SQLScriptEngine
         }
         next = EVAL;
     }
+    */
 
     public void processContinuation(NewCont newCont) {
         Obj newObj = new Obj();
@@ -977,6 +1078,12 @@ public class SQLScriptEngine
     public void processContinuation(NewResultCont newResultCont) {
         pc--;
         val = newResultCont.getNewObject();
+        next = CONT;
+    }
+
+    public void processContinuation(RestoreEnvCont restoreEnvCont) {
+        pc--;
+        env = restoreEnvCont.getSavedEnv();
         next = CONT;
     }
 

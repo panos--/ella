@@ -61,6 +61,7 @@ public interface ExpressionVisitor {
 
     void processExpression(SQLStatement sqlStatement);
 
+    /*
     void processExpression(PrimIdExpression primIdExpression);
 
     void processExpression(PrimNiExpression primNiExpression);
@@ -78,6 +79,7 @@ public interface ExpressionVisitor {
     void processExpression(PrimIntDivExpression primIntDivExpression);
 
     void processExpression(PrimIntModExpression primIntModExpression);
+    */
 
     void processExpression(ThisExpression thisExpression);
 

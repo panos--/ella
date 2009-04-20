@@ -12,9 +12,9 @@ public class DeclareVariableExpression extends AbstractExpression {
         this.variable = variable;
     }
 
-    public boolean isNoop() {
-        return variable == null;
-    }
+//    public boolean isNoop() {
+//        return variable == null;
+//    }
 
     public Variable getVariable() {
         return variable;

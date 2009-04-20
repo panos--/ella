@@ -61,13 +61,15 @@ public interface ContinuationVisitor {
 
     void processContinuation(NativeArgCont nativeArgCont);
 
+    void processContinuation(PrimitiveArgCont primitiveArgCont);
+
     void processContinuation(FunRetCont funRetCont);
 
     void processContinuation(ClosRetCont closRetCont);
 
     void processContinuation(ReturnCont returnCont);
 
-    void processContinuation(PrimitiveCont primitiveCont);
+//    void processContinuation(PrimitiveCont primitiveCont);
 
     void processContinuation(NewCont newCont);
 
@@ -76,4 +78,6 @@ public interface ContinuationVisitor {
     void processContinuation(ExitCont exitCont);
 
     void processContinuation(InitParamCont initParamCont);
+
+    void processContinuation(RestoreEnvCont restoreEnvCont);
 }

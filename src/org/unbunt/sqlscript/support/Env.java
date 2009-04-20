@@ -4,11 +4,9 @@ import org.unbunt.sqlscript.lang.Obj;
 
 import java.util.ArrayList;
 
-public class Env /*implements Cloneable*/ {
+public class Env {
     protected Env parent;
     protected ArrayList<Obj> vars = new ArrayList<Obj>();
-//    protected int size = 0;
-//    protected int top = -1;
 
     protected Obj thisRef = null;
 
@@ -29,10 +27,7 @@ public class Env /*implements Cloneable*/ {
     }
 
     public void extend() {
-//        if (++top == size) {
             vars.add(null);
-//            size++;
-//        }
     }
 
     public Obj get(int addr) {
@@ -51,28 +46,7 @@ public class Env /*implements Cloneable*/ {
         }
     }
 
-    /*
-    public int save() {
-        return top;
+    public void add(Obj value) {
+        vars.add(value);
     }
-
-    public void restore(int id) {
-        this.top = id;
-    }
-    */
-
-    /*
-    @Override
-    @SuppressWarnings({"unchecked", "CloneDoesntDeclareCloneNotSupportedException"})
-    public Env clone() {
-        Env copy;
-        try {
-            copy = (Env) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new SQLScriptRuntimeException(e.getMessage(), e);
-        }
-        copy.vars = (ArrayList<Obj>) vars.clone();
-        return copy;
-    }
-    */
 }

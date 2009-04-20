@@ -64,6 +64,6 @@ public class PrimitiveCont implements Continuation {
     }
 
     public void accept(ContinuationVisitor visitor) {
-        visitor.processContinuation(this);
+//        visitor.processContinuation(this);
     }
 }

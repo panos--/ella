@@ -252,7 +252,7 @@ scriptExit returns [ ExitStatement value ]
 	;
 
 expressionStmt
-	:	expr=expression { $Block::block.addStatement($expr.value); }
+	:	expr=expression { if ($expr.value != null) { $Block::block.addStatement($expr.value); } }
 	;
 
 expression returns [ Expression value ]
@@ -350,7 +350,7 @@ scriptDeclare returns [ DeclareVariableExpression value ]
 	:	^(DECLARE var=varDef {
 			if ($var.value.isDefined()) {
 				// already defined
-				$value = new DeclareVariableExpression(null);
+				$value = null;
 			}
 			else {
 				$value = new DeclareVariableExpression($var.value);

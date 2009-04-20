@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-04-16 15:30:15
+// $ANTLR 3.1.1 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-04-19 17:49:35
 
 	package org.unbunt.sqlscript;
 
@@ -2038,7 +2038,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(expr); 
+               if (expr != null) { ((Block_scope)Block_stack.peek()).block.addStatement(expr); } 
             }
 
             }
@@ -2931,7 +2931,7 @@ public class SQLScriptWalker extends TreeParser {
 
               			if (var.isDefined()) {
               				// already defined
-              				value = new DeclareVariableExpression(null);
+              				value = null;
               			}
               			else {
               				value = new DeclareVariableExpression(var);
