@@ -452,71 +452,6 @@ public class SQLScriptEngine
         next = CONT;
     }
 
-    /*
-    public void processExpression(PrimIdExpression primIdExpression) {
-        Obj o1 = val;
-        Obj o2 = primIdExpression.getArguments()[0];
-        val = o1 == o2 ? Bool.TRUE : Bool.FALSE;
-        next = CONT;
-    }
-
-    public void processExpression(PrimNiExpression primNiExpression) {
-        Obj o1 = val;
-        Obj o2 = primNiExpression.getArguments()[0];
-        val = o1 != o2 ? Bool.TRUE : Bool.FALSE;
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntEqExpression primIntEqExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntEqExpression.getArguments()[0];
-        val = int1.getValue() == int2.getValue() ? Bool.TRUE : Bool.FALSE;
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntNeExpression primIntNeExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntNeExpression.getArguments()[0];
-        val = int1.getValue() != int2.getValue() ? Bool.TRUE : Bool.FALSE;
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntAddExpression primIntAddExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntAddExpression.getArguments()[0];
-        val = new IntInst(int1.getValue() + int2.getValue());
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntSubExpression primIntSubExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntSubExpression.getArguments()[0];
-        val = new IntInst(int1.getValue() - int2.getValue());
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntMulExpression primIntMulExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntMulExpression.getArguments()[0];
-        val = new IntInst(int1.getValue() * int2.getValue());
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntDivExpression primIntDivExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntDivExpression.getArguments()[0];
-        val = new IntInst(int1.getValue() / int2.getValue());
-        next = CONT;
-    }
-
-    public void processExpression(PrimIntModExpression primIntModExpression) {
-        IntInst int1 = (IntInst) val;
-        IntInst int2 = (IntInst) primIntModExpression.getArguments()[0];
-        val = new IntInst(int1.getValue() % int2.getValue());
-        next = CONT;
-    }
-    */
-
     public void processExpression(ThisExpression thisExpression) {
         val = env.getThis();
         next = CONT;
@@ -784,13 +719,6 @@ public class SQLScriptEngine
 
         Obj obj = receiver;
         while (true) {
-//            PrimitiveExpression prim = obj.getPrimitiveForSlot(slot);
-//            if (prim != null) {
-//                cont[pc] = new PrimitiveCont(prim, receiver, slotCallSlotCont.getArguments());
-//                next = CONT;
-//                return;
-//            }
-
             val = obj.getSlot(slot);
             if (val != null) {
                 break;
@@ -1047,23 +975,6 @@ public class SQLScriptEngine
         }
         throw new SQLScriptRuntimeException("Found return statement outside of function block");
     }
-
-    /*
-    public void processContinuation(PrimitiveCont primitiveCont) {
-        primitiveCont.setArgumentValue(val);
-        if (primitiveCont.hasNextArgument()) {
-            stmt = primitiveCont.getNextArgument();
-        }
-        else {
-            pc--;
-            PrimitiveExpression p = primitiveCont.getPrimitiveExpression();
-            p.setArguments(primitiveCont.getEvaluatedArguments());
-            stmt = p;
-            val = primitiveCont.getArgument1();
-        }
-        next = EVAL;
-    }
-    */
 
     public void processContinuation(NewCont newCont) {
         Obj newObj = new Obj();

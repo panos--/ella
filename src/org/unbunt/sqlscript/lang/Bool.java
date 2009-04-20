@@ -8,6 +8,7 @@ public class Bool extends Obj {
 
     public Bool(boolean value) {
         this.value = value;
+        slots.put(Str.Sym.parent.str, Base.instance);
     }
 
     public boolean isTrue() {

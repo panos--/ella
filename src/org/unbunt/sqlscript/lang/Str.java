@@ -6,8 +6,20 @@ import java.util.Map;
 public class Str extends Obj {
     public static enum Sym {
         parent,
+        _while ("while"),
+        _add ("+"),
+        _sub ("-"),
+        _mul ("*"),
+        _div ("/"),
+        _mod ("%"),
+        _gt (">"),
+        _ge (">="),
+        _lt ("<"),
+        _le ("<="),
+        _eq ("=="),
+        _ne ("!="),
         _id ("==="),
-        _ni ("!==")
+        _ni ("!=="),
         ;
 
         public final Str str;
@@ -76,10 +88,6 @@ public class Str extends Obj {
     }
 
     public synchronized Str intern() {
-//        if (pool == null) {
-//            throw new RuntimeException("whoa!");
-//            return this;
-//        }
         Str interned = pool.get(value);
         if (interned != null) {
             return interned;

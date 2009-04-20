@@ -7,6 +7,7 @@ public class Func extends Obj {
 
     public Func(Function function) {
         this.function = function;
+        slots.put(Str.Sym.parent.str, Base.instance);
     }
 
     public Function getFunction() {

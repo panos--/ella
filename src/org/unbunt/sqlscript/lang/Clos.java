@@ -25,7 +25,8 @@ public class Clos extends Obj {
     public Clos(BlockClosure closure) {
         super();
         this.closure = closure;
-        this.slots.put(new Str("while").intern(), nativeWhile);
+        this.slots.put(Str.Sym.parent.str, Base.instance);
+        this.slots.put(Str.Sym._while.str, nativeWhile);
     }
 
     public BlockClosure getClosure() {
