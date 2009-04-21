@@ -192,6 +192,7 @@ scriptStmt
 	|	scriptThrow
 	|	scriptReturn
 	|	scriptExit
+	|	scriptImport
 	|	expressionStmt
 	;
 
@@ -249,6 +250,20 @@ scriptExit returns [ ExitStatement value ]
 	:	^(EXIT { $value = new ExitStatement(); } (expr=expression { $value.setExpression($expr.value); })?) {
 			$Block::block.addStatement($value);
 		}
+	;
+
+scriptImport returns [ ImportStatement value ]
+	:	^(IMPORT_PACKAGE importIdentifier)
+	|	^(IMPORT_CLASS
+			^(AS identifier)?
+			importIdentifier)
+	;
+
+importIdentifier returns [ String value ]
+@init { StringBuilder buf = new StringBuilder(); }
+@after { $value = buf.toString(); }
+	:	id1=identifier { buf.append($id1.value); }
+		(id2=identifier { buf.append(".").append($id2.value); })*
 	;
 
 expressionStmt

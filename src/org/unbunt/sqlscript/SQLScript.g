@@ -53,6 +53,9 @@ tokens {
 	THIS;
 	NEW;
 	EMBEDDED_VAR;
+	IMPORT_PACKAGE;
+	IMPORT_CLASS;
+	AS;
 }
 
 @parser::header {
@@ -362,6 +365,7 @@ scriptStmtSep
 	|	scriptThrow
 	|	scriptReturn
 	|	scriptExit
+	|	scriptImport
 	;
 
 scriptStmtNoSep
@@ -447,6 +451,21 @@ scriptReturn
 
 scriptExit
 	:	KW_EXIT expression? -> ^(EXIT expression?)
+	;
+
+scriptImport
+	:	KW_IMPORT javaIdentifier
+		( DOT javaIdentifier )*
+		( DOT OP_MUL		-> ^(IMPORT_PACKAGE javaIdentifier+)
+		| KW_AS identifier	-> ^(IMPORT_CLASS ^(AS identifier) javaIdentifier+)
+		|			-> ^(IMPORT_CLASS javaIdentifier+)
+		)
+	;
+
+// NOTE: script identifier syntax is a super-set of java identifier syntax
+// TODO: narrow down supported syntax to match java identifier syntax exactly
+javaIdentifier
+	:	identifierNoOps
 	;
 
 // Expressions
@@ -651,7 +670,8 @@ paramValue
 	;
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
-	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_NEW
+	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_NEW | KW_IMPORT
+	|	KW_AS
 	;
 
 stringLiteral
@@ -776,7 +796,7 @@ DOLQUOT_TAG
 
 fragment
 DOLQUOT_TAG_START
-	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\uffff' | '_')
+	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\ufffd' | '_') // NOTE: \uFFFE and \uFFFF aren't valid unicode characters
 	;
 
 fragment
@@ -837,6 +857,13 @@ KW_THIS	:	'this'
 	;
 
 KW_NEW	:	'new'
+	;
+
+KW_IMPORT
+	:	'import'
+	;
+
+KW_AS	:	'as'
 	;
 
 WORD	:	WORD_CHAR+
