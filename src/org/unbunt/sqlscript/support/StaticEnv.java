@@ -48,4 +48,8 @@ public class StaticEnv extends AbstractEnv {
     public void add(Obj value) {
         vars.add(value);
     }
+
+    public int getMaxAddress() {
+        return vars.size() - 1;
+    }
 }

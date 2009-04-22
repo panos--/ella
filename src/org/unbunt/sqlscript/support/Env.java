@@ -18,4 +18,6 @@ public interface Env {
     void set(Variable var, int addr, Obj value);
 
     void add(Obj value);
+
+    int getMaxAddress();
 }

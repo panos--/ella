@@ -8,10 +8,12 @@ import java.util.HashMap;
 public class DynamicEnv extends AbstractEnv {
     protected DynamicVariableResolver resolver;
     protected Map<String, Obj> vars = new HashMap<String, Obj>();
+    protected int boundaryAddress;
 
     public DynamicEnv(Env parent, DynamicVariableResolver resolver) {
         super(parent);
         this.resolver = resolver;
+        this.boundaryAddress = parent.getMaxAddress();
     }
 
     public void setThis(Obj thisRef) {
@@ -27,6 +29,9 @@ public class DynamicEnv extends AbstractEnv {
     }
 
     public Obj get(Variable var, int addr) {
+        if ((addr << 1) >= 0 && addr < 0x10000 && addr > boundaryAddress) {
+            return parent.get(var, addr);
+        }
         String name = var.name;
         Obj value = vars.get(name);
         if (value != null) {
@@ -42,5 +47,9 @@ public class DynamicEnv extends AbstractEnv {
 
     public void add(Obj value) {
         parent.add(value);
+    }
+
+    public int getMaxAddress() {
+        return parent.getMaxAddress();
     }
 }
