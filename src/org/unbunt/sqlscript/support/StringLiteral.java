@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.utils.StringUtils;
-
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 public class StringLiteral {
     protected String delim;
@@ -42,40 +40,6 @@ public class StringLiteral {
             buf.append(part.toString());
         }
         buf.append(delim);
-        return buf.toString();
-    }
-
-    public String toLiteralString() {
-        StringBuilder buf = new StringBuilder();
-        buf.append(delim);
-        for (Object part : parts) {
-            buf.append(part instanceof Variable ? ((Variable)part).getValue() : part.toString());
-        }
-        buf.append(delim);
-        return buf.toString();
-    }
-
-    public String toLiteralStringEscaped() {
-        StringBuilder buf = new StringBuilder();
-        buf.append(delim);
-        for (Object part : parts) {
-            String str = part instanceof Variable
-                         ? StringUtils.escapeSQLString(((Variable) part).getValue().toString(), delim)
-                         : StringUtils.escapeSQLString(part.toString(), delim);
-            buf.append(str);
-        }
-        buf.append(delim);
-        return buf.toString();
-    }
-
-    public String toLiteralStringUnescaped() {
-        StringBuilder buf = new StringBuilder();
-        for (Object part : parts) {
-            String str = part instanceof Variable
-                         ? ((Variable) part).getValue().toString()
-                         : part.toString();
-            buf.append(str);
-        }
         return buf.toString();
     }
 }

@@ -88,6 +88,10 @@ script returns [ Block value ]
 scope Block, Scope;
 @init {
 	$Scope::scope = new Scope();
+	// register default global variables
+	$Scope::scope.addVariable("Null");
+	$Scope::scope.addVariable("Sys");
+	
 	$Block::block = new Block($Scope::scope);
 }
 @after{
@@ -286,9 +290,9 @@ scope Block;
 }
 	:	^(FUNC_DEF
 			( var=varDef {
-				function.setName($var.value.getName());
+				function.setName($var.value.name);
 				$value.setVariable($var.value);
-				$value.setDeclareVariable(!$var.value.isDefined());
+				$value.setDeclareVariable(!$var.value.defined);
 			} )?
 			funcDefRest[function]
 		)
@@ -321,7 +325,7 @@ scope Scope;
 // TODO: Forbid duplicate arguments
 argumentsDef returns [ List<String> value ]
 @init { $value = new ArrayList<String>(10); }
-	:	^(ARGS (name=varDef { $value.add($name.value.getName()); })+)
+	:	^(ARGS (name=varDef { $value.add($name.value.name); })+)
 	;
 
 // TODO: Forbid duplicate arguments
@@ -348,7 +352,7 @@ scriptDeclareAndAssign returns [ Expression value ]
 // TODO: Warning, if already declared
 scriptDeclare returns [ DeclareVariableExpression value ]
 	:	^(DECLARE var=varDef {
-			if ($var.value.isDefined()) {
+			if ($var.value.defined) {
 				// already defined
 				$value = null;
 			}
@@ -370,7 +374,7 @@ scriptAssign returns [ Expression value ]
 assignVariable returns [ Expression value ]
 	:	lval=varRef rval=expression {
 			Variable variable = $lval.value;
-			if (!variable.isDefined()) {
+			if (!variable.defined) {
 				// TODO: Warning, if not yet declared
 				$value = new DeclareAndAssignExpression(
 						new DeclareVariableExpression(variable),

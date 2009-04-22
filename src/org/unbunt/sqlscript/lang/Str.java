@@ -6,6 +6,7 @@ import java.util.Map;
 public class Str extends Obj {
     public static enum Sym {
         parent,
+        print,
         _while ("while"),
         _add ("+"),
         _sub ("-"),

@@ -1,3 +1,6 @@
+. Sys.print('hello', 'world!');
+exit;
+
 fun loop(n) {
     if (n == 0) {
         return 0;

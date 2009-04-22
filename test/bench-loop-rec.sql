@@ -7,5 +7,5 @@ fun loop(n) {
     return loop(n - 1);
 }
 
-.loop(1000000);
+.loop(10000000);
 exit;

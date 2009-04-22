@@ -120,7 +120,9 @@ public class SQLScriptEngine
         stmt = block;
         val = null;
         if (env == null) {
-            env = new Env();
+            env = new StaticEnv();
+            env.add(Null.instance);
+            env.add(Sys.instance);
         }
         pc = 0;
         cont[pc] = new EndCont();
@@ -174,7 +176,7 @@ public class SQLScriptEngine
     public void processExpression(Block blockExpression) {
         BlockCont blockCont = blockExpression.isKeepEnv()
                               ? new BlockCont(blockExpression)
-                              : new BlockCont(blockExpression, new Env(env));
+                              : new BlockCont(blockExpression, new StaticEnv(env));
         cont[++pc] = blockCont;
         next = CONT;
     }
@@ -201,7 +203,7 @@ public class SQLScriptEngine
         String delim = stringLiteral.getDelim();
         for (Object part : stringLiteral.getParts()) {
             String str = part instanceof Variable
-                         ? env.get(((Variable) part).getAddress()).toString()
+                         ? env.get((Variable) part).toString()
                          : StringUtils.unescapeSQLString(part.toString(), delim);
             buf.append(str);
         }
@@ -274,7 +276,7 @@ public class SQLScriptEngine
     }
 
     public void processExpression(VariableExpression variableExpression) {
-        val = env.get(variableExpression.getVariable().getAddress());
+        val = env.get(variableExpression.getVariable());
         next = CONT;
     }
 
@@ -283,7 +285,7 @@ public class SQLScriptEngine
         Statement trueStmt = ifStatement.getTrueStatement();
         Statement falseStmt = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
         cont[++pc] = new RestoreEnvCont(env);
-        env = new Env(env);
+        env = new StaticEnv(env);
         cont[++pc] = new IfCont(trueStmt, falseStmt);
         next = EVAL;
     }
@@ -315,7 +317,7 @@ public class SQLScriptEngine
                 env.add(val);
             }
             else {
-                env.set(functionDefinitionExpression.getVariable().getAddress(), val);
+                env.set(functionDefinitionExpression.getVariable(), val);
             }
         }
         func.setEnv(env);
@@ -423,14 +425,14 @@ public class SQLScriptEngine
         StringBuilder buf = new StringBuilder();
         for (Object part : sqlStatement.getParts()) {
             if (part instanceof Variable) {
-                buf.append(env.get(((Variable) part).getAddress()).toString());
+                buf.append(env.get((Variable) part).toString());
             }
             else if (part instanceof StringLiteral) {
                 StringBuilder strBuf = new StringBuilder();
                 StringLiteral str = (StringLiteral) part;
                 for (Object strPart : str.getParts()) {
                     if (strPart instanceof Variable) {
-                        String s = env.get(((Variable) strPart).getAddress()).toString();
+                        String s = env.get((Variable) strPart).toString();
                         strBuf.append(StringUtils.escapeSQLString(s, str.getDelim()));
                     }
                     else {
@@ -581,7 +583,7 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(AssignCont assignCont) {
-        env.set(assignCont.getVariable().getAddress(), val);
+        env.set(assignCont.getVariable(), val);
         pc--;
         next = CONT;
     }
@@ -685,7 +687,7 @@ public class SQLScriptEngine
         }
         CatchStatement catchStmt = tryCont.getCatchClause();
         Env savedEnv = tryCont.getEnv();
-        env = new Env(savedEnv);
+        env = new StaticEnv(savedEnv);
         env.add(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
         stmt = catchStmt.getBody();
         cont[++pc] = new CatchCont(savedEnv);
@@ -746,7 +748,7 @@ public class SQLScriptEngine
             List<Expression> args = callCont.getArguments();
             checkFunArgs(func, args);
             Env savedEnv = env;
-            Env funcEnv = new Env(func.getEnv());
+            Env funcEnv = new StaticEnv(func.getEnv());
             funcEnv.setThis(callCont.getContext());
             cont[pc] = new CallArgCont(func, args, funcEnv, savedEnv);
         }
@@ -756,7 +758,7 @@ public class SQLScriptEngine
             List<Expression> args = callCont.getArguments();
             checkFunArgs(clos, args);
             Env savedEnv = env;
-            Env closEnv = new Env(clos.getEnv());
+            Env closEnv = new StaticEnv(clos.getEnv());
             closEnv.setThis(callCont.getContext());
             cont[pc] = new CallArgCont(clos, args, closEnv, savedEnv);
         }
@@ -1411,7 +1413,7 @@ public class SQLScriptEngine
         List<Obj> argsList = Arrays.asList(args);
         checkFunArgs(closure, argsList);
         Env savedEnv = env;
-        env = new Env(closure.getEnv());
+        env = new StaticEnv(closure.getEnv());
         env.setThis(context);
         stmt = closure.getBody();
         int callFrame = pc;
