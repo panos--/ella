@@ -3,9 +3,12 @@ package org.unbunt.sqlscript.support;
 import java.util.*;
 
 public class Scope {
+    protected static final int UNDEF_BASE_ADDR = Math.abs(Integer.MIN_VALUE >> 1);
+
     protected Scope parent;
 
     protected List<String> vars = new LinkedList<String>();
+    protected Set<String> undefVars = new HashSet<String>();
     protected int currAddr = -1;
 
     public Scope() {
@@ -17,19 +20,6 @@ public class Scope {
     }
 
     public Variable addVariable(String name) {
-        /*
-        int index = -1;
-        int i = -1;
-        ListIterator<String> it = vars.listIterator(vars.size());
-        while (it.hasPrevious()) {
-            i++;
-            String n = it.previous();
-            if (n.equals(name)) {
-                index = i;
-                break;
-            }
-        }
-        */
         int index = vars.indexOf(name);
         if (index != -1) {
             System.err.println("Warning: Variable " + name + " is already defined");
@@ -41,34 +31,23 @@ public class Scope {
 
     public Variable getVariable(String name) {
         int addr = findVariable(name);
-        if (addr == -1) {
-            System.err.println("Warning: Undefined variable: " + name);
-            return addVariable(name);
-        }
         return new Variable(addr, name, true);
     }
 
     protected int findVariable(String name) {
-        /*
-        int addr = -1;
-
-        ListIterator<String> it = vars.listIterator(vars.size());
-        while (it.hasPrevious()) {
-            addr++;
-            String n = it.previous();
-            if (n.equals(name)) {
-                return addr;
-            }
-        }
-        */
-
         int addr = vars.indexOf(name);
         if (addr != -1) {
+            if (undefVars.contains(name)) {
+                addr = UNDEF_BASE_ADDR + addr;
+            }
             return addr;
         }
 
         if (parent == null) {
-            return -1;
+            addr = UNDEF_BASE_ADDR + ++currAddr;
+            vars.add(name);
+            undefVars.add(name);
+            return addr;
         }
 
         int paddr = parent.findVariable(name);

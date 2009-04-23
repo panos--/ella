@@ -2,51 +2,22 @@ package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.Obj;
 
-import java.util.ArrayList;
+public interface Env {
+    void setThis(Obj thisRef);
 
-public class Env {
-    protected Env parent;
-    protected ArrayList<Obj> vars = new ArrayList<Obj>();
+    Obj getThis();
 
-    protected Obj thisRef = null;
+    void extend();
 
-    public Env() {
-        this.parent = null;
-    }
+    Obj get(Variable var);
 
-    public Env(Env parent) {
-        this.parent = parent;
-    }
+    Obj get(Variable var, int addr);
 
-    public void setThis(Obj thisRef) {
-        this.thisRef = thisRef;
-    }
+    void set(Variable var, Obj value);
 
-    public Obj getThis() {
-        return thisRef;
-    }
+    void set(Variable var, int addr, Obj value);
 
-    public void extend() {
-            vars.add(null);
-    }
+    void add(Obj value);
 
-    public Obj get(int addr) {
-        if (addr > 0xFFFF) {
-            return parent.get(addr - 0x10000);
-        }
-        return vars.get(addr);
-    }
-
-    public void set(int addr, Obj value) {
-        if (addr > 0xFFFF) {
-            parent.set(addr - 0x10000, value);
-        }
-        else {
-            vars.set(addr, value);
-        }
-    }
-
-    public void add(Obj value) {
-        vars.add(value);
-    }
+    int getMaxAddress();
 }

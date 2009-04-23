@@ -1,3 +1,9 @@
+. Sys.print('hello', 'world!');
+.Sys.importPackage('java.util');
+.Sys.print(List);
+.Sys.print(ListFoo);
+exit;
+
 fun loop(n) {
     if (n == 0) {
         return 0;
