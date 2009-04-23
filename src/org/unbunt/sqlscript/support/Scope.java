@@ -8,7 +8,7 @@ public class Scope {
     protected Scope parent;
 
     protected List<String> vars = new LinkedList<String>();
-    protected Set<String> undefVars = new HashSet<String>();
+    protected List<String> undefVars = new LinkedList<String>();
     protected int currAddr = -1;
 
     public Scope() {
@@ -23,30 +23,32 @@ public class Scope {
         int index = vars.indexOf(name);
         if (index != -1) {
             System.err.println("Warning: Variable " + name + " is already defined");
-            return new Variable(index, name, true);
+            return new Variable(index, name, true, false);
         }
         vars.add(name);
-        return new Variable(++currAddr, name, false);
+        return new Variable(++currAddr, name, false, false);
     }
 
     public Variable getVariable(String name) {
         int addr = findVariable(name);
-        return new Variable(addr, name, true);
+        return new Variable(addr, name, true, addr >= UNDEF_BASE_ADDR);
     }
 
     protected int findVariable(String name) {
         int addr = vars.indexOf(name);
         if (addr != -1) {
-            if (undefVars.contains(name)) {
-                addr = UNDEF_BASE_ADDR + addr;
-            }
             return addr;
         }
 
         if (parent == null) {
-            addr = UNDEF_BASE_ADDR + ++currAddr;
-            vars.add(name);
-            undefVars.add(name);
+            addr = undefVars.indexOf(name);
+            if (addr == -1) {
+                addr = UNDEF_BASE_ADDR + undefVars.size();
+                undefVars.add(name);
+            }
+            else {
+                addr = UNDEF_BASE_ADDR + addr;
+            }
             return addr;
         }
 

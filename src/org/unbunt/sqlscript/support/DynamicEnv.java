@@ -32,7 +32,7 @@ public class DynamicEnv extends AbstractEnv {
     }
 
     public Obj get(Variable var, int addr) {
-        if ((addr << 1) >= 0 && addr < 0x10000 && addr > boundaryAddress) {
+        if (!var.implicit && addr < 0x10000 && addr > boundaryAddress) {
             return parent.get(var, addr);
         }
         String name = var.name;
