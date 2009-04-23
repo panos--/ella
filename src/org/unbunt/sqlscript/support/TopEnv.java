@@ -23,7 +23,7 @@ public class TopEnv implements Env {
     }
 
     public Obj get(Variable var, int addr) {
-        addr = addr - Scope.UNDEF_BASE_ADDR;
+        addr &= 0xFFFF;
         resizeFor(addr);
         Obj value = vars.get(addr);
         if (value == null) {
@@ -39,7 +39,7 @@ public class TopEnv implements Env {
     }
 
     public void set(Variable var, int addr, Obj value) {
-        addr = addr - Scope.UNDEF_BASE_ADDR;
+        addr &= 0xFFFF;
         resizeFor(addr);
         if (vars.get(addr) == null) {
             warn(var);
@@ -49,6 +49,10 @@ public class TopEnv implements Env {
 
     protected void resizeFor(int addr) {
         vars.ensureCapacity(addr + 1);
+        int size = vars.size();
+        while (size++ <= addr) {
+            vars.add(null);
+        }
     }
 
     public void add(Obj value) {

@@ -2,6 +2,8 @@
 .Sys.importPackage('java.util');
 .Sys.print(List);
 .Sys.print(ListFoo);
+.ListFoo = 'foo';
+.Sys.print(ListFoo);
 exit;
 
 fun loop(n) {
