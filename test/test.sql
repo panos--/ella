@@ -1,10 +1,15 @@
+/*
 . Sys.print('hello', 'world!');
 .Sys.importPackage('java.util');
 .Sys.print(List);
 .Sys.print(ListFoo);
 .ListFoo = 'foo';
 .Sys.print(ListFoo);
+.Sys.print(Date);
+var date := new Date();
+.Sys.print(date);
 exit;
+*/
 
 fun loop(n) {
     if (n == 0) {

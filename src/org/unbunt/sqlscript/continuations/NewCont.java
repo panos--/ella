@@ -4,6 +4,7 @@ import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class NewCont implements Continuation {
     protected List<Expression> arguments;
@@ -13,7 +14,7 @@ public class NewCont implements Continuation {
     }
 
     public List<Expression> getArguments() {
-        return arguments;
+        return arguments == null ? new ArrayList<Expression>() : arguments;
     }
 
     public void accept(ContinuationVisitor visitor) {

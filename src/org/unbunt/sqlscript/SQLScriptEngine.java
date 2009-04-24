@@ -637,9 +637,15 @@ public class SQLScriptEngine
             }
             Obj parent = obj.getSlot(STR_SLOT_PARENT);
             if (parent == null) {
-                break;
+                parent = obj.parent;
+                if (parent == null) {
+                    break;
+                }
             }
             obj = parent;
+        }
+        if (val == null) {
+            val = Null.instance;
         }
         next = CONT;
     }
@@ -730,10 +736,17 @@ public class SQLScriptEngine
 
             Obj parent = obj.getSlot(STR_SLOT_PARENT);
             if (parent == null) {
-                break;
+                parent = obj.parent;
+                if (parent == null) {
+                    break;
+                }
             }
 
             obj = parent;
+        }
+
+        if (val == null) {
+            val = Null.instance;
         }
 
         cont[pc] = new CallCont(receiver, slotCallSlotCont.getArguments());
@@ -742,8 +755,12 @@ public class SQLScriptEngine
 
     public void processContinuation(CallCont callCont) {
         // TODO: merge if-branches as far as possible
+        // TODO: replace if-else by switch by introducing class ids (if possible enum-based)
         if (val instanceof Primitive) {
-            cont[pc] = new PrimitiveArgCont((Primitive) val, callCont.getContext(), callCont.getArguments());
+            cont[pc] = new PrimitiveCont((Primitive) val, callCont.getContext());
+        }
+        else if (val instanceof Native) {
+            cont[pc] = new NativeCont((Native) val, callCont.getContext());
         }
         else if (val instanceof Func) {
             Function func = ((Func) val).getFunction();
@@ -752,7 +769,7 @@ public class SQLScriptEngine
             Env savedEnv = env;
             Env funcEnv = new StaticEnv(func.getEnv());
             funcEnv.setThis(callCont.getContext());
-            cont[pc] = new CallArgCont(func, args, funcEnv, savedEnv);
+            cont[pc] = new CallArgCont(func, funcEnv, savedEnv);
         }
         else if (val instanceof Clos) {
             Clos closObj = (Clos) val;
@@ -762,24 +779,46 @@ public class SQLScriptEngine
             Env savedEnv = env;
             Env closEnv = new StaticEnv(clos.getEnv());
             closEnv.setThis(callCont.getContext());
-            cont[pc] = new CallArgCont(clos, args, closEnv, savedEnv);
-        }
-        else if (val instanceof Native) {
-            cont[pc] = new NativeArgCont((Native) val, callCont.getContext(), callCont.getArguments());
+            cont[pc] = new CallArgCont(clos, closEnv, savedEnv);
         }
         else {
             throw new SQLScriptRuntimeException("Invalid call: Neither block nor function");
         }
 
-        next = CONT;
+        next = evalArgs(callCont.getArguments());
+    }
+
+    protected boolean evalArgs(List<Expression> args) {
+        if (args.isEmpty()) {
+            val = Args.emptyArgs;
+            return CONT;
+        }
+
+        stmt = args.get(0);
+        cont[++pc] = new ArgsCont(args);
+        return EVAL;
+    }
+
+    public void processContinuation(ArgsCont argsCont) {
+        argsCont.addArgsValue(val);
+        if (argsCont.hasNext()) {
+            stmt = argsCont.next();
+            next = EVAL;
+        }
+        else {
+            pc--;
+            val = argsCont.getArgsValues();
+            next = CONT;
+        }
     }
 
     public void processContinuation(CallArgCont callArgCont) {
-        if (callArgCont.hasNext()) {
-            stmt = callArgCont.next();
-            cont[++pc] = new CallArgAssignCont(callArgCont.getCallEnv());
-            next = EVAL;
-            return;
+        stmt = callArgCont.getBody();
+        env = callArgCont.getCallEnv();
+
+        Obj[] args = ((Args) val).args;
+        for (Obj arg : args) {
+            env.add(arg);
         }
 
         Callable callable = callArgCont.getCallable();
@@ -789,139 +828,114 @@ public class SQLScriptEngine
             if (!(cont[pc - 1] instanceof FunRetCont)) {
                 cont[++pc] = new FunRetCont(callArgCont.getSavedEnv());
             }
-            env = callArgCont.getCallEnv();
-            stmt = callArgCont.getBody();
-            next = EVAL;
         }
         else if (callable instanceof BlockClosure) {
             BlockClosure clos = (BlockClosure) callable;
             cont[pc] = new ClosRetCont(clos, callArgCont.getSavedEnv());
-            env = callArgCont.getCallEnv();
-            stmt = callArgCont.getBody();
-            next = EVAL;
         }
         else {
             throw new SQLScriptRuntimeException("Internal error: Unhandled callable");
         }
+
+        next = EVAL;
     }
 
-    public void processContinuation(CallArgAssignCont callArgAssignCont) {
-        Env callEnv = callArgAssignCont.getEnv();
-        callEnv.add(val);
+    public void processContinuation(NativeCont nativeCont) {
         pc--;
-        next = CONT;
-    }
-
-    public void processContinuation(NativeArgCont nativeArgCont) {
-        nativeArgCont.addArgsValue(val);
-        if (nativeArgCont.hasNext()) {
-            stmt = nativeArgCont.next();
-            next = EVAL;
-            return;
-        }
-
-        pc--;
-        Obj context = nativeArgCont.getContext();
-        List<Obj> args = nativeArgCont.getArgsValues();
+        Obj context = nativeCont.getContext();
+        Obj[] args = ((Args) val).args;
         try {
-            nativeArgCont.getNative().call(this, context, args.toArray(new Obj[args.size()]));
+            val = nativeCont.getNative().call(this, context, args);
         } catch (ClosureTerminatedException ignored) {
         }
 
         next = CONT;
     }
 
-    public void processContinuation(PrimitiveArgCont primitiveArgCont) {
-        primitiveArgCont.addArgsValue(val);
-        if (primitiveArgCont.hasNext()) {
-            stmt = primitiveArgCont.next();
-            next = EVAL;
-            return;
-        }
-
+    public void processContinuation(PrimitiveCont primitiveCont) {
         pc--;
-        List<Obj> args = primitiveArgCont.getArgsValues();
-        switch (primitiveArgCont.getPrimitive().type) {
+        Obj[] args = ((Args) val).args;
+        switch (primitiveCont.getPrimitive().type) {
             case ID: {
-                Obj o1 = primitiveArgCont.getContext();
-                Obj o2 = args.get(0);
+                Obj o1 = primitiveCont.getContext();
+                Obj o2 = args[0];
                 val = o1 == o2 ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case NI: {
-                Obj o1 = primitiveArgCont.getContext();
-                Obj o2 = args.get(0);
+                Obj o1 = primitiveCont.getContext();
+                Obj o2 = args[0];
                 val = o1 != o2 ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_ADD: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = new Int(int1.value + int2.value);
                 break;
             }
             case INT_SUB: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = new Int(int1.value - int2.value);
                 break;
             }
             case INT_MUL: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = new Int(int1.value * int2.value);
                 break;
             }
             case INT_DIV: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = new Int(int1.value / int2.value);
                 break;
             }
             case INT_MOD: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = new Int(int1.value % int2.value);
                 break;
             }
             case INT_EQ: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = int1.value == int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_NE: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = int1.value != int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_LT: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = int1.value < int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_LE: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = int1.value <= int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_GT: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = int1.value > int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_GE: {
-                Int int1 = (Int) primitiveArgCont.getContext();
-                Int int2 = (Int) args.get(0);
+                Int int1 = (Int) primitiveCont.getContext();
+                Int int2 = (Int) args[0];
                 val = int1.value >= int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             default:
-                throw new SQLScriptRuntimeException("Unhandled primitive: " + primitiveArgCont.getPrimitive());
+                throw new SQLScriptRuntimeException("Unhandled primitive: " + primitiveCont.getPrimitive());
         }
 
         next = CONT;
@@ -980,13 +994,23 @@ public class SQLScriptEngine
         throw new SQLScriptRuntimeException("Found return statement outside of function block");
     }
 
+    /**
+     * TODO: use more generic scheme for object instanciation (see Perl, Smalltalk)
+     */
     public void processContinuation(NewCont newCont) {
-        Obj newObj = new Obj();
-        newObj.setSlot(STR_SLOT_PARENT, val);
-        val = STR_SLOT_INIT;
-        cont[pc]   = new NewResultCont(newObj);
-        cont[++pc] = new CallCont(newObj, newCont.getArguments()); // make NewCont support args
-        cont[++pc] = new SlotGetSlotCont(newObj);
+        // TODO: support arguments for new expressions
+        if (val instanceof JClass) {
+            cont[pc] = new CallCont(val, newCont.getArguments());
+            val = JClass.nativeCreateInstance;
+        }
+        else {
+            Obj newObj = new Obj();
+            newObj.setSlot(STR_SLOT_PARENT, val);
+            val = STR_SLOT_INIT;
+            cont[pc]   = new NewResultCont(newObj);
+            cont[++pc] = new CallCont(newObj, newCont.getArguments());
+            cont[++pc] = new SlotGetSlotCont(newObj);
+        }
         next = CONT;
     }
 

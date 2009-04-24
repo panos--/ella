@@ -57,11 +57,9 @@ public interface ContinuationVisitor {
 
     void processContinuation(CallArgCont callArgCont);
 
-    void processContinuation(CallArgAssignCont callArgAssignCont);
+    void processContinuation(NativeCont nativeCont);
 
-    void processContinuation(NativeArgCont nativeArgCont);
-
-    void processContinuation(PrimitiveArgCont primitiveArgCont);
+    void processContinuation(PrimitiveCont primitiveCont);
 
     void processContinuation(FunRetCont funRetCont);
 
@@ -80,4 +78,6 @@ public interface ContinuationVisitor {
     void processContinuation(InitParamCont initParamCont);
 
     void processContinuation(RestoreEnvCont restoreEnvCont);
+
+    void processContinuation(ArgsCont argsCont);
 }

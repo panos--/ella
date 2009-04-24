@@ -5,7 +5,8 @@ public class Int extends Obj {
 
     public Int(int value) {
         this.value = value;
-        slots.put(Str.Sym.parent.str, IntProto.instance);
+        parent = IntProto.instance;
+//        slots.put(Str.Sym.parent.str, IntProto.instance);
     }
 
     public int getValue() {

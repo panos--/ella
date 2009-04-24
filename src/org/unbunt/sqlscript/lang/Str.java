@@ -6,6 +6,7 @@ import java.util.Map;
 public class Str extends Obj {
     public static enum Sym {
         parent,
+        _new ("new"),
         init,
         print,
         importPackage,
@@ -36,7 +37,7 @@ public class Str extends Obj {
         }
     }
 
-    protected String value;
+    protected final String value;
 
     protected static Map<String, Str> pool = new HashMap<String, Str>();
 
@@ -67,10 +68,6 @@ public class Str extends Obj {
 
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public boolean equals(Object o) {

@@ -6,6 +6,8 @@ import java.util.Map;
 public class Obj {
     protected Map<Obj, Obj> slots = new HashMap<Obj, Obj>();
 
+    public Obj parent = null;
+
     public Obj() {
     }
 
@@ -27,5 +29,9 @@ public class Obj {
 
     public void setSlots(Map<Obj, Obj> slots) {
         this.slots = slots;
+    }
+
+    public Object toJavaObject() {
+        return this;
     }
 }
