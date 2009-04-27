@@ -4,11 +4,15 @@ public class Bool extends Obj {
     public final static Bool TRUE = new Bool(true);
     public final static Bool FALSE = new Bool(false);
 
-    protected boolean value;
+    protected final boolean value;
 
-    public Bool(boolean value) {
+    private Bool(boolean value) {
         this.value = value;
         slots.put(Str.Sym.parent.str, Base.instance);
+    }
+
+    public static Bool valueOf(boolean bool) {
+        return bool ? Bool.TRUE : Bool.FALSE;
     }
 
     public boolean isTrue() {
@@ -23,8 +27,9 @@ public class Bool extends Obj {
         return value;
     }
 
-    public void setValue(boolean value) {
-        this.value = value;
+    @Override
+    public Object toJavaObject() {
+        return value;
     }
 
     public boolean equals(Object o) {

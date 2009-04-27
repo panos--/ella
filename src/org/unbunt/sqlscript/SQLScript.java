@@ -211,6 +211,7 @@ public class SQLScript extends VolatileObservable implements Observer {
                 if (i == 1040000) {
                     System.out.println("dump!");
                     try {
+                        //noinspection ResultOfMethodCallIgnored
                         System.in.read();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -426,7 +427,8 @@ public class SQLScript extends VolatileObservable implements Observer {
             throw new RuntimeException("Internal error: No script context provided"); // should not be reached
         }
 
-        engine = new SQLScriptEngine(context);
+//        engine = new SQLScriptEngine(context);
+        engine = SQLScriptEngine.create(context);
         engine.addObserver(this);
     }
 

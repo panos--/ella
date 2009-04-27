@@ -1,15 +1,17 @@
-/*
-. Sys.print('hello', 'world!');
+
 .Sys.importPackage('java.util');
-.Sys.print(List);
-.Sys.print(ListFoo);
-.ListFoo = 'foo';
-.Sys.print(ListFoo);
-.Sys.print(Date);
-var date := new Date();
-.Sys.print(date);
+.Sys.print(Calendar);
+.Sys.print(Calendar.getInstance());
+.Sys.print(Calendar.instance);
+.Sys.print(Calendar.OCTOBER);
+.Sys.print(Calendar.instance.time);
+
+var cal := Calendar.instance;
+.Sys.print(cal.time);
+.cal.timeInMillis = 0;
+.Sys.print(cal.time);
+
 exit;
-*/
 
 fun loop(n) {
     if (n == 0) {
@@ -22,6 +24,20 @@ fun loop(n) {
 
 .loop(3);
 exit;
+
+
+/*
+. Sys.print('hello', 'world!');
+.Sys.importPackage('java.util');
+.Sys.print(List);
+.Sys.print(ListFoo);
+.ListFoo = 'foo';
+.Sys.print(ListFoo);
+.Sys.print(Date);
+var date := new Date();
+.Sys.print(date);
+exit;
+*/
 
 /*
 var i := 0;

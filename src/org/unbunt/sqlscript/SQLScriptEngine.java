@@ -108,6 +108,16 @@ public class SQLScriptEngine
         this.context = context;
     }
 
+    protected SQLScriptEngine() {
+    }
+
+    public static SQLScriptEngine create(SQLScriptContext context) {
+//        VisitorGenerator vg = new VisitorGenerator();
+//        SQLScriptEngine engine = vg.createVisitor(SQLScriptEngine.class);
+//        engine.setContext(context);
+        return new SQLScriptEngine(context);
+    }
+
     protected Statement stmt;
     protected Obj val;
     protected Env env = null;
@@ -173,7 +183,10 @@ public class SQLScriptEngine
 
     protected void eval() {
         stmt.accept(this);
+//        processExpressionAppropriate(stmt);
     }
+
+//    public abstract void processExpressionAppropriate(Statement stmt);
 
     public void processExpression(Block blockExpression) {
         BlockCont blockCont = blockExpression.isKeepEnv()
@@ -463,7 +476,10 @@ public class SQLScriptEngine
 
     protected void cont() {
         cont[pc].accept(this);
+//        processContinuationAppropriate(cont[pc]);
     }
+
+//    public abstract void processContinuationAppropriate(Continuation cont);
 
     public void processContinuation(EndCont endCont) {
         pc--;

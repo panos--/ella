@@ -7,6 +7,11 @@ public class Null extends Obj {
         slots.put(Str.Sym.parent.str, Base.instance);
     }
 
+    @Override
+    public Object toJavaObject() {
+        return null;
+    }
+
     public String toString() {
         return "Null";
     }

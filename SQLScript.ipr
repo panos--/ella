@@ -430,6 +430,9 @@
         <root url="file:///home/panos/java-lib/antlr-3.1/runtime/Java/src" />
         <root url="file:///home/panos/java-lib/libreadline-java-0.8.0/src" />
         <root url="jar:///home/panos/java-lib/commons-collections-3.2.1/commons-collections-3.2.1-sources.jar!/" />
+        <root url="file:///home/panos/java-lib/jmmf-0.8-src/src" />
+        <root url="file:///home/panos/java-lib/jmmf-0.8-src/docs/examples" />
+        <root url="file:///home/panos/java-lib/jmmf-0.8-src/test/src" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
     </library>

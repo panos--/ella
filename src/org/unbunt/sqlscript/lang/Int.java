@@ -13,6 +13,11 @@ public class Int extends Obj {
         return value;
     }
 
+    @Override
+    public Object toJavaObject() {
+        return value;
+    }
+
     public String toString() {
         return "" + value;
     }

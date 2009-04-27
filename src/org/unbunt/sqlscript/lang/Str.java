@@ -83,6 +83,11 @@ public class Str extends Obj {
         return (value != null ? value.hashCode() : 0);
     }
 
+    @Override
+    public Object toJavaObject() {
+        return value;
+    }
+
     public String toString() {
         return value;
     }

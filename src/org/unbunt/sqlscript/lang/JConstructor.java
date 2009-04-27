@@ -9,4 +9,9 @@ public class JConstructor extends Obj {
         this.ctors = ctors;
         slots.put(Str.Sym.parent.str, JConstructorProto.instance);
     }
+
+    @Override
+    public Object toJavaObject() {
+        return ctors;
+    }
 }
