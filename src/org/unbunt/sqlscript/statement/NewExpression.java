@@ -1,21 +1,16 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 import java.util.List;
 
 public class NewExpression extends AbstractExpression {
     protected Expression expression;
-    protected List<Expression> arguments = null;
+    protected List<Expression> arguments;
 
     public NewExpression(Expression expression, List<Expression> arguments) {
         this.expression = expression;
         this.arguments = arguments;
-    }
-
-    public NewExpression() {
     }
 
     public Expression getExpression() {
@@ -32,9 +27,6 @@ public class NewExpression extends AbstractExpression {
 
     public void setArguments(List<Expression> arguments) {
         this.arguments = arguments;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
     }
 
     public void accept(ExpressionVisitor visitor) {

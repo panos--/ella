@@ -133,6 +133,7 @@ public class SQLScriptEngine
             env = new StaticEnv();
             env.add(Null.instance);
             env.add(Sys.instance);
+            env.add(JArrayProto.instance);
         }
         pc = 0;
         cont[pc] = new EndCont();
@@ -1014,10 +1015,15 @@ public class SQLScriptEngine
      * TODO: use more generic scheme for object instanciation (see Perl, Smalltalk)
      */
     public void processContinuation(NewCont newCont) {
+        // TODO: generalize instanciation scheme
         // TODO: support arguments for new expressions
         if (val instanceof JClass) {
             cont[pc] = new CallCont(val, newCont.getArguments());
             val = JClass.nativeCreateInstance;
+        }
+        else if (val instanceof JArrayProto) {
+            cont[pc] = new CallCont(val, newCont.getArguments());
+            val = JArray.nativeCreateInstance;
         }
         else {
             Obj newObj = new Obj();
@@ -1457,6 +1463,9 @@ public class SQLScriptEngine
         Env savedEnv = env;
         env = new StaticEnv(closure.getEnv());
         env.setThis(context);
+        for (Obj arg : args) {
+            env.add(arg);
+        }
         stmt = closure.getBody();
         int callFrame = pc;
         cont[++pc] = new ClosRetCont(closure, savedEnv);

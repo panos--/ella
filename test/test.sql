@@ -1,4 +1,18 @@
 
+.Sys.importPackage('java.lang');
+
+var a := new JArray(String, 20);
+var alength := a.length;
+.Sys.print('length: @{alength}');
+.Sys.print('array: @{a}');
+. a[0] = 'hello';
+. a[1] = 'world!';
+var a0 := a[0];
+var a1 := a[1];
+. Sys.print('@{a0} @{a1}');
+. a each { idx, val => . Sys.print('@{idx}: @{val}'); };
+exit;
+
 .Sys.importPackage('java.util');
 .Sys.print(Calendar);
 .Sys.print(Calendar.getInstance());

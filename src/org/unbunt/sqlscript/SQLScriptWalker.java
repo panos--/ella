@@ -1,4 +1,4 @@
-// $ANTLR 3.1 /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-04-23 07:55:00
+// $ANTLR 3.1 /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-04-28 10:30:19
 
 	package org.unbunt.sqlscript;
 
@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.HashMap;
 public class SQLScriptWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "EVAL_CMD", "EVAL_ARG", "SQL_CMD", "ANNOT", "ANNOT_ARG", "PARAM_NAME", "PARAM_VALUE", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "ARG_EXPR", "ARG_TRUE", "ARG_FALSE", "IF", "IF_BLOCK", "ELSE_BLOCK", "TRY", "CATCH", "FINALLY", "THROW", "RETURN", "EXIT", "COND_EXPR", "COND_AND", "COND_OR", "COMP_EQ", "NOT", "TRUE", "FALSE", "OBJ", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "THIS", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "SEP", "BACKSLASH", "EQUALS", "KW_SQL", "WORD", "SQL_SPECIAL_CHAR", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "DOUBLE_BACKSLASH", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "DOUBLE_ARROW", "KW_VAR", "KW_FUN", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "OP_NE", "OP_ID", "OP_NI", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "KW_NEW", "INT", "KW_THIS", "ANNOTATION", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DIGIT", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL", "WS", "NL"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "EVAL_CMD", "EVAL_ARG", "SQL_CMD", "ANNOT", "ANNOT_ARG", "PARAM_NAME", "PARAM_VALUE", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "ARG_EXPR", "ARG_TRUE", "ARG_FALSE", "IF", "IF_BLOCK", "ELSE_BLOCK", "TRY", "CATCH", "FINALLY", "THROW", "RETURN", "EXIT", "COND_EXPR", "COND_AND", "COND_OR", "COMP_EQ", "NOT", "TRUE", "FALSE", "OBJ", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "THIS", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "SEP", "BACKSLASH", "EQUALS", "KW_SQL", "WORD", "SQL_SPECIAL_CHAR", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "DOUBLE_BACKSLASH", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "DOUBLE_ARROW", "KW_VAR", "KW_FUN", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "OP_NE", "OP_ID", "OP_NI", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "INT", "KW_THIS", "KW_NEW", "ANNOTATION", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DIGIT", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL", "WS", "NL"
     };
     public static final int ELSE_BLOCK=48;
     public static final int LSQUARE=84;
@@ -44,7 +44,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final int OP_MOD=114;
     public static final int OP_EQ=90;
     public static final int RPAREN=83;
-    public static final int KW_NEW=117;
+    public static final int KW_NEW=119;
     public static final int SQUOT=12;
     public static final int IDX_GET=67;
     public static final int THIS=71;
@@ -70,7 +70,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final int OP_NI=112;
     public static final int KW_CATCH=102;
     public static final int LCURLY=21;
-    public static final int INT=118;
+    public static final int INT=117;
     public static final int OP_DIV=113;
     public static final int FUNC_DEF=39;
     public static final int KW_IMPORT=107;
@@ -132,7 +132,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final int QQUOT_END=19;
     public static final int DOT=94;
     public static final int KW_IF=99;
-    public static final int KW_THIS=119;
+    public static final int KW_THIS=118;
     public static final int ANNOT_ARG=33;
     public static final int SQL_CMD=31;
     public static final int STR_DQUOT=126;
@@ -247,14 +247,15 @@ public class SQLScriptWalker extends TreeParser {
         	// register default global variables
         	((Scope_scope)Scope_stack.peek()).scope.addVariable("Null");
         	((Scope_scope)Scope_stack.peek()).scope.addVariable("Sys");
+        	((Scope_scope)Scope_stack.peek()).scope.addVariable("JArray");
         	
         	((Block_scope)Block_stack.peek()).block = new Block(((Scope_scope)Scope_stack.peek()).scope);
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:100:2: ( ( statement )* )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:100:4: ( statement )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:101:2: ( ( statement )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:101:4: ( statement )*
             {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:100:4: ( statement )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:101:4: ( statement )*
             loop1:
             do {
                 int alt1=2;
@@ -267,7 +268,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:100:4: statement
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:101:4: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_script87);
             	    statement();
@@ -308,10 +309,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "statement"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:103:1: statement : ( sqlStmt | evalStmt | scriptStmt | block );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:104:1: statement : ( sqlStmt | evalStmt | scriptStmt | block );
     public final void statement() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:104:2: ( sqlStmt | evalStmt | scriptStmt | block )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:105:2: ( sqlStmt | evalStmt | scriptStmt | block )
             int alt2=4;
             switch ( input.LA(1) ) {
             case SQL_CMD:
@@ -371,7 +372,7 @@ public class SQLScriptWalker extends TreeParser {
 
             switch (alt2) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:104:4: sqlStmt
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:105:4: sqlStmt
                     {
                     pushFollow(FOLLOW_sqlStmt_in_statement99);
                     sqlStmt();
@@ -382,7 +383,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:105:4: evalStmt
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:106:4: evalStmt
                     {
                     pushFollow(FOLLOW_evalStmt_in_statement104);
                     evalStmt();
@@ -393,7 +394,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:106:4: scriptStmt
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:107:4: scriptStmt
                     {
                     pushFollow(FOLLOW_scriptStmt_in_statement109);
                     scriptStmt();
@@ -404,7 +405,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:107:4: block
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:108:4: block
                     {
                     pushFollow(FOLLOW_block_in_statement114);
                     block();
@@ -430,7 +431,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "block"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:110:1: block returns [ Statement value ] : blk= blockStmt ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:111:1: block returns [ Statement value ] : blk= blockStmt ;
     public final Statement block() throws RecognitionException {
         Statement value = null;
 
@@ -438,8 +439,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:111:2: (blk= blockStmt )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:111:4: blk= blockStmt
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:112:2: (blk= blockStmt )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:112:4: blk= blockStmt
             {
             pushFollow(FOLLOW_blockStmt_in_block131);
             blk=blockStmt();
@@ -466,7 +467,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "unscopedBlock"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:114:1: unscopedBlock returns [ Statement value ] : blk= unscopedBlockStmt ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:115:1: unscopedBlock returns [ Statement value ] : blk= unscopedBlockStmt ;
     public final Statement unscopedBlock() throws RecognitionException {
         Statement value = null;
 
@@ -474,8 +475,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:115:2: (blk= unscopedBlockStmt )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:115:4: blk= unscopedBlockStmt
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:116:2: (blk= unscopedBlockStmt )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:116:4: blk= unscopedBlockStmt
             {
             pushFollow(FOLLOW_unscopedBlockStmt_in_unscopedBlock150);
             blk=unscopedBlockStmt();
@@ -502,7 +503,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "blockStmt"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:120:1: blockStmt returns [ Statement value ] : blk= unscopedBlockStmt ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:121:1: blockStmt returns [ Statement value ] : blk= unscopedBlockStmt ;
     public final Statement blockStmt() throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
@@ -513,8 +514,8 @@ public class SQLScriptWalker extends TreeParser {
 
          ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:123:2: (blk= unscopedBlockStmt )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:123:4: blk= unscopedBlockStmt
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:124:2: (blk= unscopedBlockStmt )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:124:4: blk= unscopedBlockStmt
             {
             pushFollow(FOLLOW_unscopedBlockStmt_in_blockStmt181);
             blk=unscopedBlockStmt();
@@ -543,7 +544,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "unscopedBlockStmt"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:126:1: unscopedBlockStmt returns [ Statement value ] : ^( BLOCK ( statement )* ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:127:1: unscopedBlockStmt returns [ Statement value ] : ^( BLOCK ( statement )* ) ;
     public final Statement unscopedBlockStmt() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -554,14 +555,14 @@ public class SQLScriptWalker extends TreeParser {
         	value = ((Block_scope)Block_stack.peek()).block;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:132:2: ( ^( BLOCK ( statement )* ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:132:4: ^( BLOCK ( statement )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:133:2: ( ^( BLOCK ( statement )* ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:133:4: ^( BLOCK ( statement )* )
             {
             match(input,BLOCK,FOLLOW_BLOCK_in_unscopedBlockStmt209); if (state.failed) return value;
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:132:12: ( statement )*
+                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:133:12: ( statement )*
                 loop3:
                 do {
                     int alt3=2;
@@ -574,7 +575,7 @@ public class SQLScriptWalker extends TreeParser {
 
                     switch (alt3) {
                 	case 1 :
-                	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:132:12: statement
+                	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:133:12: statement
                 	    {
                 	    pushFollow(FOLLOW_statement_in_unscopedBlockStmt211);
                 	    statement();
@@ -612,7 +613,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "evalStmt"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:135:1: evalStmt : ^( EVAL_CMD evcmd= evalCommand (param= evalParam )* (annot= annotation )* ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:136:1: evalStmt : ^( EVAL_CMD evcmd= evalCommand (param= evalParam )* (annot= annotation )* ) ;
     public final void evalStmt() throws RecognitionException {
         String evcmd = null;
 
@@ -623,8 +624,8 @@ public class SQLScriptWalker extends TreeParser {
 
          EvalCommand cmd = new EvalCommand(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:138:2: ( ^( EVAL_CMD evcmd= evalCommand (param= evalParam )* (annot= annotation )* ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:138:4: ^( EVAL_CMD evcmd= evalCommand (param= evalParam )* (annot= annotation )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:139:2: ( ^( EVAL_CMD evcmd= evalCommand (param= evalParam )* (annot= annotation )* ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:139:4: ^( EVAL_CMD evcmd= evalCommand (param= evalParam )* (annot= annotation )* )
             {
             match(input,EVAL_CMD,FOLLOW_EVAL_CMD_in_evalStmt235); if (state.failed) return ;
 
@@ -637,7 +638,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                cmd.setName(evcmd); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:140:4: (param= evalParam )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:141:4: (param= evalParam )*
             loop4:
             do {
                 int alt4=2;
@@ -650,7 +651,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:140:5: param= evalParam
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:141:5: param= evalParam
             	    {
             	    pushFollow(FOLLOW_evalParam_in_evalStmt252);
             	    param=evalParam();
@@ -669,7 +670,7 @@ public class SQLScriptWalker extends TreeParser {
                 }
             } while (true);
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:141:4: (annot= annotation )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:142:4: (annot= annotation )*
             loop5:
             do {
                 int alt5=2;
@@ -682,7 +683,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt5) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:141:5: annot= annotation
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:142:5: annot= annotation
             	    {
             	    pushFollow(FOLLOW_annotation_in_evalStmt264);
             	    annot=annotation();
@@ -723,7 +724,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "evalCommand"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:145:1: evalCommand returns [ String value ] : cmd= identifier ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:146:1: evalCommand returns [ String value ] : cmd= identifier ;
     public final String evalCommand() throws RecognitionException {
         String value = null;
 
@@ -731,8 +732,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:146:2: (cmd= identifier )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:146:4: cmd= identifier
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:147:2: (cmd= identifier )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:147:4: cmd= identifier
             {
             pushFollow(FOLLOW_identifier_in_evalCommand289);
             cmd=identifier();
@@ -759,7 +760,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "evalParam"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:149:1: evalParam returns [ Parameter value ] : ^( EVAL_ARG param= parameter ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:150:1: evalParam returns [ Parameter value ] : ^( EVAL_ARG param= parameter ) ;
     public final Parameter evalParam() throws RecognitionException {
         Parameter value = null;
 
@@ -767,8 +768,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:150:2: ( ^( EVAL_ARG param= parameter ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:150:4: ^( EVAL_ARG param= parameter )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:151:2: ( ^( EVAL_ARG param= parameter ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:151:4: ^( EVAL_ARG param= parameter )
             {
             match(input,EVAL_ARG,FOLLOW_EVAL_ARG_in_evalParam307); if (state.failed) return value;
 
@@ -800,7 +801,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "sqlStmt"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:153:1: sqlStmt : ^( SQL_CMD name= sqlStmtName (param= sqlParam )* (annot= annotation )* ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:154:1: sqlStmt : ^( SQL_CMD name= sqlStmtName (param= sqlParam )* (annot= annotation )* ) ;
     public final void sqlStmt() throws RecognitionException {
         Object name = null;
 
@@ -811,8 +812,8 @@ public class SQLScriptWalker extends TreeParser {
 
          SQLStatement stmt = new SQLStatement(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:156:2: ( ^( SQL_CMD name= sqlStmtName (param= sqlParam )* (annot= annotation )* ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:156:4: ^( SQL_CMD name= sqlStmtName (param= sqlParam )* (annot= annotation )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:157:2: ( ^( SQL_CMD name= sqlStmtName (param= sqlParam )* (annot= annotation )* ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:157:4: ^( SQL_CMD name= sqlStmtName (param= sqlParam )* (annot= annotation )* )
             {
             match(input,SQL_CMD,FOLLOW_SQL_CMD_in_sqlStmt336); if (state.failed) return ;
 
@@ -825,7 +826,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                stmt.addPart(name); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:158:4: (param= sqlParam )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:159:4: (param= sqlParam )*
             loop6:
             do {
                 int alt6=2;
@@ -838,7 +839,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt6) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:158:5: param= sqlParam
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:159:5: param= sqlParam
             	    {
             	    pushFollow(FOLLOW_sqlParam_in_sqlStmt354);
             	    param=sqlParam();
@@ -857,7 +858,7 @@ public class SQLScriptWalker extends TreeParser {
                 }
             } while (true);
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:159:4: (annot= annotation )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:160:4: (annot= annotation )*
             loop7:
             do {
                 int alt7=2;
@@ -870,7 +871,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt7) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:159:5: annot= annotation
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:160:5: annot= annotation
             	    {
             	    pushFollow(FOLLOW_annotation_in_sqlStmt368);
             	    annot=annotation();
@@ -911,7 +912,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "sqlStmtName"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:163:1: sqlStmtName returns [ Object value ] : (name= WORD | var= embeddedVarRef );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:164:1: sqlStmtName returns [ Object value ] : (name= WORD | var= embeddedVarRef );
     public final Object sqlStmtName() throws RecognitionException {
         Object value = null;
 
@@ -920,7 +921,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:164:2: (name= WORD | var= embeddedVarRef )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:165:2: (name= WORD | var= embeddedVarRef )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -939,7 +940,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt8) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:164:4: name= WORD
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:165:4: name= WORD
                     {
                     name=(CommonTree)match(input,WORD,FOLLOW_WORD_in_sqlStmtName393); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
@@ -949,7 +950,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:165:4: var= embeddedVarRef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:166:4: var= embeddedVarRef
                     {
                     pushFollow(FOLLOW_embeddedVarRef_in_sqlStmtName414);
                     var=embeddedVarRef();
@@ -978,7 +979,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "sqlParam"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:168:1: sqlParam returns [ Object value ] : (str= stringLiteral | id= identifier | chr= sqlSpecialChars | kw= keyword | ws= WS | var= embeddedVarRef );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:169:1: sqlParam returns [ Object value ] : (str= stringLiteral | id= identifier | chr= sqlSpecialChars | kw= keyword | ws= WS | var= embeddedVarRef );
     public final Object sqlParam() throws RecognitionException {
         Object value = null;
 
@@ -995,7 +996,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:169:2: (str= stringLiteral | id= identifier | chr= sqlSpecialChars | kw= keyword | ws= WS | var= embeddedVarRef )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:170:2: (str= stringLiteral | id= identifier | chr= sqlSpecialChars | kw= keyword | ws= WS | var= embeddedVarRef )
             int alt9=6;
             switch ( input.LA(1) ) {
             case STRING:
@@ -1058,7 +1059,7 @@ public class SQLScriptWalker extends TreeParser {
 
             switch (alt9) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:169:4: str= stringLiteral
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:170:4: str= stringLiteral
                     {
                     pushFollow(FOLLOW_stringLiteral_in_sqlParam436);
                     str=stringLiteral();
@@ -1072,7 +1073,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:170:4: id= identifier
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:171:4: id= identifier
                     {
                     pushFollow(FOLLOW_identifier_in_sqlParam449);
                     id=identifier();
@@ -1086,7 +1087,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:171:4: chr= sqlSpecialChars
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:172:4: chr= sqlSpecialChars
                     {
                     pushFollow(FOLLOW_sqlSpecialChars_in_sqlParam466);
                     chr=sqlSpecialChars();
@@ -1100,7 +1101,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:172:4: kw= keyword
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:173:4: kw= keyword
                     {
                     pushFollow(FOLLOW_keyword_in_sqlParam477);
                     kw=keyword();
@@ -1114,7 +1115,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:173:4: ws= WS
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:174:4: ws= WS
                     {
                     ws=(CommonTree)match(input,WS,FOLLOW_WS_in_sqlParam497); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
@@ -1124,7 +1125,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:174:4: var= embeddedVarRef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:175:4: var= embeddedVarRef
                     {
                     pushFollow(FOLLOW_embeddedVarRef_in_sqlParam522);
                     var=embeddedVarRef();
@@ -1153,7 +1154,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "annotation"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:177:1: annotation returns [ AnnotationCommand value ] : ^( ANNOT cmd= annotationCommand (param= annotationParam )* ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:178:1: annotation returns [ AnnotationCommand value ] : ^( ANNOT cmd= annotationCommand (param= annotationParam )* ) ;
     public final AnnotationCommand annotation() throws RecognitionException {
         AnnotationCommand value = null;
 
@@ -1164,8 +1165,8 @@ public class SQLScriptWalker extends TreeParser {
 
          value = new AnnotationCommand(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:180:2: ( ^( ANNOT cmd= annotationCommand (param= annotationParam )* ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:180:4: ^( ANNOT cmd= annotationCommand (param= annotationParam )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:181:2: ( ^( ANNOT cmd= annotationCommand (param= annotationParam )* ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:181:4: ^( ANNOT cmd= annotationCommand (param= annotationParam )* )
             {
             match(input,ANNOT,FOLLOW_ANNOT_in_annotation554); if (state.failed) return value;
 
@@ -1178,7 +1179,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                value.setName(cmd); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:182:4: (param= annotationParam )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:183:4: (param= annotationParam )*
             loop10:
             do {
                 int alt10=2;
@@ -1191,7 +1192,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt10) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:182:5: param= annotationParam
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:183:5: param= annotationParam
             	    {
             	    pushFollow(FOLLOW_annotationParam_in_annotation571);
             	    param=annotationParam();
@@ -1232,15 +1233,15 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "annotationCommand"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:185:1: annotationCommand returns [ String value ] : name= ANNOTATION ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:186:1: annotationCommand returns [ String value ] : name= ANNOTATION ;
     public final String annotationCommand() throws RecognitionException {
         String value = null;
 
         CommonTree name=null;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:186:2: (name= ANNOTATION )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:186:4: name= ANNOTATION
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:187:2: (name= ANNOTATION )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:187:4: name= ANNOTATION
             {
             name=(CommonTree)match(input,ANNOTATION,FOLLOW_ANNOTATION_in_annotationCommand593); if (state.failed) return value;
             if ( state.backtracking==0 ) {
@@ -1263,7 +1264,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "annotationParam"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:189:1: annotationParam returns [ Parameter value ] : ^( ANNOT_ARG param= parameter ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:190:1: annotationParam returns [ Parameter value ] : ^( ANNOT_ARG param= parameter ) ;
     public final Parameter annotationParam() throws RecognitionException {
         Parameter value = null;
 
@@ -1271,8 +1272,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:190:2: ( ^( ANNOT_ARG param= parameter ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:190:4: ^( ANNOT_ARG param= parameter )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:191:2: ( ^( ANNOT_ARG param= parameter ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:191:4: ^( ANNOT_ARG param= parameter )
             {
             match(input,ANNOT_ARG,FOLLOW_ANNOT_ARG_in_annotationParam611); if (state.failed) return value;
 
@@ -1304,10 +1305,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptStmt"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:193:1: scriptStmt : ( scriptIfElse | scriptTry | scriptThrow | scriptReturn | scriptExit | scriptImport | expressionStmt );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:194:1: scriptStmt : ( scriptIfElse | scriptTry | scriptThrow | scriptReturn | scriptExit | scriptImport | expressionStmt );
     public final void scriptStmt() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:194:2: ( scriptIfElse | scriptTry | scriptThrow | scriptReturn | scriptExit | scriptImport | expressionStmt )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:195:2: ( scriptIfElse | scriptTry | scriptThrow | scriptReturn | scriptExit | scriptImport | expressionStmt )
             int alt11=7;
             switch ( input.LA(1) ) {
             case IF:
@@ -1376,7 +1377,7 @@ public class SQLScriptWalker extends TreeParser {
 
             switch (alt11) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:194:4: scriptIfElse
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:195:4: scriptIfElse
                     {
                     pushFollow(FOLLOW_scriptIfElse_in_scriptStmt629);
                     scriptIfElse();
@@ -1387,7 +1388,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:195:4: scriptTry
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:196:4: scriptTry
                     {
                     pushFollow(FOLLOW_scriptTry_in_scriptStmt634);
                     scriptTry();
@@ -1398,7 +1399,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:196:4: scriptThrow
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:197:4: scriptThrow
                     {
                     pushFollow(FOLLOW_scriptThrow_in_scriptStmt639);
                     scriptThrow();
@@ -1409,7 +1410,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:197:4: scriptReturn
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:198:4: scriptReturn
                     {
                     pushFollow(FOLLOW_scriptReturn_in_scriptStmt644);
                     scriptReturn();
@@ -1420,7 +1421,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:198:4: scriptExit
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:199:4: scriptExit
                     {
                     pushFollow(FOLLOW_scriptExit_in_scriptStmt649);
                     scriptExit();
@@ -1431,7 +1432,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:199:4: scriptImport
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:200:4: scriptImport
                     {
                     pushFollow(FOLLOW_scriptImport_in_scriptStmt654);
                     scriptImport();
@@ -1442,7 +1443,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 7 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:200:4: expressionStmt
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:201:4: expressionStmt
                     {
                     pushFollow(FOLLOW_expressionStmt_in_scriptStmt659);
                     expressionStmt();
@@ -1468,7 +1469,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptIfElse"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:203:1: scriptIfElse returns [ Statement value ] : ^( IF scriptIf ( scriptElse )? ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:204:1: scriptIfElse returns [ Statement value ] : ^( IF scriptIf ( scriptElse )? ) ;
     public final Statement scriptIfElse() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -1476,8 +1477,8 @@ public class SQLScriptWalker extends TreeParser {
 
          ((Block_scope)Block_stack.peek()).block = new IfStatement(); value = ((Block_scope)Block_stack.peek()).block; 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:207:2: ( ^( IF scriptIf ( scriptElse )? ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:207:4: ^( IF scriptIf ( scriptElse )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:208:2: ( ^( IF scriptIf ( scriptElse )? ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:208:4: ^( IF scriptIf ( scriptElse )? )
             {
             match(input,IF,FOLLOW_IF_in_scriptIfElse690); if (state.failed) return value;
 
@@ -1487,7 +1488,7 @@ public class SQLScriptWalker extends TreeParser {
 
             state._fsp--;
             if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:207:18: ( scriptElse )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:208:18: ( scriptElse )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1496,7 +1497,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt12) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:207:18: scriptElse
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:208:18: scriptElse
                     {
                     pushFollow(FOLLOW_scriptElse_in_scriptIfElse694);
                     scriptElse();
@@ -1533,7 +1534,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptIf"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:210:1: scriptIf returns [ Statement value ] : expr= expression unscopedBlock ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:211:1: scriptIf returns [ Statement value ] : expr= expression unscopedBlock ;
     public final Statement scriptIf() throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
@@ -1544,8 +1545,8 @@ public class SQLScriptWalker extends TreeParser {
 
          ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:213:2: (expr= expression unscopedBlock )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:213:4: expr= expression unscopedBlock
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:214:2: (expr= expression unscopedBlock )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:214:4: expr= expression unscopedBlock
             {
             pushFollow(FOLLOW_expression_in_scriptIf723);
             expr=expression();
@@ -1579,7 +1580,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptElse"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:216:1: scriptElse returns [ Statement value ] : (elseIf= scriptIfElse | elseBlock= block );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:217:1: scriptElse returns [ Statement value ] : (elseIf= scriptIfElse | elseBlock= block );
     public final Statement scriptElse() throws RecognitionException {
         Statement value = null;
 
@@ -1589,7 +1590,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:217:2: (elseIf= scriptIfElse | elseBlock= block )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:218:2: (elseIf= scriptIfElse | elseBlock= block )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1608,7 +1609,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt13) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:217:4: elseIf= scriptIfElse
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:218:4: elseIf= scriptIfElse
                     {
                     pushFollow(FOLLOW_scriptIfElse_in_scriptElse744);
                     elseIf=scriptIfElse();
@@ -1622,7 +1623,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:218:4: elseBlock= block
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:219:4: elseBlock= block
                     {
                     pushFollow(FOLLOW_block_in_scriptElse753);
                     elseBlock=block();
@@ -1651,7 +1652,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptTry"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:221:1: scriptTry returns [ TryStatement value ] : ^( TRY blk= blockStmt (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally ) ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:222:1: scriptTry returns [ TryStatement value ] : ^( TRY blk= blockStmt (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally ) ) ;
     public final TryStatement scriptTry() throws RecognitionException {
         TryStatement value = null;
 
@@ -1663,8 +1664,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:223:2: ( ^( TRY blk= blockStmt (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally ) ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:223:4: ^( TRY blk= blockStmt (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:224:2: ( ^( TRY blk= blockStmt (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally ) ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:224:4: ^( TRY blk= blockStmt (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally ) )
             {
             match(input,TRY,FOLLOW_TRY_in_scriptTry776); if (state.failed) return value;
 
@@ -1677,7 +1678,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                value = new TryStatement(blk); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:223:67: (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:224:67: (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1696,7 +1697,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt15) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:224:4: cat= scriptCatch (fin= scriptFinally )?
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:225:4: cat= scriptCatch (fin= scriptFinally )?
                     {
                     pushFollow(FOLLOW_scriptCatch_in_scriptTry791);
                     cat=scriptCatch();
@@ -1706,7 +1707,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
                        value.setCatchClause(cat); 
                     }
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:225:4: (fin= scriptFinally )?
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:226:4: (fin= scriptFinally )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -1715,7 +1716,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     switch (alt14) {
                         case 1 :
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:225:5: fin= scriptFinally
+                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:226:5: fin= scriptFinally
                             {
                             pushFollow(FOLLOW_scriptFinally_in_scriptTry801);
                             fin=scriptFinally();
@@ -1735,7 +1736,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:226:6: fin= scriptFinally
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:227:6: fin= scriptFinally
                     {
                     pushFollow(FOLLOW_scriptFinally_in_scriptTry814);
                     fin=scriptFinally();
@@ -1773,7 +1774,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptCatch"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:230:1: scriptCatch returns [ CatchStatement value ] : ^( CATCH var= varDef blk= unscopedBlockStmt ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:231:1: scriptCatch returns [ CatchStatement value ] : ^( CATCH var= varDef blk= unscopedBlockStmt ) ;
     public final CatchStatement scriptCatch() throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
@@ -1786,8 +1787,8 @@ public class SQLScriptWalker extends TreeParser {
 
          ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:233:2: ( ^( CATCH var= varDef blk= unscopedBlockStmt ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:233:4: ^( CATCH var= varDef blk= unscopedBlockStmt )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:234:2: ( ^( CATCH var= varDef blk= unscopedBlockStmt ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:234:4: ^( CATCH var= varDef blk= unscopedBlockStmt )
             {
             match(input,CATCH,FOLLOW_CATCH_in_scriptCatch847); if (state.failed) return value;
 
@@ -1828,7 +1829,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptFinally"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:238:1: scriptFinally returns [ FinallyStatement value ] : ^( FINALLY blk= blockStmt ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:239:1: scriptFinally returns [ FinallyStatement value ] : ^( FINALLY blk= blockStmt ) ;
     public final FinallyStatement scriptFinally() throws RecognitionException {
         FinallyStatement value = null;
 
@@ -1836,8 +1837,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:239:2: ( ^( FINALLY blk= blockStmt ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:239:4: ^( FINALLY blk= blockStmt )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:240:2: ( ^( FINALLY blk= blockStmt ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:240:4: ^( FINALLY blk= blockStmt )
             {
             match(input,FINALLY,FOLLOW_FINALLY_in_scriptFinally874); if (state.failed) return value;
 
@@ -1869,7 +1870,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptThrow"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:242:1: scriptThrow returns [ ThrowStatement value ] : ^( THROW expr= expression ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:243:1: scriptThrow returns [ ThrowStatement value ] : ^( THROW expr= expression ) ;
     public final ThrowStatement scriptThrow() throws RecognitionException {
         ThrowStatement value = null;
 
@@ -1877,8 +1878,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:244:2: ( ^( THROW expr= expression ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:244:4: ^( THROW expr= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:245:2: ( ^( THROW expr= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:245:4: ^( THROW expr= expression )
             {
             match(input,THROW,FOLLOW_THROW_in_scriptThrow902); if (state.failed) return value;
 
@@ -1913,7 +1914,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptReturn"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:247:1: scriptReturn returns [ ReturnStatement value ] : ^( RETURN (expr= expression )? ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:248:1: scriptReturn returns [ ReturnStatement value ] : ^( RETURN (expr= expression )? ) ;
     public final ReturnStatement scriptReturn() throws RecognitionException {
         ReturnStatement value = null;
 
@@ -1921,8 +1922,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:248:2: ( ^( RETURN (expr= expression )? ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:248:4: ^( RETURN (expr= expression )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:249:2: ( ^( RETURN (expr= expression )? ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:249:4: ^( RETURN (expr= expression )? )
             {
             match(input,RETURN,FOLLOW_RETURN_in_scriptReturn925); if (state.failed) return value;
 
@@ -1932,7 +1933,7 @@ public class SQLScriptWalker extends TreeParser {
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:248:49: (expr= expression )?
+                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:249:49: (expr= expression )?
                 int alt16=2;
                 int LA16_0 = input.LA(1);
 
@@ -1941,7 +1942,7 @@ public class SQLScriptWalker extends TreeParser {
                 }
                 switch (alt16) {
                     case 1 :
-                        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:248:50: expr= expression
+                        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:249:50: expr= expression
                         {
                         pushFollow(FOLLOW_expression_in_scriptReturn932);
                         expr=expression();
@@ -1982,7 +1983,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptExit"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:253:1: scriptExit returns [ ExitStatement value ] : ^( EXIT (expr= expression )? ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:254:1: scriptExit returns [ ExitStatement value ] : ^( EXIT (expr= expression )? ) ;
     public final ExitStatement scriptExit() throws RecognitionException {
         ExitStatement value = null;
 
@@ -1990,8 +1991,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:254:2: ( ^( EXIT (expr= expression )? ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:254:4: ^( EXIT (expr= expression )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:255:2: ( ^( EXIT (expr= expression )? ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:255:4: ^( EXIT (expr= expression )? )
             {
             match(input,EXIT,FOLLOW_EXIT_in_scriptExit956); if (state.failed) return value;
 
@@ -2001,7 +2002,7 @@ public class SQLScriptWalker extends TreeParser {
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:254:45: (expr= expression )?
+                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:255:45: (expr= expression )?
                 int alt17=2;
                 int LA17_0 = input.LA(1);
 
@@ -2010,7 +2011,7 @@ public class SQLScriptWalker extends TreeParser {
                 }
                 switch (alt17) {
                     case 1 :
-                        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:254:46: expr= expression
+                        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:255:46: expr= expression
                         {
                         pushFollow(FOLLOW_expression_in_scriptExit963);
                         expr=expression();
@@ -2051,10 +2052,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptImport"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:259:1: scriptImport : ( ^( IMPORT_PACKAGE importIdentifier ) | ^( IMPORT_CLASS ( ^( AS identifier ) | ) importIdentifier ) );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:260:1: scriptImport : ( ^( IMPORT_PACKAGE importIdentifier ) | ^( IMPORT_CLASS ( ^( AS identifier ) | ) importIdentifier ) );
     public final void scriptImport() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:260:2: ( ^( IMPORT_PACKAGE importIdentifier ) | ^( IMPORT_CLASS ( ^( AS identifier ) | ) importIdentifier ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:261:2: ( ^( IMPORT_PACKAGE importIdentifier ) | ^( IMPORT_CLASS ( ^( AS identifier ) | ) importIdentifier ) )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2073,7 +2074,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt19) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:260:4: ^( IMPORT_PACKAGE importIdentifier )
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:261:4: ^( IMPORT_PACKAGE importIdentifier )
                     {
                     match(input,IMPORT_PACKAGE,FOLLOW_IMPORT_PACKAGE_in_scriptImport983); if (state.failed) return ;
 
@@ -2089,12 +2090,12 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:261:4: ^( IMPORT_CLASS ( ^( AS identifier ) | ) importIdentifier )
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:262:4: ^( IMPORT_CLASS ( ^( AS identifier ) | ) importIdentifier )
                     {
                     match(input,IMPORT_CLASS,FOLLOW_IMPORT_CLASS_in_scriptImport992); if (state.failed) return ;
 
                     match(input, Token.DOWN, null); if (state.failed) return ;
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:262:4: ( ^( AS identifier ) | )
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:263:4: ( ^( AS identifier ) | )
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -2113,7 +2114,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     switch (alt18) {
                         case 1 :
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:262:5: ^( AS identifier )
+                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:263:5: ^( AS identifier )
                             {
                             match(input,AS,FOLLOW_AS_in_scriptImport999); if (state.failed) return ;
 
@@ -2129,7 +2130,7 @@ public class SQLScriptWalker extends TreeParser {
                             }
                             break;
                         case 2 :
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:262:22: 
+                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:263:22: 
                             {
                             }
                             break;
@@ -2162,7 +2163,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "importIdentifier"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:266:1: importIdentifier returns [ String value ] : id1= identifier (id2= identifier )* ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:267:1: importIdentifier returns [ String value ] : id1= identifier (id2= identifier )* ;
     public final String importIdentifier() throws RecognitionException {
         String value = null;
 
@@ -2173,8 +2174,8 @@ public class SQLScriptWalker extends TreeParser {
 
          StringBuilder buf = new StringBuilder(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:269:2: (id1= identifier (id2= identifier )* )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:269:4: id1= identifier (id2= identifier )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:270:2: (id1= identifier (id2= identifier )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:270:4: id1= identifier (id2= identifier )*
             {
             pushFollow(FOLLOW_identifier_in_importIdentifier1037);
             id1=identifier();
@@ -2184,7 +2185,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                buf.append(id1); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:270:3: (id2= identifier )*
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:271:3: (id2= identifier )*
             loop20:
             do {
                 int alt20=2;
@@ -2197,7 +2198,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt20) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:270:4: id2= identifier
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:271:4: id2= identifier
             	    {
             	    pushFollow(FOLLOW_identifier_in_importIdentifier1046);
             	    id2=identifier();
@@ -2236,14 +2237,14 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "expressionStmt"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:273:1: expressionStmt : expr= expression ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:274:1: expressionStmt : expr= expression ;
     public final void expressionStmt() throws RecognitionException {
         Expression expr = null;
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:274:2: (expr= expression )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:274:4: expr= expression
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:275:2: (expr= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:275:4: expr= expression
             {
             pushFollow(FOLLOW_expression_in_expressionStmt1063);
             expr=expression();
@@ -2270,7 +2271,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "expression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:277:1: expression returns [ Expression value ] : (ex= expressionNoSlotExp | st= slotExpressionRHS );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:278:1: expression returns [ Expression value ] : (ex= expressionNoSlotExp | st= slotExpressionRHS );
     public final Expression expression() throws RecognitionException {
         Expression value = null;
 
@@ -2280,7 +2281,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:278:2: (ex= expressionNoSlotExp | st= slotExpressionRHS )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:279:2: (ex= expressionNoSlotExp | st= slotExpressionRHS )
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2299,7 +2300,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt21) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:278:4: ex= expressionNoSlotExp
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:279:4: ex= expressionNoSlotExp
                     {
                     pushFollow(FOLLOW_expressionNoSlotExp_in_expression1082);
                     ex=expressionNoSlotExp();
@@ -2313,7 +2314,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:279:4: st= slotExpressionRHS
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:280:4: st= slotExpressionRHS
                     {
                     pushFollow(FOLLOW_slotExpressionRHS_in_expression1091);
                     st=slotExpressionRHS();
@@ -2342,7 +2343,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "expressionNoSlotExp"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:282:1: expressionNoSlotExp returns [ Expression value ] : (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | tc= ternaryConditional | oc= orCondition | ac= andCondition | nexp= notExpression | newx= newExpression | sexp= simpleExpression );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:283:1: expressionNoSlotExp returns [ Expression value ] : (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | tc= ternaryConditional | oc= orCondition | ac= andCondition | nexp= notExpression | newx= newExpression | sexp= simpleExpression );
     public final Expression expressionNoSlotExp() throws RecognitionException {
         Expression value = null;
 
@@ -2356,7 +2357,7 @@ public class SQLScriptWalker extends TreeParser {
 
         Expression ae = null;
 
-        Expression ix = null;
+        SlotCallExpression ix = null;
 
         Expression cl = null;
 
@@ -2376,7 +2377,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:283:2: (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | tc= ternaryConditional | oc= orCondition | ac= andCondition | nexp= notExpression | newx= newExpression | sexp= simpleExpression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:284:2: (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | tc= ternaryConditional | oc= orCondition | ac= andCondition | nexp= notExpression | newx= newExpression | sexp= simpleExpression )
             int alt22=14;
             switch ( input.LA(1) ) {
             case FUNC_DEF:
@@ -2465,7 +2466,7 @@ public class SQLScriptWalker extends TreeParser {
 
             switch (alt22) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:283:4: fd= scriptFuncDef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:284:4: fd= scriptFuncDef
                     {
                     pushFollow(FOLLOW_scriptFuncDef_in_expressionNoSlotExp1111);
                     fd=scriptFuncDef();
@@ -2479,7 +2480,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:284:4: bc= blockClosure
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:285:4: bc= blockClosure
                     {
                     pushFollow(FOLLOW_blockClosure_in_expressionNoSlotExp1120);
                     bc=blockClosure();
@@ -2493,7 +2494,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:285:4: da= scriptDeclareAndAssign
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:286:4: da= scriptDeclareAndAssign
                     {
                     pushFollow(FOLLOW_scriptDeclareAndAssign_in_expressionNoSlotExp1129);
                     da=scriptDeclareAndAssign();
@@ -2507,7 +2508,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:286:4: de= scriptDeclare
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:287:4: de= scriptDeclare
                     {
                     pushFollow(FOLLOW_scriptDeclare_in_expressionNoSlotExp1138);
                     de=scriptDeclare();
@@ -2521,7 +2522,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:287:4: ae= scriptAssign
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:288:4: ae= scriptAssign
                     {
                     pushFollow(FOLLOW_scriptAssign_in_expressionNoSlotExp1147);
                     ae=scriptAssign();
@@ -2535,7 +2536,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:288:4: ix= indexExpressionRHS
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:289:4: ix= indexExpressionRHS
                     {
                     pushFollow(FOLLOW_indexExpressionRHS_in_expressionNoSlotExp1156);
                     ix=indexExpressionRHS();
@@ -2549,7 +2550,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 7 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:289:4: cl= callExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:290:4: cl= callExpression
                     {
                     pushFollow(FOLLOW_callExpression_in_expressionNoSlotExp1165);
                     cl=callExpression();
@@ -2563,7 +2564,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 8 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:290:4: cb= callBinaryExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:291:4: cb= callBinaryExpression
                     {
                     pushFollow(FOLLOW_callBinaryExpression_in_expressionNoSlotExp1174);
                     cb=callBinaryExpression();
@@ -2577,7 +2578,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 9 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:291:4: tc= ternaryConditional
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:292:4: tc= ternaryConditional
                     {
                     pushFollow(FOLLOW_ternaryConditional_in_expressionNoSlotExp1183);
                     tc=ternaryConditional();
@@ -2591,7 +2592,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 10 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:292:4: oc= orCondition
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:293:4: oc= orCondition
                     {
                     pushFollow(FOLLOW_orCondition_in_expressionNoSlotExp1192);
                     oc=orCondition();
@@ -2605,7 +2606,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 11 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:293:4: ac= andCondition
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:294:4: ac= andCondition
                     {
                     pushFollow(FOLLOW_andCondition_in_expressionNoSlotExp1201);
                     ac=andCondition();
@@ -2619,7 +2620,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 12 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:294:4: nexp= notExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:295:4: nexp= notExpression
                     {
                     pushFollow(FOLLOW_notExpression_in_expressionNoSlotExp1210);
                     nexp=notExpression();
@@ -2633,7 +2634,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 13 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:295:4: newx= newExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:296:4: newx= newExpression
                     {
                     pushFollow(FOLLOW_newExpression_in_expressionNoSlotExp1219);
                     newx=newExpression();
@@ -2647,7 +2648,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 14 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:296:4: sexp= simpleExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:297:4: sexp= simpleExpression
                     {
                     pushFollow(FOLLOW_simpleExpression_in_expressionNoSlotExp1228);
                     sexp=simpleExpression();
@@ -2676,7 +2677,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptFuncDef"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:299:1: scriptFuncDef returns [ FunctionDefinitionExpression value ] : ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:300:1: scriptFuncDef returns [ FunctionDefinitionExpression value ] : ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) ;
     public final FunctionDefinitionExpression scriptFuncDef() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -2691,13 +2692,13 @@ public class SQLScriptWalker extends TreeParser {
         	((Block_scope)Block_stack.peek()).block = value;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:306:2: ( ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:306:4: ^( FUNC_DEF (var= varDef )? funcDefRest[function] )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:307:2: ( ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:307:4: ^( FUNC_DEF (var= varDef )? funcDefRest[function] )
             {
             match(input,FUNC_DEF,FOLLOW_FUNC_DEF_in_scriptFuncDef1256); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:307:4: (var= varDef )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:308:4: (var= varDef )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2706,7 +2707,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt23) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:307:6: var= varDef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:308:6: var= varDef
                     {
                     pushFollow(FOLLOW_varDef_in_scriptFuncDef1265);
                     var=varDef();
@@ -2752,7 +2753,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "funcDefRest"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:316:1: funcDefRest[ Function function ] : (args= argumentsDef )? unscopedBlock ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:317:1: funcDefRest[ Function function ] : (args= argumentsDef )? unscopedBlock ;
     public final void funcDefRest(Function function) throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
@@ -2761,10 +2762,10 @@ public class SQLScriptWalker extends TreeParser {
 
          ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:319:2: ( (args= argumentsDef )? unscopedBlock )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:319:4: (args= argumentsDef )? unscopedBlock
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:320:2: ( (args= argumentsDef )? unscopedBlock )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:320:4: (args= argumentsDef )? unscopedBlock
             {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:319:4: (args= argumentsDef )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:320:4: (args= argumentsDef )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -2773,7 +2774,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt24) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:319:6: args= argumentsDef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:320:6: args= argumentsDef
                     {
                     pushFollow(FOLLOW_argumentsDef_in_funcDefRest1307);
                     args=argumentsDef();
@@ -2813,7 +2814,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "blockClosure"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:323:1: blockClosure returns [ BlockClosureExpression value ] : ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:324:1: blockClosure returns [ BlockClosureExpression value ] : ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) ;
     public final BlockClosureExpression blockClosure() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -2825,8 +2826,8 @@ public class SQLScriptWalker extends TreeParser {
         	((Block_scope)Block_stack.peek()).block = value;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:330:2: ( ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:330:4: ^( BLOCK_CLOSURE blockClosureRest[blockClosure] )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:331:2: ( ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:331:4: ^( BLOCK_CLOSURE blockClosureRest[blockClosure] )
             {
             match(input,BLOCK_CLOSURE,FOLLOW_BLOCK_CLOSURE_in_blockClosure1342); if (state.failed) return value;
 
@@ -2857,7 +2858,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "blockClosureRest"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:333:1: blockClosureRest[ BlockClosure blockClosure ] : (args= argumentsDef )? unscopedBlock ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:334:1: blockClosureRest[ BlockClosure blockClosure ] : (args= argumentsDef )? unscopedBlock ;
     public final void blockClosureRest(BlockClosure blockClosure) throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
@@ -2866,10 +2867,10 @@ public class SQLScriptWalker extends TreeParser {
 
          ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:336:2: ( (args= argumentsDef )? unscopedBlock )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:336:4: (args= argumentsDef )? unscopedBlock
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:337:2: ( (args= argumentsDef )? unscopedBlock )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:337:4: (args= argumentsDef )? unscopedBlock
             {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:336:4: (args= argumentsDef )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:337:4: (args= argumentsDef )?
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2878,7 +2879,7 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt25) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:336:6: args= argumentsDef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:337:6: args= argumentsDef
                     {
                     pushFollow(FOLLOW_argumentsDef_in_blockClosureRest1373);
                     args=argumentsDef();
@@ -2918,7 +2919,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "argumentsDef"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:341:1: argumentsDef returns [ List<String> value ] : ^( ARGS (name= varDef )+ ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:342:1: argumentsDef returns [ List<String> value ] : ^( ARGS (name= varDef )+ ) ;
     public final List<String> argumentsDef() throws RecognitionException {
         List<String> value = null;
 
@@ -2927,13 +2928,13 @@ public class SQLScriptWalker extends TreeParser {
 
          value = new ArrayList<String>(10); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:343:2: ( ^( ARGS (name= varDef )+ ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:343:4: ^( ARGS (name= varDef )+ )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:344:2: ( ^( ARGS (name= varDef )+ ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:344:4: ^( ARGS (name= varDef )+ )
             {
             match(input,ARGS,FOLLOW_ARGS_in_argumentsDef1404); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:343:11: (name= varDef )+
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:344:11: (name= varDef )+
             int cnt26=0;
             loop26:
             do {
@@ -2947,7 +2948,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt26) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:343:12: name= varDef
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:344:12: name= varDef
             	    {
             	    pushFollow(FOLLOW_varDef_in_argumentsDef1409);
             	    name=varDef();
@@ -2990,7 +2991,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "argumentsList"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:347:1: argumentsList returns [ List<Expression> value ] : ^( ARGS (expr= expression )+ ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:348:1: argumentsList returns [ List<Expression> value ] : ^( ARGS (expr= expression )+ ) ;
     public final List<Expression> argumentsList() throws RecognitionException {
         List<Expression> value = null;
 
@@ -2999,13 +3000,13 @@ public class SQLScriptWalker extends TreeParser {
 
          value = new ArrayList<Expression>(10); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:349:2: ( ^( ARGS (expr= expression )+ ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:349:4: ^( ARGS (expr= expression )+ )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:350:2: ( ^( ARGS (expr= expression )+ ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:350:4: ^( ARGS (expr= expression )+ )
             {
             match(input,ARGS,FOLLOW_ARGS_in_argumentsList1436); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:349:11: (expr= expression )+
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:350:11: (expr= expression )+
             int cnt27=0;
             loop27:
             do {
@@ -3019,7 +3020,7 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt27) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:349:13: expr= expression
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:350:13: expr= expression
             	    {
             	    pushFollow(FOLLOW_expression_in_argumentsList1442);
             	    expr=expression();
@@ -3062,7 +3063,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptDeclareAndAssign"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:352:1: scriptDeclareAndAssign returns [ Expression value ] : ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:353:1: scriptDeclareAndAssign returns [ Expression value ] : ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) ;
     public final Expression scriptDeclareAndAssign() throws RecognitionException {
         Expression value = null;
 
@@ -3073,8 +3074,8 @@ public class SQLScriptWalker extends TreeParser {
 
          Expression decl = null; 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:354:2: ( ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:354:4: ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:355:2: ( ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:355:4: ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign )
             {
             match(input,DECLARE_ASSIGN,FOLLOW_DECLARE_ASSIGN_in_scriptDeclareAndAssign1470); if (state.failed) return value;
 
@@ -3121,7 +3122,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptDeclare"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:368:1: scriptDeclare returns [ DeclareVariableExpression value ] : ^( DECLARE var= varDef ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:369:1: scriptDeclare returns [ DeclareVariableExpression value ] : ^( DECLARE var= varDef ) ;
     public final DeclareVariableExpression scriptDeclare() throws RecognitionException {
         DeclareVariableExpression value = null;
 
@@ -3129,8 +3130,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:369:2: ( ^( DECLARE var= varDef ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:369:4: ^( DECLARE var= varDef )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:370:2: ( ^( DECLARE var= varDef ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:370:4: ^( DECLARE var= varDef )
             {
             match(input,DECLARE,FOLLOW_DECLARE_in_scriptDeclare1509); if (state.failed) return value;
 
@@ -3170,7 +3171,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "scriptAssign"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:380:1: scriptAssign returns [ Expression value ] : ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:381:1: scriptAssign returns [ Expression value ] : ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) ;
     public final Expression scriptAssign() throws RecognitionException {
         Expression value = null;
 
@@ -3182,13 +3183,13 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:381:2: ( ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:381:4: ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:382:2: ( ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:382:4: ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) )
             {
             match(input,ASSIGN,FOLLOW_ASSIGN_in_scriptAssign1532); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:382:4: (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:383:4: (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot )
             int alt28=3;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -3216,7 +3217,7 @@ public class SQLScriptWalker extends TreeParser {
 
             switch (alt28) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:382:6: varExp= assignVariable
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:383:6: varExp= assignVariable
                     {
                     pushFollow(FOLLOW_assignVariable_in_scriptAssign1541);
                     varExp=assignVariable();
@@ -3230,7 +3231,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:383:6: idxExp= assignIndex
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:384:6: idxExp= assignIndex
                     {
                     pushFollow(FOLLOW_assignIndex_in_scriptAssign1552);
                     idxExp=assignIndex();
@@ -3244,7 +3245,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:384:6: slotExp= assignSlot
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:385:6: slotExp= assignSlot
                     {
                     pushFollow(FOLLOW_assignSlot_in_scriptAssign1563);
                     slotExp=assignSlot();
@@ -3279,7 +3280,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "assignVariable"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:389:1: assignVariable returns [ Expression value ] : lval= varRef rval= expression ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:390:1: assignVariable returns [ Expression value ] : lval= varRef rval= expression ;
     public final Expression assignVariable() throws RecognitionException {
         Expression value = null;
 
@@ -3289,8 +3290,8 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:390:2: (lval= varRef rval= expression )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:390:4: lval= varRef rval= expression
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:391:2: (lval= varRef rval= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:391:4: lval= varRef rval= expression
             {
             pushFollow(FOLLOW_varRef_in_assignVariable1591);
             lval=varRef();
@@ -3334,18 +3335,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "assignIndex"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:405:1: assignIndex returns [ Expression value ] : lval= indexExpressionLHS rval= expression ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:406:1: assignIndex returns [ Expression value ] : lval= indexExpressionLHS rval= expression ;
     public final Expression assignIndex() throws RecognitionException {
         Expression value = null;
 
-        Expression lval = null;
+        SlotCallExpression lval = null;
 
         Expression rval = null;
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:406:2: (lval= indexExpressionLHS rval= expression )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:406:4: lval= indexExpressionLHS rval= expression
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:407:2: (lval= indexExpressionLHS rval= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:407:4: lval= indexExpressionLHS rval= expression
             {
             pushFollow(FOLLOW_indexExpressionLHS_in_assignIndex1614);
             lval=indexExpressionLHS();
@@ -3357,6 +3358,12 @@ public class SQLScriptWalker extends TreeParser {
 
             state._fsp--;
             if (state.failed) return value;
+            if ( state.backtracking==0 ) {
+
+              			lval.addArgument(rval);
+              			value = lval;
+              		
+            }
 
             }
 
@@ -3374,7 +3381,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "assignSlot"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:409:1: assignSlot returns [ Expression value ] : lval= slotExpressionLHS rval= expression ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:414:1: assignSlot returns [ Expression value ] : lval= slotExpressionLHS rval= expression ;
     public final Expression assignSlot() throws RecognitionException {
         Expression value = null;
 
@@ -3384,15 +3391,15 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:410:2: (lval= slotExpressionLHS rval= expression )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:410:4: lval= slotExpressionLHS rval= expression
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:415:2: (lval= slotExpressionLHS rval= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:415:4: lval= slotExpressionLHS rval= expression
             {
-            pushFollow(FOLLOW_slotExpressionLHS_in_assignSlot1635);
+            pushFollow(FOLLOW_slotExpressionLHS_in_assignSlot1639);
             lval=slotExpressionLHS();
 
             state._fsp--;
             if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_assignSlot1639);
+            pushFollow(FOLLOW_expression_in_assignSlot1643);
             rval=expression();
 
             state._fsp--;
@@ -3417,18 +3424,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "indexExpressionLHS"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:414:1: indexExpressionLHS returns [ Expression value ] : exp= indexExpression_[POS_LHS] ;
-    public final Expression indexExpressionLHS() throws RecognitionException {
-        Expression value = null;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:419:1: indexExpressionLHS returns [ SlotCallExpression value ] : exp= indexExpression_[POS_LHS] ;
+    public final SlotCallExpression indexExpressionLHS() throws RecognitionException {
+        SlotCallExpression value = null;
 
-        Expression exp = null;
+        SlotCallExpression exp = null;
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:415:2: (exp= indexExpression_[POS_LHS] )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:415:4: exp= indexExpression_[POS_LHS]
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:420:2: (exp= indexExpression_[POS_LHS] )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:420:4: exp= indexExpression_[POS_LHS]
             {
-            pushFollow(FOLLOW_indexExpression__in_indexExpressionLHS1660);
+            pushFollow(FOLLOW_indexExpression__in_indexExpressionLHS1664);
             exp=indexExpression_(POS_LHS);
 
             state._fsp--;
@@ -3453,18 +3460,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "indexExpressionRHS"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:418:1: indexExpressionRHS returns [ Expression value ] : exp= indexExpression_[POS_RHS] ;
-    public final Expression indexExpressionRHS() throws RecognitionException {
-        Expression value = null;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:423:1: indexExpressionRHS returns [ SlotCallExpression value ] : exp= indexExpression_[POS_RHS] ;
+    public final SlotCallExpression indexExpressionRHS() throws RecognitionException {
+        SlotCallExpression value = null;
 
-        Expression exp = null;
+        SlotCallExpression exp = null;
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:419:2: (exp= indexExpression_[POS_RHS] )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:419:4: exp= indexExpression_[POS_RHS]
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:424:2: (exp= indexExpression_[POS_RHS] )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:424:4: exp= indexExpression_[POS_RHS]
             {
-            pushFollow(FOLLOW_indexExpression__in_indexExpressionRHS1680);
+            pushFollow(FOLLOW_indexExpression__in_indexExpressionRHS1684);
             exp=indexExpression_(POS_RHS);
 
             state._fsp--;
@@ -3489,9 +3496,9 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "indexExpression_"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:422:1: indexExpression_[ int pos ] returns [ Expression value ] : ^( INDEX receiver= expression index= expression ) ;
-    public final Expression indexExpression_(int pos) throws RecognitionException {
-        Expression value = null;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:427:1: indexExpression_[ int pos ] returns [ SlotCallExpression value ] : ^( INDEX receiver= expression index= expression ) ;
+    public final SlotCallExpression indexExpression_(int pos) throws RecognitionException {
+        SlotCallExpression value = null;
 
         Expression receiver = null;
 
@@ -3499,18 +3506,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:423:2: ( ^( INDEX receiver= expression index= expression ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:423:4: ^( INDEX receiver= expression index= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:428:2: ( ^( INDEX receiver= expression index= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:428:4: ^( INDEX receiver= expression index= expression )
             {
-            match(input,INDEX,FOLLOW_INDEX_in_indexExpression_1701); if (state.failed) return value;
+            match(input,INDEX,FOLLOW_INDEX_in_indexExpression_1705); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_indexExpression_1705);
+            pushFollow(FOLLOW_expression_in_indexExpression_1709);
             receiver=expression();
 
             state._fsp--;
             if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_indexExpression_1709);
+            pushFollow(FOLLOW_expression_in_indexExpression_1713);
             index=expression();
 
             state._fsp--;
@@ -3518,7 +3525,12 @@ public class SQLScriptWalker extends TreeParser {
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = pos == POS_RHS ? /* gen "get" */ new NullExpression() : /* gen "set" */ new NullExpression(); 
+
+              			Expression slotExp = new IdentifierExpression(pos == POS_RHS ? "get" : "set");
+              			value = new SlotCallExpression(new SlotExpression(receiver, slotExp));
+              			value.addArgument(index);
+              			//value = pos == POS_RHS ? /* gen "get" */ new NullExpression() : /* gen "set" */ new NullExpression();
+              		
             }
 
             }
@@ -3537,7 +3549,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "slotExpressionLHS"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:427:1: slotExpressionLHS returns [ SlotExpression value ] : exp= slotExpression_[POS_LHS] ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:437:1: slotExpressionLHS returns [ SlotExpression value ] : exp= slotExpression_[POS_LHS] ;
     public final SlotExpression slotExpressionLHS() throws RecognitionException {
         SlotExpression value = null;
 
@@ -3545,10 +3557,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:428:2: (exp= slotExpression_[POS_LHS] )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:428:4: exp= slotExpression_[POS_LHS]
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:438:2: (exp= slotExpression_[POS_LHS] )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:438:4: exp= slotExpression_[POS_LHS]
             {
-            pushFollow(FOLLOW_slotExpression__in_slotExpressionLHS1731);
+            pushFollow(FOLLOW_slotExpression__in_slotExpressionLHS1735);
             exp=slotExpression_(POS_LHS);
 
             state._fsp--;
@@ -3573,7 +3585,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "slotExpressionRHS"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:431:1: slotExpressionRHS returns [ SlotExpression value ] : exp= slotExpression_[POS_RHS] ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:441:1: slotExpressionRHS returns [ SlotExpression value ] : exp= slotExpression_[POS_RHS] ;
     public final SlotExpression slotExpressionRHS() throws RecognitionException {
         SlotExpression value = null;
 
@@ -3581,10 +3593,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:432:2: (exp= slotExpression_[POS_RHS] )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:432:4: exp= slotExpression_[POS_RHS]
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:442:2: (exp= slotExpression_[POS_RHS] )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:442:4: exp= slotExpression_[POS_RHS]
             {
-            pushFollow(FOLLOW_slotExpression__in_slotExpressionRHS1751);
+            pushFollow(FOLLOW_slotExpression__in_slotExpressionRHS1755);
             exp=slotExpression_(POS_RHS);
 
             state._fsp--;
@@ -3609,7 +3621,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "slotExpression_"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:435:1: slotExpression_[ int pos ] returns [ SlotExpression value ] : ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:445:1: slotExpression_[ int pos ] returns [ SlotExpression value ] : ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) ;
     public final SlotExpression slotExpression_(int pos) throws RecognitionException {
         SlotExpression value = null;
 
@@ -3621,18 +3633,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:436:2: ( ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:436:4: ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:446:2: ( ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:446:4: ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) )
             {
-            match(input,SLOT,FOLLOW_SLOT_in_slotExpression_1772); if (state.failed) return value;
+            match(input,SLOT,FOLLOW_SLOT_in_slotExpression_1776); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_slotExpression_1776);
+            pushFollow(FOLLOW_expression_in_slotExpression_1780);
             receiver=expression();
 
             state._fsp--;
             if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:437:4: ( ( identifier )=>slotName= identifierExpression | slotExpr= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:447:4: ( ( identifier )=>slotName= identifierExpression | slotExpr= expression )
             int alt29=2;
             int LA29_0 = input.LA(1);
 
@@ -3665,9 +3677,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt29) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:437:6: ( identifier )=>slotName= identifierExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:447:6: ( identifier )=>slotName= identifierExpression
                     {
-                    pushFollow(FOLLOW_identifierExpression_in_slotExpression_1790);
+                    pushFollow(FOLLOW_identifierExpression_in_slotExpression_1794);
                     slotName=identifierExpression();
 
                     state._fsp--;
@@ -3679,9 +3691,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:438:6: slotExpr= expression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:448:6: slotExpr= expression
                     {
-                    pushFollow(FOLLOW_expression_in_slotExpression_1801);
+                    pushFollow(FOLLOW_expression_in_slotExpression_1805);
                     slotExpr=expression();
 
                     state._fsp--;
@@ -3714,7 +3726,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "callExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:443:1: callExpression returns [ Expression value ] : ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:453:1: callExpression returns [ Expression value ] : ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) ;
     public final Expression callExpression() throws RecognitionException {
         Expression value = null;
 
@@ -3724,13 +3736,13 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:444:2: ( ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:444:4: ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:454:2: ( ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:454:4: ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) )
             {
-            match(input,CALL,FOLLOW_CALL_in_callExpression1831); if (state.failed) return value;
+            match(input,CALL,FOLLOW_CALL_in_callExpression1835); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:445:4: (slotCall= slotCallExpression | funcCall= funcCallExpression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:455:4: (slotCall= slotCallExpression | funcCall= funcCallExpression )
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -3749,9 +3761,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt30) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:445:6: slotCall= slotCallExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:455:6: slotCall= slotCallExpression
                     {
-                    pushFollow(FOLLOW_slotCallExpression_in_callExpression1840);
+                    pushFollow(FOLLOW_slotCallExpression_in_callExpression1844);
                     slotCall=slotCallExpression();
 
                     state._fsp--;
@@ -3763,9 +3775,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:446:6: funcCall= funcCallExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:456:6: funcCall= funcCallExpression
                     {
-                    pushFollow(FOLLOW_funcCallExpression_in_callExpression1851);
+                    pushFollow(FOLLOW_funcCallExpression_in_callExpression1855);
                     funcCall=funcCallExpression();
 
                     state._fsp--;
@@ -3798,7 +3810,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "slotCallExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:451:1: slotCallExpression returns [ SlotCallExpression value ] : slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:461:1: slotCallExpression returns [ SlotCallExpression value ] : slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ;
     public final SlotCallExpression slotCallExpression() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -3810,10 +3822,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:452:2: (slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:452:4: slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:462:2: (slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:462:4: slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )?
             {
-            pushFollow(FOLLOW_slotExpressionRHS_in_slotCallExpression1879);
+            pushFollow(FOLLOW_slotExpressionRHS_in_slotCallExpression1883);
             slotExpr=slotExpressionRHS();
 
             state._fsp--;
@@ -3821,7 +3833,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                value = new SlotCallExpression(slotExpr); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:453:3: (callArgs= argumentsList )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:463:3: (callArgs= argumentsList )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -3830,9 +3842,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt31) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:453:4: callArgs= argumentsList
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:463:4: callArgs= argumentsList
                     {
-                    pushFollow(FOLLOW_argumentsList_in_slotCallExpression1888);
+                    pushFollow(FOLLOW_argumentsList_in_slotCallExpression1892);
                     callArgs=argumentsList();
 
                     state._fsp--;
@@ -3846,7 +3858,7 @@ public class SQLScriptWalker extends TreeParser {
 
             }
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:454:3: (blockArg= blockClosure )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:464:3: (blockArg= blockClosure )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -3855,9 +3867,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt32) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:454:4: blockArg= blockClosure
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:464:4: blockArg= blockClosure
                     {
-                    pushFollow(FOLLOW_blockClosure_in_slotCallExpression1899);
+                    pushFollow(FOLLOW_blockClosure_in_slotCallExpression1903);
                     blockArg=blockClosure();
 
                     state._fsp--;
@@ -3888,7 +3900,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "funcCallExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:457:1: funcCallExpression returns [ AbstractFunctionCallExpression value ] : expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:467:1: funcCallExpression returns [ AbstractFunctionCallExpression value ] : expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? ;
     public final AbstractFunctionCallExpression funcCallExpression() throws RecognitionException {
         AbstractFunctionCallExpression value = null;
 
@@ -3900,10 +3912,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:458:2: (expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:458:4: expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:468:2: (expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:468:4: expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )?
             {
-            pushFollow(FOLLOW_expressionNoSlotExp_in_funcCallExpression1920);
+            pushFollow(FOLLOW_expressionNoSlotExp_in_funcCallExpression1924);
             expr=expressionNoSlotExp();
 
             state._fsp--;
@@ -3911,7 +3923,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
                value = new FunctionCallExpression(expr); 
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:459:3: (callArgs= argumentsList )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:469:3: (callArgs= argumentsList )?
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -3920,9 +3932,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt33) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:459:4: callArgs= argumentsList
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:469:4: callArgs= argumentsList
                     {
-                    pushFollow(FOLLOW_argumentsList_in_funcCallExpression1929);
+                    pushFollow(FOLLOW_argumentsList_in_funcCallExpression1933);
                     callArgs=argumentsList();
 
                     state._fsp--;
@@ -3936,7 +3948,7 @@ public class SQLScriptWalker extends TreeParser {
 
             }
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:460:3: (blockArg= blockClosure )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:470:3: (blockArg= blockClosure )?
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -3945,9 +3957,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt34) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:460:4: blockArg= blockClosure
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:470:4: blockArg= blockClosure
                     {
-                    pushFollow(FOLLOW_blockClosure_in_funcCallExpression1940);
+                    pushFollow(FOLLOW_blockClosure_in_funcCallExpression1944);
                     blockArg=blockClosure();
 
                     state._fsp--;
@@ -3978,7 +3990,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "callBinaryExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:463:1: callBinaryExpression returns [ SlotCallExpression value ] : ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:473:1: callBinaryExpression returns [ SlotCallExpression value ] : ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) ;
     public final SlotCallExpression callBinaryExpression() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -3990,23 +4002,23 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:464:2: ( ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:464:4: ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:474:2: ( ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:474:4: ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression )
             {
-            match(input,CALL_BINARY,FOLLOW_CALL_BINARY_in_callBinaryExpression1960); if (state.failed) return value;
+            match(input,CALL_BINARY,FOLLOW_CALL_BINARY_in_callBinaryExpression1964); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_callBinaryExpression1967);
+            pushFollow(FOLLOW_expression_in_callBinaryExpression1971);
             receiver=expression();
 
             state._fsp--;
             if (state.failed) return value;
-            pushFollow(FOLLOW_identifierExpression_in_callBinaryExpression1974);
+            pushFollow(FOLLOW_identifierExpression_in_callBinaryExpression1978);
             op=identifierExpression();
 
             state._fsp--;
             if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_callBinaryExpression1981);
+            pushFollow(FOLLOW_expression_in_callBinaryExpression1985);
             arg=expression();
 
             state._fsp--;
@@ -4038,7 +4050,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "ternaryConditional"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:476:1: ternaryConditional returns [ Expression value ] : ^( COND_EXPR cond= expression trueExp= expression falseExp= expression ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:486:1: ternaryConditional returns [ Expression value ] : ^( COND_EXPR cond= expression trueExp= expression falseExp= expression ) ;
     public final Expression ternaryConditional() throws RecognitionException {
         Expression value = null;
 
@@ -4050,23 +4062,23 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:477:2: ( ^( COND_EXPR cond= expression trueExp= expression falseExp= expression ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:477:4: ^( COND_EXPR cond= expression trueExp= expression falseExp= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:487:2: ( ^( COND_EXPR cond= expression trueExp= expression falseExp= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:487:4: ^( COND_EXPR cond= expression trueExp= expression falseExp= expression )
             {
-            match(input,COND_EXPR,FOLLOW_COND_EXPR_in_ternaryConditional2003); if (state.failed) return value;
+            match(input,COND_EXPR,FOLLOW_COND_EXPR_in_ternaryConditional2007); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_ternaryConditional2007);
+            pushFollow(FOLLOW_expression_in_ternaryConditional2011);
             cond=expression();
 
             state._fsp--;
             if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_ternaryConditional2011);
+            pushFollow(FOLLOW_expression_in_ternaryConditional2015);
             trueExp=expression();
 
             state._fsp--;
             if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_ternaryConditional2015);
+            pushFollow(FOLLOW_expression_in_ternaryConditional2019);
             falseExp=expression();
 
             state._fsp--;
@@ -4095,7 +4107,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "orCondition"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:482:1: orCondition returns [ Condition value ] : ^( COND_OR (expr= expression )+ ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:492:1: orCondition returns [ Condition value ] : ^( COND_OR (expr= expression )+ ) ;
     public final Condition orCondition() throws RecognitionException {
         Condition value = null;
 
@@ -4104,13 +4116,13 @@ public class SQLScriptWalker extends TreeParser {
 
          List<Expression> expressions = new ArrayList<Expression>(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:484:2: ( ^( COND_OR (expr= expression )+ ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:484:4: ^( COND_OR (expr= expression )+ )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:494:2: ( ^( COND_OR (expr= expression )+ ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:494:4: ^( COND_OR (expr= expression )+ )
             {
-            match(input,COND_OR,FOLLOW_COND_OR_in_orCondition2039); if (state.failed) return value;
+            match(input,COND_OR,FOLLOW_COND_OR_in_orCondition2043); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:484:14: (expr= expression )+
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:494:14: (expr= expression )+
             int cnt35=0;
             loop35:
             do {
@@ -4124,9 +4136,9 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt35) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:484:15: expr= expression
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:494:15: expr= expression
             	    {
-            	    pushFollow(FOLLOW_expression_in_orCondition2044);
+            	    pushFollow(FOLLOW_expression_in_orCondition2048);
             	    expr=expression();
 
             	    state._fsp--;
@@ -4172,7 +4184,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "andCondition"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:489:1: andCondition returns [ Condition value ] : ^( COND_AND (expr= expression )+ ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:499:1: andCondition returns [ Condition value ] : ^( COND_AND (expr= expression )+ ) ;
     public final Condition andCondition() throws RecognitionException {
         Condition value = null;
 
@@ -4181,13 +4193,13 @@ public class SQLScriptWalker extends TreeParser {
 
          List<Expression> expressions = new ArrayList<Expression>(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:491:2: ( ^( COND_AND (expr= expression )+ ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:491:4: ^( COND_AND (expr= expression )+ )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:501:2: ( ^( COND_AND (expr= expression )+ ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:501:4: ^( COND_AND (expr= expression )+ )
             {
-            match(input,COND_AND,FOLLOW_COND_AND_in_andCondition2072); if (state.failed) return value;
+            match(input,COND_AND,FOLLOW_COND_AND_in_andCondition2076); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:491:15: (expr= expression )+
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:501:15: (expr= expression )+
             int cnt36=0;
             loop36:
             do {
@@ -4201,9 +4213,9 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt36) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:491:16: expr= expression
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:501:16: expr= expression
             	    {
-            	    pushFollow(FOLLOW_expression_in_andCondition2077);
+            	    pushFollow(FOLLOW_expression_in_andCondition2081);
             	    expr=expression();
 
             	    state._fsp--;
@@ -4249,7 +4261,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "notExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:496:1: notExpression returns [ Expression value ] : ^( NOT exp= expression ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:506:1: notExpression returns [ Expression value ] : ^( NOT exp= expression ) ;
     public final Expression notExpression() throws RecognitionException {
         Expression value = null;
 
@@ -4257,13 +4269,13 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:497:2: ( ^( NOT exp= expression ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:497:4: ^( NOT exp= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:507:2: ( ^( NOT exp= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:507:4: ^( NOT exp= expression )
             {
-            match(input,NOT,FOLLOW_NOT_in_notExpression2100); if (state.failed) return value;
+            match(input,NOT,FOLLOW_NOT_in_notExpression2104); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_notExpression2104);
+            pushFollow(FOLLOW_expression_in_notExpression2108);
             exp=expression();
 
             state._fsp--;
@@ -4292,7 +4304,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "newExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:502:1: newExpression returns [ Expression value ] : ^( NEW exp= expression (args= argumentsList )? ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:512:1: newExpression returns [ Expression value ] : ^( NEW exp= expression (args= argumentsList )? ) ;
     public final Expression newExpression() throws RecognitionException {
         Expression value = null;
 
@@ -4302,18 +4314,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:503:2: ( ^( NEW exp= expression (args= argumentsList )? ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:503:4: ^( NEW exp= expression (args= argumentsList )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:513:2: ( ^( NEW exp= expression (args= argumentsList )? ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:513:4: ^( NEW exp= expression (args= argumentsList )? )
             {
-            match(input,NEW,FOLLOW_NEW_in_newExpression2123); if (state.failed) return value;
+            match(input,NEW,FOLLOW_NEW_in_newExpression2127); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            pushFollow(FOLLOW_expression_in_newExpression2127);
+            pushFollow(FOLLOW_expression_in_newExpression2131);
             exp=expression();
 
             state._fsp--;
             if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:503:25: (args= argumentsList )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:513:25: (args= argumentsList )?
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -4322,9 +4334,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt37) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:503:26: args= argumentsList
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:513:26: args= argumentsList
                     {
-                    pushFollow(FOLLOW_argumentsList_in_newExpression2132);
+                    pushFollow(FOLLOW_argumentsList_in_newExpression2136);
                     args=argumentsList();
 
                     state._fsp--;
@@ -4359,7 +4371,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "simpleExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:508:1: simpleExpression returns [ Expression value ] : (var= varRef | THIS | intLit= INT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:518:1: simpleExpression returns [ Expression value ] : (var= varRef | THIS | intLit= INT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral );
     public final Expression simpleExpression() throws RecognitionException {
         Expression value = null;
 
@@ -4374,7 +4386,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:509:2: (var= varRef | THIS | intLit= INT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:519:2: (var= varRef | THIS | intLit= INT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral )
             int alt38=6;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -4418,9 +4430,9 @@ public class SQLScriptWalker extends TreeParser {
 
             switch (alt38) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:509:4: var= varRef
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:519:4: var= varRef
                     {
-                    pushFollow(FOLLOW_varRef_in_simpleExpression2154);
+                    pushFollow(FOLLOW_varRef_in_simpleExpression2158);
                     var=varRef();
 
                     state._fsp--;
@@ -4434,9 +4446,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:512:4: THIS
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:522:4: THIS
                     {
-                    match(input,THIS,FOLLOW_THIS_in_simpleExpression2161); if (state.failed) return value;
+                    match(input,THIS,FOLLOW_THIS_in_simpleExpression2165); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
 
                       			value = new ThisExpression();
@@ -4446,9 +4458,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:515:4: intLit= INT
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:525:4: intLit= INT
                     {
-                    intLit=(CommonTree)match(input,INT,FOLLOW_INT_in_simpleExpression2170); if (state.failed) return value;
+                    intLit=(CommonTree)match(input,INT,FOLLOW_INT_in_simpleExpression2174); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
 
                       			value = new IntegerLiteralExpression((intLit!=null?intLit.getText():null));
@@ -4458,9 +4470,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:518:4: str= stringLiteral
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:528:4: str= stringLiteral
                     {
-                    pushFollow(FOLLOW_stringLiteral_in_simpleExpression2179);
+                    pushFollow(FOLLOW_stringLiteral_in_simpleExpression2183);
                     str=stringLiteral();
 
                     state._fsp--;
@@ -4474,9 +4486,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:521:4: bool= booleanLiteral
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:531:4: bool= booleanLiteral
                     {
-                    pushFollow(FOLLOW_booleanLiteral_in_simpleExpression2188);
+                    pushFollow(FOLLOW_booleanLiteral_in_simpleExpression2192);
                     bool=booleanLiteral();
 
                     state._fsp--;
@@ -4490,9 +4502,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:524:4: obj= objectLiteral
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:534:4: obj= objectLiteral
                     {
-                    pushFollow(FOLLOW_objectLiteral_in_simpleExpression2197);
+                    pushFollow(FOLLOW_objectLiteral_in_simpleExpression2201);
                     obj=objectLiteral();
 
                     state._fsp--;
@@ -4521,7 +4533,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "objectLiteral"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:529:1: objectLiteral returns [ ObjectLiteral value ] : ^( OBJ (slot= objectSlot )* ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:539:1: objectLiteral returns [ ObjectLiteral value ] : ^( OBJ (slot= objectSlot )* ) ;
     public final ObjectLiteral objectLiteral() throws RecognitionException {
         ObjectLiteral value = null;
 
@@ -4530,14 +4542,14 @@ public class SQLScriptWalker extends TreeParser {
 
          value = new ObjectLiteral(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:531:2: ( ^( OBJ (slot= objectSlot )* ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:531:4: ^( OBJ (slot= objectSlot )* )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:541:2: ( ^( OBJ (slot= objectSlot )* ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:541:4: ^( OBJ (slot= objectSlot )* )
             {
-            match(input,OBJ,FOLLOW_OBJ_in_objectLiteral2220); if (state.failed) return value;
+            match(input,OBJ,FOLLOW_OBJ_in_objectLiteral2224); if (state.failed) return value;
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:531:10: (slot= objectSlot )*
+                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:541:10: (slot= objectSlot )*
                 loop39:
                 do {
                     int alt39=2;
@@ -4550,9 +4562,9 @@ public class SQLScriptWalker extends TreeParser {
 
                     switch (alt39) {
                 	case 1 :
-                	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:531:11: slot= objectSlot
+                	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:541:11: slot= objectSlot
                 	    {
-                	    pushFollow(FOLLOW_objectSlot_in_objectLiteral2225);
+                	    pushFollow(FOLLOW_objectSlot_in_objectLiteral2229);
                 	    slot=objectSlot();
 
                 	    state._fsp--;
@@ -4593,7 +4605,7 @@ public class SQLScriptWalker extends TreeParser {
     };
 
     // $ANTLR start "objectSlot"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:534:1: objectSlot returns [ Expression key, Expression value ] : ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:544:1: objectSlot returns [ Expression key, Expression value ] : ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) ;
     public final SQLScriptWalker.objectSlot_return objectSlot() throws RecognitionException {
         SQLScriptWalker.objectSlot_return retval = new SQLScriptWalker.objectSlot_return();
         retval.start = input.LT(1);
@@ -4606,13 +4618,13 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:535:2: ( ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:535:4: ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:545:2: ( ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:545:4: ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression )
             {
-            match(input,SLOT,FOLLOW_SLOT_in_objectSlot2246); if (state.failed) return retval;
+            match(input,SLOT,FOLLOW_SLOT_in_objectSlot2250); if (state.failed) return retval;
 
             match(input, Token.DOWN, null); if (state.failed) return retval;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:536:4: (id= identifierExpression | str= stringLiteral )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:546:4: (id= identifierExpression | str= stringLiteral )
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -4631,9 +4643,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt40) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:536:6: id= identifierExpression
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:546:6: id= identifierExpression
                     {
-                    pushFollow(FOLLOW_identifierExpression_in_objectSlot2255);
+                    pushFollow(FOLLOW_identifierExpression_in_objectSlot2259);
                     id=identifierExpression();
 
                     state._fsp--;
@@ -4645,9 +4657,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:537:6: str= stringLiteral
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:547:6: str= stringLiteral
                     {
-                    pushFollow(FOLLOW_stringLiteral_in_objectSlot2266);
+                    pushFollow(FOLLOW_stringLiteral_in_objectSlot2270);
                     str=stringLiteral();
 
                     state._fsp--;
@@ -4661,7 +4673,7 @@ public class SQLScriptWalker extends TreeParser {
 
             }
 
-            pushFollow(FOLLOW_expression_in_objectSlot2280);
+            pushFollow(FOLLOW_expression_in_objectSlot2284);
             expr=expression();
 
             state._fsp--;
@@ -4688,7 +4700,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "parameter"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:543:1: parameter returns [ Parameter value ] : PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )? ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:553:1: parameter returns [ Parameter value ] : PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )? ;
     public final Parameter parameter() throws RecognitionException {
         Parameter value = null;
 
@@ -4699,16 +4711,16 @@ public class SQLScriptWalker extends TreeParser {
 
          Expression paramValue = null; 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:545:2: ( PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )? )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:545:4: PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:555:2: ( PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )? )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:555:4: PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )?
             {
-            match(input,PARAM_NAME,FOLLOW_PARAM_NAME_in_parameter2306); if (state.failed) return value;
-            pushFollow(FOLLOW_paramName_in_parameter2310);
+            match(input,PARAM_NAME,FOLLOW_PARAM_NAME_in_parameter2310); if (state.failed) return value;
+            pushFollow(FOLLOW_paramName_in_parameter2314);
             pname=paramName();
 
             state._fsp--;
             if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:545:31: ( PARAM_VALUE pval= paramValue )?
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:555:31: ( PARAM_VALUE pval= paramValue )?
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -4717,10 +4729,10 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt41) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:545:32: PARAM_VALUE pval= paramValue
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:555:32: PARAM_VALUE pval= paramValue
                     {
-                    match(input,PARAM_VALUE,FOLLOW_PARAM_VALUE_in_parameter2313); if (state.failed) return value;
-                    pushFollow(FOLLOW_paramValue_in_parameter2317);
+                    match(input,PARAM_VALUE,FOLLOW_PARAM_VALUE_in_parameter2317); if (state.failed) return value;
+                    pushFollow(FOLLOW_paramValue_in_parameter2321);
                     pval=paramValue();
 
                     state._fsp--;
@@ -4758,7 +4770,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "paramName"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:552:1: paramName returns [ String value ] : id= identifier ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:562:1: paramName returns [ String value ] : id= identifier ;
     public final String paramName() throws RecognitionException {
         String value = null;
 
@@ -4766,10 +4778,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:553:2: (id= identifier )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:553:4: id= identifier
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:563:2: (id= identifier )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:563:4: id= identifier
             {
-            pushFollow(FOLLOW_identifier_in_paramName2340);
+            pushFollow(FOLLOW_identifier_in_paramName2344);
             id=identifier();
 
             state._fsp--;
@@ -4794,7 +4806,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "paramValue"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:556:1: paramValue returns [ Expression value ] : expr= expression ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:566:1: paramValue returns [ Expression value ] : expr= expression ;
     public final Expression paramValue() throws RecognitionException {
         Expression value = null;
 
@@ -4802,10 +4814,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:557:2: (expr= expression )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:557:4: expr= expression
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:567:2: (expr= expression )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:567:4: expr= expression
             {
-            pushFollow(FOLLOW_expression_in_paramValue2359);
+            pushFollow(FOLLOW_expression_in_paramValue2363);
             expr=expression();
 
             state._fsp--;
@@ -4830,7 +4842,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "identifierExpression"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:560:1: identifierExpression returns [ Expression value ] : id= identifier ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:570:1: identifierExpression returns [ Expression value ] : id= identifier ;
     public final Expression identifierExpression() throws RecognitionException {
         Expression value = null;
 
@@ -4838,10 +4850,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:561:2: (id= identifier )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:561:4: id= identifier
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:571:2: (id= identifier )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:571:4: id= identifier
             {
-            pushFollow(FOLLOW_identifier_in_identifierExpression2378);
+            pushFollow(FOLLOW_identifier_in_identifierExpression2382);
             id=identifier();
 
             state._fsp--;
@@ -4866,17 +4878,17 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "embeddedVarRef"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:564:1: embeddedVarRef returns [ Variable value ] : var= EMBEDDED_VAR ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:574:1: embeddedVarRef returns [ Variable value ] : var= EMBEDDED_VAR ;
     public final Variable embeddedVarRef() throws RecognitionException {
         Variable value = null;
 
         CommonTree var=null;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:565:2: (var= EMBEDDED_VAR )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:565:4: var= EMBEDDED_VAR
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:575:2: (var= EMBEDDED_VAR )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:575:4: var= EMBEDDED_VAR
             {
-            var=(CommonTree)match(input,EMBEDDED_VAR,FOLLOW_EMBEDDED_VAR_in_embeddedVarRef2397); if (state.failed) return value;
+            var=(CommonTree)match(input,EMBEDDED_VAR,FOLLOW_EMBEDDED_VAR_in_embeddedVarRef2401); if (state.failed) return value;
             if ( state.backtracking==0 ) {
                value = ((Scope_scope)Scope_stack.peek()).scope.getVariable((var!=null?var.getText():null)); 
             }
@@ -4897,7 +4909,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "varDef"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:568:1: varDef returns [ Variable value ] : id= identifier ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:578:1: varDef returns [ Variable value ] : id= identifier ;
     public final Variable varDef() throws RecognitionException {
         Variable value = null;
 
@@ -4905,10 +4917,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:569:2: (id= identifier )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:569:4: id= identifier
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:579:2: (id= identifier )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:579:4: id= identifier
             {
-            pushFollow(FOLLOW_identifier_in_varDef2416);
+            pushFollow(FOLLOW_identifier_in_varDef2420);
             id=identifier();
 
             state._fsp--;
@@ -4933,7 +4945,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "varRef"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:572:1: varRef returns [ Variable value ] : id= identifier ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:582:1: varRef returns [ Variable value ] : id= identifier ;
     public final Variable varRef() throws RecognitionException {
         Variable value = null;
 
@@ -4941,10 +4953,10 @@ public class SQLScriptWalker extends TreeParser {
 
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:573:2: (id= identifier )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:573:4: id= identifier
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:583:2: (id= identifier )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:583:4: id= identifier
             {
-            pushFollow(FOLLOW_identifier_in_varRef2435);
+            pushFollow(FOLLOW_identifier_in_varRef2439);
             id=identifier();
 
             state._fsp--;
@@ -4969,17 +4981,17 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "identifier"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:576:1: identifier returns [ String value ] : id= IDENTIFIER ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:586:1: identifier returns [ String value ] : id= IDENTIFIER ;
     public final String identifier() throws RecognitionException {
         String value = null;
 
         CommonTree id=null;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:577:2: (id= IDENTIFIER )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:577:4: id= IDENTIFIER
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:587:2: (id= IDENTIFIER )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:587:4: id= IDENTIFIER
             {
-            id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier2454); if (state.failed) return value;
+            id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier2458); if (state.failed) return value;
             if ( state.backtracking==0 ) {
                value = (id!=null?id.getText():null); 
             }
@@ -5000,15 +5012,15 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "sqlSpecialChars"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:580:1: sqlSpecialChars returns [ String value ] : c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EXCLAM | QUESTION | COLON | STR_SQUOT | STR_DQUOT | STR_BTICK ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:590:1: sqlSpecialChars returns [ String value ] : c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EXCLAM | QUESTION | COLON | STR_SQUOT | STR_DQUOT | STR_BTICK ) ;
     public final String sqlSpecialChars() throws RecognitionException {
         String value = null;
 
         CommonTree c=null;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:581:2: (c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EXCLAM | QUESTION | COLON | STR_SQUOT | STR_DQUOT | STR_BTICK ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:581:4: c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EXCLAM | QUESTION | COLON | STR_SQUOT | STR_DQUOT | STR_BTICK )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:591:2: (c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EXCLAM | QUESTION | COLON | STR_SQUOT | STR_DQUOT | STR_BTICK ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:591:4: c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | EXCLAM | QUESTION | COLON | STR_SQUOT | STR_DQUOT | STR_BTICK )
             {
             c=(CommonTree)input.LT(1);
             if ( input.LA(1)==ATSIGN||(input.LA(1)>=BACKSLASH && input.LA(1)<=EQUALS)||(input.LA(1)>=SQL_SPECIAL_CHAR && input.LA(1)<=RPAREN)||(input.LA(1)>=OP_DEFINE && input.LA(1)<=COLON)||(input.LA(1)>=STR_SQUOT && input.LA(1)<=STR_BTICK) ) {
@@ -5041,15 +5053,15 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "keyword"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:588:1: keyword returns [ String value ] : kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:598:1: keyword returns [ String value ] : kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE ) ;
     public final String keyword() throws RecognitionException {
         String value = null;
 
         CommonTree kw=null;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:589:2: (kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:589:4: kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:599:2: (kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:599:4: kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE )
             {
             kw=(CommonTree)input.LT(1);
             if ( input.LA(1)==KW_SQL||input.LA(1)==KW_VAR||(input.LA(1)>=KW_IF && input.LA(1)<=KW_ELSE)||(input.LA(1)>=KW_TRUE && input.LA(1)<=KW_FALSE) ) {
@@ -5082,7 +5094,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "stringLiteral"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:592:1: stringLiteral returns [ StringLiteral value ] : ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* STRING_END ) ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:602:1: stringLiteral returns [ StringLiteral value ] : ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* STRING_END ) ;
     public final StringLiteral stringLiteral() throws RecognitionException {
         StringLiteral value = null;
 
@@ -5093,14 +5105,14 @@ public class SQLScriptWalker extends TreeParser {
 
          List<Object> parts = new ArrayList<Object>(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:594:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* STRING_END ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:594:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* STRING_END )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:604:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* STRING_END ) )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:604:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* STRING_END )
             {
-            match(input,STRING,FOLLOW_STRING_in_stringLiteral2617); if (state.failed) return value;
+            match(input,STRING,FOLLOW_STRING_in_stringLiteral2621); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            start=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_stringLiteral2621); if (state.failed) return value;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:595:4: (str= STRING_CONTENT | var= embeddedVarRef )*
+            start=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_stringLiteral2625); if (state.failed) return value;
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:605:4: (str= STRING_CONTENT | var= embeddedVarRef )*
             loop42:
             do {
                 int alt42=3;
@@ -5116,9 +5128,9 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt42) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:595:6: str= STRING_CONTENT
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:605:6: str= STRING_CONTENT
             	    {
-            	    str=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_stringLiteral2630); if (state.failed) return value;
+            	    str=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_stringLiteral2634); if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
             	       parts.add((str!=null?str.getText():null)); 
             	    }
@@ -5126,9 +5138,9 @@ public class SQLScriptWalker extends TreeParser {
             	    }
             	    break;
             	case 2 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:596:6: var= embeddedVarRef
+            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:606:6: var= embeddedVarRef
             	    {
-            	    pushFollow(FOLLOW_embeddedVarRef_in_stringLiteral2644);
+            	    pushFollow(FOLLOW_embeddedVarRef_in_stringLiteral2648);
             	    var=embeddedVarRef();
 
             	    state._fsp--;
@@ -5145,7 +5157,7 @@ public class SQLScriptWalker extends TreeParser {
                 }
             } while (true);
 
-            match(input,STRING_END,FOLLOW_STRING_END_in_stringLiteral2657); if (state.failed) return value;
+            match(input,STRING_END,FOLLOW_STRING_END_in_stringLiteral2661); if (state.failed) return value;
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
@@ -5168,7 +5180,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "identifierStringLiteral"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:602:1: identifierStringLiteral returns [ StringLiteral value ] : id= identifier ;
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:612:1: identifierStringLiteral returns [ StringLiteral value ] : id= identifier ;
     public final StringLiteral identifierStringLiteral() throws RecognitionException {
         StringLiteral value = null;
 
@@ -5177,10 +5189,10 @@ public class SQLScriptWalker extends TreeParser {
 
          List<Object> parts = new ArrayList<Object>(); 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:604:2: (id= identifier )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:604:4: id= identifier
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:614:2: (id= identifier )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:614:4: id= identifier
             {
-            pushFollow(FOLLOW_identifier_in_identifierStringLiteral2684);
+            pushFollow(FOLLOW_identifier_in_identifierStringLiteral2688);
             id=identifier();
 
             state._fsp--;
@@ -5205,12 +5217,12 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "booleanLiteral"
-    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:607:1: booleanLiteral returns [ Bool value ] : ( TRUE | FALSE );
+    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:617:1: booleanLiteral returns [ Bool value ] : ( TRUE | FALSE );
     public final Bool booleanLiteral() throws RecognitionException {
         Bool value = null;
 
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:608:2: ( TRUE | FALSE )
+            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:618:2: ( TRUE | FALSE )
             int alt43=2;
             int LA43_0 = input.LA(1);
 
@@ -5229,9 +5241,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt43) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:608:4: TRUE
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:618:4: TRUE
                     {
-                    match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral2701); if (state.failed) return value;
+                    match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral2705); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
                        value = Bool.TRUE; 
                     }
@@ -5239,9 +5251,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:609:4: FALSE
+                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:619:4: FALSE
                     {
-                    match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral2709); if (state.failed) return value;
+                    match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral2713); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
                        value = Bool.FALSE; 
                     }
@@ -5264,10 +5276,10 @@ public class SQLScriptWalker extends TreeParser {
 
     // $ANTLR start synpred1_SQLScriptWalker
     public final void synpred1_SQLScriptWalker_fragment() throws RecognitionException {   
-        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:437:6: ( identifier )
-        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:437:7: identifier
+        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:447:6: ( identifier )
+        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:447:7: identifier
         {
-        pushFollow(FOLLOW_identifier_in_synpred1_SQLScriptWalker1784);
+        pushFollow(FOLLOW_identifier_in_synpred1_SQLScriptWalker1788);
         identifier();
 
         state._fsp--;
@@ -5297,7 +5309,7 @@ public class SQLScriptWalker extends TreeParser {
 
  
 
-    public static final BitSet FOLLOW_statement_in_script87 = new BitSet(new long[]{0xFBF242F0B0000012L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_statement_in_script87 = new BitSet(new long[]{0xFBF242F0B0000012L,0x02200000000007F0L});
     public static final BitSet FOLLOW_sqlStmt_in_statement99 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_evalStmt_in_statement104 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_scriptStmt_in_statement109 = new BitSet(new long[]{0x0000000000000002L});
@@ -5306,7 +5318,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_unscopedBlockStmt_in_unscopedBlock150 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_unscopedBlockStmt_in_blockStmt181 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_BLOCK_in_unscopedBlockStmt209 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_statement_in_unscopedBlockStmt211 = new BitSet(new long[]{0xFBF242F0B0000018L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_statement_in_unscopedBlockStmt211 = new BitSet(new long[]{0xFBF242F0B0000018L,0x02200000000007F0L});
     public static final BitSet FOLLOW_EVAL_CMD_in_evalStmt235 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_evalCommand_in_evalStmt242 = new BitSet(new long[]{0x0000000140000008L});
     public static final BitSet FOLLOW_evalParam_in_evalStmt252 = new BitSet(new long[]{0x0000000140000008L});
@@ -5340,9 +5352,9 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_scriptImport_in_scriptStmt654 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expressionStmt_in_scriptStmt659 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_IF_in_scriptIfElse690 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_scriptIf_in_scriptIfElse692 = new BitSet(new long[]{0xFBF242F0B0000018L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_scriptIf_in_scriptIfElse692 = new BitSet(new long[]{0xFBF242F0B0000018L,0x02200000000007F0L});
     public static final BitSet FOLLOW_scriptElse_in_scriptIfElse694 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_expression_in_scriptIf723 = new BitSet(new long[]{0xFBF242F0B0000010L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_expression_in_scriptIf723 = new BitSet(new long[]{0xFBF242F0B0000010L,0x02200000000007F0L});
     public static final BitSet FOLLOW_unscopedBlock_in_scriptIf725 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_scriptIfElse_in_scriptElse744 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_block_in_scriptElse753 = new BitSet(new long[]{0x0000000000000002L});
@@ -5352,7 +5364,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_scriptFinally_in_scriptTry801 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_scriptFinally_in_scriptTry814 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_CATCH_in_scriptCatch847 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_varDef_in_scriptCatch851 = new BitSet(new long[]{0xFBF242F0B0000018L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_varDef_in_scriptCatch851 = new BitSet(new long[]{0xFBF242F0B0000018L,0x02200000000007F0L});
     public static final BitSet FOLLOW_unscopedBlockStmt_in_scriptCatch855 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_FINALLY_in_scriptFinally874 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_blockStmt_in_scriptFinally878 = new BitSet(new long[]{0x0000000000000008L});
@@ -5388,18 +5400,18 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_newExpression_in_expressionNoSlotExp1219 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_simpleExpression_in_expressionNoSlotExp1228 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_FUNC_DEF_in_scriptFuncDef1256 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_varDef_in_scriptFuncDef1265 = new BitSet(new long[]{0xFBF246F0B0000010L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_varDef_in_scriptFuncDef1265 = new BitSet(new long[]{0xFBF246F0B0000010L,0x02200000000007F0L});
     public static final BitSet FOLLOW_funcDefRest_in_scriptFuncDef1275 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_argumentsDef_in_funcDefRest1307 = new BitSet(new long[]{0xFBF246F0B0000010L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_argumentsDef_in_funcDefRest1307 = new BitSet(new long[]{0xFBF246F0B0000010L,0x02200000000007F0L});
     public static final BitSet FOLLOW_unscopedBlock_in_funcDefRest1316 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_BLOCK_CLOSURE_in_blockClosure1342 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_blockClosureRest_in_blockClosure1344 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_argumentsDef_in_blockClosureRest1373 = new BitSet(new long[]{0xFBF246F0B0000010L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_argumentsDef_in_blockClosureRest1373 = new BitSet(new long[]{0xFBF246F0B0000010L,0x02200000000007F0L});
     public static final BitSet FOLLOW_unscopedBlock_in_blockClosureRest1382 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ARGS_in_argumentsDef1404 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_varDef_in_argumentsDef1409 = new BitSet(new long[]{0x0000000000000008L,0x0200000000000000L});
     public static final BitSet FOLLOW_ARGS_in_argumentsList1436 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_argumentsList1442 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_expression_in_argumentsList1442 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
     public static final BitSet FOLLOW_DECLARE_ASSIGN_in_scriptDeclareAndAssign1470 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_scriptDeclare_in_scriptDeclareAndAssign1477 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_scriptAssign_in_scriptDeclareAndAssign1486 = new BitSet(new long[]{0x0000000000000008L});
@@ -5409,82 +5421,82 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_assignVariable_in_scriptAssign1541 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_assignIndex_in_scriptAssign1552 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_assignSlot_in_scriptAssign1563 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_varRef_in_assignVariable1591 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_varRef_in_assignVariable1591 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
     public static final BitSet FOLLOW_expression_in_assignVariable1595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indexExpressionLHS_in_assignIndex1614 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
+    public static final BitSet FOLLOW_indexExpressionLHS_in_assignIndex1614 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
     public static final BitSet FOLLOW_expression_in_assignIndex1618 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_slotExpressionLHS_in_assignSlot1635 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_expression_in_assignSlot1639 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indexExpression__in_indexExpressionLHS1660 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indexExpression__in_indexExpressionRHS1680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INDEX_in_indexExpression_1701 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_indexExpression_1705 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_expression_in_indexExpression_1709 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_slotExpression__in_slotExpressionLHS1731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_slotExpression__in_slotExpressionRHS1751 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SLOT_in_slotExpression_1772 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_slotExpression_1776 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_identifierExpression_in_slotExpression_1790 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_expression_in_slotExpression_1801 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_CALL_in_callExpression1831 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_slotCallExpression_in_callExpression1840 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_funcCallExpression_in_callExpression1851 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_slotExpressionRHS_in_slotCallExpression1879 = new BitSet(new long[]{0x0000060000000002L});
-    public static final BitSet FOLLOW_argumentsList_in_slotCallExpression1888 = new BitSet(new long[]{0x0000020000000002L});
-    public static final BitSet FOLLOW_blockClosure_in_slotCallExpression1899 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expressionNoSlotExp_in_funcCallExpression1920 = new BitSet(new long[]{0x0000060000000002L});
-    public static final BitSet FOLLOW_argumentsList_in_funcCallExpression1929 = new BitSet(new long[]{0x0000020000000002L});
-    public static final BitSet FOLLOW_blockClosure_in_funcCallExpression1940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CALL_BINARY_in_callBinaryExpression1960 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_callBinaryExpression1967 = new BitSet(new long[]{0x0000000000000000L,0x0200000000000000L});
-    public static final BitSet FOLLOW_identifierExpression_in_callBinaryExpression1974 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_expression_in_callBinaryExpression1981 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_COND_EXPR_in_ternaryConditional2003 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_ternaryConditional2007 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_expression_in_ternaryConditional2011 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_expression_in_ternaryConditional2015 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_COND_OR_in_orCondition2039 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_orCondition2044 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_COND_AND_in_andCondition2072 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_andCondition2077 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_NOT_in_notExpression2100 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_notExpression2104 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NEW_in_newExpression2123 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_newExpression2127 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_argumentsList_in_newExpression2132 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_varRef_in_simpleExpression2154 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_THIS_in_simpleExpression2161 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_simpleExpression2170 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringLiteral_in_simpleExpression2179 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanLiteral_in_simpleExpression2188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_objectLiteral_in_simpleExpression2197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBJ_in_objectLiteral2220 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_objectSlot_in_objectLiteral2225 = new BitSet(new long[]{0x8000000000000008L});
-    public static final BitSet FOLLOW_SLOT_in_objectSlot2246 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_identifierExpression_in_objectSlot2255 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_stringLiteral_in_objectSlot2266 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_expression_in_objectSlot2280 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PARAM_NAME_in_parameter2306 = new BitSet(new long[]{0x0000000000000000L,0x0200000000000000L});
-    public static final BitSet FOLLOW_paramName_in_parameter2310 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_PARAM_VALUE_in_parameter2313 = new BitSet(new long[]{0xFBF242F000000018L,0x02400000000007F0L});
-    public static final BitSet FOLLOW_paramValue_in_parameter2317 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_paramName2340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_paramValue2359 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_identifierExpression2378 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EMBEDDED_VAR_in_embeddedVarRef2397 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_varDef2416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_varRef2435 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENTIFIER_in_identifier2454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_sqlSpecialChars2473 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_keyword2572 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringLiteral2617 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_STRING_START_in_stringLiteral2621 = new BitSet(new long[]{0x0000000100100E18L,0xFA00001A3F8EE000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_STRING_CONTENT_in_stringLiteral2630 = new BitSet(new long[]{0x0000000100100E18L,0xFA00001A3F8EE000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_embeddedVarRef_in_stringLiteral2644 = new BitSet(new long[]{0x0000000100100E18L,0xFA00001A3F8EE000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_STRING_END_in_stringLiteral2657 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_identifier_in_identifierStringLiteral2684 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_booleanLiteral2701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_booleanLiteral2709 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_synpred1_SQLScriptWalker1784 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_slotExpressionLHS_in_assignSlot1639 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_expression_in_assignSlot1643 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_indexExpression__in_indexExpressionLHS1664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_indexExpression__in_indexExpressionRHS1684 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INDEX_in_indexExpression_1705 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_indexExpression_1709 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_expression_in_indexExpression_1713 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_slotExpression__in_slotExpressionLHS1735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_slotExpression__in_slotExpressionRHS1755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SLOT_in_slotExpression_1776 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_slotExpression_1780 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_identifierExpression_in_slotExpression_1794 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_expression_in_slotExpression_1805 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_CALL_in_callExpression1835 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_slotCallExpression_in_callExpression1844 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_funcCallExpression_in_callExpression1855 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_slotExpressionRHS_in_slotCallExpression1883 = new BitSet(new long[]{0x0000060000000002L});
+    public static final BitSet FOLLOW_argumentsList_in_slotCallExpression1892 = new BitSet(new long[]{0x0000020000000002L});
+    public static final BitSet FOLLOW_blockClosure_in_slotCallExpression1903 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expressionNoSlotExp_in_funcCallExpression1924 = new BitSet(new long[]{0x0000060000000002L});
+    public static final BitSet FOLLOW_argumentsList_in_funcCallExpression1933 = new BitSet(new long[]{0x0000020000000002L});
+    public static final BitSet FOLLOW_blockClosure_in_funcCallExpression1944 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CALL_BINARY_in_callBinaryExpression1964 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_callBinaryExpression1971 = new BitSet(new long[]{0x0000000000000000L,0x0200000000000000L});
+    public static final BitSet FOLLOW_identifierExpression_in_callBinaryExpression1978 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_expression_in_callBinaryExpression1985 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_COND_EXPR_in_ternaryConditional2007 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_ternaryConditional2011 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_expression_in_ternaryConditional2015 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_expression_in_ternaryConditional2019 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_COND_OR_in_orCondition2043 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_orCondition2048 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_COND_AND_in_andCondition2076 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_andCondition2081 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_NOT_in_notExpression2104 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_notExpression2108 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NEW_in_newExpression2127 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_newExpression2131 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_argumentsList_in_newExpression2136 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_varRef_in_simpleExpression2158 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_THIS_in_simpleExpression2165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_simpleExpression2174 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringLiteral_in_simpleExpression2183 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanLiteral_in_simpleExpression2192 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_objectLiteral_in_simpleExpression2201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBJ_in_objectLiteral2224 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_objectSlot_in_objectLiteral2229 = new BitSet(new long[]{0x8000000000000008L});
+    public static final BitSet FOLLOW_SLOT_in_objectSlot2250 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_identifierExpression_in_objectSlot2259 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_stringLiteral_in_objectSlot2270 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_expression_in_objectSlot2284 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PARAM_NAME_in_parameter2310 = new BitSet(new long[]{0x0000000000000000L,0x0200000000000000L});
+    public static final BitSet FOLLOW_paramName_in_parameter2314 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_PARAM_VALUE_in_parameter2317 = new BitSet(new long[]{0xFBF242F000000018L,0x02200000000007F0L});
+    public static final BitSet FOLLOW_paramValue_in_parameter2321 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_paramName2344 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_paramValue2363 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_identifierExpression2382 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EMBEDDED_VAR_in_embeddedVarRef2401 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_varDef2420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_varRef2439 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENTIFIER_in_identifier2458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_sqlSpecialChars2477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_keyword2576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringLiteral2621 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_STRING_START_in_stringLiteral2625 = new BitSet(new long[]{0x0000000100100E18L,0xFA00001A3F8EE000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_STRING_CONTENT_in_stringLiteral2634 = new BitSet(new long[]{0x0000000100100E18L,0xFA00001A3F8EE000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_embeddedVarRef_in_stringLiteral2648 = new BitSet(new long[]{0x0000000100100E18L,0xFA00001A3F8EE000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_STRING_END_in_stringLiteral2661 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_identifier_in_identifierStringLiteral2688 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_booleanLiteral2705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_booleanLiteral2713 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_synpred1_SQLScriptWalker1788 = new BitSet(new long[]{0x0000000000000002L});
 
 }

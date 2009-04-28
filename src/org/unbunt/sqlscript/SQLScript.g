@@ -407,7 +407,7 @@ blockClosure
 	;
 
 blockArgumentsDef
-	:	identifier+ DOUBLE_ARROW -> ^(ARGS identifier*)
+	:	(identifier COMMA?)+ DOUBLE_ARROW -> ^(ARGS identifier*)
 	|	DOUBLE_ARROW!
 	;
 
@@ -554,8 +554,8 @@ unaryExpression
 	;
 
 callExpression
-	:	(KW_NEW simpleExpression argumentsList) -> ^(NEW simpleExpression argumentsList?)
-	|	(simpleExpression -> simpleExpression)
+	//:	(KW_NEW simpleExpression argumentsList) -> ^(NEW simpleExpression argumentsList?)
+	:	(simpleExpression -> simpleExpression)
 		((callExpressionSuffix[$callExpression.tree]	-> callExpressionSuffix
 		 )+
 		|					-> simpleExpression
@@ -593,6 +593,7 @@ simpleExpression
 	|	booleanLiteral
 	|	INT
 	|	KW_THIS -> THIS
+	|	KW_NEW simpleExpression argumentsList -> ^(NEW simpleExpression argumentsList?)
 	;
 
 objectLiteral

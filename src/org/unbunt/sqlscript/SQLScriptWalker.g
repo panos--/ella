@@ -91,6 +91,7 @@ scope Block, Scope;
 	// register default global variables
 	$Scope::scope.addVariable("Null");
 	$Scope::scope.addVariable("Sys");
+	$Scope::scope.addVariable("JArray");
 	
 	$Block::block = new Block($Scope::scope);
 }
@@ -404,6 +405,10 @@ assignVariable returns [ Expression value ]
 
 assignIndex returns [ Expression value ]
 	:	lval=indexExpressionLHS rval=expression
+		{
+			$lval.value.addArgument($rval.value);
+			$value = $lval.value;
+		}
 	;
 
 assignSlot returns [ Expression value ]
@@ -411,17 +416,22 @@ assignSlot returns [ Expression value ]
 		{ $value = new SlotSetExpression($lval.value, $rval.value); }
 	;
 
-indexExpressionLHS returns [ Expression value ]
+indexExpressionLHS returns [ SlotCallExpression value ]
 	:	exp=indexExpression_[POS_LHS] { $value = $exp.value; }
 	;
 
-indexExpressionRHS returns [ Expression value ]
+indexExpressionRHS returns [ SlotCallExpression value ]
 	:	exp=indexExpression_[POS_RHS] { $value = $exp.value; }
 	;
 
-indexExpression_ [ int pos ] returns [ Expression value ]
+indexExpression_ [ int pos ] returns [ SlotCallExpression value ]
 	:	^(INDEX receiver=expression index=expression)
-		{ $value = pos == POS_RHS ? /* gen "get" */ new NullExpression() : /* gen "set" */ new NullExpression(); }
+		{
+			Expression slotExp = new IdentifierExpression(pos == POS_RHS ? "get" : "set");
+			$value = new SlotCallExpression(new SlotExpression($receiver.value, slotExp));
+			$value.addArgument($index.value);
+			//$value = pos == POS_RHS ? /* gen "get" */ new NullExpression() : /* gen "set" */ new NullExpression();
+		}
 	;
 
 slotExpressionLHS returns [ SlotExpression value ]

@@ -1,7 +1,7 @@
 package org.unbunt.utils;
 
-import fr.umlv.jmmf.reflect.MultiMethod;
-import fr.umlv.jmmf.reflect.MultipleMethodsException;
+//import fr.umlv.jmmf.reflect.MultiMethod;
+//import fr.umlv.jmmf.reflect.MultipleMethodsException;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;

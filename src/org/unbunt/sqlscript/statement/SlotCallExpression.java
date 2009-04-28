@@ -22,9 +22,6 @@ public class SlotCallExpression extends AbstractFunctionCallExpression {
         this.slotExpression = slotExpression;
     }
 
-    public void accept(ScriptProcessor processor, Env env) {
-    }
-
     public void accept(ExpressionVisitor visitor) {
         visitor.processExpression(this);
     }
