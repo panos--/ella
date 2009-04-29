@@ -133,7 +133,7 @@ public class SQLScriptEngine
             env = new StaticEnv();
             env.add(Null.instance);
             env.add(Sys.instance);
-            env.add(JArrayProto.instance);
+            env.add(JArray.PROTOTYPE);
         }
         pc = 0;
         cont[pc] = new EndCont();
@@ -652,9 +652,9 @@ public class SQLScriptEngine
             if (val != null) {
                 break;
             }
-            Obj parent = obj.getSlot(STR_SLOT_PARENT);
+            Obj parent = obj.getParent();
             if (parent == null) {
-                parent = obj.parent;
+                parent = obj.getImplicitParent();
                 if (parent == null) {
                     break;
                 }
@@ -751,9 +751,9 @@ public class SQLScriptEngine
                 break;
             }
 
-            Obj parent = obj.getSlot(STR_SLOT_PARENT);
+            Obj parent = obj.getParent();
             if (parent == null) {
-                parent = obj.parent;
+                parent = obj.getImplicitParent();
                 if (parent == null) {
                     break;
                 }
@@ -773,11 +773,11 @@ public class SQLScriptEngine
     public void processContinuation(CallCont callCont) {
         // TODO: merge if-branches as far as possible
         // TODO: replace if-else by switch by introducing class ids (if possible enum-based)
-        if (val instanceof Primitive) {
-            cont[pc] = new PrimitiveCont((Primitive) val, callCont.getContext());
+        if (val instanceof PrimitiveCall) {
+            cont[pc] = new PrimitiveCont((PrimitiveCall) val, callCont.getContext());
         }
-        else if (val instanceof Native) {
-            cont[pc] = new NativeCont((Native) val, callCont.getContext());
+        else if (val instanceof NativeCall) {
+            cont[pc] = new NativeCont((NativeCall) val, callCont.getContext());
         }
         else if (val instanceof Func) {
             Function func = ((Func) val).getFunction();
@@ -1011,22 +1011,22 @@ public class SQLScriptEngine
         throw new SQLScriptRuntimeException("Found return statement outside of function block");
     }
 
-    /**
-     * TODO: use more generic scheme for object instanciation (see Perl, Smalltalk)
-     */
     public void processContinuation(NewCont newCont) {
-        // TODO: generalize instanciation scheme
-        // TODO: support arguments for new expressions
-        if (val instanceof JClass) {
-            cont[pc] = new CallCont(val, newCont.getArguments());
-            val = JClass.nativeCreateInstance;
-        }
-        else if (val instanceof JArrayProto) {
-            cont[pc] = new CallCont(val, newCont.getArguments());
-            val = JArray.nativeCreateInstance;
+//        if (val instanceof JClass) {
+//            cont[pc] = new CallCont(val, newCont.getArguments());
+//            val = JClass.nativeCreateInstance;
+//        }
+//        else if (val instanceof JArrayProto) {
+//            cont[pc] = new CallCont(val, newCont.getArguments());
+//            val = JArray.nativeCreateInstance;
+//        }
+        if (val instanceof NativeObj) {
+            Call nativeConstructor = ((NativeObj) val).getNativeConstructor();
+            cont[pc] = new CallCont(null, newCont.getArguments());
+            val = nativeConstructor;
         }
         else {
-            Obj newObj = new Obj();
+            Obj newObj = new PlainObj();
             newObj.setSlot(STR_SLOT_PARENT, val);
             val = STR_SLOT_INIT;
             cont[pc]   = new NewResultCont(newObj);

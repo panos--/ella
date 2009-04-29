@@ -1,9 +1,12 @@
 package org.unbunt.sqlscript.lang;
 
+import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Str extends Obj {
+public class Str extends AbstractObj implements NativeObj {
     public static enum Sym {
         parent,
         _new ("new"),
@@ -33,41 +36,55 @@ public class Str extends Obj {
         public final Str str;
 
         Sym() {
-            this.str = new Str(this.name(), false).intern();
+            this.str = new Str(this.name()).intern();
         }
 
         Sym(String name) {
-            this.str = new Str(name, false).intern();
+            this.str = new Str(name).intern();
         }
     }
-
-    protected final String value;
 
     protected static Map<String, Str> pool = new HashMap<String, Str>();
 
+    protected final String value;
+
+    public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            return new Str(((Str) args[0]).getValue());
+        }
+    };
+
+    public static final StrProto PROTOTYPE;
+
     static {
+        // trigger initialization of Sym enum before it is used
+        for (Sym sym : Sym.values()) {
+            sym.hashCode();
+        }
+
         // initialize Base, which depends on Str to define slots
         Base.initialize();
 
-        // Str instances referenced by Sym enum now in uninitialized state
-        // do initialization of these instances now that everything is in shape
-        for (Sym sym : Sym.values()) {
-            sym.str.initialize();
-        }
+        PROTOTYPE = new StrProto();
     }
+
+    public static final Str STR_PARENT = Sym.parent.str;
 
     public Str(String value) {
         this.value = value;
-        initialize();
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
-    private Str(String value, boolean init) {
-        this.value = value;
+    @Override
+    public Obj getImplicitParent() {
+        return PROTOTYPE;
     }
 
-    protected void initialize() {
-        slots.put(Sym.parent.str, Base.instance);
+    public Call getNativeConstructor() {
+        return NATIVE_CONSTRUCTOR;
+    }
+
+    public Obj getParent() {
+        return slots.get(STR_PARENT);
     }
 
     public String getValue() {
@@ -104,5 +121,31 @@ public class Str extends Obj {
 
         pool.put(value, this);
         return this;
+    }
+
+    public static class StrProto extends AbstractObj implements NativeObj {
+        public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+                return new Str(args[0].toString());
+            }
+        };
+
+        public static final NativeCall nativeAdd = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+                return new Str(((Str) context).getValue() + args[0].toString());
+            }
+        };
+
+        public StrProto() {
+            slots.put(Sym._add.str, nativeAdd);
+        }
+
+        public Call getNativeConstructor() {
+            return NATIVE_CONSTRUCTOR;
+        }
+
+        public Obj getParent() {
+            return slots.get(STR_PARENT);
+        }
     }
 }

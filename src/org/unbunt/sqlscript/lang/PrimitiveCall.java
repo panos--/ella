@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-public class Primitive extends Obj {
+public class PrimitiveCall extends PlainObj {
     public static enum Type {
         ID,
         NI,
@@ -16,17 +16,17 @@ public class Primitive extends Obj {
         INT_LT,
         INT_LE;
 
-        protected final Primitive primitive;
+        protected final PrimitiveCall primitive;
 
         Type() {
-            primitive = new Primitive(this);
+            primitive = new PrimitiveCall(this);
         }
     }
 
     public final Type type;
     public final int code;
 
-    public Primitive(Type type) {
+    public PrimitiveCall(Type type) {
         this.type = type;
         this.code = type.ordinal();
     }

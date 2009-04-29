@@ -11,6 +11,12 @@ var a0 := a[0];
 var a1 := a[1];
 . Sys.print('@{a0} @{a1}');
 . a each { idx, val => . Sys.print('@{idx}: @{val}'); };
+var s1 := 'foo';
+var s2 := 'bar';
+.Sys.print(s1 + s2 + '!!!');
+var o1 := {};
+var o2 := {};
+.Sys.print(o1 === o2);
 exit;
 
 .Sys.importPackage('java.util');

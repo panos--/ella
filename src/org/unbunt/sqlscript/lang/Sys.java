@@ -6,15 +6,15 @@ import org.unbunt.sqlscript.support.DynamicVariableResolver;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.utils.StringUtils;
 
-public class Sys extends Obj {
-    protected static final Native nativePrint = new Native() {
+public class Sys extends PlainObj {
+    protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             System.out.println(StringUtils.join(" ", (Object[]) args));
             return Null.instance;
         }
     };
 
-    protected static final Native nativeImportPackage = new Native() {
+    protected static final NativeCall nativeImportPackage = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             final String pkgPrefix = args[0].toString() + ".";
             final ClassLoader loader = engine.getClass().getClassLoader();

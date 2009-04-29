@@ -17,10 +17,12 @@ import java.util.List;
  * <p/>
  * Copyright: (c) 2007 marketoolz GmbH
  */
-public class JClass extends Obj {
+public class JClass extends PlainObj implements NativeObj {
+    public static final JClassProto PROTOTYPE = new JClassProto();
+
     public final Class cls;
 
-    public static final Native nativeCreateInstance = new Native() {
+    public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             Object result = null;
             Class cls = ((JClass) context).cls;
@@ -56,7 +58,15 @@ public class JClass extends Obj {
 
     public JClass(Class cls) {
         this.cls = cls;
-        slots.put(Str.Sym.parent.str, JClassProto.instance);
+    }
+
+    @Override
+    public Obj getImplicitParent() {
+        return PROTOTYPE;
+    }
+
+    public Call getNativeConstructor() {
+        return NATIVE_CONSTRUCTOR;
     }
 
     @Override
@@ -174,5 +184,38 @@ public class JClass extends Obj {
 
     public String toString() {
         return "[JClass " + cls.toString() + "]";
+    }
+
+    /**
+ * User: tweiss
+     * Date: 23.04.2009
+     * Time: 08:41:45
+     * <p/>
+     * Copyright: (c) 2007 marketoolz GmbH
+     */
+    public static class JClassProto extends PlainObj implements NativeObj {
+        public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+                ClassLoader loader = engine.getClass().getClassLoader();
+                try {
+                    Class cls = loader.loadClass(args[0].toString());
+                    return new JClass(cls);
+                } catch (ClassNotFoundException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+            }
+        };
+
+        public JClassProto() {
+        }
+
+        @Override
+        public Obj getImplicitParent() {
+            return Base.instance;
+        }
+
+        public Call getNativeConstructor() {
+            return NATIVE_CONSTRUCTOR;
+        }
     }
 }

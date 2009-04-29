@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.continuations;
 import org.unbunt.sqlscript.support.ObjectLiteral;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.lang.PlainObj;
 
 import java.util.Iterator;
 
@@ -11,7 +12,7 @@ public class ObjLitCont implements Continuation {
     protected Iterator<ObjectLiteral.SlotEntry> slots;
 
     public ObjLitCont(ObjectLiteral objectLiteral) {
-        this.obj = new Obj();
+        this.obj = new PlainObj();
         this.slots = objectLiteral.getSlots().iterator();
     }
 

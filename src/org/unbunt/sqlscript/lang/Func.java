@@ -2,12 +2,16 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.support.Function;
 
-public class Func extends Obj {
+public class Func extends PlainObj {
     protected Function function;
 
     public Func(Function function) {
         this.function = function;
-        slots.put(Str.Sym.parent.str, Base.instance);
+    }
+
+    @Override
+    public Obj getImplicitParent() {
+        return Base.instance;
     }
 
     public Function getFunction() {

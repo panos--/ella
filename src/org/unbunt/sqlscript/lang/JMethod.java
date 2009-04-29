@@ -9,7 +9,7 @@ import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
-public class JMethod extends Native {
+public class JMethod extends NativeCall {
     public final Method[] methods;
 
     public JMethod(Method[] methods) {

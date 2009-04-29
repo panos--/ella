@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-public class Args extends Obj {
+public class Args extends PlainObj {
     public final Obj[] args;
 
     public static final Args emptyArgs = new Args(new Obj[0]);

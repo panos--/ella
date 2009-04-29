@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-public class Null extends Obj {
+public class Null extends PlainObj {
     public static final Null instance = new Null();
 
     public Null() {

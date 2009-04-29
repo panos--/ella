@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class JObject extends Obj {
+public class JObject extends PlainObj {
     public final Object value;
     public final Class cls;
 

@@ -1,37 +1,21 @@
 package org.unbunt.sqlscript.lang;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class Obj {
-    protected Map<Obj, Obj> slots = new HashMap<Obj, Obj>();
+public interface Obj {
+    Obj getImplicitParent();
 
-    public Obj parent = null;
+    Obj getParent();
 
-    public Obj() {
-    }
+    Obj addSlot(Obj key, Obj value);
 
-    public Obj addSlot(Obj key, Obj value) {
-        return slots.put(key, value);
-    }
+    Obj setSlot(Obj key, Obj value);
 
-    public Obj setSlot(Obj key, Obj value) {
-        return slots.put(key, value);
-    }
+    Obj getSlot(Obj key);
 
-    public Obj getSlot(Obj key) {
-        return slots.get(key);
-    }
+    Map<Obj, Obj> getSlots();
 
-    public Map<Obj, Obj> getSlots() {
-        return slots;
-    }
+    void setSlots(Map<Obj, Obj> slots);
 
-    public void setSlots(Map<Obj, Obj> slots) {
-        this.slots = slots;
-    }
-
-    public Object toJavaObject() {
-        return this;
-    }
+    Object toJavaObject();
 }

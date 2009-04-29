@@ -3,10 +3,10 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.support.BlockClosure;
 
-public class Clos extends Obj {
+public class Clos extends PlainObj {
     protected BlockClosure closure;
 
-    protected static final Native nativeWhile = new Native() {
+    protected static final NativeCall nativeWhile = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) {
             // TODO: check args
             Obj result = null;
@@ -23,7 +23,6 @@ public class Clos extends Obj {
     };
 
     public Clos(BlockClosure closure) {
-        super();
         this.closure = closure;
         this.slots.put(Str.Sym.parent.str, Base.instance);
         this.slots.put(Str.Sym._while.str, nativeWhile);
