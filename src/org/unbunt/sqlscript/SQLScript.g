@@ -51,6 +51,7 @@ tokens {
 	CALL;
 	CALL_BINARY;
 	THIS;
+	SUPER;
 	NEW;
 	EMBEDDED_VAR;
 	IMPORT_PACKAGE;
@@ -592,8 +593,9 @@ simpleExpression
 	|	stringLiteral
 	|	booleanLiteral
 	|	INT
-	|	KW_THIS -> THIS
-	|	KW_NEW simpleExpression argumentsList -> ^(NEW simpleExpression argumentsList?)
+	|	tokThis=KW_THIS -> THIS[$tokThis]
+	|	tokSuper=KW_SUPER -> SUPER[$tokSuper]
+	|	tokNew=KW_NEW simpleExpression argumentsList -> ^(NEW[$tokNew] simpleExpression argumentsList?)
 	;
 
 objectLiteral
@@ -671,8 +673,8 @@ paramValue
 	;
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
-	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_NEW | KW_IMPORT
-	|	KW_AS
+	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW
+	|	KW_IMPORT | KW_AS
 	;
 
 stringLiteral
@@ -855,6 +857,9 @@ KW_FUN	:	'fun'
 	;
 
 KW_THIS	:	'this'
+	;
+
+KW_SUPER:	'super'
 	;
 
 KW_NEW	:	'new'

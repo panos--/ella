@@ -24,8 +24,12 @@ public class Clos extends PlainObj {
 
     public Clos(BlockClosure closure) {
         this.closure = closure;
-        this.slots.put(Str.Sym.parent.str, Base.instance);
         this.slots.put(Str.Sym._while.str, nativeWhile);
+    }
+
+    @Override
+    public Obj getImplicitParent() {
+        return Base.instance;
     }
 
     public BlockClosure getClosure() {

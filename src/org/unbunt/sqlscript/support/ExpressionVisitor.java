@@ -83,5 +83,7 @@ public interface ExpressionVisitor {
 
     void processExpression(ThisExpression thisExpression);
 
+    void processExpression(SuperExpression superExpression);
+
     void processExpression(BlockClosureExpression blockClosureExpression);
 }

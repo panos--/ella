@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlainObj extends AbstractObj {
-    private static final Str STR_PARENT = Str.STR_PARENT;
-
     public PlainObj() {
     }
 
@@ -15,6 +13,6 @@ public class PlainObj extends AbstractObj {
     }
 
     public Obj getParent() {
-        return slots.get(STR_PARENT);
+        return slots.get(Str.STR_PARENT);
     }
 }

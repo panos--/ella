@@ -88,10 +88,13 @@ script returns [ Block value ]
 scope Block, Scope;
 @init {
 	$Scope::scope = new Scope();
+	// TODO: implement scheme supporting automatic synchronization of implicit variables
+	// TODO: with env initialization in SQLScriptEngine.process(Block)
 	// register default global variables
 	$Scope::scope.addVariable("Null");
 	$Scope::scope.addVariable("Sys");
 	$Scope::scope.addVariable("JArray");
+	$Scope::scope.addVariable("JClass");
 	
 	$Block::block = new Block($Scope::scope);
 }
@@ -521,6 +524,9 @@ simpleExpression returns [ Expression value ]
 		}
 	|	THIS {
 			$value = new ThisExpression();
+		}
+	|	SUPER {
+			$value = new SuperExpression();
 		}
 	|	intLit=INT {
 			$value = new IntegerLiteralExpression($intLit.text);

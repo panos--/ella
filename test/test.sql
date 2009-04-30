@@ -1,3 +1,40 @@
+var A := {
+    bark = fun () {
+        .Sys.print('A: wuff!');
+    }
+};
+
+var B := {
+    parent = A,
+    bark = fun () {
+        .super.bark();
+        .Sys.print('B: wuff! wuff!');
+    }
+};
+
+var b := new B();
+.Sys.print('b: ' + b);
+.b.bark();
+exit;
+
+var Date := new JClass('java.util.Date');
+.Sys.print('Date: ' + Date);
+var date := new Date(8787);
+.Sys.print('date: ' + date);
+exit;
+
+var oo := {
+    foo = 'bar',
+    bla = 'blubb',
+    baz = 'qux',
+};
+
+.oo.each {
+    slot value =>
+    . Sys.print('slot: @{slot} value: @{value}');
+};
+
+exit;
 
 .Sys.importPackage('java.lang');
 

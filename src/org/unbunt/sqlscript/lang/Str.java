@@ -15,6 +15,7 @@ public class Str extends AbstractObj implements NativeObj {
         get,
         print,
         each,
+        eachSlot,
         length,
         importPackage,
         _while ("while"),
@@ -56,6 +57,8 @@ public class Str extends AbstractObj implements NativeObj {
 
     public static final StrProto PROTOTYPE;
 
+    public static final Str STR_PARENT;
+
     static {
         // trigger initialization of Sym enum before it is used
         for (Sym sym : Sym.values()) {
@@ -66,9 +69,9 @@ public class Str extends AbstractObj implements NativeObj {
         Base.initialize();
 
         PROTOTYPE = new StrProto();
-    }
 
-    public static final Str STR_PARENT = Sym.parent.str;
+        STR_PARENT = Sym.parent.str;
+    }
 
     public Str(String value) {
         this.value = value;

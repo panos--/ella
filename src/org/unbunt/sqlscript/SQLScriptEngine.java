@@ -134,6 +134,7 @@ public class SQLScriptEngine
             env.add(Null.instance);
             env.add(Sys.instance);
             env.add(JArray.PROTOTYPE);
+            env.add(JClass.PROTOTYPE);
         }
         pc = 0;
         cont[pc] = new EndCont();
@@ -403,6 +404,29 @@ public class SQLScriptEngine
         }
     }
 
+    public void processExpression(ThisExpression thisExpression) {
+        val = env.getThis();
+        next = CONT;
+    }
+
+    public void processExpression(SuperExpression superExpression) {
+        Obj ctx = env.getThis();
+        if (ctx == null) {
+            val = Null.instance;
+        }
+        else {
+            Obj parentCtx = ctx.getParent();
+            if (parentCtx == null) {
+                parentCtx = ctx.getImplicitParent();
+            }
+            if (parentCtx == null) {
+                parentCtx = Null.instance;
+            }
+            val = parentCtx;
+        }
+        next = CONT;
+    }
+
     public void processExpression(NewExpression newExpression) {
         stmt = newExpression.getExpression();
         cont[++pc] = new NewCont(newExpression.getArguments());
@@ -467,11 +491,6 @@ public class SQLScriptEngine
         statement.setAnnotations(sqlStatement.getAnnotations());
         statement.addPart(buf.toString());
         process(statement);
-        next = CONT;
-    }
-
-    public void processExpression(ThisExpression thisExpression) {
-        val = env.getThis();
         next = CONT;
     }
 
@@ -1021,17 +1040,40 @@ public class SQLScriptEngine
 //            val = JArray.nativeCreateInstance;
 //        }
         if (val instanceof NativeObj) {
-            Call nativeConstructor = ((NativeObj) val).getNativeConstructor();
-            cont[pc] = new CallCont(null, newCont.getArguments());
+            NativeObj context = (NativeObj) val;
+            Call nativeConstructor = context.getNativeConstructor();
+            cont[pc] = new CallCont(context, newCont.getArguments());
             val = nativeConstructor;
         }
         else {
+            Obj parent = val;
             Obj newObj = new PlainObj();
-            newObj.setSlot(STR_SLOT_PARENT, val);
-            val = STR_SLOT_INIT;
-            cont[pc]   = new NewResultCont(newObj);
-            cont[++pc] = new CallCont(newObj, newCont.getArguments());
-            cont[++pc] = new SlotGetSlotCont(newObj);
+            newObj.setSlot(STR_SLOT_PARENT, parent);
+//            cont[pc]   = new NewResultCont(newObj);
+//            cont[++pc] = new CallCont(newObj, newCont.getArguments());
+//            cont[++pc] = new SlotGetSlotCont(newObj);
+
+            Obj initSlot = parent.getSlot(STR_SLOT_INIT);
+            while (initSlot == null) {
+                Obj nextParent = parent.getParent();
+                if (nextParent == null) {
+                    nextParent = parent.getImplicitParent();
+                    if (nextParent == null) {
+                        break;
+                    }
+                }
+                initSlot = nextParent.getSlot(STR_SLOT_INIT);
+                parent = nextParent;
+            }
+
+            if (initSlot == null) {
+                pc--;
+                val = newObj;
+            }
+            else {
+                cont[pc] = new NewResultCont(newObj);
+                cont[++pc] = new CallCont(newObj, newCont.getArguments());
+            }
         }
         next = CONT;
     }

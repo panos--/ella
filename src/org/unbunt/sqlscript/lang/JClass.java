@@ -35,8 +35,10 @@ public class JClass extends PlainObj implements NativeObj {
                 }
             }
 
+            Object[] jargs = NativeWrapper.unwrap(args);
+
             Constructor ctor =
-                    ReflectionUtils.findMatchingConstructor(cls.getConstructors(), ReflectionUtils.getArgTypes(args));
+                    ReflectionUtils.findMatchingConstructor(cls.getConstructors(), ReflectionUtils.getArgTypes(jargs));
 
             if (ctor == null) {
                 throw new SQLScriptRuntimeException("No such constructor");
