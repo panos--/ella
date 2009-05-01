@@ -9,14 +9,14 @@ public class Base extends AbstractObj {
     public static final Base instance = new Base();
 
     protected static final Call nativeEach = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             if (context == null) {
                 return Null.instance;
             }
 
-            Clos clos = (Clos) args[0];
+            Obj call = args[0];
             for (Map.Entry<Obj, Obj> entry : context.getSlots().entrySet()) {
-                engine.invoke(clos, context, entry.getKey(), entry.getValue());
+                engine.invoke(call, context, entry.getKey(), entry.getValue());
             }
 
             return context;

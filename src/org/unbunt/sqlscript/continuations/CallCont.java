@@ -9,10 +9,18 @@ import java.util.List;
 public class CallCont implements Continuation {
     protected Obj context = null;
     protected List<Expression> arguments;
+    protected boolean superCall;
+
+    public CallCont(Obj context, List<Expression> arguments, boolean superCall) {
+        this.context = context;
+        this.arguments = arguments;
+        this.superCall = superCall;
+    }
 
     public CallCont(Obj context, List<Expression> arguments) {
         this.context = context;
         this.arguments = arguments;
+        this.superCall = false;
     }
 
     public CallCont(List<Expression> arguments) {
@@ -25,6 +33,10 @@ public class CallCont implements Continuation {
 
     public List<Expression> getArguments() {
         return arguments;
+    }
+
+    public boolean isSuperCall() {
+        return superCall;
     }
 
     public void accept(ContinuationVisitor visitor) {

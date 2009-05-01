@@ -7,6 +7,10 @@ public interface Env {
 
     Obj getThis();
 
+    void setSuper(Obj superRef);
+
+    Obj getSuper();
+
     void extend();
 
     Obj get(Variable var);

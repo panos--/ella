@@ -8,6 +8,7 @@ public class StaticEnv extends AbstractEnv {
     protected ArrayList<Obj> vars = new ArrayList<Obj>();
 
     protected Obj thisRef = null;
+    protected Obj superRef = null;
 
     public StaticEnv() {
         super(new TopEnv());
@@ -23,6 +24,14 @@ public class StaticEnv extends AbstractEnv {
 
     public Obj getThis() {
         return thisRef;
+    }
+
+    public Obj getSuper() {
+        return superRef;
+    }
+
+    public void setSuper(Obj superRef) {
+        this.superRef = superRef;
     }
 
     public void extend() {

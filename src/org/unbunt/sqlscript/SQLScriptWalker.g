@@ -465,6 +465,7 @@ slotCallExpression returns [ SlotCallExpression value ]
 	:	slotExpr=slotExpressionRHS { $value = new SlotCallExpression($slotExpr.value); }
 		(callArgs=argumentsList { $value.setArguments($callArgs.value); })?
 		(blockArg=blockClosure { $value.addArgument($blockArg.value); })?
+		(SUPER { $value.setCallSuper(true); })?
 	;
 
 funcCallExpression returns [ AbstractFunctionCallExpression value ]

@@ -1,27 +1,81 @@
+var p := Sys.print;
+
+fun fump() {
+    .p('fump!');
+    --return;
+}
+
+fun zap() {
+    .fump();
+    .p('zap!');
+    --return;
+}
+
+.zap();
+exit;
+
+/*
+var System := new JClass('java.lang.System');
+.Sys.print('exiting');
+.System{'exit'}(0);
+*/
+
+/*
+var X := {
+    bark = fun () {
+        .{=> .Sys.print('bark'); .this.foo(); }();
+    },
+    foo = fun () {
+        .Sys.print('foo');
+    }
+};
+.X.bark();
+--exit;
+*/
+
 var A := {
     bark = fun () {
         .Sys.print('A: wuff!');
+        --.this.bell();
+        --return;
+    },
+    bell = fun () {
+        .Sys.print('A: wau!');
+        --return;
     }
 };
 
 var B := {
     parent = A,
     bark = fun () {
-        .super.bark();
+        --.super.bark();
+        .fump();
         .Sys.print('B: wuff! wuff!');
+        --return;
+    },
+    bell = fun() {
+        .super.bell();
+        .Sys.print('B: wau! wau!');
+        return;
     }
 };
 
 var b := new B();
-.Sys.print('b: ' + b);
+--.Sys.print('b: ' + b);
 .b.bark();
+--.b.bell();
+
+/*
+var a := new A();
+.a.bark();
+*/
 exit;
 
 var Date := new JClass('java.util.Date');
 .Sys.print('Date: ' + Date);
 var date := new Date(8787);
 .Sys.print('date: ' + date);
-exit;
+--exit;
 
 var oo := {
     foo = 'bar',

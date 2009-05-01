@@ -27,6 +27,14 @@ public class DynamicEnv extends AbstractEnv {
         return parent.getThis();
     }
 
+    public void setSuper(Obj superRef) {
+        parent.setSuper(superRef);
+    }
+
+    public Obj getSuper() {
+        return parent.getSuper();
+    }
+
     public void extend() {
         parent.extend();
     }

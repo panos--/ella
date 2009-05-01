@@ -585,6 +585,13 @@ callSuffix
 		)
 	|	blockClosure
 	;
+	
+superSuffix [ Token superToken ]
+	:	(slotSuffix			-> ^(SLOT SUPER[$superToken] slotSuffix))
+		( (LPAREN|LCURLY)=> callSuffix	-> ^(CALL {$superSuffix.tree} callSuffix? SUPER[$superToken])
+		|				-> {$superSuffix.tree}
+		)
+	;
 
 simpleExpression
 	:	parenExpression
@@ -594,7 +601,7 @@ simpleExpression
 	|	booleanLiteral
 	|	INT
 	|	tokThis=KW_THIS -> THIS[$tokThis]
-	|	tokSuper=KW_SUPER -> SUPER[$tokSuper]
+	|	tokSuper=KW_SUPER! superSuffix[$tokSuper]
 	|	tokNew=KW_NEW simpleExpression argumentsList -> ^(NEW[$tokNew] simpleExpression argumentsList?)
 	;
 

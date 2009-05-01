@@ -48,7 +48,7 @@ public class JArray extends PlainObj {
         public static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
-                Clos code = (Clos) args[0];
+                Obj code = args[0];
                 Object array = ctx.array;
                 int length = Array.getLength(ctx.array);
                 for (int i = 0; i < length; i++) {

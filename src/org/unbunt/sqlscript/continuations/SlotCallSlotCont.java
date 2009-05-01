@@ -2,17 +2,19 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.statement.Expression;
+import org.unbunt.sqlscript.statement.SlotCallExpression;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 import java.util.List;
 
 public class SlotCallSlotCont implements Continuation {
+    protected SlotCallExpression callExpression;
     protected Obj receiver;
     protected List<Expression> arguments;
 
-    public SlotCallSlotCont(Obj receiver, List<Expression> arguments) {
+    public SlotCallSlotCont(Obj receiver, SlotCallExpression callExpression) {
         this.receiver = receiver;
-        this.arguments = arguments;
+        this.callExpression = callExpression;
     }
 
     public Obj getReceiver() {
@@ -20,7 +22,11 @@ public class SlotCallSlotCont implements Continuation {
     }
 
     public List<Expression> getArguments() {
-        return arguments;
+        return callExpression.getArguments();
+    }
+
+    public boolean isCallSuper() {
+        return callExpression.isCallSuper();
     }
 
     public void accept(ContinuationVisitor visitor) {

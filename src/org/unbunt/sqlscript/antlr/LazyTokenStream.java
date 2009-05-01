@@ -311,7 +311,7 @@ public class LazyTokenStream implements TokenStream {
      */
     public int index() {
         int i = posCursor.nextIndex();
-        System.out.println("LazyTokenStream.index = " + i);
+        System.err.println("LazyTokenStream.index = " + i);
         return i;
     }
 
@@ -342,7 +342,7 @@ public class LazyTokenStream implements TokenStream {
      * the marker off.  It's like seek(last marker's input position).
      */
     public void rewind() {
-        System.out.println("LazyTokenStream.rewind()");
+        System.err.println("LazyTokenStream.rewind()");
         setPosCursor(tokens.cursor(markers.get(markers.size() - 1)));
     }
 
@@ -394,7 +394,7 @@ public class LazyTokenStream implements TokenStream {
      * first element in the stream.
      */
     public void seek(int index) {
-        System.out.println("LazyTokenStream.seek(" + index + ")");
+        System.err.println("LazyTokenStream.seek(" + index + ")");
         setPosCursor(tokens.cursor(index));
 //        throw new RuntimeException("Unsupported operation");
     }

@@ -78,4 +78,12 @@ public class TopEnv implements Env {
     public void setThis(Obj thisRef) {
         throw new RuntimeException("TopEnv.setThis() should not be called");
     }
+
+    public Obj getSuper() {
+        throw new RuntimeException("TopEnv.getSuper() should not be called");
+    }
+
+    public void setSuper(Obj superRef) {
+        throw new RuntimeException("TopEnv.setSuper() should not be called");
+    }
 }

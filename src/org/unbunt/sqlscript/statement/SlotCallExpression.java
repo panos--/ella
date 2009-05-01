@@ -6,6 +6,7 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class SlotCallExpression extends AbstractFunctionCallExpression {
     protected SlotExpression slotExpression;
+    protected boolean callSuper = false;
 
     public SlotCallExpression(SlotExpression slotExpression) {
         this.slotExpression = slotExpression;
@@ -20,6 +21,14 @@ public class SlotCallExpression extends AbstractFunctionCallExpression {
 
     public void setSlotExpression(SlotExpression slotExpression) {
         this.slotExpression = slotExpression;
+    }
+
+    public boolean isCallSuper() {
+        return callSuper;
+    }
+
+    public void setCallSuper(boolean callSuper) {
+        this.callSuper = callSuper;
     }
 
     public void accept(ExpressionVisitor visitor) {
