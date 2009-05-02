@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class StaticEnv extends AbstractEnv {
     protected ArrayList<Obj> vars = new ArrayList<Obj>();
 
-    protected Obj thisRef = null;
-    protected Obj superRef = null;
+    protected Obj context = null;
+    protected Obj receiver = null;
 
     public StaticEnv() {
         super(new TopEnv());
@@ -18,20 +18,20 @@ public class StaticEnv extends AbstractEnv {
         super(parent);
     }
 
-    public void setThis(Obj thisRef) {
-        this.thisRef = thisRef;
+    public void setContext(Obj context) {
+        this.context = context;
     }
 
-    public Obj getThis() {
-        return thisRef;
+    public Obj getContext() {
+        return context;
     }
 
-    public Obj getSuper() {
-        return superRef;
+    public Obj getReceiver() {
+        return receiver;
     }
 
-    public void setSuper(Obj superRef) {
-        this.superRef = superRef;
+    public void setReceiver(Obj receiver) {
+        this.receiver = receiver;
     }
 
     public void extend() {

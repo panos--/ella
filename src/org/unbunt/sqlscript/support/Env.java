@@ -3,13 +3,13 @@ package org.unbunt.sqlscript.support;
 import org.unbunt.sqlscript.lang.Obj;
 
 public interface Env {
-    void setThis(Obj thisRef);
+    void setContext(Obj context);
 
-    Obj getThis();
+    Obj getContext();
 
-    void setSuper(Obj superRef);
+    void setReceiver(Obj context);
 
-    Obj getSuper();
+    Obj getReceiver();
 
     void extend();
 

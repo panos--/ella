@@ -1,5 +1,7 @@
 
 var A := {
+    A = 'A',
+    name = 'A',
     bark = fun () {
         .Sys.print('A: wuff!');
         .this.bell();
@@ -8,10 +10,15 @@ var A := {
     bell = fun () {
         .Sys.print('A: wau!');
         --return;
+    },
+    getName = fun () {
+        return this.name;
     }
 };
 
 var B := {
+    B = 'B',
+    name = 'B',
     parent = A,
     bark = fun () {
         .super.bark();
@@ -20,15 +27,21 @@ var B := {
     },
     bell = fun() {
         .Sys.print('calling super.bell()');
-        .super.bell();
+        .{=> .super.bell(); }();
         .Sys.print('B: wau! wau!');
         return;
+    },
+    getName = fun () {
+        return this.name;
     }
 };
 
 var b := new B();
 --.Sys.print('b: ' + b);
 .b.bark();
+.Sys.print(b.name);
+.Sys.print(b.getName());
+.Sys.print(b.getName.call(A));
 --.b.bell();
 
 /*

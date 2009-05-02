@@ -20,6 +20,7 @@ public class Str extends AbstractObj implements NativeObj {
     public static final Str SYM_length = toSym("length");
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_while = toSym("while");
+    public static final Str SYM_call = toSym("call");
     public static final Str SYM_add = toSym("+");
     public static final Str SYM_sub = toSym("-");
     public static final Str SYM_mul = toSym("*");

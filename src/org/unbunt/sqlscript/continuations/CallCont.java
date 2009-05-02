@@ -10,29 +10,38 @@ public class CallCont implements Continuation {
     public static byte FLAG_SUPER = 0x1;
     public static byte FLAG_TAIL  = 0x2;
 
-    protected Obj context = null;
+    protected Obj context;
+    protected Obj receiver;
     protected List<Expression> arguments;
     protected byte flags;
 
-    public CallCont(Obj context, List<Expression> arguments, byte flags) {
+    public CallCont(Obj context, Obj receiver, List<Expression> arguments, byte flags) {
         this.context = context;
+        this.receiver = receiver;
         this.arguments = arguments;
         this.flags = flags;
     }
 
-    public CallCont(Obj context, List<Expression> arguments) {
+    public CallCont(Obj context, Obj receiver, List<Expression> arguments) {
         this.context = context;
+        this.receiver = receiver;
         this.arguments = arguments;
         this.flags = 0;
     }
 
     public CallCont(List<Expression> arguments, byte flags) {
+        this.context = null;
+        this.receiver = null;
         this.arguments = arguments;
         this.flags = flags;
     }
 
     public Obj getContext() {
         return context;
+    }
+
+    public Obj getReceiver() {
+        return receiver;
     }
 
     public List<Expression> getArguments() {

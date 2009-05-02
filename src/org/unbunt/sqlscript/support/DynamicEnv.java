@@ -19,20 +19,20 @@ public class DynamicEnv extends AbstractEnv {
         this.boundaryAddress = parent.getMaxAddress();
     }
 
-    public void setThis(Obj thisRef) {
-        parent.setThis(thisRef);
+    public void setContext(Obj context) {
+        parent.setContext(context);
     }
 
-    public Obj getThis() {
-        return parent.getThis();
+    public Obj getContext() {
+        return parent.getContext();
     }
 
-    public void setSuper(Obj superRef) {
-        parent.setSuper(superRef);
+    public void setReceiver(Obj receiver) {
+        parent.setReceiver(receiver);
     }
 
-    public Obj getSuper() {
-        return parent.getSuper();
+    public Obj getReceiver() {
+        return parent.getReceiver();
     }
 
     public void extend() {

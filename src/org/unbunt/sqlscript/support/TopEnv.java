@@ -71,19 +71,19 @@ public class TopEnv implements Env {
         throw new RuntimeException("TopEnv.getMaxAddress() should not be called");
     }
 
-    public Obj getThis() {
-        throw new RuntimeException("TopEnv.getThis() should not be called");
+    public Obj getContext() {
+        throw new RuntimeException("TopEnv.getContext() should not be called");
     }
 
-    public void setThis(Obj thisRef) {
-        throw new RuntimeException("TopEnv.setThis() should not be called");
+    public void setContext(Obj context) {
+        throw new RuntimeException("TopEnv.setContext() should not be called");
     }
 
-    public Obj getSuper() {
-        throw new RuntimeException("TopEnv.getSuper() should not be called");
+    public Obj getReceiver() {
+        throw new RuntimeException("TopEnv.getReceiver() should not be called");
     }
 
-    public void setSuper(Obj superRef) {
-        throw new RuntimeException("TopEnv.setSuper() should not be called");
+    public void setReceiver(Obj context) {
+        throw new RuntimeException("TopEnv.setReceiver() should not be called");
     }
 }

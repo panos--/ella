@@ -409,14 +409,14 @@ public class SQLScriptEngine
     }
 
     public void processExpression(ThisExpression thisExpression) {
-        val = env.getThis();
+        val = env.getContext();
         next = CONT;
     }
 
     public void processExpression(SuperExpression superExpression) {
-        Obj ctx = env.getSuper();
+        Obj ctx = env.getReceiver();
         if (ctx == null) {
-            ctx = env.getThis();
+            ctx = env.getContext();
         }
 
         if (ctx == null) {
@@ -761,32 +761,32 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(SlotCallSlotCont slotCallSlotCont) {
-        Obj receiver = slotCallSlotCont.getReceiver();
+        Obj context = slotCallSlotCont.getReceiver();
         Obj slot = val;
 
-        Obj obj = receiver;
+        Obj receiver = context;
         while (true) {
-            val = obj.getSlot(slot);
+            val = receiver.getSlot(slot);
             if (val != null) {
                 break;
             }
 
-            Obj parent = obj.getParent();
+            Obj parent = receiver.getParent();
             if (parent == null) {
-                parent = obj.getImplicitParent();
+                parent = receiver.getImplicitParent();
                 if (parent == null) {
                     break;
                 }
             }
 
-            obj = parent;
+            receiver = parent;
         }
 
         if (val == null) {
             val = Null.instance;
         }
 
-        cont[pc] = new CallCont(receiver, slotCallSlotCont.getArguments(), slotCallSlotCont.getCallFlags());
+        cont[pc] = new CallCont(context, receiver, slotCallSlotCont.getArguments(), slotCallSlotCont.getCallFlags());
         next = CONT;
     }
 
@@ -805,13 +805,8 @@ public class SQLScriptEngine
             checkFunArgs(func, args);
             Env savedEnv = env;
             Env funcEnv = new StaticEnv(func.getEnv());
-            if (callCont.isSuperCall()) {
-                funcEnv.setThis(env.getThis());
-                funcEnv.setSuper(callCont.getContext());
-            }
-            else {
-                funcEnv.setThis(callCont.getContext());
-            }
+            funcEnv.setContext(callCont.isSuperCall() ? env.getContext() : callCont.getContext());
+            funcEnv.setReceiver(callCont.getReceiver());
             cont[pc] = new CallArgCont(func, funcEnv, savedEnv, callCont.isTailCall());
         }
         else if (val instanceof Clos) {
@@ -822,7 +817,8 @@ public class SQLScriptEngine
             Env savedEnv = env;
             Env lexEnv = clos.getEnv();
             Env closEnv = new StaticEnv(lexEnv);
-            closEnv.setThis(lexEnv.getThis());
+            closEnv.setContext(lexEnv.getContext());
+            closEnv.setReceiver(lexEnv.getReceiver());
             cont[pc] = new CallArgCont(clos, closEnv, savedEnv);
         }
         else {
@@ -1044,7 +1040,7 @@ public class SQLScriptEngine
         if (val instanceof NativeObj) {
             NativeObj context = (NativeObj) val;
             Call nativeConstructor = context.getNativeConstructor();
-            cont[pc] = new CallCont(context, newCont.getArguments());
+            cont[pc] = new CallCont(context, context, newCont.getArguments());
             val = nativeConstructor;
         }
         else {
@@ -1070,8 +1066,9 @@ public class SQLScriptEngine
                 val = newObj;
             }
             else {
+                val = initSlot;
                 cont[pc] = new NewResultCont(newObj);
-                cont[++pc] = new CallCont(newObj, newCont.getArguments());
+                cont[++pc] = new CallCont(newObj, parent, newCont.getArguments());
             }
         }
         next = CONT;
@@ -1516,7 +1513,7 @@ public class SQLScriptEngine
         Env savedEnv = env;
         Env lexEnv = closure.getEnv();
         env = new StaticEnv(lexEnv);
-        env.setThis(lexEnv.getThis());
+        env.setContext(lexEnv.getContext());
         for (Obj arg : args) {
             env.add(arg);
         }
@@ -1538,7 +1535,7 @@ public class SQLScriptEngine
         checkFunArgs(function, argsList);
         Env savedEnv = env;
         env = new StaticEnv(function.getEnv());
-        env.setThis(context);
+        env.setContext(context);
         for (Obj arg : args) {
             env.add(arg);
         }
