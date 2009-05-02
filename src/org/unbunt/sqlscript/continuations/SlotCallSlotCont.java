@@ -25,8 +25,8 @@ public class SlotCallSlotCont implements Continuation {
         return callExpression.getArguments();
     }
 
-    public boolean isCallSuper() {
-        return callExpression.isCallSuper();
+    public byte getCallFlags() {
+        return callExpression.getCallFlags();
     }
 
     public void accept(ContinuationVisitor visitor) {

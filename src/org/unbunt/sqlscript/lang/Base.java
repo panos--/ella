@@ -36,10 +36,10 @@ public class Base extends AbstractObj {
      * initialization is then triggerd by Str class as soon as it is ready.
      */
     protected static void initialize() {
-        instance.slots.put(Str.Sym._id.str, PrimitiveCall.Type.ID.primitive);
-        instance.slots.put(Str.Sym._ni.str, PrimitiveCall.Type.NI.primitive);
-        instance.slots.put(Str.Sym.each.str, nativeEach);
-        instance.slots.put(Str.Sym.eachSlot.str, nativeEachSlot);
+        instance.slots.put(Str.SYM_id, PrimitiveCall.Type.ID.primitive);
+        instance.slots.put(Str.SYM_ni, PrimitiveCall.Type.NI.primitive);
+        instance.slots.put(Str.SYM_each, nativeEach);
+        instance.slots.put(Str.SYM_eachSlot, nativeEachSlot);
     }
 
     public Obj getParent() {

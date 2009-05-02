@@ -1,7 +1,5 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Variable;
 
@@ -18,10 +16,6 @@ public class DeclareVariableExpression extends AbstractExpression {
 
     public Variable getVariable() {
         return variable;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

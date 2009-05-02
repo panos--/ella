@@ -1,8 +1,5 @@
 package org.unbunt.sqlscript.lang;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PlainObj extends AbstractObj {
     public PlainObj() {
     }
@@ -13,6 +10,6 @@ public class PlainObj extends AbstractObj {
     }
 
     public Obj getParent() {
-        return slots.get(Str.STR_PARENT);
+        return slots.get(Str.SYM_parent);
     }
 }

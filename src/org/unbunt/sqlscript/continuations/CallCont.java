@@ -7,24 +7,28 @@ import org.unbunt.sqlscript.support.ContinuationVisitor;
 import java.util.List;
 
 public class CallCont implements Continuation {
+    public static byte FLAG_SUPER = 0x1;
+    public static byte FLAG_TAIL  = 0x2;
+
     protected Obj context = null;
     protected List<Expression> arguments;
-    protected boolean superCall;
+    protected byte flags;
 
-    public CallCont(Obj context, List<Expression> arguments, boolean superCall) {
+    public CallCont(Obj context, List<Expression> arguments, byte flags) {
         this.context = context;
         this.arguments = arguments;
-        this.superCall = superCall;
+        this.flags = flags;
     }
 
     public CallCont(Obj context, List<Expression> arguments) {
         this.context = context;
         this.arguments = arguments;
-        this.superCall = false;
+        this.flags = 0;
     }
 
-    public CallCont(List<Expression> arguments) {
+    public CallCont(List<Expression> arguments, byte flags) {
         this.arguments = arguments;
+        this.flags = flags;
     }
 
     public Obj getContext() {
@@ -36,7 +40,11 @@ public class CallCont implements Continuation {
     }
 
     public boolean isSuperCall() {
-        return superCall;
+        return (flags & FLAG_SUPER) != 0;
+    }
+
+    public boolean isTailCall() {
+        return (flags & FLAG_TAIL) != 0;
     }
 
     public void accept(ContinuationVisitor visitor) {

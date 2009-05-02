@@ -26,7 +26,7 @@ public class JArray extends PlainObj {
 
     @Override
     public Obj getSlot(Obj key) {
-        if (Str.Sym.length.str.equals(key)) {
+        if (Str.SYM_length.equals(key)) {
             return lengthObj;
         }
         return super.getSlot(key);
@@ -121,9 +121,9 @@ public class JArray extends PlainObj {
         };
 
         public JArrayProto() {
-            slots.put(Str.Sym.each.str, nativeEach);
-            slots.put(Str.Sym.get.str, nativeGet);
-            slots.put(Str.Sym.set.str, nativeSet);
+            slots.put(Str.SYM_each, nativeEach);
+            slots.put(Str.SYM_get, nativeGet);
+            slots.put(Str.SYM_set, nativeSet);
         }
 
         @Override

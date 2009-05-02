@@ -39,19 +39,19 @@ public class Int extends PlainObj {
         };
 
         private IntProto() {
-            slots.put(Str.Sym._add.str, PrimitiveCall.Type.INT_ADD.primitive);
-            slots.put(Str.Sym._sub.str, PrimitiveCall.Type.INT_SUB.primitive);
-            slots.put(Str.Sym._mul.str, PrimitiveCall.Type.INT_MUL.primitive);
-            slots.put(Str.Sym._div.str, PrimitiveCall.Type.INT_DIV.primitive);
-            slots.put(Str.Sym._mod.str, PrimitiveCall.Type.INT_MOD.primitive);
-            slots.put(Str.Sym._eq.str, PrimitiveCall.Type.INT_EQ.primitive);
-            slots.put(Str.Sym._ne.str, PrimitiveCall.Type.INT_NE.primitive);
-            slots.put(Str.Sym._gt.str, PrimitiveCall.Type.INT_GT.primitive);
-            slots.put(Str.Sym._ge.str, PrimitiveCall.Type.INT_GE.primitive);
-            slots.put(Str.Sym._lt.str, PrimitiveCall.Type.INT_LT.primitive);
-            slots.put(Str.Sym._le.str, PrimitiveCall.Type.INT_LE.primitive);
-            slots.put(Str.Sym._id.str, PrimitiveCall.Type.INT_EQ.primitive);
-            slots.put(Str.Sym._ni.str, PrimitiveCall.Type.INT_NE.primitive);
+            slots.put(Str.SYM_add, PrimitiveCall.Type.INT_ADD.primitive);
+            slots.put(Str.SYM_sub, PrimitiveCall.Type.INT_SUB.primitive);
+            slots.put(Str.SYM_mul, PrimitiveCall.Type.INT_MUL.primitive);
+            slots.put(Str.SYM_div, PrimitiveCall.Type.INT_DIV.primitive);
+            slots.put(Str.SYM_mod, PrimitiveCall.Type.INT_MOD.primitive);
+            slots.put(Str.SYM_eq, PrimitiveCall.Type.INT_EQ.primitive);
+            slots.put(Str.SYM_ne, PrimitiveCall.Type.INT_NE.primitive);
+            slots.put(Str.SYM_gt, PrimitiveCall.Type.INT_GT.primitive);
+            slots.put(Str.SYM_ge, PrimitiveCall.Type.INT_GE.primitive);
+            slots.put(Str.SYM_lt, PrimitiveCall.Type.INT_LT.primitive);
+            slots.put(Str.SYM_le, PrimitiveCall.Type.INT_LE.primitive);
+            slots.put(Str.SYM_id, PrimitiveCall.Type.INT_EQ.primitive);
+            slots.put(Str.SYM_ni, PrimitiveCall.Type.INT_NE.primitive);
         }
 
         public Call getNativeConstructor() {

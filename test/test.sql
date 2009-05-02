@@ -1,3 +1,56 @@
+
+var A := {
+    bark = fun () {
+        .Sys.print('A: wuff!');
+        .this.bell();
+        --return;
+    },
+    bell = fun () {
+        .Sys.print('A: wau!');
+        --return;
+    }
+};
+
+var B := {
+    parent = A,
+    bark = fun () {
+        .super.bark();
+        .Sys.print('B: wuff! wuff!');
+        --return;
+    },
+    bell = fun() {
+        .Sys.print('calling super.bell()');
+        .super.bell();
+        .Sys.print('B: wau! wau!');
+        return;
+    }
+};
+
+var b := new B();
+--.Sys.print('b: ' + b);
+.b.bark();
+--.b.bell();
+
+/*
+var a := new A();
+.a.bark();
+*/
+exit;
+
+
+var Date := new JClass('java.util.Date');
+var d := new Date();
+.Sys.print(d);
+exit;
+
+/*
+var i := 23;
+{
+    .i;
+}
+exit;
+*/
+
 var p := Sys.print;
 
 fun fump() {
@@ -6,12 +59,16 @@ fun fump() {
 }
 
 fun zap() {
+    {
     .fump();
-    .p('zap!');
+    }
+    --.p('zap!');
     --return;
 }
 
+{
 .zap();
+}
 exit;
 
 /*
@@ -32,44 +89,6 @@ var X := {
 .X.bark();
 --exit;
 */
-
-var A := {
-    bark = fun () {
-        .Sys.print('A: wuff!');
-        --.this.bell();
-        --return;
-    },
-    bell = fun () {
-        .Sys.print('A: wau!');
-        --return;
-    }
-};
-
-var B := {
-    parent = A,
-    bark = fun () {
-        --.super.bark();
-        .fump();
-        .Sys.print('B: wuff! wuff!');
-        --return;
-    },
-    bell = fun() {
-        .super.bell();
-        .Sys.print('B: wau! wau!');
-        return;
-    }
-};
-
-var b := new B();
---.Sys.print('b: ' + b);
-.b.bark();
---.b.bell();
-
-/*
-var a := new A();
-.a.bark();
-*/
-exit;
 
 var Date := new JClass('java.util.Date');
 .Sys.print('Date: ' + Date);

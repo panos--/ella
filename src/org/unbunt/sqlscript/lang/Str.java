@@ -7,6 +7,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Str extends AbstractObj implements NativeObj {
+    protected static Map<String, Str> pool = new HashMap<String, Str>();
+
+    public static final Str SYM_parent = toSym("parent");
+    public static final Str SYM_new = toSym("new");
+    public static final Str SYM_init = toSym("init");
+    public static final Str SYM_set = toSym("set");
+    public static final Str SYM_get = toSym("get");
+    public static final Str SYM_print = toSym("print");
+    public static final Str SYM_each = toSym("each");
+    public static final Str SYM_eachSlot = toSym("eachSlot");
+    public static final Str SYM_length = toSym("length");
+    public static final Str SYM_importPackage = toSym("importPackage");
+    public static final Str SYM_while = toSym("while");
+    public static final Str SYM_add = toSym("+");
+    public static final Str SYM_sub = toSym("-");
+    public static final Str SYM_mul = toSym("*");
+    public static final Str SYM_div = toSym("/");
+    public static final Str SYM_mod = toSym("%");
+    public static final Str SYM_gt = toSym(">");
+    public static final Str SYM_ge = toSym(">=");
+    public static final Str SYM_lt = toSym("<");
+    public static final Str SYM_le = toSym("<=");
+    public static final Str SYM_eq = toSym("==");
+    public static final Str SYM_ne = toSym("!=");
+    public static final Str SYM_id = toSym("===");
+    public static final Str SYM_ni = toSym("!==");
+
+    /*
     public static enum Sym {
         parent,
         _new ("new"),
@@ -44,34 +72,29 @@ public class Str extends AbstractObj implements NativeObj {
             this.str = new Str(name).intern();
         }
     }
-
-    protected static Map<String, Str> pool = new HashMap<String, Str>();
+    */
 
     protected final String value;
+
+    public static final StrProto PROTOTYPE = StrProto.instance;
+
+    static {
+        // trigger initialization of Sym enum before it is used
+//        for (Sym sym : Sym.values()) {
+//            sym.hashCode();
+//        }
+
+        // initialize Base, which depends on Str to define slots
+        Base.initialize();
+
+        StrProto.initialize();
+    }
 
     public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             return new Str(((Str) args[0]).getValue());
         }
     };
-
-    public static final StrProto PROTOTYPE;
-
-    public static final Str STR_PARENT;
-
-    static {
-        // trigger initialization of Sym enum before it is used
-        for (Sym sym : Sym.values()) {
-            sym.hashCode();
-        }
-
-        // initialize Base, which depends on Str to define slots
-        Base.initialize();
-
-        PROTOTYPE = new StrProto();
-
-        STR_PARENT = Sym.parent.str;
-    }
 
     public Str(String value) {
         this.value = value;
@@ -87,7 +110,7 @@ public class Str extends AbstractObj implements NativeObj {
     }
 
     public Obj getParent() {
-        return slots.get(STR_PARENT);
+        return slots.get(SYM_parent);
     }
 
     public String getValue() {
@@ -126,7 +149,13 @@ public class Str extends AbstractObj implements NativeObj {
         return this;
     }
 
+    public static Str toSym(String name) {
+        return new Str(name).intern();
+    }
+
     public static class StrProto extends AbstractObj implements NativeObj {
+        public static final StrProto instance = new StrProto();
+
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(args[0].toString());
@@ -139,8 +168,11 @@ public class Str extends AbstractObj implements NativeObj {
             }
         };
 
-        public StrProto() {
-            slots.put(Sym._add.str, nativeAdd);
+        private StrProto() {
+        }
+
+        public static void initialize() {
+            instance.slots.put(SYM_add, nativeAdd);
         }
 
         public Call getNativeConstructor() {
@@ -148,7 +180,7 @@ public class Str extends AbstractObj implements NativeObj {
         }
 
         public Obj getParent() {
-            return slots.get(STR_PARENT);
+            return slots.get(SYM_parent);
         }
     }
 }

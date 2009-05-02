@@ -1,7 +1,5 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class ThrowStatement extends AbstractStatement {
@@ -17,9 +15,6 @@ public class ThrowStatement extends AbstractStatement {
 
     public void setExpression(Expression expression) {
         this.expression = expression;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
     }
 
     public void accept(ExpressionVisitor visitor) {

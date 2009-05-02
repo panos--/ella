@@ -63,6 +63,10 @@ scope Block {
 		return script();
 	}
 	
+	public Block parseIncremental(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+		return scriptIncremental(scope);
+	}
+	
 	protected boolean verbose = false;
 
 	private void print(String msg) {
@@ -96,11 +100,19 @@ scope Block, Scope;
 	$Scope::scope.addVariable("JArray");
 	$Scope::scope.addVariable("JClass");
 	
-	$Block::block = new Block($Scope::scope);
+	$Block::block = new Block($Scope::scope, false);
 }
 @after{
 	$value = (Block)$Block::block;
 }
+	:	statement*
+	;
+
+// Entry point for incremental script parsing - takes a saved scope as argument which is used as initial scope
+scriptIncremental [ Scope scope ] returns [ Block value ]
+scope Block, Scope;
+@init { $Scope::scope = $scope; $Block::block = new Block($scope, false); }
+@after { $value = (Block)$Block::block; }
 	:	statement*
 	;
 
@@ -124,14 +136,15 @@ unscopedBlock returns [ Statement value ]
 blockStmt returns [ Statement value ]
 scope Scope;
 @init { $Scope::scope = new Scope($Scope[-1]::scope); }
-	:	blk=unscopedBlockStmt { $value = $blk.value; }
+	:	blk=unscopedBlockStmt { $blk.value.setScoped(true); $value = $blk.value; }
 	;
 
-unscopedBlockStmt returns [ Statement value ]
+unscopedBlockStmt returns [ Block value ]
 scope Block;
 @init {
-	$Block::block = new Block($Scope::scope);
-	$value = $Block::block;
+	Block block = new Block($Scope::scope, false);
+	$Block::block = block;
+	$value = block;
 }
 	:	^(BLOCK statement*)
 	;
@@ -465,7 +478,7 @@ slotCallExpression returns [ SlotCallExpression value ]
 	:	slotExpr=slotExpressionRHS { $value = new SlotCallExpression($slotExpr.value); }
 		(callArgs=argumentsList { $value.setArguments($callArgs.value); })?
 		(blockArg=blockClosure { $value.addArgument($blockArg.value); })?
-		(SUPER { $value.setCallSuper(true); })?
+		(SUPER { $value.setSuperCall(true); })?
 	;
 
 funcCallExpression returns [ AbstractFunctionCallExpression value ]

@@ -19,6 +19,8 @@ import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.Drivers;
+import org.unbunt.sqlscript.support.TailCallOptimizer;
+import org.unbunt.sqlscript.support.Scope;
 import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;
@@ -153,7 +155,7 @@ public class SQLScript extends VolatileObservable implements Observer {
                     try {
                         tokenize(input);
                         parseTokens();
-                        parseTree();
+                        parseTreeIncremental();
                         runBlock();
                     } catch (SQLScriptParseException e) {
                         if (e.isCausedBy(UnterminatedStringException.class)) {
@@ -395,6 +397,38 @@ public class SQLScript extends VolatileObservable implements Observer {
         //walker.setScriptContext(context);
         try {
             block = walker.parse();
+            TailCallOptimizer.process(block);
+        } catch (RecognitionException e) {
+            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+                                              walker.getErrorHeader(e) + " " +
+                                              walker.getErrorMessage(e, walker.getTokenNames()),
+                                              e);
+        } catch (SQLScriptRuntimeException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            throw new SQLScriptRuntimeException(e.getMessage(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected Scope savedScope = null;
+
+    protected void parseTreeIncremental() throws SQLScriptParseException, SQLScriptRuntimeException {
+        CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
+        nodes.setTokenStream(tokens);
+
+        SQLScriptWalker walker = new SQLScriptWalker(nodes);
+        //walker.setScriptContext(context);
+        try {
+            if (savedScope == null) {
+                block = walker.parse();
+            }
+            else {
+                block = walker.parseIncremental(savedScope);
+            }
+            savedScope = block.getScope();
+            TailCallOptimizer.process(block);
         } catch (RecognitionException e) {
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
                                               walker.getErrorHeader(e) + " " +

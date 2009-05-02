@@ -1,12 +1,9 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class SlotCallExpression extends AbstractFunctionCallExpression {
     protected SlotExpression slotExpression;
-    protected boolean callSuper = false;
 
     public SlotCallExpression(SlotExpression slotExpression) {
         this.slotExpression = slotExpression;
@@ -23,12 +20,17 @@ public class SlotCallExpression extends AbstractFunctionCallExpression {
         this.slotExpression = slotExpression;
     }
 
-    public boolean isCallSuper() {
-        return callSuper;
+    public boolean isSuperCall() {
+        return (callFlags & CALL_FLAG_SUPER) != 0;
     }
 
-    public void setCallSuper(boolean callSuper) {
-        this.callSuper = callSuper;
+    public void setSuperCall(boolean superCall) {
+        if (superCall) {
+            callFlags |= CALL_FLAG_SUPER;
+        }
+        else {
+            callFlags &= ~CALL_FLAG_SUPER;
+        }
     }
 
     public void accept(ExpressionVisitor visitor) {

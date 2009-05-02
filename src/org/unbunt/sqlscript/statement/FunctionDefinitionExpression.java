@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Function;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.Function;
 import org.unbunt.sqlscript.support.Variable;
 
 public class FunctionDefinitionExpression extends AbstractExpression implements StatementContainer {
@@ -45,10 +43,6 @@ public class FunctionDefinitionExpression extends AbstractExpression implements 
 
     public void addStatement(Expression expression) {
         function.setBody(expression);
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

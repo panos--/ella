@@ -1,8 +1,6 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
 import org.unbunt.sqlscript.lang.Str;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class IdentifierExpression extends AbstractExpression {
@@ -27,9 +25,6 @@ public class IdentifierExpression extends AbstractExpression {
 
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
     }
 
     public void accept(ExpressionVisitor visitor) {

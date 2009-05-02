@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
-import org.unbunt.sqlscript.support.ObjectLiteral;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.ObjectLiteral;
 
 public class ObjectLiteralExpression extends AbstractExpression {
     protected ObjectLiteral objectLiteral;
@@ -18,9 +16,6 @@ public class ObjectLiteralExpression extends AbstractExpression {
 
     public void setObjectLiteral(ObjectLiteral objectLiteral) {
         this.objectLiteral = objectLiteral;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
     }
 
     public void accept(ExpressionVisitor visitor) {

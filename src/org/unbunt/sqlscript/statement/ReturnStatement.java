@@ -1,11 +1,11 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class ReturnStatement extends AbstractStatement {
     protected Expression expression = null;
+
+    protected boolean optimizeForTailCall = false;
 
     public ReturnStatement() {
     }
@@ -22,7 +22,12 @@ public class ReturnStatement extends AbstractStatement {
         this.expression = expression;
     }
 
-    public void accept(ScriptProcessor processor, Env env) {
+    public boolean isOptimizeForTailCall() {
+        return optimizeForTailCall;
+    }
+
+    public void setOptimizeForTailCall(boolean optimizeForTailCall) {
+        this.optimizeForTailCall = optimizeForTailCall;
     }
 
     public void accept(ExpressionVisitor visitor) {

@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Scope;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.Scope;
 
 public class IfStatement extends AbstractStatement implements StatementContainer {
     protected Expression condition = null;
@@ -62,10 +60,6 @@ public class IfStatement extends AbstractStatement implements StatementContainer
         else {
             falseStatement = statement;
         }
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

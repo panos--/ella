@@ -25,7 +25,7 @@ public class Clos extends PlainObj implements Call {
 
     public Clos(BlockClosure closure) {
         this.closure = closure;
-        this.slots.put(Str.Sym._while.str, nativeWhile);
+        this.slots.put(Str.SYM_while, nativeWhile);
     }
 
     public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {

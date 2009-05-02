@@ -6,23 +6,26 @@ import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ContinuationVisitor;
 
 import java.util.List;
-import java.util.Iterator;
 
 public class BlockCont implements Continuation {
     protected Block block;
-    protected Env env;
+    protected Env savedEnv;
 
     protected List<Statement> statements;
     protected int stmtCount;
     protected int currStmt;
 
     public BlockCont(Block block) {
-        this(block, null);
+        this.block = block;
+        this.savedEnv = null;
+        this.statements = block.getStatements();
+        this.stmtCount = this.statements.size();
+        this.currStmt = 0;
     }
 
-    public BlockCont(Block block, Env env) {
+    public BlockCont(Block block, Env savedEnv) {
         this.block = block;
-        this.env = env;
+        this.savedEnv = savedEnv;
         this.statements = block.getStatements();
         this.stmtCount = this.statements.size();
         this.currStmt = 0;
@@ -40,8 +43,16 @@ public class BlockCont implements Continuation {
         return block;
     }
 
-    public Env getEnv() {
-        return env;
+    public Env getSavedEnv() {
+        return savedEnv;
+    }
+
+    public boolean isScoped() {
+        return block.isScoped();
+    }
+
+    public boolean isOptimizeForTailCall() {
+        return block.isOptimizeForTailCall();
     }
 
     public void accept(ContinuationVisitor visitor) {

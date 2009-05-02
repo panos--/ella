@@ -17,7 +17,7 @@ public class Bool extends PlainObj implements NativeObj {
 
     private Bool(boolean value) {
         this.value = value;
-        slots.put(Str.Sym.parent.str, Base.instance);
+        slots.put(Str.SYM_parent, Base.instance);
     }
 
     public Call getNativeConstructor() {

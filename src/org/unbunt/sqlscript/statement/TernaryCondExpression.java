@@ -1,8 +1,6 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
-import org.unbunt.sqlscript.ScriptProcessor;
 
 public class TernaryCondExpression extends AbstractExpression {
     protected Expression condition;
@@ -39,10 +37,6 @@ public class TernaryCondExpression extends AbstractExpression {
 
     public void setFalseExpression(Expression falseExpression) {
         this.falseExpression = falseExpression;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

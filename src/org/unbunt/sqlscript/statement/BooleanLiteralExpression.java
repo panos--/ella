@@ -2,8 +2,6 @@ package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.lang.Bool;
 import org.unbunt.sqlscript.lang.Obj;
-import org.unbunt.sqlscript.ScriptProcessor;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class BooleanLiteralExpression extends AbstractExpression {
@@ -20,10 +18,6 @@ public class BooleanLiteralExpression extends AbstractExpression {
     @Override
     public Obj getValue() {
         return getBool();
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

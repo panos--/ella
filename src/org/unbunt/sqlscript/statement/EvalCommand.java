@@ -1,10 +1,8 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.Parameters;
-import org.unbunt.sqlscript.support.Parameter;
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
-import org.unbunt.sqlscript.ScriptProcessor;
+import org.unbunt.sqlscript.support.Parameter;
+import org.unbunt.sqlscript.support.Parameters;
 
 public class EvalCommand extends AbstractAnnotatableStatement {
     protected String name;
@@ -37,10 +35,6 @@ public class EvalCommand extends AbstractAnnotatableStatement {
             buf.append(" ").append(param.toString());
         }
         return buf.toString();
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

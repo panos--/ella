@@ -37,8 +37,8 @@ public class Sys extends PlainObj {
     public static final Sys instance = new Sys();
 
     public Sys() {
-        slots.put(Str.Sym.parent.str, Base.instance);
-        slots.put(Str.Sym.print.str, nativePrint);
-        slots.put(Str.Sym.importPackage.str, nativeImportPackage);
+        slots.put(Str.SYM_parent, Base.instance);
+        slots.put(Str.SYM_print, nativePrint);
+        slots.put(Str.SYM_importPackage, nativeImportPackage);
     }
 }

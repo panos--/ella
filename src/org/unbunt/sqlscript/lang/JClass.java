@@ -29,9 +29,15 @@ public class JClass extends PlainObj implements NativeObj {
 
             if (args.length == 0) {
                 try {
-                    return new JObject(cls.getConstructor());
+                    return new JObject(cls.getConstructor().newInstance());
                 } catch (NoSuchMethodException e) {
                     throw new SQLScriptRuntimeException(e);
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
                 }
             }
 

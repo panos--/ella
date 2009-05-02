@@ -4,7 +4,7 @@ public class Null extends PlainObj {
     public static final Null instance = new Null();
 
     public Null() {
-        slots.put(Str.Sym.parent.str, Base.instance);
+        slots.put(Str.SYM_parent, Base.instance);
     }
 
     @Override

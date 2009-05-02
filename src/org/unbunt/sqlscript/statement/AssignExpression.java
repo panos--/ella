@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.Env;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Variable;
-import org.unbunt.sqlscript.ScriptProcessor;
 
 public class AssignExpression extends AbstractExpression {
     protected Variable variable;
@@ -28,10 +26,6 @@ public class AssignExpression extends AbstractExpression {
 
     public void setRvalue(Expression rvalue) {
         this.rvalue = rvalue;
-    }
-
-    public void accept(ScriptProcessor processor, Env env) {
-        processor.process(env, this);
     }
 
     public void accept(ExpressionVisitor visitor) {

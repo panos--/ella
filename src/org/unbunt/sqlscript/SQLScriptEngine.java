@@ -34,9 +34,9 @@ public class SQLScriptEngine
     protected final static Map<String, String> annotations;
 
     public static final String SLOT_PARENT = "parent";
-    public static final Str STR_SLOT_PARENT = Str.Sym.parent.str;
+    public static final Str STR_SLOT_PARENT = Str.SYM_parent;
     public static final String SLOT_INIT  = "init";
-    public static final Str STR_SLOT_INIT = Str.Sym.init.str;
+    public static final Str STR_SLOT_INIT = Str.SYM_init;
 
     static {
         commands = new HashMap<String, String>();
@@ -112,9 +112,6 @@ public class SQLScriptEngine
     }
 
     public static SQLScriptEngine create(SQLScriptContext context) {
-//        VisitorGenerator vg = new VisitorGenerator();
-//        SQLScriptEngine engine = vg.createVisitor(SQLScriptEngine.class);
-//        engine.setContext(context);
         return new SQLScriptEngine(context);
     }
 
@@ -122,16 +119,13 @@ public class SQLScriptEngine
     protected Obj val;
     protected Env env = null;
 
+    // TODO: dynamically increase cont stack size to allow non-tail-recursion to occur up until the heap runs out
     protected int MAX_CONT_STACK = 4096;
     protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
     protected int pc;
 
-    // flag indicating if currently evaluated statement is in tail position
-    // decision whether to perform tail call optimization on function calls
-    // is based on this flag
-    protected boolean tailCall = false;
-
     public void process(Block block) throws SQLScriptRuntimeException {
+        next = EVAL;
         stmt = block;
         val = null;
         if (env == null) {
@@ -194,16 +188,15 @@ public class SQLScriptEngine
 
     protected void eval() {
         stmt.accept(this);
-//        processExpressionAppropriate(stmt);
     }
 
-//    public abstract void processExpressionAppropriate(Statement stmt);
-
     public void processExpression(Block blockExpression) {
-        BlockCont blockCont = blockExpression.isKeepEnv()
-                              ? new BlockCont(blockExpression)
-                              : new BlockCont(blockExpression, new StaticEnv(env));
-        cont[++pc] = blockCont;
+        if (blockExpression.isScoped()) {
+            cont[++pc] = new BlockCont(blockExpression, new StaticEnv(env));
+        }
+        else {
+            cont[++pc] = new BlockCont(blockExpression);
+        }
         next = CONT;
     }
 
@@ -370,7 +363,7 @@ public class SQLScriptEngine
 
     public void processExpression(FunctionCallExpression functionCallExpression) {
         stmt = functionCallExpression.getExpression();
-        cont[++pc] = new CallCont(functionCallExpression.getArguments());
+        cont[++pc] = new CallCont(functionCallExpression.getArguments(), functionCallExpression.getCallFlags());
         next = EVAL;
     }
 
@@ -383,33 +376,35 @@ public class SQLScriptEngine
 
     public void processExpression(ReturnStatement returnStatement) {
         // tail-call optimization
-        boolean pushCont = true;
-        for (int i = pc; i >= 0; i--) {
-            Continuation c = cont[i];
-            if (c instanceof ClosRetCont) {
-                break;
+        if (returnStatement.isOptimizeForTailCall()) {
+            for (int i = pc; i >= 0; i--) {
+                Continuation c = cont[i];
+                if (c instanceof FunRetCont) {
+                    pc = i;
+                }
             }
-            if (c instanceof FunRetCont) {
-                pc = i;
-                pushCont = false;
-                break;
-            }
-            if (c instanceof TryCont || c instanceof FinallyCont) {
-                break;
-            }
-        }
 
-        if (pushCont) {
-            cont[++pc] = new ReturnCont();
-        }
-
-        if (returnStatement.hasExpression()) {
+            // assumes optimziation is performed only on return statements having function calls as expression
+            // which implies there must be an expression - therefore not calling hasExpression() in this case
             stmt = returnStatement.getExpression();
             next = EVAL;
         }
         else {
-            val = Null.instance;
-            next = CONT;
+            cont[++pc] = new ReturnCont();
+
+            if (returnStatement.hasExpression()) {
+                stmt = returnStatement.getExpression();
+                next = EVAL;
+            }
+            else {
+                // NOTE: change in semantics
+                // return statement without expression make the associated function return the value of the
+                // last evaluated expression
+                // TODO: is this feasible? what about functions containing only a return statement without an expression?
+                // TODO: should possibly make function initialize current value with null...
+                //val = Null.instance;
+                next = CONT;
+            }
         }
     }
 
@@ -509,10 +504,7 @@ public class SQLScriptEngine
 
     protected void cont() {
         cont[pc].accept(this);
-//        processContinuationAppropriate(cont[pc]);
     }
-
-//    public abstract void processContinuationAppropriate(Continuation cont);
 
     public void processContinuation(EndCont endCont) {
         pc--;
@@ -522,10 +514,8 @@ public class SQLScriptEngine
     public void processContinuation(BlockCont blockCont) {
         if (!blockCont.hasNextStatement()) {
             // aleady processed last statement of block, leaving
-            Env savedEnv = blockCont.getEnv();
-            if (savedEnv != null) {
-                // not restoring environment is important for incremental running of script in interactive mode
-                env = savedEnv;
+            if (blockCont.isScoped()) {
+                env = blockCont.getSavedEnv();
             }
             pc--;
             next = CONT;
@@ -533,14 +523,8 @@ public class SQLScriptEngine
         else {
             stmt = blockCont.nextStatement();
             // tail-call optimization
-            if (!blockCont.hasNextStatement()) {
-                tailCall = true;
-                if (cont[pc - 1] instanceof FunRetCont) {
-                    pc--;
-                }
-            }
-            else {
-                tailCall = false;
+            if (!blockCont.hasNextStatement() && blockCont.isOptimizeForTailCall()) {
+                pc--;
             }
             next = EVAL;
         }
@@ -802,7 +786,7 @@ public class SQLScriptEngine
             val = Null.instance;
         }
 
-        cont[pc] = new CallCont(receiver, slotCallSlotCont.getArguments(), slotCallSlotCont.isCallSuper());
+        cont[pc] = new CallCont(receiver, slotCallSlotCont.getArguments(), slotCallSlotCont.getCallFlags());
         next = CONT;
     }
 
@@ -828,7 +812,7 @@ public class SQLScriptEngine
             else {
                 funcEnv.setThis(callCont.getContext());
             }
-            cont[pc] = new CallArgCont(func, funcEnv, savedEnv);
+            cont[pc] = new CallArgCont(func, funcEnv, savedEnv, callCont.isTailCall());
         }
         else if (val instanceof Clos) {
             Clos closObj = (Clos) val;
@@ -884,7 +868,7 @@ public class SQLScriptEngine
         Callable callable = callArgCont.getCallable();
         if (callable instanceof Function) {
             // tail-call optimization
-            if (tailCall && cont[pc - 2] instanceof FunRetCont) {
+            if (callArgCont.isTailCall()) {
                 pc--;
             }
             else {
@@ -1034,7 +1018,7 @@ public class SQLScriptEngine
                 return;
             }
             else if (c instanceof FunRetCont) {
-                pc = i + 1;
+                pc = i;
                 if (returnCont.hasSavedValue()) {
                     val = returnCont.getSavedValue();
                 }
@@ -1057,14 +1041,6 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(NewCont newCont) {
-//        if (val instanceof JClass) {
-//            cont[pc] = new CallCont(val, newCont.getArguments());
-//            val = JClass.nativeCreateInstance;
-//        }
-//        else if (val instanceof JArrayProto) {
-//            cont[pc] = new CallCont(val, newCont.getArguments());
-//            val = JArray.nativeCreateInstance;
-//        }
         if (val instanceof NativeObj) {
             NativeObj context = (NativeObj) val;
             Call nativeConstructor = context.getNativeConstructor();
@@ -1075,9 +1051,6 @@ public class SQLScriptEngine
             Obj parent = val;
             Obj newObj = new PlainObj();
             newObj.setSlot(STR_SLOT_PARENT, parent);
-//            cont[pc]   = new NewResultCont(newObj);
-//            cont[++pc] = new CallCont(newObj, newCont.getArguments());
-//            cont[++pc] = new SlotGetSlotCont(newObj);
 
             Obj initSlot = parent.getSlot(STR_SLOT_INIT);
             while (initSlot == null) {
