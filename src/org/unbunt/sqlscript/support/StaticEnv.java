@@ -10,7 +10,7 @@ public class StaticEnv extends AbstractEnv {
     protected Obj context = null;
     protected Obj receiver = null;
 
-    public StaticEnv() {
+    protected StaticEnv() {
         super(new TopEnv());
     }
 

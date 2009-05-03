@@ -1,3 +1,10 @@
+select * from foo;
+
+sql {
+    insert into foo;
+}
+
+/*
 var obj := {
     foo = fun (block) {
         . block('hello world!');
@@ -5,6 +12,7 @@ var obj := {
 };
 
 . obj foo { msg => \echo msg='bin msg: @{msg}'; };
+*/
 
 /*
 fun foo(block) {

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TopEnv implements Env {
     protected ArrayList<Obj> vars = new ArrayList<Obj>();
 
-    public TopEnv() {
+    protected TopEnv() {
     }
 
     public Obj get(Variable var) {
@@ -68,7 +68,7 @@ public class TopEnv implements Env {
     }
 
     public int getMaxAddress() {
-        throw new RuntimeException("TopEnv.getMaxAddress() should not be called");
+        return -1;
     }
 
     public Obj getContext() {

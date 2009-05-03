@@ -256,12 +256,18 @@ tokens {
 	}
 }
 
-script	:	statement* EOF
+script	:	topStatement* EOF
 	;
 
 scriptIncremental
-	:	statement
+	:	topStatement
 	|	EOF { eof = true; }
+	;
+
+topStatement
+	:	topStatementSep SEP!
+	|	statementNoSep
+	|	SEP!
 	;
 
 statement
@@ -274,8 +280,14 @@ statement
 	|	SEP!
 	;
 
-statementSep
+topStatementSep
 	:	annotations! (evalStmt[$annotations.tree] | sqlStmt[$annotations.tree])
+	|	topScriptStmtSep
+	|	parseDirective!
+	;
+
+statementSep
+	:	annotations! (evalStmt[$annotations.tree] | sqlStmtPrefixed[$annotations.tree])
 	|	scriptStmtSep
 	|	parseDirective!
 	;
@@ -283,15 +295,13 @@ statementSep
 statementNoSep
 	:	scriptStmtNoSep
 	|	block
+	|	sqlBlock
 	;
-
-/*
-statementList
-	:	(statementSep SEP! | statementNoSep)*
-	;
-*/
 
 block	:	LCURLY statement* RCURLY -> ^(BLOCK statement*)
+	;
+
+sqlBlock:	KW_SQL LCURLY topStatement* RCURLY -> ^(BLOCK topStatement*)
 	;
 
 evalStmt [ CommonTree annotations ]
@@ -307,7 +317,30 @@ evalParam
 	|	paramName                   -> ^(EVAL_ARG PARAM_NAME paramName)
 	;
 
+sqlStmtPrefixed [ CommonTree annotations ]
+	:	sqlStmtNamePrefixed
+		sqlStmtRest[$sqlStmtNamePrefixed.tree, $annotations]	-> sqlStmtRest
+	;
+
 sqlStmt	[ CommonTree annotations ]
+	:	sqlStmtName
+		sqlStmtRest[$sqlStmtName.tree, $annotations]	-> sqlStmtRest
+	;
+
+sqlStmtNamePrefixed
+	:	KW_SQL!
+		( keyword | WORD | embeddedVar
+		// NOTE: LCURLY disabled due to introduction of sql-block syntax (cover jdbc-call syntax somehow else)
+		//| LCURLY // to support JDBC escape syntax for generic stored procedure calls
+		)
+	;
+
+sqlStmtName
+	:	WORD
+	|	sqlStmtNamePrefixed
+	;
+
+sqlStmtRest [ CommonTree sqlStmtName, CommonTree annotations ]
 @init {
 	LazyTokenStream tokens = (LazyTokenStream) input;
 	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
@@ -319,15 +352,7 @@ sqlStmt	[ CommonTree annotations ]
 	lexer.setAllowQQuote(false);
 	lexer.setAllowDollarQuote(false);
 }
-	:	sqlStmtName sqlParam* -> ^(SQL_CMD sqlStmtName sqlParam* { $annotations })
-	;
-
-sqlStmtName
-	:	KW_SQL!
-		( keyword | WORD | embeddedVar
-		| LCURLY // to support JDBC escape syntax for generic stored procedure calls
-		)
-	|	WORD
+	:	sqlParam* -> ^(SQL_CMD {$sqlStmtName} sqlParam* {$annotations})
 	;
 
 sqlParam
@@ -353,20 +378,18 @@ sqlSpecialChar
 	|	DOUBLE_ARROW
 	;
 
-/*
-scriptStmt
-	:	scriptStmtSep SEP!
-	|	scriptStmtNoSep
-	;
-*/
-
-scriptStmtSep
+topScriptStmtSep
 	:	scriptAssignStmt
-	|	scriptExpressionStmt
+	|	scriptExpressionStmt // requires leading dot
 	|	scriptThrow
 	|	scriptReturn
 	|	scriptExit
 	|	scriptImport
+	;
+
+scriptStmtSep
+	:	expressionStmt // expression statements anywhere below the top-level may by notated wihout leading dot
+	|	topScriptStmtSep
 	;
 
 scriptStmtNoSep
@@ -478,11 +501,11 @@ parenExpression
 // NOTE: No objectLiteral, no block closure here as it would interfere with block statements
 expressionStmt
 	:	assignExpression
-	|	scriptFuncDef
 	;
 
 expression
 	:	expressionStmt
+	|	scriptFuncDef // no anonymous function declarations as top-level statements
 	|	objectLiteral
 	;
 
@@ -555,7 +578,6 @@ unaryExpression
 	;
 
 callExpression
-	//:	(KW_NEW simpleExpression argumentsList) -> ^(NEW simpleExpression argumentsList?)
 	:	(simpleExpression -> simpleExpression)
 		((callExpressionSuffix[$callExpression.tree]	-> callExpressionSuffix
 		 )+
@@ -647,7 +669,9 @@ identifier
 // NOTE: ordinary identifiers separated out as required by binaryExpression rule to prevent non-LL(*) decision
 identifierNoOps
 	:	( word=WORD		-> IDENTIFIER[$word]
-		| annot=ANNOTATION	-> IDENTIFIER[$annot] // annotations are a special case of the identifier syntax
+		// NOTE: Removed support for identifiers starting with an at-sign becuse it results in conflicts now
+		//       that expressions can be stated without a leading dot, so that they can start with an identifier
+		//| annot=ANNOTATION	-> IDENTIFIER[$annot] // annotations are a special case of the identifier syntax
 		| IDENTIFIER		-> IDENTIFIER
 		)
 	;

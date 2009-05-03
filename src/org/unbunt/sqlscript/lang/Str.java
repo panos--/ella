@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Str extends AbstractObj implements NativeObj {
+public class Str extends AbstractObj {
     protected static Map<String, Str> pool = new HashMap<String, Str>();
 
     public static final Str SYM_parent = toSym("parent");
@@ -21,6 +21,7 @@ public class Str extends AbstractObj implements NativeObj {
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_while = toSym("while");
     public static final Str SYM_call = toSym("call");
+    public static final Str SYM_noop = toSym("noop");
     public static final Str SYM_add = toSym("+");
     public static final Str SYM_sub = toSym("-");
     public static final Str SYM_mul = toSym("*");
@@ -35,67 +36,15 @@ public class Str extends AbstractObj implements NativeObj {
     public static final Str SYM_id = toSym("===");
     public static final Str SYM_ni = toSym("!==");
 
-    /*
-    public static enum Sym {
-        parent,
-        _new ("new"),
-        init,
-        set,
-        get,
-        print,
-        each,
-        eachSlot,
-        length,
-        importPackage,
-        _while ("while"),
-        _add ("+"),
-        _sub ("-"),
-        _mul ("*"),
-        _div ("/"),
-        _mod ("%"),
-        _gt (">"),
-        _ge (">="),
-        _lt ("<"),
-        _le ("<="),
-        _eq ("=="),
-        _ne ("!="),
-        _id ("==="),
-        _ni ("!=="),
-        ;
-
-        public final Str str;
-
-        Sym() {
-            this.str = new Str(this.name()).intern();
-        }
-
-        Sym(String name) {
-            this.str = new Str(name).intern();
-        }
-    }
-    */
-
     protected final String value;
 
     public static final StrProto PROTOTYPE = StrProto.instance;
 
     static {
-        // trigger initialization of Sym enum before it is used
-//        for (Sym sym : Sym.values()) {
-//            sym.hashCode();
-//        }
-
-        // initialize Base, which depends on Str to define slots
+        // initialize Base and StrProto, both of which depend on Str to define slots
         Base.initialize();
-
         StrProto.initialize();
     }
-
-    public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-            return new Str(((Str) args[0]).getValue());
-        }
-    };
 
     public Str(String value) {
         this.value = value;
@@ -104,10 +53,6 @@ public class Str extends AbstractObj implements NativeObj {
     @Override
     public Obj getImplicitParent() {
         return PROTOTYPE;
-    }
-
-    public Call getNativeConstructor() {
-        return NATIVE_CONSTRUCTOR;
     }
 
     public Obj getParent() {

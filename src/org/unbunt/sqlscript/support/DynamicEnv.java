@@ -48,7 +48,7 @@ public class DynamicEnv extends AbstractEnv {
         if (value != null) {
             return value;
         }
-        value = resolver.resolve(name);
+        value = resolver.resolve(var);
         return value != null ? value : parent.get(var, addr);
     }
 

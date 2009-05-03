@@ -5,7 +5,7 @@ fun loop(n) {
         return 0;
     }
 
-    --.p(n);
+    .noop();
     return loop(n - 1);
 }
 

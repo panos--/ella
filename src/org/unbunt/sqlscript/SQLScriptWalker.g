@@ -92,13 +92,9 @@ script returns [ Block value ]
 scope Block, Scope;
 @init {
 	$Scope::scope = new Scope();
-	// TODO: implement scheme supporting automatic synchronization of implicit variables
-	// TODO: with env initialization in SQLScriptEngine.process(Block)
-	// register default global variables
-	$Scope::scope.addVariable("Null");
-	$Scope::scope.addVariable("Sys");
-	$Scope::scope.addVariable("JArray");
-	$Scope::scope.addVariable("JClass");
+	for (Globals global : Globals.values()) {
+		$Scope::scope.addVariable(global.getIdentifier());
+	}
 	
 	$Block::block = new Block($Scope::scope, false);
 }

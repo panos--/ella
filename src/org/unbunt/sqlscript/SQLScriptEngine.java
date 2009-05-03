@@ -9,6 +9,7 @@ import org.unbunt.sqlscript.statement.*;
 import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.StringUtils;
+import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.utils.VolatileObservable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -124,16 +125,22 @@ public class SQLScriptEngine
     protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
     protected int pc;
 
+    protected Obj GLOBAL_CONTEXT = Sys.instance;
+
     public void process(Block block) throws SQLScriptRuntimeException {
         next = EVAL;
         stmt = block;
         val = null;
         if (env == null) {
-            env = new StaticEnv();
-            env.add(Null.instance);
-            env.add(Sys.instance);
-            env.add(JArray.PROTOTYPE);
-            env.add(JClass.PROTOTYPE);
+            DynamicVariableResolver globalResolver = new DynamicVariableResolver() {
+                public Obj resolve(Variable var) {
+                    return ObjUtils.getSlot(GLOBAL_CONTEXT, var.nameStr);
+                }
+            };
+            env = new MainEnv(globalResolver);
+            for (Globals global : Globals.values()) {
+                env.add(global.getValue());
+            }
         }
         pc = 0;
         cont[pc] = new EndCont();

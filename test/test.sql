@@ -1,14 +1,27 @@
+select * from foo;
+
+fun foo() {
+    print('hello world!');
+}
+
+.(fun () {
+    print('whoa!!!');
+});
+
+.print(alskdalksd);
+
+.print('foo');
 
 var A := {
     A = 'A',
     name = 'A',
     bark = fun () {
-        .Sys.print('A: wuff!');
-        .this.bell();
+        Sys.print('A: wuff!');
+        this.bell();
         --return;
     },
     bell = fun () {
-        .Sys.print('A: wau!');
+        Sys.print('A: wau!');
         --return;
     },
     getName = fun () {
@@ -21,14 +34,14 @@ var B := {
     name = 'B',
     parent = A,
     bark = fun () {
-        .super.bark();
-        .Sys.print('B: wuff! wuff!');
+        super.bark();
+        Sys.print('B: wuff! wuff!');
         --return;
     },
     bell = fun() {
-        .Sys.print('calling super.bell()');
-        .{=> .super.bell(); }();
-        .Sys.print('B: wau! wau!');
+        Sys.print('calling super.bell()');
+        ({=> .super.bell(); })();
+        Sys.print('B: wau! wau!');
         return;
     },
     getName = fun () {
