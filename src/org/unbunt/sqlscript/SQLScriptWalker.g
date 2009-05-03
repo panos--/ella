@@ -210,7 +210,7 @@ scriptStmt
 	|	scriptReturn
 	|	scriptExit
 	|	scriptImport
-	|	expressionStmt
+		|	expressionStmt
 	;
 
 scriptIfElse returns [ Statement value ]
@@ -269,11 +269,42 @@ scriptExit returns [ ExitStatement value ]
 		}
 	;
 
-scriptImport //returns [ ImportStatement value ]
-	:	^(IMPORT_PACKAGE importIdentifier)
+scriptImport returns [ Expression value ]
+@after { $Block::block.addStatement($value); }
+	:	^(IMPORT_PACKAGE pkg=importIdentifier)
+		{
+			Variable sysVar = $Scope::scope.getVariable("Sys");
+			SlotExpression slotExpression = new SlotExpression(new VariableExpression(sysVar), new IdentifierExpression("importPackage"));
+			SlotCallExpression slotCallExpression = new SlotCallExpression(slotExpression);
+			slotCallExpression.addArgument(new IdentifierExpression($pkg.value));
+			$value = slotCallExpression;
+		}
 	|	^(IMPORT_CLASS
-			(^(AS identifier)|)
-			importIdentifier)
+			(^(AS classAlias=identifier)|)
+			className=importIdentifier)
+		{
+			String varName;
+			if ($classAlias.value == null) {
+				String alias = $className.value;
+				varName = alias.substring(alias.lastIndexOf(".") + 1);
+			}
+			else {
+				varName = $classAlias.value;
+			}
+			
+			Variable jclassVar = $Scope::scope.getVariable("JClass");
+			
+			List<Expression> newArgs = new ArrayList<Expression>();
+			newArgs.add(new IdentifierExpression($className.value));
+			NewExpression newExpression = new NewExpression(new VariableExpression(jclassVar), newArgs);
+			
+			Variable classVar = $Scope::scope.addVariable(varName);
+			DeclareVariableExpression declareExpression = new DeclareVariableExpression(classVar);
+			AssignExpression assignExpression = new AssignExpression(classVar, newExpression);
+			DeclareAndAssignExpression declareAndAssignExpression = new DeclareAndAssignExpression(declareExpression, assignExpression);
+			
+			$value = declareAndAssignExpression;
+		}
 	;
 
 importIdentifier returns [ String value ]

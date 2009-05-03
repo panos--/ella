@@ -1,14 +1,14 @@
-select * from foo;
-
-fun foo() {
-    print('hello world!');
+{
+import java.util.Date as MyDate;
+.print(new MyDate());
 }
 
-.(fun () {
-    print('whoa!!!');
-});
+exit;
 
-.print(alskdalksd);
+.Sys.importPackage('java.util');
+
+.print(new Date());
+exit;
 
 .print('foo');
 

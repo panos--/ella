@@ -9,7 +9,7 @@ public class IdentifierExpression extends AbstractExpression {
 
     public IdentifierExpression(String identifier) {
         this.identifier = identifier;
-        value = new Str(identifier).intern();
+        value = Str.toSym(identifier);
     }
 
     public IdentifierExpression() {

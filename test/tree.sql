@@ -1,8 +1,21 @@
+import java.util.*;
+
+.print(new Date());
+
+/*
+var @ := 'at';
+var o := {
+    @ = 'foo'
+};
+
+.print(o.@);
+
 select * from foo;
 
 sql {
     insert into foo;
 }
+*/
 
 /*
 var obj := {

@@ -199,7 +199,9 @@ public class SQLScriptEngine
 
     public void processExpression(Block blockExpression) {
         if (blockExpression.isScoped()) {
-            cont[++pc] = new BlockCont(blockExpression, new StaticEnv(env));
+            Env savedEnv = env;
+            env = new StaticEnv(env);
+            cont[++pc] = new BlockCont(blockExpression, savedEnv);
         }
         else {
             cont[++pc] = new BlockCont(blockExpression);
