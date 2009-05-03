@@ -127,7 +127,7 @@ public class SQLScriptEngine
 
     protected Obj GLOBAL_CONTEXT = Sys.instance;
 
-    public void process(Block block) throws SQLScriptRuntimeException {
+    public Object process(Block block) throws SQLScriptRuntimeException {
         next = EVAL;
         stmt = block;
         val = null;
@@ -156,6 +156,12 @@ public class SQLScriptEngine
                 throw new SQLScriptRuntimeException(e);
             }
         }
+
+        if (val == null) {
+            return null;
+        }
+
+        return val.toJavaObject();
     }
 
     protected final static boolean CONT = true;
@@ -1012,7 +1018,7 @@ public class SQLScriptEngine
                 BlockClosure closure = ((ClosRetCont) c).getClosure();
                 int homeOffset = closure.getHomeOffset();
                 Continuation homeCont = closure.getHomeCont();
-                if (homeOffset >= i || cont[homeOffset] != homeCont) {
+                if (homeOffset < 0 || homeOffset >= i || cont[homeOffset] != homeCont) {
                     throw new SQLScriptRuntimeException("Non-local return");
                 }
                 pc = homeOffset;

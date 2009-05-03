@@ -19,12 +19,13 @@ import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.Drivers;
-import org.unbunt.sqlscript.support.TailCallOptimizer;
 import org.unbunt.sqlscript.support.Scope;
+import org.unbunt.sqlscript.support.TailCallOptimizer;
 import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;
 import org.unbunt.utils.res.SimpleResource;
+import org.unbunt.utils.res.StringResource;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -227,11 +228,11 @@ public class SQLScript extends VolatileObservable implements Observer {
         }
     }
 
-    public void execute() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
+    public Object execute() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
         tokenize();
         parseTokens();
         parseTree();
-        run();
+        return run();
     }
 
     public void showAST() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
@@ -443,17 +444,18 @@ public class SQLScript extends VolatileObservable implements Observer {
         }
     }
 
-    protected void run() {
+    protected Object run() {
         initEngine();
-        runBlock();
+        Object result = runBlock();
         finish();
+        return result;
     }
 
-    protected void runBlock() {
+    protected Object runBlock() {
         // for interactive mode it is important to keep environment between
         // the separate run cycles
         block.setKeepEnv(true);
-        engine.process(block);
+        return engine.process(block);
     }
 
     protected void initEngine() {
@@ -480,6 +482,13 @@ public class SQLScript extends VolatileObservable implements Observer {
     /*
      * Static methods / Main program
      */
+
+    public static Object eval(String script) throws SQLScriptIOException, SQLScriptParseException {
+        SQLScriptContext ctx = new DefaultSQLScriptContext();
+        SimpleResource res = new StringResource(script);
+        SQLScript interp = new SQLScript(ctx, res);
+        return interp.execute();
+    }
 
     @SuppressWarnings({"UnusedDeclaration"})
     protected static void die(String msg, Exception e, int err) {

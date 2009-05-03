@@ -433,6 +433,9 @@
         <root url="file:///home/panos/java-lib/jmmf-0.8-src/src" />
         <root url="file:///home/panos/java-lib/jmmf-0.8-src/docs/examples" />
         <root url="file:///home/panos/java-lib/jmmf-0.8-src/test/src" />
+        <root url="jar:///home/panos/java-lib/junit-4.6-src.jar!/" />
+        <root url="file:///home/panos/java-lib/testng-5.9/src/main" />
+        <root url="file:///home/panos/java-lib/testng-5.9/src/jdk15" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
     </library>
