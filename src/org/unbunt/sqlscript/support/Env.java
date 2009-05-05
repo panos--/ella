@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.continuations.Continuation;
 
 public interface Env {
     void setContext(Obj context);
@@ -24,4 +25,10 @@ public interface Env {
     void add(Obj value);
 
     int getMaxAddress();
+
+    void setClosureHome(int offset, Continuation cont);
+
+    int getClosureHomeOffset();
+
+    Continuation getClosureHomeCont();
 }

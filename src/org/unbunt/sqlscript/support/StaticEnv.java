@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.continuations.Continuation;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,9 @@ public class StaticEnv extends AbstractEnv {
 
     protected Obj context = null;
     protected Obj receiver = null;
+
+    protected int closureHomeOffset = -1;
+    protected Continuation closureHomeCont = null;
 
     protected StaticEnv() {
         super(new TopEnv());
@@ -60,5 +64,20 @@ public class StaticEnv extends AbstractEnv {
 
     public int getMaxAddress() {
         return vars.size() - 1;
+    }
+
+    public void setClosureHome(int offset, Continuation cont) {
+        this.closureHomeOffset = offset;
+        this.closureHomeCont = cont;
+    }
+
+    // TODO: maybe subclass as FuncEnv, so we don't have to do the check all the time (since for function environments
+    //       closureHomeOffset will always be set which it doesn't for any other environment
+    public int getClosureHomeOffset() {
+        return closureHomeOffset == -1 ? parent.getClosureHomeOffset() : closureHomeOffset;
+    }
+
+    public Continuation getClosureHomeCont() {
+        return closureHomeCont == null ? parent.getClosureHomeCont() : closureHomeCont;
     }
 }

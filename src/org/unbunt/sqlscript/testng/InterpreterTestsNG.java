@@ -185,5 +185,29 @@ public class InterpreterTestsNG {
             assertTrue("Non-local return".equals(e.getMessage()),
                        "Incorrect exception thrown on non-local return in block invocation from foreign function");
         }
+
+        result = eval(
+                "{\n"
+                + "\n"
+                + "fun ifFunc (cond, trueBody) {\n"
+                + "    if (cond()) {\n"
+                + "        trueBody();\n"
+                + "    }\n"
+                + "    return 13;\n"
+                + "}\n"
+                + "\n"
+                + "fun test() {\n"
+                + "    ifFunc({=> 1 == 1; }, {=> ifFunc({=> 2 == 2; }, {=> return 42; }); });\n"
+                + "    return 23;\n"
+                + "}\n"
+                + "\n"
+                + "test();\n"
+                + "\n"
+                + "}"
+        );
+        assertNotNull(result);
+        assertTrue(result instanceof Number);
+        assertTrue(((Number)result).intValue() == 42,
+                   "Nested block closure returns to wrong home function");
     }
 }

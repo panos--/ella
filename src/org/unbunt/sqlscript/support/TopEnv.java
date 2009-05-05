@@ -2,6 +2,8 @@ package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.Null;
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.continuations.Continuation;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 
 import java.util.ArrayList;
 
@@ -85,5 +87,17 @@ public class TopEnv implements Env {
 
     public void setReceiver(Obj context) {
         throw new RuntimeException("TopEnv.setReceiver() should not be called");
+    }
+
+    public void setClosureHome(int offset, Continuation cont) {
+        throw new SQLScriptRuntimeException("TopEnv.setClosureHome() should not be called");
+    }
+
+    public int getClosureHomeOffset() {
+        return -1;
+    }
+
+    public Continuation getClosureHomeCont() {
+        return null;
     }
 }

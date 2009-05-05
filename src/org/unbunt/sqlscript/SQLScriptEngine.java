@@ -361,14 +361,8 @@ public class SQLScriptEngine
     public void processExpression(BlockClosureExpression blockClosureExpression) {
         BlockClosure clos = blockClosureExpression.getBlockClosure();
 
-        for (int i = pc; i >= 0; i--) {
-            Continuation c = cont[i];
-            if (c instanceof FunRetCont) {
-                clos.setHomeOffset(i);
-                clos.setHomeCont(c);
-                break;
-            }
-        }
+        clos.setHomeOffset(env.getClosureHomeOffset());
+        clos.setHomeCont(env.getClosureHomeCont());
 
         val = new Clos(clos);
         clos.setEnv(env);
@@ -392,6 +386,7 @@ public class SQLScriptEngine
     public void processExpression(ReturnStatement returnStatement) {
         // tail-call optimization
         if (returnStatement.isOptimizeForTailCall()) {
+            // XXX: use env.getClosureHomeOffset() ???
             for (int i = pc; i >= 0; i--) {
                 Continuation c = cont[i];
                 if (c instanceof FunRetCont) {
@@ -818,6 +813,7 @@ public class SQLScriptEngine
             Function func = ((Func) val).getFunction();
             List<Expression> args = callCont.getArguments();
             checkFunArgs(func, args);
+            // FIXME: should environment be saved _after_ evaluating arguments???
             Env savedEnv = env;
             Env funcEnv = new StaticEnv(func.getEnv());
             funcEnv.setContext(callCont.isSuperCall() ? env.getContext() : callCont.getContext());
@@ -885,6 +881,7 @@ public class SQLScriptEngine
             else {
                 cont[pc] = new FunRetCont(callArgCont.getSavedEnv());
             }
+            env.setClosureHome(pc, cont[pc]);
         }
         else if (callable instanceof BlockClosure) {
             BlockClosure clos = (BlockClosure) callable;
@@ -1019,6 +1016,8 @@ public class SQLScriptEngine
                 int homeOffset = closure.getHomeOffset();
                 Continuation homeCont = closure.getHomeCont();
                 if (homeOffset < 0 || homeOffset >= i || cont[homeOffset] != homeCont) {
+                    // NOTE: This exact message is checked for in some unit tests (due to the lack of a proper
+                    //       exception handling scheme)
                     throw new SQLScriptRuntimeException("Non-local return");
                 }
                 pc = homeOffset;

@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.continuations.Continuation;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -62,5 +63,17 @@ public class DynamicEnv extends AbstractEnv {
 
     public int getMaxAddress() {
         return parent.getMaxAddress();
+    }
+
+    public void setClosureHome(int offset, Continuation cont) {
+        parent.setClosureHome(offset, cont);
+    }
+
+    public int getClosureHomeOffset() {
+        return parent.getClosureHomeOffset();
+    }
+
+    public Continuation getClosureHomeCont() {
+        return parent.getClosureHomeCont();
     }
 }
