@@ -899,7 +899,10 @@ public class SQLScriptEngine
         Obj context = nativeCont.getContext();
         Obj[] args = ((Args) val).args;
         try {
-            val = nativeCont.getNative().call(this, context, args);
+            Obj result = nativeCont.getNative().call(this, context, args);
+            if (result != null) {
+                val = result;
+            }
         } catch (ClosureTerminatedException ignored) {
         }
 
@@ -909,90 +912,100 @@ public class SQLScriptEngine
     public void processContinuation(PrimitiveCont primitiveCont) {
         pc--;
         Obj[] args = ((Args) val).args;
-        switch (primitiveCont.getPrimitive().type) {
+        processPrimitive(primitiveCont.getPrimitive().type, primitiveCont.getContext(), args);
+        next = CONT;
+    }
+
+    protected void processPrimitive(PrimitiveCall.Type primitive, Obj context, Obj... args) {
+        switch (primitive) {
             case ID: {
-                Obj o1 = primitiveCont.getContext();
                 Obj o2 = args[0];
-                val = o1 == o2 ? Bool.TRUE : Bool.FALSE;
+                val = context == o2 ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case NI: {
-                Obj o1 = primitiveCont.getContext();
                 Obj o2 = args[0];
-                val = o1 != o2 ? Bool.TRUE : Bool.FALSE;
+                val = context != o2 ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_ADD: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = new Int(int1.value + int2.value);
                 break;
             }
             case INT_SUB: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = new Int(int1.value - int2.value);
                 break;
             }
             case INT_MUL: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = new Int(int1.value * int2.value);
                 break;
             }
             case INT_DIV: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = new Int(int1.value / int2.value);
                 break;
             }
             case INT_MOD: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = new Int(int1.value % int2.value);
                 break;
             }
             case INT_EQ: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = int1.value == int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_NE: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = int1.value != int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_LT: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = int1.value < int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_LE: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = int1.value <= int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_GT: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = int1.value > int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
             case INT_GE: {
-                Int int1 = (Int) primitiveCont.getContext();
+                Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
                 val = int1.value >= int2.value ? Bool.TRUE : Bool.FALSE;
                 break;
             }
+            case LOOP:
+                cont[++pc] = new LoopCont();
+                break;
+            case LOOP_BREAK:
+                cont[++pc] = new LoopBreakCont();
+                break;
+            case LOOP_CONTINUE:
+                cont[++pc] = new LoopContinueCont();
+                break;
             default:
-                throw new SQLScriptRuntimeException("Unhandled primitive: " + primitiveCont.getPrimitive());
+                throw new SQLScriptRuntimeException("Unhandled primitive: " + primitive);
         }
-
-        next = CONT;
     }
 
     public void processContinuation(FunRetCont funRetCont) {
@@ -1098,6 +1111,42 @@ public class SQLScriptEngine
         pc--;
         env = restoreEnvCont.getSavedEnv();
         next = CONT;
+    }
+
+    public void processContinuation(LoopCont loopCont) {
+        // LoopCont is used as marker only, so nothing to do here
+    }
+
+    public void processContinuation(LoopBreakCont loopBreakCont) {
+        for (int i = pc - 1; i >= 0; i--) {
+            Continuation c = cont[i];
+            if (c instanceof ClosRetCont) {
+                ClosRetCont closRetCont = (ClosRetCont) c;
+                env = closRetCont.getSavedEnv();
+            }
+            else if (c instanceof LoopCont) {
+                pc = i - 1;
+                next = CONT;
+                throw new LoopBreakException();
+            }
+        }
+        throw new SQLScriptRuntimeException("Found continue statement outside of loop");
+    }
+
+    public void processContinuation(LoopContinueCont loopContinueCont) {
+        for (int i = pc - 1; i >= 0; i--) {
+            Continuation c = cont[i];
+            if (c instanceof ClosRetCont) {
+                ClosRetCont closRetCont = (ClosRetCont) c;
+                env = closRetCont.getSavedEnv();
+            }
+            else if (c instanceof LoopCont) {
+                pc = i;
+                next = CONT;
+                throw new LoopContinueException();
+            }
+        }
+        throw new SQLScriptRuntimeException("Found continue statement outside of loop");
     }
 
     public void processContinuation(ExitCont exitCont) {
@@ -1452,8 +1501,8 @@ public class SQLScriptEngine
             throw new SQLScriptRuntimeException("No such command: " + command);
         }
         try {
-            Class cls = Class.forName(className);
-            Constructor ctor = cls.getConstructor();
+            Class<?> cls = Class.forName(className);
+            Constructor<?> ctor = cls.getConstructor();
             return (Command) ctor.newInstance();
         } catch (ClassNotFoundException e) {
             throw new SQLScriptRuntimeException("Failed to load command: " + command + ": " +
@@ -1473,8 +1522,8 @@ public class SQLScriptEngine
             throw new SQLScriptRuntimeException("No such annotation: " + annotation);
         }
         try {
-            Class cls = Class.forName(className);
-            Constructor ctor = cls.getConstructor();
+            Class<?> cls = Class.forName(className);
+            Constructor<?> ctor = cls.getConstructor();
             Annotation a = (Annotation) ctor.newInstance();
             a.initialize(params);
             return a;
@@ -1517,6 +1566,11 @@ public class SQLScriptEngine
         }
 
         return call.call(this, context, args);
+    }
+
+    public Obj invoke(PrimitiveCall prim, Obj context, Obj... args) {
+        processPrimitive(prim.type, context, args);
+        return val;
     }
 
     @SuppressWarnings({"UnusedDeclaration"})

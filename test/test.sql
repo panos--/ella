@@ -1,3 +1,18 @@
+var i := 0;
+.loop {=>
+    print('i: @{i}');
+
+    if (i == 3) {
+        print('i == 3: breaking loop');
+        break();
+    }
+
+    i = i + 1;
+    continue();
+    i = i + 1;
+};
+exit;
+
 {
 import java.util.Date as MyDate;
 .print(new MyDate());

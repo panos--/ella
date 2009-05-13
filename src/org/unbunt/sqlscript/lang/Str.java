@@ -21,6 +21,9 @@ public class Str extends AbstractObj {
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_while = toSym("while");
     public static final Str SYM_call = toSym("call");
+    public static final Str SYM_loop = toSym("loop");
+    public static final Str SYM_break = toSym("break");
+    public static final Str SYM_continue = toSym("continue");
     public static final Str SYM_noop = toSym("noop");
     public static final Str SYM_add = toSym("+");
     public static final Str SYM_sub = toSym("-");

@@ -80,4 +80,10 @@ public interface ContinuationVisitor {
     void processContinuation(RestoreEnvCont restoreEnvCont);
 
     void processContinuation(ArgsCont argsCont);
+
+    void processContinuation(LoopCont loopCont);
+
+    void processContinuation(LoopBreakCont loopBreakCont);
+
+    void processContinuation(LoopContinueCont loopContinueCont);
 }

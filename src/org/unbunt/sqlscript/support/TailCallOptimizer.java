@@ -99,7 +99,9 @@ public class TailCallOptimizer {
         public void processExpression(IfStatement ifStatement) {
             ifStatement.getCondition().accept(this);
             ifStatement.getTrueStatement().accept(this);
-            ifStatement.getFalseStatement().accept(this);
+            if (ifStatement.hasFalseStatement()) {
+                ifStatement.getFalseStatement().accept(this);
+            }
         }
 
         public void processExpression(TryStatement tryStatement) {
