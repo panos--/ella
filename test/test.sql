@@ -1,7 +1,36 @@
 var i := 0;
+
+.{=> print('loop cond'); i < 10; } while {=> i = i + 1; break(); print('i: @{i}'); };
+
+.{=> print('loop cond'); .i != 10; } while {=> i = i + 1; break(); print('i: @{i}'); };
+
+exit;
+
+var o := {
+    'a' = 'a-prop',
+    'b' = 'b-prop',
+    'c' = 'c-prop'
+};
+
+.o each { k, v =>
+    print('key: @{k} val: @{v}');
+    if (k == 'a') {
+        print('before break');
+        break();
+        print('after break');
+    }
+};
+
+exit;
+
+var i := 0;
+var j := 0;
 .loop {=>
     print('i: @{i}');
 
+    if (i == 2) {
+        return i;
+    }
     if (i == 3) {
         print('i == 3: breaking loop');
         break();
@@ -9,8 +38,10 @@ var i := 0;
 
     i = i + 1;
     continue();
-    i = i + 1;
+    j = j + 1;
 };
+
+.print('j: @{j}');
 exit;
 
 {

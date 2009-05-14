@@ -2,6 +2,8 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.support.BlockClosure;
 
 public class Clos extends PlainObj implements Call {
@@ -19,7 +21,7 @@ public class Clos extends PlainObj implements Call {
 
     @Override
     public Obj getImplicitParent() {
-        return Base.instance;
+        return PROTOTYPE;
     }
 
     public BlockClosure getClosure() {
@@ -37,7 +39,16 @@ public class Clos extends PlainObj implements Call {
                     if (Bool.FALSE.equals(condResult)) {
                         break;
                     }
-                    result = engine.invoke((Clos) args[0], null);
+
+                    engine.invoke(PrimitiveCall.Type.LOOP.primitive, Null.instance);
+
+                    try {
+                        result = engine.invoke((Clos) args[0], null);
+                    } catch (LoopBreakException e) {
+                        break;
+                    } catch (LoopContinueException e) {
+                        continue;
+                    }
                 }
                 return result;
             }

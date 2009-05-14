@@ -128,6 +128,11 @@ public class Str extends AbstractObj {
             return NATIVE_CONSTRUCTOR;
         }
 
+        @Override
+        public Obj getImplicitParent() {
+            return Base.instance;
+        }
+
         public Obj getParent() {
             return slots.get(SYM_parent);
         }

@@ -210,4 +210,31 @@ public class InterpreterTestsNG {
         assertTrue(((Number)result).intValue() == 42,
                    "Nested block closure returns to wrong home function");
     }
+
+    @Test
+    public void loops() throws SQLScriptIOException, SQLScriptParseException {
+        Object result;
+
+        result = eval(
+                "var i := 0;\n" +
+                "var j := 0;\n" +
+                ".loop {=>\n" +
+                "    if (i == 3) {\n" +
+                "        break();\n" +
+                "    }\n" +
+                "    if (i == 42) {\n" +
+                "        exit;\n" +
+                "    }\n" +
+                "\n" +
+                "    i = i + 1;\n" +
+                "    continue();\n" +
+                "    j = j + 1;\n" +
+                "};\n" +
+                ".j;"
+        );
+        assertNotNull(result, "Loop does not honour break statement");
+        assertTrue(result instanceof Number);
+        assertTrue(((Number)result).intValue() == 0,
+                   "Loop does not honour continue statement");
+    }
 }
