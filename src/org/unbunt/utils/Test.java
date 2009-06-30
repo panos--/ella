@@ -43,7 +43,17 @@ public class Test {
     static Integer ii = new Integer(24);
     static Test t = new Test();
 
+    public static int tryFinally() {
+        try {
+            return 42;
+        } finally {
+            return 23;
+        }
+    }
+
     public static void main(String[] args) {
+        System.out.println(tryFinally());
+
         System.out.println(Integer.TYPE);
         System.out.println(int.class);
         System.out.println(Boolean.TYPE);

@@ -354,6 +354,8 @@ public class SQLScriptEngine
                 env.set(functionDefinitionExpression.getVariable(), val);
             }
         }
+        // FIXME: Should env be assiociated with newly created Func-Object instead? What if the definition is called
+        // FIXME: multiple times while references to a previous definition are still floating around?
         func.setEnv(env);
         next = CONT;
     }
@@ -361,6 +363,7 @@ public class SQLScriptEngine
     public void processExpression(BlockClosureExpression blockClosureExpression) {
         BlockClosure clos = blockClosureExpression.getBlockClosure();
 
+        // FIXME: is this nessassary? Env is already saved at last...
         clos.setHomeOffset(env.getClosureHomeOffset());
         clos.setHomeCont(env.getClosureHomeCont());
 
@@ -894,6 +897,12 @@ public class SQLScriptEngine
         next = EVAL;
     }
 
+    protected boolean closureReturnInProgress = false;
+
+    public boolean isClosureReturnInProgress() {
+        return closureReturnInProgress;
+    }
+
     public void processContinuation(NativeCont nativeCont) {
         pc--;
         Obj context = nativeCont.getContext();
@@ -904,6 +913,8 @@ public class SQLScriptEngine
                 val = result;
             }
         } catch (ClosureTerminatedException ignored) {
+            // XXX: is this correct??? - it is ReturnCont has already cleaned up the cont stack
+            closureReturnInProgress = false;
         }
 
         next = CONT;
@@ -1114,7 +1125,8 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(LoopCont loopCont) {
-        // LoopCont is used as marker only, so nothing to do here
+        // LoopCont is used as marker only -> just remove it
+        pc--;
     }
 
     public void processContinuation(LoopBreakCont loopBreakCont) {
@@ -1450,7 +1462,21 @@ public class SQLScriptEngine
     */
 
     public Bool toBool(Obj value) {
-        return value != null && (!(value instanceof Bool) || value.equals(Bool.TRUE)) ? Bool.TRUE : Bool.FALSE;
+        if (value == null) {
+            return Bool.FALSE;
+        }
+        if (value instanceof Bool) {
+            return value.equals(Bool.TRUE) ? Bool.TRUE : Bool.FALSE;
+        }
+        if (value instanceof Null) {
+            return Bool.FALSE;
+        }
+        return Bool.TRUE;
+//        return value != null && (!(value instanceof Bool) || value.equals(Bool.TRUE)) ? Bool.TRUE : Bool.FALSE;
+    }
+
+    public boolean toBoolean(Obj value) {
+        return Bool.TRUE.equals(toBool(value));
     }
 
     protected void finish() throws SQLScriptRuntimeException {
@@ -1557,6 +1583,49 @@ public class SQLScriptEngine
 
     // native interface
 
+    // TODO: adjust trigger-scheme to support trigger of multiple calls in turn
+    public void trigger(Obj obj, Obj context, Obj... args) {
+        Call call;
+        try {
+            call = (Call) obj;
+        } catch (ClassCastException e) {
+            throw new SQLScriptRuntimeException(e);
+        }
+
+        call.trigger(this, context, args);
+    }
+
+    public void trigger(Clos clos, Obj... args) {
+        BlockClosure closure = clos.getClosure();
+        List<Obj> argsList = Arrays.asList(args);
+        checkFunArgs(closure, argsList);
+        Env savedEnv = env;
+        Env lexEnv = closure.getEnv();
+        env = new StaticEnv(lexEnv);
+        env.setContext(lexEnv.getContext());
+        for (Obj arg : args) {
+            env.add(arg);
+        }
+        stmt = closure.getBody();
+        cont[++pc] = new ClosRetCont(closure, savedEnv);
+        next = EVAL;
+    }
+
+    public void trigger(Func func, Obj context, Obj... args) {
+        Function function = func.getFunction();
+        List<Obj> argsList = Arrays.asList(args);
+        checkFunArgs(function, argsList);
+        Env savedEnv = env;
+        env = new StaticEnv(function.getEnv());
+        env.setContext(context);
+        for (Obj arg : args) {
+            env.add(arg);
+        }
+        stmt = function.getBody();
+        cont[++pc] = new FunRetCont(savedEnv);
+        next = EVAL;
+    }
+
     public Obj invoke(Obj obj, Obj context, Obj... args) throws ClosureTerminatedException {
         Call call;
         try {
@@ -1573,50 +1642,63 @@ public class SQLScriptEngine
         return val;
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
-    public Obj invoke(Clos clos, Obj context, Obj... args) throws ClosureTerminatedException {
-        BlockClosure closure = clos.getClosure();
-        List<Obj> argsList = Arrays.asList(args);
-        checkFunArgs(closure, argsList);
-        Env savedEnv = env;
-        Env lexEnv = closure.getEnv();
-        env = new StaticEnv(lexEnv);
-        env.setContext(lexEnv.getContext());
-        for (Obj arg : args) {
-            env.add(arg);
-        }
-        stmt = closure.getBody();
+    public Obj invoke(Clos clos, Obj... args) throws ClosureTerminatedException {
         int callFrame = pc;
-        cont[++pc] = new ClosRetCont(closure, savedEnv);
-        next = EVAL;
+
+        trigger(clos, args);
+
         while (step() && pc > callFrame) {
         }
+
         if (pc < callFrame) {
+            closureReturnInProgress = true;
             throw new ClosureTerminatedException();
         }
+
         return val;
     }
 
     public Obj invoke(Func func, Obj context, Obj... args) throws ClosureTerminatedException {
-        Function function = func.getFunction();
-        List<Obj> argsList = Arrays.asList(args);
-        checkFunArgs(function, argsList);
-        Env savedEnv = env;
-        env = new StaticEnv(function.getEnv());
-        env.setContext(context);
-        for (Obj arg : args) {
-            env.add(arg);
-        }
-        stmt = function.getBody();
         int callFrame = pc;
-        cont[++pc] = new FunRetCont(savedEnv);
-        next = EVAL;
+
+        trigger(func, context, args);
+
         while (step() && pc > callFrame) {
         }
+
         if (pc < callFrame) {
+            closureReturnInProgress = true;
             throw new ClosureTerminatedException();
         }
+
         return val;
+    }
+
+    protected static final Continuation LOOP_CONT = new LoopCont();
+
+    public Obj invokeInLoop(Obj obj, Obj context, Obj... args)
+            throws ClosureTerminatedException, LoopBreakException, LoopContinueException {
+        cont[++pc] = LOOP_CONT;
+        Obj result = invoke(obj, context, args);
+        pc--;
+        return result;
+    }
+
+    public Obj getVal() {
+        return val;
+    }
+
+    public void setVal(Obj val) {
+        this.val = val;
+    }
+
+    public EngineState getState() {
+        return new EngineState(env, pc);
+    }
+
+    public void setState(EngineState state) {
+        env = state.env;
+        pc = state.pc;
     }
 
     public Env getEnv() {
@@ -1625,5 +1707,15 @@ public class SQLScriptEngine
 
     public void setEnv(Env env) {
         this.env = env;
+    }
+
+    public static class EngineState {
+        protected Env env;
+        protected int pc;
+
+        public EngineState(Env env, int pc) {
+            this.env = env;
+            this.pc = pc;
+        }
     }
 }

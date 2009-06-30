@@ -1,7 +1,10 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.exception.LoopContinueException;
 
 public class Int extends PlainObj {
     public static final IntProto PROTOTYPE = new IntProto();
@@ -38,6 +41,41 @@ public class Int extends PlainObj {
             }
         };
 
+        public static final Call nativeTo = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                int start = ((Int) context).value;
+                int stop  = ((Int) args[0]).value;
+                int step  = start < stop ? 1 : -1;
+
+
+                Obj code = args[1];
+                int i = start;
+                System.out.println("start loop with: " + i);
+
+                try {
+                    engine.invokeInLoop(code, Null.instance, NativeWrapper.wrap(i));
+                } catch (LoopBreakException e) {
+                    return null;
+                } catch (LoopContinueException e) {
+                    // nothing to do here just proceed to next iteration
+                }
+
+                while (i != stop) {
+                    try {
+                        i += step;
+                        engine.invokeInLoop(code, Null.instance, NativeWrapper.wrap(i));
+                    } catch (LoopBreakException e) {
+                        return null;
+                    } catch (LoopContinueException e) {
+                        // nothing to do here just proceed to next iteration
+                    }
+                }
+                System.out.println("stop loop with: " + i);
+
+                return null;
+            }
+        };
+
         private IntProto() {
             slots.put(Str.SYM_add, PrimitiveCall.Type.INT_ADD.primitive);
             slots.put(Str.SYM_sub, PrimitiveCall.Type.INT_SUB.primitive);
@@ -52,6 +90,7 @@ public class Int extends PlainObj {
             slots.put(Str.SYM_le, PrimitiveCall.Type.INT_LE.primitive);
             slots.put(Str.SYM_id, PrimitiveCall.Type.INT_EQ.primitive);
             slots.put(Str.SYM_ni, PrimitiveCall.Type.INT_NE.primitive);
+            slots.put(Str.SYM_to, nativeTo);
         }
 
         public Call getNativeConstructor() {

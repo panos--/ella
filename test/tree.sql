@@ -1,6 +1,10 @@
+.1.to(10, { i => print('num: @{i}'); });
+
+/*
 import java.util.*;
 
 .print(new Date());
+*/
 
 /*
 var @ := 'at';

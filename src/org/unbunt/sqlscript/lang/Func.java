@@ -17,6 +17,10 @@ public class Func extends PlainObj implements Call {
         return engine.invoke(this, context, args);
     }
 
+    public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
+        engine.trigger(this, context, args);
+    }
+
     @Override
     public Obj getImplicitParent() {
         return PROTOTYPE;

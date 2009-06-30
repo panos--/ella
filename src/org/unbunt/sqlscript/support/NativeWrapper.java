@@ -3,6 +3,10 @@ package org.unbunt.sqlscript.support;
 import org.unbunt.sqlscript.lang.*;
 
 public class NativeWrapper {
+    public static Obj wrap(int i) {
+        return new Int(i);
+    }
+
     public static Obj wrap(Object o) {
         if (o == null) {
             return Null.instance;

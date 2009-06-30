@@ -1,6 +1,38 @@
+fun if1test(i) {
+    ifThen({=> i == 1; }, {=> print('yes! i == 1!'); });
+}
+.if1test(1);
+exit;
+
+var testVar := 'Hello World!';
+
+fun raiser() {
+    var ex := 'An exception';
+    Sys.raise(ex);
+}
+
+fun testEx() {
+    .Sys.tryCatchFinally(
+        {=> raiser(); },
+        { e => print('caught exception: @{e}'); return 42; },
+        {=> print('finally...'); return 23; }
+    );
+}
+
+var exRes := testEx();
+.print('exRes: @{exRes}');
+.print('testVar: @{testVar}');
+
+exit;
+
+var x := 0;
+.1.to(10000000, { i => x = i; });
+.print('x: @{x}');
+exit;
+
 var i := 0;
 
-.{=> print('loop cond'); i < 10; } while {=> i = i + 1; break(); print('i: @{i}'); };
+--.{=> print('loop cond'); i < 10; } while {=> i = i + 1; break(); print('i: @{i}'); };
 
 .{=> print('loop cond'); .i != 10; } while {=> i = i + 1; break(); print('i: @{i}'); };
 

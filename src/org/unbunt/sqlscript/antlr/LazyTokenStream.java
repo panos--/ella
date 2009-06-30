@@ -486,6 +486,7 @@ public class LazyTokenStream implements TokenStream {
     }
 
     protected void initInputTracking() {
+        // FIXME: Check for interface, not concrete class!
         inputStream = tokenSource instanceof SQLScriptStringLexer
                       ? ((SQLScriptStringLexer) tokenSource).getCharStream() : null;
         inputOffsets = new LinkedList<Integer>();

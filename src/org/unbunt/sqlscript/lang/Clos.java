@@ -16,7 +16,11 @@ public class Clos extends PlainObj implements Call {
     }
 
     public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-        return engine.invoke(this, context, args);
+        return engine.invoke(this, args);
+    }
+
+    public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
+        engine.trigger(this, args);
     }
 
     @Override
@@ -43,7 +47,7 @@ public class Clos extends PlainObj implements Call {
                     engine.invoke(PrimitiveCall.Type.LOOP.primitive, Null.instance);
 
                     try {
-                        result = engine.invoke((Clos) args[0], null);
+                        result = engine.invoke((Clos) args[0]);
                     } catch (LoopBreakException e) {
                         break;
                     } catch (LoopContinueException e) {

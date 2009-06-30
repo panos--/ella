@@ -5,4 +5,6 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 public interface Call extends Obj {
     Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException;
+
+    void trigger(SQLScriptEngine engine, Obj context, Obj... args);
 }

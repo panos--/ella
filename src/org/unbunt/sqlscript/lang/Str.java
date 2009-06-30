@@ -24,7 +24,15 @@ public class Str extends AbstractObj {
     public static final Str SYM_loop = toSym("loop");
     public static final Str SYM_break = toSym("break");
     public static final Str SYM_continue = toSym("continue");
+    public static final Str SYM_if = toSym("if");
+    public static final Str SYM_ifThen = toSym("ifThen");
+    public static final Str SYM_throw = toSym("throw");
+    public static final Str SYM_raise = toSym("raise");
+    public static final Str SYM_tryCatch = toSym("tryCatch");
+    public static final Str SYM_tryCatchFinally = toSym("tryCatchFinally");
+    public static final Str SYM_tryFinally = toSym("tryFinally");
     public static final Str SYM_noop = toSym("noop");
+    public static final Str SYM_to = toSym("to");
     public static final Str SYM_add = toSym("+");
     public static final Str SYM_sub = toSym("-");
     public static final Str SYM_mul = toSym("*");
