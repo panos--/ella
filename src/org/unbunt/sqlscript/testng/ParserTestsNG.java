@@ -32,9 +32,21 @@ public class ParserTestsNG {
     public void assignSingleSQL() throws SQLScriptIOException, SQLScriptParseException {
         compile("var foo := sql select * from foo;");
     }
-    
+
     @Test
     public void assignMultiSQL() throws SQLScriptIOException, SQLScriptParseException {
         compile("var foo = 'bla', bar = (sql select * from foo), bla = 'blubb';");
+    }
+
+    @Test(dependsOnMethods = { "sqlStringMysqlBacktick" })
+    public void scopedParseMode() throws SQLScriptIOException, SQLScriptParseException {
+        compile("\\set quotes=mysql;         \n" +
+                "select `foo)bar`;           \n" +
+                "{                           \n" +
+                "   \\set quotes=sql92;      \n" +
+                "   sql select foo;          \n" +
+                "}                           \n" +
+                "select foo where `qux)baz`; -- here mysql mode must be active again\n" +
+                "");
     }
 }

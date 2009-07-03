@@ -66,6 +66,8 @@ tokens {
 
 	import java.util.Map;
 	import java.util.HashMap;
+	import java.util.Deque;
+	import java.util.ArrayDeque;
 
 	import org.unbunt.sqlscript.antlr.LazyTokenStream;
 	import org.unbunt.sqlscript.antlr.TreeHolderToken;
@@ -83,7 +85,7 @@ tokens {
 
 // stop on first parser error
 @parser::members {
-	public static final int WHITESPACE_CHANNEL = 42;
+	//public static final int WHITESPACE_CHANNEL = 42;
 	
 	protected boolean eof = false;
 	
@@ -151,6 +153,16 @@ tokens {
 	}
 	
 	protected StringType stringType = StringType.sql92;
+	
+	protected Deque<StringType> parseModeStack = new ArrayDeque<StringType>(16);
+	
+	protected void enterBlock() {
+		parseModeStack.push(stringType);
+	}
+	
+	protected void leaveBlock() {
+		stringType = parseModeStack.pop();
+	}
 
 	@Override
 	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
@@ -264,10 +276,15 @@ tokens {
 	}
 }
 
-script	:	topStatement* EOF
+script
+@init { enterBlock(); }
+@after { leaveBlock(); }
+	:	topStatement* EOF
 	;
 
 scriptIncremental
+@init { enterBlock(); }
+@after { leaveBlock(); }
 	:	topStatement
 	|	EOF { eof = true; }
 	;
@@ -306,10 +323,16 @@ statementNoSep
 	|	sqlBlock
 	;
 
-block	:	LCURLY statement* RCURLY -> ^(BLOCK statement*)
+block
+@init { enterBlock(); }
+@after { leaveBlock(); }
+	:	LCURLY statement* RCURLY -> ^(BLOCK statement*)
 	;
 
-sqlBlock:	KW_SQL LCURLY topStatement* RCURLY -> ^(BLOCK topStatement*)
+sqlBlock
+@init { enterBlock(); }
+@after { leaveBlock(); }
+	:	KW_SQL LCURLY topStatement* RCURLY -> ^(BLOCK topStatement*)
 	;
 
 evalStmt [ CommonTree annotations ]
@@ -396,6 +419,8 @@ argumentsDef
 	;
 
 blockClosure
+@init { enterBlock(); }
+@after { leaveBlock(); }
 	:	LCURLY blockArgumentsDef statement* RCURLY -> ^(BLOCK_CLOSURE blockArgumentsDef? ^(BLOCK statement*))
 	;
 
@@ -825,7 +850,7 @@ booleanLiteral
 	;
 
 parseDirective
-	:	BACKSLASH dir=WORD arg=WORD EQUALS (valId=IDENTIFIER|valWord=WORD) {
+	:	BACKSLASH! dir=WORD! arg=WORD! EQUALS! (valId=IDENTIFIER!|valWord=WORD!) {
 			String directive = $dir.text;
 			String argument = $arg.text;
 			String value = $valId == null ? $valWord.text : $valId.text;
@@ -851,7 +876,7 @@ parseDirective
 				}
 			}
 		}
-		-> // omit tree generation
+		//-> // omit tree generation
 	;
 
 // NOTE: handles nested comments

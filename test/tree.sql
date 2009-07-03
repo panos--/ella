@@ -1,5 +1,22 @@
-. foo := 'bar', bla = 'blubb';
+\set quotes=mysql;
+select `foo)bar`;
+{
+   \set quotes=sql92;      
+   sql select foo;
+}
+select foo where `qux)baz`; -- here mysql mode must be active again
+/*
+\set quotes = mysql;
 
+select * from foo where bar = `bla)blubb`;
+
+{
+    \set quotes = sql92;
+    sql select * from foo where bar = `blablubb`;
+}
+
+select * from quz where baz = `foo)bar`;
+*/
 --select (foo), {}, [bla] from foo  ;
 
 --.1.to(10, { i => print('num: @{i}'); });
