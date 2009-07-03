@@ -13,6 +13,7 @@ tokens {
 	SQL;
 	SQL_STMT;
 	SQL_EXPR;
+	SQL_PARAM;
 	ANNOT;
 	ANNOT_ARG;
 	PARAM_NAME;
@@ -88,6 +89,8 @@ tokens {
 	//public static final int WHITESPACE_CHANNEL = 42;
 	
 	protected boolean eof = false;
+	
+	protected boolean parseSQLParams = false;
 	
 	public static class StringSyntaxRules {
 		public final boolean doubleQuote;
@@ -704,18 +707,20 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	lexer.setAllowQQuote(false);
 	lexer.setAllowDollarQuote(false);
 }
-	:	sqlHiddenWS sqlParam* -> ^(SQL {$sqlStmtName} sqlHiddenWS? sqlParam*)
+	:	sqlHiddenWS sqlPart* -> ^(SQL {$sqlStmtName} sqlHiddenWS? sqlPart*)
 	;
 
 /*
  * NOTE: Here we require parentheses in sql statements to be balanced which is relevant for sql statements used
  *       in expression context.
  */
-sqlParam
-	:	sqlToken sqlWS					-> sqlToken sqlWS?
-	|	LPAREN ws1=sqlWS sqlParam* RPAREN ws2=sqlWS	-> LPAREN $ws1? sqlParam* RPAREN $ws2?
-	|	LCURLY ws1=sqlWS sqlParam* RCURLY ws2=sqlWS	-> LCURLY $ws1? sqlParam* RCURLY $ws2?
-	|	LSQUARE ws1=sqlWS sqlParam* RSQUARE ws2=sqlWS	-> LSQUARE $ws1? sqlParam* RSQUARE $ws2?
+sqlPart
+	:	{parseSQLParams}? (COLON WORD)=> COLON WORD sqlWS	-> SQL_PARAM["PARAM[" + $WORD.text + "]"] sqlWS?
+	|	{parseSQLParams}? (COLON COLON)=> COLON COLON sqlWS	-> COLON COLON sqlWS?
+	|	sqlToken sqlWS						-> sqlToken sqlWS?
+	|	LPAREN ws1=sqlWS sqlPart* RPAREN ws2=sqlWS		-> LPAREN $ws1? sqlPart* RPAREN $ws2?
+	|	LCURLY ws1=sqlWS sqlPart* RCURLY ws2=sqlWS		-> LCURLY $ws1? sqlPart* RCURLY $ws2?
+	|	LSQUARE ws1=sqlWS sqlPart* RSQUARE ws2=sqlWS		-> LSQUARE $ws1? sqlPart* RSQUARE $ws2?
 	;
 
 sqlWS	:	(WS|NL)*
@@ -732,16 +737,17 @@ sqlHiddenWS
 	;
 
 sqlToken
-	:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
+	:	keyword | sqlStringLiteral | identifier | sqlAtom
 	|	embeddedVar
 	;
 
-sqlSpecialChar
+sqlAtom
 	:	SQL_SPECIAL_CHAR //| LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
 	|	EQUALS | BACKSLASH //| DOUBLE_BACKSLASH
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
 	|	EXCLAM | QUESTION | COLON | DOT | COMMA
 	|	DOUBLE_ARROW
+	|	INT
 	;
 
 objectLiteral

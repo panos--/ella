@@ -1,10 +1,5 @@
-\set quotes=mysql;
-select `foo)bar`;
-{
-   \set quotes=sql92;      
-   sql select foo;
-}
-select foo where `qux)baz`; -- here mysql mode must be active again
+sql select * from foo where bla = :blubb and baz = 42::real or a: b:;
+
 /*
 \set quotes = mysql;
 

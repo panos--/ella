@@ -614,7 +614,7 @@ sqlLiteral returns [ SQLLiteralExpression value ]
 @after { $value = sql; }
 	:	^(SQL
 			name=sqlStmtName  { sql.addPart($name.value); }
-			(param=sqlParam   { sql.addPart($param.value); })*
+			(param=sqlToken   { sql.addPart($param.value); })*
 			(annot=annotation /*{ $annot.value.setSubject(stmt); }*/)*
 		)
 	;
@@ -624,7 +624,7 @@ sqlStmtName returns [ Object value ]
 	|	var=embeddedVarRef    { $value = $var.value; }
 	;
 
-sqlParam returns [ Object value ]
+sqlToken returns [ Object value ]
 	:	str=stringLiteral     { $value = $str.value; }
 	|	id=identifier         { $value = $id.value; }
 	|	chr=sqlSpecialChars   { $value = $chr.value; }
