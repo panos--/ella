@@ -1,4 +1,8 @@
-.1.to(10, { i => print('num: @{i}'); });
+. foo := 'bar', bla = 'blubb';
+
+--select (foo), {}, [bla] from foo  ;
+
+--.1.to(10, { i => print('num: @{i}'); });
 
 /*
 import java.util.*;

@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.*;
+import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.utils.ObjUtils;
 
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public class Context {
         Func.registerInContext(this);
         JArray.registerInContext(this);
         JClass.registerInContext(this);
+        ConnMgr.registerInContext(this);
 
 //        objNull = objects.get(Null.OBJECT_ID);
 //        assert objNull != null;
@@ -82,6 +84,7 @@ public class Context {
         mainEnv.add("Func", ensureObject(Func.FuncProto.OBJECT_ID));
         mainEnv.add("JArray", ensureObject(JArray.JArrayProto.OBJECT_ID));
         mainEnv.add("JClass", ensureObject(JClass.JClassProto.OBJECT_ID));
+        mainEnv.add("Conn", ensureObject(ConnMgr.OBJECT_ID));
 
         this.env = mainEnv;
     }

@@ -15,6 +15,8 @@ public interface ExpressionVisitor {
 
     void processExpression(ObjectLiteralExpression objectLiteralExpression);
 
+    void processExpression(SQLLiteralExpression sqlLiteralExpression);
+
     void processExpression(NotExpression notExpression);
 
     void processExpression(ConditionAnd conditionAnd);

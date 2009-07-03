@@ -233,6 +233,12 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
+        System.err.println("Got SQL-Literal: " + sqlLiteralExpression);
+        val = new Str(sqlLiteralExpression.toString());
+        next = CONT;
+    }
+
     public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
         cont[++pc] = new ObjLitCont(objectLiteralExpression.getObjectLiteral());
         next = CONT;

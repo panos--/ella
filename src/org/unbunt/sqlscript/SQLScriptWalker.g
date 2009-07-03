@@ -79,6 +79,27 @@ scope Block {
 	public static String extractString(String s) {
 		return s.substring(1, s.length() - 1).replace("''", "'");
 	}
+	
+	/*
+	 * Helper methods for building commonly used expressions
+	 */
+
+	protected SlotCallExpression createSlotCall(Expression receiver, Expression slot, Expression... args) {
+		SlotExpression slotExpression = new SlotExpression(receiver, slot);
+		SlotCallExpression slotCallExpression = new SlotCallExpression(slotExpression);
+		for (Expression arg : args) {
+			slotCallExpression.addArgument(arg);
+		}
+		return slotCallExpression;
+	}
+	
+	protected SlotCallExpression createSlotCall(String receiver, String slot, Expression... args) {
+		return createSlotCall(new VariableExpression(getVariable(receiver)), new IdentifierExpression(slot), args);
+	}
+	
+	protected Variable getVariable(String name) {
+		return ((Scope_scope)Scope_stack.peek()).scope.getVariable(name);
+	}
 }
 
 @rulecatch {
@@ -119,8 +140,7 @@ scope Block, Scope;
 	;
 
 statement
-	:	sqlStmt
-	|	evalStmt
+	:	evalStmt
 	|	scriptStmt
 	|	block
 	;
@@ -169,30 +189,6 @@ evalParam returns [ Parameter value ]
 	:	^(EVAL_ARG param=parameter) { $value = $param.value; }
 	;
 
-sqlStmt
-@init { SQLStatement stmt = new SQLStatement(); }
-@after { $Block::block.addStatement(stmt); }
-	:	^(SQL_CMD
-			name=sqlStmtName  { stmt.addPart($name.value); }
-			(param=sqlParam   { stmt.addPart($param.value); })*
-			(annot=annotation { $annot.value.setSubject(stmt); })*
-		)
-	;
-
-sqlStmtName returns [ Object value ]
-	:	name=WORD             { $value = $name.text; }
-	|	var=embeddedVarRef    { $value = $var.value; }
-	;
-
-sqlParam returns [ Object value ]
-	:	str=stringLiteral     { $value = $str.value; }
-	|	id=identifier         { $value = $id.value; }
-	|	chr=sqlSpecialChars   { $value = $chr.value; }
-	|	kw=keyword            { $value = $kw.value; }
-	|	ws=WS                 { $value = $ws.text; }
-	|	var=embeddedVarRef    { $value = $var.value; }
-	;
-
 annotation returns [ AnnotationCommand value ] // generated command returned so that annotation subject can be set in calling context
 @init { $value = new AnnotationCommand(); }
 @after { $Block::block.addStatement($value); }
@@ -216,7 +212,7 @@ scriptStmt
 	|	scriptReturn
 	|	scriptExit
 	|	scriptImport
-		|	expressionStmt
+	|	expressionStmt
 	;
 
 scriptIfElse returns [ Statement value ]
@@ -279,11 +275,7 @@ scriptImport returns [ Expression value ]
 @after { $Block::block.addStatement($value); }
 	:	^(IMPORT_PACKAGE pkg=importIdentifier)
 		{
-			Variable sysVar = $Scope::scope.getVariable("Sys");
-			SlotExpression slotExpression = new SlotExpression(new VariableExpression(sysVar), new IdentifierExpression("importPackage"));
-			SlotCallExpression slotCallExpression = new SlotCallExpression(slotExpression);
-			slotCallExpression.addArgument(new IdentifierExpression($pkg.value));
-			$value = slotCallExpression;
+			$value = createSlotCall("Sys", "importPackage", new IdentifierExpression($pkg.value));
 		}
 	|	^(IMPORT_CLASS
 			(^(AS classAlias=identifier)|)
@@ -343,6 +335,7 @@ expressionNoSlotExp returns [ Expression value ]
 	|	ac=andCondition { $value = $ac.value; }
 	|	nexp=notExpression { $value = $nexp.value; }
 	|	newx=newExpression { $value = $newx.value; }
+	|	sqlx=sqlExpression { $value = $sqlx.value; }
 	|	sexp=simpleExpression { $value = $sexp.value; }
 	;
 
@@ -587,6 +580,57 @@ simpleExpression returns [ Expression value ]
 	|	obj=objectLiteral {
 			$value = new ObjectLiteralExpression($obj.value);
 		}
+	;
+
+sqlExpression returns [ Expression value ]
+@init {
+	String slotName = null;
+	SQLLiteralExpression sql = null;
+}
+@after {
+	SlotCallExpression exp = createSlotCall("Conn", slotName, sql);
+	$value = exp;
+}
+	:	^(( SQL_STMT { slotName = "execStmt"; }
+		  | SQL_EXPR { slotName = "createStmt"; }
+		  )
+		  lit=sqlLiteral { sql = $lit.value; }
+		)
+	;
+
+/*
+sqlStmt
+@init { SQLLiteralExpression sql = null; }
+@after {
+	SlotCallExpression stmt = createSlotCall("Conn", "execStmt", sql);
+	$Block::block.addStatement(stmt);
+}
+	:	lit=sqlLiteral { sql = $lit.value; }
+	;
+*/
+
+sqlLiteral returns [ SQLLiteralExpression value ]
+@init { SQLLiteralExpression sql = new SQLLiteralExpression(); }
+@after { $value = sql; }
+	:	^(SQL
+			name=sqlStmtName  { sql.addPart($name.value); }
+			(param=sqlParam   { sql.addPart($param.value); })*
+			(annot=annotation /*{ $annot.value.setSubject(stmt); }*/)*
+		)
+	;
+
+sqlStmtName returns [ Object value ]
+	:	name=WORD             { $value = $name.text; }
+	|	var=embeddedVarRef    { $value = $var.value; }
+	;
+
+sqlParam returns [ Object value ]
+	:	str=stringLiteral     { $value = $str.value; }
+	|	id=identifier         { $value = $id.value; }
+	|	chr=sqlSpecialChars   { $value = $chr.value; }
+	|	kw=keyword            { $value = $kw.value; }
+	|	ws=(WS|NL)            { $value = $ws.text; }
+	|	var=embeddedVarRef    { $value = $var.value; }
 	;
 
 objectLiteral returns [ ObjectLiteral value ]

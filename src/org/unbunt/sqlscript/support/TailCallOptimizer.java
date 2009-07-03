@@ -43,6 +43,9 @@ public class TailCallOptimizer {
         public void processExpression(StringLiteralExpression stringLiteralExpression) {
         }
 
+        public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
+        }
+
         public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
             for (ObjectLiteral.SlotEntry entry : objectLiteralExpression.getObjectLiteral().getSlots()) {
                 entry.key.accept(this);
@@ -249,6 +252,9 @@ public class TailCallOptimizer {
             public void processExpression(StringLiteralExpression stringLiteralExpression) {
             }
 
+            public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
+            }
+
             public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
             }
 
@@ -366,6 +372,9 @@ public class TailCallOptimizer {
             public void processExpression(StringLiteralExpression stringLiteralExpression) {
             }
 
+            public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
+            }
+
             public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
             }
 
@@ -477,6 +486,9 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(StringLiteralExpression stringLiteralExpression) {
+            }
+
+            public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
             }
 
             public void processExpression(ObjectLiteralExpression objectLiteralExpression) {

@@ -11,6 +11,7 @@ import static org.testng.Assert.*;
 
 import java.util.Date;
 
+@Test(groups = { "interpreter" }, dependsOnGroups = { "parser" })
 public class InterpreterTestsNG {
     protected SQLScript interp;
 

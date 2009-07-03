@@ -1,3 +1,8 @@
+insert * from foo;
+
+var foo := sql select bla from blubb;
+
+/*
 fun if1test(i) {
     ifThen({=> i == 1; }, {=> print('yes! i == 1!'); });
 }
@@ -778,4 +783,5 @@ var stmt = 'select @{foobar} foo from barbar';
 --sql @stmt;
 
 --select 'b@{foobar}la', foo from bar;
+*/
 */

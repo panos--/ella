@@ -238,6 +238,13 @@ public class SQLScript extends VolatileObservable implements Observer {
         return run();
     }
 
+    public Block compile() throws SQLScriptIOException, SQLScriptParseException {
+        tokenize();
+        parseTokens();
+        parseTree();
+        return block;
+    }
+
     public void showAST() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
         tokenize();
         parseTokens();
@@ -411,8 +418,6 @@ public class SQLScript extends VolatileObservable implements Observer {
             throw e;
         } catch (RuntimeException e) {
             throw new SQLScriptRuntimeException(e.getMessage(), e);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -490,6 +495,13 @@ public class SQLScript extends VolatileObservable implements Observer {
         SimpleResource res = new StringResource(script);
         SQLScript interp = new SQLScript(ctx, res);
         return interp.execute();
+    }
+
+    public static Block compile(String script) throws SQLScriptIOException, SQLScriptParseException {
+        SQLScriptContext ctx = new DefaultSQLScriptContext();
+        SimpleResource res = new StringResource(script);
+        SQLScript interp = new SQLScript(ctx, res);
+        return interp.compile();
     }
 
     @SuppressWarnings({"UnusedDeclaration"})

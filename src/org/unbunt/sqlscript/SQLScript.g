@@ -10,7 +10,9 @@ tokens {
 	BLOCK;
 	EVAL_CMD;
 	EVAL_ARG;
-	SQL_CMD;
+	SQL;
+	SQL_STMT;
+	SQL_EXPR;
 	ANNOT;
 	ANNOT_ARG;
 	PARAM_NAME;
@@ -225,6 +227,8 @@ tokens {
 	
 	protected boolean allowQQuote = false;
 	protected boolean allowDollarQuote = false;
+	
+	protected int whitespaceChannel = HIDDEN;
 
 	@Override
 	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
@@ -254,6 +258,10 @@ tokens {
 	protected boolean isAllowDollarQuote() {
 		return allowDollarQuote;
 	}
+	
+	protected void setIgnoreWhitespace(boolean ignore) {
+		whitespaceChannel = ignore ? HIDDEN : DEFAULT_TOKEN_CHANNEL;
+	}
 }
 
 script	:	topStatement* EOF
@@ -281,13 +289,13 @@ statement
 	;
 
 topStatementSep
-	:	annotations! (evalStmt[$annotations.tree] | sqlStmt[$annotations.tree])
+	:	sqlStatement
 	|	topScriptStmtSep
 	|	parseDirective!
 	;
 
 statementSep
-	:	annotations! (evalStmt[$annotations.tree] | sqlStmtPrefixed[$annotations.tree])
+	:	sqlStatementPrefixed
 	|	scriptStmtSep
 	|	parseDirective!
 	;
@@ -317,67 +325,6 @@ evalParam
 	|	paramName                   -> ^(EVAL_ARG PARAM_NAME paramName)
 	;
 
-sqlStmtPrefixed [ CommonTree annotations ]
-	:	sqlStmtNamePrefixed
-		sqlStmtRest[$sqlStmtNamePrefixed.tree, $annotations]	-> sqlStmtRest
-	;
-
-sqlStmt	[ CommonTree annotations ]
-	:	sqlStmtName
-		sqlStmtRest[$sqlStmtName.tree, $annotations]	-> sqlStmtRest
-	;
-
-sqlStmtNamePrefixed
-	:	KW_SQL!
-		( keyword | WORD | embeddedVar
-		// NOTE: LCURLY disabled due to introduction of sql-block syntax (cover jdbc-call syntax somehow else)
-		//| LCURLY // to support JDBC escape syntax for generic stored procedure calls
-		)
-	;
-
-sqlStmtName
-	:	WORD
-	|	sqlStmtNamePrefixed
-	;
-
-sqlStmtRest [ CommonTree sqlStmtName, CommonTree annotations ]
-@init {
-	LazyTokenStream tokens = (LazyTokenStream) input;
-	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
-
-	lexer.setAllowQQuote(stringType.rules.qQuote);
-	lexer.setAllowDollarQuote(stringType.rules.dollarQuote);
-}
-@after {
-	lexer.setAllowQQuote(false);
-	lexer.setAllowDollarQuote(false);
-}
-	:	sqlParam* -> ^(SQL_CMD {$sqlStmtName} sqlParam* {$annotations})
-	;
-
-sqlParam
-@init {
-	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(WHITESPACE_CHANNEL);
-	boolean hasWhitespace = collectedWhitespace.length() != 0;
-}
-	:	sqlToken
-		-> {hasWhitespace}? {(CommonTree)adaptor.create(WS, collectedWhitespace)} sqlToken
-		->                  sqlToken
-	;
-
-sqlToken
-	:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
-	|	embeddedVar
-	;
-
-sqlSpecialChar
-	:	SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
-	|	EQUALS | BACKSLASH | DOUBLE_BACKSLASH
-	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
-	|	EXCLAM | QUESTION | COLON | DOT | COMMA
-	|	DOUBLE_ARROW
-	;
-
 topScriptStmtSep
 	:	scriptAssignStmt
 	|	scriptExpressionStmt // requires leading dot
@@ -399,14 +346,36 @@ scriptStmtNoSep
 	;
 
 scriptAssignStmt
-	:	KW_VAR scriptAssign (COMMA scriptAssign)* -> scriptAssign+
+	:	KW_VAR! scriptAssign
 	;
 
+/*
+ * NOTE: Multiple declarations or assignments in one statement are allowed only
+ * NOTE: if no sql literal is involved, except when wrapped in parens.
+ */
 scriptAssign
 	:	identifier
-		( OP_DEFINE expression	-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier expression))
-		| EQUALS expression	-> ^(ASSIGN identifier expression)
-		|			-> ^(DECLARE identifier)
+		( OP_DEFINE
+			( sqlExpression				-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier sqlExpression))
+			| expressionNoSQL scriptAssignRest?	-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier expressionNoSQL)) scriptAssignRest?
+			)
+		| EQUALS
+			( sqlExpression				-> ^(ASSIGN identifier sqlExpression)
+			| expressionNoSQL scriptAssignRest?	-> ^(ASSIGN identifier expressionNoSQL) scriptAssignRest?
+			)
+		|						-> ^(DECLARE identifier)
+		)
+	;
+
+scriptAssignRest
+	:	(COMMA scriptAssignNoSQL)+	-> scriptAssignNoSQL
+	;
+
+scriptAssignNoSQL
+	:	identifier
+		( OP_DEFINE expressionNoSQL	-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier expressionNoSQL))
+		| EQUALS expressionNoSQL	-> ^(ASSIGN identifier expressionNoSQL)
+		|				-> ^(DECLARE identifier)
 		)
 	;
 
@@ -495,7 +464,13 @@ javaIdentifier
 // Expressions
 
 parenExpression
-	:	LPAREN! expression RPAREN!
+	:	LPAREN! (expression) RPAREN!
+	;
+
+// NOTE: No objectLiteral, no block closure here as it would interfere with block statements
+// NOTE: No scriptFuncDef to disallow anonymous functions in statement context
+expressionStmtNoSQL
+	:	assignExpressionNoSQL
 	;
 
 // NOTE: No objectLiteral, no block closure here as it would interfere with block statements
@@ -503,10 +478,28 @@ expressionStmt
 	:	assignExpression
 	;
 
+// NOTE: This expression rule allows sql expressions wrapped in parentheses only.
+// NOTE: Use of this rule is nessessary where multiple expressions can be chained,
+//       separated comma or something like that.
+expressionNoSQL
+	:	expressionStmtNoSQL
+	|	scriptFuncDef
+	|	objectLiteral
+	;
+
 expression
 	:	expressionStmt
-	|	scriptFuncDef // no anonymous function declarations as top-level statements
+	|	scriptFuncDef
 	|	objectLiteral
+	|	sqlExpression
+	;
+
+assignExpressionNoSQL
+	:	identifier OP_DEFINE expressionNoSQL	-> ^(DECLARE_ASSIGN ^(DECLARE identifier) ^(ASSIGN identifier expressionNoSQL))
+	|	conditionalExpression
+		( EQUALS expressionNoSQL		-> ^(ASSIGN conditionalExpression expressionNoSQL)
+		|					-> conditionalExpression
+		)
 	;
 
 assignExpression
@@ -627,6 +620,105 @@ simpleExpression
 	|	tokNew=KW_NEW simpleExpression argumentsList -> ^(NEW[$tokNew] simpleExpression argumentsList?)
 	;
 
+sqlStatementPrefixed
+	:	sqlLiteralPrefixed -> ^(SQL_STMT sqlLiteralPrefixed)
+	;
+
+sqlStatement
+	:	sqlLiteral -> ^(SQL_STMT sqlLiteral)
+	;
+
+sqlExpression
+	:	sqlLiteralPrefixed -> ^(SQL_EXPR sqlLiteralPrefixed)
+	;
+
+sqlLiteralPrefixed
+	:	sqlStmtNamePrefixed
+		sqlStmtRest[$sqlStmtNamePrefixed.tree]	-> sqlStmtRest
+	;
+
+sqlLiteral
+	:	sqlStmtName
+		sqlStmtRest[$sqlStmtName.tree]	-> sqlStmtRest
+	;
+
+sqlStmtNamePrefixed
+	:	KW_SQL!
+		( keyword | WORD | embeddedVar
+		// NOTE: LCURLY disabled due to introduction of sql-block syntax (cover jdbc-call syntax somehow else)
+		//| LCURLY // to support JDBC escape syntax for generic stored procedure calls
+		)
+	;
+
+sqlStmtName
+	:	WORD
+	|	sqlStmtNamePrefixed
+	;
+
+/*
+ * Parser rule for that part of an SQL statement that follows after the initial introducer word.
+ * Sets up the sql mode in the lexer. Because of backtracking this has to be done here, not earlier.
+ * Therefore whitespace occurring directly after the introducer word has to be collected manually
+ * via the sqlHiddenWS rule.
+ *
+ * TODO: Leave comments embedded in the statement intact (at in oracle these can hold meta information
+ *       relevant to the statement. Currently comments are kept intact only in the whitespace after
+ *       the introducer word.
+ */
+sqlStmtRest [ CommonTree sqlStmtName ]
+@init {
+	LazyTokenStream tokens = (LazyTokenStream) input;
+	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+
+	lexer.setIgnoreWhitespace(false);
+	lexer.setAllowQQuote(stringType.rules.qQuote);
+	lexer.setAllowDollarQuote(stringType.rules.dollarQuote);
+}
+@after {
+	lexer.setIgnoreWhitespace(true);
+	lexer.setAllowQQuote(false);
+	lexer.setAllowDollarQuote(false);
+}
+	:	sqlHiddenWS sqlParam* -> ^(SQL {$sqlStmtName} sqlHiddenWS? sqlParam*)
+	;
+
+/*
+ * NOTE: Here we require parentheses in sql statements to be balanced which is relevant for sql statements used
+ *       in expression context.
+ */
+sqlParam
+	:	sqlToken sqlWS					-> sqlToken sqlWS?
+	|	LPAREN ws1=sqlWS sqlParam* RPAREN ws2=sqlWS	-> LPAREN $ws1? sqlParam* RPAREN $ws2?
+	|	LCURLY ws1=sqlWS sqlParam* RCURLY ws2=sqlWS	-> LCURLY $ws1? sqlParam* RCURLY $ws2?
+	|	LSQUARE ws1=sqlWS sqlParam* RSQUARE ws2=sqlWS	-> LSQUARE $ws1? sqlParam* RSQUARE $ws2?
+	;
+
+sqlWS	:	(WS|NL)*
+	;
+
+sqlHiddenWS
+@init {
+	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(SQLScriptLexer.HIDDEN);
+	boolean hasWhitespace = collectedWhitespace.length() != 0;
+}
+	:	
+		-> {hasWhitespace}? {(CommonTree)adaptor.create(WS, collectedWhitespace)}
+		->
+	;
+
+sqlToken
+	:	keyword | sqlStringLiteral | identifier | sqlSpecialChar
+	|	embeddedVar
+	;
+
+sqlSpecialChar
+	:	SQL_SPECIAL_CHAR //| LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
+	|	EQUALS | BACKSLASH //| DOUBLE_BACKSLASH
+	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
+	|	EXCLAM | QUESTION | COLON | DOT | COMMA
+	|	DOUBLE_ARROW
+	;
+
 objectLiteral
 	:	LCURLY
 		(objectSlot (COMMA objectSlot)* COMMA*
@@ -637,13 +729,13 @@ objectLiteral
 	;
 
 objectSlot
-	:	identifier EQUALS expression -> ^(SLOT identifier expression)
-	|	stringLiteral EQUALS expression -> ^(SLOT stringLiteral expression)
+	:	identifier EQUALS expressionNoSQL -> ^(SLOT identifier expressionNoSQL)
+	|	stringLiteral EQUALS expressionNoSQL -> ^(SLOT stringLiteral expressionNoSQL)
 	;
 
 argumentsList
 	:	LPAREN
-		( expression (COMMA expression)* -> ^(ARGS expression+)
+		( expressionNoSQL (COMMA expressionNoSQL)* -> ^(ARGS expressionNoSQL+)
 		|
 		)
 		RPAREN 
@@ -662,7 +754,7 @@ identifier
 	: asterisk=OP_MUL	-> IDENTIFIER[$asterisk]
 	| slash=OP_DIV		-> IDENTIFIER[$slash]
 	| plus=OP_ADD		-> IDENTIFIER[$plus]
-	| minus=OP_SUB	-> IDENTIFIER[$minus]
+	| minus=OP_SUB		-> IDENTIFIER[$minus]
 	| identifierNoOps	-> identifierNoOps
 	;
 
@@ -733,7 +825,7 @@ booleanLiteral
 	;
 
 parseDirective
-	:	DOUBLE_BACKSLASH dir=WORD arg=WORD EQUALS (valId=IDENTIFIER|valWord=WORD) {
+	:	BACKSLASH dir=WORD arg=WORD EQUALS (valId=IDENTIFIER|valWord=WORD) {
 			String directive = $dir.text;
 			String argument = $arg.text;
 			String value = $valId == null ? $valWord.text : $valId.text;
@@ -802,7 +894,7 @@ STR_SQUOT
 	:	'\''
 	;
 	
-		STR_DQUOT
+STR_DQUOT
 @init { lastStringStartMarker = input.mark(); }
 	:	'"'
 	;
@@ -817,10 +909,21 @@ STR_QQUOT
 	:	{allowQQuote}?=> ('N'|'n')? ('Q'|'q') '\''
 	;
 
-// TODO: add semantic predicate to activate this rule in postgresql quoting mode only
+/*
+ * FIXME: The ANTLR lexer doesn't end up in this rule since it somehow prioritizes
+ *        the dollar appearing in the IDENTIFIER_SPECIAL rule.
+ */
 STR_DOLQUOT
 @init { lastStringStartMarker = input.mark(); }
-	:	{allowDollarQuote}?=> ('$$' | '$' DOLQUOT_TAG '$')
+	:	{allowDollarQuote}?=> (DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR)
+	;
+
+fragment
+DDOLLAR	:	'$$'
+	;
+
+fragment
+DOLLAR	:	'$'
 	;
 
 fragment
@@ -919,9 +1022,11 @@ BACKSLASH
 	:	'\\'
 	;
 
+/*
 DOUBLE_BACKSLASH
 	:	'\\\\'
 	;
+*/
 
 DOUBLE_ARROW
 	:	'=>'
@@ -979,7 +1084,7 @@ IDENTIFIER
 
 fragment
 IDENTIFIER_SPECIAL
-	:	'+'|'-'|'~'|'@'|'$'|'%'|'^'|'&'|'*'|'/'|'_'|'|'
+	:	'+'|'-'|'~'|'@'|'%'|'^'|'&'|'*'|'/'|'_'|'|'|DOLLAR
 	;
 
 EQUALS	:	'='
@@ -1025,8 +1130,8 @@ SQL_SPECIAL_CHAR
 SEP	:	';'
 	;
 
-WS	:	(' '|'\r'|'\t'|'\u000C') { $channel = SQLScriptParser.WHITESPACE_CHANNEL; }
+WS	:	(' '|'\r'|'\t'|'\u000C')+ { $channel = whitespaceChannel; }
 	;
 
-NL	:	'\n' { $channel = SQLScriptParser.WHITESPACE_CHANNEL; }
+NL	:	'\n' { $channel = whitespaceChannel; }
 	;
