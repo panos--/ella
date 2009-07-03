@@ -4,12 +4,8 @@ import org.unbunt.sqlscript.statement.Statement;
 
 import java.util.List;
 
-public class Function implements Callable {
+public class Function extends AbstractCallable implements Callable {
     protected String name = null;
-    protected List<String> arguments = null;
-    protected int argCount = 0;
-    protected Statement body = null;
-    protected Env env = null;
 
     public Function() {
     }
@@ -23,8 +19,8 @@ public class Function implements Callable {
     }
 
     public Function(String name, Statement body) {
+        super(body);
         this.name = name;
-        this.body = body;
     }
 
     public String getName() {
@@ -33,35 +29,6 @@ public class Function implements Callable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<String> getArguments() {
-        return arguments;
-    }
-
-    public void setArguments(List<String> arguments) {
-        this.arguments = arguments;
-        this.argCount = arguments.size();
-    }
-
-    public int getArgCount() {
-        return argCount;
-    }
-
-    public Statement getBody() {
-        return body;
-    }
-
-    public void setBody(Statement body) {
-        this.body = body;
-    }
-
-    public Env getEnv() {
-        return env;
-    }
-
-    public void setEnv(Env env) {
-        this.env = env;
     }
 
     public String toString() {

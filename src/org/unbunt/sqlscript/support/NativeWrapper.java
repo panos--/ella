@@ -7,12 +7,12 @@ public class NativeWrapper {
         return new Int(i);
     }
 
-    public static Obj wrap(Object o) {
+    public static Obj wrap(Context ctx, Object o) {
         if (o == null) {
-            return Null.instance;
+            return ctx.getObjNull();
         }
         else if (o instanceof Boolean) {
-            return Bool.valueOf((Boolean) o);
+            return (Boolean) o ? ctx.getObjTrue() : ctx.getObjFalse();
         }
         else if (o instanceof Number) {
             if (o instanceof Integer || o instanceof Byte || o instanceof Short) {

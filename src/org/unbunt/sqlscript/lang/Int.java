@@ -2,22 +2,28 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.support.NativeWrapper;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 
 public class Int extends PlainObj {
-    public static final IntProto PROTOTYPE = new IntProto();
-
     public final int value;
 
     public Int(int value) {
         this.value = value;
     }
 
-    @Override
-    public Obj getImplicitParent() {
-        return PROTOTYPE;
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        IntProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, IntProto.OBJECT_ID);
     }
 
     public int getValue() {
@@ -53,7 +59,7 @@ public class Int extends PlainObj {
                 System.out.println("start loop with: " + i);
 
                 try {
-                    engine.invokeInLoop(code, Null.instance, NativeWrapper.wrap(i));
+                    engine.invokeInLoop(code, engine.getObjNull(), NativeWrapper.wrap(i));
                 } catch (LoopBreakException e) {
                     return null;
                 } catch (LoopContinueException e) {
@@ -63,7 +69,7 @@ public class Int extends PlainObj {
                 while (i != stop) {
                     try {
                         i += step;
-                        engine.invokeInLoop(code, Null.instance, NativeWrapper.wrap(i));
+                        engine.invokeInLoop(code, engine.getObjNull(), NativeWrapper.wrap(i));
                     } catch (LoopBreakException e) {
                         return null;
                     } catch (LoopContinueException e) {
@@ -93,13 +99,22 @@ public class Int extends PlainObj {
             slots.put(Str.SYM_to, nativeTo);
         }
 
-        public Call getNativeConstructor() {
-            return NATIVE_CONSTRUCTOR;
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
         }
 
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new IntProto());
+            }
+        }
+
+        public Call getNativeConstructor() {
+            return NATIVE_CONSTRUCTOR;
         }
     }
 }

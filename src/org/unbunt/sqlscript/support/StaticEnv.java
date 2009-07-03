@@ -6,17 +6,14 @@ import org.unbunt.sqlscript.continuations.Continuation;
 import java.util.ArrayList;
 
 public class StaticEnv extends AbstractEnv {
-    protected ArrayList<Obj> vars = new ArrayList<Obj>();
+    protected ArrayList<Obj> values = new ArrayList<Obj>();
+    protected ArrayList<Variable> vars = new ArrayList<Variable>();
 
     protected Obj context = null;
     protected Obj receiver = null;
 
     protected int closureHomeOffset = -1;
     protected Continuation closureHomeCont = null;
-
-    protected StaticEnv() {
-        super(new TopEnv());
-    }
 
     public StaticEnv(Env parent) {
         super(parent);
@@ -38,15 +35,16 @@ public class StaticEnv extends AbstractEnv {
         this.receiver = receiver;
     }
 
-    public void extend() {
-            vars.add(null);
+    public void extend(Variable var) {
+        vars.add(var);
+        values.add(null);
     }
 
     public Obj get(Variable var, int addr) {
         if (addr > 0xFFFF) {
             return parent.get(var, addr - 0x10000);
         }
-        return vars.get(addr);
+        return values.get(addr);
     }
 
     public void set(Variable var, int addr, Obj value) {
@@ -54,16 +52,17 @@ public class StaticEnv extends AbstractEnv {
             parent.set(var, addr - 0x10000, value);
         }
         else {
-            vars.set(addr, value);
+            values.set(addr, value);
         }
     }
 
-    public void add(Obj value) {
-        vars.add(value);
+    public void add(Variable var, Obj value) {
+        vars.add(var);
+        values.add(value);
     }
 
     public int getMaxAddress() {
-        return vars.size() - 1;
+        return values.size() - 1;
     }
 
     public void setClosureHome(int offset, Continuation cont) {
@@ -79,5 +78,13 @@ public class StaticEnv extends AbstractEnv {
 
     public Continuation getClosureHomeCont() {
         return closureHomeCont == null ? parent.getClosureHomeCont() : closureHomeCont;
+    }
+
+    public Scope toScope() {
+        Scope scope = parent == null ? new Scope() : new Scope(parent.toScope());
+        for (Variable var : vars) {
+            scope.addVariable(var.name);
+        }
+        return scope;
     }
 }

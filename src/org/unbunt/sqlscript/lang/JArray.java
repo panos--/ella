@@ -2,13 +2,13 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.support.NativeWrapper;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 import java.lang.reflect.Array;
 
 public class JArray extends PlainObj {
-    public static final JArrayProto PROTOTYPE = new JArrayProto();
-
     public final Object array;
     public final int length;
     public final Int lengthObj;
@@ -19,17 +19,23 @@ public class JArray extends PlainObj {
         this.lengthObj = new Int(length);
     }
 
-    @Override
-    public Obj getImplicitParent() {
-        return PROTOTYPE;
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        JArrayProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, JArrayProto.OBJECT_ID);
     }
 
     @Override
-    public Obj getSlot(Obj key) {
+    public Obj getSlot(Context context, Obj key) {
         if (Str.SYM_length.equals(key)) {
             return lengthObj;
         }
-        return super.getSlot(key);
+        return super.getSlot(context, key);
     }
 
     @Override
@@ -54,8 +60,8 @@ public class JArray extends PlainObj {
                 for (int i = 0; i < length; i++) {
                     Object elem = Array.get(array, i);
                     Obj wrappedIndex = new Int(i);
-                    Obj wrappedElem = NativeWrapper.wrap(elem);
-                    engine.invoke(code, Null.instance, wrappedIndex, wrappedElem);
+                    Obj wrappedElem = NativeWrapper.wrap(engine.getContext(), elem);
+                    engine.invoke(code, engine.getObjNull(), wrappedIndex, wrappedElem);
                 }
                 return context;
             }
@@ -66,7 +72,7 @@ public class JArray extends PlainObj {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
                 int idx = ((Number) args[0].toJavaObject()).intValue();
-                return NativeWrapper.wrap(Array.get(array, idx));
+                return NativeWrapper.wrap(engine.getContext(), Array.get(array, idx));
             }
         };
 
@@ -120,15 +126,24 @@ public class JArray extends PlainObj {
             }
         };
 
-        public JArrayProto() {
+        private JArrayProto() {
             slots.put(Str.SYM_each, nativeEach);
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
         }
 
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
+        }
+
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new JArrayProto());
+            }
         }
 
         public Call getNativeConstructor() {

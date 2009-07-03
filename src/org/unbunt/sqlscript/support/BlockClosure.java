@@ -1,16 +1,9 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.continuations.Continuation;
+import org.unbunt.sqlscript.statement.Statement;
 
-import java.util.List;
-
-public class BlockClosure implements Callable {
-    protected List<String> arguments = null;
-    protected int argCount = 0;
-    protected Statement body = null;
-    protected Env env = null;
-
+public class BlockClosure extends AbstractCallable {
     protected int homeOffset = -1;
     protected Continuation homeCont = null;
 
@@ -18,36 +11,7 @@ public class BlockClosure implements Callable {
     }
 
     public BlockClosure(Statement body) {
-        this.body = body;
-    }
-
-    public List<String> getArguments() {
-        return arguments;
-    }
-
-    public void setArguments(List<String> arguments) {
-        this.arguments = arguments;
-        this.argCount = arguments.size();
-    }
-
-    public int getArgCount() {
-        return argCount;
-    }
-
-    public Statement getBody() {
-        return body;
-    }
-
-    public void setBody(Statement body) {
-        this.body = body;
-    }
-
-    public Env getEnv() {
-        return env;
-    }
-
-    public void setEnv(Env env) {
-        this.env = env;
+        super(body);
     }
 
     public int getHomeOffset() {

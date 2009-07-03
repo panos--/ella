@@ -5,14 +5,25 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.support.BlockClosure;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 
 public class Clos extends PlainObj implements Call {
-    public static final ClosProto PROTOTYPE = new ClosProto();
-
     protected BlockClosure closure;
 
     public Clos(BlockClosure closure) {
         this.closure = closure;
+    }
+
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        ClosProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, ClosProto.OBJECT_ID);
     }
 
     public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -23,28 +34,23 @@ public class Clos extends PlainObj implements Call {
         engine.trigger(this, args);
     }
 
-    @Override
-    public Obj getImplicitParent() {
-        return PROTOTYPE;
-    }
-
     public BlockClosure getClosure() {
         return closure;
     }
 
-    protected static class ClosProto extends PlainObj {
+    public static class ClosProto extends PlainObj {
         protected static final NativeCall nativeWhile = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) {
                 // TODO: check args
                 Obj result = null;
                 while (true) {
                     Obj condValue = ((Call) context).call(engine, null);
-                    Bool condResult = engine.toBool(condValue);
-                    if (Bool.FALSE.equals(condResult)) {
+                    Obj condResult = engine.toBool(condValue);
+                    if (engine.getObjFalse().equals(condResult)) {
                         break;
                     }
 
-                    engine.invoke(PrimitiveCall.Type.LOOP.primitive, Null.instance);
+                    engine.invoke(PrimitiveCall.Type.LOOP.primitive, engine.getObjNull());
 
                     try {
                         result = engine.invoke((Clos) args[0]);
@@ -58,13 +64,22 @@ public class Clos extends PlainObj implements Call {
             }
         };
 
-        protected ClosProto() {
+        private ClosProto() {
             this.slots.put(Str.SYM_while, nativeWhile);
         }
 
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
+        }
+
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new ClosProto());
+            }
         }
     }
 }

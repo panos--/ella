@@ -1,23 +1,26 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 public class Bool extends PlainObj {
-    public final static BoolProto PROTOTYPE = new BoolProto();
-
-    public final static Bool TRUE = new Bool(true);
-    public final static Bool FALSE = new Bool(false);
-
     protected final boolean value;
 
-    private Bool(boolean value) {
+    public Bool(boolean value) {
         this.value = value;
-        slots.put(Str.SYM_parent, PROTOTYPE);
     }
 
-    public static Bool valueOf(boolean bool) {
-        return bool ? Bool.TRUE : Bool.FALSE;
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        BoolProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, BoolProto.OBJECT_ID);
     }
 
     public boolean isTrue() {
@@ -54,24 +57,33 @@ public class Bool extends PlainObj {
         return "" + value;
     }
 
-    protected static class BoolProto extends PlainObj implements NativeObj {
+    public static class BoolProto extends PlainObj implements NativeObj {
 
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-                return ((Bool) args[0]).getValue() ? Bool.TRUE : Bool.FALSE;
+                return ((Bool) args[0]).getValue() ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
-        protected BoolProto() {
+        private BoolProto() {
+        }
+
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
+        }
+
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new BoolProto());
+            }
         }
 
         public Call getNativeConstructor() {
             return NATIVE_CONSTRUCTOR;
-        }
-
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
         }
     }
 }

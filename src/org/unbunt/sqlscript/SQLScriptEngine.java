@@ -1,5 +1,7 @@
 package org.unbunt.sqlscript;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.unbunt.sqlscript.annotations.*;
 import org.unbunt.sqlscript.commands.*;
 import org.unbunt.sqlscript.continuations.*;
@@ -11,8 +13,6 @@ import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.StringUtils;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.utils.VolatileObservable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Constructor;
@@ -27,7 +27,8 @@ public class SQLScriptEngine
 
     protected Log logger = LogFactory.getLog(getClass());
 
-    protected SQLScriptContext context;
+    protected SQLScriptContext sqlScriptContext;
+    protected Context context;
     protected boolean finished = false;
 
     protected final static Map<String, String> commands;
@@ -105,15 +106,13 @@ public class SQLScriptEngine
         }
     }
 
-    public SQLScriptEngine(SQLScriptContext context) {
+    public SQLScriptEngine(Context context, SQLScriptContext sqlScriptContext) {
         this.context = context;
+        this.sqlScriptContext = sqlScriptContext;
     }
 
-    protected SQLScriptEngine() {
-    }
-
-    public static SQLScriptEngine create(SQLScriptContext context) {
-        return new SQLScriptEngine(context);
+    public static SQLScriptEngine create(Context context, SQLScriptContext sqlScriptContext) {
+        return new SQLScriptEngine(context, sqlScriptContext);
     }
 
     protected Statement stmt;
@@ -125,23 +124,11 @@ public class SQLScriptEngine
     protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
     protected int pc;
 
-    protected Obj GLOBAL_CONTEXT = Sys.instance;
-
     public Object process(Block block) throws SQLScriptRuntimeException {
         next = EVAL;
         stmt = block;
         val = null;
-        if (env == null) {
-            DynamicVariableResolver globalResolver = new DynamicVariableResolver() {
-                public Obj resolve(Variable var) {
-                    return ObjUtils.getSlot(GLOBAL_CONTEXT, var.nameStr);
-                }
-            };
-            env = new MainEnv(globalResolver);
-            for (Globals global : Globals.values()) {
-                env.add(global.getValue());
-            }
-        }
+        env = context.getEnv();
         pc = 0;
         cont[pc] = new EndCont();
 
@@ -226,7 +213,7 @@ public class SQLScriptEngine
     }
 
     public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {
-        val = booleanLiteralExpression.getBool();
+        val = booleanLiteralExpression.getValue() ? getObjTrue() : getObjFalse();
         next = CONT;
     }
 
@@ -280,7 +267,7 @@ public class SQLScriptEngine
     }
 
     public void processExpression(DeclareVariableExpression declareVariableExpression) {
-        env.extend();
+        env.extend(declareVariableExpression.getVariable());
         next = CONT;
     }
 
@@ -348,7 +335,7 @@ public class SQLScriptEngine
         val = new Func(func);
         if (funcName != null) {
             if (functionDefinitionExpression.isDeclareVariable()) {
-                env.add(val);
+                env.add(functionDefinitionExpression.getVariable(), val);
             }
             else {
                 env.set(functionDefinitionExpression.getVariable(), val);
@@ -433,15 +420,12 @@ public class SQLScriptEngine
         }
 
         if (ctx == null) {
-            val = Null.instance;
+            val = getObjNull();
         }
         else {
-            Obj parentCtx = ctx.getParent();
+            Obj parentCtx = ObjUtils.getParent(context, ctx);
             if (parentCtx == null) {
-                parentCtx = ctx.getImplicitParent();
-                if (parentCtx == null) {
-                    parentCtx = Null.instance;
-                }
+                parentCtx = getObjNull();
             }
             val = parentCtx;
         }
@@ -565,19 +549,19 @@ public class SQLScriptEngine
 
     public void processContinuation(ObjLitSlotValueCont objLitSlotValueCont) {
         pc--;
-        objLitSlotValueCont.getObj().addSlot(objLitSlotValueCont.getSlot(), val);
+        objLitSlotValueCont.getObj().addSlot(context, objLitSlotValueCont.getSlot(), val);
         next = CONT;
     }
 
     public void processContinuation(LogicNotCont logicNotCont) {
-        val = toBool(val).equals(Bool.TRUE) ? Bool.FALSE : Bool.TRUE;
+        val = toBool(val).equals(getObjTrue()) ? getObjFalse() : getObjTrue();
         pc--;
         next = CONT;
     }
 
     public void processContinuation(LogicAndCont logicAndCont) {
-        Bool curVal = toBool(val);
-        if (curVal.equals(Bool.FALSE) || !logicAndCont.hasNext()) {
+        Obj curVal = toBool(val);
+        if (curVal.equals(getObjFalse()) || !logicAndCont.hasNext()) {
             val = curVal;
             pc--;
             next = CONT;
@@ -589,8 +573,8 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(LogicOrCont logicOrCont) {
-        Bool curVal = toBool(val);
-        if (curVal.equals(Bool.TRUE) || !logicOrCont.hasNext()) {
+        Obj curVal = toBool(val);
+        if (curVal.equals(getObjTrue()) || !logicOrCont.hasNext()) {
             val = curVal;
             pc--;
             next = CONT;
@@ -611,14 +595,14 @@ public class SQLScriptEngine
         Obj val1 = condEq2Cont.getValue();
         Obj val2 = val;
 
-        val = (val1 != null && val1.equals(val2)) || val1 == val2 ? Bool.TRUE : Bool.FALSE;
+        val = (val1 != null && val1.equals(val2)) || val1 == val2 ? getObjTrue() : getObjFalse();
 
         pc--;
         next = CONT;
     }
 
     public void processContinuation(TernCont ternCont) {
-        if (toBool(val).equals(Bool.TRUE)) {
+        if (toBool(val).equals(getObjTrue())) {
             stmt = ternCont.getTrueExpression();
         }
         else {
@@ -663,7 +647,7 @@ public class SQLScriptEngine
         Obj slot = slotSetValueCont.getSlot();
         Obj value = val;
 
-        receiver.setSlot(slot, value);
+        receiver.setSlot(context, slot, value);
         next = CONT;
     }
 
@@ -681,28 +665,25 @@ public class SQLScriptEngine
         Obj slot = val;
         Obj obj = receiver;
         while (true) {
-            val = obj.getSlot(slot);
+            val = obj.getSlot(context, slot);
             if (val != null) {
                 break;
             }
-            Obj parent = obj.getParent();
+            Obj parent = ObjUtils.getParent(context, obj);
             if (parent == null) {
-                parent = obj.getImplicitParent();
-                if (parent == null) {
-                    break;
-                }
+                break;
             }
             obj = parent;
         }
         if (val == null) {
-            val = Null.instance;
+            val = getObjNull();
         }
         next = CONT;
     }
 
     public void processContinuation(IfCont ifCont) {
         pc--;
-        if (toBool(val).equals(Bool.TRUE)) {
+        if (toBool(val).equals(getObjTrue())) {
             stmt = ifCont.getTrueStatement();
             next = EVAL;
         }
@@ -746,7 +727,8 @@ public class SQLScriptEngine
         CatchStatement catchStmt = tryCont.getCatchClause();
         Env savedEnv = tryCont.getEnv();
         env = new StaticEnv(savedEnv);
-        env.add(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
+        // FIXME: must provide variable
+//        env.add(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
         stmt = catchStmt.getBody();
         cont[++pc] = new CatchCont(savedEnv);
         next = EVAL;
@@ -774,32 +756,29 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(SlotCallSlotCont slotCallSlotCont) {
-        Obj context = slotCallSlotCont.getReceiver();
+        Obj ctx = slotCallSlotCont.getReceiver();
         Obj slot = val;
 
-        Obj receiver = context;
+        Obj receiver = ctx;
         while (true) {
-            val = receiver.getSlot(slot);
+            val = receiver.getSlot(context, slot);
             if (val != null) {
                 break;
             }
 
-            Obj parent = receiver.getParent();
+            Obj parent = ObjUtils.getParent(context, receiver);
             if (parent == null) {
-                parent = receiver.getImplicitParent();
-                if (parent == null) {
-                    break;
-                }
+                break;
             }
 
             receiver = parent;
         }
 
         if (val == null) {
-            val = Null.instance;
+            val = getObjNull();
         }
 
-        cont[pc] = new CallCont(context, receiver, slotCallSlotCont.getArguments(), slotCallSlotCont.getCallFlags());
+        cont[pc] = new CallCont(ctx, receiver, slotCallSlotCont.getArguments(), slotCallSlotCont.getCallFlags());
         next = CONT;
     }
 
@@ -870,12 +849,17 @@ public class SQLScriptEngine
         stmt = callArgCont.getBody();
         env = callArgCont.getCallEnv();
 
+        Callable callable = callArgCont.getCallable();
+
+        // NOTE: matching length of both containers is ensured by previous call to checkFunArgs()
+        List<Variable> argVars = callable.getArguments();
         Obj[] args = ((Args) val).args;
-        for (Obj arg : args) {
-            env.add(arg);
+        int nargs = args.length;
+        for (int i = 0; i < nargs; i++) {
+            Variable variable = argVars.get(i);
+            env.add(variable, args[i]);
         }
 
-        Callable callable = callArgCont.getCallable();
         if (callable instanceof Function) {
             // tail-call optimization
             if (callArgCont.isTailCall()) {
@@ -931,12 +915,12 @@ public class SQLScriptEngine
         switch (primitive) {
             case ID: {
                 Obj o2 = args[0];
-                val = context == o2 ? Bool.TRUE : Bool.FALSE;
+                val = context == o2 ? getObjTrue() : getObjFalse();
                 break;
             }
             case NI: {
                 Obj o2 = args[0];
-                val = context != o2 ? Bool.TRUE : Bool.FALSE;
+                val = context != o2 ? getObjTrue() : getObjFalse();
                 break;
             }
             case INT_ADD: {
@@ -972,37 +956,37 @@ public class SQLScriptEngine
             case INT_EQ: {
                 Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
-                val = int1.value == int2.value ? Bool.TRUE : Bool.FALSE;
+                val = int1.value == int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case INT_NE: {
                 Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
-                val = int1.value != int2.value ? Bool.TRUE : Bool.FALSE;
+                val = int1.value != int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case INT_LT: {
                 Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
-                val = int1.value < int2.value ? Bool.TRUE : Bool.FALSE;
+                val = int1.value < int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case INT_LE: {
                 Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
-                val = int1.value <= int2.value ? Bool.TRUE : Bool.FALSE;
+                val = int1.value <= int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case INT_GT: {
                 Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
-                val = int1.value > int2.value ? Bool.TRUE : Bool.FALSE;
+                val = int1.value > int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case INT_GE: {
                 Int int1 = (Int) context;
                 Int int2 = (Int) args[0];
-                val = int1.value >= int2.value ? Bool.TRUE : Bool.FALSE;
+                val = int1.value >= int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case LOOP:
@@ -1084,18 +1068,15 @@ public class SQLScriptEngine
         else {
             Obj parent = val;
             Obj newObj = new PlainObj();
-            newObj.setSlot(STR_SLOT_PARENT, parent);
+            newObj.setSlot(context, STR_SLOT_PARENT, parent);
 
-            Obj initSlot = parent.getSlot(STR_SLOT_INIT);
+            Obj initSlot = parent.getSlot(context, STR_SLOT_INIT);
             while (initSlot == null) {
-                Obj nextParent = parent.getParent();
+                Obj nextParent = ObjUtils.getParent(context, parent);
                 if (nextParent == null) {
-                    nextParent = parent.getImplicitParent();
-                    if (nextParent == null) {
-                        break;
-                    }
+                    break;
                 }
-                initSlot = nextParent.getSlot(STR_SLOT_INIT);
+                initSlot = nextParent.getSlot(context, STR_SLOT_INIT);
                 parent = nextParent;
             }
 
@@ -1178,7 +1159,7 @@ public class SQLScriptEngine
     protected void process(EvalCommand command) throws SQLScriptRuntimeException {
         logger.debug("Executing CMD: " + command);
 
-        SQLScriptOptions options = context.getOptions();
+        SQLScriptOptions options = sqlScriptContext.getOptions();
 
         boolean quiet = options.quiet;
         if (quiet && command.isAnnotationPresent(DescriptionAnnotation.class)) {
@@ -1197,12 +1178,12 @@ public class SQLScriptEngine
 
         if (cmd instanceof ConnectionRequired) {
             connect();
-            Connection conn = context.getConnection();
+            Connection conn = sqlScriptContext.getConnection();
             ((ConnectionRequired) cmd).setConnection(conn);
         }
 
         if (cmd instanceof StatementRequired) {
-            SQLStatement stmt = context.getLastSQLStatement();
+            SQLStatement stmt = sqlScriptContext.getLastSQLStatement();
             if (stmt == null) {
                 throw new StatementRequiredException();
             }
@@ -1210,7 +1191,7 @@ public class SQLScriptEngine
         }
 
         if (cmd instanceof ResultSetRequired) {
-            ResultSet rs = context.getLastSQLResult();
+            ResultSet rs = sqlScriptContext.getLastSQLResult();
             if (rs == null) {
                 throw new ResultSetRequiredException();
             }
@@ -1218,7 +1199,7 @@ public class SQLScriptEngine
         }
 
         if (cmd instanceof UpdateCountRequired) {
-            int updateCount = context.getLastUpdateCount();
+            int updateCount = sqlScriptContext.getLastUpdateCount();
             if (updateCount == -1) {
                 throw new UpdateCountRequiredException();
             }
@@ -1241,7 +1222,7 @@ public class SQLScriptEngine
             });
         }
 
-        ResultSet rs = context.getLastSQLResult();
+        ResultSet rs = sqlScriptContext.getLastSQLResult();
         if (rs != null) {
             try {
                 rs.beforeFirst();
@@ -1250,7 +1231,7 @@ public class SQLScriptEngine
             }
         }
 
-        cmd.execute(context, command.getParams());
+        cmd.execute(sqlScriptContext, command.getParams());
 
         if (!quiet) {
             state.state = CommandState.FINISHED;
@@ -1262,7 +1243,7 @@ public class SQLScriptEngine
         logger.debug("Executing SQL: " + sqlStmt);
 
         // first, close last statement, if exists
-        java.sql.Statement lastStmt = context.getLastSQLStatementResource();
+        java.sql.Statement lastStmt = sqlScriptContext.getLastSQLStatementResource();
         if (lastStmt != null) {
             try {
                 lastStmt.close();
@@ -1271,7 +1252,7 @@ public class SQLScriptEngine
             }
         }
 
-        SQLScriptOptions options = context.getOptions();
+        SQLScriptOptions options = sqlScriptContext.getOptions();
 
         boolean quiet = options.quiet;
         if (quiet && sqlStmt.isAnnotationPresent(DescriptionAnnotation.class)) {
@@ -1291,7 +1272,7 @@ public class SQLScriptEngine
 
         boolean ignoreErrors = sqlStmt.isAnnotationPresent(IgnoreErrorsAnnotation.class);
 
-        Connection conn = context.getConnection();
+        Connection conn = sqlScriptContext.getConnection();
         Savepoint savepoint = null;
         try {
             boolean isAutoCommit = conn.getAutoCommit();
@@ -1306,7 +1287,7 @@ public class SQLScriptEngine
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY
                 );
-                context.setPreparedStatement(sqlStmt.getAnnotation(PrepareAnnotation.class).getAlias(), stmt);
+                sqlScriptContext.setPreparedStatement(sqlStmt.getAnnotation(PrepareAnnotation.class).getAlias(), stmt);
             }
             else {
                 java.sql.Statement stmt = conn.createStatement(
@@ -1316,10 +1297,10 @@ public class SQLScriptEngine
                 stmt.execute(sql, conn.getMetaData().supportsGetGeneratedKeys()
                                   ? java.sql.Statement.RETURN_GENERATED_KEYS
                                   : java.sql.Statement.NO_GENERATED_KEYS);
-                context.setLastSQLStatement(sqlStmt);
-                context.setLastSQLStatementResource(stmt);
-                context.setLastSQLResult(stmt.getResultSet());
-                context.setLastUpdateCount(stmt.getUpdateCount());
+                sqlScriptContext.setLastSQLStatement(sqlStmt);
+                sqlScriptContext.setLastSQLStatementResource(stmt);
+                sqlScriptContext.setLastSQLResult(stmt.getResultSet());
+                sqlScriptContext.setLastUpdateCount(stmt.getUpdateCount());
                 printSQLResult();
             }
         } catch (SQLException e) {
@@ -1344,8 +1325,8 @@ public class SQLScriptEngine
 
     @SuppressWarnings({"MalformedFormatString"})
     protected void printSQLResult() throws SQLException {
-        ResultSet rs = context.getLastSQLResult();
-        int updateCount = context.getLastUpdateCount();
+        ResultSet rs = sqlScriptContext.getLastSQLResult();
+        int updateCount = sqlScriptContext.getLastUpdateCount();
 
         if (rs != null) {
             rs.beforeFirst();
@@ -1461,29 +1442,29 @@ public class SQLScriptEngine
     }
     */
 
-    public Bool toBool(Obj value) {
+    public Obj toBool(Obj value) {
         if (value == null) {
-            return Bool.FALSE;
+            return getObjFalse();
         }
         if (value instanceof Bool) {
-            return value.equals(Bool.TRUE) ? Bool.TRUE : Bool.FALSE;
+            return value.equals(getObjTrue()) ? getObjTrue() : getObjFalse();
         }
         if (value instanceof Null) {
-            return Bool.FALSE;
+            return getObjFalse();
         }
-        return Bool.TRUE;
+        return getObjTrue();
 //        return value != null && (!(value instanceof Bool) || value.equals(Bool.TRUE)) ? Bool.TRUE : Bool.FALSE;
     }
 
     public boolean toBoolean(Obj value) {
-        return Bool.TRUE.equals(toBool(value));
+        return getObjTrue().equals(toBool(value));
     }
 
     protected void finish() throws SQLScriptRuntimeException {
         logger.debug("Finishing");
 
-        if (!(context instanceof SQLScriptChildContext)) {
-            Map<String, Connection> conns = context.getConnections();
+        if (!(sqlScriptContext instanceof SQLScriptChildContext)) {
+            Map<String, Connection> conns = sqlScriptContext.getConnections();
             DBConnectionCloseFailedException ex = null;
             for (Connection connection : conns.values()) {
                 if (connection == null) {
@@ -1504,18 +1485,18 @@ public class SQLScriptEngine
     }
 
     protected void connect() throws SQLScriptRuntimeException {
-        if (context.getConnection() != null) {
+        if (sqlScriptContext.getConnection() != null) {
             return;
         }
 
-        DataSource ds = context.getDataSource();
+        DataSource ds = sqlScriptContext.getDataSource();
         if (ds == null) {
             throw new NoDataSourceException();
         }
 
         try {
             Connection conn = ds.getConnection();
-            context.setConnection(conn);
+            sqlScriptContext.setConnection(conn);
         } catch (SQLException e) {
             throw new DBConnectionFailedException(e);
         }
@@ -1569,12 +1550,12 @@ public class SQLScriptEngine
         }
     }
 
-    public SQLScriptContext getContext() {
-        return context;
+    public SQLScriptContext getSqlScriptContext() {
+        return sqlScriptContext;
     }
 
-    public void setContext(SQLScriptContext context) {
-        this.context = context;
+    public void setSqlScriptContext(SQLScriptContext sqlScriptContext) {
+        this.sqlScriptContext = sqlScriptContext;
     }
 
     public boolean isFinished() {
@@ -1603,9 +1584,14 @@ public class SQLScriptEngine
         Env lexEnv = closure.getEnv();
         env = new StaticEnv(lexEnv);
         env.setContext(lexEnv.getContext());
-        for (Obj arg : args) {
-            env.add(arg);
+
+        List<Variable> argVars = clos.getClosure().getArguments();
+        int nargs = args.length;
+        for (int i = 0; i < nargs; i++) {
+            Variable variable =  argVars.get(i);
+            env.add(variable, args[i]);
         }
+
         stmt = closure.getBody();
         cont[++pc] = new ClosRetCont(closure, savedEnv);
         next = EVAL;
@@ -1618,9 +1604,14 @@ public class SQLScriptEngine
         Env savedEnv = env;
         env = new StaticEnv(function.getEnv());
         env.setContext(context);
-        for (Obj arg : args) {
-            env.add(arg);
+
+        List<Variable> argVars = func.getFunction().getArguments();
+        int nargs = args.length;
+        for (int i = 0; i < nargs; i++) {
+            Variable variable =  argVars.get(i);
+            env.add(variable, args[i]);
         }
+
         stmt = function.getBody();
         cont[++pc] = new FunRetCont(savedEnv);
         next = EVAL;
@@ -1717,5 +1708,25 @@ public class SQLScriptEngine
             this.env = env;
             this.pc = pc;
         }
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public Obj getObjNull() {
+        return context.getObjNull();
+    }
+
+    public Obj getObjSys() {
+        return context.getObjSys();
+    }
+
+    public Obj getObjTrue() {
+        return context.getObjTrue();
+    }
+
+    public Obj getObjFalse() {
+        return context.getObjFalse();
     }
 }

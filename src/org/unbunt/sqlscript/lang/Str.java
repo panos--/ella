@@ -1,6 +1,8 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 import java.util.HashMap;
@@ -49,21 +51,29 @@ public class Str extends AbstractObj {
 
     protected final String value;
 
-    public static final StrProto PROTOTYPE = StrProto.instance;
-
     static {
         // initialize Base and StrProto, both of which depend on Str to define slots
-        Base.initialize();
-        StrProto.initialize();
+//        Base.initialize();
+//        StrProto.initialize();
     }
 
     public Str(String value) {
         this.value = value;
     }
 
-    @Override
-    public Obj getImplicitParent() {
-        return PROTOTYPE;
+    public static int generateObjectID() {
+        return ProtoRegistry.generateObjectID();
+    }
+
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        StrProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, StrProto.OBJECT_ID);
     }
 
     public Obj getParent() {
@@ -111,8 +121,6 @@ public class Str extends AbstractObj {
     }
 
     public static class StrProto extends AbstractObj implements NativeObj {
-        public static final StrProto instance = new StrProto();
-
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(args[0].toString());
@@ -125,20 +133,30 @@ public class Str extends AbstractObj {
             }
         };
 
-        private StrProto() {
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
         }
 
-        public static void initialize() {
-            instance.slots.put(SYM_add, nativeAdd);
+        private StrProto() {
+            slots.put(SYM_add, nativeAdd);
+        }
+
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new StrProto());
+            }
+        }
+
+        private static void initialize() {
+//            instance.slots.put(SYM_add, nativeAdd);
         }
 
         public Call getNativeConstructor() {
             return NATIVE_CONSTRUCTOR;
-        }
-
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
         }
 
         public Obj getParent() {

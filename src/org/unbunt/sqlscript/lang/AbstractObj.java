@@ -1,26 +1,31 @@
 package org.unbunt.sqlscript.lang;
 
+import org.unbunt.sqlscript.support.Context;
+
 import java.util.Map;
 import java.util.HashMap;
 
 public abstract class AbstractObj implements Obj {
     protected Map<Obj, Obj> slots = new HashMap<Obj, Obj>();
 
-    public Obj getImplicitParent() {
-        return null;
+    public AbstractObj() {
+    }
+
+    public int getObjectID() {
+        return -1;
     }
 
     public abstract Obj getParent();
 
-    public Obj addSlot(Obj key, Obj value) {
+    public Obj addSlot(Context ctx, Obj key, Obj value) {
         return slots.put(key, value);
     }
 
-    public Obj setSlot(Obj key, Obj value) {
+    public Obj setSlot(Context ctx, Obj key, Obj value) {
         return slots.put(key, value);
     }
 
-    public Obj getSlot(Obj key) {
+    public Obj getSlot(Context ctx, Obj key) {
         return slots.get(key);
     }
 

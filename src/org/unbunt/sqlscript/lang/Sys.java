@@ -1,10 +1,7 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
-import org.unbunt.sqlscript.support.DynamicEnv;
-import org.unbunt.sqlscript.support.DynamicVariableResolver;
-import org.unbunt.sqlscript.support.Variable;
-import org.unbunt.sqlscript.support.CachingVariableResolver;
+import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
@@ -15,7 +12,7 @@ public class Sys extends PlainObj {
     protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             System.out.println(StringUtils.join(" ", (Object[]) args));
-            return Null.instance;
+            return engine.getObjNull();
         }
     };
 
@@ -36,13 +33,13 @@ public class Sys extends PlainObj {
                         }
                     }));
             engine.setEnv(newEnv);
-            return Null.instance;
+            return engine.getObjNull();
         }
     };
 
     protected static final NativeCall nativeIfThen = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            Obj condVal = engine.invoke(args[0], Null.instance);
+            Obj condVal = engine.invoke(args[0], engine.getObjNull());
             boolean condSatisfied = engine.toBoolean(condVal);
             if (condSatisfied) {
                 engine.trigger(args[1], context);
@@ -53,10 +50,10 @@ public class Sys extends PlainObj {
 
     protected static final NativeCall nativeLoop = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            engine.invoke(PrimitiveCall.Type.LOOP.primitive, Null.instance);
+            engine.invoke(PrimitiveCall.Type.LOOP.primitive, engine.getObjNull());
             while (true) {
                 try {
-                    engine.invoke(args[0], Null.instance);
+                    engine.invoke(args[0], engine.getObjNull());
                 } catch (LoopContinueException e) {
                     continue;
                 } catch (LoopBreakException e) {
@@ -77,9 +74,9 @@ public class Sys extends PlainObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             SQLScriptEngine.EngineState state = engine.getState();
             try {
-                engine.invoke(args[0], Null.instance);
+                engine.invoke(args[0], engine.getObjNull());
             } catch (ScriptClientException e) {
-                engine.invoke(args[1], Null.instance, e.getException());
+                engine.invoke(args[1], engine.getObjNull(), e.getException());
             }
             engine.setState(state);
             return null;
@@ -90,14 +87,14 @@ public class Sys extends PlainObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             SQLScriptEngine.EngineState state = engine.getState();
             try {
-                engine.invoke(args[0], Null.instance);
+                engine.invoke(args[0], engine.getObjNull());
             } finally {
                 Obj savedVal = null;
                 try {
                     if (engine.isClosureReturnInProgress()) {
                         savedVal = engine.getVal();
                     }
-                    engine.invoke(args[2], Null.instance);
+                    engine.invoke(args[2], engine.getObjNull());
                 } finally {
                     if (savedVal != null) {
                         engine.setVal(savedVal);
@@ -113,16 +110,16 @@ public class Sys extends PlainObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             SQLScriptEngine.EngineState state = engine.getState();
             try {
-                engine.invoke(args[0], Null.instance);
+                engine.invoke(args[0], engine.getObjNull());
             } catch (ScriptClientException e) {
-                engine.invoke(args[1], Null.instance, e.getException());
+                engine.invoke(args[1], engine.getObjNull(), e.getException());
             } finally {
                 Obj savedVal = null;
                 try {
                     if (engine.isClosureReturnInProgress()) {
                         savedVal = engine.getVal();
                     }
-                    engine.invoke(args[2], Null.instance);
+                    engine.invoke(args[2], engine.getObjNull());
                 } finally {
                     if (savedVal != null) {
                         engine.setVal(savedVal);
@@ -136,14 +133,24 @@ public class Sys extends PlainObj {
 
     protected static final NativeCall nativeNoop = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            return Null.instance;
+            return engine.getObjNull();
         }
     };
 
-    public static final Sys instance = new Sys();
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+        if (!ctx.hasObject(OBJECT_ID)) {
+            ctx.registerObject(new Sys());
+        }
+    }
 
     public Sys() {
-        slots.put(Str.SYM_parent, Base.instance);
         slots.put(Str.SYM_print, nativePrint);
         slots.put(Str.SYM_importPackage, nativeImportPackage);
         slots.put(Str.SYM_loop, nativeLoop);

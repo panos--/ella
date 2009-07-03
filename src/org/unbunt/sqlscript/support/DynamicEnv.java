@@ -36,8 +36,8 @@ public class DynamicEnv extends AbstractEnv {
         return parent.getReceiver();
     }
 
-    public void extend() {
-        parent.extend();
+    public void extend(Variable var) {
+        parent.extend(var);
     }
 
     public Obj get(Variable var, int addr) {
@@ -57,8 +57,8 @@ public class DynamicEnv extends AbstractEnv {
         parent.set(var, addr, value);
     }
 
-    public void add(Obj value) {
-        parent.add(value);
+    public void add(Variable var, Obj value) {
+        parent.add(var, value);
     }
 
     public int getMaxAddress() {
@@ -75,5 +75,11 @@ public class DynamicEnv extends AbstractEnv {
 
     public Continuation getClosureHomeCont() {
         return parent.getClosureHomeCont();
+    }
+
+    public Scope toScope() {
+        // XXX: Check if any special actions are required besides just returning parent scope
+        // XXX: (esp. in context of include files)
+        return parent.toScope();
     }
 }

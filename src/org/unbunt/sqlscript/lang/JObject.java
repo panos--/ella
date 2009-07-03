@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.support.NativeWrapper;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -19,7 +20,7 @@ public class JObject extends PlainObj {
     }
 
     @Override
-    public Obj getSlot(Obj key) {
+    public Obj getSlot(Context context, Obj key) {
         Obj val = slots.get(key);
         if (val != null) {
             return val;
@@ -39,13 +40,13 @@ public class JObject extends PlainObj {
         String propStr = ReflectionUtils.getterFromProperty(keyStr);
         Method getter = null;
         try {
-            getter = cls.getMethod(propStr, (Class[])null);
+            getter = cls.getMethod(propStr, (Class<?>[])null);
         } catch (NoSuchMethodException ignored) {
         }
         if (getter != null) {
             try {
                 Object result = getter.invoke(value, (Object[])null);
-                return NativeWrapper.wrap(result);
+                return NativeWrapper.wrap(context, result);
             } catch (IllegalAccessException ignored) {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
@@ -58,16 +59,16 @@ public class JObject extends PlainObj {
         try {
             Field field = cls.getField(keyStr);
             Object fieldValue = field.get(value);
-            return NativeWrapper.wrap(fieldValue);
+            return NativeWrapper.wrap(context, fieldValue);
         } catch (NoSuchFieldException ignored) {
         } catch (IllegalAccessException ignored) {
         }
 
-        return Null.instance;
+        return context.getObjNull();
     }
 
     @Override
-    public Obj setSlot(Obj key, Obj val) {
+    public Obj setSlot(Context context, Obj key, Obj val) {
         if (slots.containsKey(key)) {
             slots.put(key, val);
             return this;
@@ -86,7 +87,7 @@ public class JObject extends PlainObj {
         if (setter != null) {
             try {
                 Object result = setter.invoke(value, jvalue);
-                return NativeWrapper.wrap(result);
+                return NativeWrapper.wrap(context, result);
             } catch (IllegalAccessException ignored) {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {

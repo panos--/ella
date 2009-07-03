@@ -55,12 +55,12 @@ scope Block {
 			   (e.approximateLineInfo?"after ":"")+"line "+e.line+":"+e.charPositionInLine;
 	}
 
-	public Block walk() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
-		return parse();
+	public Block walk(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+		return parse(scope);
 	}
 
-	public Block parse() throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
-		return script();
+	public Block parse(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+		return script(scope);
 	}
 	
 	public Block parseIncremental(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
@@ -88,14 +88,15 @@ scope Block {
 	}
 }
 
-script returns [ Block value ]
+script [ Scope scope ] returns [ Block value ]
 scope Block, Scope;
 @init {
-	$Scope::scope = new Scope();
+	$Scope::scope = $scope;
+	/*
 	for (Globals global : Globals.values()) {
 		$Scope::scope.addVariable(global.getIdentifier());
 	}
-	
+	*/
 	$Block::block = new Block($Scope::scope, false);
 }
 @after{
@@ -104,12 +105,17 @@ scope Block, Scope;
 	:	statement*
 	;
 
-// Entry point for incremental script parsing - takes a saved scope as argument which is used as initial scope
+// No longer valid: Entry point for incremental script parsing - takes a saved scope as argument which is used as initial scope
+// This now just calls the script rule. We now always need a given scope.
 scriptIncremental [ Scope scope ] returns [ Block value ]
+/*
 scope Block, Scope;
 @init { $Scope::scope = $scope; $Block::block = new Block($scope, false); }
 @after { $value = (Block)$Block::block; }
 	:	statement*
+	;
+*/
+	:	script[$scope] { $value = $script.value; }
 	;
 
 statement
@@ -382,9 +388,9 @@ scope Scope;
 	;
 
 // TODO: Forbid duplicate arguments
-argumentsDef returns [ List<String> value ]
-@init { $value = new ArrayList<String>(10); }
-	:	^(ARGS (name=varDef { $value.add($name.value.name); })+)
+argumentsDef returns [ List<Variable> value ]
+@init { $value = new ArrayList<Variable>(10); }
+	:	^(ARGS (name=varDef { $value.add($name.value); })+)
 	;
 
 // TODO: Forbid duplicate arguments
@@ -661,7 +667,7 @@ identifierStringLiteral returns [ StringLiteral value ]
 	:	id=identifier { parts.add($id.value); $value = new StringLiteral("'", parts); }
 	;
 
-booleanLiteral returns [ Bool value ]
-	:	TRUE  { $value = Bool.TRUE; }
-	|	FALSE { $value = Bool.FALSE; }
+booleanLiteral returns [ boolean value ]
+	:	TRUE  { $value = true; }
+	|	FALSE { $value = false; }
 	;

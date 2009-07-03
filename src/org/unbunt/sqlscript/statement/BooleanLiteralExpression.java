@@ -5,19 +5,14 @@ import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 public class BooleanLiteralExpression extends AbstractExpression {
-    protected Bool bool;
+    protected boolean value;
 
-    public BooleanLiteralExpression(Bool bool) {
-        this.bool = bool;
+    public BooleanLiteralExpression(boolean value) {
+        this.value = value;
     }
 
-    public Bool getBool() {
-        return bool;
-    }
-
-    @Override
-    public Obj getValue() {
-        return getBool();
+    public boolean getValue() {
+        return value;
     }
 
     public void accept(ExpressionVisitor visitor) {

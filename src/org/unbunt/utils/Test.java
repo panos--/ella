@@ -51,7 +51,40 @@ public class Test {
         }
     }
 
+    public static class Gen {
+        public static int id = 0;
+        public synchronized static int gen() {
+            return ++id;
+        }
+    }
+
+    public static abstract class Abs {
+        public static int id = Gen.gen();
+
+        public int getID() {
+            return id;
+        }
+
+        public static int getIDStatic() {
+            System.out.println();
+            return id;
+        }
+    }
+
+    public static class A extends Abs {
+
+    }
+
+    public static class B extends A {
+        public static int id = Gen.gen();
+    }
+
     public static void main(String[] args) {
+        System.out.println("Abs.id: " + Abs.getIDStatic());
+        System.out.println("A.id: " + A.getIDStatic());
+        System.out.println("B.id: " + B.getIDStatic());
+        System.exit(0);
+
         System.out.println(tryFinally());
 
         System.out.println(Integer.TYPE);

@@ -2,8 +2,14 @@ package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.statement.Statement;
 
+import java.util.List;
+
 public interface Callable {
-    public int getArgCount();
-    public Statement getBody();
-    public Env getEnv();
+    List<Variable> getArguments();
+
+    int getArgCount();
+
+    Statement getBody();
+
+    Env getEnv();
 }

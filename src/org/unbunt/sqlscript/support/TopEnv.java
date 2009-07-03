@@ -8,16 +8,16 @@ import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import java.util.ArrayList;
 
 /**
- * User: tweiss
- * Date: 23.04.2009
- * Time: 09:19:56
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
+ * Acts as global environment. Any variable reference not resolved by the compiler will be passed to this environment,
+ * except if caught ealier by a dynamic environment.
  */
 public class TopEnv implements Env {
     protected ArrayList<Obj> vars = new ArrayList<Obj>();
 
-    protected TopEnv() {
+    protected Obj undefValue;
+
+    protected TopEnv(Obj undefValue) {
+        this.undefValue = undefValue;
     }
 
     public Obj get(Variable var) {
@@ -30,7 +30,7 @@ public class TopEnv implements Env {
         Obj value = vars.get(addr);
         if (value == null) {
             warn(var);
-            value = Null.instance;
+            value = undefValue;
             vars.set(addr, value);
         }
         return value;
@@ -57,7 +57,7 @@ public class TopEnv implements Env {
         }
     }
 
-    public void add(Obj value) {
+    public void add(Variable var, Obj value) {
         throw new RuntimeException("TopEnv.add() not implemented");
     }
 
@@ -65,7 +65,7 @@ public class TopEnv implements Env {
         System.err.println("Undefined variable: " + var.name);
     }
 
-    public void extend() {
+    public void extend(Variable var) {
         throw new RuntimeException("TopEnv.extend() should not be called");
     }
 
@@ -98,6 +98,10 @@ public class TopEnv implements Env {
     }
 
     public Continuation getClosureHomeCont() {
+        return null;
+    }
+
+    public Scope toScope() {
         return null;
     }
 }

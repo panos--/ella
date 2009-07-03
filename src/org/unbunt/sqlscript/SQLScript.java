@@ -21,6 +21,7 @@ import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.Drivers;
 import org.unbunt.sqlscript.support.Scope;
 import org.unbunt.sqlscript.support.TailCallOptimizer;
+import org.unbunt.sqlscript.support.Context;
 import static org.unbunt.utils.StringUtils.isNullOrEmpty;
 import org.unbunt.utils.VolatileObservable;
 import org.unbunt.utils.res.FilesystemResourceLoader;
@@ -33,7 +34,8 @@ import java.io.*;
 import java.util.*;
 
 public class SQLScript extends VolatileObservable implements Observer {
-    protected SQLScriptContext context;
+    protected Context context;
+    protected SQLScriptContext sqlScriptContext;
     protected SimpleResource script;
     protected String scriptName;
 
@@ -48,11 +50,12 @@ public class SQLScript extends VolatileObservable implements Observer {
     protected SQLScriptEngine engine = null;
     protected Block block; // the parsed script to be run by the engine
 
-    public SQLScript(SQLScriptContext context, SimpleResource script) {
-        this.context = context;
+    public SQLScript(SQLScriptContext sqlScriptContext, SimpleResource script) {
+        this.context = new Context();
+        this.sqlScriptContext = sqlScriptContext;
         this.script = script;
         this.scriptName = script.getFilename();
-        context.setScript(script);
+        sqlScriptContext.setScript(script);
     }
 
     protected boolean interactiveCancel = false;
@@ -397,7 +400,7 @@ public class SQLScript extends VolatileObservable implements Observer {
         SQLScriptWalker walker = new SQLScriptWalker(nodes);
         //walker.setScriptContext(context);
         try {
-            block = walker.parse();
+            block = walker.parse(context.getEnv().toScope());
             TailCallOptimizer.process(block);
         } catch (RecognitionException e) {
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
@@ -423,12 +426,11 @@ public class SQLScript extends VolatileObservable implements Observer {
         //walker.setScriptContext(context);
         try {
             if (savedScope == null) {
-                block = walker.parse();
+                savedScope = context.getEnv().toScope();
             }
-            else {
-                block = walker.parseIncremental(savedScope);
-            }
+            block = walker.parseIncremental(savedScope);
             savedScope = block.getScope();
+
             TailCallOptimizer.process(block);
         } catch (RecognitionException e) {
             throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
@@ -459,12 +461,12 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected void initEngine() {
-        if (context == null) {
+        if (sqlScriptContext == null) {
             throw new RuntimeException("Internal error: No script context provided"); // should not be reached
         }
 
 //        engine = new SQLScriptEngine(context);
-        engine = SQLScriptEngine.create(context);
+        engine = SQLScriptEngine.create(context, sqlScriptContext);
         engine.addObserver(this);
     }
 

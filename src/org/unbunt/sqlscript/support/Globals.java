@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.support;
 import org.unbunt.sqlscript.lang.Obj;
 
 public enum Globals {
+    /*
     Null (org.unbunt.sqlscript.lang.Null.instance),
     Sys (org.unbunt.sqlscript.lang.Sys.instance),
     Base (org.unbunt.sqlscript.lang.Base.instance),
@@ -34,4 +35,5 @@ public enum Globals {
     public Obj getValue() {
         return value;
     }
+    */
 }

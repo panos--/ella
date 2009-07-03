@@ -1,17 +1,19 @@
 package org.unbunt.sqlscript.lang;
 
+import org.unbunt.sqlscript.support.Context;
+
 import java.util.Map;
 
 public interface Obj {
-    Obj getImplicitParent();
+    int getObjectID();
 
     Obj getParent();
 
-    Obj addSlot(Obj key, Obj value);
+    Obj addSlot(Context ctx, Obj key, Obj value);
 
-    Obj setSlot(Obj key, Obj value);
+    Obj setSlot(Context ctx, Obj key, Obj value);
 
-    Obj getSlot(Obj key);
+    Obj getSlot(Context ctx, Obj key);
 
     Map<Obj, Obj> getSlots();
 

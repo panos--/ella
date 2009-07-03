@@ -4,6 +4,8 @@ import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.support.NativeWrapper;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.*;
@@ -18,8 +20,6 @@ import java.util.List;
  * Copyright: (c) 2007 marketoolz GmbH
  */
 public class JClass extends PlainObj implements NativeObj {
-    public static final JClassProto PROTOTYPE = new JClassProto();
-
     public final Class<?> cls;
 
     public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
@@ -60,7 +60,7 @@ public class JClass extends PlainObj implements NativeObj {
                 e.printStackTrace();
             }
 
-            return result instanceof Obj ? (Obj) result : NativeWrapper.wrap(result);
+            return result instanceof Obj ? (Obj) result : NativeWrapper.wrap(engine.getContext(), result);
         }
     };
 
@@ -68,9 +68,15 @@ public class JClass extends PlainObj implements NativeObj {
         this.cls = cls;
     }
 
-    @Override
-    public Obj getImplicitParent() {
-        return PROTOTYPE;
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        JClassProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, JClassProto.OBJECT_ID);
     }
 
     public Call getNativeConstructor() {
@@ -78,7 +84,7 @@ public class JClass extends PlainObj implements NativeObj {
     }
 
     @Override
-    public Obj getSlot(Obj key) {
+    public Obj getSlot(Context ctx, Obj key) {
         Obj value = slots.get(key);
         if (value != null) {
             return value;
@@ -107,7 +113,7 @@ public class JClass extends PlainObj implements NativeObj {
         if (getter != null) {
             try {
                 Object result = getter.invoke(null, (Object[])null);
-                return NativeWrapper.wrap(result);
+                return NativeWrapper.wrap(ctx, result);
             } catch (IllegalAccessException ignored) {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
@@ -121,17 +127,17 @@ public class JClass extends PlainObj implements NativeObj {
             Field field = cls.getField(keyStr);
             if (Modifier.isStatic(field.getModifiers())) {
                 Object fieldValue = field.get(null);
-                return NativeWrapper.wrap(fieldValue);
+                return NativeWrapper.wrap(ctx, fieldValue);
             }
         } catch (NoSuchFieldException ignored) {
         } catch (IllegalAccessException ignored) {
         }
 
-        return Null.instance;
+        return ctx.getObjNull();
     }
 
     @Override
-    public Obj setSlot(Obj key, Obj val) {
+    public Obj setSlot(Context ctx, Obj key, Obj val) {
         if (slots.containsKey(key)) {
             slots.put(key, val);
             return this;
@@ -158,7 +164,7 @@ public class JClass extends PlainObj implements NativeObj {
         if (setter != null) {
             try {
                 Object result = setter.invoke(null, jvalue);
-                return NativeWrapper.wrap(result);
+                return NativeWrapper.wrap(ctx, result);
             } catch (IllegalAccessException ignored) {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {
@@ -214,12 +220,21 @@ public class JClass extends PlainObj implements NativeObj {
             }
         };
 
-        public JClassProto() {
+        private JClassProto() {
         }
 
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
+        }
+
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new JClassProto());
+            }
         }
 
         public Call getNativeConstructor() {

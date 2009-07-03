@@ -26,7 +26,7 @@ public class JMethod extends NativeCall {
                 throw new SQLScriptRuntimeException("No such method");
             }
             Object jresult = method.invoke(jcontext, jargs);
-            return NativeWrapper.wrap(jresult);
+            return NativeWrapper.wrap(engine.getContext(), jresult);
         } catch (IllegalAccessException e) {
             throw new SQLScriptRuntimeException(e);
         } catch (InvocationTargetException e) {

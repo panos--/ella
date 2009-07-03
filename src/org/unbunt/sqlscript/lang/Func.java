@@ -1,16 +1,27 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.support.Function;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 public class Func extends PlainObj implements Call {
-    public static final FuncProto PROTOTYPE = new FuncProto();
-
     protected Function function;
 
     public Func(Function function) {
         this.function = function;
+    }
+
+    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public static void registerInContext(Context ctx) {
+        FuncProto.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, FuncProto.OBJECT_ID);
     }
 
     public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
@@ -21,16 +32,11 @@ public class Func extends PlainObj implements Call {
         engine.trigger(this, context, args);
     }
 
-    @Override
-    public Obj getImplicitParent() {
-        return PROTOTYPE;
-    }
-
     public Function getFunction() {
         return function;
     }
 
-    protected static class FuncProto extends PlainObj {
+    public static class FuncProto extends PlainObj {
         public static NativeCall nativeCall = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Obj[] callArgs = new Obj[args.length - 1];
@@ -39,13 +45,22 @@ public class Func extends PlainObj implements Call {
             }
         };
 
-        public FuncProto() {
+        private FuncProto() {
             slots.put(Str.SYM_call, nativeCall);
         }
 
-        @Override
-        public Obj getImplicitParent() {
-            return Base.instance;
+        public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        public int getObjectID() {
+            return OBJECT_ID;
+        }
+
+        public static void registerInContext(Context ctx) {
+            Base.registerInContext(ctx);
+            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
+            if (!ctx.hasObject(OBJECT_ID)) {
+                ctx.registerObject(new FuncProto());
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ public interface Env {
 
     Obj getReceiver();
 
-    void extend();
+    void extend(Variable var);
 
     Obj get(Variable var);
 
@@ -22,7 +22,7 @@ public interface Env {
 
     void set(Variable var, int addr, Obj value);
 
-    void add(Obj value);
+    void add(Variable var, Obj value);
 
     int getMaxAddress();
 
@@ -31,4 +31,6 @@ public interface Env {
     int getClosureHomeOffset();
 
     Continuation getClosureHomeCont();
+
+    Scope toScope();
 }
