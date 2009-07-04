@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.utils;
 
 import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 
 public class ObjUtils {
     public static Obj getImplicitParent(Context ctx, Obj obj) {
@@ -25,5 +26,23 @@ public class ObjUtils {
             }
         }
         return value;
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public static <T> T ensureType(Class<T> type, Obj object) {
+        try {
+            return (T) object;
+        } catch (ClassCastException e) {
+            throw new SQLScriptRuntimeException("Unexpected type: " + object.getClass() + ": Expected: " + type);
+        }
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public static <T> T ensureType(Obj object) {
+        try {
+            return (T) object;
+        } catch (ClassCastException e) {
+            throw new SQLScriptRuntimeException("Unexpected type: " + object.getClass());
+        }
     }
 }

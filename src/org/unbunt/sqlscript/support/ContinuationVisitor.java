@@ -59,7 +59,11 @@ public interface ContinuationVisitor {
 
     void processContinuation(NativeCont nativeCont);
 
+    void processContinuation(TriggeredNativeCont triggeredNativeCont);
+
     void processContinuation(PrimitiveCont primitiveCont);
+
+    void processContinuation(TriggeredPrimitiveCont triggeredPrimitiveCont);
 
     void processContinuation(FunRetCont funRetCont);
 

@@ -1,12 +1,22 @@
 package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.support.SQLParseMode;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class SQLLiteralExpression extends AbstractExpression {
+    protected SQLParseMode parseMode = null;
     protected List<Object> parts = new LinkedList<Object>();
+
+    public SQLParseMode getParseMode() {
+        return parseMode;
+    }
+
+    public void setParseMode(SQLParseMode parseMode) {
+        this.parseMode = parseMode;
+    }
 
     public List<Object> getParts() {
         return parts;

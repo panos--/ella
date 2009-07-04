@@ -7,6 +7,7 @@ import org.unbunt.sqlscript.commands.*;
 import org.unbunt.sqlscript.continuations.*;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
+import org.unbunt.sqlscript.lang.sql.RawSQL;
 import org.unbunt.sqlscript.statement.*;
 import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.*;
@@ -235,7 +236,7 @@ public class SQLScriptEngine
 
     public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
         System.err.println("Got SQL-Literal: " + sqlLiteralExpression);
-        val = new Str(sqlLiteralExpression.toString());
+        val = new RawSQL(sqlLiteralExpression.toString(), sqlLiteralExpression.getParseMode());
         next = CONT;
     }
 
@@ -910,10 +911,32 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    public void processContinuation(TriggeredNativeCont triggeredNativeCont) {
+        pc--;
+        NativeCall nat = triggeredNativeCont.getNative();
+        Obj context = triggeredNativeCont.getContext();
+        Obj[] args = triggeredNativeCont.getArgs();
+        // XXX: Should ClosureTerminatedException be handled here?
+        Obj result = nat.call(this, context, args);
+        if (result != null) {
+            val = result;
+        }
+        next = CONT;
+    }
+
     public void processContinuation(PrimitiveCont primitiveCont) {
         pc--;
         Obj[] args = ((Args) val).args;
         processPrimitive(primitiveCont.getPrimitive().type, primitiveCont.getContext(), args);
+        next = CONT;
+    }
+
+    public void processContinuation(TriggeredPrimitiveCont triggeredPrimitiveCont) {
+        pc--;
+        PrimitiveCall prim = triggeredPrimitiveCont.getPrimitive();
+        Obj context = triggeredPrimitiveCont.getContext();
+        Obj[] args = triggeredPrimitiveCont.getArgs();
+        processPrimitive(prim.type, context, args);
         next = CONT;
     }
 
@@ -1582,6 +1605,16 @@ public class SQLScriptEngine
         call.trigger(this, context, args);
     }
 
+    public void trigger(PrimitiveCall prim, Obj context, Obj... args) {
+        cont[++pc] = new TriggeredPrimitiveCont(prim, context, args);
+        next = CONT;
+    }
+
+    public void trigger(NativeCall nat, Obj context, Obj... args) {
+        cont[++pc] = new TriggeredNativeCont(nat, context, args);
+        next = CONT;
+    }
+
     public void trigger(Clos clos, Obj... args) {
         BlockClosure closure = clos.getClosure();
         List<Obj> argsList = Arrays.asList(args);
@@ -1637,6 +1670,14 @@ public class SQLScriptEngine
     public Obj invoke(PrimitiveCall prim, Obj context, Obj... args) {
         processPrimitive(prim.type, context, args);
         return val;
+    }
+
+    public Obj invoke(NativeCall nat, Obj context, Obj... args) {
+        Obj result = nat.call(this, context, args);
+        if (result == null) {
+            return val; // XXX: better return getObjNull()?
+        }
+        return result;
     }
 
     public Obj invoke(Clos clos, Obj... args) throws ClosureTerminatedException {

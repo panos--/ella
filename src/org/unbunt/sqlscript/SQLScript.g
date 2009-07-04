@@ -11,6 +11,7 @@ tokens {
 	EVAL_CMD;
 	EVAL_ARG;
 	SQL;
+	SQL_MODE;
 	SQL_STMT;
 	SQL_EXPR;
 	SQL_PARAM;
@@ -71,9 +72,13 @@ tokens {
 	import java.util.ArrayDeque;
 
 	import org.unbunt.sqlscript.antlr.LazyTokenStream;
-	import org.unbunt.sqlscript.antlr.TreeHolderToken;
+	import org.unbunt.sqlscript.antlr.SQLModeToken;
 	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
 	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+	
+	import org.unbunt.sqlscript.support.SQLParseMode;
+	import org.unbunt.sqlscript.support.SQLStringSyntaxRules;
+	import org.unbunt.sqlscript.support.SQLStringType;
 }
 
 @lexer::header {
@@ -92,72 +97,30 @@ tokens {
 	
 	protected boolean parseSQLParams = false;
 	
-	public static class StringSyntaxRules {
-		public final boolean doubleQuote;
-		public final boolean singleQuote;
-		public final boolean backTick;
-		public final boolean qQuote;
-		public final boolean dollarQuote;
+	/**
+	 * Public entry point for parsing an sql statement for embedded named parameters.
+	 * 
+	 * @return Tree the generated AST
+	 * @see org.unbunt.sqlscript.SQLScriptWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
+	 */
+	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws RecognitionException {
+		setTokenStream(input); // implicitly resets this instance
 		
-		public StringSyntaxRules(boolean doubleQuote, boolean singleQuote, boolean backTick,
-		                         boolean qQuote, boolean dollarQuote) {
-			this.doubleQuote = doubleQuote;
-			this.singleQuote = singleQuote;
-			this.backTick = backTick;
-			this.qQuote = qQuote;
-			this.dollarQuote = dollarQuote;
+		SQLStringType oldStringType = stringType;
+		stringType = parseMode.getStringType();
+		try {
+			parseSQLParams = true;
+			sqlLiteral_return result = sqlLiteral();
+			return (Tree)result.getTree();
+		} finally {
+			stringType = oldStringType;
+			parseSQLParams = false;
 		}
 	}
-	
-	public static enum StringType {
-		sql92 (new StringSyntaxRules(true, true, false, false, false)),
-		oracle (new StringSyntaxRules(true, true, false, true, false), "ora"),
-		postgresql (new StringSyntaxRules(true, true, false, false, true), "postgres", "pg"),
-		mysql (new StringSyntaxRules(true, true, true, false, false));
-		
-		protected StringSyntaxRules rules;
-		protected String[] aliases;
 
-		private static final Map<String, StringType> aliasMap = new HashMap<String, StringType>();
-
-		static {
-			for (StringType stringType : StringType.class.getEnumConstants()) {
-				String[] aliases = stringType.getAliases();
-					for (String alias : aliases) {
-					if (aliasMap.containsKey(alias)) {
-						throw new RuntimeException("Duplicate string type alias: " + alias + "; " +
-									   "String types: " + stringType + ", " + aliasMap.get(alias));
-					}
-					aliasMap.put(alias, stringType);
-				}
-			}
-		}
-
-		StringType(StringSyntaxRules rules, String... aliases) {
-			this.rules = rules;
-			this.aliases = aliases;
-		}
-		
-		public StringSyntaxRules getRules() {
-			return this.rules;
-		}
-		
-		protected String[] getAliases() {
-			return this.aliases;
-		}
-		
-		public static StringType valueOfAlias(String alias) throws IllegalArgumentException {
-			StringType stringType = aliasMap.get(alias);
-			if (stringType == null) {
-				throw new IllegalArgumentException("Unknown string type alias: " + alias);
-			}
-			return stringType;
-		}
-	}
+	protected SQLStringType stringType = SQLStringType.sql92;
 	
-	protected StringType stringType = StringType.sql92;
-	
-	protected Deque<StringType> parseModeStack = new ArrayDeque<StringType>(16);
+	protected Deque<SQLStringType> parseModeStack = new ArrayDeque<SQLStringType>(16);
 	
 	protected void enterBlock() {
 		parseModeStack.push(stringType);
@@ -243,6 +206,8 @@ tokens {
 	protected boolean allowQQuote = false;
 	protected boolean allowDollarQuote = false;
 	
+	protected boolean escapeSeparators = false;
+	
 	protected int whitespaceChannel = HIDDEN;
 
 	@Override
@@ -276,6 +241,14 @@ tokens {
 	
 	protected void setIgnoreWhitespace(boolean ignore) {
 		whitespaceChannel = ignore ? HIDDEN : DEFAULT_TOKEN_CHANNEL;
+	}
+	
+	protected void setEscapeSeparators(boolean escape) {
+		escapeSeparators = escape;
+	}
+	
+	protected boolean isEscapeSeparators() {
+		return escapeSeparators;
 	}
 }
 
@@ -660,6 +633,10 @@ sqlExpression
 	:	sqlLiteralPrefixed -> ^(SQL_EXPR sqlLiteralPrefixed)
 	;
 
+/*
+ * TODO: The parse mode (stringType) has somehow to be attached to the generated tree.
+ *       Especially when reparsing the statement this would be required.
+ */
 sqlLiteralPrefixed
 	:	sqlStmtNamePrefixed
 		sqlStmtRest[$sqlStmtNamePrefixed.tree]	-> sqlStmtRest
@@ -699,23 +676,44 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
 
 	lexer.setIgnoreWhitespace(false);
-	lexer.setAllowQQuote(stringType.rules.qQuote);
-	lexer.setAllowDollarQuote(stringType.rules.dollarQuote);
+	lexer.setAllowQQuote(stringType.hasQQuote());
+	lexer.setAllowDollarQuote(stringType.hasDollarQuote());
+	
+	// XXX: Hack - when reparsing an sql statement for named parameters
+	// XXX: characters might have been introduced by variable substituation
+	// XXX: which normally would be treated as statement separators but must
+	// XXX: not when reparsing.
+	// XXX: Side-stepping this issue by using semantic predicates breaks
+	// XXX: in the LazyTokenStream (TODO: investigate).
+	// XXX: As a work-around we tell the Lexer to convert seperators into
+	// XXX: tokens of type whitespace.
+	if (parseSQLParams) {
+		lexer.setEscapeSeparators(true);
+	}
 }
 @after {
 	lexer.setIgnoreWhitespace(true);
 	lexer.setAllowQQuote(false);
 	lexer.setAllowDollarQuote(false);
+	lexer.setEscapeSeparators(false);
 }
-	:	sqlHiddenWS sqlPart* -> ^(SQL {$sqlStmtName} sqlHiddenWS? sqlPart*)
+	:	sqlHiddenWS sqlPart* -> ^(SQL
+						// here we generate a special token in the result tree
+						// to which we attach any parse mode information.
+						// this iformation can be used later on, e.g. when reparsing
+						// for named parameters.
+						{adaptor.create(new SQLModeToken(SQL_MODE, new SQLParseMode(stringType)))}
+						{$sqlStmtName} sqlHiddenWS? sqlPart*)
 	;
 
 /*
  * NOTE: Here we require parentheses in sql statements to be balanced which is relevant for sql statements used
  *       in expression context.
+ * TODO: Make SIMPLE_IDENTIFIER in Lexer a real lexer rule (instead of fragment) and allow this TOKEN as
+ *       named parameter name.
  */
 sqlPart
-	:	{parseSQLParams}? (COLON WORD)=> COLON WORD sqlWS	-> SQL_PARAM["PARAM[" + $WORD.text + "]"] sqlWS?
+	:	{parseSQLParams}? (COLON WORD)=> COLON WORD sqlWS	-> SQL_PARAM[$WORD.text] sqlWS?
 	|	{parseSQLParams}? (COLON COLON)=> COLON COLON sqlWS	-> COLON COLON sqlWS?
 	|	sqlToken sqlWS						-> sqlToken sqlWS?
 	|	LPAREN ws1=sqlWS sqlPart* RPAREN ws2=sqlWS		-> LPAREN $ws1? sqlPart* RPAREN $ws2?
@@ -838,15 +836,15 @@ stringLiteral
 
 sqlStringLiteral
 @init { CommonTree result = null; }
-	:	( {stringType.rules.singleQuote}?	STR_SQUOT
-		| {stringType.rules.doubleQuote}?	STR_DQUOT
-		| {stringType.rules.backTick}?		STR_BTICK
-		| {stringType.rules.qQuote}?		STR_QQUOT
-		| {stringType.rules.dollarQuote}?	STR_DOLQUOT
+	:	( {stringType.hasSingleQuote()}?	STR_SQUOT
+		| {stringType.hasDoubleQuote()}?	STR_DQUOT
+		| {stringType.hasBackTick()}?		STR_BTICK
+		| {stringType.hasQQuote()}?		STR_QQUOT
+		| {stringType.hasDollarQuote()}?	STR_DOLQUOT
 		) { result = parseString(); } -> ^( {result} )
-	|	( {!stringType.rules.singleQuote}? STR_SQUOT
-		| {!stringType.rules.doubleQuote}? STR_DQUOT
-		| {!stringType.rules.backTick}?    STR_BTICK
+	|	( {!stringType.hasSingleQuote()}? STR_SQUOT
+		| {!stringType.hasDoubleQuote()}? STR_DQUOT
+		| {!stringType.hasBackTick()}?    STR_BTICK
 		) { releaseStringStartMarker(); }
 	;
 
@@ -872,10 +870,10 @@ parseDirective
 			}
 			
 			try {
-				this.stringType = StringType.valueOf(("" + value).toLowerCase());
+				this.stringType = SQLStringType.valueOf(("" + value).toLowerCase());
 			} catch (IllegalArgumentException e) {
 				try {
-					this.stringType = StringType.valueOfAlias(("" + value).toLowerCase());
+					this.stringType = SQLStringType.valueOfAlias(("" + value).toLowerCase());
 				}
 				catch (IllegalArgumentException e2) {
 					throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
@@ -1158,7 +1156,11 @@ SQL_SPECIAL_CHAR
 	:	('<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|'|DIGIT)
 	;
 
-SEP	:	';'
+SEP	:	';' {
+			if (escapeSeparators) {
+				$type = WS;
+			}
+		}
 	;
 
 WS	:	(' '|'\r'|'\t'|'\u000C')+ { $channel = whitespaceChannel; }

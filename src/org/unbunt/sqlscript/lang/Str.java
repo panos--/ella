@@ -37,6 +37,8 @@ public class Str extends AbstractObj {
     public static final Str SYM_execStmt = toSym("execStmt");
     public static final Str SYM_createStmt = toSym("createStmt");
     public static final Str SYM_to = toSym("to");
+    public static final Str SYM_active = toSym("active");
+    public static final Str SYM_withNamed = toSym("withNamed");
     public static final Str SYM_add = toSym("+");
     public static final Str SYM_sub = toSym("-");
     public static final Str SYM_mul = toSym("*");

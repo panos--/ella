@@ -23,6 +23,7 @@ scope Block {
 	import java.util.Map;
 	import java.util.HashMap;
 
+	import org.unbunt.sqlscript.antlr.*;
 	import org.unbunt.sqlscript.lang.*;
 	import org.unbunt.sqlscript.statement.*;
 	import org.unbunt.sqlscript.support.*;
@@ -32,6 +33,18 @@ scope Block {
 @members {
 	protected final static int POS_RHS = 1;
 	protected final static int POS_LHS = 2;
+	
+	/**
+	 * Public entry point for named parameter parsing in sql statements.
+	 */
+    	public RawParamedSQL parseParamedSQLLiteral(TreeNodeStream input) throws RecognitionException {
+            setTreeNodeStream(input); // implicitly resets this walker instance
+            return sqlLiteralParamed();
+        }
+
+        /*
+         * Modify error handling for a fail-fast behaviour.
+         */
 
 	@Override
 	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
@@ -613,10 +626,15 @@ sqlLiteral returns [ SQLLiteralExpression value ]
 @init { SQLLiteralExpression sql = new SQLLiteralExpression(); }
 @after { $value = sql; }
 	:	^(SQL
-			name=sqlStmtName  { sql.addPart($name.value); }
-			(param=sqlToken   { sql.addPart($param.value); })*
+			mode=sqlParseMode	{ sql.setParseMode($mode.value); }
+			name=sqlStmtName	{ sql.addPart($name.value); }
+			(param=sqlToken		{ sql.addPart($param.value); })*
 			(annot=annotation /*{ $annot.value.setSubject(stmt); }*/)*
 		)
+	;
+
+sqlParseMode returns [ SQLParseMode value ]
+	:	mode=SQL_MODE { $value = ((SQLModeToken)$mode.token).getParseMode(); }
 	;
 
 sqlStmtName returns [ Object value ]
@@ -627,10 +645,49 @@ sqlStmtName returns [ Object value ]
 sqlToken returns [ Object value ]
 	:	str=stringLiteral     { $value = $str.value; }
 	|	id=identifier         { $value = $id.value; }
-	|	chr=sqlSpecialChars   { $value = $chr.value; }
+	|	chr=sqlAtom   { $value = $chr.value; }
 	|	kw=keyword            { $value = $kw.value; }
 	|	ws=(WS|NL)            { $value = $ws.text; }
 	|	var=embeddedVarRef    { $value = $var.value; }
+	;
+
+sqlAtom returns [ String value ]
+	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN
+		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ
+		  | EXCLAM | QUESTION | COLON | COMMA
+		  | STR_SQUOT | STR_DQUOT | STR_BTICK
+		  | INT
+		  ) { $value = $c.text; }
+	;
+
+/*
+ * NOTE: This rule is called by the script engine to process named parameters
+ *       after embedded variables have been resolved. This is nessessary
+ *       since these variable reference may contain named parameters.
+ */
+sqlLiteralParamed returns [ RawParamedSQL value ]
+@init { $value = new RawParamedSQL(); }
+	:	^(SQL sqlTokenParamed[$value]+)
+	;
+
+sqlTokenParamed [ RawParamedSQL stmt ]
+	:	SQL_MODE
+	|	^(STRING
+			STRING_START { stmt.appendToken($STRING_START.text); }
+			(STRING_CONTENT { stmt.appendToken($STRING_CONTENT.text); })*
+			STRING_END { stmt.appendToken($STRING_END.text); }
+		)
+	|	SEP { stmt.appendToken($SEP.text); }
+	|	WORD { stmt.appendToken($WORD.text); }
+	|	WS { stmt.appendToken($WS.text); }
+	|	NL { stmt.appendToken($NL.text); }
+	|	identifier { stmt.appendToken($identifier.value); }
+	|	sqlAtom { stmt.appendToken($sqlAtom.value); }
+	|	keyword { stmt.appendToken($keyword.value); }
+	|	SQL_PARAM {
+			stmt.addParam($SQL_PARAM.text);
+			stmt.appendToken('?');
+		}
 	;
 
 objectLiteral returns [ ObjectLiteral value ]
@@ -682,14 +739,6 @@ varRef returns [ Variable value ]
 
 identifier returns [ String value ]
 	:	id=IDENTIFIER { $value = $id.text; }
-	;
-
-sqlSpecialChars returns [ String value ]
-	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN
-		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ
-		  | EXCLAM | QUESTION | COLON
-		  | STR_SQUOT | STR_DQUOT | STR_BTICK
-		  ) { $value = $c.text; }
 	;
 
 keyword returns [ String value ]

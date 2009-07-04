@@ -1,14 +1,37 @@
 package org.unbunt.sqlscript.testng;
 
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.antlr.runtime.tree.Tree;
+import org.antlr.runtime.tree.TreeNodeStream;
+import static org.testng.Assert.assertEquals;
+import org.testng.annotations.Test;
+import org.unbunt.sqlscript.SQLParamParser;
 import static org.unbunt.sqlscript.SQLScript.compile;
+import org.unbunt.sqlscript.SQLScriptLexer;
+import org.unbunt.sqlscript.SQLScriptParser;
+import org.unbunt.sqlscript.SQLScriptWalker;
+import org.unbunt.sqlscript.antlr.LazyInputStream;
+import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.testng.annotations.Test;
+import org.unbunt.sqlscript.lang.sql.RawSQL;
+import org.unbunt.sqlscript.support.RawParamedSQL;
+import org.unbunt.sqlscript.support.SQLParseMode;
+import org.unbunt.sqlscript.support.SQLStringType;
+
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Test(groups = { "parser" })
 public class ParserTestsNG {
-    // NOTE: The following string tests will fail if the string literal isn't parsed as such because of the
-    // NOTE: embedded unbalanced parens.
+    /*
+     * NOTE: The following three string tests will fail if the string literal isn't parsed as such because of the
+     * NOTE: embedded unbalanced parens.
+     */
 
     @Test
     public void sqlStringOracleQQuote() throws SQLScriptIOException, SQLScriptParseException {
@@ -49,4 +72,85 @@ public class ParserTestsNG {
                 "select foo where `qux)baz`; -- here mysql mode must be active again\n" +
                 "");
     }
+
+    @Test
+    public void sqlNamedParamsStdWithSeparateParser() throws RecognitionException {
+        String sql = "select *, :, 42::real, a: b:, :param, ':noparam' from foo where bar = :qux or baz = :qux ; ";
+        String expectedStatement =
+                "select *, :, 42::real, a: b:, ?, ':noparam' from foo where bar = ? or baz = ? ; ";
+        Map<String, List<Integer>> expectedParams = new HashMap<String, List<Integer>>();
+        expectedParams.put("param", Arrays.asList(1));
+        expectedParams.put("qux", Arrays.asList(2, 3));
+
+        LazyInputStream chars = new LazyInputStream(new ByteArrayInputStream(sql.getBytes()));
+        SQLScriptLexer lexer = new SQLScriptLexer(chars);
+        LazyTokenStream tokens = new LazyTokenStream(lexer);
+
+        SQLScriptParser parser = new SQLScriptParser(null);
+        Tree tree = parser.parseParamedSQLLiteral(tokens, new SQLParseMode(SQLStringType.sql92));
+
+        TreeNodeStream nodes = new CommonTreeNodeStream(tree);
+        SQLScriptWalker walker = new SQLScriptWalker(null);
+        RawParamedSQL result = walker.parseParamedSQLLiteral(nodes);
+
+        assertEquals(result.getStatement(), expectedStatement);
+        assertEquals(result.getParameters(), expectedParams);
+    }
+
+    @Test
+    public void sqlNamedParamsMySQLWithSeparateParser() throws RecognitionException {
+        String sql = "select :foo, *, :, 42::real, a: b:, :param, `:noparam` from foo where bar = :qux or baz = :qux ; ";
+        String expectedStatement =
+                "select ?, *, :, 42::real, a: b:, ?, `:noparam` from foo where bar = ? or baz = ? ; ";
+        Map<String, List<Integer>> expectedParams = new HashMap<String, List<Integer>>();
+        expectedParams.put("foo", Arrays.asList(1));
+        expectedParams.put("param", Arrays.asList(2));
+        expectedParams.put("qux", Arrays.asList(3, 4));
+
+        LazyInputStream chars = new LazyInputStream(new ByteArrayInputStream(sql.getBytes()));
+        SQLScriptLexer lexer = new SQLScriptLexer(chars);
+        LazyTokenStream tokens = new LazyTokenStream(lexer);
+
+        SQLScriptParser parser = new SQLScriptParser(null);
+        Tree tree = parser.parseParamedSQLLiteral(tokens, new SQLParseMode(SQLStringType.mysql));
+
+        TreeNodeStream nodes = new CommonTreeNodeStream(tree);
+        SQLScriptWalker walker = new SQLScriptWalker(null);
+        RawParamedSQL result = walker.parseParamedSQLLiteral(nodes);
+
+        assertEquals(result.getStatement(), expectedStatement);
+        assertEquals(result.getParameters(), expectedParams);
+    }
+
+    @Test
+    public void sqlNamedParamsStdThreadLocalParser() throws RecognitionException {
+        String sql = "select *, :, 42::real, a: b:, :param, ':noparam' from foo where bar = :qux or baz = :qux ; ";
+        String expectedStatement =
+                "select *, :, 42::real, a: b:, ?, ':noparam' from foo where bar = ? or baz = ? ; ";
+        Map<String, List<Integer>> expectedParams = new HashMap<String, List<Integer>>();
+        expectedParams.put("param", Arrays.asList(1));
+        expectedParams.put("qux", Arrays.asList(2, 3));
+
+        RawParamedSQL result = SQLParamParser.parse(new RawSQL(sql, new SQLParseMode(SQLStringType.sql92)));
+
+        assertEquals(result.getStatement(), expectedStatement);
+        assertEquals(result.getParameters(), expectedParams);
+    }
+
+    @Test
+    public void sqlNamedParamsMySQLWithThreadLocalParser() throws RecognitionException {
+        String sql = "select :foo, *, :, 42::real, a: b:, :param, `:noparam` from foo where bar = :qux or baz = :qux ; ";
+        String expectedStatement =
+                "select ?, *, :, 42::real, a: b:, ?, `:noparam` from foo where bar = ? or baz = ? ; ";
+        Map<String, List<Integer>> expectedParams = new HashMap<String, List<Integer>>();
+        expectedParams.put("foo", Arrays.asList(1));
+        expectedParams.put("param", Arrays.asList(2));
+        expectedParams.put("qux", Arrays.asList(3, 4));
+
+        RawParamedSQL result = SQLParamParser.parse(new RawSQL(sql, new SQLParseMode(SQLStringType.mysql)));
+
+        assertEquals(result.getStatement(), expectedStatement);
+        assertEquals(result.getParameters(), expectedParams);
+    }
+
 }

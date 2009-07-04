@@ -2,6 +2,8 @@ insert * from foo;
 
 var foo := sql select bla from blubb;
 
+.(sql select :paramA from foo where bar = :paramB and baz = :paramB).withNamed();
+
 /*
 fun if1test(i) {
     ifThen({=> i == 1; }, {=> print('yes! i == 1!'); });
