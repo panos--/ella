@@ -4,6 +4,9 @@ options {
 	output = AST;
 	ASTLabelType = CommonTree;
 	tokenVocab = SQLScriptString;
+	// NOTE: k = 2 currently breaks in LazyTokenStream...
+	//k = 2;
+	k = *;
 }
 
 tokens {
@@ -272,6 +275,7 @@ topStatement
 	;
 
 statement
+options { k=3; }
 	:	statementSep SEP!
 		//( (SEP)=> SEP!
 		//| (RCURLY)=> RCURLY
@@ -311,6 +315,7 @@ sqlBlock
 	:	KW_SQL LCURLY topStatement* RCURLY -> ^(BLOCK topStatement*)
 	;
 
+/*
 evalStmt [ CommonTree annotations ]
 	:	BACKSLASH evalCommand evalParam* -> ^(EVAL_CMD evalCommand evalParam* { $annotations })
 	;
@@ -323,6 +328,7 @@ evalParam
 	:	paramName EQUALS paramValue -> ^(EVAL_ARG PARAM_NAME paramName PARAM_VALUE paramValue)
 	|	paramName                   -> ^(EVAL_ARG PARAM_NAME paramName)
 	;
+*/
 
 topScriptStmtSep
 	:	scriptAssignStmt
@@ -401,7 +407,7 @@ blockClosure
 	;
 
 blockArgumentsDef
-	:	(identifier COMMA?)+ DOUBLE_ARROW -> ^(ARGS identifier*)
+	:	identifier (COMMA identifier)* DOUBLE_ARROW -> ^(ARGS identifier*)
 	|	DOUBLE_ARROW!
 	;
 
@@ -483,12 +489,14 @@ expressionStmt
 // NOTE: Use of this rule is nessessary where multiple expressions can be chained,
 //       separated comma or something like that.
 expressionNoSQL
+options { k=3; }
 	:	expressionStmtNoSQL
 	|	scriptFuncDef
 	|	objectLiteral
 	;
 
 expression
+options { k=3; }
 	:	expressionStmt
 	|	scriptFuncDef
 	|	objectLiteral
@@ -520,6 +528,7 @@ conditionalExpression
 	;
 
 conditionalResult
+options { k=3; }
 	:	conditionalExpression
 	|	objectLiteral // NOTE: quick hack
 	;
@@ -580,9 +589,10 @@ callExpression
 	;
 
 callExpressionSuffix [ CommonTree subject ]
-	:	indexSuffix	-> ^(INDEX {$subject} indexSuffix)
+options { k=3; }
+	:	callSuffix	-> ^(CALL  {$subject} callSuffix?)
 	|	slotSuffix	-> ^(SLOT  {$subject} slotSuffix)
-	|	callSuffix	-> ^(CALL  {$subject} callSuffix?)
+	|	indexSuffix	-> ^(INDEX {$subject} indexSuffix)
 	;
 
 slotSuffix
@@ -709,7 +719,7 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 /*
  * NOTE: Here we require parentheses in sql statements to be balanced which is relevant for sql statements used
  *       in expression context.
- * TODO: Make SIMPLE_IDENTIFIER in Lexer a real lexer rule (instead of fragment) and allow this TOKEN as
+ * TODO: Make SIMPLE_IDENTIFIER in Lexer a real lexer rule (instead of fragment) and allow this token as
  *       named parameter name.
  */
 sqlPart
@@ -758,8 +768,8 @@ objectLiteral
 	;
 
 objectSlot
-	:	identifier EQUALS expressionNoSQL -> ^(SLOT identifier expressionNoSQL)
-	|	stringLiteral EQUALS expressionNoSQL -> ^(SLOT stringLiteral expressionNoSQL)
+	:	identifier COLON expressionNoSQL -> ^(SLOT identifier expressionNoSQL)
+	|	stringLiteral COLON expressionNoSQL -> ^(SLOT stringLiteral expressionNoSQL)
 	;
 
 argumentsList

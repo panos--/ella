@@ -2,6 +2,8 @@ package org.unbunt.sqlscript.antlr;
 
 import org.antlr.runtime.*;
 import org.apache.commons.collections.list.CursorableLinkedList;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.unbunt.sqlscript.utils.ExtendedCursorableLinkedList;
 import org.unbunt.sqlscript.SQLScriptStringLexer;
 
@@ -11,6 +13,8 @@ import java.util.*;
  * TODO: currently backed by a linked list - compare with an implementation backed by TreeList (commons collections)
  */
 public class LazyTokenStream implements TokenStream {
+    protected Log logger = LogFactory.getLog(getClass());
+
     protected TokenSource tokenSource = null;
 
     protected ExtendedCursorableLinkedList tokens = new ExtendedCursorableLinkedList();
@@ -301,6 +305,7 @@ public class LazyTokenStream implements TokenStream {
         markers.add(tokens.cursor(posCursor));
         int i = markers.size();
 //        System.out.println("LazyTokenStream.mark = " + i);
+        logger.trace("mark = " + i);
         return i;
     }
 
@@ -310,8 +315,9 @@ public class LazyTokenStream implements TokenStream {
      * read not the most recently read symbol.
      */
     public int index() {
-        int i = posCursor.nextIndex();
-        System.err.println("LazyTokenStream.index = " + i);
+//        int i = posCursor.nextIndex();
+        int i = read;
+        logger.trace("index = " + i);
         return i;
     }
 
@@ -329,6 +335,7 @@ public class LazyTokenStream implements TokenStream {
         int index = marker - 1;
         setPosCursor(tokens.cursor(markers.get(index)));
         releaseMarkerInternal(index);
+        logger.trace("rewind(" + marker + ")");
     }
 
     /**
@@ -342,7 +349,8 @@ public class LazyTokenStream implements TokenStream {
      * the marker off.  It's like seek(last marker's input position).
      */
     public void rewind() {
-        System.err.println("LazyTokenStream.rewind()");
+//        System.err.println("LazyTokenStream.rewind()");
+        logger.trace("rewind()");
         setPosCursor(tokens.cursor(markers.get(markers.size() - 1)));
     }
 
@@ -356,6 +364,7 @@ public class LazyTokenStream implements TokenStream {
      * you have to release resources for depths 2..5.
      */
     public void release(int marker) {
+        logger.trace("release(" + marker + ")");
         releaseMarkerInternal(marker - 1);
     }
 
@@ -394,8 +403,11 @@ public class LazyTokenStream implements TokenStream {
      * first element in the stream.
      */
     public void seek(int index) {
-        System.err.println("LazyTokenStream.seek(" + index + ")");
-        setPosCursor(tokens.cursor(index));
+//        System.err.println("LazyTokenStream.seek(" + index + ")");
+        logger.trace("seek(" + index + "): " +
+                     "discarded=" + discarded + " -> " +
+                     "seeking to " + (index - discarded) + " (ntokens=" + tokens.size() + ")");
+        setPosCursor(tokens.cursor(index - discarded));
 //        throw new RuntimeException("Unsupported operation");
     }
 
@@ -434,6 +446,8 @@ public class LazyTokenStream implements TokenStream {
     public void setTokenSource(TokenSource tokenSource) {
         this.tokenSource = tokenSource;
         pos = -1;
+        read = 0;
+        discarded = 0;
         channel = Token.DEFAULT_CHANNEL;
         tokens.clear();
         setPosCursor(tokens.cursor());
@@ -449,11 +463,15 @@ public class LazyTokenStream implements TokenStream {
     }
 
     protected void discardLookAhead() {
+        logger.trace("discarding look-ahead");
         ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
 
+        int i = 0;
         while (cursor.hasNext()) {
             cursor.next();
             cursor.remove();
+            i++;
+            read--;
         }
 
         cursor.close();
@@ -463,7 +481,11 @@ public class LazyTokenStream implements TokenStream {
         if (inputStream != null && !inputOffsets.isEmpty()) {
             inputStream.seek(inputOffsets.getFirst());
         }
+
+        logger.trace("discarded " + i + " tokens look-ahead - ntokens now: " + tokens.size());
     }
+
+    protected int discarded = 0;
 
     protected void discardLookBack() {
         // removed last marker - trash all previously buffered tokens
@@ -477,6 +499,7 @@ public class LazyTokenStream implements TokenStream {
         while (cursor.hasPrevious()) {
             cursor.previous();
             cursor.remove();
+            discarded++;
         }
 
         cursor.close();

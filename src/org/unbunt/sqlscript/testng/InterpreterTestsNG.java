@@ -93,8 +93,8 @@ public class InterpreterTestsNG {
         Object result;
 
         result = eval("{"
-                      + "var A := { value = 'A' }; "
-                      + "var B := { parent = A, value = 'B', getValue = fun() { super.value; } }; "
+                      + "var A := { value: 'A' }; "
+                      + "var B := { parent: A, value: 'B', getValue: fun() { super.value; } }; "
                       + "var b := new B(); b.getValue();"
                       + "}");
         assertNotNull(result, "Getter on instanciated object returned null");
@@ -103,8 +103,8 @@ public class InterpreterTestsNG {
 
         result = eval(
                 "{"
-                + "var A := { getValue = fun() { return 'A'; } }; "
-                + "var B := { parent = A, getValue = fun() { return super.getValue(); } }; "
+                + "var A := { getValue: fun() { return 'A'; } }; "
+                + "var B := { parent: A, getValue: fun() { return super.getValue(); } }; "
                 + "var b := new B(); b.getValue(); "
                 + "}"
         );
@@ -114,8 +114,8 @@ public class InterpreterTestsNG {
 
         result = eval(
                 "{"
-                + "var A := { a = fun() { this.b(); }, b = fun() { 23; } }; "
-                + "var B := { parent = A, a = fun() { super.a(); }, b = fun() { 42; } }; "
+                + "var A := { a: fun() { this.b(); }, b: fun() { 23; } }; "
+                + "var B := { parent: A, a: fun() { super.a(); }, b: fun() { 42; } }; "
                 + "var b := new B(); b.a(); "
                 + "}"
         );
