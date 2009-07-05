@@ -4,7 +4,8 @@ options {
 	output = AST;
 	ASTLabelType = CommonTree;
 	tokenVocab = SQLScriptString;
-	// NOTE: k = 2 currently breaks in LazyTokenStream...
+	// NOTE: k = 2 works but is actually quite a bit slower than k=*,
+	// NOTE: so we stick to the latter one for now.
 	//k = 2;
 	k = *;
 }
@@ -707,7 +708,8 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	lexer.setAllowDollarQuote(false);
 	lexer.setEscapeSeparators(false);
 }
-	:	sqlHiddenWS sqlPart* -> ^(SQL
+	:	// NOTE: EOF token required for named parameter parsing where separators are not generated
+		sqlHiddenWS sqlPart* EOF? -> ^(SQL
 						// here we generate a special token in the result tree
 						// to which we attach any parse mode information.
 						// this iformation can be used later on, e.g. when reparsing
@@ -723,15 +725,16 @@ sqlStmtRest [ CommonTree sqlStmtName ]
  *       named parameter name.
  */
 sqlPart
-	:	{parseSQLParams}? (COLON WORD)=> COLON WORD sqlWS	-> SQL_PARAM[$WORD.text] sqlWS?
-	|	{parseSQLParams}? (COLON COLON)=> COLON COLON sqlWS	-> COLON COLON sqlWS?
-	|	sqlToken sqlWS						-> sqlToken sqlWS?
-	|	LPAREN ws1=sqlWS sqlPart* RPAREN ws2=sqlWS		-> LPAREN $ws1? sqlPart* RPAREN $ws2?
-	|	LCURLY ws1=sqlWS sqlPart* RCURLY ws2=sqlWS		-> LCURLY $ws1? sqlPart* RCURLY $ws2?
-	|	LSQUARE ws1=sqlWS sqlPart* RSQUARE ws2=sqlWS		-> LSQUARE $ws1? sqlPart* RSQUARE $ws2?
+	:	{parseSQLParams}?=> (COLON WORD)=> COLON WORD sqlWS*	-> SQL_PARAM[$WORD.text] sqlWS*
+	|	{parseSQLParams}?=> (COLON COLON)=> COLON COLON sqlWS*	-> COLON COLON sqlWS*
+	|	sqlToken sqlWS*						-> sqlToken sqlWS*
+	|	LPAREN ws1+=sqlWS* sqlPart* RPAREN ws2+=sqlWS*		-> LPAREN $ws1* sqlPart* RPAREN $ws2*
+	|	LCURLY ws1+=sqlWS* sqlPart* RCURLY ws2+=sqlWS*		-> LCURLY $ws1* sqlPart* RCURLY $ws2*
+	|	LSQUARE ws1+=sqlWS* sqlPart* RSQUARE ws2+=sqlWS*	-> LSQUARE $ws1* sqlPart* RSQUARE $ws2*
 	;
 
-sqlWS	:	(WS|NL)*
+sqlWS	:	WS
+	|	NL
 	;
 
 sqlHiddenWS

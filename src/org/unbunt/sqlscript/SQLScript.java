@@ -651,20 +651,25 @@ public class SQLScript extends VolatileObservable implements Observer {
             FilesystemResourceLoader loader = new FilesystemResourceLoader();
             SimpleResource script = file == null ? loader.getStdinResource() : loader.getResource(file);
             SQLScript interp = new SQLScript(ctx, script);
-            if (pargs.verbose) {
-                interp.addObserver(new ScriptObserver());
-            }
-            if (pargs.interactive) {
-                interp.executeInteractive();
-            }
-            else if (pargs.ast) {
-                interp.showAST();
-            }
-            else if (pargs.large) {
-                interp.executeIncremental();
+            if (pargs.compile) {
+                interp.compile();
             }
             else {
-                interp.execute();
+                if (pargs.verbose) {
+                    interp.addObserver(new ScriptObserver());
+                }
+                if (pargs.interactive) {
+                    interp.executeInteractive();
+                }
+                else if (pargs.ast) {
+                    interp.showAST();
+                }
+                else if (pargs.large) {
+                    interp.executeIncremental();
+                }
+                else {
+                    interp.execute();
+                }
             }
         } catch (SQLScriptIOException e) {
             die(e.getMessage(), e, 2);
@@ -704,6 +709,9 @@ public class SQLScript extends VolatileObservable implements Observer {
 
         @Option(name = "-large", usage = "optimize for large files")
         public boolean large = false;
+
+        @Option(name = "-c", usage = "compile only")
+        public boolean compile = false;
 
         @Option(name = "-i", usage = "operate in interactive mode")
         public boolean interactive = false;
