@@ -153,8 +153,7 @@ scope Block, Scope;
 	;
 
 statement
-	:	evalStmt
-	|	scriptStmt
+	:	scriptStmt
 	|	block
 	;
 
@@ -184,6 +183,7 @@ scope Block;
 	:	^(BLOCK statement*)
 	;
 
+/*
 evalStmt
 @init { EvalCommand cmd = new EvalCommand(); }
 @after { $Block::block.addStatement(cmd); }
@@ -201,7 +201,9 @@ evalCommand returns [ String value ]
 evalParam returns [ Parameter value ]
 	:	^(EVAL_ARG param=parameter) { $value = $param.value; }
 	;
+*/
 
+/*
 annotation returns [ AnnotationCommand value ] // generated command returned so that annotation subject can be set in calling context
 @init { $value = new AnnotationCommand(); }
 @after { $Block::block.addStatement($value); }
@@ -217,6 +219,7 @@ annotationCommand returns [ String value ]
 annotationParam returns [ Parameter value ]
 	:	^(ANNOT_ARG param=parameter) { $value = $param.value; }
 	;
+*/
 
 scriptStmt
 	:	scriptIfElse
@@ -629,7 +632,6 @@ sqlLiteral returns [ SQLLiteralExpression value ]
 			mode=sqlParseMode	{ sql.setParseMode($mode.value); }
 			name=sqlStmtName	{ sql.addPart($name.value); }
 			(param=sqlToken		{ sql.addPart($param.value); })*
-			(annot=annotation /*{ $annot.value.setSubject(stmt); }*/)*
 		)
 	;
 

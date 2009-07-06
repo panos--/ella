@@ -1,6 +1,8 @@
 package org.unbunt.sqlscript.testng;
 
 import org.unbunt.sqlscript.SQLScript;
+import org.unbunt.sqlscript.utils.TestUtils;
+import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
@@ -12,7 +14,7 @@ import static org.testng.Assert.*;
 import java.util.Date;
 
 @Test(groups = { "interpreter" }, dependsOnGroups = { "parser" })
-public class InterpreterTestsNG {
+public class InterpreterTestsNG extends AbstractTest {
     protected SQLScript interp;
 
     @BeforeTest
@@ -237,5 +239,21 @@ public class InterpreterTestsNG {
         assertTrue(result instanceof Number);
         assertTrue(((Number)result).intValue() == 0,
                    "Loop does not honour continue statement");
+    }
+
+    @Test
+    public void args() throws SQLScriptIOException, SQLScriptParseException {
+        int arg = 42;
+        Object result = eval(".ARGV[0];", arg);
+        Number num = ensureType(Number.class, result);
+        assertTrue(num.intValue() == arg, "Passing argument to script failed");
+    }
+
+    @Test
+    public void evalFile() throws SQLScriptIOException, SQLScriptParseException {
+        int arg = 42;
+        Object result = eval(file("eval-file"), arg);
+        Number num = ensureType(Number.class, result);
+        assertTrue(num.intValue() == arg, "Passing argument to script failed");
     }
 }

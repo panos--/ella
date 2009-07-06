@@ -5,16 +5,19 @@ import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.Conn;
 import org.unbunt.sqlscript.lang.sql.Stmt;
 import org.unbunt.sqlscript.utils.ObjUtils;
+import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
-import java.util.Arrays;
+import java.util.*;
+import java.sql.ResultSet;
 
-public class Context {
+public class Context implements SQLResultProvider {
     protected Env env;
 
-    protected Obj objNull;
-    protected Obj objSys;
-    protected Obj objTrue;
-    protected Obj objFalse;
+    protected Sys objSys;
+    protected ConnMgr objConnMgr;
+    protected Null objNull;
+    protected Bool objTrue;
+    protected Bool objFalse;
 
     /**
      * Maps objects to their prototypes.
@@ -30,16 +33,30 @@ public class Context {
 //    protected Map<Integer, Obj> objects = new HashMap<Integer, Obj>();
     protected Obj[] objects = new Obj[32];
 
-    public Context() {
+    protected Object[] args;
+
+    public Context(Object[] args) {
+        this.args = args;
         Arrays.fill(objectProtos, null);
         Arrays.fill(objects, null);
         initProtos();
         initEnv();
     }
 
+    public Context() {
+        this(new Object[0]);
+    }
+
     protected void initProtos() {
         Str.registerInContext(this);
         Null.registerInContext(this);
+
+        // init null as early as possible so that it can be used
+        // during initialization of other objects
+        objNull = ensureType(ensureObject(Null.OBJECT_ID));
+
+        Base.registerInContext(this);
+        Args.registerInContext(this);
         Int.registerInContext(this);
         Sys.registerInContext(this);
         Bool.registerInContext(this);
@@ -56,8 +73,8 @@ public class Context {
 //        objSys = objects.get(Sys.OBJECT_ID);
 //        assert objSys != null;
 
-        objNull = ensureObject(Null.OBJECT_ID);
-        objSys = ensureObject(Sys.OBJECT_ID);
+        objSys = ensureType(ensureObject(Sys.OBJECT_ID));
+        objConnMgr = ensureType(ensureObject(ConnMgr.OBJECT_ID));
 
         objTrue = new Bool(true);
         objFalse = new Bool(false);
@@ -78,7 +95,7 @@ public class Context {
         mainEnv.add("Null", objNull);
         mainEnv.add("null", objNull);
         mainEnv.add("Sys", objSys);
-        mainEnv.add("Base", ensureObject(Base.OBJECT_ID));
+        mainEnv.add("Obj", ensureObject(Base.OBJECT_ID));
         mainEnv.add("Str", ensureObject(Str.StrProto.OBJECT_ID));
         mainEnv.add("Int", ensureObject(Int.IntProto.OBJECT_ID));
         mainEnv.add("Bool", ensureObject(Bool.BoolProto.OBJECT_ID));
@@ -92,6 +109,13 @@ public class Context {
         // TODO: which name to use?
         //mainEnv.add("???", ensureObject(Conn.ConnProto.OBJECT_ID));
         mainEnv.add("Stmt", ensureObject(Stmt.StmtProto.OBJECT_ID));
+
+        // init arguments
+        Obj[] args = new Obj[this.args.length];
+        for (int i = 0; i < args.length; i++) {
+            args[i] = NativeWrapper.wrap(this, this.args[i]);
+        }
+        mainEnv.add("ARGV", new Args(args));
 
         this.env = mainEnv;
     }
@@ -185,19 +209,49 @@ public class Context {
         return env;
     }
 
-    public Obj getObjNull() {
-        return objNull;
-    }
-
-    public Obj getObjSys() {
+    public Sys getObjSys() {
         return objSys;
     }
 
-    public Obj getObjTrue() {
+    public ConnMgr getObjConnMgr() {
+        return objConnMgr;
+    }
+
+    public Null getObjNull() {
+        return objNull;
+    }
+
+    public Bool getObjTrue() {
         return objTrue;
     }
 
-    public Obj getObjFalse() {
+    public Bool getObjFalse() {
         return objFalse;
+    }
+
+    /*
+     * SQL Result listener support
+     */
+
+    protected Set<SQLResultListener> sqlResultListeners = new HashSet<SQLResultListener>();
+
+    public void addSQLResultListener(SQLResultListener listener) {
+        sqlResultListeners.add(listener);
+    }
+
+    public void removeSQLResultListener(SQLResultListener listener) {
+        sqlResultListeners.remove(listener);
+    }
+
+    public void notifyResultSet(ResultSet resultSet) {
+        for (SQLResultListener listener : sqlResultListeners) {
+            listener.resultSet(resultSet);
+        }
+    }
+
+    public void notifyUpdateCount(int updateCount) {
+        for (SQLResultListener listener : sqlResultListeners) {
+            listener.updateCount(updateCount);
+        }
     }
 }

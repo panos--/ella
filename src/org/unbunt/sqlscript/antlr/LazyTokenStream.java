@@ -14,6 +14,7 @@ import java.util.*;
  */
 public class LazyTokenStream implements TokenStream {
     protected Log logger = LogFactory.getLog(getClass());
+    protected boolean trace = logger.isTraceEnabled();
 
     protected TokenSource tokenSource = null;
 
@@ -71,11 +72,8 @@ public class LazyTokenStream implements TokenStream {
         }
 
         if (k <= ltCacheIdx) {
-//            System.out.println("lt cache hit: " + k);
             return ltCache[k];
         }
-
-//        System.out.print("LazyTokenStream.LT(" + k + ") = ");
 
         lookCursor = tokens.cursor(posCursor);
         try {
@@ -93,7 +91,6 @@ public class LazyTokenStream implements TokenStream {
                 i--;
             }
 
-//            System.out.println(token);
             if (k < ltCache.length) {
                 ltCacheIdx = k;
                 ltCache[k] = token;
@@ -110,11 +107,8 @@ public class LazyTokenStream implements TokenStream {
         }
 
         if (k <= lbCacheIdx) {
-//            System.out.println("lb cache hit: " + k);
             return lbCache[k];
         }
-
-//        System.out.print("LazyTokenStream.LB(" + k + ") = ");
 
         int j = k;
         lookCursor = tokens.cursor(posCursor);
@@ -132,7 +126,6 @@ public class LazyTokenStream implements TokenStream {
             }
 
             Token token = (Token) lookCursor.previous();
-//            System.out.println(token);
             if (k < lbCache.length) {
                 lbCacheIdx = k;
                 lbCache[k] = token;
@@ -151,19 +144,11 @@ public class LazyTokenStream implements TokenStream {
      */
     public int LA(int i) {
         Token token = LT(i);
-//        System.out.print("LazyTokenStream.LA(" + i + ") = ");
-        int result = token != null ? token.getType() : -1;
-//        System.out.println(result);
-        return result;
+        return token != null ? token.getType() : -1;
     }
 
     public void consume() {
-//        System.out.println("consume");
-//        System.out.println("LazyTokenStream.consume");
         int n = skipOffChannelTokens(posCursor);
-//        if (!posCursor.hasNext() && !read(posCursor)) {
-//            return;
-//        }
         if (posCursor.hasNext()) {
             posCursor.next();
             n++;
@@ -179,12 +164,8 @@ public class LazyTokenStream implements TokenStream {
             }
         }
 
-//        System.out.println("LazyTokenStream.consume: tokens: " + tokens.size());
         if (markers.isEmpty()) {
             discardLookBack();
-        }
-        else {
-//            System.out.println("LazyTokenStream.consume: markers: " + markers.size());
         }
     }
 
@@ -304,8 +285,9 @@ public class LazyTokenStream implements TokenStream {
     public int mark() {
         markers.add(tokens.cursor(posCursor));
         int i = markers.size();
-//        System.out.println("LazyTokenStream.mark = " + i);
-        logger.trace("mark = " + i);
+        if (trace) {
+            logger.trace("mark = " + i);
+        }
         return i;
     }
 
@@ -315,9 +297,10 @@ public class LazyTokenStream implements TokenStream {
      * read not the most recently read symbol.
      */
     public int index() {
-//        int i = posCursor.nextIndex();
         int i = read;
-        logger.trace("index = " + i);
+        if (trace) {
+            logger.trace("index = " + i);
+        }
         return i;
     }
 
@@ -331,11 +314,12 @@ public class LazyTokenStream implements TokenStream {
      * was created.
      */
     public void rewind(int marker) {
-//        System.out.println("LazyTokenStream.rewind(" + marker + ")");
         int index = marker - 1;
         setPosCursor(tokens.cursor(markers.get(index)));
         releaseMarkerInternal(index);
-        logger.trace("rewind(" + marker + ")");
+        if (trace) {
+            logger.trace("rewind(" + marker + ")");
+        }
     }
 
     /**
@@ -349,8 +333,9 @@ public class LazyTokenStream implements TokenStream {
      * the marker off.  It's like seek(last marker's input position).
      */
     public void rewind() {
-//        System.err.println("LazyTokenStream.rewind()");
-        logger.trace("rewind()");
+        if (trace) {
+            logger.trace("rewind()");
+        }
         setPosCursor(tokens.cursor(markers.get(markers.size() - 1)));
     }
 
@@ -364,7 +349,9 @@ public class LazyTokenStream implements TokenStream {
      * you have to release resources for depths 2..5.
      */
     public void release(int marker) {
-        logger.trace("release(" + marker + ")");
+        if (trace) {
+            logger.trace("release(" + marker + ")");
+        }
         releaseMarkerInternal(marker - 1);
     }
 
@@ -403,12 +390,18 @@ public class LazyTokenStream implements TokenStream {
      * first element in the stream.
      */
     public void seek(int index) {
-//        System.err.println("LazyTokenStream.seek(" + index + ")");
-        logger.trace("seek(" + index + "): " +
-                     "discarded=" + discarded + " -> " +
-                     "seeking to " + (index - discarded) + " (ntokens=" + tokens.size() + ")");
-        setPosCursor(tokens.cursor(index - discarded));
-//        throw new RuntimeException("Unsupported operation");
+        int actualIndex = index - discarded;
+
+        if (trace) {
+            logger.trace("seek(" + index + "): " +
+                         "discarded=" + discarded + " -> " +
+                         "seeking to " + actualIndex + " (ntokens=" + tokens.size() + ")");
+        }
+
+        if (actualIndex < 0) {
+            throw new UnsupportedOperationException("Cannot seek backwards");
+        }
+        setPosCursor(tokens.cursor(actualIndex));
     }
 
     /**
@@ -417,7 +410,7 @@ public class LazyTokenStream implements TokenStream {
      * value includes a single EOF.
      */
     public int size() {
-        throw new RuntimeException("Unsupported operation");
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -463,7 +456,10 @@ public class LazyTokenStream implements TokenStream {
     }
 
     protected void discardLookAhead() {
-        logger.trace("discarding look-ahead");
+        if (trace) {
+            logger.trace("discarding look-ahead");
+        }
+
         ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
 
         int i = 0;
@@ -482,7 +478,9 @@ public class LazyTokenStream implements TokenStream {
             inputStream.seek(inputOffsets.getFirst());
         }
 
-        logger.trace("discarded " + i + " tokens look-ahead - ntokens now: " + tokens.size());
+        if (trace) {
+            logger.trace("discarded " + i + " tokens look-ahead - ntokens now: " + tokens.size());
+        }
     }
 
     protected int discarded = 0;
@@ -538,7 +536,7 @@ public class LazyTokenStream implements TokenStream {
      * an action of course in that case.
      */
     public String toString(int start, int stop) {
-        throw new RuntimeException("Unsupported operation");
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -549,7 +547,7 @@ public class LazyTokenStream implements TokenStream {
      * the TreeNodeStream.toString(Object,Object).
      */
     public String toString(Token start, Token stop) {
-        throw new RuntimeException("Unsupported operation");
+        throw new UnsupportedOperationException();
     }
 
 }

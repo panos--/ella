@@ -57,11 +57,11 @@ public interface ExpressionVisitor {
 
     void processExpression(InitParameter initParameter);
 
-    void processExpression(AnnotationCommand annotationCommand);
+//    void processExpression(AnnotationCommand annotationCommand);
 
-    void processExpression(EvalCommand evalCommand);
+//    void processExpression(EvalCommand evalCommand);
 
-    void processExpression(SQLStatement sqlStatement);
+//    void processExpression(SQLStatement sqlStatement);
 
     /*
     void processExpression(PrimIdExpression primIdExpression);

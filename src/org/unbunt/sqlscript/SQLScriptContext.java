@@ -1,6 +1,5 @@
 package org.unbunt.sqlscript;
 
-import org.unbunt.sqlscript.statement.SQLStatement;
 import org.unbunt.utils.res.SimpleResource;
 
 import javax.sql.DataSource;
@@ -43,9 +42,9 @@ public interface SQLScriptContext {
 
     void setLastSQLResult(ResultSet lastSQLResult);
 
-    SQLStatement getLastSQLStatement();
+//    SQLStatement getLastSQLStatement();
 
-    void setLastSQLStatement(SQLStatement lastSQLStatement);
+//    void setLastSQLStatement(SQLStatement lastSQLStatement);
 
     Statement getLastSQLStatementResource();
 

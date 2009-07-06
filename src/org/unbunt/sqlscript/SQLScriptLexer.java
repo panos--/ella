@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-05 23:36:50
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-06 16:38:19
 
 	package org.unbunt.sqlscript;
 
@@ -39,21 +39,21 @@ public class SQLScriptLexer extends Lexer {
     public static final int THIS=75;
     public static final int RETURN=57;
     public static final int ARGS=46;
-    public static final int STR_QQUOT=135;
+    public static final int STR_QQUOT=134;
     public static final int IDX_CALL=70;
     public static final int SUPER=76;
     public static final int ATSIGN=20;
     public static final int EMBEDDED_VAR=11;
     public static final int NL=124;
     public static final int DOLQUOT_TAG=24;
-    public static final int COMMENT=137;
+    public static final int COMMENT=136;
     public static final int PARAM_VALUE=39;
     public static final int KW_EXIT=99;
     public static final int EXIT=58;
     public static final int OP_NE=108;
     public static final int ARG_EXPR=47;
     public static final int STRING_START=8;
-    public static final int LINE_COMMENT=138;
+    public static final int LINE_COMMENT=137;
     public static final int EMB_VAR_START=128;
     public static final int EVAL_CMD=29;
     public static final int OP_ADD=113;
@@ -65,9 +65,9 @@ public class SQLScriptLexer extends Lexer {
     public static final int FUNC_DEF=43;
     public static final int KW_IMPORT=100;
     public static final int DOLQUOT_TAG_START=25;
-    public static final int SIMPLE_IDENTIFIER=142;
+    public static final int SIMPLE_IDENTIFIER=141;
     public static final int SLOT_CALL=68;
-    public static final int STR_BTICK=134;
+    public static final int STR_BTICK=133;
     public static final int TRY=53;
     public static final int IF_BLOCK=51;
     public static final int KW_FINALLY=96;
@@ -78,7 +78,7 @@ public class SQLScriptLexer extends Lexer {
     public static final int QQUOT_DELIM=23;
     public static final int STRING_END=10;
     public static final int COND_EXPR=59;
-    public static final int STR_SQUOT=132;
+    public static final int STR_SQUOT=131;
     public static final int CHARS=7;
     public static final int CALL=73;
     public static final int CATCH=54;
@@ -91,14 +91,13 @@ public class SQLScriptLexer extends Lexer {
     public static final int BACKSLASH=126;
     public static final int KW_ELSE=93;
     public static final int IMPORT_CLASS=79;
-    public static final int DOLLAR=140;
+    public static final int DOLLAR=139;
     public static final int OP_OR=105;
-    public static final int ANNOTATION=129;
     public static final int DQUOT=13;
     public static final int KW_FUN=87;
     public static final int STRING_CONTENT=9;
     public static final int OP_MUL=101;
-    public static final int KW_TRUE=130;
+    public static final int KW_TRUE=129;
     public static final int ANNOT=36;
     public static final int DOUBLE_ARROW=90;
     public static final int ARG_FALSE=49;
@@ -119,7 +118,7 @@ public class SQLScriptLexer extends Lexer {
     public static final int DOLQUOT=16;
     public static final int ARG_TRUE=48;
     public static final int KW_TRY=94;
-    public static final int DIGIT=141;
+    public static final int DIGIT=140;
     public static final int DOT=91;
     public static final int COMP_EQ=62;
     public static final int QQUOT_END=19;
@@ -127,16 +126,16 @@ public class SQLScriptLexer extends Lexer {
     public static final int KW_THIS=119;
     public static final int ANNOT_ARG=37;
     public static final int SQL_STMT=33;
-    public static final int STR_DQUOT=133;
-    public static final int KW_FALSE=131;
+    public static final int STR_DQUOT=132;
+    public static final int KW_FALSE=130;
     public static final int EVAL_ARG=30;
     public static final int QUOTTED_IDENFITIER=5;
-    public static final int STR_DOLQUOT=136;
+    public static final int STR_DOLQUOT=135;
     public static final int RSQUARE=117;
     public static final int TRUE=64;
     public static final int COLON=104;
     public static final int DOLQUOT_TAG_END=26;
-    public static final int DDOLLAR=139;
+    public static final int DDOLLAR=138;
     public static final int SQL_PARAM=35;
     public static final int QUESTION=103;
     public static final int FINALLY=55;
@@ -152,7 +151,7 @@ public class SQLScriptLexer extends Lexer {
     public static final int SQL_EXPR=34;
     public static final int BTICK=14;
     public static final int BLOCK_CLOSURE=45;
-    public static final int IDENTIFIER_SPECIAL=143;
+    public static final int IDENTIFIER_SPECIAL=142;
     public static final int STRING=4;
 
     	protected CommonTree currentStringTree = null;
@@ -226,8 +225,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:901:9: ( '/*' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:901:11: '/*'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:903:9: ( '/*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:903:11: '/*'
             {
             match("/*"); 
 
@@ -271,18 +270,18 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:4: ( '--' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:5: '--'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:4: ( '--' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:5: '--'
             {
             match("--"); 
 
 
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:11: (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:11: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -295,7 +294,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:11: ~ ( '\\n' | '\\r' )
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:11: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -333,8 +332,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:936:2: ( '\\'' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:936:4: '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:2: ( '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:4: '\\''
             {
             match('\''); 
 
@@ -354,8 +353,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:941:2: ( '\"' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:941:4: '\"'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:943:2: ( '\"' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:943:4: '\"'
             {
             match('\"'); 
 
@@ -375,8 +374,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:946:2: ( '`' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:946:4: '`'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:948:2: ( '`' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:948:4: '`'
             {
             match('`'); 
 
@@ -396,13 +395,13 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_QQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
             {
             if ( !((allowQQuote)) ) {
                 throw new FailedPredicateException(input, "STR_QQUOT", "allowQQuote");
             }
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:21: ( 'N' | 'n' )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:21: ( 'N' | 'n' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -455,13 +454,13 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_DOLQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             {
             if ( !((allowDollarQuote)) ) {
                 throw new FailedPredicateException(input, "STR_DOLQUOT", "allowDollarQuote");
             }
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:26: ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:26: ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -489,14 +488,14 @@ public class SQLScriptLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:27: DDOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:27: DDOLLAR
                     {
                     mDDOLLAR(); 
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:37: DOLLAR DOLQUOT_TAG DOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:37: DOLLAR DOLQUOT_TAG DOLLAR
                     {
                     mDOLLAR(); 
                     mDOLQUOT_TAG(); 
@@ -521,8 +520,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DDOLLAR"
     public final void mDDOLLAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:9: ( '$$' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:11: '$$'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:966:9: ( '$$' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:966:11: '$$'
             {
             match("$$"); 
 
@@ -538,8 +537,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLLAR"
     public final void mDOLLAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:8: ( '$' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:10: '$'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:970:8: ( '$' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:970:10: '$'
             {
             match('$'); 
 
@@ -554,11 +553,11 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG"
     public final void mDOLQUOT_TAG() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:973:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:973:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
             {
             mDOLQUOT_TAG_START(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:973:22: ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:22: ( DOLQUOT_TAG_END )*
             loop4:
             do {
                 int alt4=2;
@@ -571,7 +570,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:973:22: DOLQUOT_TAG_END
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:22: DOLQUOT_TAG_END
             	    {
             	    mDOLQUOT_TAG_END(); 
 
@@ -595,8 +594,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_START"
     public final void mDOLQUOT_TAG_START() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFD') ) {
                 input.consume();
@@ -619,7 +618,7 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_END"
     public final void mDOLQUOT_TAG_END() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:983:2: ( DOLQUOT_TAG_START | DIGIT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:985:2: ( DOLQUOT_TAG_START | DIGIT )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFD') ) {
@@ -645,10 +644,10 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:987:5: ( ( DIGIT )+ )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:987:7: ( DIGIT )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:989:5: ( ( DIGIT )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:989:7: ( DIGIT )+
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:987:7: ( DIGIT )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:989:7: ( DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -662,7 +661,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:987:7: DIGIT
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:989:7: DIGIT
             	    {
             	    mDIGIT(); 
 
@@ -692,8 +691,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:991:7: ( '0' .. '9' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:991:9: '0' .. '9'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:993:7: ( '0' .. '9' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:993:9: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -710,8 +709,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_SQL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:8: ( ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:10: ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:996:8: ( ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:996:10: ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -756,8 +755,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:997:8: ( 'var' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:997:10: 'var'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:999:8: ( 'var' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:999:10: 'var'
             {
             match("var"); 
 
@@ -777,8 +776,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:7: ( 'if' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:9: 'if'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:7: ( 'if' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:9: 'if'
             {
             match("if"); 
 
@@ -798,8 +797,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1003:9: ( 'else' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1003:11: 'else'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1005:9: ( 'else' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1005:11: 'else'
             {
             match("else"); 
 
@@ -819,8 +818,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_TRY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1006:8: ( 'try' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1006:10: 'try'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1008:8: ( 'try' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1008:10: 'try'
             {
             match("try"); 
 
@@ -840,8 +839,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_CATCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1009:9: ( 'catch' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1009:11: 'catch'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1011:9: ( 'catch' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1011:11: 'catch'
             {
             match("catch"); 
 
@@ -861,8 +860,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FINALLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1013:2: ( 'finally' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1013:4: 'finally'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1015:2: ( 'finally' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1015:4: 'finally'
             {
             match("finally"); 
 
@@ -882,8 +881,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_THROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1016:9: ( 'throw' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1016:11: 'throw'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:9: ( 'throw' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:11: 'throw'
             {
             match("throw"); 
 
@@ -903,8 +902,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:2: ( 'return' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:4: 'return'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1022:2: ( 'return' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1022:4: 'return'
             {
             match("return"); 
 
@@ -924,8 +923,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_EXIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1023:9: ( 'exit' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1023:11: 'exit'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1025:9: ( 'exit' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1025:11: 'exit'
             {
             match("exit"); 
 
@@ -945,8 +944,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1026:9: ( 'true' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1026:11: 'true'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1028:9: ( 'true' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1028:11: 'true'
             {
             match("true"); 
 
@@ -966,8 +965,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1029:9: ( 'false' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1029:11: 'false'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1031:9: ( 'false' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1031:11: 'false'
             {
             match("false"); 
 
@@ -987,8 +986,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FUN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1032:8: ( 'fun' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1032:10: 'fun'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1034:8: ( 'fun' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1034:10: 'fun'
             {
             match("fun"); 
 
@@ -1008,8 +1007,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_THIS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1035:9: ( 'this' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1035:11: 'this'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1037:9: ( 'this' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1037:11: 'this'
             {
             match("this"); 
 
@@ -1029,8 +1028,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_SUPER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1038:9: ( 'super' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1038:11: 'super'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1040:9: ( 'super' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1040:11: 'super'
             {
             match("super"); 
 
@@ -1050,8 +1049,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_NEW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1041:8: ( 'new' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1041:10: 'new'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1043:8: ( 'new' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1043:10: 'new'
             {
             match("new"); 
 
@@ -1071,8 +1070,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1045:2: ( 'import' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1045:4: 'import'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1047:2: ( 'import' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1047:4: 'import'
             {
             match("import"); 
 
@@ -1092,8 +1091,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_AS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1048:7: ( 'as' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1048:9: 'as'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1050:7: ( 'as' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1050:9: 'as'
             {
             match("as"); 
 
@@ -1113,10 +1112,10 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1051:6: ( ( WORD_CHAR )+ )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1051:8: ( WORD_CHAR )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1053:6: ( ( WORD_CHAR )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1053:8: ( WORD_CHAR )+
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1051:8: ( WORD_CHAR )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1053:8: ( WORD_CHAR )+
             int cnt6=0;
             loop6:
             do {
@@ -1130,7 +1129,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1051:8: WORD_CHAR
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1053:8: WORD_CHAR
             	    {
             	    mWORD_CHAR(); 
 
@@ -1160,8 +1159,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "WORD_CHAR"
     public final void mWORD_CHAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1056:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1056:4: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1058:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1058:4: ( 'a' .. 'z' | 'A' .. 'Z' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1186,8 +1185,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EMB_VAR_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1060:2: ( '@{' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1060:4: '@{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1062:2: ( '@{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1062:4: '@{'
             {
             match("@{"); 
 
@@ -1207,8 +1206,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = BACKSLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1064:2: ( '\\\\' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1064:4: '\\\\'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1066:2: ( '\\\\' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1066:4: '\\\\'
             {
             match('\\'); 
 
@@ -1227,8 +1226,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = DOUBLE_ARROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1074:2: ( '=>' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1074:4: '=>'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1076:2: ( '=>' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1076:4: '=>'
             {
             match("=>"); 
 
@@ -1248,8 +1247,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_DEFINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1078:2: ( ':=' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1078:4: ':='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1080:2: ( ':=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1080:4: ':='
             {
             match(":="); 
 
@@ -1269,8 +1268,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1081:8: ( '&&' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1081:10: '&&'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1083:8: ( '&&' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1083:10: '&&'
             {
             match("&&"); 
 
@@ -1290,8 +1289,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1084:7: ( '||' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1084:9: '||'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1086:7: ( '||' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1086:9: '||'
             {
             match("||"); 
 
@@ -1311,8 +1310,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1087:7: ( '==' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1087:9: '=='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1089:7: ( '==' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1089:9: '=='
             {
             match("=="); 
 
@@ -1332,8 +1331,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_NE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1090:7: ( '!=' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1090:9: '!='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1092:7: ( '!=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1092:9: '!='
             {
             match("!="); 
 
@@ -1353,8 +1352,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1093:7: ( '===' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1093:9: '==='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1095:7: ( '===' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1095:9: '==='
             {
             match("==="); 
 
@@ -1374,8 +1373,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_NI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1096:7: ( '!==' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1096:9: '!=='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1098:7: ( '!==' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1098:9: '!=='
             {
             match("!=="); 
 
@@ -1395,8 +1394,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1099:8: ( '*' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1099:10: '*'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1101:8: ( '*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1101:10: '*'
             {
             match('*'); 
 
@@ -1415,8 +1414,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1102:8: ( '/' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1102:10: '/'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1104:8: ( '/' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1104:10: '/'
             {
             match('/'); 
 
@@ -1435,8 +1434,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_MOD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1105:8: ( '%' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1105:10: '%'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1107:8: ( '%' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1107:10: '%'
             {
             match('%'); 
 
@@ -1455,8 +1454,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1108:8: ( '+' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1108:10: '+'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1110:8: ( '+' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1110:10: '+'
             {
             match('+'); 
 
@@ -1475,8 +1474,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1111:8: ( '-' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1111:10: '-'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1113:8: ( '-' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1113:10: '-'
             {
             match('-'); 
 
@@ -1490,32 +1489,11 @@ public class SQLScriptLexer extends Lexer {
     }
     // $ANTLR end "OP_SUB"
 
-    // $ANTLR start "ANNOTATION"
-    public final void mANNOTATION() throws RecognitionException {
-        try {
-            int _type = ANNOTATION;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1115:2: ( '@' SIMPLE_IDENTIFIER )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1115:4: '@' SIMPLE_IDENTIFIER
-            {
-            match('@'); 
-            mSIMPLE_IDENTIFIER(); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "ANNOTATION"
-
     // $ANTLR start "SIMPLE_IDENTIFIER"
     public final void mSIMPLE_IDENTIFIER() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1120:2: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1120:4: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1124:2: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1124:4: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1526,7 +1504,7 @@ public class SQLScriptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1120:22: ( WORD_CHAR | '_' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1124:22: ( WORD_CHAR | '_' | DIGIT )*
             loop7:
             do {
                 int alt7=2;
@@ -1573,8 +1551,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1124:2: ( ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1124:4: ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1128:2: ( ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1128:4: ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
             {
             if ( (input.LA(1)>='$' && input.LA(1)<='&')||(input.LA(1)>='*' && input.LA(1)<='+')||input.LA(1)=='-'||input.LA(1)=='/'||(input.LA(1)>='@' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='_')||(input.LA(1)>='a' && input.LA(1)<='z')||input.LA(1)=='|'||input.LA(1)=='~' ) {
                 input.consume();
@@ -1585,7 +1563,7 @@ public class SQLScriptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1124:37: ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1128:37: ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
             loop8:
             do {
                 int alt8=2;
@@ -1632,7 +1610,7 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "IDENTIFIER_SPECIAL"
     public final void mIDENTIFIER_SPECIAL() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1129:2: ( '+' | '-' | '~' | '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:2: ( '+' | '-' | '~' | '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             if ( (input.LA(1)>='$' && input.LA(1)<='&')||(input.LA(1)>='*' && input.LA(1)<='+')||input.LA(1)=='-'||input.LA(1)=='/'||input.LA(1)=='@'||(input.LA(1)>='^' && input.LA(1)<='_')||input.LA(1)=='|'||input.LA(1)=='~' ) {
@@ -1658,8 +1636,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1132:8: ( '=' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1132:10: '='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1136:8: ( '=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1136:10: '='
             {
             match('='); 
 
@@ -1678,8 +1656,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1135:8: ( '(' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1135:10: '('
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1139:8: ( '(' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1139:10: '('
             {
             match('('); 
 
@@ -1698,8 +1676,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1138:8: ( ')' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1138:10: ')'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1142:8: ( ')' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1142:10: ')'
             {
             match(')'); 
 
@@ -1718,8 +1696,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1141:8: ( '{' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1141:10: '{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1145:8: ( '{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1145:10: '{'
             {
             match('{'); 
 
@@ -1738,8 +1716,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:8: ( '}' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:10: '}'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1148:8: ( '}' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1148:10: '}'
             {
             match('}'); 
 
@@ -1758,8 +1736,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1147:9: ( '[' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1147:11: '['
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1151:9: ( '[' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1151:11: '['
             {
             match('['); 
 
@@ -1778,8 +1756,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1150:9: ( ']' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1150:11: ']'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1154:9: ( ']' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1154:11: ']'
             {
             match(']'); 
 
@@ -1798,8 +1776,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EXCLAM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1153:8: ( '!' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1153:10: '!'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1157:8: ( '!' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1157:10: '!'
             {
             match('!'); 
 
@@ -1818,8 +1796,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = QUESTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1156:9: ( '?' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1156:11: '?'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1160:9: ( '?' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1160:11: '?'
             {
             match('?'); 
 
@@ -1838,8 +1816,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1159:7: ( ':' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1159:9: ':'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1163:7: ( ':' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1163:9: ':'
             {
             match(':'); 
 
@@ -1858,8 +1836,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1162:5: ( '.' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1162:7: '.'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1166:5: ( '.' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1166:7: '.'
             {
             match('.'); 
 
@@ -1878,8 +1856,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:7: ( ',' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:9: ','
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1169:7: ( ',' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1169:9: ','
             {
             match(','); 
 
@@ -1898,8 +1876,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = SQL_SPECIAL_CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1169:2: ( ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1169:4: ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1173:2: ( ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1173:4: ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT )
             {
             if ( input.LA(1)=='#'||(input.LA(1)>='%' && input.LA(1)<='&')||input.LA(1)=='*'||input.LA(1)=='-'||(input.LA(1)>='/' && input.LA(1)<='9')||(input.LA(1)>='<' && input.LA(1)<='>')||input.LA(1)=='|' ) {
                 input.consume();
@@ -1926,8 +1904,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = SEP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1172:5: ( ';' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1172:7: ';'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1176:5: ( ';' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1176:7: ';'
             {
             match(';'); 
 
@@ -1951,10 +1929,10 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1179:4: ( ( ' ' | '\\r' | '\\t' | '\\u000C' )+ )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1179:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1183:4: ( ( ' ' | '\\r' | '\\t' | '\\u000C' )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1183:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1179:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1183:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
             int cnt9=0;
             loop9:
             do {
@@ -2009,8 +1987,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = NL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1182:4: ( '\\n' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1182:6: '\\n'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1186:4: ( '\\n' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1186:6: '\\n'
             {
             match('\n'); 
              _channel = whitespaceChannel; 
@@ -2026,8 +2004,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR end "NL"
 
     public void mTokens() throws RecognitionException {
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:8: ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | INT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | ANNOTATION | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL )
-        int alt10=60;
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:8: ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | INT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL )
+        int alt10=59;
         alt10 = dfa10.predict(input);
         switch (alt10) {
             case 1 :
@@ -2325,126 +2303,119 @@ public class SQLScriptLexer extends Lexer {
                 }
                 break;
             case 43 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:357: ANNOTATION
-                {
-                mANNOTATION(); 
-
-                }
-                break;
-            case 44 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:368: IDENTIFIER
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:357: IDENTIFIER
                 {
                 mIDENTIFIER(); 
 
                 }
                 break;
-            case 45 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:379: EQUALS
+            case 44 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:368: EQUALS
                 {
                 mEQUALS(); 
 
                 }
                 break;
-            case 46 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:386: LPAREN
+            case 45 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:375: LPAREN
                 {
                 mLPAREN(); 
 
                 }
                 break;
-            case 47 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:393: RPAREN
+            case 46 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:382: RPAREN
                 {
                 mRPAREN(); 
 
                 }
                 break;
-            case 48 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:400: LCURLY
+            case 47 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:389: LCURLY
                 {
                 mLCURLY(); 
 
                 }
                 break;
-            case 49 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:407: RCURLY
+            case 48 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:396: RCURLY
                 {
                 mRCURLY(); 
 
                 }
                 break;
-            case 50 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:414: LSQUARE
+            case 49 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:403: LSQUARE
                 {
                 mLSQUARE(); 
 
                 }
                 break;
-            case 51 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:422: RSQUARE
+            case 50 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:411: RSQUARE
                 {
                 mRSQUARE(); 
 
                 }
                 break;
-            case 52 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:430: EXCLAM
+            case 51 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:419: EXCLAM
                 {
                 mEXCLAM(); 
 
                 }
                 break;
-            case 53 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:437: QUESTION
+            case 52 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:426: QUESTION
                 {
                 mQUESTION(); 
 
                 }
                 break;
-            case 54 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:446: COLON
+            case 53 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:435: COLON
                 {
                 mCOLON(); 
 
                 }
                 break;
-            case 55 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:452: DOT
+            case 54 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:441: DOT
                 {
                 mDOT(); 
 
                 }
                 break;
-            case 56 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:456: COMMA
+            case 55 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:445: COMMA
                 {
                 mCOMMA(); 
 
                 }
                 break;
-            case 57 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:462: SQL_SPECIAL_CHAR
+            case 56 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:451: SQL_SPECIAL_CHAR
                 {
                 mSQL_SPECIAL_CHAR(); 
 
                 }
                 break;
-            case 58 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:479: SEP
+            case 57 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:468: SEP
                 {
                 mSEP(); 
 
                 }
                 break;
-            case 59 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:483: WS
+            case 58 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:472: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 60 :
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:486: NL
+            case 59 :
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:475: NL
                 {
                 mNL(); 
 
@@ -2458,45 +2429,43 @@ public class SQLScriptLexer extends Lexer {
 
     protected DFA10 dfa10 = new DFA10(this);
     static final String DFA10_eotS =
-        "\1\uffff\1\57\1\61\3\uffff\2\65\1\40\1\uffff\14\65\1\40\1\uffff"+
-        "\1\116\1\120\2\40\1\124\1\125\1\126\1\127\16\uffff\1\130\1\uffff"+
-        "\1\132\1\uffff\3\65\2\uffff\1\134\1\40\2\uffff\3\65\1\142\12\65"+
-        "\1\157\1\uffff\1\161\1\uffff\1\163\3\uffff\1\164\1\165\1\167\5\uffff"+
-        "\1\132\1\uffff\1\170\1\uffff\1\40\1\134\1\171\1\65\1\173\1\uffff"+
-        "\3\65\1\177\6\65\1\u0086\1\65\1\uffff\1\161\11\uffff\1\65\1\uffff"+
-        "\1\65\1\u008a\1\u008b\1\uffff\1\u008c\1\65\1\u008e\3\65\1\uffff"+
-        "\1\65\1\u0093\1\65\3\uffff\1\u0095\1\uffff\1\u0096\1\65\1\u0098"+
-        "\1\65\1\uffff\1\u009a\2\uffff\1\65\1\uffff\1\u009c\1\uffff\1\u009d"+
-        "\2\uffff";
+        "\1\uffff\1\57\1\61\3\uffff\2\63\1\40\1\uffff\14\63\1\40\1\uffff"+
+        "\1\115\1\117\2\40\1\123\1\124\1\125\1\126\16\uffff\1\127\1\uffff"+
+        "\1\130\1\uffff\1\63\1\uffff\2\63\1\uffff\1\133\1\40\2\uffff\3\63"+
+        "\1\141\12\63\1\156\2\uffff\1\160\3\uffff\1\161\1\162\1\164\6\uffff"+
+        "\1\130\1\165\1\uffff\1\40\1\133\1\166\1\63\1\170\1\uffff\3\63\1"+
+        "\174\6\63\1\u0083\1\63\11\uffff\1\63\1\uffff\1\63\1\u0087\1\u0088"+
+        "\1\uffff\1\u0089\1\63\1\u008b\3\63\1\uffff\1\63\1\u0090\1\63\3\uffff"+
+        "\1\u0092\1\uffff\1\u0093\1\63\1\u0095\1\63\1\uffff\1\u0097\2\uffff"+
+        "\1\63\1\uffff\1\u0099\1\uffff\1\u009a\2\uffff";
     static final String DFA10_eofS =
-        "\u009e\uffff";
+        "\u009b\uffff";
     static final String DFA10_minS =
-        "\1\11\2\41\3\uffff\2\41\1\44\1\uffff\14\41\1\101\1\uffff\2\75\1"+
-        "\46\1\174\1\75\3\41\16\uffff\1\41\1\uffff\1\41\1\uffff\3\41\2\uffff"+
-        "\1\41\1\44\2\uffff\17\41\1\uffff\1\41\1\uffff\1\75\3\uffff\2\41"+
-        "\1\75\5\uffff\1\41\1\uffff\1\41\1\0\1\44\4\41\1\uffff\14\41\1\uffff"+
-        "\1\41\11\uffff\1\41\1\uffff\3\41\1\uffff\6\41\1\uffff\3\41\3\uffff"+
-        "\1\41\1\uffff\4\41\1\uffff\1\41\2\uffff\1\41\1\uffff\1\41\1\uffff"+
-        "\1\41\2\uffff";
+        "\1\11\2\41\3\uffff\2\41\1\44\1\uffff\14\41\1\173\1\uffff\2\75\1"+
+        "\46\1\174\1\75\3\41\16\uffff\1\41\1\uffff\1\41\1\uffff\1\41\1\uffff"+
+        "\2\41\1\uffff\1\41\1\44\2\uffff\17\41\2\uffff\1\75\3\uffff\2\41"+
+        "\1\75\6\uffff\2\41\1\0\1\44\4\41\1\uffff\14\41\11\uffff\1\41\1\uffff"+
+        "\3\41\1\uffff\6\41\1\uffff\3\41\3\uffff\1\41\1\uffff\4\41\1\uffff"+
+        "\1\41\2\uffff\1\41\1\uffff\1\41\1\uffff\1\41\2\uffff";
     static final String DFA10_maxS =
         "\3\176\3\uffff\2\176\1\ufffd\1\uffff\14\176\1\173\1\uffff\1\76\1"+
-        "\75\1\46\1\174\1\75\3\176\16\uffff\1\176\1\uffff\1\176\1\uffff\3"+
-        "\176\2\uffff\1\176\1\ufffd\2\uffff\17\176\1\uffff\1\176\1\uffff"+
-        "\1\75\3\uffff\2\176\1\75\5\uffff\1\176\1\uffff\1\176\1\0\1\ufffd"+
-        "\4\176\1\uffff\14\176\1\uffff\1\176\11\uffff\1\176\1\uffff\3\176"+
-        "\1\uffff\6\176\1\uffff\3\176\3\uffff\1\176\1\uffff\4\176\1\uffff"+
-        "\1\176\2\uffff\1\176\1\uffff\1\176\1\uffff\1\176\2\uffff";
+        "\75\1\46\1\174\1\75\3\176\16\uffff\1\176\1\uffff\1\176\1\uffff\1"+
+        "\176\1\uffff\2\176\1\uffff\1\176\1\ufffd\2\uffff\17\176\2\uffff"+
+        "\1\75\3\uffff\2\176\1\75\6\uffff\2\176\1\0\1\ufffd\4\176\1\uffff"+
+        "\14\176\11\uffff\1\176\1\uffff\3\176\1\uffff\6\176\1\uffff\3\176"+
+        "\3\uffff\1\176\1\uffff\4\176\1\uffff\1\176\2\uffff\1\176\1\uffff"+
+        "\1\176\1\uffff\1\176\2\uffff";
     static final String DFA10_acceptS =
-        "\3\uffff\1\3\1\4\1\5\3\uffff\1\10\15\uffff\1\35\10\uffff\1\54\1"+
-        "\56\1\57\1\60\1\61\1\62\1\63\1\65\1\67\1\70\1\71\1\72\1\73\1\74"+
-        "\1\uffff\1\47\1\uffff\1\52\3\uffff\1\33\1\6\2\uffff\1\7\1\10\17"+
-        "\uffff\1\34\1\uffff\1\36\1\uffff\1\55\1\37\1\66\3\uffff\1\64\1\46"+
-        "\1\50\1\51\1\1\1\uffff\1\2\7\uffff\1\13\14\uffff\1\32\1\uffff\1"+
-        "\53\1\44\1\42\1\40\1\41\1\45\1\43\1\30\1\11\1\uffff\1\12\3\uffff"+
-        "\1\15\6\uffff\1\25\3\uffff\1\14\1\22\1\23\1\uffff\1\26\4\uffff\1"+
-        "\27\1\uffff\1\20\1\16\1\uffff\1\24\1\uffff\1\31\1\uffff\1\21\1\17";
+        "\3\uffff\1\3\1\4\1\5\3\uffff\1\10\15\uffff\1\35\10\uffff\1\53\1"+
+        "\55\1\56\1\57\1\60\1\61\1\62\1\64\1\66\1\67\1\70\1\71\1\72\1\73"+
+        "\1\uffff\1\47\1\uffff\1\52\1\uffff\1\33\2\uffff\1\6\2\uffff\1\7"+
+        "\1\10\17\uffff\1\34\1\36\1\uffff\1\54\1\37\1\65\3\uffff\1\63\1\46"+
+        "\1\50\1\51\1\1\1\2\10\uffff\1\13\14\uffff\1\32\1\44\1\42\1\40\1"+
+        "\41\1\45\1\43\1\30\1\11\1\uffff\1\12\3\uffff\1\15\6\uffff\1\25\3"+
+        "\uffff\1\14\1\22\1\23\1\uffff\1\26\4\uffff\1\27\1\uffff\1\20\1\16"+
+        "\1\uffff\1\24\1\uffff\1\31\1\uffff\1\21\1\17";
     static final String DFA10_specialS =
-        "\7\uffff\1\2\1\4\52\uffff\1\5\4\uffff\1\1\43\uffff\1\0\1\3\100\uffff}>";
+        "\7\uffff\1\1\1\3\53\uffff\1\2\3\uffff\1\5\42\uffff\1\4\1\0\76\uffff}>";
     static final String[] DFA10_transitionS = {
             "\1\54\1\55\1\uffff\2\54\22\uffff\1\54\1\34\1\4\1\52\1\10\1\36"+
             "\1\32\1\3\1\41\1\42\1\35\1\37\1\51\1\2\1\50\1\1\12\11\1\31\1"+
@@ -2514,57 +2483,57 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\64\1\63\11\64\3\uffff\2\40\1\uffff\4\64\1\62"+
-            "\13\64\1\63\11\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\20\65\1\64\11\65\3\uffff\2\40\1\uffff\4\65\1\62"+
+            "\13\65\1\64\11\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\1\66\2\uffff\2\40\1\uffff\1\40\1\uffff\13"+
-            "\40\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1"+
+            "\40\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1"+
             "\40\1\uffff\1\40",
             "\1\67\34\uffff\32\70\4\uffff\1\70\1\uffff\32\70\5\uffff\uff7e"+
             "\71",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\64\1\73\11\64\3\uffff\2\40\1\uffff\20\64\1"+
-            "\73\3\64\1\74\5\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\20\65\1\73\11\65\3\uffff\2\40\1\uffff\20\65\1"+
+            "\73\3\65\1\74\5\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\1\75\31\64\1\uffff"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\75\31\65\1\uffff"+
             "\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\5\64\1\76\6\64\1\77"+
-            "\15\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\5\65\1\76\6\65\1\77"+
+            "\15\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\13\64\1\100\13\64\1"+
-            "\101\2\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\100\13\65\1"+
+            "\101\2\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\7\64\1\103\11\64\1"+
-            "\102\10\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\7\65\1\103\11\65\1"+
+            "\102\10\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\1\104\31\64\1\uffff"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\104\31\65\1\uffff"+
             "\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\1\106\7\64\1\105\13"+
-            "\64\1\107\5\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\106\7\65\1\105\13"+
+            "\65\1\107\5\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\4\64\1\110\25\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\110\25\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\64\1\73\11\64\3\uffff\2\40\1\uffff\20\64\1"+
-            "\73\11\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\20\65\1\73\11\65\3\uffff\2\40\1\uffff\20\65\1"+
+            "\73\11\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\64\1\63\11\64\3\uffff\2\40\1\uffff\20\64\1"+
-            "\63\11\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\20\65\1\64\11\65\3\uffff\2\40\1\uffff\20\65\1"+
+            "\64\11\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\22\64\1\111\7\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\111\7\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
-            "\32\113\4\uffff\1\113\1\uffff\32\113\1\112",
+            "\1\112",
             "",
-            "\1\115\1\114",
-            "\1\117",
+            "\1\114\1\113",
+            "\1\116",
+            "\1\120",
             "\1\121",
             "\1\122",
-            "\1\123",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
             "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
             "\1\40",
@@ -2597,74 +2566,71 @@ public class SQLScriptLexer extends Lexer {
             "\1\uffff\1\131",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\26\64\1\133\3\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\26\65\1\132\3\65\1"+
             "\uffff\1\40\1\uffff\1\40",
+            "",
             "\1\40\2\uffff\3\40\1\66\2\uffff\2\40\1\uffff\1\40\1\uffff\13"+
-            "\40\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1"+
+            "\40\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1"+
             "\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
-            "",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
             "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
             "\1\40",
-            "\1\136\13\uffff\12\135\7\uffff\32\135\4\uffff\1\135\1\uffff"+
-            "\32\135\5\uffff\uff7e\71",
+            "\1\135\13\uffff\12\134\7\uffff\32\134\4\uffff\1\134\1\uffff"+
+            "\32\134\5\uffff\uff7e\71",
             "",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\13\64\1\137\16\64\3\uffff\2\40\1\uffff\13\64\1"+
-            "\137\16\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\13\65\1\136\16\65\3\uffff\2\40\1\uffff\13\65\1"+
+            "\136\16\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\17\64\1\140\12\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\17\65\1\137\12\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\21\64\1\141\10\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\140\10\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\17\64\1\143\12\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\17\65\1\142\12\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\22\64\1\144\7\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\143\7\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\10\64\1\145\21\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\10\65\1\144\21\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\24\64\1\147\3\64\1"+
-            "\146\1\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\24\65\1\146\3\65\1"+
+            "\145\1\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\10\64\1\151\10\64\1"+
-            "\150\10\64\1\uffff\1\40\1\uffff\1\40",
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\10\65\1\150\10\65\1"+
+            "\147\10\65\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\23\64\1\152\6\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\151\6\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\15\64\1\153\14\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\15\65\1\152\14\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\13\64\1\154\16\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\153\16\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\15\64\1\155\14\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\15\65\1\154\14\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\23\64\1\156\6\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\155\6\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\1\40\12"+
-            "\160\5\uffff\2\40\32\160\3\uffff\1\40\1\160\1\uffff\32\160\1"+
-            "\uffff\1\40\1\uffff\1\40",
             "",
-            "\1\162",
+            "\1\157",
             "",
             "",
             "",
@@ -2674,7 +2640,8 @@ public class SQLScriptLexer extends Lexer {
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
             "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
             "\1\40",
-            "\1\166",
+            "\1\163",
+            "",
             "",
             "",
             "",
@@ -2683,66 +2650,61 @@ public class SQLScriptLexer extends Lexer {
             "\1\131\2\uffff\3\131\3\uffff\2\131\1\uffff\1\131\1\uffff\13"+
             "\131\5\uffff\34\131\3\uffff\2\131\1\uffff\32\131\1\uffff\1\131"+
             "\1\uffff\1\131",
-            "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\uffff",
-            "\1\136\13\uffff\12\135\7\uffff\32\135\4\uffff\1\135\1\uffff"+
-            "\32\135\5\uffff\uff7e\71",
+            "\1\135\13\uffff\12\134\7\uffff\32\134\4\uffff\1\134\1\uffff"+
+            "\32\134\5\uffff\uff7e\71",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
             "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
             "\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\4\64\1\172\25\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\167\25\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\16\64\1\174\13\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\16\65\1\171\13\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\4\64\1\175\25\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\172\25\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\23\64\1\176\6\64\1"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\173\6\65\1"+
             "\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\4\64\1\u0080\25\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\175\25\65\1"+
+            "\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\16\65\1\176\13\65\1"+
+            "\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\177\7\65\1"+
+            "\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\2\65\1\u0080\27\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\16\64\1\u0081\13\64"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\22\64\1\u0082\7\64"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\2\64\1\u0083\27\64"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\1\u0084\31\64\1\uffff"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\u0081\31\65\1\uffff"+
             "\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\22\64\1\u0085\7\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\u0082\7\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\24\64\1\u0087\5\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\24\65\1\u0084\5\65"+
             "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\1\40\12"+
-            "\160\5\uffff\2\40\32\160\3\uffff\1\40\1\160\1\uffff\32\160\1"+
-            "\uffff\1\40\1\uffff\1\40",
             "",
             "",
             "",
@@ -2753,82 +2715,82 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\21\64\1\u0088\10\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\u0085\10\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\21\64\1\u0089\10\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\u0086\10\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\26\64\1\u008d\3\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\26\65\1\u008a\3\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\7\64\1\u008f\22\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\7\65\1\u008c\22\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\13\64\1\u0090\16\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\u008d\16\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\4\64\1\u0091\25\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\u008e\25\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\21\64\1\u0092\10\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\u008f\10\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\23\64\1\u0094\6\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\u0091\6\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "",
             "",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\13\64\1\u0097\16\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\u0094\16\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\15\64\1\u0099\14\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\15\65\1\u0096\14\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\30\64\1\u009b\1\64"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\30\65\1\u0098\1\65"+
             "\1\uffff\1\40\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
             "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\64\3\uffff\2\40\1\uffff\32\64\1\uffff\1\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
             "\1\uffff\1\40",
             "",
             ""
@@ -2864,7 +2826,7 @@ public class SQLScriptLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | INT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | ANNOTATION | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL );";
+            return "1:1: Tokens : ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | INT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -2877,34 +2839,19 @@ public class SQLScriptLexer extends Lexer {
                         int index10_92 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((allowDollarQuote)) ) {s = 57;}
+                        if ( (LA10_92=='$') ) {s = 93;}
 
-                        else if ( (true) ) {s = 32;}
+                        else if ( ((LA10_92>='0' && LA10_92<='9')||(LA10_92>='A' && LA10_92<='Z')||LA10_92=='_'||(LA10_92>='a' && LA10_92<='z')) ) {s = 92;}
+
+                        else if ( ((LA10_92>='\u0080' && LA10_92<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
+
+                        else s = 32;
 
                          
                         input.seek(index10_92);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA10_56 = input.LA(1);
-
-                         
-                        int index10_56 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA10_56>='0' && LA10_56<='9')||(LA10_56>='A' && LA10_56<='Z')||LA10_56=='_'||(LA10_56>='a' && LA10_56<='z')) ) {s = 93;}
-
-                        else if ( (LA10_56=='$') ) {s = 94;}
-
-                        else if ( ((LA10_56>='\u0080' && LA10_56<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
-
-                        else s = 32;
-
-                         
-                        input.seek(index10_56);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA10_7 = input.LA(1);
 
                          
@@ -2913,36 +2860,36 @@ public class SQLScriptLexer extends Lexer {
                         s = -1;
                         if ( (LA10_7=='\'') && ((allowQQuote))) {s = 54;}
 
-                        else if ( ((LA10_7>='A' && LA10_7<='Z')||(LA10_7>='a' && LA10_7<='z')) ) {s = 52;}
+                        else if ( ((LA10_7>='A' && LA10_7<='Z')||(LA10_7>='a' && LA10_7<='z')) ) {s = 53;}
 
                         else if ( (LA10_7=='!'||(LA10_7>='$' && LA10_7<='&')||(LA10_7>='*' && LA10_7<='+')||LA10_7=='-'||(LA10_7>='/' && LA10_7<='9')||(LA10_7>='?' && LA10_7<='@')||(LA10_7>='^' && LA10_7<='_')||LA10_7=='|'||LA10_7=='~') ) {s = 32;}
 
-                        else s = 53;
+                        else s = 51;
 
                          
                         input.seek(index10_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
-                        int LA10_93 = input.LA(1);
+                    case 2 : 
+                        int LA10_52 = input.LA(1);
 
                          
-                        int index10_93 = input.index();
+                        int index10_52 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_93=='$') ) {s = 94;}
+                        if ( (LA10_52=='\'') && ((allowQQuote))) {s = 54;}
 
-                        else if ( ((LA10_93>='0' && LA10_93<='9')||(LA10_93>='A' && LA10_93<='Z')||LA10_93=='_'||(LA10_93>='a' && LA10_93<='z')) ) {s = 93;}
+                        else if ( ((LA10_52>='A' && LA10_52<='Z')||(LA10_52>='a' && LA10_52<='z')) ) {s = 53;}
 
-                        else if ( ((LA10_93>='\u0080' && LA10_93<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
+                        else if ( (LA10_52=='!'||(LA10_52>='$' && LA10_52<='&')||(LA10_52>='*' && LA10_52<='+')||LA10_52=='-'||(LA10_52>='/' && LA10_52<='9')||(LA10_52>='?' && LA10_52<='@')||(LA10_52>='^' && LA10_52<='_')||LA10_52=='|'||LA10_52=='~') ) {s = 32;}
 
-                        else s = 32;
+                        else s = 51;
 
                          
-                        input.seek(index10_93);
+                        input.seek(index10_52);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
+                    case 3 : 
                         int LA10_8 = input.LA(1);
 
                          
@@ -2961,23 +2908,38 @@ public class SQLScriptLexer extends Lexer {
                         input.seek(index10_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
-                        int LA10_51 = input.LA(1);
+                    case 4 : 
+                        int LA10_91 = input.LA(1);
 
                          
-                        int index10_51 = input.index();
+                        int index10_91 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_51=='\'') && ((allowQQuote))) {s = 54;}
+                        if ( ((allowDollarQuote)) ) {s = 57;}
 
-                        else if ( ((LA10_51>='A' && LA10_51<='Z')||(LA10_51>='a' && LA10_51<='z')) ) {s = 52;}
-
-                        else if ( (LA10_51=='!'||(LA10_51>='$' && LA10_51<='&')||(LA10_51>='*' && LA10_51<='+')||LA10_51=='-'||(LA10_51>='/' && LA10_51<='9')||(LA10_51>='?' && LA10_51<='@')||(LA10_51>='^' && LA10_51<='_')||LA10_51=='|'||LA10_51=='~') ) {s = 32;}
-
-                        else s = 53;
+                        else if ( (true) ) {s = 32;}
 
                          
-                        input.seek(index10_51);
+                        input.seek(index10_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA10_56 = input.LA(1);
+
+                         
+                        int index10_56 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA10_56>='0' && LA10_56<='9')||(LA10_56>='A' && LA10_56<='Z')||LA10_56=='_'||(LA10_56>='a' && LA10_56<='z')) ) {s = 92;}
+
+                        else if ( (LA10_56=='$') ) {s = 93;}
+
+                        else if ( ((LA10_56>='\u0080' && LA10_56<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
+
+                        else s = 32;
+
+                         
+                        input.seek(index10_56);
                         if ( s>=0 ) return s;
                         break;
             }

@@ -1,6 +1,5 @@
 package org.unbunt.sqlscript;
 
-import org.unbunt.sqlscript.statement.SQLStatement;
 import org.unbunt.utils.res.SimpleResource;
 
 import javax.sql.DataSource;
@@ -63,9 +62,9 @@ public class DefaultSQLScriptChildContext implements SQLScriptChildContext {
         return baseContext.getLastSQLResult();
     }
 
-    public SQLStatement getLastSQLStatement() {
-        return baseContext.getLastSQLStatement();
-    }
+//    public SQLStatement getLastSQLStatement() {
+//        return baseContext.getLastSQLStatement();
+//    }
 
     public Statement getLastSQLStatementResource() {
         return baseContext.getLastSQLStatementResource();
@@ -107,9 +106,9 @@ public class DefaultSQLScriptChildContext implements SQLScriptChildContext {
         baseContext.setLastSQLResult(lastSQLResult);
     }
 
-    public void setLastSQLStatement(SQLStatement lastSQLStatement) {
-        baseContext.setLastSQLStatement(lastSQLStatement);
-    }
+//    public void setLastSQLStatement(SQLStatement lastSQLStatement) {
+//        baseContext.setLastSQLStatement(lastSQLStatement);
+//    }
 
     public void setLastSQLStatementResource(Statement stmt) {
         baseContext.setLastSQLStatementResource(stmt);

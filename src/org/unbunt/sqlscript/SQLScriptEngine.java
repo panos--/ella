@@ -2,23 +2,23 @@ package org.unbunt.sqlscript;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unbunt.sqlscript.annotations.*;
-import org.unbunt.sqlscript.commands.*;
 import org.unbunt.sqlscript.continuations.*;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
+import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.RawSQL;
 import org.unbunt.sqlscript.statement.*;
-import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.*;
-import org.unbunt.sqlscript.utils.StringUtils;
 import org.unbunt.sqlscript.utils.ObjUtils;
+import org.unbunt.sqlscript.utils.StringUtils;
 import org.unbunt.utils.VolatileObservable;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Constructor;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class SQLScriptEngine
         extends VolatileObservable
@@ -32,15 +32,16 @@ public class SQLScriptEngine
     protected Context context;
     protected boolean finished = false;
 
-    protected final static Map<String, String> commands;
+//    protected final static Map<String, String> commands;
 
-    protected final static Map<String, String> annotations;
+//    protected final static Map<String, String> annotations;
 
     public static final String SLOT_PARENT = "parent";
     public static final Str STR_SLOT_PARENT = Str.SYM_parent;
     public static final String SLOT_INIT  = "init";
     public static final Str STR_SLOT_INIT = Str.SYM_init;
 
+    /*
     static {
         commands = new HashMap<String, String>();
         commands.put("hello", "org.unbunt.sqlscript.commands.HelloWorldCommand");
@@ -62,6 +63,7 @@ public class SQLScriptEngine
         annotations.put("prepare", "org.unbunt.sqlscript.annotations.PrepareAnnotation");
         annotations.put("quiet", "org.unbunt.sqlscript.annotations.QuietAnnotation");
     }
+    */
 
     public enum CommandType {
         STATEMENT, COMMAND
@@ -77,8 +79,8 @@ public class SQLScriptEngine
         public String progessMsg;
     }
 
+    /*
     public class SQLStatementState extends State {
-        public SQLStatement statement;
         public String queryString;
 
         public SQLStatementState(SQLStatement statement, String queryString) {
@@ -92,7 +94,9 @@ public class SQLScriptEngine
             this.queryString = queryString;
         }
     }
+    */
 
+    /*
     public class EvalCommandState extends State {
         public EvalCommand command;
 
@@ -106,6 +110,7 @@ public class SQLScriptEngine
             this.command = command;
         }
     }
+    */
 
     public SQLScriptEngine(Context context, SQLScriptContext sqlScriptContext) {
         this.context = context;
@@ -463,16 +468,21 @@ public class SQLScriptEngine
         next = EVAL;
     }
 
+    /*
     public void processExpression(AnnotationCommand annotationCommand) {
         process(annotationCommand);
         next = CONT;
     }
+    */
 
+    /*
     public void processExpression(EvalCommand evalCommand) {
         process(evalCommand);
         next = CONT;
     }
+    */
 
+    /*
     public void processExpression(SQLStatement sqlStatement) {
         StringBuilder buf = new StringBuilder();
         for (Object part : sqlStatement.getParts()) {
@@ -505,6 +515,7 @@ public class SQLScriptEngine
         process(statement);
         next = CONT;
     }
+    */
 
     protected void cont() {
         cont[pc].accept(this);
@@ -1185,6 +1196,7 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    /*
     protected void process(EvalCommand command) throws SQLScriptRuntimeException {
         logger.debug("Executing CMD: " + command);
 
@@ -1267,7 +1279,9 @@ public class SQLScriptEngine
             notifyObservers(state);
         }
     }
+    */
 
+    /*
     protected void process(SQLStatement sqlStmt) throws SQLScriptRuntimeException {
         logger.debug("Executing SQL: " + sqlStmt);
 
@@ -1351,94 +1365,16 @@ public class SQLScriptEngine
             notifyObservers(state);
         }
     }
+    */
 
-    @SuppressWarnings({"MalformedFormatString"})
-    protected void printSQLResult() throws SQLException {
-        ResultSet rs = sqlScriptContext.getLastSQLResult();
-        int updateCount = sqlScriptContext.getLastUpdateCount();
-
-        if (rs != null) {
-            rs.beforeFirst();
-            ResultSetMetaData meta = rs.getMetaData();
-            int cols = meta.getColumnCount();
-            int[] colWidths = new int[cols + 1];
-            for (int i = 1; i <= cols; i++) {
-                String label = meta.getColumnLabel(i);
-                colWidths[i] = label.length();
-            }
-            while (rs.next()) {
-                for (int i = 1; i <= cols; i++) {
-                    int lastWidth = colWidths[i];
-                    int currWidth;
-                    int colType = meta.getColumnType(i);
-                    switch (colType) {
-                        case Types.DECIMAL:
-                        case Types.DOUBLE:
-                        case Types.FLOAT:
-                        case Types.NUMERIC:
-                        case Types.REAL:
-                            currWidth = String.format("%g", rs.getObject(i)).length();
-                            break;
-                        case Types.BIGINT:
-                        case Types.INTEGER:
-                        case Types.ROWID:
-                        case Types.SMALLINT:
-                        case Types.TINYINT:
-                            currWidth = String.format("%d", (Number)rs.getObject(i)).length();
-                            break;
-                        default:
-                            currWidth = ("" + rs.getObject(i)).length();
-                    }
-                    colWidths[i] = Math.max(lastWidth, currWidth);
-                }
-            }
-
-            rs.beforeFirst();
-
-            System.out.print("|");
-            for (int i = 1; i <= cols; i++) {
-                int colWidth = colWidths[i];
-                System.out.printf(" %-" + colWidth + "s |", meta.getColumnLabel(i));
-            }
-            System.out.println();
-            while (rs.next()) {
-                System.out.print("|");
-                for (int i = 1; i <= cols; i++) {
-                    int colWidth = colWidths[i];
-                    int colType = meta.getColumnType(i);
-                    switch (colType) {
-                        case Types.DECIMAL:
-                        case Types.DOUBLE:
-                        case Types.FLOAT:
-                        case Types.NUMERIC:
-                        case Types.REAL:
-                            System.out.printf(" %" + colWidth + "g |", rs.getObject(i));
-                            break;
-                        case Types.BIGINT:
-                        case Types.INTEGER:
-                        case Types.ROWID:
-                        case Types.SMALLINT:
-                        case Types.TINYINT:
-                            System.out.printf(" %" + colWidth + "d |", rs.getObject(i));
-                            break;
-                        default:
-                            System.out.printf(" %-" + colWidth + "s |", "" + rs.getObject(i));
-                    }
-                }
-                System.out.println();
-            }
-        }
-        else if (updateCount != -1) {
-            System.out.println(updateCount + " rows affected.");
-        }
-    }
-
+    /*
     protected void process(AnnotationCommand annCmd) {
         logger.debug("Executing annotation: " + annCmd);
 
         Annotation annotation = loadAnnotation(annCmd.getName(), annCmd.getParams());
         annCmd.getSubject().addAnnotation(annotation);
     }
+    */
 
     protected void checkFunArgs(Callable callable, List args) {
 //        if (!matchesFunArgs(function, args)) {
@@ -1527,10 +1463,11 @@ public class SQLScriptEngine
             Connection conn = ds.getConnection();
             sqlScriptContext.setConnection(conn);
         } catch (SQLException e) {
-            throw new DBConnectionFailedException(e);
+//            throw new DBConnectionFailedException(e);
         }
     }
 
+    /*
     protected Command loadCommand(String command) throws SQLScriptRuntimeException {
         String className = commands.get(command);
         if (className == null) {
@@ -1578,6 +1515,7 @@ public class SQLScriptEngine
             throw new SQLScriptRuntimeException("Failed to load annotation: " + annotation + ": " + e.getMessage(), e);
         }
     }
+    */
 
     public SQLScriptContext getSqlScriptContext() {
         return sqlScriptContext;
@@ -1712,6 +1650,15 @@ public class SQLScriptEngine
         return val;
     }
 
+    public Obj invokeSlot(Obj obj, Obj slot, Obj... args) throws ClosureTerminatedException {
+        // TODO: Store actual receiver in env for calls to super in the invoked method.
+        Obj slotValue = ObjUtils.getSlot(context, obj, slot);
+        if (slotValue == null) {
+            slotValue = getObjNull();
+        }
+        return invoke(slotValue, obj, args);
+    }
+
     protected static final Continuation LOOP_CONT = new LoopCont();
 
     public Obj invokeInLoop(Obj obj, Obj context, Obj... args)
@@ -1761,19 +1708,23 @@ public class SQLScriptEngine
         return context;
     }
 
-    public Obj getObjNull() {
-        return context.getObjNull();
-    }
-
-    public Obj getObjSys() {
+    public Sys getObjSys() {
         return context.getObjSys();
     }
 
-    public Obj getObjTrue() {
+    public ConnMgr getObjConnMgr() {
+        return context.getObjConnMgr();
+    }
+
+    public Null getObjNull() {
+        return context.getObjNull();
+    }
+
+    public Bool getObjTrue() {
         return context.getObjTrue();
     }
 
-    public Obj getObjFalse() {
+    public Bool getObjFalse() {
         return context.getObjFalse();
     }
 }

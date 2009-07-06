@@ -814,6 +814,7 @@ embeddedVar
 	:	EMB_VAR_START id=identifier RCURLY -> EMBEDDED_VAR[$id.start]
 	;
 
+/*
 annotations
 	:	annotation*
 	;
@@ -828,6 +829,7 @@ annotationParam
 	:	paramName EQUALS paramValue -> ^(ANNOT_ARG PARAM_NAME paramName PARAM_VALUE paramValue)
 	|	paramName                   -> ^(ANNOT_ARG PARAM_NAME paramName)
 	;
+*/
 
 paramName
 	:	identifier
@@ -1111,9 +1113,11 @@ OP_ADD	:	'+'
 OP_SUB	:	'-'
 	;
 
+/*
 ANNOTATION
 	:	'@' SIMPLE_IDENTIFIER
 	;
+*/
 
 fragment
 SIMPLE_IDENTIFIER

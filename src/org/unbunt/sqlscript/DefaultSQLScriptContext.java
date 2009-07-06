@@ -1,6 +1,5 @@
 package org.unbunt.sqlscript;
 
-import org.unbunt.sqlscript.statement.SQLStatement;
 import org.unbunt.utils.res.FilesystemResourceLoader;
 import org.unbunt.utils.res.SimpleResource;
 import org.unbunt.utils.res.SimpleResourceLoader;
@@ -27,7 +26,6 @@ public class DefaultSQLScriptContext implements SQLScriptContext {
 
     protected SimpleResourceLoader resourceLoader = new FilesystemResourceLoader();
 
-    protected SQLStatement lastSQLStatement = null;
     protected Statement lastSQLStatementResource = null;
     protected ResultSet lastSQLResult = null;
     protected int lastUpdateCount = -1;
@@ -96,13 +94,13 @@ public class DefaultSQLScriptContext implements SQLScriptContext {
         this.lastSQLResult = lastSQLResult;
     }
 
-    public SQLStatement getLastSQLStatement() {
-        return lastSQLStatement;
-    }
+//    public SQLStatement getLastSQLStatement() {
+//        return lastSQLStatement;
+//    }
 
-    public void setLastSQLStatement(SQLStatement lastSQLStatement) {
-        this.lastSQLStatement = lastSQLStatement;
-    }
+//    public void setLastSQLStatement(SQLStatement lastSQLStatement) {
+//        this.lastSQLStatement = lastSQLStatement;
+//    }
 
     public Statement getLastSQLStatementResource() {
         return lastSQLStatementResource;

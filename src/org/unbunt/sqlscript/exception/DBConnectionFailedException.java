@@ -1,6 +1,8 @@
 package org.unbunt.sqlscript.exception;
 
-public class DBConnectionFailedException extends SQLScriptRuntimeException {
+import org.unbunt.utils.GenericException;
+
+public class DBConnectionFailedException extends GenericException {
     public DBConnectionFailedException() {
     }
 

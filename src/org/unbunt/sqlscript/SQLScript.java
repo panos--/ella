@@ -12,18 +12,15 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import org.unbunt.sqlscript.annotations.DescriptionAnnotation;
 import org.unbunt.sqlscript.antlr.LazyInputStream;
 import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
-import org.unbunt.sqlscript.support.Drivers;
-import org.unbunt.sqlscript.support.Scope;
-import org.unbunt.sqlscript.support.TailCallOptimizer;
-import org.unbunt.sqlscript.support.Context;
-import static org.unbunt.utils.StringUtils.isNullOrEmpty;
+import org.unbunt.sqlscript.support.*;
+import org.unbunt.sqlscript.utils.DBUtils;
 import org.unbunt.utils.VolatileObservable;
+import org.unbunt.utils.StringUtils;
+import org.unbunt.utils.res.FilesystemResource;
 import org.unbunt.utils.res.FilesystemResourceLoader;
 import org.unbunt.utils.res.SimpleResource;
 import org.unbunt.utils.res.StringResource;
@@ -31,7 +28,12 @@ import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
 import java.io.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class SQLScript extends VolatileObservable implements Observer {
     protected Context context;
@@ -51,7 +53,11 @@ public class SQLScript extends VolatileObservable implements Observer {
     protected Block block; // the parsed script to be run by the engine
 
     public SQLScript(SQLScriptContext sqlScriptContext, SimpleResource script) {
-        this.context = new Context();
+        this(new Context(), sqlScriptContext, script);
+    }
+
+    public SQLScript(Context context, SQLScriptContext sqlScriptContext, SimpleResource script) {
+        this.context = context;
         this.sqlScriptContext = sqlScriptContext;
         this.script = script;
         this.scriptName = script.getFilename();
@@ -490,10 +496,25 @@ public class SQLScript extends VolatileObservable implements Observer {
      * Static methods / Main program
      */
 
-    public static Object eval(String script) throws SQLScriptIOException, SQLScriptParseException {
+    public static Object eval(File script, Object... args) throws SQLScriptIOException, SQLScriptParseException {
+        return eval(script, new Context(args));
+    }
+
+    protected static Object eval(File script, Context context) throws SQLScriptIOException, SQLScriptParseException {
+        SQLScriptContext ctx = new DefaultSQLScriptContext();
+        SimpleResource res = new FilesystemResource(script);
+        SQLScript interp = new SQLScript(context, ctx, res);
+        return interp.execute();
+    }
+
+    public static Object eval(String script, Object... args) throws SQLScriptIOException, SQLScriptParseException {
+        return eval(script, new Context(args));
+    }
+
+    protected static Object eval(String script, Context context) throws SQLScriptIOException, SQLScriptParseException {
         SQLScriptContext ctx = new DefaultSQLScriptContext();
         SimpleResource res = new StringResource(script);
-        SQLScript interp = new SQLScript(ctx, res);
+        SQLScript interp = new SQLScript(context, ctx, res);
         return interp.execute();
     }
 
@@ -524,8 +545,15 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected static void usage(CmdLineParser parser) {
-        System.err.println("usage: SQLScript OPTION... {-i | [-large] [FILE]}");
+        System.err.println("usage: SQLScript [-url|-props] OPTION... {-i | [-large] [FILE]} [ARG]...");
         parser.printUsage(System.err);
+        System.err.println();
+        System.err.println("Known drivers:");
+        for (Drivers driver : Drivers.values()) {
+            System.err.print(driver);
+            System.err.print(": ");
+            System.err.println(StringUtils.join((Object[])driver.getDriverClasses()));
+        }
         System.exit(1);
     }
 
@@ -539,9 +567,6 @@ public class SQLScript extends VolatileObservable implements Observer {
             usage(parser);
         }
 
-        if (pargs.args.size() > 1) {
-            usage(parser);
-        }
         String file = pargs.args.isEmpty() ? null : pargs.args.get(0);
         if (pargs.possiblyInteractive && file == null) {
             pargs.interactive = true;
@@ -555,93 +580,37 @@ public class SQLScript extends VolatileObservable implements Observer {
             usage(parser);
         }
 
-        DriverManagerDataSource ds = new SingleConnectionDataSource();
+        String[] scriptArgs;
+        if (pargs.args.size() > 1) {
+            List<String> argsList = pargs.args.subList(1, pargs.args.size());
+            scriptArgs = argsList.toArray(new String[argsList.size()]);
+        }
+        else {
+            scriptArgs = new String[0];
+        }
 
-        Properties props = null;
-        if (!isNullOrEmpty(pargs.properties)) {
-            props = new Properties();
+        DriverManagerDataSource ds = null;
+        if (pargs.url != null && pargs.properties != null) {
+            usage(parser);
+        }
+        try {
+            if (pargs.properties != null) {
+                ds = DBUtils.createDataSourceFromProps(pargs.properties, pargs.user, pargs.pass, pargs.driver);
+            }
+            else if (pargs.url != null) {
+                ds = DBUtils.createDataSource(pargs.url, pargs.user, pargs.pass, pargs.driver);
+            }
+        } catch (DBConnectionFailedException e) {
+            die("Could not connect database: " + e.getMessage());
+        }
+
+        Connection conn = null;
+        if (ds != null) {
             try {
-                props.load(new FileInputStream(pargs.properties));
-            } catch (IOException e) {
-                die("Failed to load properties: " + e.getMessage(), 1);
+                conn = ds.getConnection();
+            } catch (SQLException e) {
+                die("Could not connect database: " + e.getMessage());
             }
-
-            if (props.getProperty("username") != null && props.getProperty("user") == null) {
-                props.setProperty("user", props.getProperty("username"));
-            }
-            else if (props.getProperty("user") != null && props.getProperty("username") == null) {
-                props.setProperty("username", props.getProperty("user"));
-            }
-        }
-
-        String driverClassName = null;
-        if (!isNullOrEmpty(pargs.driver)) {
-            try {
-                Class.forName(pargs.driver);
-                driverClassName = pargs.driver;
-            } catch (Exception e) {
-                die("Could not load database driver: " + pargs.driver + ": " + e.getMessage(), 1);
-            }
-        }
-        else if (!isNullOrEmpty(pargs.type)) {
-            String[] typeDrivers = null;
-            try {
-                typeDrivers = Drivers.valueOf(pargs.type).getDriverClasses();
-            } catch (IllegalArgumentException ignored) {
-            }
-            if (typeDrivers == null || typeDrivers.length == 0) {
-                die("Unknown driver type: " + pargs.type + " - Use -driver option to specify a driver class", 1);
-            }
-
-            boolean loaded = false;
-            for (String typeDriver : typeDrivers) {
-                try {
-                    Class.forName(typeDriver);
-                    driverClassName = typeDriver;
-                    loaded = true;
-                    break;
-                } catch (Exception ignored) {
-                }
-            }
-
-            if (!loaded) {
-                die("Could not load driver for database type: " + pargs.type + " - Try using -driver");
-            }
-        }
-        else if (props != null) {
-            String dcnProp = props.getProperty("driverClassName");
-            if (dcnProp != null) {
-                driverClassName = dcnProp;
-            }
-        }
-
-        if (driverClassName != null) {
-            ds.setDriverClassName(driverClassName);
-        }
-
-        if (!isNullOrEmpty(pargs.url)) {
-            ds.setUrl(pargs.url);
-        }
-        else if (props != null && props.getProperty("url") != null) {
-            ds.setUrl(props.getProperty("url"));
-        }
-
-        if (!isNullOrEmpty(pargs.user)) {
-            ds.setUsername(pargs.user);
-        }
-        else if (props != null && props.getProperty("user") != null) {
-            ds.setUsername(pargs.user);
-        }
-
-        if (pargs.pass != null) { // NOTE: not using isNullOrEmpty to allow empty string as password
-            ds.setPassword(pargs.pass);
-        }
-        else if (props != null && props.getProperty("password") != null) {
-            ds.setPassword(props.getProperty("password"));
-        }
-
-        if (props != null) {
-            ds.setConnectionProperties(props);
         }
 
         DefaultSQLScriptContext ctx = new DefaultSQLScriptContext();
@@ -650,13 +619,21 @@ public class SQLScript extends VolatileObservable implements Observer {
         try {
             FilesystemResourceLoader loader = new FilesystemResourceLoader();
             SimpleResource script = file == null ? loader.getStdinResource() : loader.getResource(file);
-            SQLScript interp = new SQLScript(ctx, script);
+
+            Context context = new Context(scriptArgs);
+            if (conn != null) {
+                context.getObjConnMgr().setActiveConnection(conn);
+            }
+            context.addSQLResultListener(new SimpleSQLResultListener(System.out));
+
+            SQLScript interp = new SQLScript(context, ctx, script);
             if (pargs.compile) {
                 interp.compile();
             }
             else {
                 if (pargs.verbose) {
-                    interp.addObserver(new ScriptObserver());
+                    // TODO: Replace functionality
+//                    interp.addObserver(new ScriptObserver());
                 }
                 if (pargs.interactive) {
                     interp.executeInteractive();
@@ -684,11 +661,7 @@ public class SQLScript extends VolatileObservable implements Observer {
         @Option(name = "-props", usage = "the properties file to be used to configure the database connection")
         public String properties = null;
 
-        @Option(name = "-type", usage = "the database type - can be used instead of -driver option for known databases",
-                metaVar = "postgresql/mysql")
-        public String type = null;
-
-        @Option(name = "-driver", usage = "the driver class to be used")
+        @Option(name = "-driver", usage = "the driver to be used - class name or alias (see below)")
         public String driver = null;
 
         @Option(name = "-url", usage = "the URL of the database to connect to")
@@ -728,6 +701,7 @@ public class SQLScript extends VolatileObservable implements Observer {
         public List<String> args = new ArrayList<String>();
     }
 
+    /*
     protected static class ScriptObserver implements Observer {
         public void update(Observable o, Object arg) {
             if (arg instanceof SQLScriptEngine.EvalCommandState) {
@@ -760,4 +734,5 @@ public class SQLScript extends VolatileObservable implements Observer {
             }
         }
     }
+    */
 }

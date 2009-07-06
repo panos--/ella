@@ -161,15 +161,6 @@ public class TailCallOptimizer {
         public void processExpression(InitParameter initParameter) {
         }
 
-        public void processExpression(AnnotationCommand annotationCommand) {
-        }
-
-        public void processExpression(EvalCommand evalCommand) {
-        }
-
-        public void processExpression(SQLStatement sqlStatement) {
-        }
-
         public void processExpression(ThisExpression thisExpression) {
         }
 
@@ -328,15 +319,6 @@ public class TailCallOptimizer {
             public void processExpression(InitParameter initParameter) {
             }
 
-            public void processExpression(AnnotationCommand annotationCommand) {
-            }
-
-            public void processExpression(EvalCommand evalCommand) {
-            }
-
-            public void processExpression(SQLStatement sqlStatement) {
-            }
-
             public void processExpression(ThisExpression thisExpression) {
             }
 
@@ -450,15 +432,6 @@ public class TailCallOptimizer {
             public void processExpression(InitParameter initParameter) {
             }
 
-            public void processExpression(AnnotationCommand annotationCommand) {
-            }
-
-            public void processExpression(EvalCommand evalCommand) {
-            }
-
-            public void processExpression(SQLStatement sqlStatement) {
-            }
-
             public void processExpression(ThisExpression thisExpression) {
             }
 
@@ -556,15 +529,6 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(InitParameter initParameter) {
-            }
-
-            public void processExpression(AnnotationCommand annotationCommand) {
-            }
-
-            public void processExpression(EvalCommand evalCommand) {
-            }
-
-            public void processExpression(SQLStatement sqlStatement) {
             }
 
             public void processExpression(ThisExpression thisExpression) {

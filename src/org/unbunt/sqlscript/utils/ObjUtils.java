@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.utils;
 import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.SQLScriptEngine;
 
 public class ObjUtils {
     public static Obj getImplicitParent(Context ctx, Obj obj) {
@@ -26,6 +27,10 @@ public class ObjUtils {
             }
         }
         return value;
+    }
+
+    public static void setSlot(Context ctx, Obj obj, Obj slot, Obj value) {
+        obj.setSlot(ctx, slot, value);
     }
 
     @SuppressWarnings({"unchecked"})
