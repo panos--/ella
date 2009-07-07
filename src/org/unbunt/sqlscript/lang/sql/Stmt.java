@@ -22,6 +22,8 @@ import java.util.HashMap;
 public class Stmt extends PlainObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    public static final int DEFAULT_BATCH_SIZE = 1000;
+
     protected RawSQL rawStatement;
     protected RawParamedSQL rawParamedStatement = null;
     protected Statement statement = null;
@@ -78,6 +80,22 @@ public class Stmt extends PlainObj {
             statement.executeUpdate(rawStatement.getStatement(), Statement.RETURN_GENERATED_KEYS);
             return statement.getGeneratedKeys();
         }
+    }
+
+    protected void addBatch(Obj[] params) throws SQLException {
+        setParams(params);
+        addParams();
+        preparedStatement.addBatch();
+    }
+
+    protected void addNamedBatch(Obj namedParams) throws SQLException {
+        setNamedParams(namedParams);
+        addParams();
+        preparedStatement.addBatch();
+    }
+
+    protected void execBatch() throws SQLException {
+        preparedStatement.executeBatch();
     }
 
     protected void init() throws SQLException {
@@ -159,6 +177,17 @@ public class Stmt extends PlainObj {
         }
         this.namedParams = result;
         paramed = true;
+    }
+
+    protected void parseParams() {
+        RawParamedSQL paramedStmt;
+        try {
+            paramedStmt = SQLParamParser.parse(rawStatement);
+        } catch (RecognitionException e) {
+            throw new SQLScriptRuntimeException("Failed to parse SQL statement: " +
+                                                rawStatement.getStatement(), e);
+        }
+        setRawParamedStmt(paramedStmt);
     }
 
     protected void close() throws SQLException {
@@ -350,18 +379,76 @@ public class Stmt extends PlainObj {
                 Stmt thiz = ensureType(context);
                 Obj params = args[0];
 
-                RawParamedSQL paramedStmt;
-                try {
-                    paramedStmt = SQLParamParser.parse(thiz.rawStatement);
-                } catch (RecognitionException e) {
-                    throw new SQLScriptRuntimeException("Failed to parse SQL statement: " +
-                                                        thiz.rawStatement.getStatement(), e);
+                thiz.parseParams();
+                thiz.setNamedParams(params);
+
+                return thiz;
+            }
+        };
+
+        // TODO: How to handle update counts???
+        protected static final NativeCall nativeBatch = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Stmt thiz = ensureType(context);
+                Obj closure;
+                int batchSize;
+                if (args.length > 1) {
+                    closure = args[1];
+                    Int bs = ensureType(args[0]);
+                    batchSize = bs.value;
+                }
+                else {
+                    closure = args[0];
+                    batchSize = DEFAULT_BATCH_SIZE;
                 }
 
-                System.err.println("paramedStmt: " + paramedStmt);
+                try {
+                    thiz.initPrepared();
+                    ParamBatch batch = new ParamBatch(thiz, batchSize);
+                    engine.invoke(closure, engine.getObjNull(), batch);
+                    batch.finish();
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException("Batch execution failed: " + e, e);
+                } finally {
+                    try {
+                        thiz.close();
+                    } catch (SQLException ignored) {
+                    }
+                }
 
-                thiz.setRawParamedStmt(paramedStmt);
-                thiz.setNamedParams(params);
+                return thiz;
+            }
+        };
+
+        public static final NativeCall nativeBatchNamed = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Stmt thiz = ensureType(context);
+                Obj closure;
+                int batchSize;
+                if (args.length > 1) {
+                    closure = args[1];
+                    Int bs = ensureType(args[0]);
+                    batchSize = bs.value;
+                }
+                else {
+                    closure = args[0];
+                    batchSize = DEFAULT_BATCH_SIZE;
+                }
+
+                try {
+                    thiz.parseParams();
+                    thiz.initPrepared();
+                    NamedParamBatch batch = new NamedParamBatch(thiz, batchSize);
+                    engine.invoke(closure, engine.getObjNull(), batch);
+                    batch.finish();
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException("Batch execution failed " + e, e);
+                } finally {
+                    try {
+                        thiz.close();
+                    } catch (SQLException ignored) {
+                    }
+                }
 
                 return thiz;
             }
@@ -375,6 +462,8 @@ public class Stmt extends PlainObj {
             slots.put(Str.SYM_key, nativeKey);
             slots.put(Str.SYM_with, nativeWith);
             slots.put(Str.SYM_withNamed, nativeWithNamed);
+            slots.put(Str.SYM_batch, nativeBatch);
+            slots.put(Str.SYM_batchNamed, nativeBatchNamed);
         }
 
         @Override
@@ -388,4 +477,79 @@ public class Stmt extends PlainObj {
             ctx.registerObject(new StmtProto());
         }
     }
+
+    protected static class ParamBatch extends PlainObj {
+        protected Stmt stmt;
+        protected int batchSize;
+        protected int currentBatchSize = 0;
+
+        protected static NativeCall nativeAdd = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                ParamBatch thiz = ensureType(context);
+                try {
+                    thiz.stmt.addBatch(args);
+                    if (++thiz.currentBatchSize % thiz.batchSize == 0) {
+                        thiz.stmt.execBatch();
+                        thiz.currentBatchSize = 0;
+                    }
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+                return thiz;
+            }
+        };
+
+        protected static NativeCall nativeFinish = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                ParamBatch thiz = ensureType(context);
+                try {
+                    thiz.finish();
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+                return thiz;
+            }
+        };
+
+        public ParamBatch(Stmt stmt, int batchSize) {
+            this.stmt = stmt;
+            this.batchSize = batchSize;
+            slots.put(Str.SYM_add, nativeAdd);
+            slots.put(Str.SYM_finish, nativeFinish);
+        }
+
+        protected void finish() throws SQLException {
+            if (currentBatchSize == 0) {
+                return;
+            }
+
+            stmt.execBatch();
+        }
+    }
+
+    protected static class NamedParamBatch extends ParamBatch {
+        protected static NativeCall nativeAdd = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                ParamBatch thiz = ensureType(context);
+                try {
+                    thiz.stmt.addNamedBatch(args[0]);
+                    if (++thiz.currentBatchSize % thiz.batchSize == 0) {
+                        thiz.stmt.execBatch();
+                        thiz.currentBatchSize = 0;
+                    }
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+                return thiz;
+            }
+        };
+
+        public NamedParamBatch(Stmt stmt, int batchSize) {
+            super(stmt, batchSize);
+            this.stmt = stmt;
+            this.batchSize = batchSize;
+            slots.put(Str.SYM_add, nativeAdd);
+        }
+    }
+
 }

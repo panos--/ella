@@ -27,6 +27,8 @@ public class Str extends AbstractObj {
     public static final Str SYM_add = toSym("add");
     public static final Str SYM_activate = toSym("activate");
     public static final Str SYM_active = toSym("active");
+    public static final Str SYM_batch = toSym("batch");
+    public static final Str SYM_batchNamed = toSym("batchNamed");
     public static final Str SYM_break = toSym("break");
     public static final Str SYM_call = toSym("call");
     public static final Str SYM_continue = toSym("continue");
@@ -40,6 +42,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_eachSlot = toSym("eachSlot");
     public static final Str SYM_exec = toSym("exec");
     public static final Str SYM_execStmt = toSym("execStmt");
+    public static final Str SYM_finish = toSym("finish");
     public static final Str SYM_get = toSym("get");
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_if = toSym("if");
