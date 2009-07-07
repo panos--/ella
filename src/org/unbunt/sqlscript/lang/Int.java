@@ -83,11 +83,11 @@ public class Int extends PlainObj {
         };
 
         private IntProto() {
-            slots.put(Str.SYM_add, PrimitiveCall.Type.INT_ADD.primitive);
-            slots.put(Str.SYM_sub, PrimitiveCall.Type.INT_SUB.primitive);
-            slots.put(Str.SYM_mul, PrimitiveCall.Type.INT_MUL.primitive);
-            slots.put(Str.SYM_div, PrimitiveCall.Type.INT_DIV.primitive);
-            slots.put(Str.SYM_mod, PrimitiveCall.Type.INT_MOD.primitive);
+            slots.put(Str.SYM__plus, PrimitiveCall.Type.INT_ADD.primitive);
+            slots.put(Str.SYM__minus, PrimitiveCall.Type.INT_SUB.primitive);
+            slots.put(Str.SYM__star, PrimitiveCall.Type.INT_MUL.primitive);
+            slots.put(Str.SYM__slash, PrimitiveCall.Type.INT_DIV.primitive);
+            slots.put(Str.SYM__percent, PrimitiveCall.Type.INT_MOD.primitive);
             slots.put(Str.SYM_eq, PrimitiveCall.Type.INT_EQ.primitive);
             slots.put(Str.SYM_ne, PrimitiveCall.Type.INT_NE.primitive);
             slots.put(Str.SYM_gt, PrimitiveCall.Type.INT_GT.primitive);

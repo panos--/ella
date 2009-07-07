@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.exception;
 
-public class ClosureTerminatedException extends SQLScriptRuntimeException {
-    public ClosureTerminatedException() {
-    }
+/**
+ * Signals the termination of a closure through a return to it's home method.
+ */
+public class ClosureTerminatedException extends ControlFlowException {
 }

@@ -31,6 +31,13 @@ public class SimpleSQLResultListener implements SQLResultListener {
         }
     }
 
+    /**
+     * TODO: Break up into multiple methods. Especially factor out result type handling.
+     * 
+     * @param rs
+     * @throws SQLException
+     * @throws IOException
+     */
     protected void resultSetInternal(ResultSet rs) throws SQLException, IOException {
         if (rs.getType() == ResultSet.TYPE_FORWARD_ONLY) {
             throw new UnsupportedOperationException("Cannot display FORWARD_ONLY result set");
@@ -204,33 +211,14 @@ public class SimpleSQLResultListener implements SQLResultListener {
             out.printf(" %-" + colWidth + "s |", meta.getColumnLabel(i));
         }
         out.println();
+        int nrows = 0;
         while (rs.next()) {
+            nrows++;
             out.print("|");
             PRINT_LOOP:
             for (int i = 1; i <= cols; i++) {
                 int colWidth = colWidths[i];
                 int colType = meta.getColumnType(i);
-
-                /*
-                switch (colType) {
-                    case Types.DECIMAL:
-                    case Types.DOUBLE:
-                    case Types.FLOAT:
-                    case Types.NUMERIC:
-                    case Types.REAL:
-                        out.printf(" %" + colWidth + "g |", rs.getObject(i));
-                        break;
-                    case Types.BIGINT:
-                    case Types.INTEGER:
-                    case Types.ROWID:
-                    case Types.SMALLINT:
-                    case Types.TINYINT:
-                        out.printf(" %" + colWidth + "d |", rs.getObject(i));
-                        break;
-                    default:
-                        out.printf(" %-" + colWidth + "s |", "" + rs.getObject(i));
-                }
-                */
 
                 String stringVal = null;
 
@@ -372,6 +360,8 @@ public class SimpleSQLResultListener implements SQLResultListener {
             }
             out.println();
         }
+
+        out.println(nrows + " rows.");
     }
 
     public void updateCount(int updateCount) {

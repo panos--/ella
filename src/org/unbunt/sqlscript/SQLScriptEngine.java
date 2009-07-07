@@ -32,85 +32,8 @@ public class SQLScriptEngine
     protected Context context;
     protected boolean finished = false;
 
-//    protected final static Map<String, String> commands;
-
-//    protected final static Map<String, String> annotations;
-
-    public static final String SLOT_PARENT = "parent";
     public static final Str STR_SLOT_PARENT = Str.SYM_parent;
-    public static final String SLOT_INIT  = "init";
     public static final Str STR_SLOT_INIT = Str.SYM_init;
-
-    /*
-    static {
-        commands = new HashMap<String, String>();
-        commands.put("hello", "org.unbunt.sqlscript.commands.HelloWorldCommand");
-        commands.put("test-tx-status", "org.unbunt.sqlscript.commands.TestTXStatusCommand");
-        commands.put("echo", "org.unbunt.sqlscript.commands.EchoCommand");
-        commands.put("require", "org.unbunt.sqlscript.commands.RequireCommand");
-        commands.put("conn-alias", "org.unbunt.sqlscript.commands.AliasConnectionCommand");
-        commands.put("set-conn", "org.unbunt.sqlscript.commands.SetConnectionCommand");
-        commands.put("connect", "org.unbunt.sqlscript.commands.ConnectCommand");
-        commands.put("transfer", "org.unbunt.sqlscript.commands.TransferCommand");
-        commands.put("include", "org.unbunt.sqlscript.commands.IncludeCommand");
-        commands.put("set", "org.unbunt.sqlscript.commands.SetCommand");
-        commands.put("begin", "org.unbunt.sqlscript.commands.BeginCommand");
-        commands.put("commit", "org.unbunt.sqlscript.commands.CommitCommand");
-
-        annotations = new HashMap<String, String>();
-        annotations.put("describe", "org.unbunt.sqlscript.annotations.DescriptionAnnotation");
-        annotations.put("ignoreErrors", "org.unbunt.sqlscript.annotations.IgnoreErrorsAnnotation");
-        annotations.put("prepare", "org.unbunt.sqlscript.annotations.PrepareAnnotation");
-        annotations.put("quiet", "org.unbunt.sqlscript.annotations.QuietAnnotation");
-    }
-    */
-
-    public enum CommandType {
-        STATEMENT, COMMAND
-    }
-
-    public enum CommandState {
-        STARTING, PROGRESSED, FINISHED
-    }
-
-    protected abstract class State {
-        public CommandType type;
-        public CommandState state;
-        public String progessMsg;
-    }
-
-    /*
-    public class SQLStatementState extends State {
-        public String queryString;
-
-        public SQLStatementState(SQLStatement statement, String queryString) {
-            this(statement, queryString, CommandState.STARTING);
-        }
-
-        public SQLStatementState(SQLStatement statement, String queryString, CommandState state) {
-            this.type = CommandType.STATEMENT;
-            this.state = state;
-            this.statement = statement;
-            this.queryString = queryString;
-        }
-    }
-    */
-
-    /*
-    public class EvalCommandState extends State {
-        public EvalCommand command;
-
-        public EvalCommandState(EvalCommand command) {
-            this(command, CommandState.STARTING);
-        }
-
-        public EvalCommandState(EvalCommand command, CommandState state) {
-            this.type = CommandType.COMMAND;
-            this.state = state;
-            this.command = command;
-        }
-    }
-    */
 
     public SQLScriptEngine(Context context, SQLScriptContext sqlScriptContext) {
         this.context = context;
@@ -150,11 +73,7 @@ public class SQLScriptEngine
             }
         }
 
-        if (val == null) {
-            return null;
-        }
-
-        return val.toJavaObject();
+        return val == null ? null : val.toJavaObject();
     }
 
     protected final static boolean CONT = true;
@@ -1197,91 +1116,6 @@ public class SQLScriptEngine
     }
 
     /*
-    protected void process(EvalCommand command) throws SQLScriptRuntimeException {
-        logger.debug("Executing CMD: " + command);
-
-        SQLScriptOptions options = sqlScriptContext.getOptions();
-
-        boolean quiet = options.quiet;
-        if (quiet && command.isAnnotationPresent(DescriptionAnnotation.class)) {
-            quiet = false;
-        }
-        if (!quiet && command.isAnnotationPresent(QuietAnnotation.class)) {
-            quiet = true;
-        }
-
-        final EvalCommandState state = new EvalCommandState(command);
-        if (!quiet) {
-            notifyObservers(state);
-        }
-
-        Command cmd = loadCommand(command.getName());
-
-        if (cmd instanceof ConnectionRequired) {
-            connect();
-            Connection conn = sqlScriptContext.getConnection();
-            ((ConnectionRequired) cmd).setConnection(conn);
-        }
-
-        if (cmd instanceof StatementRequired) {
-            SQLStatement stmt = sqlScriptContext.getLastSQLStatement();
-            if (stmt == null) {
-                throw new StatementRequiredException();
-            }
-            ((StatementRequired) cmd).setStatement(stmt);
-        }
-
-        if (cmd instanceof ResultSetRequired) {
-            ResultSet rs = sqlScriptContext.getLastSQLResult();
-            if (rs == null) {
-                throw new ResultSetRequiredException();
-            }
-            ((ResultSetRequired) cmd).setResultSet(rs);
-        }
-
-        if (cmd instanceof UpdateCountRequired) {
-            int updateCount = sqlScriptContext.getLastUpdateCount();
-            if (updateCount == -1) {
-                throw new UpdateCountRequiredException();
-            }
-            ((UpdateCountRequired) cmd).setUpdateCount(updateCount);
-        }
-
-        if (cmd instanceof Observable) {
-            ((Observable) cmd).addObserver(new Observer() {
-                public void update(Observable o, Object arg) {
-                    if (arg instanceof State) {
-                        // update from sub-context - pass through as is
-                        notifyObservers(arg);
-                    }
-                    else {
-                        state.state = CommandState.PROGRESSED;
-                        state.progessMsg = arg.toString();
-                        notifyObservers(state);
-                    }
-                }
-            });
-        }
-
-        ResultSet rs = sqlScriptContext.getLastSQLResult();
-        if (rs != null) {
-            try {
-                rs.beforeFirst();
-            } catch (SQLException e) {
-                logger.warn("Warning: Failed to reset ResultSet: " + e.getMessage());
-            }
-        }
-
-        cmd.execute(sqlScriptContext, command.getParams());
-
-        if (!quiet) {
-            state.state = CommandState.FINISHED;
-            notifyObservers(state);
-        }
-    }
-    */
-
-    /*
     protected void process(SQLStatement sqlStmt) throws SQLScriptRuntimeException {
         logger.debug("Executing SQL: " + sqlStmt);
 
@@ -1367,45 +1201,11 @@ public class SQLScriptEngine
     }
     */
 
-    /*
-    protected void process(AnnotationCommand annCmd) {
-        logger.debug("Executing annotation: " + annCmd);
-
-        Annotation annotation = loadAnnotation(annCmd.getName(), annCmd.getParams());
-        annCmd.getSubject().addAnnotation(annotation);
-    }
-    */
-
     protected void checkFunArgs(Callable callable, List args) {
-//        if (!matchesFunArgs(function, args)) {
         if (callable.getArgCount() != args.size()) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
         }
     }
-
-    /*
-    protected boolean matchesFunArgs(Function function, Map<String, Expression> args) {
-        List<String> decArgs = function.getArguments();
-        if (decArgs == null) {
-            return args == null;
-        }
-        else if (args == null) {
-            return false;
-        }
-
-        if (decArgs.size() != args.keySet().size()) {
-            return false;
-        }
-
-        for (String decArg : decArgs) {
-            if (!args.containsKey(decArg)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-    */
 
     public Obj toBool(Obj value) {
         if (value == null) {
@@ -1466,56 +1266,6 @@ public class SQLScriptEngine
 //            throw new DBConnectionFailedException(e);
         }
     }
-
-    /*
-    protected Command loadCommand(String command) throws SQLScriptRuntimeException {
-        String className = commands.get(command);
-        if (className == null) {
-            throw new SQLScriptRuntimeException("No such command: " + command);
-        }
-        try {
-            Class<?> cls = Class.forName(className);
-            Constructor<?> ctor = cls.getConstructor();
-            return (Command) ctor.newInstance();
-        } catch (ClassNotFoundException e) {
-            throw new SQLScriptRuntimeException("Failed to load command: " + command + ": " +
-                                                "Class not found: " + className);
-        } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException("Failed to load command: " + command + ": " +
-                                                "Class " + className + " " +
-                                                "does not implement interface " + Command.class.getName());
-        } catch (Exception e) {
-            throw new SQLScriptRuntimeException("Failed to load command: " + command + ": " + e.getMessage(), e);
-        }
-    }
-
-    protected Annotation loadAnnotation(String annotation, Parameters params) throws SQLScriptRuntimeException {
-        String className = annotations.get(annotation);
-        if (className == null) {
-            throw new SQLScriptRuntimeException("No such annotation: " + annotation);
-        }
-        try {
-            Class<?> cls = Class.forName(className);
-            Constructor<?> ctor = cls.getConstructor();
-            Annotation a = (Annotation) ctor.newInstance();
-            a.initialize(params);
-            return a;
-        } catch (ClassNotFoundException e) {
-            throw new SQLScriptRuntimeException("Failed to load annotation: " + annotation + ": " +
-                                                "Class not found: " + className);
-        } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException("Failed to load annotation: " + annotation + ": " +
-                                                "Class " + className + " " +
-                                                "does not implement interface " + Annotation.class.getName());
-        } catch (NoSuchMethodException e) {
-            throw new SQLScriptRuntimeException("Failed to load annotation: " + annotation + ": " +
-                                                "Class " + className + " " +
-                                                "does not implement a default constructor");
-        } catch (Exception e) {
-            throw new SQLScriptRuntimeException("Failed to load annotation: " + annotation + ": " + e.getMessage(), e);
-        }
-    }
-    */
 
     public SQLScriptContext getSqlScriptContext() {
         return sqlScriptContext;

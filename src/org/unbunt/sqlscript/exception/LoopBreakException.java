@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.exception;
 
-public class LoopBreakException extends SQLScriptRuntimeException {
-    public LoopBreakException() {
-    }
+/**
+ * Signals the use of a "break" statement inside of a loop.
+ */
+public class LoopBreakException extends ControlFlowException {
 }

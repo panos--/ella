@@ -4,6 +4,7 @@ import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.Conn;
 import org.unbunt.sqlscript.lang.sql.Stmt;
+import org.unbunt.sqlscript.lang.sql.ResSet;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
@@ -67,6 +68,7 @@ public class Context implements SQLResultProvider {
         ConnMgr.registerInContext(this);
         Conn.registerInContext(this);
         Stmt.regiserInContext(this);
+        ResSet.registerInContext(this);
 
 //        objNull = objects.get(Null.OBJECT_ID);
 //        assert objNull != null;

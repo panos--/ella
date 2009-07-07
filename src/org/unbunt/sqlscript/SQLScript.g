@@ -316,33 +316,25 @@ sqlBlock
 	:	KW_SQL LCURLY topStatement* RCURLY -> ^(BLOCK topStatement*)
 	;
 
-/*
-evalStmt [ CommonTree annotations ]
-	:	BACKSLASH evalCommand evalParam* -> ^(EVAL_CMD evalCommand evalParam* { $annotations })
-	;
-
-evalCommand
-	:	identifier
-	;
-
-evalParam
-	:	paramName EQUALS paramValue -> ^(EVAL_ARG PARAM_NAME paramName PARAM_VALUE paramValue)
-	|	paramName                   -> ^(EVAL_ARG PARAM_NAME paramName)
-	;
-*/
-
-topScriptStmtSep
+anyScriptStmtSep
 	:	scriptAssignStmt
-	|	scriptExpressionStmt // requires leading dot
 	|	scriptThrow
 	|	scriptReturn
 	|	scriptExit
 	|	scriptImport
 	;
 
+topScriptStmtSep
+	:	anyScriptStmtSep
+	|	scriptExpressionStmt // requires leading dot
+	//|	(LPAREN)=> expressionStmt // specifically allow expressions starting with a paren
+	//                                   // (sufficiently disambiguated from sql statements)
+	;
+
 scriptStmtSep
-	:	expressionStmt // expression statements anywhere below the top-level may by notated wihout leading dot
-	|	topScriptStmtSep
+	:	anyScriptStmtSep
+	|	expressionStmt // expression statements anywhere below the top-level may by notated wihout leading dot
+	|	scriptExpressionStmt // ...but leading dot is allowed, too
 	;
 
 scriptStmtNoSep
@@ -472,7 +464,7 @@ javaIdentifier
 // Expressions
 
 parenExpression
-	:	LPAREN! (expression) RPAREN!
+	:	LPAREN! expression RPAREN!
 	;
 
 // NOTE: No objectLiteral, no block closure here as it would interfere with block statements

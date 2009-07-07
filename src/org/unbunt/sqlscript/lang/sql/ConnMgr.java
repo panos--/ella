@@ -88,10 +88,10 @@ public class ConnMgr extends PlainObj {
 
             DriverManagerDataSource ds;
             try {
-                ds = DBUtils.createDataSource(url.getValue(),
-                                              user == null ? null : user.getValue(),
-                                              pass == null ? null : pass.getValue(),
-                                              driver == null ? null : driver.getValue());
+                ds = DBUtils.createDataSource(url.value,
+                                              user == null ? null : user.value,
+                                              pass == null ? null : pass.value,
+                                              driver == null ? null : driver.value);
             } catch (DBConnectionFailedException e) {
                 throw new SQLScriptRuntimeException("Connection failed: " + e.getMessage(), e);
             }
@@ -148,10 +148,10 @@ public class ConnMgr extends PlainObj {
 
             DriverManagerDataSource ds;
             try {
-                ds = DBUtils.createDataSourceFromProps(propsFile.getValue(),
-                                                       user == null ? null : user.getValue(),
-                                                       pass == null ? null : pass.getValue(),
-                                                       driver == null ? null : driver.getValue());
+                ds = DBUtils.createDataSourceFromProps(propsFile.value,
+                                                       user == null ? null : user.value,
+                                                       pass == null ? null : pass.value,
+                                                       driver == null ? null : driver.value);
             } catch (DBConnectionFailedException e) {
                 throw new SQLScriptRuntimeException("Connection failed: " + e.getMessage(), e);
             }

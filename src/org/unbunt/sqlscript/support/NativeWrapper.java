@@ -7,6 +7,13 @@ public class NativeWrapper {
         return new Int(i);
     }
 
+    /**
+     * NOTE: We *have* to find a way to retrieve the context's singleton objects (like Null) without having callers
+     *       pass the context object explicitly.
+     * @param ctx
+     * @param o
+     * @return
+     */
     public static Obj wrap(Context ctx, Object o) {
         if (o == null) {
             return ctx.getObjNull();

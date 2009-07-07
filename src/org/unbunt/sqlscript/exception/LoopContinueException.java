@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.exception;
 
-public class LoopContinueException extends SQLScriptRuntimeException {
-    public LoopContinueException() {
-    }
+/**
+ * Signals the use of a "continue" statement inside of a loop.
+ */
+public class LoopContinueException extends ControlFlowException {
 }
