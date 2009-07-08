@@ -181,10 +181,35 @@ public class ConnMgr extends PlainObj {
         slots.put(Str.SYM_createFromProps, nativeCreateFromProps);
     }
 
-    public void setActiveConnection(Connection connection) {
-        slots.put(Str.SYM_active, new Conn(connection));
+    /**
+     * Activates the given connection creating a wrapping Conn instance.
+     *
+     * @param connection the connection to activate
+     * @return the values previously associated with the active connection slot in the ConnMgr object
+     */
+    public Obj activate(Connection connection) {
+        return activate(new Conn(connection));
     }
 
+    /**
+     * Activates the given connection.
+     *
+     * @param conn the connection to activate
+     * @return the values previously associated with the active connection slot in the ConnMgr object
+     */
+    public Obj activate(Obj conn) {
+        return slots.put(Str.SYM_active, conn);
+    }
+
+    /**
+     * Overrides the method from superclass to return a proxy for all slots not found directly in this object's
+     * slots property. The proxy forwards all calls to the active connection object.
+     * NOTE: Currently only method calls can be forwarded - forwarding property accesses does not work.
+     *
+     * @param ctx the current execution context
+     * @param key the slot to retrieve
+     * @return the slot's value or a proxy to the active connection
+     */
     @Override
     public Obj getSlot(Context ctx, Obj key) {
         Obj value = slots.get(key);

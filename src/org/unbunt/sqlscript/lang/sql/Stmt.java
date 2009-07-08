@@ -22,8 +22,6 @@ import java.util.HashMap;
 public class Stmt extends PlainObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
-    public static final int DEFAULT_BATCH_SIZE = 1000;
-
     protected RawSQL rawStatement;
     protected RawParamedSQL rawParamedStatement = null;
     protected Statement statement = null;
@@ -34,15 +32,41 @@ public class Stmt extends PlainObj {
     protected Obj[] params = null;
     protected Map<String, Obj> namedParams = null;
 
-    /**
-     * Indicates if this Stmt object should manage it's resources itself.
-     */
-    protected boolean manageResources;
+    protected boolean keepResources;
 
-    public Stmt(RawSQL rawStatement, Connection connection, boolean manageResources) {
+    /**
+     * Indicates if this Stmt object's resources are to be managed by an external entity.
+     */
+    protected boolean managedExternal;
+
+    protected boolean initialized = false;
+
+    public Stmt(RawSQL rawStatement, Connection connection, boolean managedExternal) {
         this.rawStatement = rawStatement;
         this.connection = connection;
-        this.manageResources = manageResources;
+        this.managedExternal = managedExternal;
+        this.keepResources = managedExternal;
+    }
+
+    protected void enterManagedMode() {
+        if (managedExternal) {
+            return;
+        }
+        keepResources = true;
+    }
+
+    protected void leaveManagedMode() throws SQLException {
+        if (managedExternal) {
+            return;
+        }
+        keepResources = false;
+        close();
+    }
+
+    public void leaveExternalManagedMode() throws SQLException {
+        managedExternal = false;
+        keepResources = false;
+        close();
     }
 
     protected boolean execute() throws SQLException {
@@ -72,6 +96,7 @@ public class Stmt extends PlainObj {
     protected ResultSet retrieveKeys() throws SQLException {
         if (paramed) {
             initPreparedForKeys();
+            addParams();
             preparedStatement.executeUpdate();
             return preparedStatement.getGeneratedKeys();
         }
@@ -99,6 +124,15 @@ public class Stmt extends PlainObj {
     }
 
     protected void init() throws SQLException {
+        if (initialized) {
+            if (keepResources) {
+                return;
+            }
+            else {
+                throw new SQLScriptRuntimeException("Illegal state");
+            }
+        }
+
         // create statement downgrading result set features as nessassary
         try {
             System.err.println("connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)");
@@ -112,23 +146,49 @@ public class Stmt extends PlainObj {
                 statement = connection.createStatement();
             }
         }
+
+        initialized = true;
     }
 
     protected void initPrepared() throws SQLException {
+        if (initialized) {
+            if (keepResources) {
+                return;
+            }
+            else {
+                throw new SQLScriptRuntimeException("Illegal state");
+            }
+        }
+
         String sql = getParamedQuery();
         try {
-            preparedStatement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            preparedStatement =
+                    connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (SQLFeatureNotSupportedException e) {
             try {
-                preparedStatement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                preparedStatement =
+                        connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             } catch (SQLFeatureNotSupportedException e2) {
                 preparedStatement = connection.prepareStatement(sql);
             }
         }
+
+        initialized = true;
     }
 
     protected void initPreparedForKeys() throws SQLException {
+        if (initialized) {
+            if (keepResources) {
+                return;
+            }
+            else {
+                throw new SQLScriptRuntimeException("Illegal state");
+            }
+        }
+
         preparedStatement = connection.prepareStatement(getParamedQuery(), Statement.RETURN_GENERATED_KEYS);
+
+        initialized = true;
     }
 
     protected String getParamedQuery() {
@@ -160,11 +220,27 @@ public class Stmt extends PlainObj {
     }
 
     protected void setParams(Obj[] params) {
+        if (initialized) {
+            if (!paramed) {
+                throw new SQLScriptRuntimeException("Illegal state");
+            }
+            else if (namedParams != null) {
+                throw new SQLScriptRuntimeException("Illegal state: Statement requires named parameters.");
+            }
+        }
         this.params = params;
         paramed = true;
     }
 
     protected void setNamedParams(Obj namedParams) {
+        if (initialized) {
+            if (!paramed) {
+                throw new SQLScriptRuntimeException("Illegal state");
+            }
+            else if (params != null) {
+                throw new SQLScriptRuntimeException("Illegal state: Statement requires positional parameters.");
+            }
+        }
         Map<String, List<Integer>> knownParams = rawParamedStatement.getParameters();
         Map<String, Obj> result = new HashMap<String, Obj>();
         for (Map.Entry<Obj, Obj> entry : namedParams.getSlots().entrySet()) {
@@ -180,6 +256,15 @@ public class Stmt extends PlainObj {
     }
 
     protected void parseParams() {
+        if (rawParamedStatement != null) {
+            if (keepResources) {
+                return;
+            }
+            else {
+                throw new SQLScriptRuntimeException("Illegal state");
+            }
+        }
+
         RawParamedSQL paramedStmt;
         try {
             paramedStmt = SQLParamParser.parse(rawStatement);
@@ -191,21 +276,21 @@ public class Stmt extends PlainObj {
     }
 
     protected void close() throws SQLException {
-        if (statement != null) {
-            try {
+        if (keepResources) {
+            return;
+        }
+
+        try {
+            if (statement != null) {
                 statement.close();
-            } catch (SQLException ignored) {
             }
-        }
 
-        if (preparedStatement != null) {
-            try {
+            if (preparedStatement != null) {
                 preparedStatement.close();
-            } catch (SQLException ignored) {
             }
+        } finally {
+            reset();
         }
-
-        reset();
     }
 
     protected void reset() {
@@ -215,6 +300,8 @@ public class Stmt extends PlainObj {
         paramed = false;
         params = null;
         namedParams = null;
+        keepResources = false;
+        initialized = false;
     }
 
     protected Statement getStatement() {
@@ -387,20 +474,10 @@ public class Stmt extends PlainObj {
         };
 
         // TODO: How to handle update counts???
-        protected static final NativeCall nativeBatch = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        protected static final NativeCall nativeBatch = new NativeBatchCall() {
+            public Obj batchCall(SQLScriptEngine engine, Obj context, Obj closure, int batchSize)
+                    throws ClosureTerminatedException {
                 Stmt thiz = ensureType(context);
-                Obj closure;
-                int batchSize;
-                if (args.length > 1) {
-                    closure = args[1];
-                    Int bs = ensureType(args[0]);
-                    batchSize = bs.value;
-                }
-                else {
-                    closure = args[0];
-                    batchSize = DEFAULT_BATCH_SIZE;
-                }
 
                 try {
                     thiz.initPrepared();
@@ -420,20 +497,10 @@ public class Stmt extends PlainObj {
             }
         };
 
-        public static final NativeCall nativeBatchNamed = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        protected static final NativeCall nativeBatchNamed = new NativeBatchCall() {
+            public Obj batchCall(SQLScriptEngine engine, Obj context, Obj closure, int batchSize)
+                    throws ClosureTerminatedException {
                 Stmt thiz = ensureType(context);
-                Obj closure;
-                int batchSize;
-                if (args.length > 1) {
-                    closure = args[1];
-                    Int bs = ensureType(args[0]);
-                    batchSize = bs.value;
-                }
-                else {
-                    closure = args[0];
-                    batchSize = DEFAULT_BATCH_SIZE;
-                }
 
                 try {
                     thiz.parseParams();
@@ -454,6 +521,25 @@ public class Stmt extends PlainObj {
             }
         };
 
+        protected static final NativeCall nativeWithPrepared = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Stmt thiz = ensureType(context);
+                Obj closure = args[0];
+
+                try {
+                    thiz.enterManagedMode();
+                    engine.invoke(closure, engine.getObjNull(), thiz);
+                } finally {
+                    try {
+                        thiz.leaveManagedMode();
+                    } catch (SQLException ignored) {
+                    }
+                }
+
+                return thiz;
+            }
+        };
+
         public StmtProto() {
             slots.put(Str.SYM_do, nativeDo);
             slots.put(Str.SYM_exec, nativeExec);
@@ -464,6 +550,7 @@ public class Stmt extends PlainObj {
             slots.put(Str.SYM_withNamed, nativeWithNamed);
             slots.put(Str.SYM_batch, nativeBatch);
             slots.put(Str.SYM_batchNamed, nativeBatchNamed);
+            slots.put(Str.SYM_withPrepared, nativeWithPrepared);
         }
 
         @Override
@@ -546,8 +633,6 @@ public class Stmt extends PlainObj {
 
         public NamedParamBatch(Stmt stmt, int batchSize) {
             super(stmt, batchSize);
-            this.stmt = stmt;
-            this.batchSize = batchSize;
             slots.put(Str.SYM_add, nativeAdd);
         }
     }

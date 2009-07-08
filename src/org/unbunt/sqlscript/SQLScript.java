@@ -622,7 +622,7 @@ public class SQLScript extends VolatileObservable implements Observer {
 
             Context context = new Context(scriptArgs);
             if (conn != null) {
-                context.getObjConnMgr().setActiveConnection(conn);
+                context.getObjConnMgr().activate(conn);
             }
             context.addSQLResultListener(new SimpleSQLResultListener(System.out));
 

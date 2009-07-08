@@ -31,6 +31,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_batchNamed = toSym("batchNamed");
     public static final Str SYM_break = toSym("break");
     public static final Str SYM_call = toSym("call");
+    public static final Str SYM_close = toSym("close");
     public static final Str SYM_continue = toSym("continue");
     public static final Str SYM_create = toSym("create");
     public static final Str SYM_createFromProps = toSym("createFromProps");
@@ -68,6 +69,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_while = toSym("while");
     public static final Str SYM_with = toSym("with");
     public static final Str SYM_withNamed = toSym("withNamed");
+    public static final Str SYM_withPrepared = toSym("withPrepared");
 
     public final String value;
 

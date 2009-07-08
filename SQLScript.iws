@@ -346,8 +346,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -360,13 +360,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Stmt.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Stmt.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="487" column="0" selection-start="18031" selection-end="18031" vertical-scroll-proportion="0.6621359">
+            <state line="65" column="10" selection-start="2101" selection-end="2101" vertical-scroll-proportion="0.7398058">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;field#manageResources#0;class#Stmt#0" expanded="true" />
+                <element signature="docComment;field#managedExternal#0;class#Stmt#0" expanded="true" />
                 <element signature="method#setRawParamedStmt#0;class#Stmt#0" expanded="true" />
                 <element signature="method#getObjectID#0;class#Stmt#0" expanded="true" />
                 <element signature="method#getObjectID#0;class#StmtProto#0;class#Stmt#0" expanded="true" />
@@ -375,95 +375,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PreparedStatement.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.7-bin.jar!/com/mysql/jdbc/PreparedStatement.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="0" selection-start="4338" selection-end="4338" vertical-scroll-proportion="0.33203885">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NativeWrapper.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/NativeWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="48" selection-start="347" selection-end="347" vertical-scroll-proportion="0.31132075">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lst.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Lst.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="34" selection-start="4559" selection-end="4559" vertical-scroll-proportion="0.56981134">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1246968208000" expanded="true" signature="759:784" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="815:868" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="908:949" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="998:1027" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="1072:1105" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="1161:1267" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="1992:2682" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="2106:2672" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="2756:3048" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="2870:3038" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="3123:4736" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="3237:4726" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="4766:4967" placeholder="{...}" />
-                <marker date="1246968208000" expanded="true" signature="5020:5061" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResSet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ResSet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="24" selection-start="1424" selection-end="1424" vertical-scroll-proportion="1.2169812">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getObjectID#0;class#ResSet#0" expanded="true" />
-                <element signature="method#getObjectID#0;class#ResSetProto#0;class#ResSet#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Conn.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Conn.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="527" selection-end="527" vertical-scroll-proportion="0.11320755">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SQLScriptEngine.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="1354" column="0" selection-start="45212" selection-end="45212" vertical-scroll-proportion="0.33207548">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#isClosureReturnInProgress#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#getSqlScriptContext#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#setSqlScriptContext#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#isFinished#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#getVal#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#setVal#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#getEnv#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#setEnv#0;class#SQLScriptEngine#0" expanded="true" />
-                <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Clos.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Clos.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="991" selection-end="991" vertical-scroll-proportion="0.33207548">
               <folding />
             </state>
           </provider>
@@ -478,10 +393,74 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Clos.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Clos.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="0" selection-start="991" selection-end="991" vertical-scroll-proportion="0.33207548">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="332" selection-end="332" vertical-scroll-proportion="0.33962265">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conn-with-prepared.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/conn-with-prepared.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="332" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Conn.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Conn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.47358492">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#getObjectID#0;class#Conn#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#ConnProto#0;class#Conn#0" expanded="true" />
+                <element signature="docComment;class#StmtBatch#0;class#Conn#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnMgr.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ConnMgr.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="196" column="27" selection-start="7527" selection-end="7527" vertical-scroll-proportion="0.7169811">
+              <folding>
+                <element signature="docComment;class#NativeCallProxy#0;class#ConnMgr#0" expanded="true" />
+                <element signature="docComment;method#activate#0;class#ConnMgr#0" expanded="true" />
+                <element signature="docComment;method#getSlot#0;class#ConnMgr#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#ConnMgr#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLScript.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="624" column="49" selection-start="23384" selection-end="23384" vertical-scroll-proportion="1.2233009">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Str.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Str.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="42" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.6792453">
+            <state line="71" column="66" selection-start="3761" selection-end="3761" vertical-scroll-proportion="0.43396226">
               <folding />
             </state>
           </provider>
@@ -500,8 +479,8 @@
     <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptParser.java" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -2057,8 +2036,8 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -2070,6 +2049,9 @@
       <recent name="org.unbunt.sqlscript.exception" />
       <recent name="org.unbunt.sqlscript.testng" />
       <recent name="org.unbunt.sqlscript.support" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="org.unbunt.sqlscript.lang.sql.NativeBatchCall" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.unbunt.sqlscript.lang" />
@@ -2086,7 +2068,7 @@
       <recent name="com.marketoolz.sqlscript.support" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SQLScript Interactive">
+  <component name="RunManager" selected="Application.SQLScript">
     <tempConfiguration default="false" name="Test" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.utils.Test" />
       <option name="VM_PARAMETERS" value="" />
@@ -2111,45 +2093,6 @@
         <option name="Make" value="false" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2179,18 +2122,12 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -2207,10 +2144,55 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="false" name="SQLScript" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.SQLScript" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
-      <option name="PROGRAM_PARAMETERS" value="-verbose -type mysql -props cfg/db.properties test/test.sql" />
+      <option name="PROGRAM_PARAMETERS" value="-verbose -props cfg/db.properties test/test.sql" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -2599,20 +2581,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptChildContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="50" selection-start="81" selection-end="81" vertical-scroll-proportion="0.05586592">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.61985475">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/DefaultSQLScriptChildContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="67" column="0" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.25302663">
@@ -2685,13 +2653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="0" selection-start="4363" selection-end="4363" vertical-scroll-proportion="0.018495684">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/DBUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="49" selection-start="1933" selection-end="1933" vertical-scroll-proportion="0.018159807">
@@ -2709,13 +2670,6 @@
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/StringUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="13" selection-start="50" selection-end="50" vertical-scroll-proportion="0.036319613">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ConnMgr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="91" selection-start="6101" selection-end="6101" vertical-scroll-proportion="0.3874092">
           <folding />
         </state>
       </provider>
@@ -2787,11 +2741,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/NativeWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="48" selection-start="347" selection-end="347" vertical-scroll-proportion="0.19975787">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Lst.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="34" selection-start="4559" selection-end="4559" vertical-scroll-proportion="0.56981134">
+        <state line="122" column="34" selection-start="4559" selection-end="4559" vertical-scroll-proportion="0.4164649">
           <folding>
-            <element signature="imports" expanded="true" />
             <marker date="1246968208000" expanded="true" signature="759:784" placeholder="{...}" />
             <marker date="1246968208000" expanded="true" signature="815:868" placeholder="{...}" />
             <marker date="1246968208000" expanded="true" signature="908:949" placeholder="{...}" />
@@ -2810,27 +2770,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/NativeWrapper.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ResSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="48" selection-start="347" selection-end="347" vertical-scroll-proportion="0.31132075">
+        <state line="43" column="24" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ResSet.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/NativeBatchCall.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="24" selection-start="1424" selection-end="1424" vertical-scroll-proportion="1.2169812">
+        <state line="18" column="27" selection-start="732" selection-end="732" vertical-scroll-proportion="0.21791768">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="624" column="49" selection-start="23384" selection-end="23384" vertical-scroll-proportion="1.2233009">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ConnMgr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="27" selection-start="7527" selection-end="7527" vertical-scroll-proportion="0.7169811">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getObjectID#0;class#ResSet#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#ResSetProto#0;class#ResSet#0" expanded="true" />
+            <element signature="docComment;class#NativeCallProxy#0;class#ConnMgr#0" expanded="true" />
+            <element signature="docComment;method#activate#0;class#ConnMgr#0" expanded="true" />
+            <element signature="docComment;method#getSlot#0;class#ConnMgr#0" expanded="true" />
+            <element signature="method#getObjectID#0;class#ConnMgr#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Conn.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Str.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="527" selection-end="527" vertical-scroll-proportion="0.11320755">
+        <state line="71" column="66" selection-start="3761" selection-end="3761" vertical-scroll-proportion="0.43396226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/conn-with-prepared.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="332" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="332" selection-end="332" vertical-scroll-proportion="0.33962265">
           <folding />
         </state>
       </provider>
@@ -2852,44 +2841,31 @@
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1354" column="0" selection-start="45212" selection-end="45212" vertical-scroll-proportion="0.33207548">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#isClosureReturnInProgress#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getSqlScriptContext#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#setSqlScriptContext#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#isFinished#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getVal#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#setVal#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getEnv#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#setEnv#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.7-bin.jar!/com/mysql/jdbc/PreparedStatement.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="4338" selection-end="4338" vertical-scroll-proportion="0.33203885">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Str.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="42" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.6792453">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="487" column="0" selection-start="18031" selection-end="18031" vertical-scroll-proportion="0.6621359">
+        <state line="65" column="10" selection-start="2101" selection-end="2101" vertical-scroll-proportion="0.7398058">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;field#manageResources#0;class#Stmt#0" expanded="true" />
+            <element signature="docComment;field#managedExternal#0;class#Stmt#0" expanded="true" />
             <element signature="method#setRawParamedStmt#0;class#Stmt#0" expanded="true" />
             <element signature="method#getObjectID#0;class#Stmt#0" expanded="true" />
             <element signature="method#getObjectID#0;class#StmtProto#0;class#Stmt#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Conn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.47358492">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getObjectID#0;class#Conn#0" expanded="true" />
+            <element signature="method#getObjectID#0;class#ConnProto#0;class#Conn#0" expanded="true" />
+            <element signature="docComment;class#StmtBatch#0;class#Conn#0" expanded="true" />
           </folding>
         </state>
       </provider>
