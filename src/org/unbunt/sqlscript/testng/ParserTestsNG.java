@@ -11,6 +11,7 @@ import static org.unbunt.sqlscript.SQLScript.compile;
 import org.unbunt.sqlscript.SQLScriptLexer;
 import org.unbunt.sqlscript.SQLScriptParser;
 import org.unbunt.sqlscript.SQLScriptWalker;
+import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.antlr.LazyInputStream;
 import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
@@ -21,6 +22,7 @@ import org.unbunt.sqlscript.support.SQLParseMode;
 import org.unbunt.sqlscript.support.SQLStringType;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -156,5 +158,19 @@ public class ParserTestsNG extends AbstractTest {
     @Test
     public void sqlLiteralLookAheadDiscard() throws SQLScriptIOException, SQLScriptParseException {
         compile(file("sql-literal-look-ahead-discard"));
+    }
+
+    @Test
+    public void sqlLiteralParamedEmbeddedVars()
+            throws SQLScriptIOException, SQLScriptParseException, IOException, RecognitionException {
+        // Here we parse an SQL literal containing several embedded variables for named parameters
+        // and expect to not be parsed as such.
+        // Thereby we verify the involved lexers to be set up correctly.
+
+        String sql = fileContent("sql-literal-paramed-embedded-vars");
+
+        RawParamedSQL result = SQLParamParser.parse(new RawSQL(sql, new SQLParseMode(SQLStringType.mysql)));
+
+        assertEquals(result.getStatement(), sql);
     }
 }

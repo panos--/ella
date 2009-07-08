@@ -9,7 +9,6 @@ import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.lang.sql.RawSQL;
 import org.unbunt.sqlscript.support.RawParamedSQL;
 import org.unbunt.sqlscript.support.SQLParseMode;
-import org.unbunt.sqlscript.support.SQLStringType;
 
 import java.io.ByteArrayInputStream;
 

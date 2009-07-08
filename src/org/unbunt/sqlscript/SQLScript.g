@@ -111,7 +111,7 @@ tokens {
 		stringType = parseMode.getStringType();
 		try {
 			parseSQLParams = true;
-			sqlLiteral_return result = sqlLiteral();
+			sqlLiteralParamed_return result = sqlLiteralParamed();
 			return (Tree)result.getTree();
 		} finally {
 			stringType = oldStringType;
@@ -161,6 +161,7 @@ tokens {
 
 		// call string parser to handle the string
 		SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
+		strLexer.setAllowEmbeddedVariables(lexer.isAllowEmbeddedVariables());
 		tokens.replaceTokenSource(strLexer);
 		SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
 		
@@ -204,6 +205,14 @@ tokens {
 	
 	protected boolean escapeSeparators = false;
 	
+	/**
+	 * At signs in identifier clash with embedded variable syntax in sql literals.
+	 * This flag allows to disable at signs in identifiers when parsing sql literals.
+	 */
+	protected boolean allowAtSignInIdentifier = true;
+	
+	protected boolean allowEmbeddedVariables = true;
+	
 	protected int whitespaceChannel = HIDDEN;
 
 	@Override
@@ -233,6 +242,22 @@ tokens {
 	
 	protected boolean isAllowDollarQuote() {
 		return allowDollarQuote;
+	}
+	
+	protected void setAllowAtSignInIdentifier(boolean allow) {
+		this.allowAtSignInIdentifier = allow;
+	}
+	
+	protected boolean isAllowAtSignInIdentifier() {
+		return allowAtSignInIdentifier;
+	}
+	
+	protected void setAllowEmbeddedVariables(boolean allow) {
+		this.allowEmbeddedVariables = allow;
+	}
+	
+	protected boolean isAllowEmbeddedVariables() {
+		return allowEmbeddedVariables;
 	}
 	
 	protected void setIgnoreWhitespace(boolean ignore) {
@@ -637,6 +662,21 @@ sqlLiteralPrefixed
 		sqlStmtRest[$sqlStmtNamePrefixed.tree]	-> sqlStmtRest
 	;
 
+/*
+ * NOTE: Represents entry point for reparsing an SQL literal for named parameters.
+ */
+sqlLiteralParamed
+@init {	
+	LazyTokenStream tokens = (LazyTokenStream) input;
+	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+	lexer.setAllowEmbeddedVariables(false);
+}
+@after {
+	lexer.setAllowEmbeddedVariables(true);
+}
+	:	sqlLiteral
+	;
+
 sqlLiteral
 	:	sqlStmtName
 		sqlStmtRest[$sqlStmtName.tree]	-> sqlStmtRest
@@ -673,6 +713,7 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	lexer.setIgnoreWhitespace(false);
 	lexer.setAllowQQuote(stringType.hasQQuote());
 	lexer.setAllowDollarQuote(stringType.hasDollarQuote());
+	lexer.setAllowAtSignInIdentifier(false);
 	
 	// XXX: Hack - when reparsing an sql statement for named parameters
 	// XXX: characters might have been introduced by variable substituation
@@ -690,6 +731,7 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	lexer.setIgnoreWhitespace(true);
 	lexer.setAllowQQuote(false);
 	lexer.setAllowDollarQuote(false);
+	lexer.setAllowAtSignInIdentifier(true);
 	lexer.setEscapeSeparators(false);
 
 	// since we have modified the lexer behaviour we discard any tokens which might have been
@@ -742,8 +784,8 @@ sqlToken
 	;
 
 sqlAtom
-	:	SQL_SPECIAL_CHAR //| LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
-	|	EQUALS | BACKSLASH //| DOUBLE_BACKSLASH
+	:	SQL_SPECIAL_CHAR
+	|	EQUALS | BACKSLASH
 	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
 	|	EXCLAM | QUESTION | COLON | DOT | COMMA
 	|	DOUBLE_ARROW
@@ -772,15 +814,6 @@ argumentsList
 		RPAREN 
 	;
 
-/*
-argument:	identifier
-		( EQUALS expression	-> ^(ARG_EXPR identifier expression)
-		|			-> ^(ARG_TRUE identifier)
-		)
-	|	EXCLAM identifier	-> ^(ARG_FALSE identifier)
-	;
-*/
-
 identifier
 	: asterisk=OP_MUL	-> IDENTIFIER[$asterisk]
 	| slash=OP_DIV		-> IDENTIFIER[$slash]
@@ -802,23 +835,6 @@ identifierNoOps
 embeddedVar
 	:	EMB_VAR_START id=identifier RCURLY -> EMBEDDED_VAR[$id.start]
 	;
-
-/*
-annotations
-	:	annotation*
-	;
-
-annotation	// NOTE: Variable syntax is currently identical with annotation syntax
-	//:	ATSIGN identifier (LPAREN annotationParam+ RPAREN)? -> ^(ANNOT identifier annotationParam*)
-	:	ANNOTATION (LPAREN annotationParam+ RPAREN)? -> ^(ANNOT ANNOTATION annotationParam*)
-	//|	var=VARIABLE (LPAREN annotationParam+ RPAREN)?		-> ^(ANNOT IDENTIFIER[$var.text] annotationParam*)
-	;
-
-annotationParam
-	:	paramName EQUALS paramValue -> ^(ANNOT_ARG PARAM_NAME paramName PARAM_VALUE paramValue)
-	|	paramName                   -> ^(ANNOT_ARG PARAM_NAME paramName)
-	;
-*/
 
 paramName
 	:	identifier
@@ -1048,7 +1064,7 @@ WORD_CHAR
 	;
 
 EMB_VAR_START
-	:	'@{'
+	:	{allowEmbeddedVariables}?=> '@{'
 	;
 
 BACKSLASH
@@ -1119,7 +1135,13 @@ IDENTIFIER
 
 fragment
 IDENTIFIER_SPECIAL
-	:	'+'|'-'|'~'|'@'|'%'|'^'|'&'|'*'|'/'|'_'|'|'|DOLLAR
+	:	'+'|'-'|'~'
+	|	/*
+		 * At signs in identifier clash with embedded variable syntax in sql literals.
+		 * This predicate allows to disable at signs in identifiers when parsing sql literals.
+		 */
+		{allowAtSignInIdentifier}?=> '@'
+	|	'%'|'^'|'&'|'*'|'/'|'_'|'|'|DOLLAR
 	;
 
 EQUALS	:	'='
@@ -1159,7 +1181,8 @@ COMMA	:	','
 	;
 
 SQL_SPECIAL_CHAR
-	:	('<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|'|DIGIT)
+	:	'<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|'|DIGIT
+	|	{!allowAtSignInIdentifier}?=> '@'
 	;
 
 SEP	:	';' {

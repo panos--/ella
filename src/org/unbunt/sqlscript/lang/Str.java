@@ -45,9 +45,11 @@ public class Str extends AbstractObj {
     public static final Str SYM_execStmt = toSym("execStmt");
     public static final Str SYM_finish = toSym("finish");
     public static final Str SYM_get = toSym("get");
+    public static final Str SYM_getQueryString = toSym("getQueryString");
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_if = toSym("if");
     public static final Str SYM_ifThen = toSym("ifThen");
+    public static final Str SYM_includeFile = toSym("includeFile");
     public static final Str SYM_init = toSym("init");
     public static final Str SYM_insert = toSym("insert");
     public static final Str SYM_key = toSym("key");

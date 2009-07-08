@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Test(groups = { "interpreter-db" }, dependsOnGroups = "interpreter")
-public class InterpreterDBTestsNG {
+public class InterpreterDBTestsNG extends AbstractTest {
     public static final String PROPS_PATH = "cfg/";
 
     public static final String PROPS_MYSQL = "mysql.properties";
@@ -41,6 +41,11 @@ public class InterpreterDBTestsNG {
                 "}\n" +
                 "}\n"
         );
+    }
+
+    @Test(dependsOnMethods = "connActivate")
+    public void sqlLiteralVariableSubstitution() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("sql-literal-variable-substitution"), propsMysql(), "mysql");
     }
 
     protected static String propsMysql() {

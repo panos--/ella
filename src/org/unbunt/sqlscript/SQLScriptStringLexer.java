@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-07-03 16:34:56
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-07-08 17:36:17
 
 	package org.unbunt.sqlscript;
 	
@@ -48,6 +48,8 @@ public class SQLScriptStringLexer extends Lexer {
     	protected char qQuoteDelim;
     	protected String dollarQuoteDelim = null;
     	
+    	protected boolean allowEmbeddedVariables = true;
+
     	// the following two methods allow us to inject an additional token
     	// into the stream, namely the EOF_TOKEN used to tell the parser it
     	// should stop parsing
@@ -137,6 +139,14 @@ public class SQLScriptStringLexer extends Lexer {
     		}
     	}
 
+    	protected void setAllowEmbeddedVariables(boolean allow) {
+    		this.allowEmbeddedVariables = allow;
+    	}
+
+    	protected boolean isAllowEmbeddedVariables() {
+    		return allowEmbeddedVariables;
+    	}
+
 
     // delegates
     // delegators
@@ -156,8 +166,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:253:2: ( '\"' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:253:4: '\"'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:267:2: ( '\"' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:267:4: '\"'
             {
             match('\"'); 
              if (atStart) { quoteStyle = DQUOT; } 
@@ -177,8 +187,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:276:2: ( '\\'' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:276:4: '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:290:2: ( '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:290:4: '\\''
             {
             match('\''); 
 
@@ -215,8 +225,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:281:2: ( '`' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:281:4: '`'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:295:2: ( '`' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:295:4: '`'
             {
             match('`'); 
              if (atStart) { quoteStyle = BTICK; } 
@@ -238,13 +248,13 @@ public class SQLScriptStringLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token delim=null;
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:285:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:285:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:299:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:299:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM
             {
             if ( !((atStart)) ) {
                 throw new FailedPredicateException(input, "QQUOT_START", "atStart");
             }
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:285:17: ( 'N' | 'n' )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:299:17: ( 'N' | 'n' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -300,8 +310,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = QQUOT_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:289:2: ({...}? => 'just to disable warning' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:289:4: {...}? => 'just to disable warning'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:303:2: ({...}? => 'just to disable warning' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:303:4: {...}? => 'just to disable warning'
             {
             if ( !((false)) ) {
                 throw new FailedPredicateException(input, "QQUOT_END", "false");
@@ -322,8 +332,8 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "QQUOT_DELIM"
     public final void mQQUOT_DELIM() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:294:2: (~ ( ' ' | '\\t' | '\\n' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:294:4: ~ ( ' ' | '\\t' | '\\n' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:308:2: (~ ( ' ' | '\\t' | '\\n' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:308:4: ~ ( ' ' | '\\t' | '\\n' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\u001F')||(input.LA(1)>='!' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -356,12 +366,12 @@ public class SQLScriptStringLexer extends Lexer {
             	boolean matched = false;
             	String endDelim;
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:315:2: ( '$$' | {...}? => '$' stag= DOLQUOT_TAG '$' | {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:329:2: ( '$$' | {...}? => '$' stag= DOLQUOT_TAG '$' | {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' ) )
             int alt2=3;
             alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:315:4: '$$'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:329:4: '$$'
                     {
                     match("$$"); 
 
@@ -370,7 +380,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:316:4: {...}? => '$' stag= DOLQUOT_TAG '$'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:330:4: {...}? => '$' stag= DOLQUOT_TAG '$'
                     {
                     if ( !((atStart)) ) {
                         throw new FailedPredicateException(input, "DOLQUOT", "atStart");
@@ -386,7 +396,7 @@ public class SQLScriptStringLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:318:4: {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:332:4: {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' )
                     {
                     if ( !((!atStart)) ) {
                         throw new FailedPredicateException(input, "DOLQUOT", "!atStart");
@@ -394,8 +404,8 @@ public class SQLScriptStringLexer extends Lexer {
                     if ( !((quoteStyle == DOLQUOT)) ) {
                         throw new FailedPredicateException(input, "DOLQUOT", "quoteStyle == DOLQUOT");
                     }
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:318:45: ( '$' etag= DOLQUOT_TAG '$' )
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:319:4: '$' etag= DOLQUOT_TAG '$'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:332:45: ( '$' etag= DOLQUOT_TAG '$' )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:333:4: '$' etag= DOLQUOT_TAG '$'
                     {
                     match('$'); 
                     int etagStart203 = getCharIndex();
@@ -434,11 +444,11 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG"
     public final void mDOLQUOT_TAG() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:326:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:326:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:340:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:340:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
             {
             mDOLQUOT_TAG_START(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:326:22: ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:340:22: ( DOLQUOT_TAG_END )*
             loop3:
             do {
                 int alt3=2;
@@ -451,7 +461,7 @@ public class SQLScriptStringLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:326:22: DOLQUOT_TAG_END
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:340:22: DOLQUOT_TAG_END
             	    {
             	    mDOLQUOT_TAG_END(); 
 
@@ -475,8 +485,8 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_START"
     public final void mDOLQUOT_TAG_START() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:331:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:331:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:345:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:345:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -499,7 +509,7 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_END"
     public final void mDOLQUOT_TAG_END() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:336:2: ( DOLQUOT_TAG_START | '0' .. '9' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:350:2: ( DOLQUOT_TAG_START | '0' .. '9' )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFF') ) {
@@ -525,10 +535,11 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = ATSIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:340:8: ( '@' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:340:10: '@'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:354:8: ( '@' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:354:10: '@'
             {
             match('@'); 
+             if (!allowEmbeddedVariables) { _type = CHAR; } 
 
             }
 
@@ -545,8 +556,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = LCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:343:8: ( '{' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:343:10: '{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:357:8: ( '{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:357:10: '{'
             {
             match('{'); 
 
@@ -565,8 +576,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = RCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:346:8: ( '}' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:346:10: '}'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:360:8: ( '}' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:360:10: '}'
             {
             match('}'); 
 
@@ -585,17 +596,17 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = VARNAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:349:9: ( ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:349:11: ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:363:9: ( ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:363:11: ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )*
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:349:11: ( WORD_CHAR )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:349:12: WORD_CHAR
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:363:11: ( WORD_CHAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:363:12: WORD_CHAR
             {
             mWORD_CHAR(); 
 
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:349:23: ( WORD_CHAR | '0' .. '9' )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:363:23: ( WORD_CHAR | '0' .. '9' )*
             loop4:
             do {
                 int alt4=2;
@@ -642,8 +653,8 @@ public class SQLScriptStringLexer extends Lexer {
     // $ANTLR start "WORD_CHAR"
     public final void mWORD_CHAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:354:2: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:354:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:368:2: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:368:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -668,8 +679,8 @@ public class SQLScriptStringLexer extends Lexer {
         try {
             int _type = CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:357:6: ( '\\u0000' .. '\\uffff' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:357:8: '\\u0000' .. '\\uffff'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:371:6: ( '\\u0000' .. '\\uffff' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g:371:8: '\\u0000' .. '\\uffff'
             {
             matchRange('\u0000','\uFFFF'); 
 
@@ -828,7 +839,7 @@ public class SQLScriptStringLexer extends Lexer {
             this.transition = DFA2_transition;
         }
         public String getDescription() {
-            return "297:1: DOLQUOT : ( '$$' | {...}? => '$' stag= DOLQUOT_TAG '$' | {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' ) );";
+            return "311:1: DOLQUOT : ( '$$' | {...}? => '$' stag= DOLQUOT_TAG '$' | {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' ) );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -871,9 +882,9 @@ public class SQLScriptStringLexer extends Lexer {
                         int index2_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA2_3>='0' && LA2_3<='9')||(LA2_3>='A' && LA2_3<='Z')||LA2_3=='_'||(LA2_3>='a' && LA2_3<='z')||(LA2_3>='\u0080' && LA2_3<='\uFFFF')) && (((atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 4;}
+                        if ( ((LA2_3>='0' && LA2_3<='9')||(LA2_3>='A' && LA2_3<='Z')||LA2_3=='_'||(LA2_3>='a' && LA2_3<='z')||(LA2_3>='\u0080' && LA2_3<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 4;}
 
-                        else if ( (LA2_3=='$') && (((atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 5;}
+                        else if ( (LA2_3=='$') && ((((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 5;}
 
                          
                         input.seek(index2_3);
@@ -888,7 +899,7 @@ public class SQLScriptStringLexer extends Lexer {
                         s = -1;
                         if ( (LA2_1=='$') ) {s = 2;}
 
-                        else if ( ((LA2_1>='A' && LA2_1<='Z')||LA2_1=='_'||(LA2_1>='a' && LA2_1<='z')||(LA2_1>='\u0080' && LA2_1<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 3;}
+                        else if ( ((LA2_1>='A' && LA2_1<='Z')||LA2_1=='_'||(LA2_1>='a' && LA2_1<='z')||(LA2_1>='\u0080' && LA2_1<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 3;}
 
                          
                         input.seek(index2_1);
@@ -902,20 +913,20 @@ public class SQLScriptStringLexer extends Lexer {
         }
     }
     static final String DFA5_eotS =
-        "\4\uffff\3\20\1\14\11\uffff\1\20\1\uffff\1\20\5\uffff\2\20\1\uffff";
+        "\4\uffff\3\21\1\14\10\uffff\1\21\2\uffff\1\21\5\uffff\2\21\1\uffff";
     static final String DFA5_eofS =
         "\34\uffff";
     static final String DFA5_minS =
-        "\1\0\3\uffff\1\121\1\47\1\165\1\44\11\uffff\1\47\1\uffff\1\163\5"+
+        "\1\0\3\uffff\1\121\1\47\1\165\1\44\10\uffff\1\47\2\uffff\1\163\5"+
         "\uffff\1\164\1\40\1\uffff";
     static final String DFA5_maxS =
-        "\1\uffff\3\uffff\1\161\1\47\1\165\1\uffff\11\uffff\1\47\1\uffff"+
+        "\1\uffff\3\uffff\1\161\1\47\1\165\1\uffff\10\uffff\1\47\2\uffff"+
         "\1\163\5\uffff\1\164\1\40\1\uffff";
     static final String DFA5_acceptS =
         "\1\uffff\1\1\1\2\1\3\4\uffff\1\7\1\10\1\11\1\12\1\13\1\1\1\2\1\3"+
-        "\1\12\1\uffff\1\4\1\uffff\2\6\1\7\1\10\1\11\2\uffff\1\5";
+        "\1\uffff\1\12\1\4\1\uffff\2\6\1\7\1\10\1\11\2\uffff\1\5";
     static final String DFA5_specialS =
-        "\1\1\4\uffff\1\4\1\uffff\1\0\11\uffff\1\2\10\uffff\1\3\1\uffff}>";
+        "\1\2\4\uffff\1\0\1\uffff\1\1\10\uffff\1\3\11\uffff\1\4\1\uffff}>";
     static final String[] DFA5_transitionS = {
             "\42\14\1\1\1\14\1\7\2\14\1\2\30\14\1\10\15\13\1\4\2\13\1\5\11"+
             "\13\4\14\1\13\1\3\11\13\1\6\3\13\1\4\2\13\1\5\11\13\1\11\1\14"+
@@ -923,7 +934,7 @@ public class SQLScriptStringLexer extends Lexer {
             "",
             "",
             "",
-            "\1\21\37\uffff\1\21",
+            "\1\20\37\uffff\1\20",
             "\1\22",
             "\1\23",
             "\1\24\34\uffff\32\25\4\uffff\1\25\1\uffff\32\25\5\uffff\uff80"+
@@ -936,8 +947,8 @@ public class SQLScriptStringLexer extends Lexer {
             "",
             "",
             "",
-            "",
             "\1\22",
+            "",
             "",
             "\1\31",
             "",
@@ -987,6 +998,21 @@ public class SQLScriptStringLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA5_5 = input.LA(1);
+
+                         
+                        int index5_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA5_5=='\'') && ((atStart))) {s = 18;}
+
+                        else s = 17;
+
+                         
+                        input.seek(index5_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA5_7 = input.LA(1);
 
                          
@@ -1003,7 +1029,7 @@ public class SQLScriptStringLexer extends Lexer {
                         input.seek(index5_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 2 : 
                         int LA5_0 = input.LA(1);
 
                         s = -1;
@@ -1033,22 +1059,22 @@ public class SQLScriptStringLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA5_17 = input.LA(1);
+                    case 3 : 
+                        int LA5_16 = input.LA(1);
 
                          
-                        int index5_17 = input.index();
+                        int index5_16 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA5_17=='\'') && ((atStart))) {s = 18;}
+                        if ( (LA5_16=='\'') && ((atStart))) {s = 18;}
 
-                        else s = 16;
+                        else s = 17;
 
                          
-                        input.seek(index5_17);
+                        input.seek(index5_16);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
+                    case 4 : 
                         int LA5_26 = input.LA(1);
 
                          
@@ -1057,25 +1083,10 @@ public class SQLScriptStringLexer extends Lexer {
                         s = -1;
                         if ( (LA5_26==' ') && ((false))) {s = 27;}
 
-                        else s = 16;
+                        else s = 17;
 
                          
                         input.seek(index5_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA5_5 = input.LA(1);
-
-                         
-                        int index5_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA5_5=='\'') && ((atStart))) {s = 18;}
-
-                        else s = 16;
-
-                         
-                        input.seek(index5_5);
                         if ( s>=0 ) return s;
                         break;
             }

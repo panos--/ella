@@ -7,11 +7,15 @@ import org.unbunt.sqlscript.lang.sql.Stmt;
 import org.unbunt.sqlscript.lang.sql.ResSet;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.utils.res.SimpleResource;
 
 import java.util.*;
 import java.sql.ResultSet;
 
 public class Context implements SQLResultProvider {
+    protected String scriptFilename = "<unknown>";
+    protected SimpleResource scriptResource = null;
+
     protected Env env;
 
     protected Sys objSys;
@@ -89,6 +93,10 @@ public class Context implements SQLResultProvider {
         DynamicVariableResolver globalResolver = new DynamicVariableResolver() {
             public Obj resolve(Variable var) {
                 return ObjUtils.getSlot(ctx, receiver, var.nameStr);
+            }
+
+            public Obj resolve(String name) {
+                return ObjUtils.getSlot(ctx, receiver, new Str(name));
             }
         };
         MainEnv mainEnv = new MainEnv(objNull, globalResolver);
@@ -211,6 +219,10 @@ public class Context implements SQLResultProvider {
         return env;
     }
 
+    public void setEnv(Env env) {
+        this.env = env;
+    }
+
     public Sys getObjSys() {
         return objSys;
     }
@@ -231,6 +243,21 @@ public class Context implements SQLResultProvider {
         return objFalse;
     }
 
+    public String getScriptFilename() {
+        return scriptFilename;
+    }
+
+    public void setScriptFilename(String scriptFilename) {
+        this.scriptFilename = scriptFilename;
+    }
+
+    public SimpleResource getScriptResource() {
+        return scriptResource;
+    }
+
+    public void setScriptResource(SimpleResource scriptResource) {
+        this.scriptResource = scriptResource;
+    }
     /*
      * SQL Result listener support
      */

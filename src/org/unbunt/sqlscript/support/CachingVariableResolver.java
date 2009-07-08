@@ -15,13 +15,17 @@ public class CachingVariableResolver implements DynamicVariableResolver {
     }
 
     public Obj resolve(Variable var) {
-        Obj value = cache.get(var.name);
+        return resolve(var.name);
+    }
+
+    public Obj resolve(String name) {
+        Obj value = cache.get(name);
         if (value != null) {
             return value;
         }
-        value = realResolver.resolve(var);
+        value = realResolver.resolve(name);
         if (value != null) {
-            cache.put(var.name, value);
+            cache.put(name, value);
         }
         return value;
     }

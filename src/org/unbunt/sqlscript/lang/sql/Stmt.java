@@ -540,6 +540,13 @@ public class Stmt extends PlainObj {
             }
         };
 
+        protected static final NativeCall nativeGetQueryString = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Stmt thiz = ensureType(context);
+                return new Str(thiz.rawStatement.getStatement());
+            }
+        };
+
         public StmtProto() {
             slots.put(Str.SYM_do, nativeDo);
             slots.put(Str.SYM_exec, nativeExec);
@@ -551,6 +558,7 @@ public class Stmt extends PlainObj {
             slots.put(Str.SYM_batch, nativeBatch);
             slots.put(Str.SYM_batchNamed, nativeBatchNamed);
             slots.put(Str.SYM_withPrepared, nativeWithPrepared);
+            slots.put(Str.SYM_getQueryString, nativeGetQueryString);
         }
 
         @Override

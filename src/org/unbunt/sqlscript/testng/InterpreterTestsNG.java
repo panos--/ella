@@ -256,4 +256,9 @@ public class InterpreterTestsNG extends AbstractTest {
         Number num = ensureType(Number.class, result);
         assertTrue(num.intValue() == arg, "Passing argument to script failed");
     }
+
+    @Test
+    public void includeFile() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file"));
+    }
 }

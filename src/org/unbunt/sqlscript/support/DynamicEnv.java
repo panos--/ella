@@ -53,6 +53,15 @@ public class DynamicEnv extends AbstractEnv {
         return value != null ? value : parent.get(var, addr);
     }
 
+    public Obj get(String name) {
+        Obj value = vars.get(name);
+        if (value != null) {
+            return value;
+        }
+        value = resolver.resolve(name);
+        return value != null ? value : parent.get(name);
+    }
+
     public void set(Variable var, int addr, Obj value) {
         parent.set(var, addr, value);
     }

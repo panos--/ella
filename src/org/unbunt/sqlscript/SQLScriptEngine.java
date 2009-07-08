@@ -160,7 +160,38 @@ public class SQLScriptEngine
 
     public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
         System.err.println("Got SQL-Literal: " + sqlLiteralExpression);
-        val = new RawSQL(sqlLiteralExpression.toString(), sqlLiteralExpression.getParseMode());
+
+        SQLParseMode parseMode = sqlLiteralExpression.getParseMode();
+        SQLStringType stringType = parseMode.getStringType();
+
+        StringBuilder buf = new StringBuilder();
+        for (Object part : sqlLiteralExpression.getParts()) {
+            if (part instanceof StringLiteral) {
+                StringLiteral string = (StringLiteral) part;
+                String strStartDelim = string.getStartDelim();
+                String strEndDelim = string.getEndDelim();
+                buf.append(strStartDelim);
+                for (Object strPart : ((StringLiteral) part).getParts()) {
+                    if (strPart instanceof Variable) {
+                        String strValue = env.get((Variable)strPart).toString();
+                        buf.append(stringType.escape(strValue, strStartDelim));
+                    }
+                    else {
+                        buf.append(strPart.toString());
+                    }
+                }
+                buf.append(strEndDelim);
+            }
+            else if (part instanceof Variable) {
+                // TODO: For non-string values (Str) we should possibly evaluate the object's toString() slot
+                buf.append(env.get((Variable)part).toString());
+            }
+            else {
+                buf.append(part.toString());
+            }
+        }
+
+        val = new RawSQL(buf.toString(), parseMode);
         next = CONT;
     }
 
@@ -1409,6 +1440,24 @@ public class SQLScriptEngine
         return invoke(slotValue, obj, args);
     }
 
+    public Obj invokeBlock(Block block) throws ClosureTerminatedException {
+        int callFrame = pc;
+
+        stmt = block;
+        next = EVAL;
+
+        while (step() && pc > callFrame) {
+        }
+
+        // XXX: < or <= ???
+        if (pc < callFrame) {
+            closureReturnInProgress = true;
+            throw new ClosureTerminatedException();
+        }
+
+        return val;
+    }
+
     protected static final Continuation LOOP_CONT = new LoopCont();
 
     public Obj invokeInLoop(Obj obj, Obj context, Obj... args)
@@ -1442,6 +1491,7 @@ public class SQLScriptEngine
 
     public void setEnv(Env env) {
         this.env = env;
+        this.context.setEnv(env);
     }
 
     public static class EngineState {

@@ -56,6 +56,37 @@ public enum SQLStringType {
         return rules.dollarQuote;
     }
 
+    public String escape(String value, String delim) {
+        if (rules.singleQuote && "'".equals(delim)) {
+            return escapeSingleQuote(value);
+        }
+        else if (rules.doubleQuote && "\"".equals(delim)) {
+            return escapeDoubleQuote(value);
+        }
+        else if (rules.backTick && "`".equals(delim)) {
+            return escapeBackTick(value);
+        }
+        else {
+            // the other string types do not support escaping
+            // TODO: we should possibly detect sequences contained in the value which could terminate the string
+            // TODO: (like $foo$ in a dollar-quoted string using $foo$ as separator) and generate a warning or an
+            // TODO: error.
+            return value;
+        }
+    }
+
+    protected String escapeSingleQuote(String value) {
+        return value.replace("'", "''");
+    }
+
+    protected String escapeDoubleQuote(String value) {
+        return value.replace("\"", "\"\"");
+    }
+
+    protected String escapeBackTick(String value) {
+        return value.replace("`", "``");
+    }
+
 //    protected String[] getAliases() {
 //        return this.aliases;
 //    }

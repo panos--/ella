@@ -41,8 +41,8 @@ public class FilesystemResource implements SimpleResource {
             throw new IOException("Cannot determine relative path: File does not exist: " + path);
         }
 
-        String newPath = pathUtil.concatPaths(file.isDirectory() ? file.getPath() : file.getParent(), path);
-
+        String parentPath = file.isDirectory() ? file.getPath() : file.getParent();
+        String newPath = parentPath == null ? path : pathUtil.concatPaths(parentPath, path);
         return new FilesystemResource(newPath);
     }
 

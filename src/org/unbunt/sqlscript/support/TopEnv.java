@@ -1,9 +1,8 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.lang.Null;
-import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.continuations.Continuation;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.lang.Obj;
 
 import java.util.ArrayList;
 
@@ -34,6 +33,10 @@ public class TopEnv implements Env {
             vars.set(addr, value);
         }
         return value;
+    }
+
+    public Obj get(String name) {
+        return undefValue;
     }
 
     public void set(Variable var, Obj value) {

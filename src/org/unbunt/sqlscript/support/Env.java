@@ -18,6 +18,8 @@ public interface Env {
 
     Obj get(Variable var, int addr);
 
+    Obj get(String name);
+
     void set(Variable var, Obj value);
 
     void set(Variable var, int addr, Obj value);

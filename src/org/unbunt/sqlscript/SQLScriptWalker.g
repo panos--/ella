@@ -654,7 +654,8 @@ sqlToken returns [ Object value ]
 	;
 
 sqlAtom returns [ String value ]
-	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | EQUALS | BACKSLASH | ATSIGN
+	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
+		  | EQUALS | BACKSLASH | ATSIGN
 		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ
 		  | EXCLAM | QUESTION | COLON | COMMA
 		  | STR_SQUOT | STR_DQUOT | STR_BTICK
@@ -753,13 +754,13 @@ stringLiteral returns [ StringLiteral value ]
 			( str=STRING_CONTENT    { parts.add($str.text); }
 			| var=embeddedVarRef { parts.add($var.value); }
 			)*
-			STRING_END)
-		{ $value = new StringLiteral($start.text, parts); }
+			end=STRING_END)
+		{ $value = new StringLiteral($start.text, $end.text, parts); }
 	;
 
 identifierStringLiteral returns [ StringLiteral value ]
 @init { List<Object> parts = new ArrayList<Object>(); }
-	:	id=identifier { parts.add($id.value); $value = new StringLiteral("'", parts); }
+	:	id=identifier { parts.add($id.value); $value = new StringLiteral("'", "'", parts); }
 	;
 
 booleanLiteral returns [ boolean value ]

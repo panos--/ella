@@ -1,18 +1,133 @@
 package org.unbunt.sqlscript.lang;
 
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.TokenStream;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.SQLScriptLexer;
+import org.unbunt.sqlscript.SQLScriptParser;
+import org.unbunt.sqlscript.SQLScriptWalker;
+import org.unbunt.sqlscript.antlr.LazyInputStream;
+import org.unbunt.sqlscript.antlr.LazyTokenStream;
+import org.unbunt.sqlscript.exception.*;
+import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.*;
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.LoopContinueException;
-import org.unbunt.sqlscript.exception.LoopBreakException;
-import org.unbunt.sqlscript.exception.ScriptClientException;
 import org.unbunt.utils.StringUtils;
+import org.unbunt.utils.res.SimpleResource;
+
+import java.io.IOException;
 
 public class Sys extends PlainObj {
     protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             System.out.println(StringUtils.join(" ", (Object[]) args));
             return engine.getObjNull();
+        }
+    };
+
+    protected static final NativeCall nativeIncludeFile = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            Context ctx = engine.getContext();
+            String filename = args[0].toString();
+            String includingScriptName = ctx.getScriptFilename();
+            SimpleResource includingScript = ctx.getScriptResource();
+            SimpleResource includedScript;
+            try {
+                includedScript = includingScript.createRelative(filename);
+            } catch (IOException e) {
+                throw new SQLScriptRuntimeException("Failed to read sql script: " + filename + ": " +
+                                                    e.getMessage(), e);
+            }
+
+            Block block;
+            try {
+                LazyInputStream input;
+                try {
+                    input = new LazyInputStream(includedScript.getInputStream());
+                } catch (Exception e) {
+                    throw new SQLScriptIOException("Failed to read sql script: " + filename + ": " +
+                                                        e.getMessage(), e);
+                }
+
+                SQLScriptLexer lexer = new SQLScriptLexer(input);
+                TokenStream tokens = new LazyTokenStream(lexer);
+
+                SQLScriptParser parser;
+                try {
+                    parser = new SQLScriptParser(tokens);
+                } catch (RuntimeRecognitionException re) {
+                    RecognitionException e = (RecognitionException) re.getCause();
+                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
+                                                        lexer.getErrorHeader(e) + " " +
+                                                        lexer.getErrorMessage(e, lexer.getTokenNames()),
+                                                        e);
+                }
+
+                SQLScriptParser.script_return r;
+                try {
+                    r = parser.script();
+                } catch (RecognitionException e) {
+                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
+                                                      parser.getErrorHeader(e) + " " +
+                                                      parser.getErrorMessage(e, parser.getTokenNames()),
+                                                      e);
+                } catch (RuntimeRecognitionException re) {
+                    RecognitionException e = (RecognitionException) re.getCause();
+                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
+                                                        lexer.getErrorHeader(e) + " " +
+                                                        lexer.getErrorMessage(e, lexer.getTokenNames()),
+                                                        e);
+                }
+
+                CommonTree tree = (CommonTree) r.getTree();
+
+                CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
+                nodes.setTokenStream(tokens);
+
+                SQLScriptWalker walker = new SQLScriptWalker(nodes);
+                try {
+                    Scope currentScope = ctx.getEnv().toScope();
+                    block = walker.parseIncremental(currentScope);
+                    TailCallOptimizer.process(block);
+                } catch (RecognitionException e) {
+                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
+                                                      walker.getErrorHeader(e) + " " +
+                                                      walker.getErrorMessage(e, walker.getTokenNames()),
+                                                      e);
+                } catch (RuntimeException e) {
+                    throw new SQLScriptRuntimeException(e.getMessage(), e);
+                }
+            } catch (SQLScriptIOException e) {
+                throw new SQLScriptRuntimeException(e);
+            } catch (SQLScriptParseException e) {
+                throw new SQLScriptRuntimeException(e);
+            }
+
+            try {
+                ctx.setScriptFilename(includedScript.getFilename());
+                ctx.setScriptResource(includedScript);
+                return engine.invokeBlock(block);
+            } finally {
+                // Restore script information
+                ctx.setScriptFilename(includingScriptName);
+                ctx.setScriptResource(includingScript);
+
+                // Install dynamic environment
+                final Env parentEnv = engine.getEnv();
+                DynamicEnv newEnv = new DynamicEnv(parentEnv, new CachingVariableResolver(
+                        new DynamicVariableResolver() {
+                            public Obj resolve(Variable var) {
+                                return parentEnv.get(var.name);
+                            }
+
+                            public Obj resolve(String name) {
+                                return parentEnv.get(name);
+                            }
+                        }
+                ));
+                engine.setEnv(newEnv);
+            }
         }
     };
 
@@ -26,6 +141,16 @@ public class Sys extends PlainObj {
                             Class cls;
                             try {
                                 cls = loader.loadClass(pkgPrefix + var.name);
+                            } catch (ClassNotFoundException e) {
+                                return null;
+                            }
+                            return new JClass(cls);
+                        }
+
+                        public Obj resolve(String name) {
+                            Class cls;
+                            try {
+                                cls = loader.loadClass(pkgPrefix + name);
                             } catch (ClassNotFoundException e) {
                                 return null;
                             }
@@ -152,6 +277,7 @@ public class Sys extends PlainObj {
 
     public Sys() {
         slots.put(Str.SYM_print, nativePrint);
+        slots.put(Str.SYM_includeFile, nativeIncludeFile);
         slots.put(Str.SYM_importPackage, nativeImportPackage);
         slots.put(Str.SYM_loop, nativeLoop);
         slots.put(Str.SYM_break, PrimitiveCall.Type.LOOP_BREAK.primitive);

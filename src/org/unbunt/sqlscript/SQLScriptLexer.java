@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-08 14:24:47
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-08 17:36:21
 
 	package org.unbunt.sqlscript;
 
@@ -163,6 +163,14 @@ public class SQLScriptLexer extends Lexer {
     	
     	protected boolean escapeSeparators = false;
     	
+    	/**
+    	 * At signs in identifier clash with embedded variable syntax in sql literals.
+    	 * This flag allows to disable at signs in identifiers when parsing sql literals.
+    	 */
+    	protected boolean allowAtSignInIdentifier = true;
+    	
+    	protected boolean allowEmbeddedVariables = true;
+    	
     	protected int whitespaceChannel = HIDDEN;
 
     	@Override
@@ -192,6 +200,22 @@ public class SQLScriptLexer extends Lexer {
     	
     	protected boolean isAllowDollarQuote() {
     		return allowDollarQuote;
+    	}
+    	
+    	protected void setAllowAtSignInIdentifier(boolean allow) {
+    		this.allowAtSignInIdentifier = allow;
+    	}
+    	
+    	protected boolean isAllowAtSignInIdentifier() {
+    		return allowAtSignInIdentifier;
+    	}
+    	
+    	protected void setAllowEmbeddedVariables(boolean allow) {
+    		this.allowEmbeddedVariables = allow;
+    	}
+    	
+    	protected boolean isAllowEmbeddedVariables() {
+    		return allowEmbeddedVariables;
     	}
     	
     	protected void setIgnoreWhitespace(boolean ignore) {
@@ -225,8 +249,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:892:9: ( '/*' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:892:11: '/*'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:908:9: ( '/*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:908:11: '/*'
             {
             match("/*"); 
 
@@ -270,18 +294,18 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:4: ( '--' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:5: '--'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:4: ( '--' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:5: '--'
             {
             match("--"); 
 
 
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:11: (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:11: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -294,7 +318,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:11: ~ ( '\\n' | '\\r' )
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:11: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -332,8 +356,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:927:2: ( '\\'' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:927:4: '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:943:2: ( '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:943:4: '\\''
             {
             match('\''); 
 
@@ -353,8 +377,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:932:2: ( '\"' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:932:4: '\"'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:948:2: ( '\"' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:948:4: '\"'
             {
             match('\"'); 
 
@@ -374,8 +398,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:2: ( '`' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:4: '`'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:2: ( '`' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:4: '`'
             {
             match('`'); 
 
@@ -395,13 +419,13 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_QQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:942:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:942:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:958:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:958:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
             {
             if ( !((allowQQuote)) ) {
                 throw new FailedPredicateException(input, "STR_QQUOT", "allowQQuote");
             }
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:942:21: ( 'N' | 'n' )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:958:21: ( 'N' | 'n' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -454,13 +478,13 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_DOLQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:967:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:967:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             {
             if ( !((allowDollarQuote)) ) {
                 throw new FailedPredicateException(input, "STR_DOLQUOT", "allowDollarQuote");
             }
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:26: ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:967:26: ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -488,14 +512,14 @@ public class SQLScriptLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:27: DDOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:967:27: DDOLLAR
                     {
                     mDDOLLAR(); 
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:37: DOLLAR DOLQUOT_TAG DOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:967:37: DOLLAR DOLQUOT_TAG DOLLAR
                     {
                     mDOLLAR(); 
                     mDOLQUOT_TAG(); 
@@ -520,8 +544,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DDOLLAR"
     public final void mDDOLLAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:955:9: ( '$$' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:955:11: '$$'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:971:9: ( '$$' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:971:11: '$$'
             {
             match("$$"); 
 
@@ -537,8 +561,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLLAR"
     public final void mDOLLAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:959:8: ( '$' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:959:10: '$'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:8: ( '$' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:10: '$'
             {
             match('$'); 
 
@@ -553,11 +577,11 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG"
     public final void mDOLQUOT_TAG() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
             {
             mDOLQUOT_TAG_START(); 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:22: ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:22: ( DOLQUOT_TAG_END )*
             loop4:
             do {
                 int alt4=2;
@@ -570,7 +594,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:22: DOLQUOT_TAG_END
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:22: DOLQUOT_TAG_END
             	    {
             	    mDOLQUOT_TAG_END(); 
 
@@ -594,8 +618,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_START"
     public final void mDOLQUOT_TAG_START() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:969:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:969:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:985:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:985:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFD') ) {
                 input.consume();
@@ -618,7 +642,7 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_END"
     public final void mDOLQUOT_TAG_END() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:974:2: ( DOLQUOT_TAG_START | DIGIT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:990:2: ( DOLQUOT_TAG_START | DIGIT )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFD') ) {
@@ -644,10 +668,10 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:5: ( ( DIGIT )+ )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:7: ( DIGIT )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:5: ( ( DIGIT )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:7: ( DIGIT )+
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:7: ( DIGIT )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:7: ( DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -661,7 +685,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:7: DIGIT
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:7: DIGIT
             	    {
             	    mDIGIT(); 
 
@@ -691,8 +715,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:982:7: ( '0' .. '9' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:982:9: '0' .. '9'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:998:7: ( '0' .. '9' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:998:9: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -709,8 +733,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_SQL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:985:8: ( ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:985:10: ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1001:8: ( ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1001:10: ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -755,8 +779,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:988:8: ( 'var' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:988:10: 'var'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1004:8: ( 'var' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1004:10: 'var'
             {
             match("var"); 
 
@@ -776,8 +800,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:991:7: ( 'if' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:991:9: 'if'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1007:7: ( 'if' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1007:9: 'if'
             {
             match("if"); 
 
@@ -797,8 +821,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:9: ( 'else' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:11: 'else'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1010:9: ( 'else' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1010:11: 'else'
             {
             match("else"); 
 
@@ -818,8 +842,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_TRY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:997:8: ( 'try' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:997:10: 'try'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1013:8: ( 'try' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1013:10: 'try'
             {
             match("try"); 
 
@@ -839,8 +863,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_CATCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:9: ( 'catch' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:11: 'catch'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1016:9: ( 'catch' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1016:11: 'catch'
             {
             match("catch"); 
 
@@ -860,8 +884,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FINALLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1004:2: ( 'finally' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1004:4: 'finally'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:2: ( 'finally' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:4: 'finally'
             {
             match("finally"); 
 
@@ -881,8 +905,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_THROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1007:9: ( 'throw' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1007:11: 'throw'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1023:9: ( 'throw' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1023:11: 'throw'
             {
             match("throw"); 
 
@@ -902,8 +926,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1011:2: ( 'return' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1011:4: 'return'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1027:2: ( 'return' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1027:4: 'return'
             {
             match("return"); 
 
@@ -923,8 +947,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_EXIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1014:9: ( 'exit' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1014:11: 'exit'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1030:9: ( 'exit' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1030:11: 'exit'
             {
             match("exit"); 
 
@@ -944,8 +968,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1017:9: ( 'true' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1017:11: 'true'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1033:9: ( 'true' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1033:11: 'true'
             {
             match("true"); 
 
@@ -965,8 +989,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:9: ( 'false' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:11: 'false'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1036:9: ( 'false' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1036:11: 'false'
             {
             match("false"); 
 
@@ -986,8 +1010,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FUN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1023:8: ( 'fun' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1023:10: 'fun'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1039:8: ( 'fun' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1039:10: 'fun'
             {
             match("fun"); 
 
@@ -1007,8 +1031,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_THIS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1026:9: ( 'this' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1026:11: 'this'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1042:9: ( 'this' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1042:11: 'this'
             {
             match("this"); 
 
@@ -1028,8 +1052,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_SUPER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1029:9: ( 'super' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1029:11: 'super'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1045:9: ( 'super' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1045:11: 'super'
             {
             match("super"); 
 
@@ -1049,8 +1073,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_NEW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1032:8: ( 'new' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1032:10: 'new'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1048:8: ( 'new' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1048:10: 'new'
             {
             match("new"); 
 
@@ -1070,8 +1094,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1036:2: ( 'import' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1036:4: 'import'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1052:2: ( 'import' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1052:4: 'import'
             {
             match("import"); 
 
@@ -1091,8 +1115,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_AS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1039:7: ( 'as' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1039:9: 'as'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1055:7: ( 'as' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1055:9: 'as'
             {
             match("as"); 
 
@@ -1112,10 +1136,10 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1042:6: ( ( WORD_CHAR )+ )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1042:8: ( WORD_CHAR )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1058:6: ( ( WORD_CHAR )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1058:8: ( WORD_CHAR )+
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1042:8: ( WORD_CHAR )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1058:8: ( WORD_CHAR )+
             int cnt6=0;
             loop6:
             do {
@@ -1129,7 +1153,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1042:8: WORD_CHAR
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1058:8: WORD_CHAR
             	    {
             	    mWORD_CHAR(); 
 
@@ -1159,8 +1183,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "WORD_CHAR"
     public final void mWORD_CHAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1047:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1047:4: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1063:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1063:4: ( 'a' .. 'z' | 'A' .. 'Z' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1185,9 +1209,12 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EMB_VAR_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1051:2: ( '@{' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1051:4: '@{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1067:2: ({...}? => '@{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1067:4: {...}? => '@{'
             {
+            if ( !((allowEmbeddedVariables)) ) {
+                throw new FailedPredicateException(input, "EMB_VAR_START", "allowEmbeddedVariables");
+            }
             match("@{"); 
 
 
@@ -1206,8 +1233,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = BACKSLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1055:2: ( '\\\\' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1055:4: '\\\\'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1071:2: ( '\\\\' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1071:4: '\\\\'
             {
             match('\\'); 
 
@@ -1226,8 +1253,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = DOUBLE_ARROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1065:2: ( '=>' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1065:4: '=>'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1081:2: ( '=>' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1081:4: '=>'
             {
             match("=>"); 
 
@@ -1247,8 +1274,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_DEFINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1069:2: ( ':=' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1069:4: ':='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1085:2: ( ':=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1085:4: ':='
             {
             match(":="); 
 
@@ -1268,8 +1295,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1072:8: ( '&&' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1072:10: '&&'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1088:8: ( '&&' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1088:10: '&&'
             {
             match("&&"); 
 
@@ -1289,8 +1316,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1075:7: ( '||' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1075:9: '||'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1091:7: ( '||' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1091:9: '||'
             {
             match("||"); 
 
@@ -1310,8 +1337,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1078:7: ( '==' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1078:9: '=='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1094:7: ( '==' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1094:9: '=='
             {
             match("=="); 
 
@@ -1331,8 +1358,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_NE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1081:7: ( '!=' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1081:9: '!='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1097:7: ( '!=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1097:9: '!='
             {
             match("!="); 
 
@@ -1352,8 +1379,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1084:7: ( '===' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1084:9: '==='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1100:7: ( '===' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1100:9: '==='
             {
             match("==="); 
 
@@ -1373,8 +1400,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_NI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1087:7: ( '!==' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1087:9: '!=='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1103:7: ( '!==' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1103:9: '!=='
             {
             match("!=="); 
 
@@ -1394,8 +1421,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1090:8: ( '*' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1090:10: '*'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1106:8: ( '*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1106:10: '*'
             {
             match('*'); 
 
@@ -1414,8 +1441,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1093:8: ( '/' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1093:10: '/'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1109:8: ( '/' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1109:10: '/'
             {
             match('/'); 
 
@@ -1434,8 +1461,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_MOD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1096:8: ( '%' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1096:10: '%'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1112:8: ( '%' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1112:10: '%'
             {
             match('%'); 
 
@@ -1454,8 +1481,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1099:8: ( '+' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1099:10: '+'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1115:8: ( '+' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1115:10: '+'
             {
             match('+'); 
 
@@ -1474,8 +1501,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1102:8: ( '-' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1102:10: '-'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1118:8: ( '-' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1118:10: '-'
             {
             match('-'); 
 
@@ -1492,8 +1519,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "SIMPLE_IDENTIFIER"
     public final void mSIMPLE_IDENTIFIER() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1113:2: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1113:4: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1129:2: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1129:4: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1504,7 +1531,7 @@ public class SQLScriptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1113:22: ( WORD_CHAR | '_' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1129:22: ( WORD_CHAR | '_' | DIGIT )*
             loop7:
             do {
                 int alt7=2;
@@ -1551,48 +1578,117 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1117:2: ( ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )* )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1117:4: ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:2: ( ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:4: ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
             {
-            if ( (input.LA(1)>='$' && input.LA(1)<='&')||(input.LA(1)>='*' && input.LA(1)<='+')||input.LA(1)=='-'||input.LA(1)=='/'||(input.LA(1)>='@' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='_')||(input.LA(1)>='a' && input.LA(1)<='z')||input.LA(1)=='|'||input.LA(1)=='~' ) {
-                input.consume();
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:4: ( WORD_CHAR | IDENTIFIER_SPECIAL )
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
+            if ( ((LA8_0>='A' && LA8_0<='Z')||(LA8_0>='a' && LA8_0<='z')) ) {
+                alt8=1;
+            }
+            else if ( (LA8_0=='+'||LA8_0=='-'||LA8_0=='~') ) {
+                alt8=2;
+            }
+            else if ( (LA8_0=='@') && ((allowAtSignInIdentifier))) {
+                alt8=2;
+            }
+            else if ( ((LA8_0>='$' && LA8_0<='&')||LA8_0=='*'||LA8_0=='/'||(LA8_0>='^' && LA8_0<='_')||LA8_0=='|') ) {
+                alt8=2;
             }
             else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 8, 0, input);
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1117:37: ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
-            loop8:
+                throw nvae;
+            }
+            switch (alt8) {
+                case 1 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:5: WORD_CHAR
+                    {
+                    mWORD_CHAR(); 
+
+                    }
+                    break;
+                case 2 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:17: IDENTIFIER_SPECIAL
+                    {
+                    mIDENTIFIER_SPECIAL(); 
+
+                    }
+                    break;
+
+            }
+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:37: ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
+            loop9:
             do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
+                int alt9=6;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA8_0=='!'||(LA8_0>='$' && LA8_0<='&')||(LA8_0>='*' && LA8_0<='+')||LA8_0=='-'||(LA8_0>='/' && LA8_0<='9')||(LA8_0>='?' && LA8_0<='Z')||(LA8_0>='^' && LA8_0<='_')||(LA8_0>='a' && LA8_0<='z')||LA8_0=='|'||LA8_0=='~') ) {
-                    alt8=1;
+                if ( ((LA9_0>='A' && LA9_0<='Z')||(LA9_0>='a' && LA9_0<='z')) ) {
+                    alt9=1;
+                }
+                else if ( (LA9_0=='+'||LA9_0=='-'||LA9_0=='~') ) {
+                    alt9=2;
+                }
+                else if ( (LA9_0=='@') && ((allowAtSignInIdentifier))) {
+                    alt9=2;
+                }
+                else if ( ((LA9_0>='$' && LA9_0<='&')||LA9_0=='*'||LA9_0=='/'||(LA9_0>='^' && LA9_0<='_')||LA9_0=='|') ) {
+                    alt9=2;
+                }
+                else if ( (LA9_0=='!') ) {
+                    alt9=3;
+                }
+                else if ( (LA9_0=='?') ) {
+                    alt9=4;
+                }
+                else if ( ((LA9_0>='0' && LA9_0<='9')) ) {
+                    alt9=5;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:38: WORD_CHAR
             	    {
-            	    if ( input.LA(1)=='!'||(input.LA(1)>='$' && input.LA(1)<='&')||(input.LA(1)>='*' && input.LA(1)<='+')||input.LA(1)=='-'||(input.LA(1)>='/' && input.LA(1)<='9')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='_')||(input.LA(1)>='a' && input.LA(1)<='z')||input.LA(1)=='|'||input.LA(1)=='~' ) {
-            	        input.consume();
+            	    mWORD_CHAR(); 
 
             	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+            	    break;
+            	case 2 :
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:50: IDENTIFIER_SPECIAL
+            	    {
+            	    mIDENTIFIER_SPECIAL(); 
 
+            	    }
+            	    break;
+            	case 3 :
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:71: '!'
+            	    {
+            	    match('!'); 
+
+            	    }
+            	    break;
+            	case 4 :
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:77: '?'
+            	    {
+            	    match('?'); 
+
+            	    }
+            	    break;
+            	case 5 :
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1133:83: DIGIT
+            	    {
+            	    mDIGIT(); 
 
             	    }
             	    break;
 
             	default :
-            	    break loop8;
+            	    break loop9;
                 }
             } while (true);
 
@@ -1610,21 +1706,99 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "IDENTIFIER_SPECIAL"
     public final void mIDENTIFIER_SPECIAL() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1122:2: ( '+' | '-' | '~' | '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
-            {
-            if ( (input.LA(1)>='$' && input.LA(1)<='&')||(input.LA(1)>='*' && input.LA(1)<='+')||input.LA(1)=='-'||input.LA(1)=='/'||input.LA(1)=='@'||(input.LA(1)>='^' && input.LA(1)<='_')||input.LA(1)=='|'||input.LA(1)=='~' ) {
-                input.consume();
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1138:2: ( '+' | '-' | '~' | {...}? => '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR )
+            int alt10=12;
+            alt10 = dfa10.predict(input);
+            switch (alt10) {
+                case 1 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1138:4: '+'
+                    {
+                    match('+'); 
+
+                    }
+                    break;
+                case 2 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1138:8: '-'
+                    {
+                    match('-'); 
+
+                    }
+                    break;
+                case 3 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1138:12: '~'
+                    {
+                    match('~'); 
+
+                    }
+                    break;
+                case 4 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1143:3: {...}? => '@'
+                    {
+                    if ( !((allowAtSignInIdentifier)) ) {
+                        throw new FailedPredicateException(input, "IDENTIFIER_SPECIAL", "allowAtSignInIdentifier");
+                    }
+                    match('@'); 
+
+                    }
+                    break;
+                case 5 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:4: '%'
+                    {
+                    match('%'); 
+
+                    }
+                    break;
+                case 6 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:8: '^'
+                    {
+                    match('^'); 
+
+                    }
+                    break;
+                case 7 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:12: '&'
+                    {
+                    match('&'); 
+
+                    }
+                    break;
+                case 8 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:16: '*'
+                    {
+                    match('*'); 
+
+                    }
+                    break;
+                case 9 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:20: '/'
+                    {
+                    match('/'); 
+
+                    }
+                    break;
+                case 10 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:24: '_'
+                    {
+                    match('_'); 
+
+                    }
+                    break;
+                case 11 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:28: '|'
+                    {
+                    match('|'); 
+
+                    }
+                    break;
+                case 12 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1144:32: DOLLAR
+                    {
+                    mDOLLAR(); 
+
+                    }
+                    break;
 
             }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
         }
         finally {
         }
@@ -1636,8 +1810,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1125:8: ( '=' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1125:10: '='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1147:8: ( '=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1147:10: '='
             {
             match('='); 
 
@@ -1656,8 +1830,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1128:8: ( '(' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1128:10: '('
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1150:8: ( '(' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1150:10: '('
             {
             match('('); 
 
@@ -1676,8 +1850,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1131:8: ( ')' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1131:10: ')'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1153:8: ( ')' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1153:10: ')'
             {
             match(')'); 
 
@@ -1696,8 +1870,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1134:8: ( '{' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1134:10: '{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1156:8: ( '{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1156:10: '{'
             {
             match('{'); 
 
@@ -1716,8 +1890,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1137:8: ( '}' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1137:10: '}'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1159:8: ( '}' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1159:10: '}'
             {
             match('}'); 
 
@@ -1736,8 +1910,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1140:9: ( '[' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1140:11: '['
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1162:9: ( '[' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1162:11: '['
             {
             match('['); 
 
@@ -1756,8 +1930,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1143:9: ( ']' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1143:11: ']'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:9: ( ']' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:11: ']'
             {
             match(']'); 
 
@@ -1776,8 +1950,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EXCLAM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1146:8: ( '!' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1146:10: '!'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1168:8: ( '!' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1168:10: '!'
             {
             match('!'); 
 
@@ -1796,8 +1970,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = QUESTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1149:9: ( '?' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1149:11: '?'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1171:9: ( '?' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1171:11: '?'
             {
             match('?'); 
 
@@ -1816,8 +1990,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1152:7: ( ':' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1152:9: ':'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1174:7: ( ':' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1174:9: ':'
             {
             match(':'); 
 
@@ -1836,8 +2010,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:5: ( '.' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:7: '.'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1177:5: ( '.' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1177:7: '.'
             {
             match('.'); 
 
@@ -1856,8 +2030,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1158:7: ( ',' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1158:9: ','
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1180:7: ( ',' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1180:9: ','
             {
             match(','); 
 
@@ -1876,21 +2050,99 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = SQL_SPECIAL_CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1162:2: ( ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1162:4: ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT )
-            {
-            if ( input.LA(1)=='#'||(input.LA(1)>='%' && input.LA(1)<='&')||input.LA(1)=='*'||input.LA(1)=='-'||(input.LA(1)>='/' && input.LA(1)<='9')||(input.LA(1)>='<' && input.LA(1)<='>')||input.LA(1)=='|' ) {
-                input.consume();
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:2: ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT | {...}? => '@' )
+            int alt11=12;
+            alt11 = dfa11.predict(input);
+            switch (alt11) {
+                case 1 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:4: '<'
+                    {
+                    match('<'); 
+
+                    }
+                    break;
+                case 2 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:8: '>'
+                    {
+                    match('>'); 
+
+                    }
+                    break;
+                case 3 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:12: '*'
+                    {
+                    match('*'); 
+
+                    }
+                    break;
+                case 4 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:16: '/'
+                    {
+                    match('/'); 
+
+                    }
+                    break;
+                case 5 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:20: '-'
+                    {
+                    match('-'); 
+
+                    }
+                    break;
+                case 6 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:24: '='
+                    {
+                    match('='); 
+
+                    }
+                    break;
+                case 7 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:28: '%'
+                    {
+                    match('%'); 
+
+                    }
+                    break;
+                case 8 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:32: '#'
+                    {
+                    match('#'); 
+
+                    }
+                    break;
+                case 9 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:36: '&'
+                    {
+                    match('&'); 
+
+                    }
+                    break;
+                case 10 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:40: '|'
+                    {
+                    match('|'); 
+
+                    }
+                    break;
+                case 11 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:44: DIGIT
+                    {
+                    mDIGIT(); 
+
+                    }
+                    break;
+                case 12 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1185:4: {...}? => '@'
+                    {
+                    if ( !((!allowAtSignInIdentifier)) ) {
+                        throw new FailedPredicateException(input, "SQL_SPECIAL_CHAR", "!allowAtSignInIdentifier");
+                    }
+                    match('@'); 
+
+                    }
+                    break;
 
             }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
             state.type = _type;
             state.channel = _channel;
         }
@@ -1904,8 +2156,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = SEP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:5: ( ';' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:7: ';'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1188:5: ( ';' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1188:7: ';'
             {
             match(';'); 
 
@@ -1929,22 +2181,22 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1172:4: ( ( ' ' | '\\r' | '\\t' | '\\u000C' )+ )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1172:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1195:4: ( ( ' ' | '\\r' | '\\t' | '\\u000C' )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1195:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1172:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
-            int cnt9=0;
-            loop9:
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1195:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
+            int cnt12=0;
+            loop12:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA9_0=='\t'||(LA9_0>='\f' && LA9_0<='\r')||LA9_0==' ') ) {
-                    alt9=1;
+                if ( (LA12_0=='\t'||(LA12_0>='\f' && LA12_0<='\r')||LA12_0==' ') ) {
+                    alt12=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt12) {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             	    {
@@ -1962,12 +2214,12 @@ public class SQLScriptLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt9 >= 1 ) break loop9;
+            	    if ( cnt12 >= 1 ) break loop12;
                         EarlyExitException eee =
-                            new EarlyExitException(9, input);
+                            new EarlyExitException(12, input);
                         throw eee;
                 }
-                cnt9++;
+                cnt12++;
             } while (true);
 
              _channel = whitespaceChannel; 
@@ -1987,8 +2239,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = NL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:4: ( '\\n' )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:6: '\\n'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1198:4: ( '\\n' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1198:6: '\\n'
             {
             match('\n'); 
              _channel = whitespaceChannel; 
@@ -2005,9 +2257,9 @@ public class SQLScriptLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:8: ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | INT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL )
-        int alt10=59;
-        alt10 = dfa10.predict(input);
-        switch (alt10) {
+        int alt13=59;
+        alt13 = dfa13.predict(input);
+        switch (alt13) {
             case 1 :
                 // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:10: COMMENT
                 {
@@ -2428,121 +2680,23 @@ public class SQLScriptLexer extends Lexer {
 
 
     protected DFA10 dfa10 = new DFA10(this);
+    protected DFA11 dfa11 = new DFA11(this);
+    protected DFA13 dfa13 = new DFA13(this);
     static final String DFA10_eotS =
-        "\1\uffff\1\57\1\61\3\uffff\2\63\1\40\1\uffff\14\63\1\40\1\uffff"+
-        "\1\115\1\117\2\40\1\123\1\124\1\125\1\126\16\uffff\1\127\1\uffff"+
-        "\1\130\1\uffff\1\63\1\uffff\2\63\1\uffff\1\133\1\40\2\uffff\3\63"+
-        "\1\141\12\63\1\156\2\uffff\1\160\3\uffff\1\161\1\162\1\164\6\uffff"+
-        "\1\130\1\165\1\uffff\1\40\1\133\1\166\1\63\1\170\1\uffff\3\63\1"+
-        "\174\6\63\1\u0083\1\63\11\uffff\1\63\1\uffff\1\63\1\u0087\1\u0088"+
-        "\1\uffff\1\u0089\1\63\1\u008b\3\63\1\uffff\1\63\1\u0090\1\63\3\uffff"+
-        "\1\u0092\1\uffff\1\u0093\1\63\1\u0095\1\63\1\uffff\1\u0097\2\uffff"+
-        "\1\63\1\uffff\1\u0099\1\uffff\1\u009a\2\uffff";
+        "\15\uffff";
     static final String DFA10_eofS =
-        "\u009b\uffff";
+        "\15\uffff";
     static final String DFA10_minS =
-        "\1\11\2\41\3\uffff\2\41\1\44\1\uffff\14\41\1\173\1\uffff\2\75\1"+
-        "\46\1\174\1\75\3\41\16\uffff\1\41\1\uffff\1\41\1\uffff\1\41\1\uffff"+
-        "\2\41\1\uffff\1\41\1\44\2\uffff\17\41\2\uffff\1\75\3\uffff\2\41"+
-        "\1\75\6\uffff\2\41\1\0\1\44\4\41\1\uffff\14\41\11\uffff\1\41\1\uffff"+
-        "\3\41\1\uffff\6\41\1\uffff\3\41\3\uffff\1\41\1\uffff\4\41\1\uffff"+
-        "\1\41\2\uffff\1\41\1\uffff\1\41\1\uffff\1\41\2\uffff";
+        "\1\44\14\uffff";
     static final String DFA10_maxS =
-        "\3\176\3\uffff\2\176\1\ufffd\1\uffff\14\176\1\173\1\uffff\1\76\1"+
-        "\75\1\46\1\174\1\75\3\176\16\uffff\1\176\1\uffff\1\176\1\uffff\1"+
-        "\176\1\uffff\2\176\1\uffff\1\176\1\ufffd\2\uffff\17\176\2\uffff"+
-        "\1\75\3\uffff\2\176\1\75\6\uffff\2\176\1\0\1\ufffd\4\176\1\uffff"+
-        "\14\176\11\uffff\1\176\1\uffff\3\176\1\uffff\6\176\1\uffff\3\176"+
-        "\3\uffff\1\176\1\uffff\4\176\1\uffff\1\176\2\uffff\1\176\1\uffff"+
-        "\1\176\1\uffff\1\176\2\uffff";
+        "\1\176\14\uffff";
     static final String DFA10_acceptS =
-        "\3\uffff\1\3\1\4\1\5\3\uffff\1\10\15\uffff\1\35\10\uffff\1\53\1"+
-        "\55\1\56\1\57\1\60\1\61\1\62\1\64\1\66\1\67\1\70\1\71\1\72\1\73"+
-        "\1\uffff\1\47\1\uffff\1\52\1\uffff\1\33\2\uffff\1\6\2\uffff\1\7"+
-        "\1\10\17\uffff\1\34\1\36\1\uffff\1\54\1\37\1\65\3\uffff\1\63\1\46"+
-        "\1\50\1\51\1\1\1\2\10\uffff\1\13\14\uffff\1\32\1\44\1\42\1\40\1"+
-        "\41\1\45\1\43\1\30\1\11\1\uffff\1\12\3\uffff\1\15\6\uffff\1\25\3"+
-        "\uffff\1\14\1\22\1\23\1\uffff\1\26\4\uffff\1\27\1\uffff\1\20\1\16"+
-        "\1\uffff\1\24\1\uffff\1\31\1\uffff\1\21\1\17";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14";
     static final String DFA10_specialS =
-        "\7\uffff\1\1\1\3\53\uffff\1\2\3\uffff\1\5\42\uffff\1\4\1\0\76\uffff}>";
+        "\1\0\14\uffff}>";
     static final String[] DFA10_transitionS = {
-            "\1\54\1\55\1\uffff\2\54\22\uffff\1\54\1\34\1\4\1\52\1\10\1\36"+
-            "\1\32\1\3\1\41\1\42\1\35\1\37\1\51\1\2\1\50\1\1\12\11\1\31\1"+
-            "\53\1\52\1\30\1\52\1\47\1\26\15\25\1\23\2\25\1\7\1\25\1\22\7"+
-            "\25\1\45\1\27\1\46\2\40\1\5\1\24\1\25\1\17\1\25\1\15\1\20\2"+
-            "\25\1\14\4\25\1\6\2\25\1\7\1\21\1\12\1\16\1\25\1\13\4\25\1\43"+
-            "\1\33\1\44\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\1\56\1\40\1\uffff\1\40\1\uffff\13"+
-            "\40\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1"+
-            "\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\60\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\65\1\64\11\65\3\uffff\2\40\1\uffff\4\65\1\62"+
-            "\13\65\1\64\11\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\1\66\2\uffff\2\40\1\uffff\1\40\1\uffff\13"+
-            "\40\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1"+
-            "\40\1\uffff\1\40",
-            "\1\67\34\uffff\32\70\4\uffff\1\70\1\uffff\32\70\5\uffff\uff7e"+
-            "\71",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\65\1\73\11\65\3\uffff\2\40\1\uffff\20\65\1"+
-            "\73\3\65\1\74\5\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\75\31\65\1\uffff"+
-            "\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\5\65\1\76\6\65\1\77"+
-            "\15\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\100\13\65\1"+
-            "\101\2\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\7\65\1\103\11\65\1"+
-            "\102\10\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\104\31\65\1\uffff"+
-            "\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\106\7\65\1\105\13"+
-            "\65\1\107\5\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\110\25\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\65\1\73\11\65\3\uffff\2\40\1\uffff\20\65\1"+
-            "\73\11\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\20\65\1\64\11\65\3\uffff\2\40\1\uffff\20\65\1"+
-            "\64\11\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\111\7\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\112",
-            "",
-            "\1\114\1\113",
-            "\1\116",
-            "\1\120",
-            "\1\121",
-            "\1\122",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
+            "\1\14\1\5\1\7\3\uffff\1\10\1\1\1\uffff\1\2\1\uffff\1\11\20\uffff"+
+            "\1\4\35\uffff\1\6\1\12\34\uffff\1\13\1\uffff\1\3",
             "",
             "",
             "",
@@ -2553,245 +2707,6 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "",
-            "\1\131\2\uffff\3\131\3\uffff\2\131\1\uffff\1\131\1\uffff\13"+
-            "\131\5\uffff\34\131\3\uffff\2\131\1\uffff\32\131\1\uffff\1\131"+
-            "\1\uffff\1\131",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\26\65\1\132\3\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\1\66\2\uffff\2\40\1\uffff\1\40\1\uffff\13"+
-            "\40\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1"+
-            "\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "\1\135\13\uffff\12\134\7\uffff\32\134\4\uffff\1\134\1\uffff"+
-            "\32\134\5\uffff\uff7e\71",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\13\65\1\136\16\65\3\uffff\2\40\1\uffff\13\65\1"+
-            "\136\16\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\17\65\1\137\12\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\140\10\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\17\65\1\142\12\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\143\7\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\10\65\1\144\21\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\24\65\1\146\3\65\1"+
-            "\145\1\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\10\65\1\150\10\65\1"+
-            "\147\10\65\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\151\6\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\15\65\1\152\14\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\153\16\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\15\65\1\154\14\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\155\6\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "",
-            "\1\157",
-            "",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "\1\163",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\131\2\uffff\3\131\3\uffff\2\131\1\uffff\1\131\1\uffff\13"+
-            "\131\5\uffff\34\131\3\uffff\2\131\1\uffff\32\131\1\uffff\1\131"+
-            "\1\uffff\1\131",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\uffff",
-            "\1\135\13\uffff\12\134\7\uffff\32\134\4\uffff\1\134\1\uffff"+
-            "\32\134\5\uffff\uff7e\71",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
-            "\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\167\25\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\16\65\1\171\13\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\172\25\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\173\6\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\175\25\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\16\65\1\176\13\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\177\7\65\1"+
-            "\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\2\65\1\u0080\27\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\u0081\31\65\1\uffff"+
-            "\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\u0082\7\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\24\65\1\u0084\5\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\u0085\10\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\u0086\10\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\26\65\1\u008a\3\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\7\65\1\u008c\22\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\u008d\16\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\u008e\25\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\21\65\1\u008f\10\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\23\65\1\u0091\6\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\u0094\16\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\15\65\1\u0096\14\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\30\65\1\u0098\1\65"+
-            "\1\uffff\1\40\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
-            "",
-            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
-            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
-            "\1\uffff\1\40",
             "",
             ""
     };
@@ -2826,6 +2741,618 @@ public class SQLScriptLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
+            return "1136:1: fragment IDENTIFIER_SPECIAL : ( '+' | '-' | '~' | {...}? => '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            IntStream input = _input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA10_0 = input.LA(1);
+
+                         
+                        int index10_0 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA10_0=='+') ) {s = 1;}
+
+                        else if ( (LA10_0=='-') ) {s = 2;}
+
+                        else if ( (LA10_0=='~') ) {s = 3;}
+
+                        else if ( (LA10_0=='@') && ((allowAtSignInIdentifier))) {s = 4;}
+
+                        else if ( (LA10_0=='%') ) {s = 5;}
+
+                        else if ( (LA10_0=='^') ) {s = 6;}
+
+                        else if ( (LA10_0=='&') ) {s = 7;}
+
+                        else if ( (LA10_0=='*') ) {s = 8;}
+
+                        else if ( (LA10_0=='/') ) {s = 9;}
+
+                        else if ( (LA10_0=='_') ) {s = 10;}
+
+                        else if ( (LA10_0=='|') ) {s = 11;}
+
+                        else if ( (LA10_0=='$') ) {s = 12;}
+
+                         
+                        input.seek(index10_0);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 10, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA11_eotS =
+        "\15\uffff";
+    static final String DFA11_eofS =
+        "\15\uffff";
+    static final String DFA11_minS =
+        "\1\43\14\uffff";
+    static final String DFA11_maxS =
+        "\1\174\14\uffff";
+    static final String DFA11_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14";
+    static final String DFA11_specialS =
+        "\1\0\14\uffff}>";
+    static final String[] DFA11_transitionS = {
+            "\1\10\1\uffff\1\7\1\11\3\uffff\1\3\2\uffff\1\5\1\uffff\1\4\12"+
+            "\13\2\uffff\1\1\1\6\1\2\1\uffff\1\14\73\uffff\1\12",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
+    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
+    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
+    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
+    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
+    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
+    static final short[][] DFA11_transition;
+
+    static {
+        int numStates = DFA11_transitionS.length;
+        DFA11_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
+        }
+    }
+
+    class DFA11 extends DFA {
+
+        public DFA11(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 11;
+            this.eot = DFA11_eot;
+            this.eof = DFA11_eof;
+            this.min = DFA11_min;
+            this.max = DFA11_max;
+            this.accept = DFA11_accept;
+            this.special = DFA11_special;
+            this.transition = DFA11_transition;
+        }
+        public String getDescription() {
+            return "1183:1: SQL_SPECIAL_CHAR : ( '<' | '>' | '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT | {...}? => '@' );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            IntStream input = _input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA11_0 = input.LA(1);
+
+                         
+                        int index11_0 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA11_0=='<') ) {s = 1;}
+
+                        else if ( (LA11_0=='>') ) {s = 2;}
+
+                        else if ( (LA11_0=='*') ) {s = 3;}
+
+                        else if ( (LA11_0=='/') ) {s = 4;}
+
+                        else if ( (LA11_0=='-') ) {s = 5;}
+
+                        else if ( (LA11_0=='=') ) {s = 6;}
+
+                        else if ( (LA11_0=='%') ) {s = 7;}
+
+                        else if ( (LA11_0=='#') ) {s = 8;}
+
+                        else if ( (LA11_0=='&') ) {s = 9;}
+
+                        else if ( (LA11_0=='|') ) {s = 10;}
+
+                        else if ( ((LA11_0>='0' && LA11_0<='9')) ) {s = 11;}
+
+                        else if ( (LA11_0=='@') && ((!allowAtSignInIdentifier))) {s = 12;}
+
+                         
+                        input.seek(index11_0);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 11, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA13_eotS =
+        "\1\uffff\1\57\1\61\3\uffff\2\63\1\40\1\uffff\14\63\1\114\1\uffff"+
+        "\1\120\1\122\2\124\1\127\1\130\1\131\1\132\16\uffff\1\133\1\uffff"+
+        "\1\134\1\uffff\1\63\1\uffff\2\63\1\uffff\1\156\2\124\2\uffff\3\63"+
+        "\1\166\12\63\1\u0083\4\uffff\1\u0085\3\uffff\1\u0086\1\uffff\1\u0087"+
+        "\1\u0089\6\uffff\20\134\1\u008a\1\uffff\2\124\1\156\1\124\1\u008b"+
+        "\1\63\1\u008d\1\uffff\3\63\1\u0091\6\63\1\u0098\1\63\11\uffff\1"+
+        "\63\1\uffff\1\63\1\u009c\1\u009d\1\uffff\1\u009e\1\63\1\u00a0\3"+
+        "\63\1\uffff\1\63\1\u00a5\1\63\3\uffff\1\u00a7\1\uffff\1\u00a8\1"+
+        "\63\1\u00aa\1\63\1\uffff\1\u00ac\2\uffff\1\63\1\uffff\1\u00ae\1"+
+        "\uffff\1\u00af\2\uffff";
+    static final String DFA13_eofS =
+        "\u00b0\uffff";
+    static final String DFA13_minS =
+        "\1\11\2\41\3\uffff\2\41\1\44\1\uffff\15\41\1\uffff\2\75\1\46\1\174"+
+        "\1\75\3\41\16\uffff\1\41\1\uffff\1\41\1\uffff\1\41\1\uffff\2\41"+
+        "\1\uffff\1\41\2\44\2\uffff\17\41\1\uffff\1\0\2\uffff\1\75\3\uffff"+
+        "\1\41\1\uffff\1\41\1\75\6\uffff\21\41\1\0\2\44\1\41\1\44\3\41\1"+
+        "\uffff\14\41\11\uffff\1\41\1\uffff\3\41\1\uffff\6\41\1\uffff\3\41"+
+        "\3\uffff\1\41\1\uffff\4\41\1\uffff\1\41\2\uffff\1\41\1\uffff\1\41"+
+        "\1\uffff\1\41\2\uffff";
+    static final String DFA13_maxS =
+        "\3\176\3\uffff\2\176\1\ufffd\1\uffff\15\176\1\uffff\1\76\1\75\1"+
+        "\46\1\174\1\75\3\176\16\uffff\1\176\1\uffff\1\176\1\uffff\1\176"+
+        "\1\uffff\2\176\1\uffff\1\176\2\ufffd\2\uffff\17\176\1\uffff\1\0"+
+        "\2\uffff\1\75\3\uffff\1\176\1\uffff\1\176\1\75\6\uffff\21\176\1"+
+        "\0\2\ufffd\1\176\1\ufffd\3\176\1\uffff\14\176\11\uffff\1\176\1\uffff"+
+        "\3\176\1\uffff\6\176\1\uffff\3\176\3\uffff\1\176\1\uffff\4\176\1"+
+        "\uffff\1\176\2\uffff\1\176\1\uffff\1\176\1\uffff\1\176\2\uffff";
+    static final String DFA13_acceptS =
+        "\3\uffff\1\3\1\4\1\5\3\uffff\1\10\15\uffff\1\35\10\uffff\1\53\1"+
+        "\55\1\56\1\57\1\60\1\61\1\62\1\64\1\66\1\67\1\70\1\71\1\72\1\73"+
+        "\1\uffff\1\47\1\uffff\1\52\1\uffff\1\33\2\uffff\1\6\3\uffff\1\7"+
+        "\1\10\17\uffff\1\34\1\uffff\1\53\1\36\1\uffff\1\54\1\37\1\65\1\uffff"+
+        "\1\53\2\uffff\1\63\1\46\1\50\1\51\1\1\1\2\31\uffff\1\13\14\uffff"+
+        "\1\32\1\44\1\42\1\40\1\41\1\45\1\43\1\30\1\11\1\uffff\1\12\3\uffff"+
+        "\1\15\6\uffff\1\25\3\uffff\1\14\1\22\1\23\1\uffff\1\26\4\uffff\1"+
+        "\27\1\uffff\1\20\1\16\1\uffff\1\24\1\uffff\1\31\1\uffff\1\21\1\17";
+    static final String DFA13_specialS =
+        "\1\0\6\uffff\1\12\1\2\15\uffff\1\6\35\uffff\1\4\3\uffff\1\1\1\13"+
+        "\22\uffff\1\10\41\uffff\1\11\1\7\1\5\1\uffff\1\3\75\uffff}>";
+    static final String[] DFA13_transitionS = {
+            "\1\54\1\55\1\uffff\2\54\22\uffff\1\54\1\34\1\4\1\52\1\10\1\36"+
+            "\1\32\1\3\1\41\1\42\1\35\1\37\1\51\1\2\1\50\1\1\12\11\1\31\1"+
+            "\53\1\52\1\30\1\52\1\47\1\26\15\25\1\23\2\25\1\7\1\25\1\22\7"+
+            "\25\1\45\1\27\1\46\2\40\1\5\1\24\1\25\1\17\1\25\1\15\1\20\2"+
+            "\25\1\14\4\25\1\6\2\25\1\7\1\21\1\12\1\16\1\25\1\13\4\25\1\43"+
+            "\1\33\1\44\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\1\56\1\40\1\uffff\1\40\1\uffff\13"+
+            "\40\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1"+
+            "\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\60\1\uffff\13\40"+
+            "\5\uffff\34\40\3\uffff\2\40\1\uffff\32\40\1\uffff\1\40\1\uffff"+
+            "\1\40",
+            "",
+            "",
+            "",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\20\65\1\64\11\65\3\uffff\2\40\1\uffff\4\65\1\62"+
+            "\13\65\1\64\11\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\1\66\2\uffff\2\40\1\uffff\1\40\1\uffff\13"+
+            "\40\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1"+
+            "\40\1\uffff\1\40",
+            "\1\67\34\uffff\32\70\4\uffff\1\71\1\uffff\32\70\5\uffff\uff7e"+
+            "\72",
+            "",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\20\65\1\74\11\65\3\uffff\2\40\1\uffff\20\65\1"+
+            "\74\3\65\1\75\5\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\76\31\65\1\uffff"+
+            "\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\5\65\1\77\6\65\1\100"+
+            "\15\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\13\65\1\101\13\65\1"+
+            "\102\2\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\7\65\1\104\11\65\1"+
+            "\103\10\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\105\31\65\1\uffff"+
+            "\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\1\107\7\65\1\106\13"+
+            "\65\1\110\5\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\4\65\1\111\25\65\1"+
+            "\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\20\65\1\74\11\65\3\uffff\2\40\1\uffff\20\65\1"+
+            "\74\11\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\20\65\1\64\11\65\3\uffff\2\40\1\uffff\20\65\1"+
+            "\64\11\65\1\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\22\65\1\112\7\65\1"+
+            "\uffff\1\40\1\uffff\1\40",
+            "\1\40\2\uffff\3\40\3\uffff\2\40\1\uffff\1\40\1\uffff\13\40"+
+            "\5\uffff\2\40\32\65\3\uffff\2\40\1\uffff\32\65\1\uffff\1\40"+
+            "\1\uffff\1\40",
+            "\1\115\2\uffff\3\115\3\uffff\2\115\1\uffff\1\115\1\uffff\13"+
+            "\115\5\uffff\34\115\3\uffff\2\115\1\uffff\32\115\1\113\1\115"+
+            "\1\uffff\1\115",
+            "",
+            "\1\117\1\116",
+            "\1\121",
+            "\1\123",
+            "\1\125",
+            "\1\126",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\26\65\1\155\3"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\1\66\2\uffff\2\124\1\uffff\1\124\1\uffff"+
+            "\13\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "\1\161\13\uffff\12\162\7\uffff\32\157\4\uffff\1\160\1\uffff"+
+            "\32\157\5\uffff\uff7e\72",
+            "\1\161\13\uffff\12\162\7\uffff\32\157\4\uffff\1\160\1\uffff"+
+            "\32\157\5\uffff\uff7e\72",
+            "",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\13\65\1\163\16\65\3\uffff\2\124\1\uffff\13"+
+            "\65\1\163\16\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\17\65\1\164\12"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\21\65\1\165\10"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\17\65\1\167\12"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\22\65\1\170\7"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\10\65\1\171\21"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\24\65\1\173\3"+
+            "\65\1\172\1\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\10\65\1\175\10"+
+            "\65\1\174\10\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\23\65\1\176\6"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\15\65\1\177\14"+
+            "\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\13\65\1\u0080"+
+            "\16\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\15\65\1\u0081"+
+            "\14\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\23\65\1\u0082"+
+            "\6\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "\1\uffff",
+            "",
+            "",
+            "\1\u0084",
+            "",
+            "",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "\1\u0088",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\152\2\uffff\1\151\1\142\1\144\3\uffff\1\145\1\136\1\uffff"+
+            "\1\137\1\uffff\1\146\12\154\5\uffff\1\153\1\141\32\135\3\uffff"+
+            "\1\143\1\147\1\uffff\32\135\1\uffff\1\150\1\uffff\1\140",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\uffff",
+            "\1\161\13\uffff\12\162\7\uffff\32\157\4\uffff\1\160\1\uffff"+
+            "\32\157\5\uffff\uff7e\72",
+            "\1\161\13\uffff\12\162\7\uffff\32\157\4\uffff\1\160\1\uffff"+
+            "\32\157\5\uffff\uff7e\72",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\34\124\3\uffff\2\124\1\uffff\32\124\1\uffff\1\124"+
+            "\1\uffff\1\124",
+            "\1\161\13\uffff\12\162\7\uffff\32\157\4\uffff\1\160\1\uffff"+
+            "\32\157\5\uffff\uff7e\72",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\4\65\1\u008c"+
+            "\25\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\16\65\1\u008e"+
+            "\13\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\4\65\1\u008f"+
+            "\25\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\23\65\1\u0090"+
+            "\6\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\4\65\1\u0092"+
+            "\25\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\16\65\1\u0093"+
+            "\13\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\22\65\1\u0094"+
+            "\7\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\2\65\1\u0095"+
+            "\27\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\1\u0096\31\65"+
+            "\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\22\65\1\u0097"+
+            "\7\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\24\65\1\u0099"+
+            "\5\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\21\65\1\u009a"+
+            "\10\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\21\65\1\u009b"+
+            "\10\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\26\65\1\u009f"+
+            "\3\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\7\65\1\u00a1"+
+            "\22\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\13\65\1\u00a2"+
+            "\16\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\4\65\1\u00a3"+
+            "\25\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\21\65\1\u00a4"+
+            "\10\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\23\65\1\u00a6"+
+            "\6\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\13\65\1\u00a9"+
+            "\16\65\1\uffff\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\15\65\1\u00ab"+
+            "\14\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\30\65\1\u00ad"+
+            "\1\65\1\uffff\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            "\1\124\2\uffff\3\124\3\uffff\2\124\1\uffff\1\124\1\uffff\13"+
+            "\124\5\uffff\2\124\32\65\3\uffff\2\124\1\uffff\32\65\1\uffff"+
+            "\1\124\1\uffff\1\124",
+            "",
+            ""
+    };
+
+    static final short[] DFA13_eot = DFA.unpackEncodedString(DFA13_eotS);
+    static final short[] DFA13_eof = DFA.unpackEncodedString(DFA13_eofS);
+    static final char[] DFA13_min = DFA.unpackEncodedStringToUnsignedChars(DFA13_minS);
+    static final char[] DFA13_max = DFA.unpackEncodedStringToUnsignedChars(DFA13_maxS);
+    static final short[] DFA13_accept = DFA.unpackEncodedString(DFA13_acceptS);
+    static final short[] DFA13_special = DFA.unpackEncodedString(DFA13_specialS);
+    static final short[][] DFA13_transition;
+
+    static {
+        int numStates = DFA13_transitionS.length;
+        DFA13_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA13_transition[i] = DFA.unpackEncodedString(DFA13_transitionS[i]);
+        }
+    }
+
+    class DFA13 extends DFA {
+
+        public DFA13(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 13;
+            this.eot = DFA13_eot;
+            this.eof = DFA13_eof;
+            this.min = DFA13_min;
+            this.max = DFA13_max;
+            this.accept = DFA13_accept;
+            this.special = DFA13_special;
+            this.transition = DFA13_transition;
+        }
+        public String getDescription() {
             return "1:1: Tokens : ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | INT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
@@ -2833,118 +3360,330 @@ public class SQLScriptLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA10_92 = input.LA(1);
+                        int LA13_0 = input.LA(1);
 
                          
-                        int index10_92 = input.index();
+                        int index13_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_92=='$') ) {s = 93;}
+                        if ( (LA13_0=='/') ) {s = 1;}
 
-                        else if ( ((LA10_92>='0' && LA10_92<='9')||(LA10_92>='A' && LA10_92<='Z')||LA10_92=='_'||(LA10_92>='a' && LA10_92<='z')) ) {s = 92;}
+                        else if ( (LA13_0=='-') ) {s = 2;}
 
-                        else if ( ((LA10_92>='\u0080' && LA10_92<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
+                        else if ( (LA13_0=='\'') ) {s = 3;}
 
-                        else s = 32;
+                        else if ( (LA13_0=='\"') ) {s = 4;}
+
+                        else if ( (LA13_0=='`') ) {s = 5;}
+
+                        else if ( (LA13_0=='n') ) {s = 6;}
+
+                        else if ( (LA13_0=='Q'||LA13_0=='q') ) {s = 7;}
+
+                        else if ( (LA13_0=='$') ) {s = 8;}
+
+                        else if ( ((LA13_0>='0' && LA13_0<='9')) ) {s = 9;}
+
+                        else if ( (LA13_0=='s') ) {s = 10;}
+
+                        else if ( (LA13_0=='v') ) {s = 11;}
+
+                        else if ( (LA13_0=='i') ) {s = 12;}
+
+                        else if ( (LA13_0=='e') ) {s = 13;}
+
+                        else if ( (LA13_0=='t') ) {s = 14;}
+
+                        else if ( (LA13_0=='c') ) {s = 15;}
+
+                        else if ( (LA13_0=='f') ) {s = 16;}
+
+                        else if ( (LA13_0=='r') ) {s = 17;}
+
+                        else if ( (LA13_0=='S') ) {s = 18;}
+
+                        else if ( (LA13_0=='N') ) {s = 19;}
+
+                        else if ( (LA13_0=='a') ) {s = 20;}
+
+                        else if ( ((LA13_0>='A' && LA13_0<='M')||(LA13_0>='O' && LA13_0<='P')||LA13_0=='R'||(LA13_0>='T' && LA13_0<='Z')||LA13_0=='b'||LA13_0=='d'||(LA13_0>='g' && LA13_0<='h')||(LA13_0>='j' && LA13_0<='m')||(LA13_0>='o' && LA13_0<='p')||LA13_0=='u'||(LA13_0>='w' && LA13_0<='z')) ) {s = 21;}
+
+                        else if ( (LA13_0=='@') && (((!allowAtSignInIdentifier)||(allowAtSignInIdentifier)||(allowEmbeddedVariables)))) {s = 22;}
+
+                        else if ( (LA13_0=='\\') ) {s = 23;}
+
+                        else if ( (LA13_0=='=') ) {s = 24;}
+
+                        else if ( (LA13_0==':') ) {s = 25;}
+
+                        else if ( (LA13_0=='&') ) {s = 26;}
+
+                        else if ( (LA13_0=='|') ) {s = 27;}
+
+                        else if ( (LA13_0=='!') ) {s = 28;}
+
+                        else if ( (LA13_0=='*') ) {s = 29;}
+
+                        else if ( (LA13_0=='%') ) {s = 30;}
+
+                        else if ( (LA13_0=='+') ) {s = 31;}
+
+                        else if ( ((LA13_0>='^' && LA13_0<='_')||LA13_0=='~') ) {s = 32;}
+
+                        else if ( (LA13_0=='(') ) {s = 33;}
+
+                        else if ( (LA13_0==')') ) {s = 34;}
+
+                        else if ( (LA13_0=='{') ) {s = 35;}
+
+                        else if ( (LA13_0=='}') ) {s = 36;}
+
+                        else if ( (LA13_0=='[') ) {s = 37;}
+
+                        else if ( (LA13_0==']') ) {s = 38;}
+
+                        else if ( (LA13_0=='?') ) {s = 39;}
+
+                        else if ( (LA13_0=='.') ) {s = 40;}
+
+                        else if ( (LA13_0==',') ) {s = 41;}
+
+                        else if ( (LA13_0=='#'||LA13_0=='<'||LA13_0=='>') ) {s = 42;}
+
+                        else if ( (LA13_0==';') ) {s = 43;}
+
+                        else if ( (LA13_0=='\t'||(LA13_0>='\f' && LA13_0<='\r')||LA13_0==' ') ) {s = 44;}
+
+                        else if ( (LA13_0=='\n') ) {s = 45;}
 
                          
-                        input.seek(index10_92);
+                        input.seek(index13_0);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA10_7 = input.LA(1);
+                        int LA13_56 = input.LA(1);
 
                          
-                        int index10_7 = input.index();
+                        int index13_56 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_7=='\'') && ((allowQQuote))) {s = 54;}
+                        if ( ((LA13_56>='A' && LA13_56<='Z')||(LA13_56>='a' && LA13_56<='z')) ) {s = 111;}
 
-                        else if ( ((LA10_7>='A' && LA10_7<='Z')||(LA10_7>='a' && LA10_7<='z')) ) {s = 53;}
+                        else if ( (LA13_56=='_') ) {s = 112;}
 
-                        else if ( (LA10_7=='!'||(LA10_7>='$' && LA10_7<='&')||(LA10_7>='*' && LA10_7<='+')||LA10_7=='-'||(LA10_7>='/' && LA10_7<='9')||(LA10_7>='?' && LA10_7<='@')||(LA10_7>='^' && LA10_7<='_')||LA10_7=='|'||LA10_7=='~') ) {s = 32;}
+                        else if ( (LA13_56=='$') ) {s = 113;}
 
-                        else s = 51;
+                        else if ( ((LA13_56>='0' && LA13_56<='9')) ) {s = 114;}
+
+                        else if ( ((LA13_56>='\u0080' && LA13_56<='\uFFFD')) && ((allowDollarQuote))) {s = 58;}
+
+                        else s = 84;
 
                          
-                        input.seek(index10_7);
+                        input.seek(index13_56);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA10_52 = input.LA(1);
+                        int LA13_8 = input.LA(1);
 
                          
-                        int index10_52 = input.index();
+                        int index13_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA10_52=='\'') && ((allowQQuote))) {s = 54;}
+                        if ( (LA13_8=='$') ) {s = 55;}
 
-                        else if ( ((LA10_52>='A' && LA10_52<='Z')||(LA10_52>='a' && LA10_52<='z')) ) {s = 53;}
+                        else if ( ((LA13_8>='A' && LA13_8<='Z')||(LA13_8>='a' && LA13_8<='z')) ) {s = 56;}
 
-                        else if ( (LA10_52=='!'||(LA10_52>='$' && LA10_52<='&')||(LA10_52>='*' && LA10_52<='+')||LA10_52=='-'||(LA10_52>='/' && LA10_52<='9')||(LA10_52>='?' && LA10_52<='@')||(LA10_52>='^' && LA10_52<='_')||LA10_52=='|'||LA10_52=='~') ) {s = 32;}
+                        else if ( (LA13_8=='_') ) {s = 57;}
+
+                        else if ( ((LA13_8>='\u0080' && LA13_8<='\uFFFD')) && ((allowDollarQuote))) {s = 58;}
+
+                        else s = 32;
+
+                         
+                        input.seek(index13_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA13_114 = input.LA(1);
+
+                         
+                        int index13_114 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA13_114=='$') ) {s = 113;}
+
+                        else if ( ((LA13_114>='A' && LA13_114<='Z')||(LA13_114>='a' && LA13_114<='z')) ) {s = 111;}
+
+                        else if ( (LA13_114=='_') ) {s = 112;}
+
+                        else if ( ((LA13_114>='0' && LA13_114<='9')) ) {s = 114;}
+
+                        else if ( ((LA13_114>='\u0080' && LA13_114<='\uFFFD')) && ((allowDollarQuote))) {s = 58;}
+
+                        else s = 84;
+
+                         
+                        input.seek(index13_114);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA13_52 = input.LA(1);
+
+                         
+                        int index13_52 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA13_52=='\'') && ((allowQQuote))) {s = 54;}
+
+                        else if ( ((LA13_52>='A' && LA13_52<='Z')||(LA13_52>='a' && LA13_52<='z')) ) {s = 53;}
+
+                        else if ( (LA13_52=='!'||(LA13_52>='$' && LA13_52<='&')||(LA13_52>='*' && LA13_52<='+')||LA13_52=='-'||(LA13_52>='/' && LA13_52<='9')||(LA13_52>='?' && LA13_52<='@')||(LA13_52>='^' && LA13_52<='_')||LA13_52=='|'||LA13_52=='~') ) {s = 84;}
 
                         else s = 51;
 
                          
-                        input.seek(index10_52);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA10_8 = input.LA(1);
-
-                         
-                        int index10_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA10_8=='$') ) {s = 55;}
-
-                        else if ( ((LA10_8>='A' && LA10_8<='Z')||LA10_8=='_'||(LA10_8>='a' && LA10_8<='z')) ) {s = 56;}
-
-                        else if ( ((LA10_8>='\u0080' && LA10_8<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
-
-                        else s = 32;
-
-                         
-                        input.seek(index10_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA10_91 = input.LA(1);
-
-                         
-                        int index10_91 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((allowDollarQuote)) ) {s = 57;}
-
-                        else if ( (true) ) {s = 32;}
-
-                         
-                        input.seek(index10_91);
+                        input.seek(index13_52);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA10_56 = input.LA(1);
+                        int LA13_112 = input.LA(1);
 
                          
-                        int index10_56 = input.index();
+                        int index13_112 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA10_56>='0' && LA10_56<='9')||(LA10_56>='A' && LA10_56<='Z')||LA10_56=='_'||(LA10_56>='a' && LA10_56<='z')) ) {s = 92;}
+                        if ( (LA13_112=='$') ) {s = 113;}
 
-                        else if ( (LA10_56=='$') ) {s = 93;}
+                        else if ( ((LA13_112>='A' && LA13_112<='Z')||(LA13_112>='a' && LA13_112<='z')) ) {s = 111;}
 
-                        else if ( ((LA10_56>='\u0080' && LA10_56<='\uFFFD')) && ((allowDollarQuote))) {s = 57;}
+                        else if ( (LA13_112=='_') ) {s = 112;}
 
-                        else s = 32;
+                        else if ( ((LA13_112>='0' && LA13_112<='9')) ) {s = 114;}
+
+                        else if ( ((LA13_112>='\u0080' && LA13_112<='\uFFFD')) && ((allowDollarQuote))) {s = 58;}
+
+                        else s = 84;
 
                          
-                        input.seek(index10_56);
+                        input.seek(index13_112);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA13_22 = input.LA(1);
+
+                         
+                        int index13_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA13_22=='{') && ((allowEmbeddedVariables))) {s = 75;}
+
+                        else if ( (LA13_22=='!'||(LA13_22>='$' && LA13_22<='&')||(LA13_22>='*' && LA13_22<='+')||LA13_22=='-'||(LA13_22>='/' && LA13_22<='9')||(LA13_22>='?' && LA13_22<='Z')||(LA13_22>='^' && LA13_22<='_')||(LA13_22>='a' && LA13_22<='z')||LA13_22=='|'||LA13_22=='~') && ((allowAtSignInIdentifier))) {s = 77;}
+
+                        else s = 76;
+
+                         
+                        input.seek(index13_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA13_111 = input.LA(1);
+
+                         
+                        int index13_111 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA13_111>='A' && LA13_111<='Z')||(LA13_111>='a' && LA13_111<='z')) ) {s = 111;}
+
+                        else if ( (LA13_111=='_') ) {s = 112;}
+
+                        else if ( (LA13_111=='$') ) {s = 113;}
+
+                        else if ( ((LA13_111>='0' && LA13_111<='9')) ) {s = 114;}
+
+                        else if ( ((LA13_111>='\u0080' && LA13_111<='\uFFFD')) && ((allowDollarQuote))) {s = 58;}
+
+                        else s = 84;
+
+                         
+                        input.seek(index13_111);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA13_76 = input.LA(1);
+
+                         
+                        int index13_76 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((allowAtSignInIdentifier)) ) {s = 84;}
+
+                        else if ( ((!allowAtSignInIdentifier)) ) {s = 42;}
+
+                         
+                        input.seek(index13_76);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA13_110 = input.LA(1);
+
+                         
+                        int index13_110 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((allowDollarQuote)) ) {s = 58;}
+
+                        else if ( (true) ) {s = 84;}
+
+                         
+                        input.seek(index13_110);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA13_7 = input.LA(1);
+
+                         
+                        int index13_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA13_7=='\'') && ((allowQQuote))) {s = 54;}
+
+                        else if ( ((LA13_7>='A' && LA13_7<='Z')||(LA13_7>='a' && LA13_7<='z')) ) {s = 53;}
+
+                        else if ( (LA13_7=='!'||(LA13_7>='$' && LA13_7<='&')||(LA13_7>='*' && LA13_7<='+')||LA13_7=='-'||(LA13_7>='/' && LA13_7<='9')||(LA13_7>='?' && LA13_7<='@')||(LA13_7>='^' && LA13_7<='_')||LA13_7=='|'||LA13_7=='~') ) {s = 32;}
+
+                        else s = 51;
+
+                         
+                        input.seek(index13_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA13_57 = input.LA(1);
+
+                         
+                        int index13_57 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA13_57>='A' && LA13_57<='Z')||(LA13_57>='a' && LA13_57<='z')) ) {s = 111;}
+
+                        else if ( (LA13_57=='_') ) {s = 112;}
+
+                        else if ( (LA13_57=='$') ) {s = 113;}
+
+                        else if ( ((LA13_57>='0' && LA13_57<='9')) ) {s = 114;}
+
+                        else if ( ((LA13_57>='\u0080' && LA13_57<='\uFFFD')) && ((allowDollarQuote))) {s = 58;}
+
+                        else s = 84;
+
+                         
+                        input.seek(index13_57);
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 10, _s, input);
+                new NoViableAltException(getDescription(), 13, _s, input);
             error(nvae);
             throw nvae;
         }

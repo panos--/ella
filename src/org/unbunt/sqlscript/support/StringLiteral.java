@@ -4,16 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StringLiteral {
-    protected String delim;
+    protected String startDelim;
+    protected String endDelim;
     protected List<Object> parts;
 
-    public StringLiteral(String delim) {
-        parts = new LinkedList<Object>();
-        this.delim = delim;
-    }
-
-    public StringLiteral(String delim, List<Object> parts) {
-        this.delim = delim;
+    public StringLiteral(String startDelim, String endDelim, List<Object> parts) {
+        this.startDelim = startDelim;
+        this.endDelim = endDelim;
         this.parts = parts;
     }
 
@@ -30,16 +27,24 @@ public class StringLiteral {
     }
 
     public String getDelim() {
-        return delim;
+        return startDelim;
+    }
+
+    public String getStartDelim() {
+        return startDelim;
+    }
+
+    public String getEndDelim() {
+        return endDelim;
     }
 
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append(delim);
+        buf.append(startDelim);
         for (Object part : parts) {
             buf.append(part.toString());
         }
-        buf.append(delim);
+        buf.append(startDelim);
         return buf.toString();
     }
 }

@@ -93,6 +93,8 @@ tokens {
 	protected char qQuoteDelim;
 	protected String dollarQuoteDelim = null;
 	
+	protected boolean allowEmbeddedVariables = true;
+
 	// the following two methods allow us to inject an additional token
 	// into the stream, namely the EOF_TOKEN used to tell the parser it
 	// should stop parsing
@@ -181,6 +183,14 @@ tokens {
 			emit(Token.EOF_TOKEN);
 		}
 	}
+
+	protected void setAllowEmbeddedVariables(boolean allow) {
+		this.allowEmbeddedVariables = allow;
+	}
+
+	protected boolean isAllowEmbeddedVariables() {
+		return allowEmbeddedVariables;
+	}
 }
 
 string	:	start=SQUOT       { stringType = SQUOT; }   (content1+=singleQuoteContent)* endt=SQUOT		-> ^(STRING STRING_START[$start] $content1* STRING_END[$endt])
@@ -229,14 +239,18 @@ qQuoteEnd returns [ Token token ]
 	;
 
 embeddedVariable
-	:	a1=ATSIGN
+	:	(ATSIGN LCURLY)=>
+		a1=ATSIGN
 		( lc=LCURLY
 		  ( RCURLY		-> STRING_CONTENT[$a1]
 		  | var=VARNAME RCURLY	-> EMBEDDED_VAR[$var]
-		  |			-> STRING_CONTENT[$a1] STRING_CONTENT[$lc]
+		  //|			-> STRING_CONTENT[$a1] STRING_CONTENT[$lc]
 		  )
-		|			-> STRING_CONTENT[$a1]
+		//|			-> STRING_CONTENT[$a1]
 		)
+	|	ATSIGN			-> STRING_CONTENT[$ATSIGN]
+	|	LCURLY			-> STRING_CONTENT[$LCURLY]
+	|	RCURLY			-> STRING_CONTENT[$RCURLY]
 	;
 
 /*
@@ -337,7 +351,7 @@ DOLQUOT_TAG_END
 	|	'0'..'9'
 	;
 
-ATSIGN	:	'@'
+ATSIGN	:	'@' { if (!allowEmbeddedVariables) { $type = CHAR; } }
 	;
 
 LCURLY	:	'{'
