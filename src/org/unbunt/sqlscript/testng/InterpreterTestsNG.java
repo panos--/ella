@@ -261,4 +261,19 @@ public class InterpreterTestsNG extends AbstractTest {
     public void includeFile() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("include-file"));
     }
+
+    @Test
+    public void includeFileClosureUpdate() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file-closure-update"));
+    }
+
+    @Test
+    public void includeFileClosureAfterDynamic() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file-closure-after-dynamic"));
+    }
+
+    @Test
+    public void includeFileDynenv() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file-dynenv"));
+    }
 }

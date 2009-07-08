@@ -7,10 +7,13 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * TODO: negative cache
+ * TODO: Remove caching - there is the CachingVariableResolver for a reason...
  */
 public class DynamicEnv extends AbstractEnv {
     protected DynamicVariableResolver resolver;
+    protected WritableVariableResolver writableResolver;
+    protected boolean writable;
+
     protected Map<String, Obj> vars = new HashMap<String, Obj>();
     protected int boundaryAddress;
 
@@ -18,6 +21,10 @@ public class DynamicEnv extends AbstractEnv {
         super(parent);
         this.resolver = resolver;
         this.boundaryAddress = parent.getMaxAddress();
+        if (resolver instanceof WritableVariableResolver) {
+            writable = true;
+            writableResolver = (WritableVariableResolver) resolver;
+        }
     }
 
     public void setContext(Obj context) {
@@ -44,26 +51,28 @@ public class DynamicEnv extends AbstractEnv {
         if (!var.implicit && addr < 0x10000 && addr > boundaryAddress) {
             return parent.get(var, addr);
         }
-        String name = var.name;
-        Obj value = vars.get(name);
-        if (value != null) {
-            return value;
-        }
-        value = resolver.resolve(var);
+        Obj value = resolver.resolve(var);
         return value != null ? value : parent.get(var, addr);
     }
 
-    public Obj get(String name) {
-        Obj value = vars.get(name);
-        if (value != null) {
-            return value;
-        }
-        value = resolver.resolve(name);
-        return value != null ? value : parent.get(name);
-    }
-
     public void set(Variable var, int addr, Obj value) {
-        parent.set(var, addr, value);
+        boolean handle = true;
+        if (!writable) {
+            handle = false;
+        }
+        else if (!var.implicit && addr < 0x10000 && addr > boundaryAddress) {
+            handle = false;
+        }
+        else if (resolver.resolve(var) == null) {
+            handle = false;
+        }
+
+        if (handle) {
+            writableResolver.update(var, value);
+        }
+        else {
+            parent.set(var, addr, value);
+        }
     }
 
     public void add(Variable var, Obj value) {

@@ -88,7 +88,7 @@ public class Sys extends PlainObj {
                 SQLScriptWalker walker = new SQLScriptWalker(nodes);
                 try {
                     Scope currentScope = ctx.getEnv().toScope();
-                    block = walker.parseIncremental(currentScope);
+                    block = walker.parseIncremental(new Scope(currentScope));
                     TailCallOptimizer.process(block);
                 } catch (RecognitionException e) {
                     throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
@@ -104,29 +104,66 @@ public class Sys extends PlainObj {
                 throw new SQLScriptRuntimeException(e);
             }
 
+            // TODO: Remember replaced env and only restore if unchanged
+            // TODO: (to account for already handled Closure returns)
+            Env savedEnv = null;
+            StaticSearchableEnv installedEnv = null;
             try {
                 ctx.setScriptFilename(includedScript.getFilename());
                 ctx.setScriptResource(includedScript);
+
+                savedEnv = engine.getEnv();
+                installedEnv = new StaticSearchableEnv(savedEnv);
+
+                engine.setEnv(installedEnv);
                 return engine.invokeBlock(block);
             } finally {
                 // Restore script information
                 ctx.setScriptFilename(includingScriptName);
                 ctx.setScriptResource(includingScript);
 
-                // Install dynamic environment
-                final Env parentEnv = engine.getEnv();
-                DynamicEnv newEnv = new DynamicEnv(parentEnv, new CachingVariableResolver(
-                        new DynamicVariableResolver() {
+                Env newEnv = engine.getEnv();
+
+                if (installedEnv != null) {
+                    final StaticSearchableEnv searchEnv = installedEnv;
+                    Env dynamicEnv;
+                    if (newEnv != installedEnv) {
+                        // a dynamic env must have been installed, which we have to search
+                        final Env lookupEnv = newEnv;
+                        dynamicEnv = new DynamicEnv(savedEnv, new WritableVariableResolver() {
                             public Obj resolve(Variable var) {
-                                return parentEnv.get(var.name);
+                                searchEnv.setStopHere(true);
+                                try {
+                                    Obj value = lookupEnv.get(var);
+                                    if (value != null) {
+                                        return value;
+                                    }
+                                    return searchEnv.findLocal(var.name);
+                                } finally {
+                                    searchEnv.setStopHere(false);
+                                }
                             }
 
-                            public Obj resolve(String name) {
-                                return parentEnv.get(name);
+                            public void update(Variable var, Obj value) {
+                                searchEnv.putLocal(var.name, value);
                             }
-                        }
-                ));
-                engine.setEnv(newEnv);
+                        });
+                    }
+                    else {
+                        dynamicEnv = new DynamicEnv(savedEnv, new WritableVariableResolver() {
+                            public Obj resolve(Variable var) {
+                                return searchEnv.findLocal(var.name);
+                            }
+
+                            public void update(Variable var, Obj value) {
+                                searchEnv.putLocal(var.name, value);
+                            }
+                        });
+                    }
+
+                    engine.setEnv(dynamicEnv);
+                }
+
             }
         }
     };
@@ -141,16 +178,6 @@ public class Sys extends PlainObj {
                             Class cls;
                             try {
                                 cls = loader.loadClass(pkgPrefix + var.name);
-                            } catch (ClassNotFoundException e) {
-                                return null;
-                            }
-                            return new JClass(cls);
-                        }
-
-                        public Obj resolve(String name) {
-                            Class cls;
-                            try {
-                                cls = loader.loadClass(pkgPrefix + name);
                             } catch (ClassNotFoundException e) {
                                 return null;
                             }

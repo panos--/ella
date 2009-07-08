@@ -35,10 +35,6 @@ public class TopEnv implements Env {
         return value;
     }
 
-    public Obj get(String name) {
-        return undefValue;
-    }
-
     public void set(Variable var, Obj value) {
         set(var, var.address, value);
     }

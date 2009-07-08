@@ -5,7 +5,7 @@ import org.unbunt.sqlscript.lang.Obj;
 import java.util.Map;
 import java.util.HashMap;
 
-public class CachingVariableResolver implements DynamicVariableResolver {
+public class CachingVariableResolver implements WritableVariableResolver {
     protected final DynamicVariableResolver realResolver;
 
     protected final Map<String, Obj> cache = new HashMap<String, Obj>();
@@ -15,18 +15,19 @@ public class CachingVariableResolver implements DynamicVariableResolver {
     }
 
     public Obj resolve(Variable var) {
-        return resolve(var.name);
-    }
-
-    public Obj resolve(String name) {
+        String name = var.name;
         Obj value = cache.get(name);
         if (value != null) {
             return value;
         }
-        value = realResolver.resolve(name);
+        value = realResolver.resolve(var);
         if (value != null) {
             cache.put(name, value);
         }
         return value;
+    }
+
+    public void update(Variable var, Obj value) {
+        cache.put(var.name, value);
     }
 }

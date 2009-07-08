@@ -47,16 +47,6 @@ public class StaticEnv extends AbstractEnv {
         return values.get(addr);
     }
 
-    public Obj get(String name) {
-        int nvars = vars.size();
-        for (int i = 0; i < nvars; i++) {
-            if (name.equals(vars.get(i).name)) {
-                return values.get(i);
-            }
-        }
-        return parent.get(name);
-    }
-
     public void set(Variable var, int addr, Obj value) {
         if (addr > 0xFFFF) {
             parent.set(var, addr - 0x10000, value);

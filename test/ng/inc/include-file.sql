@@ -1,3 +1,5 @@
-.print('in included file');
+if (outer != 'outer') {
+	throw 'outer var not available in included script';
+}
 
-var foo := 'this is foo!';
+var inner := 'inner';

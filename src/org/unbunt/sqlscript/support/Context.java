@@ -94,10 +94,6 @@ public class Context implements SQLResultProvider {
             public Obj resolve(Variable var) {
                 return ObjUtils.getSlot(ctx, receiver, var.nameStr);
             }
-
-            public Obj resolve(String name) {
-                return ObjUtils.getSlot(ctx, receiver, new Str(name));
-            }
         };
         MainEnv mainEnv = new MainEnv(objNull, globalResolver);
 
