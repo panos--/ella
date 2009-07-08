@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Test(groups = { "parser" })
-public class ParserTestsNG {
+public class ParserTestsNG extends AbstractTest {
     /*
      * NOTE: The following three string tests will fail if the string literal isn't parsed as such because of the
      * NOTE: embedded unbalanced parens.
@@ -153,4 +153,8 @@ public class ParserTestsNG {
         assertEquals(result.getParameters(), expectedParams);
     }
 
+    @Test
+    public void sqlLiteralLookAheadDiscard() throws SQLScriptIOException, SQLScriptParseException {
+        compile(file("sql-literal-look-ahead-discard"));
+    }
 }

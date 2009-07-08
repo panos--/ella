@@ -93,10 +93,7 @@ tokens {
 	import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
 }
 
-// stop on first parser error
-@parser::members {
-	//public static final int WHITESPACE_CHANNEL = 42;
-	
+@parser::members {	
 	protected boolean eof = false;
 	
 	protected boolean parseSQLParams = false;
@@ -134,15 +131,18 @@ tokens {
 		stringType = parseModeStack.pop();
 	}
 
+	// stop on first parser error
 	@Override
 	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
-		//System.out.println("recovering from mismatched set" + e.getMessage());
 		throw e;
 	}
 	
+	// stop on first parser error
 	@Override
 	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
 		if (((TokenStream)input).LT(1).getType() == EOF) {
+			// throw specific exception to allow special consideration of the situation
+			// required for incremental and interactive mode
 			throw new UnexpectedEOFException(ttype, input);
 		}
 		throw new MismatchedTokenException(ttype, input);
@@ -159,26 +159,18 @@ tokens {
 		CharStream chars = lexer.getCharStream();
 		int lastStringStartMarker = lexer.getLastStringStartMarker();
 
-		// rewind input to string start
-		chars.rewind(lastStringStartMarker);
-
 		// call string parser to handle the string
 		SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
-		//CommonTokenStream strTokens = new CommonTokenStream(strLexer);
-		//SQLScriptStringParser strParser = new SQLScriptStringParser(strTokens);
 		tokens.replaceTokenSource(strLexer);
 		SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
 		
+		// rewind input to string start
+		chars.rewind(lastStringStartMarker);
+
 		SQLScriptStringParser.string_return result = strParser.string();
 		
 		// remember generated tree, emit() uses it later on to attach it to the current token
 		CommonTree tree = (CommonTree)result.getTree();
-		//setCurrentStringTree(tree);
-		//System.out.println(tree.toStringTree());
-		
-		// closing string delimiter kept on input, must consume explicitly
-		// TODO: investigate reason, see {S,D,BT}QUOT rules in string lexer
-		//chars.consume();
 		
 		// set our lexer as token source in the token stream again
 		tokens.replaceTokenSource(lexer);
@@ -195,8 +187,8 @@ tokens {
 }
 
 @rulecatch {
+	// stop on first parser error
 	catch (RecognitionException e) {
-		//System.out.println("caught RecognitionException: " + e.getMessage());
 		throw e;
 	}
 }
@@ -669,7 +661,7 @@ sqlStmtName
  * Therefore whitespace occurring directly after the introducer word has to be collected manually
  * via the sqlHiddenWS rule.
  *
- * TODO: Leave comments embedded in the statement intact (at in oracle these can hold meta information
+ * TODO: Leave comments embedded in the statement intact (at least in oracle these can hold meta information
  *       relevant to the statement. Currently comments are kept intact only in the whitespace after
  *       the introducer word.
  */
@@ -699,6 +691,11 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	lexer.setAllowQQuote(false);
 	lexer.setAllowDollarQuote(false);
 	lexer.setEscapeSeparators(false);
+
+	// since we have modified the lexer behaviour we discard any tokens which might have been
+	// generated as look-ahead since these could possible be interpreted differently with the
+	// changed lexer settings
+	tokens.discardLookAhead();
 }
 	:	// NOTE: EOF token required for named parameter parsing where separators are not generated
 		sqlHiddenWS sqlPart* EOF? -> ^(SQL

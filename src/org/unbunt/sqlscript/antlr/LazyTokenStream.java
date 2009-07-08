@@ -5,7 +5,6 @@ import org.apache.commons.collections.list.CursorableLinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.unbunt.sqlscript.utils.ExtendedCursorableLinkedList;
-import org.unbunt.sqlscript.SQLScriptStringLexer;
 
 import java.util.*;
 
@@ -39,7 +38,6 @@ public class LazyTokenStream implements TokenStream {
     protected Token[] lbCache = new Token[11];
 
     protected CharStream inputStream;
-    protected LinkedList<Integer> inputOffsets;
 
     protected List<ExtendedCursorableLinkedList.Cursor> markers = new ArrayList<ExtendedCursorableLinkedList.Cursor>();
 
@@ -47,6 +45,7 @@ public class LazyTokenStream implements TokenStream {
     }
 
     public LazyTokenStream(TokenSource tokenSource) {
+        this();
         setTokenSource(tokenSource);
     }
 
@@ -148,21 +147,13 @@ public class LazyTokenStream implements TokenStream {
     }
 
     public void consume() {
-        int n = skipOffChannelTokens(posCursor);
+        skipOffChannelTokens(posCursor);
         if (posCursor.hasNext()) {
             posCursor.next();
-            n++;
         }
 
         ltCacheIdx = 0;
         lbCacheIdx = 0;
-
-        if (inputStream != null) {
-            while (n > 0 && !inputOffsets.isEmpty()) {
-                inputOffsets.removeFirst();
-                n--;
-            }
-        }
 
         if (markers.isEmpty()) {
             discardLookBack();
@@ -231,10 +222,6 @@ public class LazyTokenStream implements TokenStream {
             i--;
             if (cursor.hasNext()) {
                 continue;
-            }
-
-            if (inputStream != null) {
-                inputOffsets.addLast(inputStream.index());
             }
 
             Token token = tokenSource.nextToken();
@@ -437,6 +424,9 @@ public class LazyTokenStream implements TokenStream {
     }
 
     public void setTokenSource(TokenSource tokenSource) {
+        if (trace) {
+            logger.trace("setTokenSource: " + tokenSource);
+        }
         this.tokenSource = tokenSource;
         pos = -1;
         read = 0;
@@ -444,18 +434,27 @@ public class LazyTokenStream implements TokenStream {
         channel = Token.DEFAULT_CHANNEL;
         tokens.clear();
         setPosCursor(tokens.cursor());
-        initInputTracking();
+        updateInputStreamFromTokenSource();
+    }
+
+    protected void updateInputStreamFromTokenSource() {
+        if (tokenSource instanceof Lexer) {
+            inputStream = ((Lexer)tokenSource).getCharStream();
+        }
     }
 
     public TokenSource replaceTokenSource(TokenSource tokenSource) {
+        if (trace) {
+            logger.trace("replaceTokenSource: " + tokenSource);
+        }
         TokenSource oldTokenSource = this.tokenSource;
         this.tokenSource = tokenSource;
         discardLookAhead();
-        initInputTracking();
+        updateInputStreamFromTokenSource();
         return oldTokenSource;
     }
 
-    protected void discardLookAhead() {
+    public void discardLookAhead() {
         if (trace) {
             logger.trace("discarding look-ahead");
         }
@@ -464,7 +463,22 @@ public class LazyTokenStream implements TokenStream {
 
         int i = 0;
         while (cursor.hasNext()) {
-            cursor.next();
+            if (i == 0) {
+                // Try to seek input stream back to the starting position of the first look-ahead token.
+                // Can be done only if the tokens starting offset in the stream is known. For now we rely
+                // on CommonToken to provide this information and just skip the seek if the token type
+                // is not CommonToken.
+                try {
+                    CommonToken token = (CommonToken) cursor.next();
+                    if (inputStream != null) {
+                        inputStream.seek(token.getStartIndex());
+                    }
+                } catch (ClassCastException ignored) {
+                }
+            }
+            else {
+                cursor.next();
+            }
             cursor.remove();
             i++;
             read--;
@@ -473,10 +487,6 @@ public class LazyTokenStream implements TokenStream {
         cursor.close();
 
         ltCacheIdx = 0;
-
-        if (inputStream != null && !inputOffsets.isEmpty()) {
-            inputStream.seek(inputOffsets.getFirst());
-        }
 
         if (trace) {
             logger.trace("discarded " + i + " tokens look-ahead - ntokens now: " + tokens.size());
@@ -494,23 +504,19 @@ public class LazyTokenStream implements TokenStream {
             cursor.previous();
         }
 
+        int n = 0;
         while (cursor.hasPrevious()) {
             cursor.previous();
             cursor.remove();
-            discarded++;
+            n++;
         }
 
         cursor.close();
 
+        discarded += n;
+
         // TODO: has look-back cache to be reset?
         //lbCacheIdx = 0;
-    }
-
-    protected void initInputTracking() {
-        // FIXME: Check for interface, not concrete class!
-        inputStream = tokenSource instanceof SQLScriptStringLexer
-                      ? ((SQLScriptStringLexer) tokenSource).getCharStream() : null;
-        inputOffsets = new LinkedList<Integer>();
     }
 
     public void setTokenTypeChannel(int ttype, int channel) {
@@ -549,5 +555,4 @@ public class LazyTokenStream implements TokenStream {
     public String toString(Token start, Token stop) {
         throw new UnsupportedOperationException();
     }
-
 }

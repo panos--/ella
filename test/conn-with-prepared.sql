@@ -1,6 +1,6 @@
 .Conn.withPrepared { =>
-	var ins := (sql insert into test (val) values (?));
-	var sel := (sql select * from test where id = :id);
+	var ins := sql insert into test (val) values (?);
+	var sel := sql select * from test where id = :id;
 
 	var id;
 	id = ins.with('foo1').key();

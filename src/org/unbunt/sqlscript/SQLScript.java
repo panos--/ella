@@ -518,6 +518,13 @@ public class SQLScript extends VolatileObservable implements Observer {
         return interp.execute();
     }
 
+    public static Block compile(File script) throws SQLScriptIOException, SQLScriptParseException {
+        SQLScriptContext ctx = new DefaultSQLScriptContext();
+        SimpleResource res = new FilesystemResource(script);
+        SQLScript interp = new SQLScript(ctx, res);
+        return interp.compile();        
+    }
+
     public static Block compile(String script) throws SQLScriptIOException, SQLScriptParseException {
         SQLScriptContext ctx = new DefaultSQLScriptContext();
         SimpleResource res = new StringResource(script);
