@@ -61,6 +61,8 @@ public class Str extends AbstractObj {
     public static final Str SYM_print = toSym("print");
     public static final Str SYM_raise = toSym("raise");
     public static final Str SYM_resultSet = toSym("resultSet");
+    public static final Str SYM_scriptName = toSym("scriptName");
+    public static final Str SYM_scriptResource = toSym("scriptResource");
     public static final Str SYM_set = toSym("set");
     public static final Str SYM_throw = toSym("throw");
     public static final Str SYM_to = toSym("to");

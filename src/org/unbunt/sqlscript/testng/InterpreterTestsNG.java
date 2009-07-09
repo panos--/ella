@@ -276,4 +276,19 @@ public class InterpreterTestsNG extends AbstractTest {
     public void includeFileDynenv() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("include-file-dynenv"));
     }
+
+    @Test
+    public void includeFileClosureTerminated() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file-closure-terminated"));
+    }
+
+    @Test
+    public void includeFileNested() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file-nested"));
+    }
+
+    @Test
+    public void includeFileNestedResource() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("include-file-nested-resource"));
+    }
 }

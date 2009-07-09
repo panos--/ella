@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.antlr.runtime.RecognitionException;
-import org.unbunt.sqlscript.SQLParamParser;
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.ParserHelper;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
@@ -267,7 +267,7 @@ public class Stmt extends PlainObj {
 
         RawParamedSQL paramedStmt;
         try {
-            paramedStmt = SQLParamParser.parse(rawStatement);
+            paramedStmt = ParserHelper.parseParamedSQLLiteral(rawStatement);
         } catch (RecognitionException e) {
             throw new SQLScriptRuntimeException("Failed to parse SQL statement: " +
                                                 rawStatement.getStatement(), e);

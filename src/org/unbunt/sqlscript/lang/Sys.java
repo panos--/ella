@@ -1,15 +1,7 @@
 package org.unbunt.sqlscript.lang;
 
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.TokenStream;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.unbunt.sqlscript.ParserHelper;
 import org.unbunt.sqlscript.SQLScriptEngine;
-import org.unbunt.sqlscript.SQLScriptLexer;
-import org.unbunt.sqlscript.SQLScriptParser;
-import org.unbunt.sqlscript.SQLScriptWalker;
-import org.unbunt.sqlscript.antlr.LazyInputStream;
-import org.unbunt.sqlscript.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.*;
@@ -40,67 +32,11 @@ public class Sys extends PlainObj {
                                                     e.getMessage(), e);
             }
 
+            Scope parseScope = new Scope(ctx.getEnv().toScope());
             Block block;
             try {
-                LazyInputStream input;
-                try {
-                    input = new LazyInputStream(includedScript.getInputStream());
-                } catch (Exception e) {
-                    throw new SQLScriptIOException("Failed to read sql script: " + filename + ": " +
-                                                        e.getMessage(), e);
-                }
-
-                SQLScriptLexer lexer = new SQLScriptLexer(input);
-                TokenStream tokens = new LazyTokenStream(lexer);
-
-                SQLScriptParser parser;
-                try {
-                    parser = new SQLScriptParser(tokens);
-                } catch (RuntimeRecognitionException re) {
-                    RecognitionException e = (RecognitionException) re.getCause();
-                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
-                                                        lexer.getErrorHeader(e) + " " +
-                                                        lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                                        e);
-                }
-
-                SQLScriptParser.script_return r;
-                try {
-                    r = parser.script();
-                } catch (RecognitionException e) {
-                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
-                                                      parser.getErrorHeader(e) + " " +
-                                                      parser.getErrorMessage(e, parser.getTokenNames()),
-                                                      e);
-                } catch (RuntimeRecognitionException re) {
-                    RecognitionException e = (RecognitionException) re.getCause();
-                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
-                                                        lexer.getErrorHeader(e) + " " +
-                                                        lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                                        e);
-                }
-
-                CommonTree tree = (CommonTree) r.getTree();
-
-                CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
-                nodes.setTokenStream(tokens);
-
-                SQLScriptWalker walker = new SQLScriptWalker(nodes);
-                try {
-                    Scope currentScope = ctx.getEnv().toScope();
-                    block = walker.parseIncremental(new Scope(currentScope));
-                    TailCallOptimizer.process(block);
-                } catch (RecognitionException e) {
-                    throw new SQLScriptParseException("Failed to parse sql script: " + filename + ": " +
-                                                      walker.getErrorHeader(e) + " " +
-                                                      walker.getErrorMessage(e, walker.getTokenNames()),
-                                                      e);
-                } catch (RuntimeException e) {
-                    throw new SQLScriptRuntimeException(e.getMessage(), e);
-                }
-            } catch (SQLScriptIOException e) {
-                throw new SQLScriptRuntimeException(e);
-            } catch (SQLScriptParseException e) {
+                block = ParserHelper.parseScript(parseScope, includedScript);
+            } catch (GenericParseException e) {
                 throw new SQLScriptRuntimeException(e);
             }
 
@@ -117,16 +53,22 @@ public class Sys extends PlainObj {
 
                 engine.setEnv(installedEnv);
                 return engine.invokeBlock(block);
+            } catch (ClosureTerminatedException e) {
+                // on closure return currently the environment will already have been restored
+                // therefore we must not alter this restored environment. we indicate this
+                // by making the include file's environment unavailable.
+                // XXX: What about other ControlFlowExceptions (Loop{Break,Continue}Exception)?
+                installedEnv = null;
+                throw e;
             } finally {
                 // Restore script information
                 ctx.setScriptFilename(includingScriptName);
                 ctx.setScriptResource(includingScript);
 
-                Env newEnv = engine.getEnv();
-
                 if (installedEnv != null) {
-                    final StaticSearchableEnv searchEnv = installedEnv;
                     Env dynamicEnv;
+                    Env newEnv = engine.getEnv();
+                    final StaticSearchableEnv searchEnv = installedEnv;
                     if (newEnv != installedEnv) {
                         // a dynamic env must have been installed, which we have to search
                         final Env lookupEnv = newEnv;
@@ -283,6 +225,18 @@ public class Sys extends PlainObj {
         }
     };
 
+    protected static final NativeCall nativeScriptName = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            return new Str(engine.getContext().getScriptFilename());
+        }
+    };
+
+    protected static final NativeCall nativeScriptResource = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            return new JObject(engine.getContext().getScriptResource());
+        }
+    };
+
     protected static final NativeCall nativeNoop = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjNull();
@@ -315,6 +269,8 @@ public class Sys extends PlainObj {
         slots.put(Str.SYM_tryCatch, nativeTryCatch);
         slots.put(Str.SYM_tryCatchFinally, nativeTryCatchFinally);
         slots.put(Str.SYM_tryFinally, nativeTryFinally);
+        slots.put(Str.SYM_scriptName, nativeScriptName);
+        slots.put(Str.SYM_scriptResource, nativeScriptResource);
         slots.put(Str.SYM_noop, nativeNoop);
     }
 }

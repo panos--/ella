@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-07-08 17:36:17
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptString.g 2009-07-09 10:22:50
 
 	package org.unbunt.sqlscript;
 	
@@ -882,9 +882,9 @@ public class SQLScriptStringLexer extends Lexer {
                         int index2_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA2_3>='0' && LA2_3<='9')||(LA2_3>='A' && LA2_3<='Z')||LA2_3=='_'||(LA2_3>='a' && LA2_3<='z')||(LA2_3>='\u0080' && LA2_3<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 4;}
+                        if ( ((LA2_3>='0' && LA2_3<='9')||(LA2_3>='A' && LA2_3<='Z')||LA2_3=='_'||(LA2_3>='a' && LA2_3<='z')||(LA2_3>='\u0080' && LA2_3<='\uFFFF')) && (((atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 4;}
 
-                        else if ( (LA2_3=='$') && ((((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 5;}
+                        else if ( (LA2_3=='$') && (((atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 5;}
 
                          
                         input.seek(index2_3);
@@ -899,7 +899,7 @@ public class SQLScriptStringLexer extends Lexer {
                         s = -1;
                         if ( (LA2_1=='$') ) {s = 2;}
 
-                        else if ( ((LA2_1>='A' && LA2_1<='Z')||LA2_1=='_'||(LA2_1>='a' && LA2_1<='z')||(LA2_1>='\u0080' && LA2_1<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 3;}
+                        else if ( ((LA2_1>='A' && LA2_1<='Z')||LA2_1=='_'||(LA2_1>='a' && LA2_1<='z')||(LA2_1>='\u0080' && LA2_1<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 3;}
 
                          
                         input.seek(index2_1);
