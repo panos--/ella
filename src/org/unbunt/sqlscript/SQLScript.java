@@ -37,7 +37,6 @@ import java.util.Observer;
 
 public class SQLScript extends VolatileObservable implements Observer {
     protected Context context;
-    protected SQLScriptContext sqlScriptContext;
     protected SimpleResource script;
     protected String scriptName;
 
@@ -52,20 +51,17 @@ public class SQLScript extends VolatileObservable implements Observer {
     protected SQLScriptEngine engine = null;
     protected Block block; // the parsed script to be run by the engine
 
-    public SQLScript(SQLScriptContext sqlScriptContext, SimpleResource script) {
-        this(new Context(), sqlScriptContext, script);
+    public SQLScript(SimpleResource script) {
+        this(new Context(), script);
     }
 
-    public SQLScript(Context context, SQLScriptContext sqlScriptContext, SimpleResource script) {
+    public SQLScript(Context context, SimpleResource script) {
         this.context = context;
-        this.sqlScriptContext = sqlScriptContext;
         this.script = script;
         this.scriptName = script.getFilename();
 
         context.setScriptFilename(script.getFilename());
         context.setScriptResource(script);
-
-        sqlScriptContext.setScript(script);
     }
 
     protected boolean interactiveCancel = false;
@@ -476,12 +472,7 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected void initEngine() {
-        if (sqlScriptContext == null) {
-            throw new RuntimeException("Internal error: No script context provided"); // should not be reached
-        }
-
-//        engine = new SQLScriptEngine(context);
-        engine = SQLScriptEngine.create(context, sqlScriptContext);
+        engine = SQLScriptEngine.create(context);
         engine.addObserver(this);
     }
 
@@ -505,9 +496,8 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected static Object eval(File script, Context context) throws SQLScriptIOException, SQLScriptParseException {
-        SQLScriptContext ctx = new DefaultSQLScriptContext();
         SimpleResource res = new FilesystemResource(script);
-        SQLScript interp = new SQLScript(context, ctx, res);
+        SQLScript interp = new SQLScript(context, res);
         return interp.execute();
     }
 
@@ -516,23 +506,20 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected static Object eval(String script, Context context) throws SQLScriptIOException, SQLScriptParseException {
-        SQLScriptContext ctx = new DefaultSQLScriptContext();
         SimpleResource res = new StringResource(script);
-        SQLScript interp = new SQLScript(context, ctx, res);
+        SQLScript interp = new SQLScript(context, res);
         return interp.execute();
     }
 
     public static Block compile(File script) throws SQLScriptIOException, SQLScriptParseException {
-        SQLScriptContext ctx = new DefaultSQLScriptContext();
         SimpleResource res = new FilesystemResource(script);
-        SQLScript interp = new SQLScript(ctx, res);
+        SQLScript interp = new SQLScript(res);
         return interp.compile();
     }
 
     public static Block compile(String script) throws SQLScriptIOException, SQLScriptParseException {
-        SQLScriptContext ctx = new DefaultSQLScriptContext();
         SimpleResource res = new StringResource(script);
-        SQLScript interp = new SQLScript(ctx, res);
+        SQLScript interp = new SQLScript(res);
         return interp.compile();
     }
 
@@ -624,9 +611,6 @@ public class SQLScript extends VolatileObservable implements Observer {
             }
         }
 
-        DefaultSQLScriptContext ctx = new DefaultSQLScriptContext();
-        ctx.setDataSource(ds);
-
         try {
             FilesystemResourceLoader loader = new FilesystemResourceLoader();
             SimpleResource script = file == null ? loader.getStdinResource() : loader.getResource(file);
@@ -637,14 +621,13 @@ public class SQLScript extends VolatileObservable implements Observer {
             }
             context.addSQLResultListener(new SimpleSQLResultListener(System.out));
 
-            SQLScript interp = new SQLScript(context, ctx, script);
+            SQLScript interp = new SQLScript(context, script);
             if (pargs.compile) {
                 interp.compile();
             }
             else {
                 if (pargs.verbose) {
-                    // TODO: Replace functionality
-//                    interp.addObserver(new ScriptObserver());
+                    // TODO: Provide functionality
                 }
                 if (pargs.interactive) {
                     interp.executeInteractive();
@@ -711,39 +694,4 @@ public class SQLScript extends VolatileObservable implements Observer {
         @Argument
         public List<String> args = new ArrayList<String>();
     }
-
-    /*
-    protected static class ScriptObserver implements Observer {
-        public void update(Observable o, Object arg) {
-            if (arg instanceof SQLScriptEngine.EvalCommandState) {
-                SQLScriptEngine.EvalCommandState state = (SQLScriptEngine.EvalCommandState) arg;
-                if (SQLScriptEngine.CommandState.STARTING.equals(state.state)) {
-                    String title = null;
-                    if (state.command.isAnnotationPresent(DescriptionAnnotation.class)) {
-                        DescriptionAnnotation desc = state.command.getAnnotation(DescriptionAnnotation.class);
-                        title = desc.getTitle();
-                    }
-                    System.err.println("Command: " + (title == null ? state.command : title));
-                }
-                else if (SQLScriptEngine.CommandState.PROGRESSED.equals(state.state) && state.progessMsg != null) {
-                    System.err.println(state.progessMsg);
-                }
-            }
-            else if (arg instanceof SQLScriptEngine.SQLStatementState) {
-                SQLScriptEngine.SQLStatementState state = (SQLScriptEngine.SQLStatementState) arg;
-                if (SQLScriptEngine.CommandState.STARTING.equals(state.state)) {
-                    String title = null;
-                    if (state.statement.isAnnotationPresent(DescriptionAnnotation.class)) {
-                        DescriptionAnnotation desc = state.statement.getAnnotation(DescriptionAnnotation.class);
-                        title = desc.getTitle();
-                    }
-                    System.err.println("Statement: " + (title == null ? state.queryString : title));
-                }
-            }
-            else {
-                // ignoring unknown notification object
-            }
-        }
-    }
-    */
 }

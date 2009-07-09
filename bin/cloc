@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ohcount `ohcount -d | grep -v 'SQLScript\(String\)*\(Lexer\|Parser\|Walker\)\.java' | grep -v test-output | awk '{print $2}'`

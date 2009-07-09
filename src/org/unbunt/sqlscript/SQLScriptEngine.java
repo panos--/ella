@@ -3,7 +3,10 @@ package org.unbunt.sqlscript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.unbunt.sqlscript.continuations.*;
-import org.unbunt.sqlscript.exception.*;
+import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.exception.LoopContinueException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.RawSQL;
@@ -13,12 +16,8 @@ import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.sqlscript.utils.StringUtils;
 import org.unbunt.utils.VolatileObservable;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class SQLScriptEngine
         extends VolatileObservable
@@ -28,20 +27,18 @@ public class SQLScriptEngine
 
     protected Log logger = LogFactory.getLog(getClass());
 
-    protected SQLScriptContext sqlScriptContext;
     protected Context context;
     protected boolean finished = false;
 
     public static final Str STR_SLOT_PARENT = Str.SYM_parent;
     public static final Str STR_SLOT_INIT = Str.SYM_init;
 
-    public SQLScriptEngine(Context context, SQLScriptContext sqlScriptContext) {
+    public SQLScriptEngine(Context context) {
         this.context = context;
-        this.sqlScriptContext = sqlScriptContext;
     }
 
-    public static SQLScriptEngine create(Context context, SQLScriptContext sqlScriptContext) {
-        return new SQLScriptEngine(context, sqlScriptContext);
+    public static SQLScriptEngine create(Context context) {
+        return new SQLScriptEngine(context);
     }
 
     protected Statement stmt;
@@ -1259,51 +1256,7 @@ public class SQLScriptEngine
     protected void finish() throws SQLScriptRuntimeException {
         logger.debug("Finishing");
 
-        if (!(sqlScriptContext instanceof SQLScriptChildContext)) {
-            Map<String, Connection> conns = sqlScriptContext.getConnections();
-            DBConnectionCloseFailedException ex = null;
-            for (Connection connection : conns.values()) {
-                if (connection == null) {
-                    continue;
-                }
-
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    ex = new DBConnectionCloseFailedException("Closing connection failed: " + e.getMessage(), e);
-                }
-            }
-
-            if (ex != null) {
-                throw ex;
-            }
-        }
-    }
-
-    protected void connect() throws SQLScriptRuntimeException {
-        if (sqlScriptContext.getConnection() != null) {
-            return;
-        }
-
-        DataSource ds = sqlScriptContext.getDataSource();
-        if (ds == null) {
-            throw new NoDataSourceException();
-        }
-
-        try {
-            Connection conn = ds.getConnection();
-            sqlScriptContext.setConnection(conn);
-        } catch (SQLException e) {
-//            throw new DBConnectionFailedException(e);
-        }
-    }
-
-    public SQLScriptContext getSqlScriptContext() {
-        return sqlScriptContext;
-    }
-
-    public void setSqlScriptContext(SQLScriptContext sqlScriptContext) {
-        this.sqlScriptContext = sqlScriptContext;
+        // TODO: close connections in ConnMgr
     }
 
     public boolean isFinished() {
