@@ -30,13 +30,13 @@ public class Context implements SQLResultProvider {
      * Values are the associated prototype objects.
      */
 //    protected Map<Integer, Obj> objectProtos = new HashMap<Integer, Obj>();
-    protected Obj[] objectProtos = new Obj[32];
+    protected Obj[] objectProtos = new Obj[64];
 
     /**
      * Maps object id's to instances. Used as object registry.
      */
 //    protected Map<Integer, Obj> objects = new HashMap<Integer, Obj>();
-    protected Obj[] objects = new Obj[32];
+    protected Obj[] objects = new Obj[64];
 
     protected Object[] args;
 
@@ -63,6 +63,10 @@ public class Context implements SQLResultProvider {
         Base.registerInContext(this);
         Args.registerInContext(this);
         Int.registerInContext(this);
+        Num.registerInContext(this);
+        BigNum.registerInContext(this);
+        Real.registerInContext(this);
+        BigReal.registerInContext(this);
         Sys.registerInContext(this);
         Bool.registerInContext(this);
         Clos.registerInContext(this);
@@ -104,6 +108,10 @@ public class Context implements SQLResultProvider {
         mainEnv.add("Obj", ensureObject(Base.OBJECT_ID));
         mainEnv.add("Str", ensureObject(Str.StrProto.OBJECT_ID));
         mainEnv.add("Int", ensureObject(Int.IntProto.OBJECT_ID));
+        mainEnv.add("Num", ensureObject(Num.NumProto.OBJECT_ID));
+        mainEnv.add("BigNum", ensureObject(BigNum.BigNumProto.OBJECT_ID));
+        mainEnv.add("Real", ensureObject(Real.RealProto.OBJECT_ID));
+        mainEnv.add("BigReal", ensureObject(BigReal.BigRealProto.OBJECT_ID));
         mainEnv.add("Bool", ensureObject(Bool.BoolProto.OBJECT_ID));
         mainEnv.add("true", objTrue);
         mainEnv.add("false", objFalse);
@@ -254,6 +262,7 @@ public class Context implements SQLResultProvider {
     public void setScriptResource(SimpleResource scriptResource) {
         this.scriptResource = scriptResource;
     }
+
     /*
      * SQL Result listener support
      */
