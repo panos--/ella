@@ -1,23 +1,24 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.antlr.runtime.RecognitionException;
-import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.ParserHelper;
+import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.exception.LoopContinueException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.support.RawParamedSQL;
-import org.unbunt.sqlscript.support.NativeWrapper;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 public class Stmt extends PlainObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -201,18 +202,68 @@ public class Stmt extends PlainObj {
             for (Map.Entry<String, Obj> entry : namedParams.entrySet()) {
                 List<Integer> indices = paramIndices.get(entry.getKey());
                 for (Integer index : indices) {
-                    // TODO: Handle Null type hint
-                    preparedStatement.setObject(index, entry.getValue().toJavaObject());
+                    setParam(index, entry.getValue());
                 }
             }
         }
         else {
             int nparams = params.length;
             for (int i = 0; i < nparams; i++) {
-                // TODO: Handle Null type hint
-                preparedStatement.setObject(i + 1, params[i].toJavaObject());
+                setParam(i + 1, params[i]);
             }
         }
+    }
+
+    /**
+     * Sets the given parameter on the current prepared statement.
+     * Make use of type hint on null values.
+     *
+     * TODO: The mapping needs some work. Also we will possibly need a way of letting the user specify the type
+     *       explicitly.
+     *
+     * @param idx index of the parameter to set
+     * @param wrappedParam value of the parameter to set in it's wrapped form, will be unwrapped to it's host object
+     * @throws SQLException possible exception thrown by the underlying statement object
+     */
+    protected void setParam(int idx, Obj wrappedParam) throws SQLException {
+        Object param = wrappedParam.toJavaObject();
+        Class<?> typeHint;
+        if (param != null || !(wrappedParam instanceof Null) || (typeHint = ((Null) wrappedParam).typeHint) == null) {
+            preparedStatement.setObject(idx, param);
+            return;
+        }
+
+        int type;
+        if (typeHint.isAssignableFrom(Byte.class))
+            type = Types.TINYINT;
+        else if (typeHint.isAssignableFrom(Short.class))
+            type = Types.SMALLINT;
+        else if (typeHint.isAssignableFrom(Integer.class))
+            type = Types.INTEGER;
+        else if (typeHint.isAssignableFrom(Long.class))
+            type = Types.BIGINT;
+        else if (typeHint.isAssignableFrom(Float.class))
+            type = Types.REAL;
+        else if (typeHint.isAssignableFrom(Double.class))
+            type = Types.DOUBLE;
+        else if (typeHint.isAssignableFrom(BigDecimal.class))
+            type = Types.DECIMAL;
+        else if (typeHint.isAssignableFrom(Boolean.class))
+            type = Types.BIT;
+        else if (typeHint.isAssignableFrom(String.class))
+            type = Types.VARCHAR;
+        else if (typeHint.isAssignableFrom(Date.class))
+            type = Types.TIMESTAMP;
+        else if (typeHint.isAssignableFrom(Time.class))
+            type = Types.TIME;
+        else if (typeHint.isAssignableFrom(Timestamp.class))
+            type = Types.TIMESTAMP;
+        else {
+            preparedStatement.setObject(idx, param);
+            return;
+        }
+
+        preparedStatement.setNull(idx, type);
     }
 
     protected void setRawParamedStmt(RawParamedSQL stmt) {

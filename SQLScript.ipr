@@ -436,6 +436,7 @@
         <root url="jar:///home/panos/java-lib/junit-4.6-src.jar!/" />
         <root url="file:///home/panos/java-lib/testng-5.9/src/main" />
         <root url="file:///home/panos/java-lib/testng-5.9/src/jdk15" />
+        <root url="file:///home/panos/java-lib/postgresql-jdbc-8.3-605.src" />
       </SOURCES>
       <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
     </library>
