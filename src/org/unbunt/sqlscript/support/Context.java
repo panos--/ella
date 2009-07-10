@@ -70,6 +70,7 @@ public class Context implements SQLResultProvider {
         Bool.registerInContext(this);
         Clos.registerInContext(this);
         Func.registerInContext(this);
+        JMethod.registerInContext(this);
         JArray.registerInContext(this);
         JClass.registerInContext(this);
         ConnMgr.registerInContext(this);

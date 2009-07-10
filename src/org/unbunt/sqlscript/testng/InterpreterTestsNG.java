@@ -332,4 +332,9 @@ public class InterpreterTestsNG extends AbstractTest {
     public void numDoubleSpecials() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("num-double-specials"));
     }
+
+    @Test
+    public void hostIntegrationMethodSelect() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("host-integration-method-select"));
+    }
 }

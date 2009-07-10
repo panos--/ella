@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.lang.sql;
 
-import org.unbunt.sqlscript.support.SQLParseMode;
-import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.support.SQLParseMode;
 
 import java.util.Map;
 
@@ -43,7 +43,7 @@ public class RawSQL implements Obj {
         return null;
     }
 
-    public Map<Obj, Obj> getSlots() {
+    public Map<Obj,Obj> getSlots() {
         return null;
     }
 

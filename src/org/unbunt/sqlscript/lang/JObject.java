@@ -83,7 +83,8 @@ public class JObject extends PlainObj {
         Method setter = ReflectionUtils.findMatchingMethod(methods, propStr,
                                                            new Class[] {
                                                                    jvalue == null ? null : jvalue.getClass()
-                                                           });
+                                                           },
+                                                           new Object[] { jvalue });
         if (setter != null) {
             try {
                 Object result = setter.invoke(value, jvalue);

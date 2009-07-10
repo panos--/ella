@@ -2,8 +2,8 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.support.Context;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractObj implements Obj {
     protected Map<Obj, Obj> slots = new HashMap<Obj, Obj>();
@@ -29,7 +29,7 @@ public abstract class AbstractObj implements Obj {
         return slots.get(key);
     }
 
-    public Map<Obj, Obj> getSlots() {
+    public Map<Obj,Obj> getSlots() {
         return slots;
     }
 

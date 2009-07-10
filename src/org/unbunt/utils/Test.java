@@ -3,11 +3,8 @@ package org.unbunt.utils;
 //import fr.umlv.jmmf.reflect.MultiMethod;
 //import fr.umlv.jmmf.reflect.MultipleMethodsException;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Array;
-
-import org.unbunt.sqlscript.utils.ReflectionUtils;
+import java.lang.reflect.Method;
 
 public class Test {
     public void test(long l) {
@@ -105,7 +102,7 @@ public class Test {
         Object intArrayObj = intArray;
 
         if (intArrayObj.getClass().isArray()) {
-            System.out.println("is array: " + intArrayObj.getClass().getComponentType());
+//            System.out.println("is array: " + intArrayObj.getClass().getComponentType());
         }
         else {
             System.out.println("is not array");
@@ -114,7 +111,7 @@ public class Test {
 
         Integer integer = 12;
         Number num = Number.class.cast(integer);
-        System.out.println("integer: " + integer + "; num: " + num);
+//        System.out.println("integer: " + integer + "; num: " + num);
         Method[] methods = t.getClass().getMethods();
 //        for (Method method : methods) {
 //            if ("testLong".equals(method.getName())) {
@@ -123,13 +120,13 @@ public class Test {
 //        }
 
         byte b = 12;
-        Method m = ReflectionUtils.findMatchingMethod(methods, "test", ReflectionUtils.getArgTypes(new Object[] {l}));
-        if (m == null) {
-            System.out.println("no meth found or meths ambiguous");
-            return;
-        }
-        System.out.println("found method: " + m);
-        invokeTest(m);
+//        Method m = ReflectionUtils.findMatchingMethod(methods, "test", ReflectionUtils.getArgTypes(new Object[] {l}));
+//        if (m == null) {
+//            System.out.println("no meth found or meths ambiguous");
+//            return;
+//        }
+//        System.out.println("found method: " + m);
+//        invokeTest(m);
 
         /*
         MultiMethod mm = MultiMethod.create(Test.class, "test", 1);

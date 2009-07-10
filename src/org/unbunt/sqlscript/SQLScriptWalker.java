@@ -2,26 +2,20 @@
 
 	package org.unbunt.sqlscript;
 
-	import java.util.Observer;
-	import java.util.LinkedList;
-	import java.util.List;
-	import java.util.ArrayList;
-	import java.util.Map;
-	import java.util.HashMap;
+	import org.antlr.runtime.*;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.TreeNodeStream;
+import org.antlr.runtime.tree.TreeParser;
+import org.antlr.runtime.tree.TreeRuleReturnScope;
+import org.unbunt.sqlscript.antlr.SQLModeToken;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.UnexpectedEOFException;
+import org.unbunt.sqlscript.statement.*;
+import org.unbunt.sqlscript.support.*;
 
-	import org.unbunt.sqlscript.antlr.*;
-	import org.unbunt.sqlscript.lang.*;
-	import org.unbunt.sqlscript.statement.*;
-	import org.unbunt.sqlscript.support.*;
-	import org.unbunt.sqlscript.exception.*;
-
-
-import org.antlr.runtime.*;
-import org.antlr.runtime.tree.*;import java.util.Stack;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Stack;
 public class SQLScriptWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "EVAL_CMD", "EVAL_ARG", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "ANNOT", "ANNOT_ARG", "PARAM_NAME", "PARAM_VALUE", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "ARG_EXPR", "ARG_TRUE", "ARG_FALSE", "IF", "IF_BLOCK", "ELSE_BLOCK", "TRY", "CATCH", "FINALLY", "THROW", "RETURN", "EXIT", "COND_EXPR", "COND_AND", "COND_OR", "COMP_EQ", "NOT", "TRUE", "FALSE", "OBJ", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "INT", "FLOAT", "SEP", "KW_SQL", "KW_VAR", "OP_DEFINE", "EQUALS", "COMMA", "KW_FUN", "LPAREN", "RPAREN", "DOUBLE_ARROW", "DOT", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "QUESTION", "COLON", "OP_OR", "OP_AND", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "EXCLAM", "LSQUARE", "RSQUARE", "KW_THIS", "KW_SUPER", "KW_NEW", "WORD", "WS", "NL", "SQL_SPECIAL_CHAR", "BACKSLASH", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DDOLLAR", "DOLLAR", "DIGIT", "EXPONENT", "NUMBER", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL"
@@ -192,9 +186,9 @@ public class SQLScriptWalker extends TreeParser {
         }
         public SQLScriptWalker(TreeNodeStream input, RecognizerSharedState state) {
             super(input, state);
-             
+
         }
-        
+
 
     public String[] getTokenNames() { return SQLScriptWalker.tokenNames; }
     public String getGrammarFileName() { return "/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g"; }
@@ -202,7 +196,7 @@ public class SQLScriptWalker extends TreeParser {
 
     	protected final static int POS_RHS = 1;
     	protected final static int POS_LHS = 2;
-    	
+
     	/**
     	 * Public entry point for named parameter parsing in sql statements.
     	 */
@@ -220,7 +214,7 @@ public class SQLScriptWalker extends TreeParser {
     		//System.out.println("recovering from mismatched set" + e.getMessage());
     		throw e;
     	}
-    	
+
     	@Override
     	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
     		CommonTree tree = (CommonTree) ((TreeNodeStream) input).LT(1);
@@ -244,11 +238,11 @@ public class SQLScriptWalker extends TreeParser {
     	public Block parse(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
     		return script(scope);
     	}
-    	
+
     	public Block parseIncremental(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
     		return scriptIncremental(scope);
     	}
-    	
+
     	protected boolean verbose = false;
 
     	private void print(String msg) {
@@ -257,11 +251,11 @@ public class SQLScriptWalker extends TreeParser {
     		}
     		System.out.println(msg);
     	}
-    	
+
     	public static String extractString(String s) {
     		return s.substring(1, s.length() - 1).replace("''", "'");
     	}
-    	
+
     	/*
     	 * Helper methods for building commonly used expressions
     	 */
@@ -274,11 +268,11 @@ public class SQLScriptWalker extends TreeParser {
     		}
     		return slotCallExpression;
     	}
-    	
+
     	protected SlotCallExpression createSlotCall(String receiver, String slot, Expression... args) {
     		return createSlotCall(new VariableExpression(getVariable(receiver)), new IdentifierExpression(slot), args);
     	}
-    	
+
     	protected Variable getVariable(String name) {
     		return ((Scope_scope)Scope_stack.peek()).scope.getVariable(name);
     	}
@@ -377,7 +371,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = script1; 
+               value = script1;
             }
 
             }
@@ -472,7 +466,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(blk); 
+               ((Block_scope)Block_stack.peek()).block.addStatement(blk);
             }
 
             }
@@ -508,7 +502,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(blk); 
+               ((Block_scope)Block_stack.peek()).block.addStatement(blk);
             }
 
             }
@@ -536,7 +530,7 @@ public class SQLScriptWalker extends TreeParser {
         Block blk = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:173:2: (blk= unscopedBlockStmt )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:173:4: blk= unscopedBlockStmt
@@ -547,7 +541,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               blk.setScoped(true); value = blk; 
+               blk.setScoped(true); value = blk;
             }
 
             }
@@ -812,7 +806,7 @@ public class SQLScriptWalker extends TreeParser {
 
         Statement value = null;
 
-         ((Block_scope)Block_stack.peek()).block = new IfStatement(); value = ((Block_scope)Block_stack.peek()).block; 
+         ((Block_scope)Block_stack.peek()).block = new IfStatement(); value = ((Block_scope)Block_stack.peek()).block;
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:238:2: ( ^( IF scriptIf ( scriptElse )? ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:238:4: ^( IF scriptIf ( scriptElse )? )
@@ -853,7 +847,7 @@ public class SQLScriptWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.elementAt(Block_stack.size()-1-1)).block.addStatement(value); 
+               ((Block_scope)Block_stack.elementAt(Block_stack.size()-1-1)).block.addStatement(value);
             }
         }
 
@@ -880,7 +874,7 @@ public class SQLScriptWalker extends TreeParser {
         Expression expr = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:244:2: (expr= expression unscopedBlock )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:244:4: expr= expression unscopedBlock
@@ -896,7 +890,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(expr); 
+               ((Block_scope)Block_stack.peek()).block.addStatement(expr);
             }
 
             }
@@ -954,7 +948,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = elseIf; 
+                       value = elseIf;
                     }
 
                     }
@@ -968,7 +962,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = elseBlock; 
+                       value = elseBlock;
                     }
 
                     }
@@ -1013,7 +1007,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new TryStatement(blk); 
+               value = new TryStatement(blk);
             }
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:254:67: (cat= scriptCatch (fin= scriptFinally )? | fin= scriptFinally )
             int alt8=2;
@@ -1042,7 +1036,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setCatchClause(cat); 
+                       value.setCatchClause(cat);
                     }
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:256:4: (fin= scriptFinally )?
                     int alt7=2;
@@ -1061,7 +1055,7 @@ public class SQLScriptWalker extends TreeParser {
                             state._fsp--;
                             if (state.failed) return value;
                             if ( state.backtracking==0 ) {
-                               value.setFinallyClause(fin); 
+                               value.setFinallyClause(fin);
                             }
 
                             }
@@ -1081,7 +1075,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setFinallyClause(fin); 
+                       value.setFinallyClause(fin);
                     }
 
                     }
@@ -1095,7 +1089,7 @@ public class SQLScriptWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(value); 
+               ((Block_scope)Block_stack.peek()).block.addStatement(value);
             }
         }
 
@@ -1122,7 +1116,7 @@ public class SQLScriptWalker extends TreeParser {
         Block blk = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:264:2: ( ^( CATCH var= varDef blk= unscopedBlockStmt ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:264:4: ^( CATCH var= varDef blk= unscopedBlockStmt )
@@ -1145,7 +1139,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new CatchStatement(var, blk);
-              		
+
             }
 
             }
@@ -1188,7 +1182,7 @@ public class SQLScriptWalker extends TreeParser {
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new FinallyStatement(blk); 
+               value = new FinallyStatement(blk);
             }
 
             }
@@ -1229,13 +1223,13 @@ public class SQLScriptWalker extends TreeParser {
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new ThrowStatement(expr); 
+               value = new ThrowStatement(expr);
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(value); 
+               ((Block_scope)Block_stack.peek()).block.addStatement(value);
             }
         }
 
@@ -1265,7 +1259,7 @@ public class SQLScriptWalker extends TreeParser {
             match(input,RETURN,FOLLOW_RETURN_in_scriptReturn542); if (state.failed) return value;
 
             if ( state.backtracking==0 ) {
-               value = new ReturnStatement(); 
+               value = new ReturnStatement();
             }
 
             if ( input.LA(1)==Token.DOWN ) {
@@ -1287,7 +1281,7 @@ public class SQLScriptWalker extends TreeParser {
                         state._fsp--;
                         if (state.failed) return value;
                         if ( state.backtracking==0 ) {
-                           value.setExpression(expr); 
+                           value.setExpression(expr);
                         }
 
                         }
@@ -1301,7 +1295,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			((Block_scope)Block_stack.peek()).block.addStatement(value);
-              		
+
             }
 
             }
@@ -1334,7 +1328,7 @@ public class SQLScriptWalker extends TreeParser {
             match(input,EXIT,FOLLOW_EXIT_in_scriptExit573); if (state.failed) return value;
 
             if ( state.backtracking==0 ) {
-               value = new ExitStatement(); 
+               value = new ExitStatement();
             }
 
             if ( input.LA(1)==Token.DOWN ) {
@@ -1356,7 +1350,7 @@ public class SQLScriptWalker extends TreeParser {
                         state._fsp--;
                         if (state.failed) return value;
                         if ( state.backtracking==0 ) {
-                           value.setExpression(expr); 
+                           value.setExpression(expr);
                         }
 
                         }
@@ -1370,7 +1364,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			((Block_scope)Block_stack.peek()).block.addStatement(value);
-              		
+
             }
 
             }
@@ -1435,7 +1429,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = createSlotCall("Sys", "importPackage", new IdentifierExpression(pkg));
-                      		
+
                     }
 
                     }
@@ -1481,7 +1475,7 @@ public class SQLScriptWalker extends TreeParser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:297:33: 
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:297:33:
                             {
                             }
                             break;
@@ -1505,20 +1499,20 @@ public class SQLScriptWalker extends TreeParser {
                       			else {
                       				varName = classAlias;
                       			}
-                      			
+
                       			Variable jclassVar = ((Scope_scope)Scope_stack.peek()).scope.getVariable("JClass");
-                      			
+
                       			List<Expression> newArgs = new ArrayList<Expression>();
                       			newArgs.add(new IdentifierExpression(className));
                       			NewExpression newExpression = new NewExpression(new VariableExpression(jclassVar), newArgs);
-                      			
+
                       			Variable classVar = ((Scope_scope)Scope_stack.peek()).scope.addVariable(varName);
                       			DeclareVariableExpression declareExpression = new DeclareVariableExpression(classVar);
                       			AssignExpression assignExpression = new AssignExpression(classVar, newExpression);
                       			DeclareAndAssignExpression declareAndAssignExpression = new DeclareAndAssignExpression(declareExpression, assignExpression);
-                      			
+
                       			value = declareAndAssignExpression;
-                      		
+
                     }
 
                     }
@@ -1526,7 +1520,7 @@ public class SQLScriptWalker extends TreeParser {
 
             }
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(value); 
+               ((Block_scope)Block_stack.peek()).block.addStatement(value);
             }
         }
 
@@ -1551,7 +1545,7 @@ public class SQLScriptWalker extends TreeParser {
         String id2 = null;
 
 
-         StringBuilder buf = new StringBuilder(); 
+         StringBuilder buf = new StringBuilder();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:327:2: (id1= identifier (id2= identifier )* )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:327:4: id1= identifier (id2= identifier )*
@@ -1562,7 +1556,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               buf.append(id1); 
+               buf.append(id1);
             }
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:328:3: (id2= identifier )*
             loop13:
@@ -1585,7 +1579,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       buf.append(".").append(id2); 
+            	       buf.append(".").append(id2);
             	    }
 
             	    }
@@ -1600,7 +1594,7 @@ public class SQLScriptWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = buf.toString(); 
+               value = buf.toString();
             }
         }
 
@@ -1631,7 +1625,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               if (expr != null) { ((Block_scope)Block_stack.peek()).block.addStatement(expr); } 
+               if (expr != null) { ((Block_scope)Block_stack.peek()).block.addStatement(expr); }
             }
 
             }
@@ -1687,7 +1681,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ex; 
+                       value = ex;
                     }
 
                     }
@@ -1701,7 +1695,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = st; 
+                       value = st;
                     }
 
                     }
@@ -1863,7 +1857,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = fd; 
+                       value = fd;
                     }
 
                     }
@@ -1877,7 +1871,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = bc; 
+                       value = bc;
                     }
 
                     }
@@ -1891,7 +1885,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = da; 
+                       value = da;
                     }
 
                     }
@@ -1905,7 +1899,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = de; 
+                       value = de;
                     }
 
                     }
@@ -1919,7 +1913,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ae; 
+                       value = ae;
                     }
 
                     }
@@ -1933,7 +1927,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ix; 
+                       value = ix;
                     }
 
                     }
@@ -1947,7 +1941,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = cl; 
+                       value = cl;
                     }
 
                     }
@@ -1961,7 +1955,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = cb; 
+                       value = cb;
                     }
 
                     }
@@ -1975,7 +1969,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = tc; 
+                       value = tc;
                     }
 
                     }
@@ -1989,7 +1983,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = oc; 
+                       value = oc;
                     }
 
                     }
@@ -2003,7 +1997,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ac; 
+                       value = ac;
                     }
 
                     }
@@ -2017,7 +2011,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = nexp; 
+                       value = nexp;
                     }
 
                     }
@@ -2031,7 +2025,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = newx; 
+                       value = newx;
                     }
 
                     }
@@ -2045,7 +2039,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = sqlx; 
+                       value = sqlx;
                     }
 
                     }
@@ -2059,7 +2053,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = sexp; 
+                       value = sexp;
                     }
 
                     }
@@ -2122,7 +2116,7 @@ public class SQLScriptWalker extends TreeParser {
                       				function.setName(var.name);
                       				value.setVariable(var);
                       				value.setDeclareVariable(!var.defined);
-                      			
+
                     }
 
                     }
@@ -2163,7 +2157,7 @@ public class SQLScriptWalker extends TreeParser {
         List<Variable> args = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:378:2: ( (args= argumentsDef )? unscopedBlock )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:378:4: (args= argumentsDef )? unscopedBlock
@@ -2185,7 +2179,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       function.setArguments(args); 
+                       function.setArguments(args);
                     }
 
                     }
@@ -2268,7 +2262,7 @@ public class SQLScriptWalker extends TreeParser {
         List<Variable> args = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:395:2: ( (args= argumentsDef )? unscopedBlock )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:395:4: (args= argumentsDef )? unscopedBlock
@@ -2290,7 +2284,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       blockClosure.setArguments(args); 
+                       blockClosure.setArguments(args);
                     }
 
                     }
@@ -2329,7 +2323,7 @@ public class SQLScriptWalker extends TreeParser {
         Variable name = null;
 
 
-         value = new ArrayList<Variable>(10); 
+         value = new ArrayList<Variable>(10);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:402:2: ( ^( ARGS (name= varDef )+ ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:402:4: ^( ARGS (name= varDef )+ )
@@ -2359,7 +2353,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       value.add(name); 
+            	       value.add(name);
             	    }
 
             	    }
@@ -2401,7 +2395,7 @@ public class SQLScriptWalker extends TreeParser {
         Expression expr = null;
 
 
-         value = new ArrayList<Expression>(10); 
+         value = new ArrayList<Expression>(10);
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:408:2: ( ^( ARGS (expr= expression )+ ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:408:4: ^( ARGS (expr= expression )+ )
@@ -2431,7 +2425,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       value.add(expr); 
+            	       value.add(expr);
             	    }
 
             	    }
@@ -2475,7 +2469,7 @@ public class SQLScriptWalker extends TreeParser {
         Expression assign = null;
 
 
-         Expression decl = null; 
+         Expression decl = null;
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:413:2: ( ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:413:4: ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign )
@@ -2489,7 +2483,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               decl = declare; 
+               decl = declare;
             }
             pushFollow(FOLLOW_scriptAssign_in_scriptDeclareAndAssign1134);
             assign=scriptAssign();
@@ -2504,7 +2498,7 @@ public class SQLScriptWalker extends TreeParser {
               				else {
               					value = assign;
               				}
-              			
+
             }
 
             match(input, Token.UP, null); if (state.failed) return value;
@@ -2553,7 +2547,7 @@ public class SQLScriptWalker extends TreeParser {
               			else {
               				value = new DeclareVariableExpression(var);
               			}
-              		
+
             }
 
             match(input, Token.UP, null); if (state.failed) return value;
@@ -2628,7 +2622,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = varExp; 
+                       value = varExp;
                     }
 
                     }
@@ -2642,7 +2636,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = idxExp; 
+                       value = idxExp;
                     }
 
                     }
@@ -2656,7 +2650,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = slotExp; 
+                       value = slotExp;
                     }
 
                     }
@@ -2719,7 +2713,7 @@ public class SQLScriptWalker extends TreeParser {
               			else {
               				value = new AssignExpression(variable, rval);
               			}
-              		
+
             }
 
             }
@@ -2765,7 +2759,7 @@ public class SQLScriptWalker extends TreeParser {
 
               			lval.addArgument(rval);
               			value = lval;
-              		
+
             }
 
             }
@@ -2808,7 +2802,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new SlotSetExpression(lval, rval); 
+               value = new SlotSetExpression(lval, rval);
             }
 
             }
@@ -2844,7 +2838,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp; 
+               value = exp;
             }
 
             }
@@ -2880,7 +2874,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp; 
+               value = exp;
             }
 
             }
@@ -2933,7 +2927,7 @@ public class SQLScriptWalker extends TreeParser {
               			value = new SlotCallExpression(new SlotExpression(receiver, slotExp));
               			value.addArgument(index);
               			//value = pos == POS_RHS ? /* gen "get" */ new NullExpression() : /* gen "set" */ new NullExpression();
-              		
+
             }
 
             }
@@ -2969,7 +2963,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp; 
+               value = exp;
             }
 
             }
@@ -3005,7 +2999,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp; 
+               value = exp;
             }
 
             }
@@ -3088,7 +3082,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = new SlotExpression(receiver, slotName); 
+                       value = new SlotExpression(receiver, slotName);
                     }
 
                     }
@@ -3102,7 +3096,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = new SlotExpression(receiver, slotExpr); 
+                       value = new SlotExpression(receiver, slotExpr);
                     }
 
                     }
@@ -3172,7 +3166,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = slotCall; 
+                       value = slotCall;
                     }
 
                     }
@@ -3186,7 +3180,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = funcCall; 
+                       value = funcCall;
                     }
 
                     }
@@ -3234,7 +3228,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new SlotCallExpression(slotExpr); 
+               value = new SlotCallExpression(slotExpr);
             }
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:521:3: (callArgs= argumentsList )?
             int alt24=2;
@@ -3253,7 +3247,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setArguments(callArgs); 
+                       value.setArguments(callArgs);
                     }
 
                     }
@@ -3278,7 +3272,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.addArgument(blockArg); 
+                       value.addArgument(blockArg);
                     }
 
                     }
@@ -3299,7 +3293,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     match(input,SUPER,FOLLOW_SUPER_in_slotCallExpression1560); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setSuperCall(true); 
+                       value.setSuperCall(true);
                     }
 
                     }
@@ -3345,7 +3339,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new FunctionCallExpression(expr); 
+               value = new FunctionCallExpression(expr);
             }
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:528:3: (callArgs= argumentsList )?
             int alt27=2;
@@ -3364,7 +3358,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setArguments(callArgs); 
+                       value.setArguments(callArgs);
                     }
 
                     }
@@ -3389,7 +3383,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.addArgument(blockArg); 
+                       value.addArgument(blockArg);
                     }
 
                     }
@@ -3455,7 +3449,7 @@ public class SQLScriptWalker extends TreeParser {
               			List<Expression> args = new ArrayList<Expression>(1);
               			args.add(arg);
               			value.setArguments(args);
-              		
+
             }
 
             }
@@ -3512,7 +3506,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new TernaryCondExpression(cond, trueExp, falseExp);
-              		
+
             }
 
             }
@@ -3538,7 +3532,7 @@ public class SQLScriptWalker extends TreeParser {
         Expression expr = null;
 
 
-         List<Expression> expressions = new ArrayList<Expression>(); 
+         List<Expression> expressions = new ArrayList<Expression>();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:553:2: ( ^( COND_OR (expr= expression )+ ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:553:4: ^( COND_OR (expr= expression )+ )
@@ -3568,7 +3562,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       expressions.add(expr); 
+            	       expressions.add(expr);
             	    }
 
             	    }
@@ -3589,7 +3583,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new ConditionOr(expressions);
-              		
+
             }
 
             }
@@ -3615,7 +3609,7 @@ public class SQLScriptWalker extends TreeParser {
         Expression expr = null;
 
 
-         List<Expression> expressions = new ArrayList<Expression>(); 
+         List<Expression> expressions = new ArrayList<Expression>();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:560:2: ( ^( COND_AND (expr= expression )+ ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:560:4: ^( COND_AND (expr= expression )+ )
@@ -3645,7 +3639,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       expressions.add(expr); 
+            	       expressions.add(expr);
             	    }
 
             	    }
@@ -3666,7 +3660,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new ConditionAnd(expressions);
-              		
+
             }
 
             }
@@ -3709,7 +3703,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new NotExpression(exp);
-              		
+
             }
 
             }
@@ -3776,7 +3770,7 @@ public class SQLScriptWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new NewExpression(exp, args);
-              		
+
             }
 
             }
@@ -3875,7 +3869,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new VariableExpression(var);
-                      		
+
                     }
 
                     }
@@ -3887,7 +3881,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new ThisExpression();
-                      		
+
                     }
 
                     }
@@ -3899,7 +3893,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new SuperExpression();
-                      		
+
                     }
 
                     }
@@ -3911,7 +3905,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new IntegerLiteralExpression((intLit!=null?intLit.getText():null));
-                      		
+
                     }
 
                     }
@@ -3923,7 +3917,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new FloatingPointLiteralExpression((floatLit!=null?floatLit.getText():null));
-                      		
+
                     }
 
                     }
@@ -3939,7 +3933,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new StringLiteralExpression(str);
-                      		
+
                     }
 
                     }
@@ -3955,7 +3949,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new BooleanLiteralExpression(bool);
-                      		
+
                     }
 
                     }
@@ -3971,7 +3965,7 @@ public class SQLScriptWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new ObjectLiteralExpression(obj);
-                      		
+
                     }
 
                     }
@@ -4030,7 +4024,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     match(input,SQL_STMT,FOLLOW_SQL_STMT_in_sqlExpression1904); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       slotName = "execStmt"; 
+                       slotName = "execStmt";
                     }
 
                     }
@@ -4040,7 +4034,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     match(input,SQL_EXPR,FOLLOW_SQL_EXPR_in_sqlExpression1914); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       slotName = "createStmt"; 
+                       slotName = "createStmt";
                     }
 
                     }
@@ -4056,7 +4050,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               sql = lit; 
+               sql = lit;
             }
 
             match(input, Token.UP, null); if (state.failed) return value;
@@ -4094,7 +4088,7 @@ public class SQLScriptWalker extends TreeParser {
         Object param = null;
 
 
-         SQLLiteralExpression sql = new SQLLiteralExpression(); 
+         SQLLiteralExpression sql = new SQLLiteralExpression();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:623:2: ( ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:623:4: ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* )
@@ -4108,7 +4102,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               sql.setParseMode(mode); 
+               sql.setParseMode(mode);
             }
             pushFollow(FOLLOW_sqlStmtName_in_sqlLiteral1978);
             name=sqlStmtName();
@@ -4116,7 +4110,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               sql.addPart(name); 
+               sql.addPart(name);
             }
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:626:4: (param= sqlToken )*
             loop34:
@@ -4139,7 +4133,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       sql.addPart(param); 
+            	       sql.addPart(param);
             	    }
 
             	    }
@@ -4156,7 +4150,7 @@ public class SQLScriptWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = sql; 
+               value = sql;
             }
         }
 
@@ -4184,7 +4178,7 @@ public class SQLScriptWalker extends TreeParser {
             {
             mode=(CommonTree)match(input,SQL_MODE,FOLLOW_SQL_MODE_in_sqlParseMode2014); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((SQLModeToken)mode.token).getParseMode(); 
+               value = ((SQLModeToken)mode.token).getParseMode();
             }
 
             }
@@ -4235,7 +4229,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     name=(CommonTree)match(input,WORD,FOLLOW_WORD_in_sqlStmtName2033); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = (name!=null?name.getText():null); 
+                       value = (name!=null?name.getText():null);
                     }
 
                     }
@@ -4249,7 +4243,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = var; 
+                       value = var;
                     }
 
                     }
@@ -4372,7 +4366,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = str; 
+                       value = str;
                     }
 
                     }
@@ -4386,7 +4380,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = id; 
+                       value = id;
                     }
 
                     }
@@ -4400,7 +4394,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = chr; 
+                       value = chr;
                     }
 
                     }
@@ -4414,7 +4408,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = kw; 
+                       value = kw;
                     }
 
                     }
@@ -4434,7 +4428,7 @@ public class SQLScriptWalker extends TreeParser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       value = (ws!=null?ws.getText():null); 
+                       value = (ws!=null?ws.getText():null);
                     }
 
                     }
@@ -4448,7 +4442,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = var; 
+                       value = var;
                     }
 
                     }
@@ -4491,7 +4485,7 @@ public class SQLScriptWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = (c!=null?c.getText():null); 
+               value = (c!=null?c.getText():null);
             }
 
             }
@@ -4514,7 +4508,7 @@ public class SQLScriptWalker extends TreeParser {
     public final RawParamedSQL sqlLiteralParamed() throws RecognitionException {
         RawParamedSQL value = null;
 
-         value = new RawParamedSQL(); 
+         value = new RawParamedSQL();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:665:2: ( ^( SQL ( sqlTokenParamed[$value] )+ ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:665:4: ^( SQL ( sqlTokenParamed[$value] )+ )
@@ -4704,7 +4698,7 @@ public class SQLScriptWalker extends TreeParser {
                     match(input, Token.DOWN, null); if (state.failed) return ;
                     STRING_START2=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_sqlTokenParamed2377); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((STRING_START2!=null?STRING_START2.getText():null)); 
+                       stmt.appendToken((STRING_START2!=null?STRING_START2.getText():null));
                     }
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:672:4: ( STRING_CONTENT )*
                     loop38:
@@ -4723,7 +4717,7 @@ public class SQLScriptWalker extends TreeParser {
                     	    {
                     	    STRING_CONTENT3=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_sqlTokenParamed2385); if (state.failed) return ;
                     	    if ( state.backtracking==0 ) {
-                    	       stmt.appendToken((STRING_CONTENT3!=null?STRING_CONTENT3.getText():null)); 
+                    	       stmt.appendToken((STRING_CONTENT3!=null?STRING_CONTENT3.getText():null));
                     	    }
 
                     	    }
@@ -4736,7 +4730,7 @@ public class SQLScriptWalker extends TreeParser {
 
                     STRING_END4=(CommonTree)match(input,STRING_END,FOLLOW_STRING_END_in_sqlTokenParamed2394); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((STRING_END4!=null?STRING_END4.getText():null)); 
+                       stmt.appendToken((STRING_END4!=null?STRING_END4.getText():null));
                     }
 
                     match(input, Token.UP, null); if (state.failed) return ;
@@ -4748,7 +4742,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     SEP5=(CommonTree)match(input,SEP,FOLLOW_SEP_in_sqlTokenParamed2405); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((SEP5!=null?SEP5.getText():null)); 
+                       stmt.appendToken((SEP5!=null?SEP5.getText():null));
                     }
 
                     }
@@ -4758,7 +4752,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     WORD6=(CommonTree)match(input,WORD,FOLLOW_WORD_in_sqlTokenParamed2412); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((WORD6!=null?WORD6.getText():null)); 
+                       stmt.appendToken((WORD6!=null?WORD6.getText():null));
                     }
 
                     }
@@ -4768,7 +4762,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     WS7=(CommonTree)match(input,WS,FOLLOW_WS_in_sqlTokenParamed2419); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((WS7!=null?WS7.getText():null)); 
+                       stmt.appendToken((WS7!=null?WS7.getText():null));
                     }
 
                     }
@@ -4778,7 +4772,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     NL8=(CommonTree)match(input,NL,FOLLOW_NL_in_sqlTokenParamed2426); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((NL8!=null?NL8.getText():null)); 
+                       stmt.appendToken((NL8!=null?NL8.getText():null));
                     }
 
                     }
@@ -4792,7 +4786,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken(identifier9); 
+                       stmt.appendToken(identifier9);
                     }
 
                     }
@@ -4806,7 +4800,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken(sqlAtom10); 
+                       stmt.appendToken(sqlAtom10);
                     }
 
                     }
@@ -4820,7 +4814,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken(keyword11); 
+                       stmt.appendToken(keyword11);
                     }
 
                     }
@@ -4833,7 +4827,7 @@ public class SQLScriptWalker extends TreeParser {
 
                       			stmt.addParam((SQL_PARAM12!=null?SQL_PARAM12.getText():null));
                       			stmt.appendToken('?');
-                      		
+
                     }
 
                     }
@@ -4861,7 +4855,7 @@ public class SQLScriptWalker extends TreeParser {
         SQLScriptWalker.objectSlot_return slot = null;
 
 
-         value = new ObjectLiteral(); 
+         value = new ObjectLiteral();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:690:2: ( ^( OBJ (slot= objectSlot )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:690:4: ^( OBJ (slot= objectSlot )* )
@@ -4891,7 +4885,7 @@ public class SQLScriptWalker extends TreeParser {
                 	    state._fsp--;
                 	    if (state.failed) return value;
                 	    if ( state.backtracking==0 ) {
-                	       value.putSlot((slot!=null?slot.key:null), (slot!=null?slot.value:null)); 
+                	       value.putSlot((slot!=null?slot.key:null), (slot!=null?slot.value:null));
                 	    }
 
                 	    }
@@ -4972,7 +4966,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                       retval.key = id; 
+                       retval.key = id;
                     }
 
                     }
@@ -4986,7 +4980,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                       retval.key = new StringLiteralExpression(str); 
+                       retval.key = new StringLiteralExpression(str);
                     }
 
                     }
@@ -5000,7 +4994,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-               retval.value = expr; 
+               retval.value = expr;
             }
 
             match(input, Token.UP, null); if (state.failed) return retval;
@@ -5030,7 +5024,7 @@ public class SQLScriptWalker extends TreeParser {
         Expression pval = null;
 
 
-         Expression paramValue = null; 
+         Expression paramValue = null;
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:704:2: ( PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )? )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:704:4: PARAM_NAME pname= paramName ( PARAM_VALUE pval= paramValue )?
@@ -5059,7 +5053,7 @@ public class SQLScriptWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       paramValue = pval; 
+                       paramValue = pval;
                     }
 
                     }
@@ -5072,7 +5066,7 @@ public class SQLScriptWalker extends TreeParser {
               			value = new Parameter();
               			value.setName(pname);
               			((Block_scope)Block_stack.peek()).block.addStatement(new InitParameter(value, paramValue));
-              		
+
             }
 
             }
@@ -5108,7 +5102,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = id; 
+               value = id;
             }
 
             }
@@ -5144,7 +5138,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = expr; 
+               value = expr;
             }
 
             }
@@ -5180,7 +5174,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new IdentifierExpression(id); 
+               value = new IdentifierExpression(id);
             }
 
             }
@@ -5211,7 +5205,7 @@ public class SQLScriptWalker extends TreeParser {
             {
             var=(CommonTree)match(input,EMBEDDED_VAR,FOLLOW_EMBEDDED_VAR_in_embeddedVarRef2654); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable((var!=null?var.getText():null)); 
+               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable((var!=null?var.getText():null));
             }
 
             }
@@ -5247,7 +5241,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((Scope_scope)Scope_stack.peek()).scope.addVariable(id); 
+               value = ((Scope_scope)Scope_stack.peek()).scope.addVariable(id);
             }
 
             }
@@ -5283,7 +5277,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable(id); 
+               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable(id);
             }
 
             }
@@ -5314,7 +5308,7 @@ public class SQLScriptWalker extends TreeParser {
             {
             id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier2711); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = (id!=null?id.getText():null); 
+               value = (id!=null?id.getText():null);
             }
 
             }
@@ -5355,7 +5349,7 @@ public class SQLScriptWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = (kw!=null?kw.getText():null); 
+               value = (kw!=null?kw.getText():null);
             }
 
             }
@@ -5384,7 +5378,7 @@ public class SQLScriptWalker extends TreeParser {
         Variable var = null;
 
 
-         List<Object> parts = new ArrayList<Object>(); 
+         List<Object> parts = new ArrayList<Object>();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:745:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:745:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END )
@@ -5413,7 +5407,7 @@ public class SQLScriptWalker extends TreeParser {
             	    {
             	    str=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_stringLiteral2788); if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       parts.add((str!=null?str.getText():null)); 
+            	       parts.add((str!=null?str.getText():null));
             	    }
 
             	    }
@@ -5427,7 +5421,7 @@ public class SQLScriptWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       parts.add(var); 
+            	       parts.add(var);
             	    }
 
             	    }
@@ -5442,7 +5436,7 @@ public class SQLScriptWalker extends TreeParser {
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new StringLiteral((start!=null?start.getText():null), (end!=null?end.getText():null), parts); 
+               value = new StringLiteral((start!=null?start.getText():null), (end!=null?end.getText():null), parts);
             }
 
             }
@@ -5468,7 +5462,7 @@ public class SQLScriptWalker extends TreeParser {
         String id = null;
 
 
-         List<Object> parts = new ArrayList<Object>(); 
+         List<Object> parts = new ArrayList<Object>();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:755:2: (id= identifier )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:755:4: id= identifier
@@ -5479,7 +5473,7 @@ public class SQLScriptWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               parts.add(id); value = new StringLiteral("'", "'", parts); 
+               parts.add(id); value = new StringLiteral("'", "'", parts);
             }
 
             }
@@ -5526,7 +5520,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral2861); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = true; 
+                       value = true;
                     }
 
                     }
@@ -5536,7 +5530,7 @@ public class SQLScriptWalker extends TreeParser {
                     {
                     match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral2869); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = false; 
+                       value = false;
                     }
 
                     }
@@ -5556,7 +5550,7 @@ public class SQLScriptWalker extends TreeParser {
     // $ANTLR end "booleanLiteral"
 
     // $ANTLR start synpred1_SQLScriptWalker
-    public final void synpred1_SQLScriptWalker_fragment() throws RecognitionException {   
+    public final void synpred1_SQLScriptWalker_fragment() throws RecognitionException {
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:505:6: ( identifier )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:505:7: identifier
         {
@@ -5588,7 +5582,7 @@ public class SQLScriptWalker extends TreeParser {
     }
 
 
- 
+
 
     public static final BitSet FOLLOW_statement_in_script89 = new BitSet(new long[]{0xBF242F0610000012L,0x000000000006FF0FL,0x0000000000000010L});
     public static final BitSet FOLLOW_script_in_scriptIncremental111 = new BitSet(new long[]{0x0000000000000002L});

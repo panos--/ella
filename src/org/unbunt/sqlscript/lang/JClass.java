@@ -44,7 +44,9 @@ public class JClass extends PlainObj implements NativeObj {
             Object[] jargs = NativeWrapper.unwrap(args);
 
             Constructor ctor =
-                    ReflectionUtils.findMatchingConstructor(cls.getConstructors(), ReflectionUtils.getArgTypes(jargs));
+                    ReflectionUtils.findMatchingConstructor(cls.getConstructors(),
+                                                            ReflectionUtils.getArgTypes(jargs),
+                                                            jargs);
 
             if (ctor == null) {
                 throw new SQLScriptRuntimeException("No such constructor");
@@ -160,7 +162,8 @@ public class JClass extends PlainObj implements NativeObj {
         Method setter = ReflectionUtils.findMatchingMethod(staticMethods, propStr,
                                                            new Class[] {
                                                                    jvalue == null ? null : jvalue.getClass()
-                                                           });
+                                                           },
+                                                           new Object[] { jvalue });
         if (setter != null) {
             try {
                 Object result = setter.invoke(null, jvalue);

@@ -60,7 +60,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JClass.java" line="87" class="org.unbunt.sqlscript.lang.JClass" package="org.unbunt.sqlscript.lang">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JClass.java" line="89" class="org.unbunt.sqlscript.lang.JClass" package="org.unbunt.sqlscript.lang">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -86,7 +86,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java" line="125" class="org.unbunt.utils.Test" package="org.unbunt.utils">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java" line="122" class="org.unbunt.utils.Test" package="org.unbunt.utils">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -99,7 +99,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java" line="116" class="org.unbunt.utils.Test" package="org.unbunt.utils">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java" line="113" class="org.unbunt.utils.Test" package="org.unbunt.utils">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -112,7 +112,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java" line="107" class="org.unbunt.utils.Test" package="org.unbunt.utils">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java" line="104" class="org.unbunt.utils.Test" package="org.unbunt.utils">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -190,7 +190,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java" line="141" class="org.unbunt.sqlscript.support.Context" package="org.unbunt.sqlscript.support">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java" line="142" class="org.unbunt.sqlscript.support.Context" package="org.unbunt.sqlscript.support">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -281,20 +281,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java" line="136" class="org.unbunt.sqlscript.support.Context" package="org.unbunt.sqlscript.support">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/InterpreterTestsNG.java" line="324" class="org.unbunt.sqlscript.testng.InterpreterTestsNG" package="org.unbunt.sqlscript.testng">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java" line="137" class="org.unbunt.sqlscript.support.Context" package="org.unbunt.sqlscript.support">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -372,8 +359,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -386,98 +373,199 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NativeWrapper.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/NativeWrapper.java">
+      <file leaf-file-name="ReflectionUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/ReflectionUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="51" selection-start="999" selection-end="999" vertical-scroll-proportion="0.39325842">
+            <state line="67" column="27" selection-start="2441" selection-end="2441" vertical-scroll-proportion="-0.3764045">
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;method#wrap#2;class#NativeWrapper#0" expanded="true" />
+                <element signature="docComment;method#selectMethods#0;class#ReflectionUtils#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sys.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CheckedClassCastException.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/CheckedClassCastException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="40" selection-start="152" selection-end="152" vertical-scroll-proportion="0.084269665">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MethodSelectTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/MethodSelectTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="20" selection-start="754" selection-end="754" vertical-scroll-proportion="1.011236">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLScriptEngine.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="787" column="0" selection-start="26401" selection-end="26401" vertical-scroll-proportion="0.29672447">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#isClosureReturnInProgress#0;class#SQLScriptEngine#0" expanded="true" />
+                <element signature="method#isFinished#0;class#SQLScriptEngine#0" expanded="true" />
+                <element signature="method#getVal#0;class#SQLScriptEngine#0" expanded="true" />
+                <element signature="method#setVal#0;class#SQLScriptEngine#0" expanded="true" />
+                <element signature="method#getEnv#0;class#SQLScriptEngine#0" expanded="true" />
+                <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sys.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Sys.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="0" selection-start="2322" selection-end="2322" vertical-scroll-proportion="1.2921349">
+            <state line="257" column="15" selection-start="10879" selection-end="10879" vertical-scroll-proportion="0.8464419">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Byte.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/Byte.java">
+      <file leaf-file-name="Date.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/sql/Date.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="14" selection-start="954" selection-end="954" vertical-scroll-proportion="0.028089888">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AtomicInteger.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/util/concurrent/atomic/AtomicInteger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="205" column="13" selection-start="5627" selection-end="5627" vertical-scroll-proportion="0.016853932">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Number.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/Number.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="22" selection-start="985" selection-end="985" vertical-scroll-proportion="0.14044943">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lst.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Lst.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="42" selection-start="2465" selection-end="2465" vertical-scroll-proportion="0.8389513">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NativeBatchCall.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/NativeBatchCall.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="37" selection-start="750" selection-end="750" vertical-scroll-proportion="0.505618">
+            <state line="50" column="7" selection-start="1959" selection-end="1959" vertical-scroll-proportion="0.64606744">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="docComment;method#Date#1;class#Date#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IntegerLiteralExpression.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/statement/IntegerLiteralExpression.java">
+      <file leaf-file-name="SQLScriptWalker.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="33" selection-start="74" selection-end="74" vertical-scroll-proportion="0.056179777">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JArray.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JArray.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="41" selection-start="3087" selection-end="3087" vertical-scroll-proportion="0.16853933">
+            <state line="1489" column="63" selection-start="55430" selection-end="55430" vertical-scroll-proportion="0.028901733">
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1247255702000" expanded="false" signature="9052:9090" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="9130:9221" placeholder="{...}" />
+                <marker date="1247255702000" expanded="false" signature="9320:9406" placeholder="/**...*/" />
+                <marker date="1247255702000" expanded="true" signature="9510:9653" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="9894:9996" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="10133:10410" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="10485:10607" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="10718:10753" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="10865:10901" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="11024:11071" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="11150:11234" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="11286:11358" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="11547:11836" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="11937:12059" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="12110:12190" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="12451:14712" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="15032:15851" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="16114:18029" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="18298:19147" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="19444:20329" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="20622:21686" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="21994:24316" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="24662:29672" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="29981:32020" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="32317:33576" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="33886:35935" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="36296:40512" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="40840:42397" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="42719:43839" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="44153:45400" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="45722:48064" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="48375:50720" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="51128:57290" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="57610:59608" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="59880:60727" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="61053:63404" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="64036:75686" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="76064:78346" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="78664:80458" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="80811:82128" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="82476:84286" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="84605:86727" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="87053:89467" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="89842:91615" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="91963:93262" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="93625:97129" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="97445:98922" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="99243:100380" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="100694:101805" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="102148:103036" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="103387:104275" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="104657:106344" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="106681:107556" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="107894:108769" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="109194:113051" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="113413:116488" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="116898:120538" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="120963:123841" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="124246:126114" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="126493:128169" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="128484:131040" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="131352:133915" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="134223:135329" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="135662:137600" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="138019:144179" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="144511:147326" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="147687:150668" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="150965:151774" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="152078:154069" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="154435:160437" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="160971:162990" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="163324:165731" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="166168:175961" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="176283:178367" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="178473:178544" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="178900:182051" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="182380:184608" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="184883:185684" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="185972:186792" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="187109:187951" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="188259:189120" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="189395:190248" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="190515:191368" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="191643:192431" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="192749:194046" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="194424:197546" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="197881:198805" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="199112:200862" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="201030:201427" placeholder="{...}" />
+                <marker date="1247255702000" expanded="true" signature="201548:201968" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FloatingPointLiteralExpression.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/statement/FloatingPointLiteralExpression.java">
+      <file leaf-file-name="InterpreterTestsNG.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/InterpreterTestsNG.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="33" selection-start="74" selection-end="74" vertical-scroll-proportion="0.056179777">
+            <state line="339" column="1" selection-start="13748" selection-end="13748" vertical-scroll-proportion="0.83146065">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JMethod.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JMethod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="56" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.36516854">
+              <folding>
+                <element signature="docComment;field#selected#0;class#JMethod#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#JMethod#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#JMethodProto#0;class#JMethod#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Context.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="13" selection-start="464" selection-end="464" vertical-scroll-proportion="0.028901733">
               <folding />
             </state>
           </provider>
@@ -787,6 +875,36 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="&lt; 1.6 &gt;" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java/sql" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -1355,8 +1473,8 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -1413,72 +1531,12 @@
         <option name="Make" value="false" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
@@ -1505,6 +1563,66 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -1699,7 +1817,7 @@
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="org.unbunt.sqlscript.testng" />
       <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.testng.InterpreterTestsNG" />
-      <option name="METHOD_NAME" value="numDoubleSpecials" />
+      <option name="METHOD_NAME" value="hostIntegrationMethodSelect" />
       <option name="GROUP_NAME" value="" />
       <option name="TEST_OBJECT" value="METHOD" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1722,7 +1840,9 @@
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -1799,7 +1919,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3222857" order="1" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39085713" order="3" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38971427" order="3" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="11" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
@@ -1892,171 +2012,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/AnnotationInitializationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="13" selection-start="54" selection-end="54" vertical-scroll-proportion="0.057803467">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/UnrepresentableValueException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="44" selection-start="198" selection-end="198" vertical-scroll-proportion="0.14450867">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/DoubleNaNException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="33" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0867052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/DoublePositiveInfinityExcepetion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="47" selection-start="174" selection-end="174" vertical-scroll-proportion="0.0867052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/DoubleNegativeInfinityException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="46" selection-start="172" selection-end="172" vertical-scroll-proportion="0.0867052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptLexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="814" column="43" selection-start="29446" selection-end="29446" vertical-scroll-proportion="0.30555555">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="21" selection-start="1912" selection-end="1912" vertical-scroll-proportion="0.61271673">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/NumUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="16" selection-start="988" selection-end="988" vertical-scroll-proportion="0.4171705">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NBigReal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="179" column="28" selection-start="5157" selection-end="5157" vertical-scroll-proportion="0.8707865">
-          <folding>
-            <element signature="method#getType#0;class#NBigReal#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#NBigReal#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#NBigRealProto#0;class#NBigReal#0" expanded="true" />
-            <element signature="method#getNativeConstructor#0;class#NBigRealProto#0;class#NBigReal#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NBigNum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="28" selection-start="5559" selection-end="5559" vertical-scroll-proportion="0.6835206">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getType#0;class#NBigNum#0" expanded="true" />
-            <marker date="1247229355000" expanded="true" signature="1169:1211" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1239:1279" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1309:1350" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1382:1424" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1458:1501" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1543:1572" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1614:1657" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1688:1753" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="1786:2180" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="2217:2268" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="2305:2371" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="3962:4014" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="4087:4481" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="4558:4610" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="4687:4753" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="5878:5907" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="5952:5992" placeholder="{...}" />
-            <marker date="1247229355000" expanded="false" signature="6037:6070" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="6126:6240" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="7436:7871" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="7550:7861" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="8459:9220" placeholder="{...}" />
-            <marker date="1247229355000" expanded="true" signature="8573:9210" placeholder="{...}" />
-            <element signature="method#getObjectID#0;class#NBigNumProto#0;class#NBigNum#0" expanded="true" />
-            <element signature="method#getNativeConstructor#0;class#NBigNumProto#0;class#NBigNum#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/NNumUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="31" selection-start="2135" selection-end="2135" vertical-scroll-proportion="1.5168539">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Str.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="65" selection-start="3006" selection-end="3006" vertical-scroll-proportion="0.4494382">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/ParserHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="27" selection-start="1856" selection-end="1856" vertical-scroll-proportion="0.2977528">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NNumericProto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="53" selection-start="7731" selection-end="7935" vertical-scroll-proportion="0.3127341">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getObjectID#0;class#NNumericProto#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/InterpreterTestsNG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="332" column="0" selection-start="13526" selection-end="13526" vertical-scroll-proportion="1.3220974">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/PrimitiveCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="23" selection-start="277" selection-end="277" vertical-scroll-proportion="0.2247191">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="934" column="17" selection-start="31156" selection-end="31156" vertical-scroll-proportion="0.94219655">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#isClosureReturnInProgress#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#isFinished#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getVal#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#setVal#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getEnv#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NNum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="128" column="61" selection-start="3026" selection-end="3026" vertical-scroll-proportion="3.5955057">
@@ -2175,28 +2130,28 @@
     </entry>
     <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/Number.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="22" selection-start="985" selection-end="985" vertical-scroll-proportion="0.14044943">
+        <state line="31" column="22" selection-start="985" selection-end="985" vertical-scroll-proportion="0.09079903">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/util/concurrent/atomic/AtomicInteger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="13" selection-start="5627" selection-end="5627" vertical-scroll-proportion="0.016853932">
+        <state line="205" column="13" selection-start="5627" selection-end="5627" vertical-scroll-proportion="0.36561742">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/lang/Byte.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="14" selection-start="954" selection-end="954" vertical-scroll-proportion="0.028089888">
+        <state line="33" column="14" selection-start="954" selection-end="954" vertical-scroll-proportion="0.018159807">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/NativeWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="51" selection-start="999" selection-end="999" vertical-scroll-proportion="0.39325842">
+        <state line="33" column="51" selection-start="999" selection-end="999" vertical-scroll-proportion="0.38377723">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#wrap#2;class#NativeWrapper#0" expanded="true" />
@@ -2204,9 +2159,244 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NativeCall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="22" selection-start="104" selection-end="104" vertical-scroll-proportion="0.07263923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/AbstractObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="45" selection-start="176" selection-end="176" vertical-scroll-proportion="0.22012578">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getSlots#0;class#AbstractObj#0" expanded="true" />
+            <element signature="method#setSlots#0;class#AbstractObj#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Obj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="18" selection-start="365" selection-end="365" vertical-scroll-proportion="0.5962343">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/RawSQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/utils/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="15" selection-start="2859" selection-end="2859" vertical-scroll-proportion="0.028089888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="81" selection-start="3308" selection-end="3308" vertical-scroll-proportion="0.41947564">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="165" column="81" selection-start="6147" selection-end="6147" vertical-scroll-proportion="0.028089888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Str.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="38" selection-start="3839" selection-end="3839" vertical-scroll-proportion="0.028089888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Context.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="13" selection-start="464" selection-end="464" vertical-scroll-proportion="0.028901733">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/ReflectionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="27" selection-start="2441" selection-end="2441" vertical-scroll-proportion="-0.3764045">
+          <folding>
+            <element signature="docComment;method#selectMethods#0;class#ReflectionUtils#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="56" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.36516854">
+          <folding>
+            <element signature="docComment;field#selected#0;class#JMethod#0" expanded="true" />
+            <element signature="method#getObjectID#0;class#JMethod#0" expanded="true" />
+            <element signature="method#getObjectID#0;class#JMethodProto#0;class#JMethod#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/CheckedClassCastException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="40" selection-start="152" selection-end="152" vertical-scroll-proportion="0.084269665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/MethodSelectTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="20" selection-start="754" selection-end="754" vertical-scroll-proportion="1.011236">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="787" column="0" selection-start="26401" selection-end="26401" vertical-scroll-proportion="0.29672447">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#isClosureReturnInProgress#0;class#SQLScriptEngine#0" expanded="true" />
+            <element signature="method#isFinished#0;class#SQLScriptEngine#0" expanded="true" />
+            <element signature="method#getVal#0;class#SQLScriptEngine#0" expanded="true" />
+            <element signature="method#setVal#0;class#SQLScriptEngine#0" expanded="true" />
+            <element signature="method#getEnv#0;class#SQLScriptEngine#0" expanded="true" />
+            <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Sys.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="0" selection-start="2322" selection-end="2322" vertical-scroll-proportion="1.2921349">
+        <state line="257" column="15" selection-start="10879" selection-end="10879" vertical-scroll-proportion="0.8464419">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/sql/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="7" selection-start="1959" selection-end="1959" vertical-scroll-proportion="0.64606744">
+          <folding>
+            <element signature="docComment;method#Date#1;class#Date#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScriptWalker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1489" column="63" selection-start="55430" selection-end="55430" vertical-scroll-proportion="0.028901733">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1247255702000" expanded="false" signature="9052:9090" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="9130:9221" placeholder="{...}" />
+            <marker date="1247255702000" expanded="false" signature="9320:9406" placeholder="/**...*/" />
+            <marker date="1247255702000" expanded="true" signature="9510:9653" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="9894:9996" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="10133:10410" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="10485:10607" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="10718:10753" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="10865:10901" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="11024:11071" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="11150:11234" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="11286:11358" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="11547:11836" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="11937:12059" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="12110:12190" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="12451:14712" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="15032:15851" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="16114:18029" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="18298:19147" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="19444:20329" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="20622:21686" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="21994:24316" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="24662:29672" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="29981:32020" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="32317:33576" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="33886:35935" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="36296:40512" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="40840:42397" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="42719:43839" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="44153:45400" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="45722:48064" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="48375:50720" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="51128:57290" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="57610:59608" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="59880:60727" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="61053:63404" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="64036:75686" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="76064:78346" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="78664:80458" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="80811:82128" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="82476:84286" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="84605:86727" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="87053:89467" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="89842:91615" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="91963:93262" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="93625:97129" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="97445:98922" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="99243:100380" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="100694:101805" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="102148:103036" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="103387:104275" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="104657:106344" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="106681:107556" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="107894:108769" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="109194:113051" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="113413:116488" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="116898:120538" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="120963:123841" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="124246:126114" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="126493:128169" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="128484:131040" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="131352:133915" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="134223:135329" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="135662:137600" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="138019:144179" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="144511:147326" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="147687:150668" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="150965:151774" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="152078:154069" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="154435:160437" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="160971:162990" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="163324:165731" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="166168:175961" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="176283:178367" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="178473:178544" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="178900:182051" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="182380:184608" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="184883:185684" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="185972:186792" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="187109:187951" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="188259:189120" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="189395:190248" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="190515:191368" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="191643:192431" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="192749:194046" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="194424:197546" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="197881:198805" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="199112:200862" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="201030:201427" placeholder="{...}" />
+            <marker date="1247255702000" expanded="true" signature="201548:201968" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/InterpreterTestsNG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="339" column="1" selection-start="13748" selection-end="13748" vertical-scroll-proportion="0.83146065">
           <folding />
         </state>
       </provider>

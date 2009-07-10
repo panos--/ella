@@ -1,4 +1,4 @@
-var start := NNum.valueOf('1');
-var end := NNum.valueOf('10000000');
+var start := 1;
+var end := 10000000;
 
 .start.to(end) { i => i + start; };
