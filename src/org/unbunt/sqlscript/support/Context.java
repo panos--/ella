@@ -62,11 +62,10 @@ public class Context implements SQLResultProvider {
 
         Base.registerInContext(this);
         Args.registerInContext(this);
-        Int.registerInContext(this);
-        Num.registerInContext(this);
-        BigNum.registerInContext(this);
-        Real.registerInContext(this);
-        BigReal.registerInContext(this);
+        NNum.registerInContext(this);
+        NBigNum.registerInContext(this);
+        NReal.registerInContext(this);
+        NBigReal.registerInContext(this);
         Sys.registerInContext(this);
         Bool.registerInContext(this);
         Clos.registerInContext(this);
@@ -107,11 +106,10 @@ public class Context implements SQLResultProvider {
         mainEnv.add("Sys", objSys);
         mainEnv.add("Obj", ensureObject(Base.OBJECT_ID));
         mainEnv.add("Str", ensureObject(Str.StrProto.OBJECT_ID));
-        mainEnv.add("Int", ensureObject(Int.IntProto.OBJECT_ID));
-        mainEnv.add("Num", ensureObject(Num.NumProto.OBJECT_ID));
-        mainEnv.add("BigNum", ensureObject(BigNum.BigNumProto.OBJECT_ID));
-        mainEnv.add("Real", ensureObject(Real.RealProto.OBJECT_ID));
-        mainEnv.add("BigReal", ensureObject(BigReal.BigRealProto.OBJECT_ID));
+        mainEnv.add("Num", ensureObject(NNum.NNumProto.OBJECT_ID));
+        mainEnv.add("BigNum", ensureObject(NBigNum.NBigNumProto.OBJECT_ID));
+        mainEnv.add("Real", ensureObject(NReal.NRealProto.OBJECT_ID));
+        mainEnv.add("BigReal", ensureObject(NBigReal.NBigRealProto.OBJECT_ID));
         mainEnv.add("Bool", ensureObject(Bool.BoolProto.OBJECT_ID));
         mainEnv.add("true", objTrue);
         mainEnv.add("false", objFalse);

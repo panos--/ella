@@ -134,6 +134,11 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    public void processExpression(FloatingPointLiteralExpression floatingPointLiteralExpression) {
+        val = floatingPointLiteralExpression.getValue();
+        next = CONT;
+    }
+
     public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {
         val = booleanLiteralExpression.getValue() ? getObjTrue() : getObjFalse();
         next = CONT;
@@ -686,7 +691,7 @@ public class SQLScriptEngine
             }
         }
         if (tryCont == null) {
-            throw new SQLScriptRuntimeException("Unhandled execption: " +
+            throw new SQLScriptRuntimeException("Unhandled exception: " +
                                                 (val == null ? "null" : val.toString()));
         }
         CatchStatement catchStmt = tryCont.getCatchClause();
@@ -908,72 +913,6 @@ public class SQLScriptEngine
             case NI: {
                 Obj o2 = args[0];
                 val = context != o2 ? getObjTrue() : getObjFalse();
-                break;
-            }
-            case INT_ADD: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = new Int(int1.value + int2.value);
-                break;
-            }
-            case INT_SUB: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = new Int(int1.value - int2.value);
-                break;
-            }
-            case INT_MUL: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = new Int(int1.value * int2.value);
-                break;
-            }
-            case INT_DIV: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = new Int(int1.value / int2.value);
-                break;
-            }
-            case INT_MOD: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = new Int(int1.value % int2.value);
-                break;
-            }
-            case INT_EQ: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = int1.value == int2.value ? getObjTrue() : getObjFalse();
-                break;
-            }
-            case INT_NE: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = int1.value != int2.value ? getObjTrue() : getObjFalse();
-                break;
-            }
-            case INT_LT: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = int1.value < int2.value ? getObjTrue() : getObjFalse();
-                break;
-            }
-            case INT_LE: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = int1.value <= int2.value ? getObjTrue() : getObjFalse();
-                break;
-            }
-            case INT_GT: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = int1.value > int2.value ? getObjTrue() : getObjFalse();
-                break;
-            }
-            case INT_GE: {
-                Int int1 = (Int) context;
-                Int int2 = (Int) args[0];
-                val = int1.value >= int2.value ? getObjTrue() : getObjFalse();
                 break;
             }
             case LOOP:

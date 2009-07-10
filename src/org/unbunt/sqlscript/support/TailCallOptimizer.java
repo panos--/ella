@@ -37,6 +37,9 @@ public class TailCallOptimizer {
         public void processExpression(IntegerLiteralExpression integerLiteralExpression) {
         }
 
+        public void processExpression(FloatingPointLiteralExpression floatingPointLiteralExpression) {
+        }
+
         public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {
         }
 
@@ -237,6 +240,9 @@ public class TailCallOptimizer {
             public void processExpression(IntegerLiteralExpression integerLiteralExpression) {
             }
 
+            public void processExpression(FloatingPointLiteralExpression floatingPointLiteralExpression) {
+            }
+
             public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {
             }
 
@@ -350,6 +356,9 @@ public class TailCallOptimizer {
             public void processExpression(IntegerLiteralExpression integerLiteralExpression) {
             }
 
+            public void processExpression(FloatingPointLiteralExpression floatingPointLiteralExpression) {
+            }
+
             public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {
             }
 
@@ -455,6 +464,9 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(IntegerLiteralExpression integerLiteralExpression) {
+            }
+
+            public void processExpression(FloatingPointLiteralExpression floatingPointLiteralExpression) {
             }
 
             public void processExpression(BooleanLiteralExpression booleanLiteralExpression) {

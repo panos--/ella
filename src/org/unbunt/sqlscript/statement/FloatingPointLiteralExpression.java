@@ -1,17 +1,17 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.lang.NNum;
+import org.unbunt.sqlscript.lang.NReal;
 import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Scope;
 
-public class IntegerLiteralExpression implements Expression {
+public class FloatingPointLiteralExpression implements Expression {
     protected String literal;
-    protected NNum value;
+    protected NReal value;
 
-    public IntegerLiteralExpression(String literal) {
+    public FloatingPointLiteralExpression(String literal) {
         this.literal = literal;
-        this.value = new NNum(Long.valueOf(literal));
+        this.value = new NReal(Double.valueOf(literal));
     }
 
     public Obj getValue() {

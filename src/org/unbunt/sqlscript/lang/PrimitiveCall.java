@@ -7,17 +7,6 @@ public class PrimitiveCall extends PlainObj implements Call {
     public static enum Type {
         ID,
         NI,
-        INT_ADD,
-        INT_SUB,
-        INT_MUL,
-        INT_DIV,
-        INT_MOD,
-        INT_EQ,
-        INT_NE,
-        INT_GT,
-        INT_GE,
-        INT_LT,
-        INT_LE,
         LOOP,
         LOOP_BREAK,
         LOOP_CONTINUE;

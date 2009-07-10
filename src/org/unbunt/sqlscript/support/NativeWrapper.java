@@ -2,9 +2,16 @@ package org.unbunt.sqlscript.support;
 
 import org.unbunt.sqlscript.lang.*;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public class NativeWrapper {
     public static Obj wrap(int i) {
-        return new Int(i);
+        return new NNum(i);
+    }
+
+    public static Obj wrap(long l) {
+        return new NNum(l);
     }
 
     /**
@@ -22,8 +29,17 @@ public class NativeWrapper {
             return (Boolean) o ? ctx.getObjTrue() : ctx.getObjFalse();
         }
         else if (o instanceof Number) {
-            if (o instanceof Integer || o instanceof Byte || o instanceof Short) {
-                return new Int(((Number) o).intValue());
+            if (o instanceof Integer || o instanceof Long || o instanceof Byte || o instanceof Short) {
+                return new NNum(((Number) o).longValue());
+            }
+            else if (o instanceof Double || o instanceof Float) {
+                return new NReal(((Number) o).doubleValue());
+            }
+            else if (o instanceof BigDecimal) {
+                return new NBigReal((BigDecimal) o);
+            }
+            else if (o instanceof BigInteger) {
+                return new NBigNum((BigInteger) o);
             }
         }
         else if (o instanceof String) {

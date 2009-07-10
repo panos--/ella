@@ -1,6 +1,6 @@
 import java.net.*;
 
-if (time1.equals(Calendar.instance.timeInMillis)) {
+if (time1 == Calendar.instance.timeInMillis) {
 	throw 'dynamic env mixup in included file';
 }
 

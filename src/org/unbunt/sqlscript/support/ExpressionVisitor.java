@@ -9,6 +9,8 @@ public interface ExpressionVisitor {
 
     void processExpression(IntegerLiteralExpression integerLiteralExpression);
 
+    void processExpression(FloatingPointLiteralExpression floatingPointLiteralExpression);
+
     void processExpression(BooleanLiteralExpression booleanLiteralExpression);
 
     void processExpression(StringLiteralExpression stringLiteralExpression);

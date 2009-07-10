@@ -65,8 +65,8 @@ public class ResSet extends PlainObj {
                 Object value;
                 ResultSet rs = thiz.resultSet;
                 try {
-                    if (colRef instanceof Int) {
-                        value = rs.getObject(((Int)colRef).value);
+                    if (colRef instanceof NNumeric) {
+                        value = rs.getObject(((NNumeric)colRef).intValue());
                     }
                     else if (colRef instanceof Str) {
                         value = rs.getObject(((Str)colRef).value);
@@ -208,8 +208,8 @@ public class ResSet extends PlainObj {
                 ResultSet rs = thiz.resultSet;
                 try {
                     // NOTE: No sepcial consideration of null value types as the result set already knowns of them
-                    if (colRef instanceof Int) {
-                        rs.updateObject(((Int)colRef).value, value.toJavaObject());
+                    if (colRef instanceof NNumeric) {
+                        rs.updateObject(((NNumeric)colRef).intValue(), value.toJavaObject());
                     }
                     else if (colRef instanceof Str) {
                         rs.updateObject(((Str)colRef).value, value.toJavaObject());

@@ -9,7 +9,7 @@ import java.util.*;
 .includeFile(inc);
 
 var time2 := Calendar.instance.timeInMillis;
-if (time1.equals(time2)) {
+if (time1 == time2) {
 	throw 'dynamic env mixed up';
 }
 if ('d+e+f' != URLEncoder.encode('d e f')) {

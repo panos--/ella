@@ -1,15 +1,14 @@
 package org.unbunt.sqlscript.testng;
 
+import static org.testng.Assert.*;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import org.unbunt.sqlscript.SQLScript;
-import org.unbunt.sqlscript.utils.TestUtils;
-import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeTest;
-import static org.testng.Assert.*;
+import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
 import java.util.Date;
 
@@ -31,8 +30,8 @@ public class InterpreterTestsNG extends AbstractTest {
 
         result = eval("var i := 23; { .i; }");
         assertNotNull(result, "Variable undefined in child scope");
-        assertTrue(Integer.class.equals(result.getClass()), "Variable not of type integer");
-        assertTrue((Integer)result == 23, "Variable not of assigned value");
+        assertTrue(Long.class.equals(result.getClass()), "Variable not of type long");
+        assertTrue((Long)result == 23, "Variable not of assigned value");
     }
 
     @Test
@@ -290,5 +289,47 @@ public class InterpreterTestsNG extends AbstractTest {
     @Test
     public void includeFileNestedResource() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("include-file-nested-resource"));
+    }
+
+    @Test
+    public void floatVsIntSlotDistinction() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(file("float-vs-int-slot-distinction"));
+        assertEquals(((Number) result).intValue(), 3);
+    }
+
+    @Test
+    @SuppressWarnings({"UnnecessaryUnboxing"})
+    public void floatLiteral() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(".1.23;");
+        assertEquals(((Double) result).doubleValue(), 1.23d);
+    }
+
+    @Test
+    @SuppressWarnings({"UnnecessaryUnboxing"})
+    public void numPropagateInfinity() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(".(1 / 0.0) * 1.bigRealValue();");
+        assertEquals(Double.POSITIVE_INFINITY, ((Double)result).doubleValue());
+    }
+
+    @Test
+    public void numPropagateNaN() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(".(0 / 0.0) * 1.bigRealValue();");
+        assertTrue(Double.isNaN((Double)result));
+    }
+
+    @Test
+    public void numFailOnNaNToBigReal() throws SQLScriptIOException, SQLScriptParseException {
+        try {
+            eval(".(0 / 0.0).bigRealValue();");
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "Cannot convert NaN to BigDecimal");
+            return;
+        }
+        assertTrue(false, "No exception thrown on NaN to BigDecimal conversion");
+    }
+
+    @Test
+    public void numDoubleSpecials() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("num-double-specials"));
     }
 }

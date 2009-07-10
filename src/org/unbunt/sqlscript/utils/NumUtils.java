@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.utils;
 
 import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.exception.CheckedArithmeticException;
+import org.unbunt.sqlscript.exception.*;
 import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
 
 import java.math.BigInteger;
@@ -9,14 +9,62 @@ import java.math.BigDecimal;
 import static java.lang.Double.isInfinite;
 
 public class NumUtils {
-    public static final BigInteger MAX_DOUBLE = toBigInteger(Double.MAX_VALUE);
+    public static final BigInteger MAX_DOUBLE = toBigIntegerUnguarded(Double.MAX_VALUE);
 
-    public static BigInteger toBigInteger(double value) {
-        return BigDecimal.valueOf(value).toBigInteger();
+    private static BigInteger toBigIntegerUnguarded(double value) {
+        try {
+            return toBigInteger(value);
+        } catch (UnrepresentableValueException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static BigDecimal toBigDecimal(double value) {
-        return BigDecimal.valueOf(value);
+    public static BigInteger toBigInteger(long value) {
+        return BigInteger.valueOf(value);
+    }
+
+    public static BigInteger toBigInteger(double value)
+            throws DoubleNaNException, DoublePositiveInfinityExcepetion, DoubleNegativeInfinityException {
+        try {
+            return BigDecimal.valueOf(value).toBigInteger();
+        } catch (NumberFormatException e) {
+            if (Double.isNaN(value)) {
+                throw new DoubleNaNException(e);
+            }
+            else if (value == Double.POSITIVE_INFINITY) {
+                throw new DoublePositiveInfinityExcepetion(e);
+            }
+            else if (value == Double.NEGATIVE_INFINITY) {
+                throw new DoubleNegativeInfinityException(e);
+            }
+            throw new SQLScriptRuntimeException("Internal error: " + e.getMessage(), e);
+        }
+    }
+
+    public static BigInteger toBigInteger(BigDecimal value) {
+        return value.toBigInteger();
+    }
+
+    public static BigDecimal toBigDecimal(long value) {
+        return toBigDecimal(toBigInteger(value));
+    }
+
+    public static BigDecimal toBigDecimal(double value)
+            throws DoubleNaNException, DoublePositiveInfinityExcepetion, DoubleNegativeInfinityException {
+        try {
+            return BigDecimal.valueOf(value);
+        } catch (NumberFormatException e) {
+            if (Double.isNaN(value)) {
+                throw new DoubleNaNException(e);
+            }
+            else if (value == Double.POSITIVE_INFINITY) {
+                throw new DoublePositiveInfinityExcepetion(e);
+            }
+            else if (value == Double.NEGATIVE_INFINITY) {
+                throw new DoubleNegativeInfinityException(e);
+            }
+            throw new SQLScriptRuntimeException("Internal error: " + e.getMessage(), e);
+        }
     }
 
     public static BigDecimal toBigDecimal(BigInteger value) {
@@ -27,52 +75,4 @@ public class NumUtils {
         return result.abs().compareTo(MAX_DOUBLE) < 1;
     }
 
-    public static Obj narrow(BigInteger value) {
-        // downgrade to Num if possible
-        if (doublePossible(value)) {
-            return new Num(value.doubleValue());
-        }
-        return new BigNum(value);
-    }
-
-    public static Obj divide(double dividend, double divisor) throws CheckedArithmeticException {
-        double result = dividend / divisor;
-        if (isInfinite(result)) {
-            if (divisor == 0) {
-                throw new CheckedArithmeticException("Division by zero");
-            }
-            return new BigNum(toBigInteger(dividend).divide(toBigInteger(divisor)));
-        }
-        return new Num(result);
-    }
-
-    public static Obj divideReal(double dividend, double divisor) throws CheckedArithmeticException {
-        double result = dividend / divisor;
-        if (isInfinite(result)) {
-            if (divisor == 0) {
-                throw new CheckedArithmeticException("Division by zero");
-            }
-            try {
-                return new BigReal(toBigDecimal(dividend).divide(toBigDecimal(divisor)));
-            } catch (ArithmeticException e) {
-                return new BigReal(toBigDecimal(dividend).divide(toBigDecimal(divisor),
-                                                              Numeric.DECIMAL_FALLBACK_SCALE,
-                                                              Numeric.DECIMAL_FALLBACK_ROUNDING_MODE));
-            }
-        }
-        return new Real(dividend);
-    }
-
-    public static Obj divideReal(BigDecimal dividend, BigDecimal divisor) throws CheckedArithmeticException {
-        try {
-            return new BigReal(dividend.divide(divisor));
-        } catch (ArithmeticException e) {
-            if (BigDecimal.ZERO.equals(divisor)) {
-                throw new CheckedArithmeticException("Division by zero");
-            }
-            BigDecimal result =
-                    dividend.divide(divisor, Numeric.DECIMAL_FALLBACK_SCALE, Numeric.DECIMAL_FALLBACK_ROUNDING_MODE);
-            return new BigReal(result);
-        }
-    }
 }

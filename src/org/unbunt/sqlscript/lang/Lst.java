@@ -51,9 +51,9 @@ public class Lst extends PlainObj {
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(context);
-                Int idx = ensureType(args[0]);
+                NNumeric idx = ensureType(args[0]);
                 try {
-                    return thiz.value.get(idx.value);
+                    return thiz.value.get(idx.intValue());
                 } catch (IndexOutOfBoundsException e) {
                     throw new SQLScriptRuntimeException(e);
                 }
@@ -63,12 +63,13 @@ public class Lst extends PlainObj {
         protected static final NativeCall nativeSet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(context);
-                Int idx = ensureType(args[0]);
+                NNumeric num = ensureType(args[0]);
+                int idx = num.intValue();
                 Obj value = args[1];
                 try {
-                    thiz.value.set(idx.value, value);
+                    thiz.value.set(idx, value);
                 } catch (IndexOutOfBoundsException e) {
-                    if (idx.value == thiz.value.size()) {
+                    if (idx == thiz.value.size()) {
                         thiz.value.add(value);
                     }
                     else {

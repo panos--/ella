@@ -1,4 +1,1 @@
-var @ = foo;
-var @bla = blubb;
-var foo@ = baz;
-var stmt = sql select @{foobar} foo @ `foo@{value}bar`;
+.1 / 0.0 * 0.bigRealValue();

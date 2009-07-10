@@ -1,22 +1,23 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.support.Context;
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.utils.ObjUtils;
 
 import java.lang.reflect.Array;
 
 public class JArray extends PlainObj {
     public final Object array;
     public final int length;
-    public final Int lengthObj;
+    public final NNum lengthObj;
 
     public JArray(Object array, int length) {
         this.array = array;
         this.length = length;
-        this.lengthObj = new Int(length);
+        this.lengthObj = new NNum(length);
     }
 
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -59,7 +60,7 @@ public class JArray extends PlainObj {
                 int length = Array.getLength(ctx.array);
                 for (int i = 0; i < length; i++) {
                     Object elem = Array.get(array, i);
-                    Obj wrappedIndex = new Int(i);
+                    Obj wrappedIndex = new NNum(i);
                     Obj wrappedElem = NativeWrapper.wrap(engine.getContext(), elem);
                     engine.invoke(code, engine.getObjNull(), wrappedIndex, wrappedElem);
                 }
@@ -71,7 +72,8 @@ public class JArray extends PlainObj {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
-                int idx = ((Number) args[0].toJavaObject()).intValue();
+                NNumeric num = ObjUtils.ensureType(args[0]);
+                int idx = num.intValue();
                 return NativeWrapper.wrap(engine.getContext(), Array.get(array, idx));
             }
         };
@@ -80,7 +82,8 @@ public class JArray extends PlainObj {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
-                int idx = ((Number) args[0].toJavaObject()).intValue();
+                NNumeric num = ObjUtils.ensureType(args[0]);
+                int idx = num.intValue();
                 Obj value = args[1];
                 Object jvalue = value.toJavaObject();
                 Array.set(array, idx, jvalue);

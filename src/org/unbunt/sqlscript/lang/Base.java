@@ -51,10 +51,10 @@ public class Base extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     private Base() {
-        slots.put(Str.SYM_id, PrimitiveCall.Type.ID.primitive);
-        slots.put(Str.SYM_ni, PrimitiveCall.Type.NI.primitive);
-        slots.put(Str.SYM_eq, nativeEquals);
-        slots.put(Str.SYM_ne, nativeNotEquals);
+        slots.put(Str.SYM__id, PrimitiveCall.Type.ID.primitive);
+        slots.put(Str.SYM__ni, PrimitiveCall.Type.NI.primitive);
+        slots.put(Str.SYM__eq, nativeEquals);
+        slots.put(Str.SYM__ne, nativeNotEquals);
         slots.put(Str.SYM_each, nativeEach);
         slots.put(Str.SYM_eachSlot, nativeEachSlot);
     }

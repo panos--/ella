@@ -587,6 +587,9 @@ simpleExpression returns [ Expression value ]
 	|	intLit=INT {
 			$value = new IntegerLiteralExpression($intLit.text);
 		}
+	|	floatLit=FLOAT {
+			$value = new FloatingPointLiteralExpression($floatLit.text);
+		}
 	|	str=stringLiteral {
 			$value = new StringLiteralExpression($str.value);
 		}
@@ -613,17 +616,6 @@ sqlExpression returns [ Expression value ]
 		  lit=sqlLiteral { sql = $lit.value; }
 		)
 	;
-
-/*
-sqlStmt
-@init { SQLLiteralExpression sql = null; }
-@after {
-	SlotCallExpression stmt = createSlotCall("Conn", "execStmt", sql);
-	$Block::block.addStatement(stmt);
-}
-	:	lit=sqlLiteral { sql = $lit.value; }
-	;
-*/
 
 sqlLiteral returns [ SQLLiteralExpression value ]
 @init { SQLLiteralExpression sql = new SQLLiteralExpression(); }
@@ -656,10 +648,10 @@ sqlToken returns [ Object value ]
 sqlAtom returns [ String value ]
 	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
 		  | EQUALS | BACKSLASH | ATSIGN
-		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ
+		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE
 		  | EXCLAM | QUESTION | COLON | COMMA
 		  | STR_SQUOT | STR_DQUOT | STR_BTICK
-		  | INT
+		  | INT | FLOAT
 		  ) { $value = $c.text; }
 	;
 

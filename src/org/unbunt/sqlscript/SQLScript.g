@@ -65,6 +65,8 @@ tokens {
 	IMPORT_PACKAGE;
 	IMPORT_CLASS;
 	AS;
+	INT;
+	FLOAT;
 }
 
 @parser::header {
@@ -559,8 +561,9 @@ andCondition
 
 eqCondition
 	:	multExpression
-		( (op=OP_EQ|op=OP_NE|op=OP_ID|op=OP_NI) multExpression	-> ^(CALL_BINARY multExpression IDENTIFIER[$op] multExpression)
-		|							-> multExpression
+		( (op=OP_EQ|op=OP_NE|op=OP_ID|op=OP_NI|op=OP_GT|op=OP_GE|op=OP_LT|op=OP_LE)
+		  multExpression	-> ^(CALL_BINARY multExpression IDENTIFIER[$op] multExpression)
+		|			-> multExpression
 		)
 	;
 	
@@ -636,6 +639,7 @@ simpleExpression
 	|	stringLiteral
 	|	booleanLiteral
 	|	INT
+	|	FLOAT
 	|	tokThis=KW_THIS -> THIS[$tokThis]
 	|	tokSuper=KW_SUPER! superSuffix[$tokSuper]
 	|	tokNew=KW_NEW simpleExpression argumentsList -> ^(NEW[$tokNew] simpleExpression argumentsList?)
@@ -786,10 +790,10 @@ sqlToken
 sqlAtom
 	:	SQL_SPECIAL_CHAR
 	|	EQUALS | BACKSLASH
-	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ
+	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE
 	|	EXCLAM | QUESTION | COLON | DOT | COMMA
 	|	DOUBLE_ARROW
-	|	INT
+	|	INT | FLOAT
 	;
 
 objectLiteral
@@ -991,7 +995,20 @@ DOLQUOT_TAG_END
 	|	DIGIT
 	;
 
+NUMBER	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' (DIGIT+ | EXPONENT) { $type = FLOAT; }
+	|	DIGIT+ { $type = INT; }
+	;
+
+/*
 INT	:	DIGIT+
+	;
+
+FLOAT	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' DIGIT+ EXPONENT?
+	;
+*/
+
+fragment
+EXPONENT:	('e'|'E') ('-'|'+')? DIGIT+
 	;
 
 fragment
@@ -1103,6 +1120,18 @@ OP_ID	:	'==='
 OP_NI	:	'!=='
 	;
 
+OP_GT	:	'>'
+	;
+
+OP_GE	:	'>='
+	;
+
+OP_LT	:	'<'
+	;
+
+OP_LE	:	'<='
+	;
+
 OP_MUL	:	'*'
 	;
 
@@ -1181,7 +1210,7 @@ COMMA	:	','
 	;
 
 SQL_SPECIAL_CHAR
-	:	'<'|'>'|'*'|'/'|'-'|'='|'%'|'#'|'&'|'|'|DIGIT
+	:	'*'|'/'|'-'|'='|'%'|'#'|'&'|'|'|DIGIT
 	|	{!allowAtSignInIdentifier}?=> '@'
 	;
 
