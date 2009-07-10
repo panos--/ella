@@ -45,8 +45,7 @@ public class JObject extends PlainObj {
         }
         if (getter != null) {
             try {
-                Object result = getter.invoke(value, (Object[])null);
-                return NativeWrapper.wrap(context, result);
+                return ReflectionUtils.invokeMethod(context, getter, value, (Object[])null);
             } catch (IllegalAccessException ignored) {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
@@ -87,8 +86,7 @@ public class JObject extends PlainObj {
                                                            new Object[] { jvalue });
         if (setter != null) {
             try {
-                Object result = setter.invoke(value, jvalue);
-                return NativeWrapper.wrap(context, result);
+                return ReflectionUtils.invokeMethod(context, setter, value, jvalue);
             } catch (IllegalAccessException ignored) {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {

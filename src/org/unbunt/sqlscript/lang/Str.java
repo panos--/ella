@@ -84,6 +84,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_tryCatch = toSym("tryCatch");
     public static final Str SYM_tryCatchFinally = toSym("tryCatchFinally");
     public static final Str SYM_tryFinally = toSym("tryFinally");
+    public static final Str SYM_type = toSym("type");
     public static final Str SYM_update = toSym("update");
     public static final Str SYM_valueOf = toSym("valueOf");
     public static final Str SYM_while = toSym("while");

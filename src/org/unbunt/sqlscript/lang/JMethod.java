@@ -48,13 +48,12 @@ public class JMethod extends NativeCall {
                 }
             }
             else {
-                method = ReflectionUtils.findMatchingMethod(methods, ReflectionUtils.getArgTypes(jargs), jargs);
+                method = ReflectionUtils.findMatchingMethod(methods, ReflectionUtils.getArgTypes(jargs, args), jargs);
             }
             if (method == null) {
                 throw new SQLScriptRuntimeException("No such method");
             }
-            Object jresult = method.invoke(jcontext, jargs);
-            return NativeWrapper.wrap(engine.getContext(), jresult);
+            return ReflectionUtils.invokeMethod(engine.getContext(), method, jcontext, jargs);
         } catch (IllegalArgumentException e) {
             throw new SQLScriptRuntimeException("No such method: " + e.getMessage(), e);
         } catch (RuntimeException e) {

@@ -36,4 +36,8 @@ public class MethodSelectTest {
     public String bar(java.util.Date date) {
         return "bar(Date)";
     }
+
+    public java.util.Date getNullUtilDate() {
+        return null;
+    }
 }

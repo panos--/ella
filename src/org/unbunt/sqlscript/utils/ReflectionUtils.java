@@ -1,9 +1,14 @@
 package org.unbunt.sqlscript.utils;
 
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.exception.CheckedClassCastException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.lang.Null;
+import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.support.NativeWrapper;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -352,6 +357,7 @@ public class ReflectionUtils {
         return false;
     }
 
+    @SuppressWarnings({"UnusedDeclaration"})
     private static boolean canConvertToByte(Object value) {
         /*
         boolean validType = value instanceof Long || value instanceof Integer || value instanceof Short;
@@ -373,6 +379,7 @@ public class ReflectionUtils {
         return false;
     }
 
+    @SuppressWarnings({"UnusedDeclaration"})
     private static boolean canConvertToShort(Object value) {
         /*
         boolean validType = value instanceof Long || value instanceof Integer;
@@ -394,6 +401,7 @@ public class ReflectionUtils {
         return false;
     }
 
+    @SuppressWarnings({"UnusedDeclaration"})
     private static boolean canConvertToInt(Object value) {
         /*
         try {
@@ -490,4 +498,35 @@ public class ReflectionUtils {
         return result;
     }
 
+    public static Class[] getArgTypes(Object[] args, Obj[] wrappedArgs) {
+        Class[] result = new Class[args.length];
+        for (int i = 0; i < args.length; i++) {
+            Object arg = args[i];
+            if (arg == null) {
+                Obj wrappedArg = wrappedArgs[i];
+                if (wrappedArg instanceof Null) {
+                    result[i] = ((Null) wrappedArg).typeHint;
+                }
+            }
+            else {
+                result[i] = arg.getClass();
+            }
+        }
+        return result;
+    }
+
+    public static Obj invokeMethod(Context ctx, Method method, Object obj, Object... args)
+            throws InvocationTargetException, IllegalAccessException {
+        Object result = method.invoke(obj, args);
+        if (result == null) {
+            Class<?> returnType = method.getReturnType();
+            if (!returnType.equals(void.class)) {
+                return new Null(returnType);
+            }
+            else {
+                return ctx.getObjNull();
+            }
+        }
+        return NativeWrapper.wrap(ctx, result);
+    }
 }

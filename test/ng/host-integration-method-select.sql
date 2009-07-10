@@ -24,3 +24,11 @@ var SQLDate := new JClass('java.sql.Date');
 
 .assert(test.bar(Calendar.instance), 'bar(Calendar)');
 .assert(test.bar(new UtilDate()), 'bar(Date)');
+
+.assert(test.baz(null.type(UtilDate)), 'baz(java.util.Date)');
+
+var nullDate := test.nullUtilDate;
+if (nullDate != null || nullDate !== null) {
+	throw 'broken test - MethodSelectTest.getNullUtilDate() should return null';
+}
+.assert(test.baz(nullDate), 'baz(java.util.Date)');

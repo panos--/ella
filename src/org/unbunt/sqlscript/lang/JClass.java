@@ -20,12 +20,12 @@ import java.util.List;
  * Copyright: (c) 2007 marketoolz GmbH
  */
 public class JClass extends PlainObj implements NativeObj {
-    public final Class<?> cls;
+    public final Class<?> clazz;
 
     public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             Object result = null;
-            Class<?> cls = ((JClass) context).cls;
+            Class<?> cls = ((JClass) context).clazz;
 
             if (args.length == 0) {
                 try {
@@ -45,7 +45,7 @@ public class JClass extends PlainObj implements NativeObj {
 
             Constructor ctor =
                     ReflectionUtils.findMatchingConstructor(cls.getConstructors(),
-                                                            ReflectionUtils.getArgTypes(jargs),
+                                                            ReflectionUtils.getArgTypes(jargs, args),
                                                             jargs);
 
             if (ctor == null) {
@@ -66,8 +66,8 @@ public class JClass extends PlainObj implements NativeObj {
         }
     };
 
-    public JClass(Class<?> cls) {
-        this.cls = cls;
+    public JClass(Class<?> clazz) {
+        this.clazz = clazz;
     }
 
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -95,7 +95,7 @@ public class JClass extends PlainObj implements NativeObj {
         String keyStr = key.toString();
 
         // try to load method named exactly like the slot
-        List<Method> directMatches = ReflectionUtils.getStaticMethods(cls, keyStr);
+        List<Method> directMatches = ReflectionUtils.getStaticMethods(clazz, keyStr);
         if (!directMatches.isEmpty()) {
             JMethod method = new JMethod(directMatches.toArray(new Method[directMatches.size()]));
             slots.put(key, method);
@@ -106,7 +106,7 @@ public class JClass extends PlainObj implements NativeObj {
         String propStr = ReflectionUtils.getterFromProperty(keyStr);
         Method getter = null;
         try {
-            getter = cls.getMethod(propStr, (Class[])null);
+            getter = clazz.getMethod(propStr, (Class[])null);
             if (!Modifier.isStatic(getter.getModifiers())) {
                 getter = null;
             }
@@ -114,8 +114,7 @@ public class JClass extends PlainObj implements NativeObj {
         }
         if (getter != null) {
             try {
-                Object result = getter.invoke(null, (Object[])null);
-                return NativeWrapper.wrap(ctx, result);
+                return ReflectionUtils.invokeMethod(ctx, getter, null, (Object[])null);
             } catch (IllegalAccessException ignored) {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
@@ -126,7 +125,7 @@ public class JClass extends PlainObj implements NativeObj {
 
         // try to find property named like the slot
         try {
-            Field field = cls.getField(keyStr);
+            Field field = clazz.getField(keyStr);
             if (Modifier.isStatic(field.getModifiers())) {
                 Object fieldValue = field.get(null);
                 return NativeWrapper.wrap(ctx, fieldValue);
@@ -150,7 +149,7 @@ public class JClass extends PlainObj implements NativeObj {
 
         // interpret given slot name as property name and try to find and invoke corresponding setter method
         String propStr = ReflectionUtils.setterFromProperty(keyStr);
-        Method[] methods = cls.getMethods();
+        Method[] methods = clazz.getMethods();
         Method[] staticMethods = new Method[methods.length];
         for (int i = 0; i < staticMethods.length; i++) {
             Method m = staticMethods[i];
@@ -166,8 +165,7 @@ public class JClass extends PlainObj implements NativeObj {
                                                            new Object[] { jvalue });
         if (setter != null) {
             try {
-                Object result = setter.invoke(null, jvalue);
-                return NativeWrapper.wrap(ctx, result);
+                ReflectionUtils.invokeMethod(ctx, setter, null, jvalue);
             } catch (IllegalAccessException ignored) {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {
@@ -178,7 +176,7 @@ public class JClass extends PlainObj implements NativeObj {
 
         // try to find property named like the slot and set it's value
         try {
-            Field field = cls.getField(keyStr);
+            Field field = clazz.getField(keyStr);
             int flags = field.getModifiers();
             if (Modifier.isStatic(flags)) {
                 field.set(null, val);
@@ -196,11 +194,11 @@ public class JClass extends PlainObj implements NativeObj {
 
     @Override
     public Class toJavaObject() {
-        return cls;
+        return clazz;
     }
 
     public String toString() {
-        return "[JClass " + cls.toString() + "]";
+        return "[JClass " + clazz.toString() + "]";
     }
 
     /**
