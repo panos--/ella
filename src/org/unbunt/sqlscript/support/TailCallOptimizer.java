@@ -56,6 +56,12 @@ public class TailCallOptimizer {
             }
         }
 
+        public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
+            for (Expression expression : arrayLiteralExpression.getComponents()) {
+                expression.accept(this);
+            }
+        }
+
         public void processExpression(NotExpression notExpression) {
             notExpression.getExpression().accept(this);
         }
@@ -255,6 +261,9 @@ public class TailCallOptimizer {
             public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
             }
 
+            public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
+            }
+
             public void processExpression(NotExpression notExpression) {
             }
 
@@ -371,6 +380,9 @@ public class TailCallOptimizer {
             public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
             }
 
+            public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
+            }
+
             public void processExpression(NotExpression notExpression) {
             }
 
@@ -479,6 +491,9 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(ObjectLiteralExpression objectLiteralExpression) {
+            }
+
+            public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
             }
 
             public void processExpression(NotExpression notExpression) {

@@ -50,6 +50,7 @@ tokens {
 	TRUE;
 	FALSE;
 	OBJ;
+	ARRAY;
 	SLOT;
 	SLOT_CALL;
 	SLOT_GET;
@@ -65,8 +66,6 @@ tokens {
 	IMPORT_PACKAGE;
 	IMPORT_CLASS;
 	AS;
-	INT;
-	FLOAT;
 }
 
 @parser::header {
@@ -638,6 +637,7 @@ simpleExpression
 	|	identifier
 	|	stringLiteral
 	|	booleanLiteral
+	|	arrayLiteral
 	|	INT
 	|	FLOAT
 	|	tokThis=KW_THIS -> THIS[$tokThis]
@@ -808,6 +808,15 @@ objectLiteral
 objectSlot
 	:	identifier COLON expressionNoSQL -> ^(SLOT identifier expressionNoSQL)
 	|	stringLiteral COLON expressionNoSQL -> ^(SLOT stringLiteral expressionNoSQL)
+	;
+
+arrayLiteral
+	:	LSQUARE
+		(expressionNoSQL (COMMA expressionNoSQL)* COMMA*
+		|
+		)
+		RSQUARE
+		-> ^(ARRAY expressionNoSQL*)
 	;
 
 argumentsList
@@ -998,6 +1007,9 @@ DOLQUOT_TAG_END
 NUMBER	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' (DIGIT+ | EXPONENT) { $type = FLOAT; }
 	|	DIGIT+ { $type = INT; }
 	;
+
+INT	:	{false}?=> 'just to disable warning about no lexer rule corresponding to INT';
+FLOAT	:	{false}?=> 'just to disable warning about no lexer rule corresponding to FLOAT';
 
 /*
 INT	:	DIGIT+

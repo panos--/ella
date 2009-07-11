@@ -1,12 +1,15 @@
-.Conn.withPrepared { =>
-	var ins := (sql insert into test (val) values (?));
-	var sel := (sql select * from test where id = :id);
-
-	var id;
-	id = ins.with('foo1').key();
-	sel.withNamed({ id: id }).do();
-	id = ins.with('foo2').key();
-	sel.withNamed({ id: id }).do();
-	id = ins.with('foo3').key();
-	sel.withNamed({ id: id }).do();
-};
+{
+    var x := [1,2,3,4,5];
+    var sum := 0;
+	x.each { idx, val =>
+		if (idx == 3) {
+			.print("break at idx @{idx}");
+			break();
+		}
+		.print("@{idx}: @{val}");
+		sum = sum + val;
+	};
+	if (sum != 6) {
+	    throw 'failed - result=@{sum}';
+    }
+}

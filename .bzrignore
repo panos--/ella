@@ -12,3 +12,5 @@ vpproject
 src/*.grn
 src/Test.java
 *.essModel
+sqlscript.properties
+sqlscript.xml

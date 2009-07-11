@@ -202,6 +202,11 @@ public class SQLScriptEngine
         next = CONT;
     }
 
+    public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
+        cont[++pc] = new ArrLitCont(arrayLiteralExpression.getComponents());
+        next = CONT;
+    }
+
     public void processExpression(NotExpression notExpression) {
         stmt = notExpression.getExpression();
         cont[++pc] = new LogicNotCont();
@@ -521,6 +526,24 @@ public class SQLScriptEngine
         pc--;
         objLitSlotValueCont.getObj().addSlot(context, objLitSlotValueCont.getSlot(), val);
         next = CONT;
+    }
+
+    public void processContinuation(ArrLitCont arrLitCont) {
+        // Unconditionally add current value to the array. The first value will be a the value of the last expression
+        // previously evaluated and is therefore not the value of a component of the to be created array. ArrLitCont
+        // knows about this and takes care of this.
+        arrLitCont.addComponentValue(val);
+
+        Expression componentExpr = arrLitCont.getNextComponent();
+        if (componentExpr == null) {
+            val = new Lst(arrLitCont.getComponentValues());
+            pc--;
+            next = CONT;
+        }
+        else {
+            stmt = componentExpr;
+            next = EVAL;
+        }
     }
 
     public void processContinuation(LogicNotCont logicNotCont) {

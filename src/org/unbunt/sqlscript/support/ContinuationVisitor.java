@@ -13,6 +13,8 @@ public interface ContinuationVisitor {
 
     void processContinuation(ObjLitSlotValueCont objLitSlotValueCont);
 
+    void processContinuation(ArrLitCont arrLitCont);
+
     void processContinuation(LogicNotCont logicNotCont);
 
     void processContinuation(LogicAndCont logicAndCont);

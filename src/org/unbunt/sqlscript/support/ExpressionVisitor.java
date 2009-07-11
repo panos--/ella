@@ -17,6 +17,8 @@ public interface ExpressionVisitor {
 
     void processExpression(ObjectLiteralExpression objectLiteralExpression);
 
+    void processExpression(ArrayLiteralExpression arrayLiteralExpression);
+
     void processExpression(SQLLiteralExpression sqlLiteralExpression);
 
     void processExpression(NotExpression notExpression);

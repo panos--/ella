@@ -1,17 +1,17 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.exception.LoopContinueException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.NativeWrapper;
-import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.exception.LoopContinueException;
-import org.unbunt.sqlscript.exception.LoopBreakException;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Lst extends PlainObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -32,7 +32,11 @@ public class Lst extends PlainObj {
 
     @Override
     public Object toJavaObject() {
-        return value;
+        List<Object> result = new ArrayList<Object>(value.size());
+        for (Obj obj : value) {
+            result.add(obj.toJavaObject());
+        }
+        return result;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class Lst extends PlainObj {
         ctx.registerProto(OBJECT_ID, LstProto.OBJECT_ID);
     }
 
-    protected static class LstProto extends PlainObj {
+    public static class LstProto extends PlainObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeGet = new NativeCall() {
@@ -67,16 +71,29 @@ public class Lst extends PlainObj {
                 int idx = num.intValue();
                 Obj value = args[1];
                 try {
-                    thiz.value.set(idx, value);
+                    try {
+                        thiz.value.set(idx, value);
+                    } catch (IndexOutOfBoundsException e) {
+                        if (idx == thiz.value.size()) {
+                            thiz.value.add(value);
+                        }
+                        else {
+                            throw new SQLScriptRuntimeException(e);
+                        }
+                    }
+                } catch (UnsupportedOperationException e) {
+                    throw new SQLScriptRuntimeException(e);
+                } catch (ClassCastException e) {
+                    throw new SQLScriptRuntimeException(e);
+                } catch (NullPointerException e) {
+                    // NOTE: should not happen as script objects are never null
+                    throw new SQLScriptRuntimeException(e);
+                } catch (IllegalArgumentException e) {
+                    throw new SQLScriptRuntimeException(e);
                 } catch (IndexOutOfBoundsException e) {
-                    if (idx == thiz.value.size()) {
-                        thiz.value.add(value);
-                    }
-                    else {
-                        throw new SQLScriptRuntimeException(e);
-                    }
+                    throw new SQLScriptRuntimeException(e);
                 }
-                return thiz;
+                return value;
             }
         };
 
@@ -84,8 +101,36 @@ public class Lst extends PlainObj {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(context);
                 Obj value = args[0];
-                thiz.value.add(value);
+
+                try {
+                    thiz.value.add(value);
+                } catch (UnsupportedOperationException e) {
+                    throw new SQLScriptRuntimeException(e);
+                } catch (ClassCastException e) {
+                    throw new SQLScriptRuntimeException(e);
+                } catch (NullPointerException e) {
+                    // NOTE: should not happen as script objects are never null
+                    throw new SQLScriptRuntimeException(e);
+                } catch (IllegalArgumentException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+
                 return thiz;
+            }
+        };
+
+        protected static final NativeCall nativeRemove = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Lst thiz = ensureType(context);
+                NNumeric idx = ensureType(args[0]);
+
+                try {
+                    return thiz.value.remove(idx.intValue());
+                } catch (UnsupportedOperationException e) {
+                    throw new SQLScriptRuntimeException(e);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
             }
         };
 
@@ -131,10 +176,19 @@ public class Lst extends PlainObj {
             }
         };
 
+        protected static final NativeCall nativeSize = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Lst thiz = ensureType(context);
+                return new NNum(thiz.value.size());
+            }
+        };
+
         private LstProto() {
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
             slots.put(Str.SYM_add, nativeAdd);
+            slots.put(Str.SYM_remove, nativeRemove);
+            slots.put(Str.SYM_size, nativeSize);
             slots.put(Str.SYM_each, nativeEach);
         }
 

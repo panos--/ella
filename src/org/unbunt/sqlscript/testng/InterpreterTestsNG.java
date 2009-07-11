@@ -11,6 +11,8 @@ import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 @Test(groups = { "interpreter" }, dependsOnGroups = { "parser" })
 public class InterpreterTestsNG extends AbstractTest {
@@ -336,5 +338,17 @@ public class InterpreterTestsNG extends AbstractTest {
     @Test
     public void hostIntegrationMethodSelect() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("host-integration-method-select"));
+    }
+
+    @Test
+    public void array() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(file("array"));
+        List<Long> expected = new ArrayList<Long>(5);
+        expected.add(1l);
+        expected.add(2l);
+        expected.add(3l);
+        expected.add(4l);
+        expected.add(5l);
+        assertEquals(result, expected);
     }
 }

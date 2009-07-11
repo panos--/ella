@@ -66,6 +66,7 @@ public class Context implements SQLResultProvider {
         NBigNum.registerInContext(this);
         NReal.registerInContext(this);
         NBigReal.registerInContext(this);
+        Lst.registerInContext(this);
         Sys.registerInContext(this);
         Bool.registerInContext(this);
         Clos.registerInContext(this);
@@ -106,6 +107,7 @@ public class Context implements SQLResultProvider {
         mainEnv.add("null", objNull);
         mainEnv.add("Sys", objSys);
         mainEnv.add("Obj", ensureObject(Base.OBJECT_ID));
+        mainEnv.add("Lst", ensureObject(Lst.LstProto.OBJECT_ID));
         mainEnv.add("Str", ensureObject(Str.StrProto.OBJECT_ID));
         mainEnv.add("Num", ensureObject(NNum.NNumProto.OBJECT_ID));
         mainEnv.add("BigNum", ensureObject(NBigNum.NBigNumProto.OBJECT_ID));

@@ -126,11 +126,6 @@ script [ Scope scope ] returns [ Block value ]
 scope Block, Scope;
 @init {
 	$Scope::scope = $scope;
-	/*
-	for (Globals global : Globals.values()) {
-		$Scope::scope.addVariable(global.getIdentifier());
-	}
-	*/
 	$Block::block = new Block($Scope::scope, false);
 }
 @after{
@@ -182,44 +177,6 @@ scope Block;
 }
 	:	^(BLOCK statement*)
 	;
-
-/*
-evalStmt
-@init { EvalCommand cmd = new EvalCommand(); }
-@after { $Block::block.addStatement(cmd); }
-	:	^(EVAL_CMD
-			evcmd=evalCommand { cmd.setName($evcmd.value); }
-			(param=evalParam { cmd.addParam($param.value); })*
-			(annot=annotation { $annot.value.setSubject(cmd); })*
-		)
-	;
-
-evalCommand returns [ String value ]
-	:	cmd=identifier { $value = $cmd.value; }
-	;
-
-evalParam returns [ Parameter value ]
-	:	^(EVAL_ARG param=parameter) { $value = $param.value; }
-	;
-*/
-
-/*
-annotation returns [ AnnotationCommand value ] // generated command returned so that annotation subject can be set in calling context
-@init { $value = new AnnotationCommand(); }
-@after { $Block::block.addStatement($value); }
-	:	^(ANNOT
-			cmd=annotationCommand { $value.setName($cmd.value); }
-			(param=annotationParam { $value.addParam($param.value); })*)
-	;
-
-annotationCommand returns [ String value ]
-	:	name=ANNOTATION { $value = $name.text.substring(1, $name.text.length()); }
-	;
-
-annotationParam returns [ Parameter value ]
-	:	^(ANNOT_ARG param=parameter) { $value = $param.value; }
-	;
-*/
 
 scriptStmt
 	:	scriptIfElse
@@ -599,6 +556,9 @@ simpleExpression returns [ Expression value ]
 	|	obj=objectLiteral {
 			$value = new ObjectLiteralExpression($obj.value);
 		}
+	|	array=arrayLiteral {
+			$value = new ArrayLiteralExpression($array.value);
+		}
 	;
 
 sqlExpression returns [ Expression value ]
@@ -697,6 +657,11 @@ objectSlot returns [ Expression key, Expression value ]
 			)
 			expr=expression { $value = $expr.value; }
 		)
+	;
+
+arrayLiteral returns [ List<Expression> value ]
+@init { $value = new ArrayList<Expression>(); }
+	:	^(ARRAY (expr=expression { $value.add($expr.value); })*)
 	;
 
 parameter returns [ Parameter value ]
