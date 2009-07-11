@@ -594,7 +594,15 @@ assignExpression
 conditionalExpression
 	:	orCondition
 		( QUESTION conditionalResult COLON conditionalResult
-			-> ^(COND_EXPR orCondition conditionalResult conditionalResult)
+			//-> ^(COND_EXPR orCondition conditionalResult conditionalResult)
+			-> ^(CALL
+				^(SLOT IDENTIFIER["Sys"] IDENTIFIER["ifThen"])
+				^(ARGS
+					orCondition
+					^(BLOCK_CLOSURE ^(BLOCK conditionalResult))
+					^(BLOCK_CLOSURE ^(BLOCK conditionalResult))
+					)
+				)
 		|	-> orCondition
 		)
 	;

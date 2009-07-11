@@ -16,4 +16,10 @@
 	);
 
 	print("branch chosen: @{x}");
+
+	var y := 1 == 1 ? 2 : 3;
+	print("y=@{y}");
+
+	var y := 1 != 1 ? 2 : 3;
+	print("y=@{y}");
 }
