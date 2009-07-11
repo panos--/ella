@@ -342,6 +342,7 @@ anyScriptStmtSep
 	|	scriptReturn
 	|	scriptExit
 	|	scriptImport
+	|	scriptInclude
 	;
 
 topScriptStmtSep
@@ -581,6 +582,13 @@ scriptImport
 		| KW_AS identifier	-> ^(IMPORT_CLASS ^(AS identifier) javaIdentifier+)
 		|			-> ^(IMPORT_CLASS javaIdentifier+)
 		)
+	;
+
+scriptInclude
+	:	KW_INCLUDE expression	-> ^(CALL
+						^(SLOT IDENTIFIER["Sys"] IDENTIFIER["includeFile"])
+						^(ARGS expression)
+						)
 	;
 
 // NOTE: script identifier syntax is a super-set of java identifier syntax
@@ -995,7 +1003,7 @@ paramValue
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
 	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW
-	|	KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE
+	|	KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE
 	;
 
 stringLiteral
@@ -1238,6 +1246,10 @@ KW_NEW	:	'new'
 
 KW_IMPORT
 	:	'import'
+	;
+
+KW_INCLUDE
+	:	'include'
 	;
 
 KW_AS	:	'as'
