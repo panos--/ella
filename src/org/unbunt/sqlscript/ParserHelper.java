@@ -15,7 +15,7 @@ import org.unbunt.sqlscript.support.Scope;
 import org.unbunt.sqlscript.support.TailCallOptimizer;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.exception.*;
-import org.unbunt.utils.res.SimpleResource;
+import org.unbunt.sqlscript.utils.res.SimpleResource;
 
 import java.io.*;
 

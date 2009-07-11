@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.exception;
 
-import org.unbunt.utils.GenericRuntimeException;
+import org.unbunt.sqlscript.exception.GenericRuntimeException;
 
 public class RuntimeRecognitionException extends GenericRuntimeException {
     public RuntimeRecognitionException() {

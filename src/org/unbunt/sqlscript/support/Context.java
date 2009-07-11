@@ -7,7 +7,7 @@ import org.unbunt.sqlscript.lang.sql.Stmt;
 import org.unbunt.sqlscript.lang.sql.ResSet;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
-import org.unbunt.utils.res.SimpleResource;
+import org.unbunt.sqlscript.utils.res.SimpleResource;
 
 import java.util.*;
 import java.sql.ResultSet;

@@ -10,6 +10,6 @@
 		sum = sum + val;
 	};
 	if (sum != 6) {
-	    throw 'failed - result=@{sum}';
+	    throw "failed - result=@{sum}";
     }
 }

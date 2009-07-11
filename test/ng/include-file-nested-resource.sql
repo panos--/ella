@@ -7,7 +7,7 @@ var expected := 'include-file-nested-resource.sql';
 var nameBefore := scriptName();
 
 if (expected != nameBefore) {
-	throw 'filename does not match: expected=@{expected} got=@{nameBefore}';
+	throw "filename does not match: expected=@{expected} got=@{nameBefore}";
 }
 
 fun func() {
@@ -24,5 +24,5 @@ fun func() {
 var nameAfter := scriptName();
 
 if (expected != nameAfter) {
-	throw 'filename does not match: expected=@{expected} got=@{nameAfter}';
+	throw "filename does not match: expected=@{expected} got=@{nameAfter}";
 }

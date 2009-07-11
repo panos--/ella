@@ -1,4 +1,6 @@
-package org.unbunt.utils;
+package org.unbunt.sqlscript.exception;
+
+import org.unbunt.sqlscript.utils.ExceptionUtils;
 
 /**
  * User: tweiss
@@ -7,19 +9,19 @@ package org.unbunt.utils;
  * <p/>
  * Copyright: (c) 2007 marketoolz GmbH
  */
-public class GenericException extends Exception {
-    public GenericException() {
+public class GenericRuntimeException extends RuntimeException {
+    public GenericRuntimeException() {
     }
 
-    public GenericException(Throwable cause) {
+    public GenericRuntimeException(Throwable cause) {
         super(cause);
     }
 
-    public GenericException(String message) {
+    public GenericRuntimeException(String message) {
         super(message);
     }
 
-    public GenericException(String message, Throwable cause) {
+    public GenericRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
 

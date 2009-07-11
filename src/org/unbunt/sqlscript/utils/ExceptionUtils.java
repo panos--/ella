@@ -1,4 +1,4 @@
-package org.unbunt.utils;
+package org.unbunt.sqlscript.utils;
 
 /**
  * User: tweiss

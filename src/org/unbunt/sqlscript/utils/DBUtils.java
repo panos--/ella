@@ -2,13 +2,12 @@ package org.unbunt.sqlscript.utils;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import static org.unbunt.utils.StringUtils.isNullOrEmpty;
-import org.unbunt.sqlscript.support.Drivers;
 import org.unbunt.sqlscript.exception.DBConnectionFailedException;
+import org.unbunt.sqlscript.support.Drivers;
 
-import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 public class DBUtils {
     public static DriverManagerDataSource createDataSourceFromProps(String propsFile,

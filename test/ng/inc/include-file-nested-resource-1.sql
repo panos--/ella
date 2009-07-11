@@ -9,7 +9,7 @@ var expectedInner := 'include-file-nested-resource-1.sql';
 var nameInnerBefore := scriptName();
 
 if (expectedInner != nameInnerBefore) {
-	throw 'filename does not match: expected=@{expectedInner} got=@{nameInnerBefore}';
+	throw "filename does not match: expected=@{expectedInner} got=@{nameInnerBefore}";
 }
 
 .includeFile(innerInc);

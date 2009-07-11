@@ -1,11 +1,12 @@
-package org.unbunt.utils.res;
+package org.unbunt.sqlscript.utils.res;
 
-import org.unbunt.utils.FileSystemPathUtil;
+import static org.unbunt.sqlscript.utils.PathUtil.concatPaths;
+import static org.unbunt.sqlscript.utils.PathUtil.isAbsPath;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * User: tweiss
@@ -19,8 +20,6 @@ public class FilesystemResource implements SimpleResource {
 
     protected File file;
 
-    protected final static FileSystemPathUtil pathUtil = FileSystemPathUtil.getInstance();
-
     public FilesystemResource(String path) {
         this.path = path;
         this.file = new File(path);
@@ -32,7 +31,7 @@ public class FilesystemResource implements SimpleResource {
     }
 
     public FilesystemResource createRelative(String path) throws IOException {
-        if (pathUtil.isAbsPath(path)) {
+        if (isAbsPath(path)) {
             return new FilesystemResource(path);
         }
 
@@ -42,7 +41,7 @@ public class FilesystemResource implements SimpleResource {
         }
 
         String parentPath = file.isDirectory() ? file.getPath() : file.getParent();
-        String newPath = parentPath == null ? path : pathUtil.concatPaths(parentPath, path);
+        String newPath = parentPath == null ? path : concatPaths(parentPath, path);
         return new FilesystemResource(newPath);
     }
 

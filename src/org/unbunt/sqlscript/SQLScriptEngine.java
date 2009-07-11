@@ -14,7 +14,7 @@ import org.unbunt.sqlscript.statement.*;
 import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.sqlscript.utils.StringUtils;
-import org.unbunt.utils.VolatileObservable;
+import org.unbunt.sqlscript.utils.VolatileObservable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -950,7 +950,7 @@ public class SQLScriptEngine
                 cont[++pc] = new LoopContinueCont();
                 break;
             case EXIT:
-                System.out.println("Computation finished. Exiting...");
+//                System.out.println("Computation finished. Exiting...");
                 if (args.length > 0) {
                     val = args[0];
                 }

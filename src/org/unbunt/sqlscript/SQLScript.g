@@ -999,8 +999,18 @@ keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | K
 	;
 
 stringLiteral
-@init { CommonTree result = null; }
-	:	( STR_SQUOT | STR_DQUOT ) { result = parseString(); } -> ^( {result} )
+@init {
+	CommonTree result = null;
+	
+	LazyTokenStream tokens = (LazyTokenStream) input;
+	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+}
+@after {
+	lexer.setAllowEmbeddedVariables(true);
+}
+	:	( STR_SQUOT { lexer.setAllowEmbeddedVariables(false); }
+		| STR_DQUOT
+		) { result = parseString(); } -> ^( {result} )
 	;
 
 sqlStringLiteral

@@ -5,15 +5,15 @@ import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.*;
-import org.unbunt.utils.StringUtils;
-import org.unbunt.utils.res.SimpleResource;
+import static org.unbunt.sqlscript.utils.StringUtils.join;
+import org.unbunt.sqlscript.utils.res.SimpleResource;
 
 import java.io.IOException;
 
 public class Sys extends PlainObj {
     protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-            System.out.println(StringUtils.join(" ", (Object[]) args));
+            System.out.println(join(" ", (Object[]) args));
             return engine.getObjNull();
         }
     };

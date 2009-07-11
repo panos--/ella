@@ -1,4 +1,4 @@
-package org.unbunt.utils.res;
+package org.unbunt.sqlscript.utils.res;
 
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
@@ -7,7 +7,7 @@ import org.springframework.core.io.Resource;
 import java.io.File;
 import java.io.IOException;
 
-import org.unbunt.utils.res.SimpleResourceLoader;
+import org.unbunt.sqlscript.utils.res.SimpleResourceLoader;
 
 /**
  * User: tweiss

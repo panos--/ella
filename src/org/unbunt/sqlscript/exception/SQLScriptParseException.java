@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.exception;
 
-import org.unbunt.utils.GenericException;
+import org.unbunt.sqlscript.exception.GenericException;
 import org.antlr.runtime.RecognitionException;
 
 public class SQLScriptParseException extends GenericException {

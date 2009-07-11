@@ -18,12 +18,12 @@ import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.DBUtils;
-import org.unbunt.utils.VolatileObservable;
-import org.unbunt.utils.StringUtils;
-import org.unbunt.utils.res.FilesystemResource;
-import org.unbunt.utils.res.FilesystemResourceLoader;
-import org.unbunt.utils.res.SimpleResource;
-import org.unbunt.utils.res.StringResource;
+import static org.unbunt.sqlscript.utils.StringUtils.join;
+import org.unbunt.sqlscript.utils.VolatileObservable;
+import org.unbunt.sqlscript.utils.res.FilesystemResource;
+import org.unbunt.sqlscript.utils.res.FilesystemResourceLoader;
+import org.unbunt.sqlscript.utils.res.SimpleResource;
+import org.unbunt.sqlscript.utils.res.StringResource;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -550,7 +550,7 @@ public class SQLScript extends VolatileObservable implements Observer {
         for (Drivers driver : Drivers.values()) {
             System.err.print(driver);
             System.err.print(": ");
-            System.err.println(StringUtils.join((Object[])driver.getDriverClasses()));
+            System.err.println(join((Object[])driver.getDriverClasses()));
         }
         System.exit(1);
     }

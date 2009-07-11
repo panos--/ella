@@ -1,4 +1,4 @@
-package org.unbunt.utils.res;
+package org.unbunt.sqlscript.utils.res;
 
 import java.io.File;
 import java.io.IOException;
