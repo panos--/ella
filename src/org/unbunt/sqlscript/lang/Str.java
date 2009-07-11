@@ -24,6 +24,8 @@ public class Str extends AbstractObj {
     public static final Str SYM__ne = toSym("!=");
     public static final Str SYM__id = toSym("===");
     public static final Str SYM__ni = toSym("!==");
+    public static final Str SYM__logic_and = toSym("&&");
+    public static final Str SYM__logic_or = toSym("||");
     public static final Str SYM_add = toSym("add");
     public static final Str SYM_activate = toSym("activate");
     public static final Str SYM_active = toSym("active");

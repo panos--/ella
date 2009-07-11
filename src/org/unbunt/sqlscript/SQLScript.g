@@ -605,18 +605,36 @@ options { k=3; }
 	|	objectLiteral // NOTE: quick hack
 	;
 
-orCondition
+orConditionOLD
 	:	andCondition
 		( (OP_OR andCondition)+	-> ^(COND_OR andCondition+)
 		|			-> andCondition
 		)
 	;
 
-andCondition
+orCondition
+	:	(andCondition		-> andCondition)
+		( OP_OR andCondition	-> ^(CALL
+						^(SLOT $orCondition IDENTIFIER["||"])
+						^(ARGS ^(BLOCK_CLOSURE ^(BLOCK andCondition)))
+						)
+		)*
+	;
+
+andConditionOLD
 	:	eqCondition
 		( (OP_AND eqCondition)+	-> ^(COND_AND eqCondition+)
 		|			-> eqCondition
 		)
+	;
+
+andCondition
+	:	(eqCondition		-> eqCondition)
+		( OP_AND eqCondition	-> ^(CALL
+						^(SLOT $andCondition IDENTIFIER["&&"])
+						^(ARGS ^(BLOCK_CLOSURE ^(BLOCK eqCondition)))
+						)
+		)*
 	;
 
 eqCondition

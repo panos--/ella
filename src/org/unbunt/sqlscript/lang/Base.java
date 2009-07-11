@@ -6,6 +6,7 @@ import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
+import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 import java.util.Map;
 
@@ -48,6 +49,20 @@ public class Base extends AbstractObj {
 
     protected static final Call nativeEachSlot = nativeEach;
 
+    protected static final NativeCall nativeAnd = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            Clos closure = ensureType(args[0]);
+            engine.trigger(closure);
+            return null;
+        }
+    };
+
+    protected static final NativeCall nativeOr = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            return engine.getObjTrue();
+        }
+    };
+
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     private Base() {
@@ -55,6 +70,8 @@ public class Base extends AbstractObj {
         slots.put(Str.SYM__ni, PrimitiveCall.Type.NI.primitive);
         slots.put(Str.SYM__eq, nativeEquals);
         slots.put(Str.SYM__ne, nativeNotEquals);
+        slots.put(Str.SYM__logic_and, nativeAnd);
+        slots.put(Str.SYM__logic_or, nativeOr);
         slots.put(Str.SYM_each, nativeEach);
         slots.put(Str.SYM_eachSlot, nativeEachSlot);
     }

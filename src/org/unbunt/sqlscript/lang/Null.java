@@ -80,11 +80,27 @@ public class Null extends PlainObj implements NativeObj {
             }
         };
 
+        protected static final NativeCall nativeAnd = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                return engine.getObjFalse();
+            }
+        };
+
+        protected static final NativeCall nativeOr = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Clos closure = ensureType(args[0]);
+                engine.trigger(closure);
+                return null;
+            }
+        };
+
         private NullProto() {
             slots.put(Str.SYM__id, nativeIdentical);
             slots.put(Str.SYM__eq, nativeIdentical);
             slots.put(Str.SYM__ni, nativeNotIdentical);
             slots.put(Str.SYM__ne, nativeNotIdentical);
+            slots.put(Str.SYM__logic_and, nativeAnd);
+            slots.put(Str.SYM__logic_or, nativeOr);
             slots.put(Str.SYM_type, nativeType);
         }
 

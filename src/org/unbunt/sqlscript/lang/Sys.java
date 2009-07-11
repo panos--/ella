@@ -133,9 +133,10 @@ public class Sys extends PlainObj {
 
     protected static final NativeCall nativeIfThen = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-//            Obj condVal = engine.invoke(args[0], engine.getObjNull());
-            boolean condSatisfied = engine.toBoolean(args[0]);
-            if (condSatisfied) {
+            Obj cond = args[0];
+            // FIXME: has to be replaced by more sane scheme
+            //        (i.e. send isTrue or smthg like that to the condition value)
+            if (engine.getObjTrue().equals(cond) || (!(cond instanceof Bool) && !(cond instanceof Null))) {
                 engine.trigger(args[1], context);
             }
             else if (args.length > 2) {

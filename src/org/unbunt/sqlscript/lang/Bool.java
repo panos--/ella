@@ -1,9 +1,10 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
-import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 public class Bool extends PlainObj {
     protected final boolean value;
@@ -61,11 +62,41 @@ public class Bool extends PlainObj {
 
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-                return ((Bool) args[0]).getValue() ? engine.getObjTrue() : engine.getObjFalse();
+                return engine.toBoolean(args[0]) ? engine.getObjTrue() : engine.getObjFalse();
+            }
+        };
+
+        protected static final NativeCall nativeAnd = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Bool thiz = ensureType(context);
+                Clos closure = ensureType(args[0]);
+                if (thiz.value) {
+                    engine.trigger(closure);
+                    return null;
+                }
+                else {
+                    return engine.getObjFalse();
+                }
+            }
+        };
+
+        protected static final NativeCall nativeOr = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Bool thiz = ensureType(context);
+                Clos closure = ensureType(args[0]);
+                if (!thiz.value) {
+                    engine.trigger(closure);
+                    return null;
+                }
+                else {
+                    return engine.getObjTrue();
+                }
             }
         };
 
         private BoolProto() {
+            slots.put(Str.SYM__logic_and, nativeAnd);
+            slots.put(Str.SYM__logic_or, nativeOr);
         }
 
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

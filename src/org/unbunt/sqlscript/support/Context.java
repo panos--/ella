@@ -162,10 +162,13 @@ public class Context implements SQLResultProvider {
     public Obj getObjectProto(Obj obj) {
 //        // No existance check. Returns null if key not found which would also be returned to indicate there is no proto.
 //        return objectProtos.get(obj.getObjectID());
+        int id = obj.getObjectID();
         try {
-            return objectProtos[obj.getObjectID()];
+            return objectProtos[id];
         } catch (IndexOutOfBoundsException e) {
-            return null;
+            // XXX: Quick hack make any Object extend from Base
+            int baseID = Base.OBJECT_ID;
+            return id == baseID ? null : objects[baseID];
         }
     }
 
