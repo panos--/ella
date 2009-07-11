@@ -8,11 +8,12 @@ import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.ScriptClientException;
 import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 @Test(groups = { "interpreter" }, dependsOnGroups = { "parser" })
 public class InterpreterTestsNG extends AbstractTest {
@@ -350,5 +351,18 @@ public class InterpreterTestsNG extends AbstractTest {
         expected.add(4l);
         expected.add(5l);
         assertEquals(result, expected);
+    }
+
+    @Test
+    public void exceptions() throws SQLScriptIOException, SQLScriptParseException {
+        ScriptClientException ex = null;
+        try {
+            eval(file("exceptions"));
+        } catch (ScriptClientException e) {
+            ex = e;
+        }
+
+        assertNotNull(ex, "Expected ScriptClientException");
+        assertEquals(ex.getMessage(), "intentionally-uncaught-exception");
     }
 }

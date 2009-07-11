@@ -463,23 +463,57 @@ scriptIfElse
 		)
 	;
 
-scriptTry
+scriptTryOLD
 	:	KW_TRY block
 		( scriptCatch scriptFinally?	-> ^(TRY block scriptCatch scriptFinally?)
 		| scriptFinally			-> ^(TRY block scriptFinally)
 		)
 	;
 
-scriptCatch
+scriptCatchOLD
 	:	KW_CATCH LPAREN identifier RPAREN block	-> ^(CATCH identifier block)
 	;
 
-scriptFinally
+scriptFinallyOLD
 	:	KW_FINALLY block			-> ^(FINALLY block)
 	;
 
-scriptThrow
+scriptTry
+	:	KW_TRY block
+		( scriptCatch
+		  ( scriptFinally		-> ^(CALL
+		  					^(SLOT IDENTIFIER["Sys"] IDENTIFIER["tryCatchFinally"])
+		  					^(ARGS ^(BLOCK_CLOSURE block) scriptCatch scriptFinally)
+		  					)
+		  |				-> ^(CALL
+		  					^(SLOT IDENTIFIER["Sys"] IDENTIFIER["tryCatch"])
+		  					^(ARGS ^(BLOCK_CLOSURE block) scriptCatch)
+		  					)
+		  )
+		| scriptFinally			-> ^(CALL
+							^(SLOT IDENTIFIER["Sys"] IDENTIFIER["tryFinally"])
+							^(ARGS ^(BLOCK_CLOSURE block) scriptFinally)
+							)
+		)
+	;
+
+scriptCatch
+	:	KW_CATCH LPAREN identifier RPAREN block	-> ^(BLOCK_CLOSURE ^(ARGS identifier) block)
+	;
+
+scriptFinally
+	:	KW_FINALLY block			-> ^(BLOCK_CLOSURE block)
+	;
+
+scriptThrowOLD
 	:	KW_THROW expression -> ^(THROW expression)
+	;
+
+scriptThrow
+	:	KW_THROW expression ->	^(CALL
+						^(SLOT IDENTIFIER["Sys"] IDENTIFIER["raise"])
+						^(ARGS expression)
+						)
 	;
 
 // TODO: Allow return only inside of function blocks

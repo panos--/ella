@@ -174,6 +174,8 @@ public class Sys extends PlainObj {
                 engine.invoke(args[0], engine.getObjNull());
             } catch (ScriptClientException e) {
                 engine.invoke(args[1], engine.getObjNull(), e.getException());
+            } catch (SQLScriptRuntimeException e) {
+                engine.invoke(args[1], engine.getObjNull(), new JObject(e));
             }
             engine.setState(state);
             return null;
@@ -191,7 +193,7 @@ public class Sys extends PlainObj {
                     if (engine.isClosureReturnInProgress()) {
                         savedVal = engine.getVal();
                     }
-                    engine.invoke(args[2], engine.getObjNull());
+                    engine.invoke(args[1], engine.getObjNull());
                 } finally {
                     if (savedVal != null) {
                         engine.setVal(savedVal);
@@ -210,6 +212,8 @@ public class Sys extends PlainObj {
                 engine.invoke(args[0], engine.getObjNull());
             } catch (ScriptClientException e) {
                 engine.invoke(args[1], engine.getObjNull(), e.getException());
+            } catch (SQLScriptRuntimeException e) {
+                engine.invoke(args[1], engine.getObjNull(), new JObject(e));
             } finally {
                 Obj savedVal = null;
                 try {

@@ -1,8 +1,13 @@
-.Sys.ifThen(2 == 2, {=> 23; }, {=> 42; });
+.Sys.tryCatchFinally(
+    {=> 23; },
+    { e => 42; },
+    {=> 3.14; }
+);
 
-if (2 == 2) {
+try {
     23;
-}
-else {
+} catch (e) {
     42;
+} finally {
+    3.14;
 }
