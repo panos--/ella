@@ -881,7 +881,11 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(NativeCont nativeCont) {
+        // NOTE: The next flag has to be set _before_ invoking the call to allow the invoked method to modify it
+        //       without getting overridden.
+        next = CONT;
         pc--;
+
         Obj context = nativeCont.getContext();
         Obj[] args = ((Args) val).args;
         try {
@@ -893,8 +897,6 @@ public class SQLScriptEngine
             // XXX: is this correct??? - it is ReturnCont has already cleaned up the cont stack
             closureReturnInProgress = false;
         }
-
-        next = CONT;
     }
 
     public void processContinuation(TriggeredNativeCont triggeredNativeCont) {
@@ -1406,7 +1408,8 @@ public class SQLScriptEngine
 
     public void setEnv(Env env) {
         this.env = env;
-        this.context.setEnv(env);
+        // XXX: this is wrong, i think. context should a reference to the main/global env only
+//        this.context.setEnv(env);
     }
 
     public static class EngineState {

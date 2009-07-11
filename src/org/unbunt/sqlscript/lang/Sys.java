@@ -32,7 +32,9 @@ public class Sys extends PlainObj {
                                                     e.getMessage(), e);
             }
 
-            Scope parseScope = new Scope(ctx.getEnv().toScope());
+            Env savedEnv = engine.getEnv();
+            Scope scope = savedEnv.toScope();
+            Scope parseScope = new Scope(scope);
             Block block;
             try {
                 block = ParserHelper.parseScript(parseScope, includedScript);
@@ -42,13 +44,11 @@ public class Sys extends PlainObj {
 
             // TODO: Remember replaced env and only restore if unchanged
             // TODO: (to account for already handled Closure returns)
-            Env savedEnv = null;
             StaticSearchableEnv installedEnv = null;
             try {
                 ctx.setScriptFilename(includedScript.getFilename());
                 ctx.setScriptResource(includedScript);
 
-                savedEnv = engine.getEnv();
                 installedEnv = new StaticSearchableEnv(savedEnv);
 
                 engine.setEnv(installedEnv);
@@ -133,10 +133,13 @@ public class Sys extends PlainObj {
 
     protected static final NativeCall nativeIfThen = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            Obj condVal = engine.invoke(args[0], engine.getObjNull());
-            boolean condSatisfied = engine.toBoolean(condVal);
+//            Obj condVal = engine.invoke(args[0], engine.getObjNull());
+            boolean condSatisfied = engine.toBoolean(args[0]);
             if (condSatisfied) {
                 engine.trigger(args[1], context);
+            }
+            else if (args.length > 2) {
+                engine.trigger(args[2], context);
             }
             return null;
         }

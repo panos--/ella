@@ -426,13 +426,40 @@ scriptExpressionStmt
 	:	DOT! expressionStmt
 	;
 
-scriptIfElse
+scriptIfElseOLD
 	:	KW_IF parenExpression block
 		( KW_ELSE
 			( scriptIfElse	-> ^(IF parenExpression block scriptIfElse)
 			| block		-> ^(IF parenExpression block block)
 			)
 		|	-> ^(IF parenExpression block)
+		)
+	;
+
+scriptIfElse
+	:	KW_IF parenExpression block
+		( KW_ELSE
+			( scriptIfElse	-> ^(CALL
+						^(SLOT IDENTIFIER["Sys"] IDENTIFIER["ifThen"])
+						^(ARGS
+							parenExpression
+							^(BLOCK_CLOSURE block)
+							^(BLOCK_CLOSURE ^(BLOCK scriptIfElse))
+							)
+						)
+			| block		-> ^(CALL
+						^(SLOT IDENTIFIER["Sys"] IDENTIFIER["ifThen"])
+						^(ARGS
+							parenExpression
+							^(BLOCK_CLOSURE block)
+							^(BLOCK_CLOSURE block)
+							)
+						)
+			)
+		|	-> ^(CALL
+				^(SLOT IDENTIFIER["Sys"] IDENTIFIER["ifThen"])
+				^(ARGS parenExpression ^(BLOCK_CLOSURE block))
+				)
 		)
 	;
 

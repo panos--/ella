@@ -2,7 +2,7 @@ var inc := 'inc/include-file-nested-resource-1.sql';
 
 var expected := 'include-file-nested-resource.sql';
 
---.print('outer before - script: ' + scriptName());
+.print('outer before - script: ' + scriptName());
 
 var nameBefore := scriptName();
 
@@ -19,7 +19,7 @@ fun func() {
 
 .func();
 
---.print('outer after - script: ' + scriptName());
+.print('outer after - script: ' + scriptName());
 
 var nameAfter := scriptName();
 

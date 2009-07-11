@@ -1,4 +1,4 @@
---.print('inner2: ' + scriptName());
+.print('inner2: ' + scriptName());
 
 var nameInner2 := scriptName();
 var expectedInner2 := 'include-file-nested-resource-2.sql';
