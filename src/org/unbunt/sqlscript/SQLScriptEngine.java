@@ -949,6 +949,14 @@ public class SQLScriptEngine
             case LOOP_CONTINUE:
                 cont[++pc] = new LoopContinueCont();
                 break;
+            case EXIT:
+                System.out.println("Computation finished. Exiting...");
+                if (args.length > 0) {
+                    val = args[0];
+                }
+                pc = 0;
+                finished = true;
+                break;
             default:
                 throw new SQLScriptRuntimeException("Unhandled primitive: " + primitive);
         }
@@ -1107,92 +1115,6 @@ public class SQLScriptEngine
         next = CONT;
     }
 
-    /*
-    protected void process(SQLStatement sqlStmt) throws SQLScriptRuntimeException {
-        logger.debug("Executing SQL: " + sqlStmt);
-
-        // first, close last statement, if exists
-        java.sql.Statement lastStmt = sqlScriptContext.getLastSQLStatementResource();
-        if (lastStmt != null) {
-            try {
-                lastStmt.close();
-            } catch (SQLException e) {
-                throw new StatementFailedException(e);
-            }
-        }
-
-        SQLScriptOptions options = sqlScriptContext.getOptions();
-
-        boolean quiet = options.quiet;
-        if (quiet && sqlStmt.isAnnotationPresent(DescriptionAnnotation.class)) {
-            quiet = false;
-        }
-        if (!quiet && sqlStmt.isAnnotationPresent(QuietAnnotation.class)) {
-            quiet = true;
-        }
-
-        connect();
-
-        String sql = sqlStmt.toString();
-        SQLStatementState state = new SQLStatementState(sqlStmt, sql);
-        if (!quiet) {
-            notifyObservers(state);
-        }
-
-        boolean ignoreErrors = sqlStmt.isAnnotationPresent(IgnoreErrorsAnnotation.class);
-
-        Connection conn = sqlScriptContext.getConnection();
-        Savepoint savepoint = null;
-        try {
-            boolean isAutoCommit = conn.getAutoCommit();
-            if (!isAutoCommit && ignoreErrors && conn.getMetaData().supportsSavepoints()) {
-                // required for postgresql
-                savepoint = conn.setSavepoint();
-            }
-
-            if (sqlStmt.isAnnotationPresent(PrepareAnnotation.class)) {
-                PreparedStatement stmt = conn.prepareStatement(
-                        sql,
-                        ResultSet.TYPE_SCROLL_INSENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY
-                );
-                sqlScriptContext.setPreparedStatement(sqlStmt.getAnnotation(PrepareAnnotation.class).getAlias(), stmt);
-            }
-            else {
-                java.sql.Statement stmt = conn.createStatement(
-                        ResultSet.TYPE_SCROLL_INSENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY
-                );
-                stmt.execute(sql, conn.getMetaData().supportsGetGeneratedKeys()
-                                  ? java.sql.Statement.RETURN_GENERATED_KEYS
-                                  : java.sql.Statement.NO_GENERATED_KEYS);
-                sqlScriptContext.setLastSQLStatement(sqlStmt);
-                sqlScriptContext.setLastSQLStatementResource(stmt);
-                sqlScriptContext.setLastSQLResult(stmt.getResultSet());
-                sqlScriptContext.setLastUpdateCount(stmt.getUpdateCount());
-                printSQLResult();
-            }
-        } catch (SQLException e) {
-            if (savepoint != null) {
-                try { conn.rollback(savepoint); }
-                catch (Exception ignored) {}
-            }
-
-            if (!ignoreErrors) {
-                throw new StatementFailedException(e);
-            }
-            else {
-                logger.debug("Ignoring error: " + e.getMessage(), e);
-            }
-        }
-
-        if (!quiet) {
-            state.state = CommandState.FINISHED;
-            notifyObservers(state);
-        }
-    }
-    */
-
     protected void checkFunArgs(Callable callable, List args) {
         if (callable.getArgCount() != args.size()) {
             throw new SQLScriptRuntimeException("Arguments do not match function");
@@ -1214,7 +1136,7 @@ public class SQLScriptEngine
     }
 
     public boolean toBoolean(Obj value) {
-        return getObjTrue().equals(toBool(value));
+        return context.getObjTrue().equals(value) || (!(value instanceof Bool) && !(value instanceof Null));
     }
 
     protected void finish() throws SQLScriptRuntimeException {

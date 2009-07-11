@@ -337,6 +337,8 @@ sqlBlock
 anyScriptStmtSep
 	:	scriptAssignStmt
 	|	scriptThrow
+	|	scriptBreak
+	|	scriptContinue
 	|	scriptReturn
 	|	scriptExit
 	|	scriptImport
@@ -360,6 +362,7 @@ scriptStmtNoSep
 	|	scriptIfElse
 	|	scriptTry
 	|	scriptFor
+	|	scriptWhile
 	;
 
 scriptAssignStmt
@@ -533,13 +536,42 @@ scriptFor
 			)
 	;
 
+// FIXME: variable declarations in the condition expression do not work currently.
+// FIXME: these would have to be pulled into the enclosing block...
+scriptWhile
+	:	KW_WHILE parenExpression block
+		-> ^(CALL
+			^(SLOT ^(BLOCK_CLOSURE ^(BLOCK parenExpression)) IDENTIFIER["whileTrue"])
+			^(ARGS ^(BLOCK_CLOSURE block))
+			)
+	;
+
+scriptBreak
+	:	KW_BREAK	-> ^(CALL ^(SLOT IDENTIFIER["Sys"] IDENTIFIER["_break"]))
+	;
+
+scriptContinue
+	:	KW_CONTINUE	-> ^(CALL ^(SLOT IDENTIFIER["Sys"] IDENTIFIER["_continue"]))
+	;
+
 // TODO: Allow return only inside of function blocks
 scriptReturn
 	:	KW_RETURN expression? -> ^(RETURN expression?)
 	;
 
-scriptExit
+scriptExitOLD
 	:	KW_EXIT expression? -> ^(EXIT expression?)
+	;
+
+scriptExit
+	:	KW_EXIT
+		( expression	-> ^(CALL
+					^(SLOT IDENTIFIER["Sys"] IDENTIFIER["_exit"])
+					^(ARGS expression)
+					)
+		|		-> ^(CALL ^(SLOT IDENTIFIER["Sys"] IDENTIFIER["_exit"]))
+		)
+		
 	;
 
 scriptImport
@@ -963,7 +995,7 @@ paramValue
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
 	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW
-	|	KW_IMPORT | KW_AS | KW_FOR
+	|	KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE
 	;
 
 stringLiteral
@@ -1157,6 +1189,16 @@ KW_THROW:	'throw'
 	;
 
 KW_FOR	:	'for'
+	;
+
+KW_WHILE:	'while'
+	;
+
+KW_BREAK:	'break'
+	;
+
+KW_CONTINUE
+	:	'continue'
 	;
 
 KW_RETURN

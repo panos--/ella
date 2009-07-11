@@ -46,7 +46,7 @@ var x := [1, 2, 3];
 	x.add(5);
 	x.each { idx, val =>
 		if (idx == 3) {
-			break();
+			break;
 		}
 		sum = sum + val;
 	};

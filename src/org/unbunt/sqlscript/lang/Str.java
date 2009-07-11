@@ -24,6 +24,9 @@ public class Str extends AbstractObj {
     public static final Str SYM__ne = toSym("!=");
     public static final Str SYM__id = toSym("===");
     public static final Str SYM__ni = toSym("!==");
+    public static final Str SYM__break = toSym("_break");
+    public static final Str SYM__continue = toSym("_continue");
+    public static final Str SYM__exit = toSym("_exit");
     public static final Str SYM__logic_and = toSym("&&");
     public static final Str SYM__logic_or = toSym("||");
     public static final Str SYM_add = toSym("add");
@@ -33,10 +36,8 @@ public class Str extends AbstractObj {
     public static final Str SYM_batchNamed = toSym("batchNamed");
     public static final Str SYM_bigNumValue = toSym("bigNumValue");
     public static final Str SYM_bigRealValue = toSym("bigRealValue");
-    public static final Str SYM_break = toSym("break");
     public static final Str SYM_call = toSym("call");
     public static final Str SYM_close = toSym("close");
-    public static final Str SYM_continue = toSym("continue");
     public static final Str SYM_create = toSym("create");
     public static final Str SYM_createFromProps = toSym("createFromProps");
     public static final Str SYM_createStmt = toSym("createStmt");
@@ -91,7 +92,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_type = toSym("type");
     public static final Str SYM_update = toSym("update");
     public static final Str SYM_valueOf = toSym("valueOf");
-    public static final Str SYM_while = toSym("while");
+    public static final Str SYM_whileTrue = toSym("whileTrue");
     public static final Str SYM_with = toSym("with");
     public static final Str SYM_withNamed = toSym("withNamed");
     public static final Str SYM_withPrepared = toSym("withPrepared");

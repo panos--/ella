@@ -5,8 +5,9 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.support.BlockClosure;
-import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.support.ProtoRegistry;
+import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 public class Clos extends PlainObj implements Call {
     protected BlockClosure closure;
@@ -39,21 +40,19 @@ public class Clos extends PlainObj implements Call {
     }
 
     public static class ClosProto extends PlainObj {
-        protected static final NativeCall nativeWhile = new NativeCall() {
+        protected static final NativeCall nativeWhileTrue = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) {
-                // TODO: check args
+                Call cond = ensureType(context);
+                Obj _null = engine.getObjNull();
                 Obj result = null;
                 while (true) {
-                    Obj condValue = ((Call) context).call(engine, null);
-                    Obj condResult = engine.toBool(condValue);
-                    if (engine.getObjFalse().equals(condResult)) {
+                    Obj condValue = cond.call(engine, null);
+                    if (!engine.toBoolean(condValue)) {
                         break;
                     }
 
-                    engine.invoke(PrimitiveCall.Type.LOOP.primitive, engine.getObjNull());
-
                     try {
-                        result = engine.invoke((Clos) args[0]);
+                        result = engine.invokeInLoop(args[0], _null);
                     } catch (LoopBreakException e) {
                         break;
                     } catch (LoopContinueException e) {
@@ -65,7 +64,7 @@ public class Clos extends PlainObj implements Call {
         };
 
         private ClosProto() {
-            this.slots.put(Str.SYM_while, nativeWhile);
+            this.slots.put(Str.SYM_whileTrue, nativeWhileTrue);
         }
 
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

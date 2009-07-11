@@ -1,3 +1,3 @@
-for eachKey (a : sql select) {
+while (1 == 1) {
     23;
 }

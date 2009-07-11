@@ -225,14 +225,14 @@ public class InterpreterTestsNG extends AbstractTest {
                 "var j := 0;\n" +
                 ".loop {=>\n" +
                 "    if (i == 3) {\n" +
-                "        break();\n" +
+                "        break;\n" +
                 "    }\n" +
                 "    if (i == 42) {\n" +
                 "        exit;\n" +
                 "    }\n" +
                 "\n" +
                 "    i = i + 1;\n" +
-                "    continue();\n" +
+                "    continue;\n" +
                 "    j = j + 1;\n" +
                 "};\n" +
                 ".j;"
@@ -364,5 +364,10 @@ public class InterpreterTestsNG extends AbstractTest {
 
         assertNotNull(ex, "Expected ScriptClientException");
         assertEquals(ex.getMessage(), "intentionally-uncaught-exception");
+    }
+
+    public void whileExit() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(file("while-exit"));
+        assertEquals(result, 42l);
     }
 }

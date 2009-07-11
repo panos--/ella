@@ -9,7 +9,8 @@ public class PrimitiveCall extends PlainObj implements Call {
         NI,
         LOOP,
         LOOP_BREAK,
-        LOOP_CONTINUE;
+        LOOP_CONTINUE,
+        EXIT;
 
         protected final PrimitiveCall primitive;
 

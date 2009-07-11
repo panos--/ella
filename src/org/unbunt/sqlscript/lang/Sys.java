@@ -133,10 +133,9 @@ public class Sys extends PlainObj {
 
     protected static final NativeCall nativeIfThen = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            Obj cond = args[0];
             // FIXME: has to be replaced by more sane scheme
             //        (i.e. send isTrue or smthg like that to the condition value)
-            if (engine.getObjTrue().equals(cond) || (!(cond instanceof Bool) && !(cond instanceof Null))) {
+            if (engine.toBoolean(args[0])) {
                 engine.trigger(args[1], context);
             }
             else if (args.length > 2) {
@@ -269,8 +268,9 @@ public class Sys extends PlainObj {
         slots.put(Str.SYM_includeFile, nativeIncludeFile);
         slots.put(Str.SYM_importPackage, nativeImportPackage);
         slots.put(Str.SYM_loop, nativeLoop);
-        slots.put(Str.SYM_break, PrimitiveCall.Type.LOOP_BREAK.primitive);
-        slots.put(Str.SYM_continue, PrimitiveCall.Type.LOOP_CONTINUE.primitive);
+        slots.put(Str.SYM__break, PrimitiveCall.Type.LOOP_BREAK.primitive);
+        slots.put(Str.SYM__continue, PrimitiveCall.Type.LOOP_CONTINUE.primitive);
+        slots.put(Str.SYM__exit, PrimitiveCall.Type.EXIT.primitive);
         slots.put(Str.SYM_ifThen, nativeIfThen);
         slots.put(Str.SYM_throw, nativeThrow);
         slots.put(Str.SYM_raise, nativeThrow);
