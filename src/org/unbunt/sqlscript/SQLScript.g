@@ -359,6 +359,7 @@ scriptStmtNoSep
 	:	scriptFuncDefStmt
 	|	scriptIfElse
 	|	scriptTry
+	|	scriptFor
 	;
 
 scriptAssignStmt
@@ -405,10 +406,14 @@ scriptFuncDef
 
 argumentsDef
 	:	LPAREN
-		( identifier (COMMA identifier)* -> ^(ARGS identifier+)
+		( identifierList -> ^(ARGS identifierList)
 		|
 		)
 		RPAREN
+	;
+
+identifierList
+	:	identifier (COMMA! identifier)*
 	;
 
 blockClosure
@@ -418,7 +423,7 @@ blockClosure
 	;
 
 blockArgumentsDef
-	:	identifier (COMMA identifier)* DOUBLE_ARROW -> ^(ARGS identifier*)
+	:	identifierList DOUBLE_ARROW -> ^(ARGS identifierList)
 	|	DOUBLE_ARROW!
 	;
 
@@ -514,6 +519,18 @@ scriptThrow
 						^(SLOT IDENTIFIER["Sys"] IDENTIFIER["raise"])
 						^(ARGS expression)
 						)
+	;
+
+scriptFor
+	:	KW_FOR
+		( identifier	-> identifier
+		|		-> IDENTIFIER["each"]
+		)
+		LPAREN identifierList COLON expression RPAREN block
+		-> ^(CALL
+			^(SLOT expression $scriptFor)
+			^(ARGS ^(BLOCK_CLOSURE ^(ARGS identifierList) block))
+			)
 	;
 
 // TODO: Allow return only inside of function blocks
@@ -946,7 +963,7 @@ paramValue
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
 	|	KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW
-	|	KW_IMPORT | KW_AS
+	|	KW_IMPORT | KW_AS | KW_FOR
 	;
 
 stringLiteral
@@ -1137,6 +1154,9 @@ KW_FINALLY
 	;
 
 KW_THROW:	'throw'
+	;
+
+KW_FOR	:	'for'
 	;
 
 KW_RETURN

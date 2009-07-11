@@ -1,1 +1,3 @@
-. 1 == 1 ? 2 : 3;
+for eachKey (a : sql select) {
+    23;
+}

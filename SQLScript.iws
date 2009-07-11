@@ -385,7 +385,7 @@
       <file leaf-file-name="tree.sql" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/tree.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="17" selection-start="17" selection-end="17" vertical-scroll-proportion="0.0">
+            <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -1266,7 +1266,7 @@
       <recent name="com.marketoolz.sqlscript.support" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SQLScript AST Viewer">
+  <component name="RunManager" selected="TestNG.Unit tests (TestNG)">
     <tempConfiguration default="false" name="Test" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.utils.Test" />
       <option name="VM_PARAMETERS" value="" />
@@ -1993,7 +1993,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/tree.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="17" selection-start="17" selection-end="17" vertical-scroll-proportion="0.0">
+        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
