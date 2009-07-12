@@ -31,6 +31,10 @@ public class Clos extends PlainObj implements Call {
         return engine.invoke(this, args);
     }
 
+    public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
+        return engine.invoke(this, args);
+    }
+
     public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
         engine.trigger(this, args);
     }

@@ -31,6 +31,10 @@ public class PrimitiveCall extends PlainObj implements Call {
         return engine.invoke(this, context, args);
     }
 
+    public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
+        return call(engine, context, args);
+    }
+
     public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
         engine.trigger(this, context, args);
     }

@@ -25,7 +25,11 @@ public class Func extends PlainObj implements Call {
     }
 
     public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-        return engine.invoke(this, context, args);
+        return engine.invoke(this, context, null, args);
+    }
+
+    public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
+        return engine.invoke(this, context, receiver, args);
     }
 
     public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {

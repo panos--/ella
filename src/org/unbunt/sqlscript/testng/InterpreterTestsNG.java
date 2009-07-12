@@ -366,8 +366,14 @@ public class InterpreterTestsNG extends AbstractTest {
         assertEquals(ex.getMessage(), "intentionally-uncaught-exception");
     }
 
+    @Test
     public void whileExit() throws SQLScriptIOException, SQLScriptParseException {
         Object result = eval(file("while-exit"));
         assertEquals(result, 42l);
+    }
+
+    @Test
+    public void nativeClone() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("native-clone"));
     }
 }

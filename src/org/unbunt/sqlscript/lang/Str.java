@@ -37,6 +37,8 @@ public class Str extends AbstractObj {
     public static final Str SYM_bigNumValue = toSym("bigNumValue");
     public static final Str SYM_bigRealValue = toSym("bigRealValue");
     public static final Str SYM_call = toSym("call");
+    public static final Str SYM_clone = toSym("clone");
+    public static final Str SYM_cloneInit = toSym("cloneInit");
     public static final Str SYM_close = toSym("close");
     public static final Str SYM_create = toSym("create");
     public static final Str SYM_createFromProps = toSym("createFromProps");

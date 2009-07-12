@@ -32,6 +32,7 @@ public class SQLScriptEngine
 
     public static final Str STR_SLOT_PARENT = Str.SYM_parent;
     public static final Str STR_SLOT_INIT = Str.SYM_init;
+    public static final Str STR_SLOT_CLONE_INIT = Str.SYM_cloneInit;
 
     public SQLScriptEngine(Context context) {
         this.context = context;
@@ -424,55 +425,6 @@ public class SQLScriptEngine
         cont[++pc] = new InitParamCont(initParameter.getParameter());
         next = EVAL;
     }
-
-    /*
-    public void processExpression(AnnotationCommand annotationCommand) {
-        process(annotationCommand);
-        next = CONT;
-    }
-    */
-
-    /*
-    public void processExpression(EvalCommand evalCommand) {
-        process(evalCommand);
-        next = CONT;
-    }
-    */
-
-    /*
-    public void processExpression(SQLStatement sqlStatement) {
-        StringBuilder buf = new StringBuilder();
-        for (Object part : sqlStatement.getParts()) {
-            if (part instanceof Variable) {
-                buf.append(env.get((Variable) part).toString());
-            }
-            else if (part instanceof StringLiteral) {
-                StringBuilder strBuf = new StringBuilder();
-                StringLiteral str = (StringLiteral) part;
-                for (Object strPart : str.getParts()) {
-                    if (strPart instanceof Variable) {
-                        String s = env.get((Variable) strPart).toString();
-                        strBuf.append(StringUtils.escapeSQLString(s, str.getDelim()));
-                    }
-                    else {
-                        strBuf.append(part.toString());
-                    }
-                }
-                buf.append(str.getDelim());
-                buf.append(strBuf);
-                buf.append(str.getDelim());
-            }
-            else {
-                buf.append(part.toString());
-            }
-        }
-        SQLStatement statement = new SQLStatement();
-        statement.setAnnotations(sqlStatement.getAnnotations());
-        statement.addPart(buf.toString());
-        process(statement);
-        next = CONT;
-    }
-    */
 
     protected void cont() {
         cont[pc].accept(this);
@@ -1194,13 +1146,14 @@ public class SQLScriptEngine
         next = EVAL;
     }
 
-    public void trigger(Func func, Obj context, Obj... args) {
+    public void trigger(Func func, Obj context, Obj receiver, Obj... args) {
         Function function = func.getFunction();
         List<Obj> argsList = Arrays.asList(args);
         checkFunArgs(function, argsList);
         Env savedEnv = env;
         env = new StaticEnv(function.getEnv());
         env.setContext(context);
+        env.setReceiver(receiver);
 
         List<Variable> argVars = func.getFunction().getArguments();
         int nargs = args.length;
@@ -1214,15 +1167,25 @@ public class SQLScriptEngine
         next = EVAL;
     }
 
-    public Obj invoke(Obj obj, Obj context, Obj... args) throws ClosureTerminatedException {
-        Call call;
-        try {
-            call = (Call) obj;
-        } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException(e);
-        }
+    /**
+     * Calls the given callable object so that "this" is set to the given context and "super" lookups start at
+     * the given receiver.
+     * Does have an effect only on calls to Func objects.
+     *
+     * @param call the callable
+     * @param context "this" context
+     * @param receiver "super"
+     * @param args arguments passed to callable
+     * @return result of the invocation
+     */
+    public Obj invokeOnReceiver(Obj call, Obj context, Obj receiver, Obj... args) {
+        Call c = ObjUtils.ensureType(call);
+        return c.call(this, context, receiver, args);
+    }
 
-        return call.call(this, context, args);
+    public Obj invoke(Obj call, Obj context, Obj... args) throws ClosureTerminatedException {
+        Call c = ObjUtils.ensureType(call);
+        return c.call(this, context, args);
     }
 
     public Obj invoke(PrimitiveCall prim, Obj context, Obj... args) {
@@ -1254,10 +1217,10 @@ public class SQLScriptEngine
         return val;
     }
 
-    public Obj invoke(Func func, Obj context, Obj... args) throws ClosureTerminatedException {
+    public Obj invoke(Func func, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
         int callFrame = pc;
 
-        trigger(func, context, args);
+        trigger(func, context, receiver, args);
 
         while (step() && pc > callFrame) {
         }
@@ -1271,12 +1234,45 @@ public class SQLScriptEngine
     }
 
     public Obj invokeSlot(Obj obj, Obj slot, Obj... args) throws ClosureTerminatedException {
-        // TODO: Store actual receiver in env for calls to super in the invoked method.
-        Obj slotValue = ObjUtils.getSlot(context, obj, slot);
+        Obj receiver = obj;
+        Obj slotValue;
+        while ((slotValue = receiver.getSlot(context, slot)) == null) {
+            receiver = ObjUtils.getParent(context, obj);
+            if (receiver == null) {
+                break;
+            }
+        }
+
         if (slotValue == null) {
             slotValue = getObjNull();
         }
-        return invoke(slotValue, obj, args);
+
+        return invokeOnReceiver(slotValue, obj, receiver, args);
+    }
+
+    /**
+     * Tries to invoke the value associated with the given slot on the given object.
+     *
+     * @param obj receiver if the slot invocation
+     * @param slot slot whose value is to be invoked
+     * @param args arguments passed to the invoked method
+     * @return the result of the invocation or null if the given slot was not set
+     */
+    public Obj invokeSlotIfPresent(Obj obj, Obj slot, Obj... args) {
+        Obj receiver = obj;
+        Obj slotValue;
+        while ((slotValue = receiver.getSlot(context, slot)) == null) {
+            receiver = ObjUtils.getParent(context, receiver);
+            if (receiver == null) {
+                break;
+            }
+        }
+
+        if (slotValue == null) {
+            return null;
+        }
+
+        return invokeOnReceiver(slotValue, obj, receiver, args);
     }
 
     public Obj invokeBlock(Block block) throws ClosureTerminatedException {

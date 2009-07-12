@@ -63,6 +63,18 @@ public class Base extends AbstractObj {
         }
     };
 
+    protected static final NativeCall nativeClone = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            Context ctx = engine.getContext();
+
+            Obj clone = new PlainObj();
+            clone.setSlot(ctx, SQLScriptEngine.STR_SLOT_PARENT, context);
+            engine.invokeSlotIfPresent(clone, SQLScriptEngine.STR_SLOT_CLONE_INIT);
+
+            return clone;
+        }
+    };
+
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     private Base() {
@@ -72,6 +84,7 @@ public class Base extends AbstractObj {
         slots.put(Str.SYM__ne, nativeNotEquals);
         slots.put(Str.SYM__logic_and, nativeAnd);
         slots.put(Str.SYM__logic_or, nativeOr);
+        slots.put(Str.SYM_clone, nativeClone);
         slots.put(Str.SYM_each, nativeEach);
         slots.put(Str.SYM_eachSlot, nativeEachSlot);
     }
