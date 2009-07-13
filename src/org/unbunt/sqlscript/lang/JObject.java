@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -11,6 +12,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public class JObject extends PlainObj {
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
     public final Object value;
     public final Class cls;
 
@@ -63,7 +66,7 @@ public class JObject extends PlainObj {
         } catch (IllegalAccessException ignored) {
         }
 
-        return context.getObjNull();
+        return null;
     }
 
     @Override
@@ -117,5 +120,28 @@ public class JObject extends PlainObj {
 
     public String toString() {
         return "" + value;
+    }
+
+    @Override
+    public int getObjectID() {
+        return OBJECT_ID;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JObject jObject = (JObject) o;
+
+        return value.equals(jObject.value);
+    }
+
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    public static void registerInContext(Context ctx) {
+        Base.registerInContext(ctx);
+        ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
     }
 }

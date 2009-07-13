@@ -712,7 +712,10 @@ identifier returns [ String value ]
 	;
 
 keyword returns [ String value ]
-	:	kw=(KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE) { $value = $kw.text; }
+	:	kw=(KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
+			| KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW
+			| KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE)
+		{ $value = $kw.text; }
 	;
 
 stringLiteral returns [ StringLiteral value ]

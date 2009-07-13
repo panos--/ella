@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.ControlFlowException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
@@ -18,7 +16,7 @@ import java.util.List;
 public class Conn extends PlainObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
-    protected Connection connection;
+    protected final Connection connection;
 
     protected boolean batchActive = false;
     protected StmtBatch batchStmt = null;
@@ -184,6 +182,118 @@ public class Conn extends PlainObj {
             }
         };
 
+        protected static final NativeCall nativeTx = new NativeCall() {
+            @SuppressWarnings({"ThrowFromFinallyBlock"})
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Conn thiz = ensureType(context);
+                Obj closure = args[0];
+
+                Connection conn = thiz.connection;
+
+                // Here we ensure attempts to nest transaction blocks of the same connection
+                // won't fail silently by detecting and reporting them.
+                synchronized (conn) {
+                    try {
+                        if (!conn.getAutoCommit()) {
+                            // TODO: Possibly make use of savepoints if supported by the driver
+                            throw new SQLScriptRuntimeException("Already in a transaction");
+                        }
+                        thiz.connection.setAutoCommit(false);
+                    } catch (SQLException e) {
+                        throw new SQLScriptRuntimeException(e);
+                    }
+                }
+
+                boolean failed = false;
+                try {
+                    try {
+                        engine.invoke(closure, engine.getObjNull());
+                    } catch (ControlFlowException e) {
+                        // ControlFlowExceptions do not represent error conditions, we catch and rethrow them
+                        // because of the catch clause below.
+                        throw e;
+                    } catch (RuntimeException e) {
+                        // Intentionally catching any RuntimeException to avoid missing relevant errors.
+                        failed = true;
+                        try {
+                            conn.rollback();
+                            throw e; // rethrow exception after successfull rollback
+                        } catch (SQLException e1) {
+                            // NOTE: We consider a failed rollback a serious error, so we throw a new exception.
+                            //       Thereby the exception causing the rollback will be masked. To preserve
+                            //       information about the exception we throw a special exception providing
+                            //       access to the original exception.
+                            throw new SQLScriptTXRollbackException("Rollback failed - triggered by error: " +
+                                                                   e1.getMessage(), e1, e);
+                        }
+                    } finally {
+                        if (!failed) {
+                            try {
+                                conn.commit();
+                            } catch (SQLException e) {
+                                // finally block abruptly completed here, but not a problem in this case as the throw
+                                // statement is the last statement in the block anyway
+                                System.out.println("throwing commit exception");
+                                throw new SQLScriptTXCommitException("Commit failed: " + e.getMessage(), e);
+                            }
+                        }
+                    }
+                } finally {
+                    try {
+                        conn.setAutoCommit(true);
+                    } catch (SQLException e) {
+                        // TODO: Log error
+                        e.printStackTrace();
+                    }
+                }
+
+                return null;
+            }
+        };
+
+        protected static final NativeCall nativeBegin = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Conn thiz = ensureType(context);
+
+                Connection conn = thiz.connection;
+
+                // synchronized to preserve semantics of nativeTx
+                synchronized (conn) {
+                    try {
+                        thiz.connection.setAutoCommit(false);
+                    } catch (SQLException e) {
+                        throw new SQLScriptRuntimeException(e);
+                    }
+                }
+
+                return thiz;
+            }
+        };
+
+        protected static final NativeCall nativeCommit = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Conn thiz = ensureType(context);
+                try {
+                    thiz.connection.commit();
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+                return thiz;
+            }
+        };
+
+        protected static final NativeCall nativeRollback = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Conn thiz = ensureType(context);
+                try {
+                    thiz.connection.rollback();
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException(e);
+                }
+                return thiz;
+            }
+        };
+
         private ConnProto() {
             slots.put(Str.SYM_execStmt, nativeExecStmt);
             slots.put(Str.SYM_createStmt, nativeCreateStmt);
@@ -191,6 +301,10 @@ public class Conn extends PlainObj {
             slots.put(Str.SYM_close, nativeClose);
             slots.put(Str.SYM_batch, nativeBatch);
             slots.put(Str.SYM_withPrepared, nativeWithPrepared);
+            slots.put(Str.SYM_tx, nativeTx);
+            slots.put(Str.SYM_begin, nativeBegin);
+            slots.put(Str.SYM_commit, nativeCommit);
+            slots.put(Str.SYM_rollback, nativeRollback);
         }
 
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

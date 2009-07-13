@@ -35,12 +35,14 @@ public class Str extends AbstractObj {
     public static final Str SYM_active = toSym("active");
     public static final Str SYM_batch = toSym("batch");
     public static final Str SYM_batchNamed = toSym("batchNamed");
+    public static final Str SYM_begin = toSym("begin");
     public static final Str SYM_bigNumValue = toSym("bigNumValue");
     public static final Str SYM_bigRealValue = toSym("bigRealValue");
     public static final Str SYM_call = toSym("call");
     public static final Str SYM_clone = toSym("clone");
     public static final Str SYM_cloneInit = toSym("cloneInit");
     public static final Str SYM_close = toSym("close");
+    public static final Str SYM_commit = toSym("commit");
     public static final Str SYM_create = toSym("create");
     public static final Str SYM_createFromProps = toSym("createFromProps");
     public static final Str SYM_createStmt = toSym("createStmt");
@@ -76,6 +78,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_realValue = toSym("realValue");
     public static final Str SYM_remove = toSym("remove");
     public static final Str SYM_resultSet = toSym("resultSet");
+    public static final Str SYM_rollback = toSym("rollback");
     public static final Str SYM_scriptName = toSym("scriptName");
     public static final Str SYM_scriptResource = toSym("scriptResource");
     public static final Str SYM_select = toSym("select");
@@ -92,6 +95,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_tryCatch = toSym("tryCatch");
     public static final Str SYM_tryCatchFinally = toSym("tryCatchFinally");
     public static final Str SYM_tryFinally = toSym("tryFinally");
+    public static final Str SYM_tx = toSym("tx");
     public static final Str SYM_type = toSym("type");
     public static final Str SYM_update = toSym("update");
     public static final Str SYM_valueOf = toSym("valueOf");

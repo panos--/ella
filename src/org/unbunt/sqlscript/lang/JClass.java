@@ -134,7 +134,7 @@ public class JClass extends PlainObj implements NativeObj {
         } catch (IllegalAccessException ignored) {
         }
 
-        return ctx.getObjNull();
+        return null;
     }
 
     @Override

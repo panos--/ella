@@ -1,16 +1,18 @@
 package org.unbunt.sqlscript.lang.sql;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.DBConnectionFailedException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.SQLScriptEngine;
-import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.sqlscript.utils.DBUtils;
+import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.exception.DBConnectionFailedException;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;

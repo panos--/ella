@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.unbunt.sqlscript.utils.TestUtils;
 import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
 import java.sql.Connection;
@@ -46,6 +45,11 @@ public class InterpreterDBTestsNG extends AbstractTest {
     @Test(dependsOnMethods = "connActivate")
     public void sqlLiteralVariableSubstitution() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("sql-literal-variable-substitution"), propsMysql(), "mysql");
+    }
+
+    @Test(dependsOnMethods = "connectMysql")
+    public void tx() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("tx"), propsMysql());
     }
 
     protected static String propsMysql() {

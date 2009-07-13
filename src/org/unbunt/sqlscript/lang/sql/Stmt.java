@@ -13,6 +13,8 @@ import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.support.RawParamedSQL;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -21,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Stmt extends PlainObj {
+    protected static final Log logger = LogFactory.getLog(Stmt.class);
+    protected static final boolean trace = logger.isTraceEnabled();
+
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected RawSQL rawStatement;
@@ -136,14 +141,20 @@ public class Stmt extends PlainObj {
 
         // create statement downgrading result set features as nessassary
         try {
-            System.err.println("connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)");
+            if (trace) {
+                logger.trace("connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)");
+            }
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (SQLFeatureNotSupportedException e) {
             try {
-                System.err.println("connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)");
+                if (trace) {
+                    logger.trace("connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)");
+                }
                 statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             } catch (SQLFeatureNotSupportedException e2) {
-                System.err.println("connection.createStatement()");
+                if (trace) {
+                    logger.trace("connection.createStatement()");
+                }
                 statement = connection.createStatement();
             }
         }

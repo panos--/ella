@@ -25,7 +25,8 @@ public class SQLScriptEngine
     @SuppressWarnings({"UnusedDeclaration"})
     private static final boolean STEP = false;
 
-    protected Log logger = LogFactory.getLog(getClass());
+    protected final Log logger = LogFactory.getLog(getClass());
+    protected final boolean trace = logger.isTraceEnabled();
 
     protected Context context;
     protected boolean finished = false;
@@ -162,7 +163,9 @@ public class SQLScriptEngine
     }
 
     public void processExpression(SQLLiteralExpression sqlLiteralExpression) {
-        System.err.println("Got SQL-Literal: " + sqlLiteralExpression);
+        if (trace) {
+            logger.trace("Got SQL-Literal: " + sqlLiteralExpression);
+        }
 
         SQLParseMode parseMode = sqlLiteralExpression.getParseMode();
         SQLStringType stringType = parseMode.getStringType();

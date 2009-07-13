@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-07-13 08:54:19
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-07-13 22:13:32
 
 	package org.unbunt.sqlscript;
 
@@ -4223,7 +4223,7 @@ public class SQLScriptWalker extends TreeParser {
                 int alt34=2;
                 int LA34_0 = input.LA(1);
 
-                if ( (LA34_0==STRING||LA34_0==EMBEDDED_VAR||(LA34_0>=ATSIGN && LA34_0<=RCURLY)||(LA34_0>=KW_SQL && LA34_0<=COMMA)||(LA34_0>=LPAREN && LA34_0<=RPAREN)||(LA34_0>=KW_IF && LA34_0<=KW_ELSE)||LA34_0==COLON||(LA34_0>=QUESTION && LA34_0<=OP_EQ)||(LA34_0>=OP_ID && LA34_0<=OP_LE)||(LA34_0>=EXCLAM && LA34_0<=FLOAT)||(LA34_0>=WS && LA34_0<=IDENTIFIER)||(LA34_0>=KW_TRUE && LA34_0<=STR_BTICK)) ) {
+                if ( (LA34_0==STRING||LA34_0==EMBEDDED_VAR||(LA34_0>=ATSIGN && LA34_0<=RCURLY)||(LA34_0>=KW_SQL && LA34_0<=RPAREN)||(LA34_0>=KW_IF && LA34_0<=KW_IMPORT)||(LA34_0>=KW_AS && LA34_0<=OP_EQ)||(LA34_0>=OP_ID && LA34_0<=OP_LE)||(LA34_0>=EXCLAM && LA34_0<=KW_NEW)||(LA34_0>=WS && LA34_0<=IDENTIFIER)||(LA34_0>=KW_TRUE && LA34_0<=STR_BTICK)) ) {
                     alt34=1;
                 }
 
@@ -4434,8 +4434,25 @@ public class SQLScriptWalker extends TreeParser {
                 break;
             case KW_SQL:
             case KW_VAR:
+            case KW_FUN:
             case KW_IF:
             case KW_ELSE:
+            case KW_TRY:
+            case KW_CATCH:
+            case KW_FINALLY:
+            case KW_THROW:
+            case KW_FOR:
+            case KW_WHILE:
+            case KW_BREAK:
+            case KW_CONTINUE:
+            case KW_RETURN:
+            case KW_EXIT:
+            case KW_IMPORT:
+            case KW_AS:
+            case KW_INCLUDE:
+            case KW_THIS:
+            case KW_SUPER:
+            case KW_NEW:
             case KW_TRUE:
             case KW_FALSE:
                 {
@@ -4628,7 +4645,7 @@ public class SQLScriptWalker extends TreeParser {
                 int alt37=2;
                 int LA37_0 = input.LA(1);
 
-                if ( (LA37_0==STRING||(LA37_0>=ATSIGN && LA37_0<=RCURLY)||LA37_0==SQL_MODE||LA37_0==SQL_PARAM||(LA37_0>=SEP && LA37_0<=COMMA)||(LA37_0>=LPAREN && LA37_0<=RPAREN)||(LA37_0>=KW_IF && LA37_0<=KW_ELSE)||LA37_0==COLON||(LA37_0>=QUESTION && LA37_0<=OP_EQ)||(LA37_0>=OP_ID && LA37_0<=OP_LE)||(LA37_0>=EXCLAM && LA37_0<=FLOAT)||(LA37_0>=WORD && LA37_0<=IDENTIFIER)||(LA37_0>=KW_TRUE && LA37_0<=STR_BTICK)) ) {
+                if ( (LA37_0==STRING||(LA37_0>=ATSIGN && LA37_0<=RCURLY)||LA37_0==SQL_MODE||LA37_0==SQL_PARAM||(LA37_0>=SEP && LA37_0<=RPAREN)||(LA37_0>=KW_IF && LA37_0<=KW_IMPORT)||(LA37_0>=KW_AS && LA37_0<=OP_EQ)||(LA37_0>=OP_ID && LA37_0<=OP_LE)||(LA37_0>=EXCLAM && LA37_0<=IDENTIFIER)||(LA37_0>=KW_TRUE && LA37_0<=STR_BTICK)) ) {
                     alt37=1;
                 }
 
@@ -4766,8 +4783,25 @@ public class SQLScriptWalker extends TreeParser {
                 break;
             case KW_SQL:
             case KW_VAR:
+            case KW_FUN:
             case KW_IF:
             case KW_ELSE:
+            case KW_TRY:
+            case KW_CATCH:
+            case KW_FINALLY:
+            case KW_THROW:
+            case KW_FOR:
+            case KW_WHILE:
+            case KW_BREAK:
+            case KW_CONTINUE:
+            case KW_RETURN:
+            case KW_EXIT:
+            case KW_IMPORT:
+            case KW_AS:
+            case KW_INCLUDE:
+            case KW_THIS:
+            case KW_SUPER:
+            case KW_NEW:
             case KW_TRUE:
             case KW_FALSE:
                 {
@@ -5500,18 +5534,18 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "keyword"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:714:1: keyword returns [ String value ] : kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:714:1: keyword returns [ String value ] : kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE ) ;
     public final String keyword() throws RecognitionException {
         String value = null;
 
         CommonTree kw=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:715:2: (kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:715:4: kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRUE | KW_FALSE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:715:2: (kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:715:4: kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
             {
             kw=(CommonTree)input.LT(1);
-            if ( (input.LA(1)>=KW_SQL && input.LA(1)<=KW_VAR)||(input.LA(1)>=KW_IF && input.LA(1)<=KW_ELSE)||(input.LA(1)>=KW_TRUE && input.LA(1)<=KW_FALSE) ) {
+            if ( (input.LA(1)>=KW_SQL && input.LA(1)<=KW_VAR)||input.LA(1)==KW_FUN||(input.LA(1)>=KW_IF && input.LA(1)<=KW_FOR)||(input.LA(1)>=KW_WHILE && input.LA(1)<=KW_IMPORT)||(input.LA(1)>=KW_AS && input.LA(1)<=KW_INCLUDE)||(input.LA(1)>=KW_THIS && input.LA(1)<=KW_NEW)||(input.LA(1)>=KW_TRUE && input.LA(1)<=KW_FALSE) ) {
                 input.consume();
                 state.errorRecovery=false;state.failed=false;
             }
@@ -5541,7 +5575,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "stringLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:718:1: stringLiteral returns [ StringLiteral value ] : ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:721:1: stringLiteral returns [ StringLiteral value ] : ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) ;
     public final StringLiteral stringLiteral() throws RecognitionException {
         StringLiteral value = null;
 
@@ -5553,14 +5587,14 @@ public class SQLScriptWalker extends TreeParser {
 
          List<Object> parts = new ArrayList<Object>(); 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:720:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:720:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:723:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:723:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END )
             {
-            match(input,STRING,FOLLOW_STRING_in_stringLiteral2855); if (state.failed) return value;
+            match(input,STRING,FOLLOW_STRING_in_stringLiteral2931); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            start=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_stringLiteral2859); if (state.failed) return value;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:721:4: (str= STRING_CONTENT | var= embeddedVarRef )*
+            start=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_stringLiteral2935); if (state.failed) return value;
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:724:4: (str= STRING_CONTENT | var= embeddedVarRef )*
             loop44:
             do {
                 int alt44=3;
@@ -5576,9 +5610,9 @@ public class SQLScriptWalker extends TreeParser {
 
                 switch (alt44) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:721:6: str= STRING_CONTENT
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:724:6: str= STRING_CONTENT
             	    {
-            	    str=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_stringLiteral2868); if (state.failed) return value;
+            	    str=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_stringLiteral2944); if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
             	       parts.add((str!=null?str.getText():null)); 
             	    }
@@ -5586,9 +5620,9 @@ public class SQLScriptWalker extends TreeParser {
             	    }
             	    break;
             	case 2 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:722:6: var= embeddedVarRef
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:725:6: var= embeddedVarRef
             	    {
-            	    pushFollow(FOLLOW_embeddedVarRef_in_stringLiteral2882);
+            	    pushFollow(FOLLOW_embeddedVarRef_in_stringLiteral2958);
             	    var=embeddedVarRef();
 
             	    state._fsp--;
@@ -5605,7 +5639,7 @@ public class SQLScriptWalker extends TreeParser {
                 }
             } while (true);
 
-            end=(CommonTree)match(input,STRING_END,FOLLOW_STRING_END_in_stringLiteral2897); if (state.failed) return value;
+            end=(CommonTree)match(input,STRING_END,FOLLOW_STRING_END_in_stringLiteral2973); if (state.failed) return value;
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
@@ -5628,7 +5662,7 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "identifierStringLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:728:1: identifierStringLiteral returns [ StringLiteral value ] : id= identifier ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:731:1: identifierStringLiteral returns [ StringLiteral value ] : id= identifier ;
     public final StringLiteral identifierStringLiteral() throws RecognitionException {
         StringLiteral value = null;
 
@@ -5637,10 +5671,10 @@ public class SQLScriptWalker extends TreeParser {
 
          List<Object> parts = new ArrayList<Object>(); 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:730:2: (id= identifier )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:730:4: id= identifier
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:733:2: (id= identifier )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:733:4: id= identifier
             {
-            pushFollow(FOLLOW_identifier_in_identifierStringLiteral2924);
+            pushFollow(FOLLOW_identifier_in_identifierStringLiteral3000);
             id=identifier();
 
             state._fsp--;
@@ -5665,12 +5699,12 @@ public class SQLScriptWalker extends TreeParser {
 
 
     // $ANTLR start "booleanLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:733:1: booleanLiteral returns [ boolean value ] : ( TRUE | FALSE );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:736:1: booleanLiteral returns [ boolean value ] : ( TRUE | FALSE );
     public final boolean booleanLiteral() throws RecognitionException {
         boolean value = false;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:734:2: ( TRUE | FALSE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:737:2: ( TRUE | FALSE )
             int alt45=2;
             int LA45_0 = input.LA(1);
 
@@ -5689,9 +5723,9 @@ public class SQLScriptWalker extends TreeParser {
             }
             switch (alt45) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:734:4: TRUE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:737:4: TRUE
                     {
-                    match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral2941); if (state.failed) return value;
+                    match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral3017); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
                        value = true; 
                     }
@@ -5699,9 +5733,9 @@ public class SQLScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:735:4: FALSE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g:738:4: FALSE
                     {
-                    match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral2949); if (state.failed) return value;
+                    match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral3025); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
                        value = false; 
                     }
@@ -5906,8 +5940,8 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_sqlLiteral_in_sqlExpression1979 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_SQL_in_sqlLiteral2011 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_sqlParseMode_in_sqlLiteral2018 = new BitSet(new long[]{0x0000000000000800L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral2027 = new BitSet(new long[]{0x0000000000700818L,0xC3F78020CDF00000L,0x000000000003EFC7L});
-    public static final BitSet FOLLOW_sqlToken_in_sqlLiteral2037 = new BitSet(new long[]{0x0000000000700818L,0xC3F78020CDF00000L,0x000000000003EFC7L});
+    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral2027 = new BitSet(new long[]{0x0000000000700818L,0xC3F7EFFFCFF00000L,0x000000000003EFFFL});
+    public static final BitSet FOLLOW_sqlToken_in_sqlLiteral2037 = new BitSet(new long[]{0x0000000000700818L,0xC3F7EFFFCFF00000L,0x000000000003EFFFL});
     public static final BitSet FOLLOW_SQL_MODE_in_sqlParseMode2063 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_WORD_in_sqlStmtName2082 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_embeddedVarRef_in_sqlStmtName2103 = new BitSet(new long[]{0x0000000000000002L});
@@ -5919,7 +5953,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_embeddedVarRef_in_sqlToken2210 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_sqlAtom2232 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_SQL_in_sqlLiteralParamed2397 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_sqlTokenParamed_in_sqlLiteralParamed2399 = new BitSet(new long[]{0x0000000900700018L,0xC3F78020CDF80000L,0x000000000003EFC7L});
+    public static final BitSet FOLLOW_sqlTokenParamed_in_sqlLiteralParamed2399 = new BitSet(new long[]{0x0000000900700018L,0xC3F7EFFFCFF80000L,0x000000000003EFFFL});
     public static final BitSet FOLLOW_SQL_MODE_in_sqlTokenParamed2415 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_STRING_in_sqlTokenParamed2421 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_STRING_START_in_sqlTokenParamed2426 = new BitSet(new long[]{0x0000000000000600L});
@@ -5953,14 +5987,14 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_identifier_in_varRef2772 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_IDENTIFIER_in_identifier2791 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_keyword2810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringLiteral2855 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_STRING_START_in_stringLiteral2859 = new BitSet(new long[]{0x0000000000000E00L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_STRING_CONTENT_in_stringLiteral2868 = new BitSet(new long[]{0x0000000000000E00L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_embeddedVarRef_in_stringLiteral2882 = new BitSet(new long[]{0x0000000000000E00L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_STRING_END_in_stringLiteral2897 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_identifier_in_identifierStringLiteral2924 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_booleanLiteral2941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_booleanLiteral2949 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringLiteral2931 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_STRING_START_in_stringLiteral2935 = new BitSet(new long[]{0x0000000000000E00L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_STRING_CONTENT_in_stringLiteral2944 = new BitSet(new long[]{0x0000000000000E00L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_embeddedVarRef_in_stringLiteral2958 = new BitSet(new long[]{0x0000000000000E00L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_STRING_END_in_stringLiteral2973 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_identifier_in_identifierStringLiteral3000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_booleanLiteral3017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_booleanLiteral3025 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifier_in_synpred1_SQLScriptWalker1440 = new BitSet(new long[]{0x0000000000000002L});
 
 }
