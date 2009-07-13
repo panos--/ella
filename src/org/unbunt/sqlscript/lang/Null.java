@@ -94,6 +94,12 @@ public class Null extends PlainObj implements NativeObj {
             }
         };
 
+        protected static final NativeCall nativeNot = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                return engine.getObjTrue();
+            }
+        };
+
         private NullProto() {
             slots.put(Str.SYM__id, nativeIdentical);
             slots.put(Str.SYM__eq, nativeIdentical);
@@ -101,6 +107,7 @@ public class Null extends PlainObj implements NativeObj {
             slots.put(Str.SYM__ne, nativeNotIdentical);
             slots.put(Str.SYM__logic_and, nativeAnd);
             slots.put(Str.SYM__logic_or, nativeOr);
+            slots.put(Str.SYM__logic_not, nativeNot);
             slots.put(Str.SYM_type, nativeType);
         }
 

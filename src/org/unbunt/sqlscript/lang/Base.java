@@ -63,6 +63,12 @@ public class Base extends AbstractObj {
         }
     };
 
+    protected static final NativeCall nativeNot = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            return engine.getObjFalse();
+        }
+    };
+
     protected static final NativeCall nativeClone = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Context ctx = engine.getContext();
@@ -84,6 +90,7 @@ public class Base extends AbstractObj {
         slots.put(Str.SYM__ne, nativeNotEquals);
         slots.put(Str.SYM__logic_and, nativeAnd);
         slots.put(Str.SYM__logic_or, nativeOr);
+        slots.put(Str.SYM__logic_not, nativeNot);
         slots.put(Str.SYM_clone, nativeClone);
         slots.put(Str.SYM_each, nativeEach);
         slots.put(Str.SYM_eachSlot, nativeEachSlot);

@@ -59,6 +59,7 @@ tokens {
 	INDEX;
 	CALL;
 	CALL_BINARY;
+	CALL_UNARY;
 	THIS;
 	SUPER;
 	NEW;
@@ -753,7 +754,7 @@ binaryExpression
 	;
 
 unaryExpression
-	:	EXCLAM unaryExpression -> ^(NOT unaryExpression)
+	:	EXCLAM unaryExpression -> ^(CALL_UNARY unaryExpression IDENTIFIER["not"])
 	|	callExpression         -> callExpression
 	;
 

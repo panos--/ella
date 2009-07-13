@@ -94,9 +94,17 @@ public class Bool extends PlainObj {
             }
         };
 
+        protected static final NativeCall nativeNot = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Bool thiz = ensureType(context);
+                return thiz.value ? engine.getObjFalse() : engine.getObjTrue();
+            }
+        };
+
         private BoolProto() {
             slots.put(Str.SYM__logic_and, nativeAnd);
             slots.put(Str.SYM__logic_or, nativeOr);
+            slots.put(Str.SYM__logic_not, nativeNot);
         }
 
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

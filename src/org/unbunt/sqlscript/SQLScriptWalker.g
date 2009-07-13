@@ -303,6 +303,7 @@ expressionNoSlotExp returns [ Expression value ]
 	|	ix=indexExpressionRHS { $value = $ix.value; }
 	|	cl=callExpression { $value = $cl.value; }
 	|	cb=callBinaryExpression { $value = $cb.value; }
+	|	cu=callUnaryExpression { $value = $cu.value; }
 	|	tc=ternaryConditional { $value = $tc.value; }
 	|	oc=orCondition { $value = $oc.value; }
 	|	ac=andCondition { $value = $ac.value; }
@@ -496,6 +497,15 @@ callBinaryExpression returns [ SlotCallExpression value ]
 			List<Expression> args = new ArrayList<Expression>(1);
 			args.add($arg.value);
 			$value.setArguments(args);
+		}
+	;
+
+callUnaryExpression returns [ SlotCallExpression value ]
+	:	^(CALL_UNARY
+			receiver=expression
+			op=identifierExpression
+		) {
+			$value = new SlotCallExpression(new SlotExpression($receiver.value, $op.value));
 		}
 	;
 
