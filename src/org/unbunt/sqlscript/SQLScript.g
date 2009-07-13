@@ -120,15 +120,26 @@ tokens {
 		}
 	}
 
+	/**
+	 * Flag telling the parser to allow a single slash character on a line
+	 * to terminate an sql statement. Semicolons as line separators will be
+	 * deactivated when this is set.
+	 */
+	protected boolean sqlSlashLineSep = false;
+
+	protected Deque<Boolean> lineSepStack = new ArrayDeque<Boolean>(16);
+	
 	protected SQLStringType stringType = SQLStringType.sql92;
 	
 	protected Deque<SQLStringType> parseModeStack = new ArrayDeque<SQLStringType>(16);
 	
 	protected void enterBlock() {
+		lineSepStack.push(sqlSlashLineSep);
 		parseModeStack.push(stringType);
 	}
 	
 	protected void leaveBlock() {
+		sqlSlashLineSep = lineSepStack.pop();
 		stringType = parseModeStack.pop();
 	}
 
@@ -204,6 +215,8 @@ tokens {
 	protected boolean allowQQuote = false;
 	protected boolean allowDollarQuote = false;
 	
+	protected boolean allowSpecialSQLSep = false;
+	
 	protected boolean escapeSeparators = false;
 	
 	/**
@@ -271,6 +284,14 @@ tokens {
 	
 	protected boolean isEscapeSeparators() {
 		return escapeSeparators;
+	}
+	
+	protected void setAllowSpecialSQLSep(boolean allow) {
+		this.allowSpecialSQLSep = allow;
+	}
+	
+	protected boolean isAllowSpecialSQLSep() {
+		return allowSpecialSQLSep;
 	}
 }
 
@@ -874,6 +895,14 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	if (parseSQLParams) {
 		lexer.setEscapeSeparators(true);
 	}
+	else if (sqlSlashLineSep) {
+		// NOTE: Here we allow a single slash on a line to terminate the sql literal
+		// XXX: Currently the implementation is quick-and-dirty and has to be improved
+		// NOTE: We activate the slash sequence in the SEP rule of the lexer and tell
+		//       it to escape semicolons so that they do not count as separator
+		lexer.setEscapeSeparators(true);
+		lexer.setAllowSpecialSQLSep(true);
+	}
 }
 @after {
 	lexer.setIgnoreWhitespace(true);
@@ -881,6 +910,14 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	lexer.setAllowDollarQuote(false);
 	lexer.setAllowAtSignInIdentifier(true);
 	lexer.setEscapeSeparators(false);
+	
+	if (sqlSlashLineSep) {
+		// NOTE: The SEP rule in the lexer disables the allowSpecialSQLSep after every
+		//       matched separator. This happens once here as part of the look-ahead.
+		//       Because we discard the look-ahead later on (see below) we have to enable
+		//       the flag once more.
+		lexer.setAllowSpecialSQLSep(true);
+	}
 
 	// since we have modified the lexer behaviour we discard any tokens which might have been
 	// generated as look-ahead since these could possible be interpreted differently with the
@@ -1052,19 +1089,31 @@ parseDirective
 				throw new SQLScriptRuntimeException("Unknown parse directive: " + directive);
 			}
 			
-			if (!"quotes".equals(argument)) {
-				throw new SQLScriptRuntimeException("Invalid argument to parse directive: " + argument);
-			}
-			
-			try {
-				this.stringType = SQLStringType.valueOf(("" + value).toLowerCase());
-			} catch (IllegalArgumentException e) {
+			if ("quotes".equals(argument)) {
 				try {
-					this.stringType = SQLStringType.valueOfAlias(("" + value).toLowerCase());
+					this.stringType = SQLStringType.valueOf(("" + value).toLowerCase());
+				} catch (IllegalArgumentException e) {
+					try {
+						this.stringType = SQLStringType.valueOfAlias(("" + value).toLowerCase());
+					}
+					catch (IllegalArgumentException e2) {
+						throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
+					}
 				}
-				catch (IllegalArgumentException e2) {
-					throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
+			}
+			else if ("linesep".equals(argument)) {
+				if ("slash".equals(value)) {
+					this.sqlSlashLineSep = true;
 				}
+				else if (value.toLowerCase().startsWith("semi")) {
+					this.sqlSlashLineSep = false;
+				}
+				else {
+					throw new SQLScriptRuntimeException("Invalid argument to parse directive: Invalid value for linesep: " + value);
+				}
+			}
+			else {
+				throw new SQLScriptRuntimeException("Invalid argument to parse directive: " + argument);
 			}
 		}
 		//-> // omit tree generation
@@ -1401,6 +1450,17 @@ SEP	:	';' {
 			if (escapeSeparators) {
 				$type = WS;
 			}
+		}
+	|	{allowSpecialSQLSep}?=> '\n' '/' '\r'? '\n' {
+			// Disable the flag again. We do this to restore the standard
+			// separator after having parsed a complete sql literal to
+			// get the desired behaviour of having script statements always
+			// be terminated by semicolon and only sql literals by possibly
+			// some other sequence.
+			// This is safe for now since there is only one possible separator
+			// active at one time so that this rule will always be triggered
+			// after an sql literal if the special separator is activated.
+			allowSpecialSQLSep = false;
 		}
 	;
 

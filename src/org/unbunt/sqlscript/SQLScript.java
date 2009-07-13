@@ -285,9 +285,9 @@ public class SQLScript extends VolatileObservable implements Observer {
                 }
             }
 
-            if (result != 0) {
-                throw new Exception("dot command failed");
-            }
+//            if (result != 0) {
+//                throw new Exception("dot command failed");
+//            }
 
             Runtime.getRuntime().exec(new String[] { "xdg-open", pngFile.getPath() });
         } catch (Exception e) {

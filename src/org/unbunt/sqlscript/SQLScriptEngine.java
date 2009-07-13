@@ -1284,7 +1284,6 @@ public class SQLScriptEngine
         while (step() && pc > callFrame) {
         }
 
-        // XXX: < or <= ???
         if (pc < callFrame) {
             closureReturnInProgress = true;
             throw new ClosureTerminatedException();
