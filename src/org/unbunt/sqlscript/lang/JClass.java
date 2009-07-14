@@ -10,6 +10,9 @@ import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.*;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * TODO: possibly make JClass a subclass of JObject
@@ -190,6 +193,34 @@ public class JClass extends PlainObj implements NativeObj {
         slots.put(key, val);
 
         return this;
+    }
+
+    // TODO: Merge with JObject.getSlots()
+    // TODO: filter out non-static methods
+    @Override
+    public Map<Obj, Obj> getSlots() {
+        Map<Obj, Obj> result = new HashMap<Obj, Obj>();
+        Map<String, List<Method>> methodsByName = new HashMap<String, List<Method>>();
+        Method[] methods = clazz.getMethods();
+        for (Method method : methods) {
+            String name = method.getName();
+            List<Method> namedMethods = methodsByName.get(name);
+            if (namedMethods == null) {
+                namedMethods = new ArrayList<Method>();
+                methodsByName.put(name, namedMethods);
+            }
+            namedMethods.add(method);
+        }
+        for (Map.Entry<String, List<Method>> entry : methodsByName.entrySet()) {
+            List<Method> namedMethods = entry.getValue();
+            String name = entry.getKey();
+            result.put(
+                    new Str(name),
+                    new JMethod(namedMethods.toArray(new Method[namedMethods.size()]))
+            );
+        }
+        result.putAll(slots);
+        return result;
     }
 
     @Override

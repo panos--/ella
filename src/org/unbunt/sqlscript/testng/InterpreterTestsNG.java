@@ -376,4 +376,9 @@ public class InterpreterTestsNG extends AbstractTest {
     public void nativeClone() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("native-clone"));
     }
+
+    @Test
+    public void numRange() throws SQLScriptIOException, SQLScriptParseException {
+        eval(file("num-range"));
+    }
 }

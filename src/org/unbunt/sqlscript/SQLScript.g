@@ -1404,6 +1404,7 @@ IDENTIFIER_SPECIAL
 		 */
 		{allowAtSignInIdentifier}?=> '@'
 	|	'%'|'^'|'&'|'*'|'/'|'_'|'|'|DOLLAR
+//	|	'.' '.'+
 	;
 
 EQUALS	:	'='

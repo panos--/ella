@@ -24,6 +24,7 @@ public class Str extends AbstractObj {
     public static final Str SYM__ne = toSym("!=");
     public static final Str SYM__id = toSym("===");
     public static final Str SYM__ni = toSym("!==");
+    public static final Str SYM__dotdot = toSym("..");
     public static final Str SYM__break = toSym("_break");
     public static final Str SYM__continue = toSym("_continue");
     public static final Str SYM__exit = toSym("_exit");
@@ -74,6 +75,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_numValue = toSym("numValue");
     public static final Str SYM_parent = toSym("parent");
     public static final Str SYM_print = toSym("print");
+    public static final Str SYM_range = toSym("range");
     public static final Str SYM_raise = toSym("raise");
     public static final Str SYM_realValue = toSym("realValue");
     public static final Str SYM_remove = toSym("remove");
@@ -84,10 +86,13 @@ public class Str extends AbstractObj {
     public static final Str SYM_select = toSym("select");
     public static final Str SYM_set = toSym("set");
     public static final Str SYM_size = toSym("size");
+    public static final Str SYM_start = toSym("start");
+    public static final Str SYM_stop = toSym("stop");
     public static final Str SYM_throw = toSym("throw");
     public static final Str SYM_to = toSym("to");
     public static final Str SYM_toByte = toSym("toByte");
     public static final Str SYM_toDouble = toSym("toDouble");
+    public static final Str SYM_toDict = toSym("toDict");
     public static final Str SYM_toFloat = toSym("toFloat");
     public static final Str SYM_toInteger = toSym("toInteger");
     public static final Str SYM_toLong = toSym("toLong");

@@ -8,6 +8,8 @@ public abstract class NativeCall extends AbstractObj implements Call {
         return null;
     }
 
+    // NOTE: Here we have a circular dependency between SQLScriptEngine and NativeCall
+    // TODO: Break up by using interface instead of concrete class
     public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
         return call(engine, context, args);
     }

@@ -60,13 +60,17 @@ public class Context implements SQLResultProvider {
         // during initialization of other objects
         objNull = ensureType(ensureObject(Null.OBJECT_ID));
 
+        // NOTE: Here introduct a circular dependency between Context and the Objects
+        // TODO: Break up by using interface instead of concrete class
         Base.registerInContext(this);
         Args.registerInContext(this);
         NNum.registerInContext(this);
         NBigNum.registerInContext(this);
         NReal.registerInContext(this);
         NBigReal.registerInContext(this);
+        NRange.registerInContext(this);
         Lst.registerInContext(this);
+        Dict.registerInContext(this);
         Sys.registerInContext(this);
         Bool.registerInContext(this);
         Clos.registerInContext(this);
@@ -109,11 +113,13 @@ public class Context implements SQLResultProvider {
         mainEnv.add("Sys", objSys);
         mainEnv.add("Obj", ensureObject(Base.OBJECT_ID));
         mainEnv.add("Lst", ensureObject(Lst.LstProto.OBJECT_ID));
+        mainEnv.add("Dict", ensureObject(Dict.DictProto.OBJECT_ID));
         mainEnv.add("Str", ensureObject(Str.StrProto.OBJECT_ID));
         mainEnv.add("Num", ensureObject(NNum.NNumProto.OBJECT_ID));
         mainEnv.add("BigNum", ensureObject(NBigNum.NBigNumProto.OBJECT_ID));
         mainEnv.add("Real", ensureObject(NReal.NRealProto.OBJECT_ID));
         mainEnv.add("BigReal", ensureObject(NBigReal.NBigRealProto.OBJECT_ID));
+        mainEnv.add("Range", ensureObject(NRange.NRangeProto.OBJECT_ID));
         mainEnv.add("Bool", ensureObject(Bool.BoolProto.OBJECT_ID));
         mainEnv.add("true", objTrue);
         mainEnv.add("false", objFalse);

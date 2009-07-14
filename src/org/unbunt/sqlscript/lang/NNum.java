@@ -305,11 +305,21 @@ public class NNum extends PlainObj implements NNumeric {
             }
         };
 
+        protected static final NativeCall nativeRange = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                NNum thiz = ensureType(context);
+                NNum stop = ensureType(args[0]);
+                return new NRange(thiz.value, stop.value);
+            }
+        };
+
         private NNumProto() {
             slots.put(Str.SYM__plus, nativeAdd);
             slots.put(Str.SYM__minus, nativeSubtract);
             slots.put(Str.SYM__slash, nativeDivide);
             slots.put(Str.SYM__star, nativeMultiply);
+            slots.put(Str.SYM__dotdot, nativeRange);
+            slots.put(Str.SYM_range, nativeRange);
             slots.put(Str.SYM_valueOf, nativeValueOf);
             slots.put(Str.SYM_to, nativeTo);
         }

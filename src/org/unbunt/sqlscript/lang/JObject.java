@@ -10,6 +10,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 public class JObject extends PlainObj {
     protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -111,6 +114,33 @@ public class JObject extends PlainObj {
         slots.put(key, val);
 
         return this;
+    }
+
+    // TODO: Merge with JClass.getSlots()
+    @Override
+    public Map<Obj, Obj> getSlots() {
+        Map<Obj, Obj> result = new HashMap<Obj, Obj>();
+        Map<String, List<Method>> methodsByName = new HashMap<String, List<Method>>();
+        Method[] methods = cls.getMethods();
+        for (Method method : methods) {
+            String name = method.getName();
+            List<Method> namedMethods = methodsByName.get(name);
+            if (namedMethods == null) {
+                namedMethods = new ArrayList<Method>();
+                methodsByName.put(name, namedMethods);
+            }
+            namedMethods.add(method);
+        }
+        for (Map.Entry<String, List<Method>> entry : methodsByName.entrySet()) {
+            List<Method> namedMethods = entry.getValue();
+            String name = entry.getKey();
+            result.put(
+                    new Str(name),
+                    new JMethod(namedMethods.toArray(new Method[namedMethods.size()]))
+            );
+        }
+        result.putAll(slots);
+        return result;
     }
 
     @Override
