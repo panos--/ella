@@ -1,4 +1,4 @@
-// $ANTLR 3.1 /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-14 08:23:00
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-14 20:56:39
 
 	package org.unbunt.sqlscript;
 
@@ -267,15 +267,15 @@ public class SQLScriptLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "/home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g"; }
+    public String getGrammarFileName() { return "/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g"; }
 
     // $ANTLR start "COMMENT"
     public final void mCOMMENT() throws RecognitionException {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1125:9: ( '/*' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1125:11: '/*'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1125:9: ( '/*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1125:11: '/*'
             {
             match("/*"); if (state.failed) return ;
 
@@ -321,33 +321,33 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:2: ( ( '--' ) (~ ( '\\n' | '\\r' ) )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:4: ( '--' ) (~ ( '\\n' | '\\r' ) )*
             {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:4: ( '--' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:5: '--'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:4: ( '--' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:5: '--'
             {
             match("--"); if (state.failed) return ;
 
 
             }
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:11: (~ ( '\\n' | '\\r' ) )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:11: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>='\u0000' && LA1_0<='\t')||(LA1_0>='\u000B' && LA1_0<='\f')||(LA1_0>='\u000E' && LA1_0<='\uFFFE')) ) {
+                if ( ((LA1_0>='\u0000' && LA1_0<='\t')||(LA1_0>='\u000B' && LA1_0<='\f')||(LA1_0>='\u000E' && LA1_0<='\uFFFF')) ) {
                     alt1=1;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:11: ~ ( '\\n' | '\\r' )
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1155:11: ~ ( '\\n' | '\\r' )
             	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFE') ) {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
             	    state.failed=false;
             	    }
@@ -386,8 +386,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1160:2: ( '\\'' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1160:4: '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1160:2: ( '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1160:4: '\\''
             {
             match('\''); if (state.failed) return ;
 
@@ -407,8 +407,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:2: ( '\"' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:4: '\"'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:2: ( '\"' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1165:4: '\"'
             {
             match('\"'); if (state.failed) return ;
 
@@ -428,8 +428,8 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1170:2: ( '`' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1170:4: '`'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1170:2: ( '`' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1170:4: '`'
             {
             match('`'); if (state.failed) return ;
 
@@ -449,14 +449,14 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_QQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
             {
             if ( !((allowQQuote)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "STR_QQUOT", "allowQQuote");
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:21: ( 'N' | 'n' )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1175:21: ( 'N' | 'n' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -465,7 +465,7 @@ public class SQLScriptLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
                     {
                     if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                         input.consume();
@@ -511,14 +511,14 @@ public class SQLScriptLexer extends Lexer {
             int _type = STR_DOLQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
              lastStringStartMarker = input.mark(); 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             {
             if ( !((allowDollarQuote)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "STR_DOLQUOT", "allowDollarQuote");
             }
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:26: ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:26: ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -548,14 +548,14 @@ public class SQLScriptLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:27: DDOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:27: DDOLLAR
                     {
                     mDDOLLAR(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:37: DOLLAR DOLQUOT_TAG DOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1184:37: DOLLAR DOLQUOT_TAG DOLLAR
                     {
                     mDOLLAR(); if (state.failed) return ;
                     mDOLQUOT_TAG(); if (state.failed) return ;
@@ -580,8 +580,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DDOLLAR"
     public final void mDDOLLAR() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1188:9: ( '$$' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1188:11: '$$'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1188:9: ( '$$' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1188:11: '$$'
             {
             match("$$"); if (state.failed) return ;
 
@@ -597,8 +597,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLLAR"
     public final void mDOLLAR() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1192:8: ( '$' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1192:10: '$'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1192:8: ( '$' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1192:10: '$'
             {
             match('$'); if (state.failed) return ;
 
@@ -613,11 +613,11 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG"
     public final void mDOLQUOT_TAG() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
             {
             mDOLQUOT_TAG_START(); if (state.failed) return ;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:22: ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:22: ( DOLQUOT_TAG_END )*
             loop4:
             do {
                 int alt4=2;
@@ -630,7 +630,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:22: DOLQUOT_TAG_END
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1197:22: DOLQUOT_TAG_END
             	    {
             	    mDOLQUOT_TAG_END(); if (state.failed) return ;
 
@@ -654,8 +654,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_START"
     public final void mDOLQUOT_TAG_START() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1202:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1202:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1202:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1202:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\ufffd' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFD') ) {
                 input.consume();
@@ -679,8 +679,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DOLQUOT_TAG_END"
     public final void mDOLQUOT_TAG_END() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1207:2: ( DOLQUOT_TAG_START | DIGIT )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1207:2: ( DOLQUOT_TAG_START | DIGIT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFD') ) {
                 input.consume();
@@ -706,14 +706,14 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:8: ( ( ( DIGIT )+ '.' DIGIT )=> ( DIGIT )+ '.' ( ( DIGIT )+ | EXPONENT ) | ( DIGIT )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:8: ( ( ( DIGIT )+ '.' DIGIT )=> ( DIGIT )+ '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ )
             int alt9=2;
             alt9 = dfa9.predict(input);
             switch (alt9) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:10: ( ( DIGIT )+ '.' DIGIT )=> ( DIGIT )+ '.' ( ( DIGIT )+ | EXPONENT )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:10: ( ( DIGIT )+ '.' DIGIT )=> ( DIGIT )+ '.' ( DIGIT )+ ( EXPONENT )?
                     {
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:31: ( DIGIT )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:31: ( DIGIT )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -727,7 +727,7 @@ public class SQLScriptLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:31: DIGIT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:31: DIGIT
                     	    {
                     	    mDIGIT(); if (state.failed) return ;
 
@@ -745,63 +745,47 @@ public class SQLScriptLexer extends Lexer {
                     } while (true);
 
                     match('.'); if (state.failed) return ;
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:42: ( ( DIGIT )+ | EXPONENT )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:42: ( DIGIT )+
+                    int cnt6=0;
+                    loop6:
+                    do {
+                        int alt6=2;
+                        int LA6_0 = input.LA(1);
+
+                        if ( ((LA6_0>='0' && LA6_0<='9')) ) {
+                            alt6=1;
+                        }
+
+
+                        switch (alt6) {
+                    	case 1 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:42: DIGIT
+                    	    {
+                    	    mDIGIT(); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt6 >= 1 ) break loop6;
+                    	    if (state.backtracking>0) {state.failed=true; return ;}
+                                EarlyExitException eee =
+                                    new EarlyExitException(6, input);
+                                throw eee;
+                        }
+                        cnt6++;
+                    } while (true);
+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:49: ( EXPONENT )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
-                    if ( ((LA7_0>='0' && LA7_0<='9')) ) {
+                    if ( (LA7_0=='E'||LA7_0=='e') ) {
                         alt7=1;
-                    }
-                    else if ( (LA7_0=='E'||LA7_0=='e') ) {
-                        alt7=2;
-                    }
-                    else {
-                        if (state.backtracking>0) {state.failed=true; return ;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 7, 0, input);
-
-                        throw nvae;
                     }
                     switch (alt7) {
                         case 1 :
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:43: ( DIGIT )+
-                            {
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:43: ( DIGIT )+
-                            int cnt6=0;
-                            loop6:
-                            do {
-                                int alt6=2;
-                                int LA6_0 = input.LA(1);
-
-                                if ( ((LA6_0>='0' && LA6_0<='9')) ) {
-                                    alt6=1;
-                                }
-
-
-                                switch (alt6) {
-                            	case 1 :
-                            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:43: DIGIT
-                            	    {
-                            	    mDIGIT(); if (state.failed) return ;
-
-                            	    }
-                            	    break;
-
-                            	default :
-                            	    if ( cnt6 >= 1 ) break loop6;
-                            	    if (state.backtracking>0) {state.failed=true; return ;}
-                                        EarlyExitException eee =
-                                            new EarlyExitException(6, input);
-                                        throw eee;
-                                }
-                                cnt6++;
-                            } while (true);
-
-
-                            }
-                            break;
-                        case 2 :
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:52: EXPONENT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:49: EXPONENT
                             {
                             mEXPONENT(); if (state.failed) return ;
 
@@ -817,9 +801,9 @@ public class SQLScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1212:4: ( DIGIT )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1212:4: ( DIGIT )+
                     {
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1212:4: ( DIGIT )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1212:4: ( DIGIT )+
                     int cnt8=0;
                     loop8:
                     do {
@@ -833,7 +817,7 @@ public class SQLScriptLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1212:4: DIGIT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1212:4: DIGIT
                     	    {
                     	    mDIGIT(); if (state.failed) return ;
 
@@ -871,8 +855,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1215:5: ({...}? => 'just to disable warning about no lexer rule corresponding to INT' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1215:7: {...}? => 'just to disable warning about no lexer rule corresponding to INT'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1215:5: ({...}? => 'just to disable warning about no lexer rule corresponding to INT' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1215:7: {...}? => 'just to disable warning about no lexer rule corresponding to INT'
             {
             if ( !((false)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -896,8 +880,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1216:7: ({...}? => 'just to disable warning about no lexer rule corresponding to FLOAT' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1216:9: {...}? => 'just to disable warning about no lexer rule corresponding to FLOAT'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1216:7: ({...}? => 'just to disable warning about no lexer rule corresponding to FLOAT' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1216:9: {...}? => 'just to disable warning about no lexer rule corresponding to FLOAT'
             {
             if ( !((false)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -919,8 +903,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:9: ( ( 'e' | 'E' ) ( '-' | '+' )? ( DIGIT )+ )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:11: ( 'e' | 'E' ) ( '-' | '+' )? ( DIGIT )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:9: ( ( 'e' | 'E' ) ( '-' | '+' )? ( DIGIT )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:11: ( 'e' | 'E' ) ( '-' | '+' )? ( DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -932,7 +916,7 @@ public class SQLScriptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:21: ( '-' | '+' )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:21: ( '-' | '+' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -941,7 +925,7 @@ public class SQLScriptLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -959,7 +943,7 @@ public class SQLScriptLexer extends Lexer {
 
             }
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:32: ( DIGIT )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:32: ( DIGIT )+
             int cnt11=0;
             loop11:
             do {
@@ -973,7 +957,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:32: DIGIT
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1227:32: DIGIT
             	    {
             	    mDIGIT(); if (state.failed) return ;
 
@@ -1002,8 +986,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1231:7: ( '0' .. '9' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1231:9: '0' .. '9'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1231:7: ( '0' .. '9' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1231:9: '0' .. '9'
             {
             matchRange('0','9'); if (state.failed) return ;
 
@@ -1020,8 +1004,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_SQL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1234:8: ( ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1234:10: ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1234:8: ( ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1234:10: ( 'S' | 's' ) ( 'Q' | 'q' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -1069,8 +1053,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1237:8: ( 'var' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1237:10: 'var'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1237:8: ( 'var' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1237:10: 'var'
             {
             match("var"); if (state.failed) return ;
 
@@ -1090,8 +1074,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1240:7: ( 'if' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1240:9: 'if'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1240:7: ( 'if' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1240:9: 'if'
             {
             match("if"); if (state.failed) return ;
 
@@ -1111,8 +1095,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1243:9: ( 'else' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1243:11: 'else'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1243:9: ( 'else' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1243:11: 'else'
             {
             match("else"); if (state.failed) return ;
 
@@ -1132,8 +1116,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_TRY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1246:8: ( 'try' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1246:10: 'try'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1246:8: ( 'try' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1246:10: 'try'
             {
             match("try"); if (state.failed) return ;
 
@@ -1153,8 +1137,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_CATCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1249:9: ( 'catch' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1249:11: 'catch'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1249:9: ( 'catch' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1249:11: 'catch'
             {
             match("catch"); if (state.failed) return ;
 
@@ -1174,8 +1158,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FINALLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1253:2: ( 'finally' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1253:4: 'finally'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1253:2: ( 'finally' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1253:4: 'finally'
             {
             match("finally"); if (state.failed) return ;
 
@@ -1195,8 +1179,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_THROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1256:9: ( 'throw' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1256:11: 'throw'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1256:9: ( 'throw' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1256:11: 'throw'
             {
             match("throw"); if (state.failed) return ;
 
@@ -1216,8 +1200,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1259:8: ( 'for' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1259:10: 'for'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1259:8: ( 'for' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1259:10: 'for'
             {
             match("for"); if (state.failed) return ;
 
@@ -1237,8 +1221,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_WHILE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1262:9: ( 'while' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1262:11: 'while'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1262:9: ( 'while' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1262:11: 'while'
             {
             match("while"); if (state.failed) return ;
 
@@ -1258,8 +1242,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_BREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1265:9: ( 'break' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1265:11: 'break'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1265:9: ( 'break' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1265:11: 'break'
             {
             match("break"); if (state.failed) return ;
 
@@ -1279,8 +1263,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_CONTINUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1269:2: ( 'continue' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1269:4: 'continue'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1269:2: ( 'continue' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1269:4: 'continue'
             {
             match("continue"); if (state.failed) return ;
 
@@ -1300,8 +1284,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1273:2: ( 'return' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1273:4: 'return'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1273:2: ( 'return' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1273:4: 'return'
             {
             match("return"); if (state.failed) return ;
 
@@ -1321,8 +1305,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_EXIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1276:9: ( 'exit' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1276:11: 'exit'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1276:9: ( 'exit' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1276:11: 'exit'
             {
             match("exit"); if (state.failed) return ;
 
@@ -1342,8 +1326,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1279:9: ( 'true' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1279:11: 'true'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1279:9: ( 'true' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1279:11: 'true'
             {
             match("true"); if (state.failed) return ;
 
@@ -1363,8 +1347,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1282:9: ( 'false' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1282:11: 'false'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1282:9: ( 'false' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1282:11: 'false'
             {
             match("false"); if (state.failed) return ;
 
@@ -1384,8 +1368,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_FUN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1285:8: ( 'fun' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1285:10: 'fun'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1285:8: ( 'fun' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1285:10: 'fun'
             {
             match("fun"); if (state.failed) return ;
 
@@ -1405,8 +1389,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_THIS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1288:9: ( 'this' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1288:11: 'this'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1288:9: ( 'this' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1288:11: 'this'
             {
             match("this"); if (state.failed) return ;
 
@@ -1426,8 +1410,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_SUPER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1291:9: ( 'super' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1291:11: 'super'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1291:9: ( 'super' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1291:11: 'super'
             {
             match("super"); if (state.failed) return ;
 
@@ -1447,8 +1431,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_NEW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1294:8: ( 'new' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1294:10: 'new'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1294:8: ( 'new' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1294:10: 'new'
             {
             match("new"); if (state.failed) return ;
 
@@ -1468,8 +1452,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1298:2: ( 'import' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1298:4: 'import'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1298:2: ( 'import' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1298:4: 'import'
             {
             match("import"); if (state.failed) return ;
 
@@ -1489,8 +1473,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_INCLUDE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1302:2: ( 'include' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1302:4: 'include'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1302:2: ( 'include' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1302:4: 'include'
             {
             match("include"); if (state.failed) return ;
 
@@ -1510,8 +1494,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = KW_AS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1305:7: ( 'as' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1305:9: 'as'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1305:7: ( 'as' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1305:9: 'as'
             {
             match("as"); if (state.failed) return ;
 
@@ -1531,10 +1515,10 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:6: ( ( WORD_CHAR )+ )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:8: ( WORD_CHAR )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:6: ( ( WORD_CHAR )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:8: ( WORD_CHAR )+
             {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:8: ( WORD_CHAR )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:8: ( WORD_CHAR )+
             int cnt12=0;
             loop12:
             do {
@@ -1548,7 +1532,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:8: WORD_CHAR
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1308:8: WORD_CHAR
             	    {
             	    mWORD_CHAR(); if (state.failed) return ;
 
@@ -1579,8 +1563,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "WORD_CHAR"
     public final void mWORD_CHAR() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1313:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1313:4: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1313:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1313:4: ( 'a' .. 'z' | 'A' .. 'Z' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1606,8 +1590,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EMB_VAR_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1317:2: ({...}? => '@{' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1317:4: {...}? => '@{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1317:2: ({...}? => '@{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1317:4: {...}? => '@{'
             {
             if ( !((allowEmbeddedVariables)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1631,8 +1615,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = BACKSLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1321:2: ( '\\\\' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1321:4: '\\\\'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1321:2: ( '\\\\' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1321:4: '\\\\'
             {
             match('\\'); if (state.failed) return ;
 
@@ -1651,8 +1635,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = DOUBLE_ARROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1331:2: ( '=>' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1331:4: '=>'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1331:2: ( '=>' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1331:4: '=>'
             {
             match("=>"); if (state.failed) return ;
 
@@ -1672,8 +1656,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_DEFINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1335:2: ( ':=' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1335:4: ':='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1335:2: ( ':=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1335:4: ':='
             {
             match(":="); if (state.failed) return ;
 
@@ -1693,8 +1677,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1338:8: ( '&&' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1338:10: '&&'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1338:8: ( '&&' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1338:10: '&&'
             {
             match("&&"); if (state.failed) return ;
 
@@ -1714,8 +1698,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1341:7: ( '||' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1341:9: '||'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1341:7: ( '||' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1341:9: '||'
             {
             match("||"); if (state.failed) return ;
 
@@ -1735,8 +1719,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1344:7: ( '==' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1344:9: '=='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1344:7: ( '==' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1344:9: '=='
             {
             match("=="); if (state.failed) return ;
 
@@ -1756,8 +1740,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_NE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1347:7: ( '!=' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1347:9: '!='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1347:7: ( '!=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1347:9: '!='
             {
             match("!="); if (state.failed) return ;
 
@@ -1777,8 +1761,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1350:7: ( '===' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1350:9: '==='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1350:7: ( '===' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1350:9: '==='
             {
             match("==="); if (state.failed) return ;
 
@@ -1798,8 +1782,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_NI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1353:7: ( '!==' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1353:9: '!=='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1353:7: ( '!==' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1353:9: '!=='
             {
             match("!=="); if (state.failed) return ;
 
@@ -1819,8 +1803,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1356:7: ( '>' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1356:9: '>'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1356:7: ( '>' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1356:9: '>'
             {
             match('>'); if (state.failed) return ;
 
@@ -1839,8 +1823,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_GE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1359:7: ( '>=' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1359:9: '>='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1359:7: ( '>=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1359:9: '>='
             {
             match(">="); if (state.failed) return ;
 
@@ -1860,8 +1844,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1362:7: ( '<' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1362:9: '<'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1362:7: ( '<' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1362:9: '<'
             {
             match('<'); if (state.failed) return ;
 
@@ -1880,8 +1864,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_LE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1365:7: ( '<=' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1365:9: '<='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1365:7: ( '<=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1365:9: '<='
             {
             match("<="); if (state.failed) return ;
 
@@ -1901,8 +1885,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1368:8: ( '*' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1368:10: '*'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1368:8: ( '*' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1368:10: '*'
             {
             match('*'); if (state.failed) return ;
 
@@ -1921,8 +1905,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1371:8: ( '/' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1371:10: '/'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1371:8: ( '/' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1371:10: '/'
             {
             match('/'); if (state.failed) return ;
 
@@ -1941,8 +1925,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_MOD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1374:8: ( '%' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1374:10: '%'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1374:8: ( '%' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1374:10: '%'
             {
             match('%'); if (state.failed) return ;
 
@@ -1961,8 +1945,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1377:8: ( '+' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1377:10: '+'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1377:8: ( '+' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1377:10: '+'
             {
             match('+'); if (state.failed) return ;
 
@@ -1981,8 +1965,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = OP_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1380:8: ( '-' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1380:10: '-'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1380:8: ( '-' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1380:10: '-'
             {
             match('-'); if (state.failed) return ;
 
@@ -1999,8 +1983,8 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "SIMPLE_IDENTIFIER"
     public final void mSIMPLE_IDENTIFIER() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1391:2: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )* )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1391:4: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1391:2: ( ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1391:4: ( WORD_CHAR | '_' ) ( WORD_CHAR | '_' | DIGIT )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -2012,7 +1996,7 @@ public class SQLScriptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1391:22: ( WORD_CHAR | '_' | DIGIT )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1391:22: ( WORD_CHAR | '_' | DIGIT )*
             loop13:
             do {
                 int alt13=2;
@@ -2025,7 +2009,7 @@ public class SQLScriptLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -2060,124 +2044,188 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:2: ( ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )* )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:4: ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
-            {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:4: ( WORD_CHAR | IDENTIFIER_SPECIAL )
-            int alt14=2;
-            int LA14_0 = input.LA(1);
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:2: ( ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )* | '.' ( '.' )+ )
+            int alt17=2;
+            int LA17_0 = input.LA(1);
 
-            if ( ((LA14_0>='A' && LA14_0<='Z')||(LA14_0>='a' && LA14_0<='z')) ) {
-                alt14=1;
+            if ( (LA17_0=='+'||LA17_0=='-'||(LA17_0>='A' && LA17_0<='Z')||(LA17_0>='a' && LA17_0<='z')||LA17_0=='~') ) {
+                alt17=1;
             }
-            else if ( (LA14_0=='+'||LA14_0=='-'||LA14_0=='~') ) {
-                alt14=2;
+            else if ( (LA17_0=='@') && ((allowAtSignInIdentifier))) {
+                alt17=1;
             }
-            else if ( (LA14_0=='@') && ((allowAtSignInIdentifier))) {
-                alt14=2;
+            else if ( ((LA17_0>='$' && LA17_0<='&')||LA17_0=='*'||LA17_0=='/'||(LA17_0>='^' && LA17_0<='_')||LA17_0=='|') ) {
+                alt17=1;
             }
-            else if ( ((LA14_0>='$' && LA14_0<='&')||LA14_0=='*'||LA14_0=='/'||(LA14_0>='^' && LA14_0<='_')||LA14_0=='|') ) {
-                alt14=2;
+            else if ( (LA17_0=='.') ) {
+                alt17=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 17, 0, input);
 
                 throw nvae;
             }
-            switch (alt14) {
+            switch (alt17) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:5: WORD_CHAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:4: ( WORD_CHAR | IDENTIFIER_SPECIAL ) ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
                     {
-                    mWORD_CHAR(); if (state.failed) return ;
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:4: ( WORD_CHAR | IDENTIFIER_SPECIAL )
+                    int alt14=2;
+                    int LA14_0 = input.LA(1);
+
+                    if ( ((LA14_0>='A' && LA14_0<='Z')||(LA14_0>='a' && LA14_0<='z')) ) {
+                        alt14=1;
+                    }
+                    else if ( (LA14_0=='+'||LA14_0=='-'||LA14_0=='~') ) {
+                        alt14=2;
+                    }
+                    else if ( (LA14_0=='@') && ((allowAtSignInIdentifier))) {
+                        alt14=2;
+                    }
+                    else if ( ((LA14_0>='$' && LA14_0<='&')||LA14_0=='*'||LA14_0=='/'||(LA14_0>='^' && LA14_0<='_')||LA14_0=='|') ) {
+                        alt14=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return ;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 14, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt14) {
+                        case 1 :
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:5: WORD_CHAR
+                            {
+                            mWORD_CHAR(); if (state.failed) return ;
+
+                            }
+                            break;
+                        case 2 :
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:17: IDENTIFIER_SPECIAL
+                            {
+                            mIDENTIFIER_SPECIAL(); if (state.failed) return ;
+
+                            }
+                            break;
+
+                    }
+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:37: ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
+                    loop15:
+                    do {
+                        int alt15=6;
+                        int LA15_0 = input.LA(1);
+
+                        if ( ((LA15_0>='A' && LA15_0<='Z')||(LA15_0>='a' && LA15_0<='z')) ) {
+                            alt15=1;
+                        }
+                        else if ( (LA15_0=='+'||LA15_0=='-'||LA15_0=='~') ) {
+                            alt15=2;
+                        }
+                        else if ( (LA15_0=='@') && ((allowAtSignInIdentifier))) {
+                            alt15=2;
+                        }
+                        else if ( ((LA15_0>='$' && LA15_0<='&')||LA15_0=='*'||LA15_0=='/'||(LA15_0>='^' && LA15_0<='_')||LA15_0=='|') ) {
+                            alt15=2;
+                        }
+                        else if ( (LA15_0=='!') ) {
+                            alt15=3;
+                        }
+                        else if ( (LA15_0=='?') ) {
+                            alt15=4;
+                        }
+                        else if ( ((LA15_0>='0' && LA15_0<='9')) ) {
+                            alt15=5;
+                        }
+
+
+                        switch (alt15) {
+                    	case 1 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:38: WORD_CHAR
+                    	    {
+                    	    mWORD_CHAR(); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+                    	case 2 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:50: IDENTIFIER_SPECIAL
+                    	    {
+                    	    mIDENTIFIER_SPECIAL(); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+                    	case 3 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:71: '!'
+                    	    {
+                    	    match('!'); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+                    	case 4 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:77: '?'
+                    	    {
+                    	    match('?'); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+                    	case 5 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:83: DIGIT
+                    	    {
+                    	    mDIGIT(); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop15;
+                        }
+                    } while (true);
+
 
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:17: IDENTIFIER_SPECIAL
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1396:4: '.' ( '.' )+
                     {
-                    mIDENTIFIER_SPECIAL(); if (state.failed) return ;
+                    match('.'); if (state.failed) return ;
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1396:8: ( '.' )+
+                    int cnt16=0;
+                    loop16:
+                    do {
+                        int alt16=2;
+                        int LA16_0 = input.LA(1);
+
+                        if ( (LA16_0=='.') ) {
+                            alt16=1;
+                        }
+
+
+                        switch (alt16) {
+                    	case 1 :
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1396:8: '.'
+                    	    {
+                    	    match('.'); if (state.failed) return ;
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt16 >= 1 ) break loop16;
+                    	    if (state.backtracking>0) {state.failed=true; return ;}
+                                EarlyExitException eee =
+                                    new EarlyExitException(16, input);
+                                throw eee;
+                        }
+                        cnt16++;
+                    } while (true);
+
 
                     }
                     break;
 
             }
-
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:37: ( WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT )*
-            loop15:
-            do {
-                int alt15=6;
-                int LA15_0 = input.LA(1);
-
-                if ( ((LA15_0>='A' && LA15_0<='Z')||(LA15_0>='a' && LA15_0<='z')) ) {
-                    alt15=1;
-                }
-                else if ( (LA15_0=='+'||LA15_0=='-'||LA15_0=='~') ) {
-                    alt15=2;
-                }
-                else if ( (LA15_0=='@') && ((allowAtSignInIdentifier))) {
-                    alt15=2;
-                }
-                else if ( ((LA15_0>='$' && LA15_0<='&')||LA15_0=='*'||LA15_0=='/'||(LA15_0>='^' && LA15_0<='_')||LA15_0=='|') ) {
-                    alt15=2;
-                }
-                else if ( (LA15_0=='!') ) {
-                    alt15=3;
-                }
-                else if ( (LA15_0=='?') ) {
-                    alt15=4;
-                }
-                else if ( ((LA15_0>='0' && LA15_0<='9')) ) {
-                    alt15=5;
-                }
-
-
-                switch (alt15) {
-            	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:38: WORD_CHAR
-            	    {
-            	    mWORD_CHAR(); if (state.failed) return ;
-
-            	    }
-            	    break;
-            	case 2 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:50: IDENTIFIER_SPECIAL
-            	    {
-            	    mIDENTIFIER_SPECIAL(); if (state.failed) return ;
-
-            	    }
-            	    break;
-            	case 3 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:71: '!'
-            	    {
-            	    match('!'); if (state.failed) return ;
-
-            	    }
-            	    break;
-            	case 4 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:77: '?'
-            	    {
-            	    match('?'); if (state.failed) return ;
-
-            	    }
-            	    break;
-            	case 5 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1395:83: DIGIT
-            	    {
-            	    mDIGIT(); if (state.failed) return ;
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop15;
-                }
-            } while (true);
-
-
-            }
-
             state.type = _type;
             state.channel = _channel;
         }
@@ -2189,33 +2237,33 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR start "IDENTIFIER_SPECIAL"
     public final void mIDENTIFIER_SPECIAL() throws RecognitionException {
         try {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1400:2: ( '+' | '-' | '~' | {...}? => '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR )
-            int alt16=12;
-            alt16 = dfa16.predict(input);
-            switch (alt16) {
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1401:2: ( '+' | '-' | '~' | {...}? => '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR )
+            int alt18=12;
+            alt18 = dfa18.predict(input);
+            switch (alt18) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1400:4: '+'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1401:4: '+'
                     {
                     match('+'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1400:8: '-'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1401:8: '-'
                     {
                     match('-'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1400:12: '~'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1401:12: '~'
                     {
                     match('~'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1405:3: {...}? => '@'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:3: {...}? => '@'
                     {
                     if ( !((allowAtSignInIdentifier)) ) {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -2226,56 +2274,56 @@ public class SQLScriptLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:4: '%'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:4: '%'
                     {
                     match('%'); if (state.failed) return ;
 
                     }
                     break;
                 case 6 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:8: '^'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:8: '^'
                     {
                     match('^'); if (state.failed) return ;
 
                     }
                     break;
                 case 7 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:12: '&'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:12: '&'
                     {
                     match('&'); if (state.failed) return ;
 
                     }
                     break;
                 case 8 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:16: '*'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:16: '*'
                     {
                     match('*'); if (state.failed) return ;
 
                     }
                     break;
                 case 9 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:20: '/'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:20: '/'
                     {
                     match('/'); if (state.failed) return ;
 
                     }
                     break;
                 case 10 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:24: '_'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:24: '_'
                     {
                     match('_'); if (state.failed) return ;
 
                     }
                     break;
                 case 11 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:28: '|'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:28: '|'
                     {
                     match('|'); if (state.failed) return ;
 
                     }
                     break;
                 case 12 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1406:32: DOLLAR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1407:32: DOLLAR
                     {
                     mDOLLAR(); if (state.failed) return ;
 
@@ -2294,8 +2342,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1410:8: ( '=' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1410:10: '='
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1410:8: ( '=' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1410:10: '='
             {
             match('='); if (state.failed) return ;
 
@@ -2314,8 +2362,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1413:8: ( '(' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1413:10: '('
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1413:8: ( '(' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1413:10: '('
             {
             match('('); if (state.failed) return ;
 
@@ -2334,8 +2382,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1416:8: ( ')' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1416:10: ')'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1416:8: ( ')' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1416:10: ')'
             {
             match(')'); if (state.failed) return ;
 
@@ -2354,8 +2402,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1419:8: ( '{' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1419:10: '{'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1419:8: ( '{' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1419:10: '{'
             {
             match('{'); if (state.failed) return ;
 
@@ -2374,8 +2422,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1422:8: ( '}' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1422:10: '}'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1422:8: ( '}' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1422:10: '}'
             {
             match('}'); if (state.failed) return ;
 
@@ -2394,8 +2442,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = LSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1425:9: ( '[' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1425:11: '['
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1425:9: ( '[' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1425:11: '['
             {
             match('['); if (state.failed) return ;
 
@@ -2414,8 +2462,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = RSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1428:9: ( ']' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1428:11: ']'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1428:9: ( ']' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1428:11: ']'
             {
             match(']'); if (state.failed) return ;
 
@@ -2434,8 +2482,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = EXCLAM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1431:8: ( '!' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1431:10: '!'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1431:8: ( '!' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1431:10: '!'
             {
             match('!'); if (state.failed) return ;
 
@@ -2454,8 +2502,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = QUESTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1434:9: ( '?' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1434:11: '?'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1434:9: ( '?' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1434:11: '?'
             {
             match('?'); if (state.failed) return ;
 
@@ -2474,8 +2522,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1437:7: ( ':' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1437:9: ':'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1437:7: ( ':' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1437:9: ':'
             {
             match(':'); if (state.failed) return ;
 
@@ -2494,8 +2542,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1440:5: ( '.' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1440:7: '.'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1440:5: ( '.' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1440:7: '.'
             {
             match('.'); if (state.failed) return ;
 
@@ -2514,8 +2562,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1443:7: ( ',' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1443:9: ','
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1443:7: ( ',' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1443:9: ','
             {
             match(','); if (state.failed) return ;
 
@@ -2534,75 +2582,75 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = SQL_SPECIAL_CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:2: ( '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT | {...}? => '@' )
-            int alt17=10;
-            alt17 = dfa17.predict(input);
-            switch (alt17) {
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:2: ( '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT | {...}? => '@' )
+            int alt19=10;
+            alt19 = dfa19.predict(input);
+            switch (alt19) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:4: '*'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:4: '*'
                     {
                     match('*'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:8: '/'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:8: '/'
                     {
                     match('/'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:12: '-'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:12: '-'
                     {
                     match('-'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:16: '='
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:16: '='
                     {
                     match('='); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:20: '%'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:20: '%'
                     {
                     match('%'); if (state.failed) return ;
 
                     }
                     break;
                 case 6 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:24: '#'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:24: '#'
                     {
                     match('#'); if (state.failed) return ;
 
                     }
                     break;
                 case 7 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:28: '&'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:28: '&'
                     {
                     match('&'); if (state.failed) return ;
 
                     }
                     break;
                 case 8 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:32: '|'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:32: '|'
                     {
                     match('|'); if (state.failed) return ;
 
                     }
                     break;
                 case 9 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:36: DIGIT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1447:36: DIGIT
                     {
                     mDIGIT(); if (state.failed) return ;
 
                     }
                     break;
                 case 10 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1448:4: {...}? => '@'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1448:4: {...}? => '@'
                     {
                     if ( !((!allowAtSignInIdentifier)) ) {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -2627,26 +2675,26 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = SEP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1451:5: ( ';' | {...}? => '\\n' '/' ( '\\r' )? '\\n' )
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1451:5: ( ';' | {...}? => '\\n' '/' ( '\\r' )? '\\n' )
+            int alt21=2;
+            int LA21_0 = input.LA(1);
 
-            if ( (LA19_0==';') ) {
-                alt19=1;
+            if ( (LA21_0==';') ) {
+                alt21=1;
             }
-            else if ( (LA19_0=='\n') && ((allowSpecialSQLSep))) {
-                alt19=2;
+            else if ( (LA21_0=='\n') && ((allowSpecialSQLSep))) {
+                alt21=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 19, 0, input);
+                    new NoViableAltException("", 21, 0, input);
 
                 throw nvae;
             }
-            switch (alt19) {
+            switch (alt21) {
                 case 1 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1451:7: ';'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1451:7: ';'
                     {
                     match(';'); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
@@ -2660,7 +2708,7 @@ public class SQLScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1456:4: {...}? => '\\n' '/' ( '\\r' )? '\\n'
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1456:4: {...}? => '\\n' '/' ( '\\r' )? '\\n'
                     {
                     if ( !((allowSpecialSQLSep)) ) {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -2668,16 +2716,16 @@ public class SQLScriptLexer extends Lexer {
                     }
                     match('\n'); if (state.failed) return ;
                     match('/'); if (state.failed) return ;
-                    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1456:37: ( '\\r' )?
-                    int alt18=2;
-                    int LA18_0 = input.LA(1);
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1456:37: ( '\\r' )?
+                    int alt20=2;
+                    int LA20_0 = input.LA(1);
 
-                    if ( (LA18_0=='\r') ) {
-                        alt18=1;
+                    if ( (LA20_0=='\r') ) {
+                        alt20=1;
                     }
-                    switch (alt18) {
+                    switch (alt20) {
                         case 1 :
-                            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1456:37: '\\r'
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1456:37: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -2718,24 +2766,24 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1469:4: ( ( ' ' | '\\r' | '\\t' | '\\u000C' )+ )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1469:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1469:4: ( ( ' ' | '\\r' | '\\t' | '\\u000C' )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1469:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
             {
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1469:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
-            int cnt20=0;
-            loop20:
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1469:6: ( ' ' | '\\r' | '\\t' | '\\u000C' )+
+            int cnt22=0;
+            loop22:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt22=2;
+                int LA22_0 = input.LA(1);
 
-                if ( (LA20_0=='\t'||(LA20_0>='\f' && LA20_0<='\r')||LA20_0==' ') ) {
-                    alt20=1;
+                if ( (LA22_0=='\t'||(LA22_0>='\f' && LA22_0<='\r')||LA22_0==' ') ) {
+                    alt22=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt22) {
             	case 1 :
-            	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             	    {
             	    if ( input.LA(1)=='\t'||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
             	        input.consume();
@@ -2752,13 +2800,13 @@ public class SQLScriptLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt20 >= 1 ) break loop20;
+            	    if ( cnt22 >= 1 ) break loop22;
             	    if (state.backtracking>0) {state.failed=true; return ;}
                         EarlyExitException eee =
-                            new EarlyExitException(20, input);
+                            new EarlyExitException(22, input);
                         throw eee;
                 }
-                cnt20++;
+                cnt22++;
             } while (true);
 
             if ( state.backtracking==0 ) {
@@ -2780,8 +2828,8 @@ public class SQLScriptLexer extends Lexer {
         try {
             int _type = NL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1472:4: ( '\\n' )
-            // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1472:6: '\\n'
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1472:4: ( '\\n' )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1472:6: '\\n'
             {
             match('\n'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -2799,495 +2847,495 @@ public class SQLScriptLexer extends Lexer {
     // $ANTLR end "NL"
 
     public void mTokens() throws RecognitionException {
-        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:8: ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | NUMBER | INT | FLOAT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_INCLUDE | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL )
-        int alt21=70;
-        alt21 = dfa21.predict(input);
-        switch (alt21) {
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:8: ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | NUMBER | INT | FLOAT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_INCLUDE | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL )
+        int alt23=70;
+        alt23 = dfa23.predict(input);
+        switch (alt23) {
             case 1 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:10: COMMENT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:10: COMMENT
                 {
                 mCOMMENT(); if (state.failed) return ;
 
                 }
                 break;
             case 2 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:18: LINE_COMMENT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:18: LINE_COMMENT
                 {
                 mLINE_COMMENT(); if (state.failed) return ;
 
                 }
                 break;
             case 3 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:31: STR_SQUOT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:31: STR_SQUOT
                 {
                 mSTR_SQUOT(); if (state.failed) return ;
 
                 }
                 break;
             case 4 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:41: STR_DQUOT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:41: STR_DQUOT
                 {
                 mSTR_DQUOT(); if (state.failed) return ;
 
                 }
                 break;
             case 5 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:51: STR_BTICK
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:51: STR_BTICK
                 {
                 mSTR_BTICK(); if (state.failed) return ;
 
                 }
                 break;
             case 6 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:61: STR_QQUOT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:61: STR_QQUOT
                 {
                 mSTR_QQUOT(); if (state.failed) return ;
 
                 }
                 break;
             case 7 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:71: STR_DOLQUOT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:71: STR_DOLQUOT
                 {
                 mSTR_DOLQUOT(); if (state.failed) return ;
 
                 }
                 break;
             case 8 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:83: NUMBER
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:83: NUMBER
                 {
                 mNUMBER(); if (state.failed) return ;
 
                 }
                 break;
             case 9 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:90: INT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:90: INT
                 {
                 mINT(); if (state.failed) return ;
 
                 }
                 break;
             case 10 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:94: FLOAT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:94: FLOAT
                 {
                 mFLOAT(); if (state.failed) return ;
 
                 }
                 break;
             case 11 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:100: KW_SQL
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:100: KW_SQL
                 {
                 mKW_SQL(); if (state.failed) return ;
 
                 }
                 break;
             case 12 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:107: KW_VAR
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:107: KW_VAR
                 {
                 mKW_VAR(); if (state.failed) return ;
 
                 }
                 break;
             case 13 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:114: KW_IF
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:114: KW_IF
                 {
                 mKW_IF(); if (state.failed) return ;
 
                 }
                 break;
             case 14 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:120: KW_ELSE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:120: KW_ELSE
                 {
                 mKW_ELSE(); if (state.failed) return ;
 
                 }
                 break;
             case 15 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:128: KW_TRY
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:128: KW_TRY
                 {
                 mKW_TRY(); if (state.failed) return ;
 
                 }
                 break;
             case 16 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:135: KW_CATCH
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:135: KW_CATCH
                 {
                 mKW_CATCH(); if (state.failed) return ;
 
                 }
                 break;
             case 17 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:144: KW_FINALLY
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:144: KW_FINALLY
                 {
                 mKW_FINALLY(); if (state.failed) return ;
 
                 }
                 break;
             case 18 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:155: KW_THROW
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:155: KW_THROW
                 {
                 mKW_THROW(); if (state.failed) return ;
 
                 }
                 break;
             case 19 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:164: KW_FOR
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:164: KW_FOR
                 {
                 mKW_FOR(); if (state.failed) return ;
 
                 }
                 break;
             case 20 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:171: KW_WHILE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:171: KW_WHILE
                 {
                 mKW_WHILE(); if (state.failed) return ;
 
                 }
                 break;
             case 21 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:180: KW_BREAK
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:180: KW_BREAK
                 {
                 mKW_BREAK(); if (state.failed) return ;
 
                 }
                 break;
             case 22 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:189: KW_CONTINUE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:189: KW_CONTINUE
                 {
                 mKW_CONTINUE(); if (state.failed) return ;
 
                 }
                 break;
             case 23 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:201: KW_RETURN
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:201: KW_RETURN
                 {
                 mKW_RETURN(); if (state.failed) return ;
 
                 }
                 break;
             case 24 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:211: KW_EXIT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:211: KW_EXIT
                 {
                 mKW_EXIT(); if (state.failed) return ;
 
                 }
                 break;
             case 25 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:219: KW_TRUE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:219: KW_TRUE
                 {
                 mKW_TRUE(); if (state.failed) return ;
 
                 }
                 break;
             case 26 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:227: KW_FALSE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:227: KW_FALSE
                 {
                 mKW_FALSE(); if (state.failed) return ;
 
                 }
                 break;
             case 27 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:236: KW_FUN
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:236: KW_FUN
                 {
                 mKW_FUN(); if (state.failed) return ;
 
                 }
                 break;
             case 28 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:243: KW_THIS
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:243: KW_THIS
                 {
                 mKW_THIS(); if (state.failed) return ;
 
                 }
                 break;
             case 29 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:251: KW_SUPER
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:251: KW_SUPER
                 {
                 mKW_SUPER(); if (state.failed) return ;
 
                 }
                 break;
             case 30 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:260: KW_NEW
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:260: KW_NEW
                 {
                 mKW_NEW(); if (state.failed) return ;
 
                 }
                 break;
             case 31 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:267: KW_IMPORT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:267: KW_IMPORT
                 {
                 mKW_IMPORT(); if (state.failed) return ;
 
                 }
                 break;
             case 32 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:277: KW_INCLUDE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:277: KW_INCLUDE
                 {
                 mKW_INCLUDE(); if (state.failed) return ;
 
                 }
                 break;
             case 33 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:288: KW_AS
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:288: KW_AS
                 {
                 mKW_AS(); if (state.failed) return ;
 
                 }
                 break;
             case 34 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:294: WORD
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:294: WORD
                 {
                 mWORD(); if (state.failed) return ;
 
                 }
                 break;
             case 35 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:299: EMB_VAR_START
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:299: EMB_VAR_START
                 {
                 mEMB_VAR_START(); if (state.failed) return ;
 
                 }
                 break;
             case 36 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:313: BACKSLASH
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:313: BACKSLASH
                 {
                 mBACKSLASH(); if (state.failed) return ;
 
                 }
                 break;
             case 37 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:323: DOUBLE_ARROW
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:323: DOUBLE_ARROW
                 {
                 mDOUBLE_ARROW(); if (state.failed) return ;
 
                 }
                 break;
             case 38 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:336: OP_DEFINE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:336: OP_DEFINE
                 {
                 mOP_DEFINE(); if (state.failed) return ;
 
                 }
                 break;
             case 39 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:346: OP_AND
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:346: OP_AND
                 {
                 mOP_AND(); if (state.failed) return ;
 
                 }
                 break;
             case 40 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:353: OP_OR
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:353: OP_OR
                 {
                 mOP_OR(); if (state.failed) return ;
 
                 }
                 break;
             case 41 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:359: OP_EQ
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:359: OP_EQ
                 {
                 mOP_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 42 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:365: OP_NE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:365: OP_NE
                 {
                 mOP_NE(); if (state.failed) return ;
 
                 }
                 break;
             case 43 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:371: OP_ID
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:371: OP_ID
                 {
                 mOP_ID(); if (state.failed) return ;
 
                 }
                 break;
             case 44 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:377: OP_NI
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:377: OP_NI
                 {
                 mOP_NI(); if (state.failed) return ;
 
                 }
                 break;
             case 45 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:383: OP_GT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:383: OP_GT
                 {
                 mOP_GT(); if (state.failed) return ;
 
                 }
                 break;
             case 46 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:389: OP_GE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:389: OP_GE
                 {
                 mOP_GE(); if (state.failed) return ;
 
                 }
                 break;
             case 47 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:395: OP_LT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:395: OP_LT
                 {
                 mOP_LT(); if (state.failed) return ;
 
                 }
                 break;
             case 48 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:401: OP_LE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:401: OP_LE
                 {
                 mOP_LE(); if (state.failed) return ;
 
                 }
                 break;
             case 49 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:407: OP_MUL
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:407: OP_MUL
                 {
                 mOP_MUL(); if (state.failed) return ;
 
                 }
                 break;
             case 50 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:414: OP_DIV
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:414: OP_DIV
                 {
                 mOP_DIV(); if (state.failed) return ;
 
                 }
                 break;
             case 51 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:421: OP_MOD
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:421: OP_MOD
                 {
                 mOP_MOD(); if (state.failed) return ;
 
                 }
                 break;
             case 52 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:428: OP_ADD
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:428: OP_ADD
                 {
                 mOP_ADD(); if (state.failed) return ;
 
                 }
                 break;
             case 53 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:435: OP_SUB
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:435: OP_SUB
                 {
                 mOP_SUB(); if (state.failed) return ;
 
                 }
                 break;
             case 54 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:442: IDENTIFIER
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:442: IDENTIFIER
                 {
                 mIDENTIFIER(); if (state.failed) return ;
 
                 }
                 break;
             case 55 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:453: EQUALS
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:453: EQUALS
                 {
                 mEQUALS(); if (state.failed) return ;
 
                 }
                 break;
             case 56 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:460: LPAREN
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:460: LPAREN
                 {
                 mLPAREN(); if (state.failed) return ;
 
                 }
                 break;
             case 57 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:467: RPAREN
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:467: RPAREN
                 {
                 mRPAREN(); if (state.failed) return ;
 
                 }
                 break;
             case 58 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:474: LCURLY
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:474: LCURLY
                 {
                 mLCURLY(); if (state.failed) return ;
 
                 }
                 break;
             case 59 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:481: RCURLY
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:481: RCURLY
                 {
                 mRCURLY(); if (state.failed) return ;
 
                 }
                 break;
             case 60 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:488: LSQUARE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:488: LSQUARE
                 {
                 mLSQUARE(); if (state.failed) return ;
 
                 }
                 break;
             case 61 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:496: RSQUARE
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:496: RSQUARE
                 {
                 mRSQUARE(); if (state.failed) return ;
 
                 }
                 break;
             case 62 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:504: EXCLAM
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:504: EXCLAM
                 {
                 mEXCLAM(); if (state.failed) return ;
 
                 }
                 break;
             case 63 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:511: QUESTION
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:511: QUESTION
                 {
                 mQUESTION(); if (state.failed) return ;
 
                 }
                 break;
             case 64 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:520: COLON
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:520: COLON
                 {
                 mCOLON(); if (state.failed) return ;
 
                 }
                 break;
             case 65 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:526: DOT
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:526: DOT
                 {
                 mDOT(); if (state.failed) return ;
 
                 }
                 break;
             case 66 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:530: COMMA
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:530: COMMA
                 {
                 mCOMMA(); if (state.failed) return ;
 
                 }
                 break;
             case 67 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:536: SQL_SPECIAL_CHAR
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:536: SQL_SPECIAL_CHAR
                 {
                 mSQL_SPECIAL_CHAR(); if (state.failed) return ;
 
                 }
                 break;
             case 68 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:553: SEP
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:553: SEP
                 {
                 mSEP(); if (state.failed) return ;
 
                 }
                 break;
             case 69 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:557: WS
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:557: WS
                 {
                 mWS(); if (state.failed) return ;
 
                 }
                 break;
             case 70 :
-                // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:560: NL
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1:560: NL
                 {
                 mNL(); if (state.failed) return ;
 
@@ -3300,24 +3348,24 @@ public class SQLScriptLexer extends Lexer {
 
     // $ANTLR start synpred1_SQLScript
     public final void synpred1_SQLScript_fragment() throws RecognitionException {   
-        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:10: ( ( DIGIT )+ '.' DIGIT )
-        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:11: ( DIGIT )+ '.' DIGIT
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:10: ( ( DIGIT )+ '.' DIGIT )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:11: ( DIGIT )+ '.' DIGIT
         {
-        // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:11: ( DIGIT )+
-        int cnt22=0;
-        loop22:
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:11: ( DIGIT )+
+        int cnt24=0;
+        loop24:
         do {
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( ((LA22_0>='0' && LA22_0<='9')) ) {
-                alt22=1;
+            if ( ((LA24_0>='0' && LA24_0<='9')) ) {
+                alt24=1;
             }
 
 
-            switch (alt22) {
+            switch (alt24) {
         	case 1 :
-        	    // /home/tweiss/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:11: DIGIT
+        	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1211:11: DIGIT
         	    {
         	    mDIGIT(); if (state.failed) return ;
 
@@ -3325,13 +3373,13 @@ public class SQLScriptLexer extends Lexer {
         	    break;
 
         	default :
-        	    if ( cnt22 >= 1 ) break loop22;
+        	    if ( cnt24 >= 1 ) break loop24;
         	    if (state.backtracking>0) {state.failed=true; return ;}
                     EarlyExitException eee =
-                        new EarlyExitException(22, input);
+                        new EarlyExitException(24, input);
                     throw eee;
             }
-            cnt22++;
+            cnt24++;
         } while (true);
 
         match('.'); if (state.failed) return ;
@@ -3358,9 +3406,9 @@ public class SQLScriptLexer extends Lexer {
 
 
     protected DFA9 dfa9 = new DFA9(this);
-    protected DFA16 dfa16 = new DFA16(this);
-    protected DFA17 dfa17 = new DFA17(this);
-    protected DFA21 dfa21 = new DFA21(this);
+    protected DFA18 dfa18 = new DFA18(this);
+    protected DFA19 dfa19 = new DFA19(this);
+    protected DFA23 dfa23 = new DFA23(this);
     static final String DFA9_eotS =
         "\1\uffff\1\2\2\uffff";
     static final String DFA9_eofS =
@@ -3410,7 +3458,7 @@ public class SQLScriptLexer extends Lexer {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "1211:1: NUMBER : ( ( ( DIGIT )+ '.' DIGIT )=> ( DIGIT )+ '.' ( ( DIGIT )+ | EXPONENT ) | ( DIGIT )+ );";
+            return "1211:1: NUMBER : ( ( ( DIGIT )+ '.' DIGIT )=> ( DIGIT )+ '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -3441,19 +3489,19 @@ public class SQLScriptLexer extends Lexer {
             throw nvae;
         }
     }
-    static final String DFA16_eotS =
+    static final String DFA18_eotS =
         "\15\uffff";
-    static final String DFA16_eofS =
+    static final String DFA18_eofS =
         "\15\uffff";
-    static final String DFA16_minS =
+    static final String DFA18_minS =
         "\1\44\14\uffff";
-    static final String DFA16_maxS =
+    static final String DFA18_maxS =
         "\1\176\14\uffff";
-    static final String DFA16_acceptS =
+    static final String DFA18_acceptS =
         "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14";
-    static final String DFA16_specialS =
+    static final String DFA18_specialS =
         "\1\0\14\uffff}>";
-    static final String[] DFA16_transitionS = {
+    static final String[] DFA18_transitionS = {
             "\1\14\1\5\1\7\3\uffff\1\10\1\1\1\uffff\1\2\1\uffff\1\11\20\uffff"+
             "\1\4\35\uffff\1\6\1\12\34\uffff\1\13\1\uffff\1\3",
             "",
@@ -3470,98 +3518,98 @@ public class SQLScriptLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA16_eot = DFA.unpackEncodedString(DFA16_eotS);
-    static final short[] DFA16_eof = DFA.unpackEncodedString(DFA16_eofS);
-    static final char[] DFA16_min = DFA.unpackEncodedStringToUnsignedChars(DFA16_minS);
-    static final char[] DFA16_max = DFA.unpackEncodedStringToUnsignedChars(DFA16_maxS);
-    static final short[] DFA16_accept = DFA.unpackEncodedString(DFA16_acceptS);
-    static final short[] DFA16_special = DFA.unpackEncodedString(DFA16_specialS);
-    static final short[][] DFA16_transition;
+    static final short[] DFA18_eot = DFA.unpackEncodedString(DFA18_eotS);
+    static final short[] DFA18_eof = DFA.unpackEncodedString(DFA18_eofS);
+    static final char[] DFA18_min = DFA.unpackEncodedStringToUnsignedChars(DFA18_minS);
+    static final char[] DFA18_max = DFA.unpackEncodedStringToUnsignedChars(DFA18_maxS);
+    static final short[] DFA18_accept = DFA.unpackEncodedString(DFA18_acceptS);
+    static final short[] DFA18_special = DFA.unpackEncodedString(DFA18_specialS);
+    static final short[][] DFA18_transition;
 
     static {
-        int numStates = DFA16_transitionS.length;
-        DFA16_transition = new short[numStates][];
+        int numStates = DFA18_transitionS.length;
+        DFA18_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA16_transition[i] = DFA.unpackEncodedString(DFA16_transitionS[i]);
+            DFA18_transition[i] = DFA.unpackEncodedString(DFA18_transitionS[i]);
         }
     }
 
-    class DFA16 extends DFA {
+    class DFA18 extends DFA {
 
-        public DFA16(BaseRecognizer recognizer) {
+        public DFA18(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 16;
-            this.eot = DFA16_eot;
-            this.eof = DFA16_eof;
-            this.min = DFA16_min;
-            this.max = DFA16_max;
-            this.accept = DFA16_accept;
-            this.special = DFA16_special;
-            this.transition = DFA16_transition;
+            this.decisionNumber = 18;
+            this.eot = DFA18_eot;
+            this.eof = DFA18_eof;
+            this.min = DFA18_min;
+            this.max = DFA18_max;
+            this.accept = DFA18_accept;
+            this.special = DFA18_special;
+            this.transition = DFA18_transition;
         }
         public String getDescription() {
-            return "1398:1: fragment IDENTIFIER_SPECIAL : ( '+' | '-' | '~' | {...}? => '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR );";
+            return "1399:1: fragment IDENTIFIER_SPECIAL : ( '+' | '-' | '~' | {...}? => '@' | '%' | '^' | '&' | '*' | '/' | '_' | '|' | DOLLAR );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA16_0 = input.LA(1);
+                        int LA18_0 = input.LA(1);
 
                          
-                        int index16_0 = input.index();
+                        int index18_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA16_0=='+') ) {s = 1;}
+                        if ( (LA18_0=='+') ) {s = 1;}
 
-                        else if ( (LA16_0=='-') ) {s = 2;}
+                        else if ( (LA18_0=='-') ) {s = 2;}
 
-                        else if ( (LA16_0=='~') ) {s = 3;}
+                        else if ( (LA18_0=='~') ) {s = 3;}
 
-                        else if ( (LA16_0=='@') && ((allowAtSignInIdentifier))) {s = 4;}
+                        else if ( (LA18_0=='@') && ((allowAtSignInIdentifier))) {s = 4;}
 
-                        else if ( (LA16_0=='%') ) {s = 5;}
+                        else if ( (LA18_0=='%') ) {s = 5;}
 
-                        else if ( (LA16_0=='^') ) {s = 6;}
+                        else if ( (LA18_0=='^') ) {s = 6;}
 
-                        else if ( (LA16_0=='&') ) {s = 7;}
+                        else if ( (LA18_0=='&') ) {s = 7;}
 
-                        else if ( (LA16_0=='*') ) {s = 8;}
+                        else if ( (LA18_0=='*') ) {s = 8;}
 
-                        else if ( (LA16_0=='/') ) {s = 9;}
+                        else if ( (LA18_0=='/') ) {s = 9;}
 
-                        else if ( (LA16_0=='_') ) {s = 10;}
+                        else if ( (LA18_0=='_') ) {s = 10;}
 
-                        else if ( (LA16_0=='|') ) {s = 11;}
+                        else if ( (LA18_0=='|') ) {s = 11;}
 
-                        else if ( (LA16_0=='$') ) {s = 12;}
+                        else if ( (LA18_0=='$') ) {s = 12;}
 
                          
-                        input.seek(index16_0);
+                        input.seek(index18_0);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 16, _s, input);
+                new NoViableAltException(getDescription(), 18, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA17_eotS =
+    static final String DFA19_eotS =
         "\13\uffff";
-    static final String DFA17_eofS =
+    static final String DFA19_eofS =
         "\13\uffff";
-    static final String DFA17_minS =
+    static final String DFA19_minS =
         "\1\43\12\uffff";
-    static final String DFA17_maxS =
+    static final String DFA19_maxS =
         "\1\174\12\uffff";
-    static final String DFA17_acceptS =
+    static final String DFA19_acceptS =
         "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12";
-    static final String DFA17_specialS =
+    static final String DFA19_specialS =
         "\1\0\12\uffff}>";
-    static final String[] DFA17_transitionS = {
+    static final String[] DFA19_transitionS = {
             "\1\6\1\uffff\1\5\1\7\3\uffff\1\1\2\uffff\1\3\1\uffff\1\2\12"+
             "\11\3\uffff\1\4\2\uffff\1\12\73\uffff\1\10",
             "",
@@ -3576,34 +3624,34 @@ public class SQLScriptLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA17_eot = DFA.unpackEncodedString(DFA17_eotS);
-    static final short[] DFA17_eof = DFA.unpackEncodedString(DFA17_eofS);
-    static final char[] DFA17_min = DFA.unpackEncodedStringToUnsignedChars(DFA17_minS);
-    static final char[] DFA17_max = DFA.unpackEncodedStringToUnsignedChars(DFA17_maxS);
-    static final short[] DFA17_accept = DFA.unpackEncodedString(DFA17_acceptS);
-    static final short[] DFA17_special = DFA.unpackEncodedString(DFA17_specialS);
-    static final short[][] DFA17_transition;
+    static final short[] DFA19_eot = DFA.unpackEncodedString(DFA19_eotS);
+    static final short[] DFA19_eof = DFA.unpackEncodedString(DFA19_eofS);
+    static final char[] DFA19_min = DFA.unpackEncodedStringToUnsignedChars(DFA19_minS);
+    static final char[] DFA19_max = DFA.unpackEncodedStringToUnsignedChars(DFA19_maxS);
+    static final short[] DFA19_accept = DFA.unpackEncodedString(DFA19_acceptS);
+    static final short[] DFA19_special = DFA.unpackEncodedString(DFA19_specialS);
+    static final short[][] DFA19_transition;
 
     static {
-        int numStates = DFA17_transitionS.length;
-        DFA17_transition = new short[numStates][];
+        int numStates = DFA19_transitionS.length;
+        DFA19_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA17_transition[i] = DFA.unpackEncodedString(DFA17_transitionS[i]);
+            DFA19_transition[i] = DFA.unpackEncodedString(DFA19_transitionS[i]);
         }
     }
 
-    class DFA17 extends DFA {
+    class DFA19 extends DFA {
 
-        public DFA17(BaseRecognizer recognizer) {
+        public DFA19(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 17;
-            this.eot = DFA17_eot;
-            this.eof = DFA17_eof;
-            this.min = DFA17_min;
-            this.max = DFA17_max;
-            this.accept = DFA17_accept;
-            this.special = DFA17_special;
-            this.transition = DFA17_transition;
+            this.decisionNumber = 19;
+            this.eot = DFA19_eot;
+            this.eof = DFA19_eof;
+            this.min = DFA19_min;
+            this.max = DFA19_max;
+            this.accept = DFA19_accept;
+            this.special = DFA19_special;
+            this.transition = DFA19_transition;
         }
         public String getDescription() {
             return "1446:1: SQL_SPECIAL_CHAR : ( '*' | '/' | '-' | '=' | '%' | '#' | '&' | '|' | DIGIT | {...}? => '@' );";
@@ -3613,115 +3661,116 @@ public class SQLScriptLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA17_0 = input.LA(1);
+                        int LA19_0 = input.LA(1);
 
                          
-                        int index17_0 = input.index();
+                        int index19_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA17_0=='*') ) {s = 1;}
+                        if ( (LA19_0=='*') ) {s = 1;}
 
-                        else if ( (LA17_0=='/') ) {s = 2;}
+                        else if ( (LA19_0=='/') ) {s = 2;}
 
-                        else if ( (LA17_0=='-') ) {s = 3;}
+                        else if ( (LA19_0=='-') ) {s = 3;}
 
-                        else if ( (LA17_0=='=') ) {s = 4;}
+                        else if ( (LA19_0=='=') ) {s = 4;}
 
-                        else if ( (LA17_0=='%') ) {s = 5;}
+                        else if ( (LA19_0=='%') ) {s = 5;}
 
-                        else if ( (LA17_0=='#') ) {s = 6;}
+                        else if ( (LA19_0=='#') ) {s = 6;}
 
-                        else if ( (LA17_0=='&') ) {s = 7;}
+                        else if ( (LA19_0=='&') ) {s = 7;}
 
-                        else if ( (LA17_0=='|') ) {s = 8;}
+                        else if ( (LA19_0=='|') ) {s = 8;}
 
-                        else if ( ((LA17_0>='0' && LA17_0<='9')) ) {s = 9;}
+                        else if ( ((LA19_0>='0' && LA19_0<='9')) ) {s = 9;}
 
-                        else if ( (LA17_0=='@') && ((!allowAtSignInIdentifier))) {s = 10;}
+                        else if ( (LA19_0=='@') && ((!allowAtSignInIdentifier))) {s = 10;}
 
                          
-                        input.seek(index17_0);
+                        input.seek(index19_0);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 17, _s, input);
+                new NoViableAltException(getDescription(), 19, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA21_eotS =
+    static final String DFA23_eotS =
         "\1\uffff\1\64\1\66\3\uffff\2\70\1\45\1\uffff\17\70\1\127\1\uffff"+
-        "\1\133\1\135\2\137\1\142\1\144\1\146\1\147\1\150\1\151\14\uffff"+
-        "\1\153\1\uffff\1\154\1\uffff\1\155\1\uffff\1\70\1\uffff\2\70\1\uffff"+
-        "\1\177\2\137\2\uffff\4\70\1\u0088\17\70\1\u009a\4\uffff\1\u009c"+
-        "\3\uffff\1\u009d\1\uffff\1\u009e\1\u00a0\14\uffff\20\155\1\u00a1"+
-        "\1\uffff\2\137\1\177\1\137\1\70\1\u00a3\1\70\1\u00a5\1\uffff\4\70"+
-        "\1\u00aa\6\70\1\u00b1\1\70\1\u00b3\3\70\10\uffff\1\70\1\uffff\1"+
-        "\70\1\uffff\2\70\1\u00bb\1\u00bc\1\uffff\1\u00bd\1\70\1\u00bf\3"+
-        "\70\1\uffff\1\70\1\uffff\3\70\1\uffff\1\u00c8\2\70\3\uffff\1\u00cb"+
-        "\1\uffff\1\u00cc\2\70\1\u00cf\1\u00d0\1\u00d1\1\70\2\uffff\1\u00d4"+
-        "\1\70\2\uffff\2\70\3\uffff\1\u00d8\2\uffff\1\u00da\1\70\1\u00dc"+
-        "\3\uffff\1\u00de\71\uffff";
-    static final String DFA21_eofS =
-        "\u0115\uffff";
-    static final String DFA21_minS =
+        "\1\133\1\135\2\137\1\142\1\144\1\146\1\147\1\150\1\151\1\uffff\1"+
+        "\152\12\uffff\1\154\1\uffff\1\155\1\uffff\1\156\1\uffff\1\70\1\uffff"+
+        "\2\70\1\uffff\1\u0080\2\137\2\uffff\4\70\1\u0089\17\70\1\u009b\4"+
+        "\uffff\1\u009d\3\uffff\1\u009e\1\uffff\1\u009f\1\u00a1\15\uffff"+
+        "\20\156\1\u00a2\1\uffff\1\137\1\u0080\2\137\1\70\1\u00a4\1\70\1"+
+        "\u00a6\1\uffff\4\70\1\u00ab\6\70\1\u00b2\1\70\1\u00b4\3\70\10\uffff"+
+        "\1\70\1\uffff\1\70\1\uffff\2\70\1\u00bc\1\u00bd\1\uffff\1\u00be"+
+        "\1\70\1\u00c0\3\70\1\uffff\1\70\1\uffff\3\70\1\uffff\1\u00c9\2\70"+
+        "\3\uffff\1\u00cc\1\uffff\1\u00cd\2\70\1\u00d0\1\u00d1\1\u00d2\1"+
+        "\70\2\uffff\1\u00d5\1\70\2\uffff\2\70\3\uffff\1\u00d9\2\uffff\1"+
+        "\u00db\1\70\1\u00dd\3\uffff\1\u00df\71\uffff";
+    static final String DFA23_eofS =
+        "\u0116\uffff";
+    static final String DFA23_minS =
         "\1\11\2\41\3\uffff\2\41\1\44\1\uffff\20\41\1\uffff\2\75\1\46\1\174"+
-        "\3\75\3\41\14\uffff\1\57\1\uffff\1\41\1\uffff\1\41\1\uffff\1\41"+
-        "\1\uffff\2\41\1\uffff\1\41\2\44\2\uffff\25\41\1\uffff\1\0\2\uffff"+
-        "\1\75\3\uffff\1\41\1\uffff\1\41\1\75\14\uffff\21\41\1\0\2\44\1\41"+
-        "\1\44\4\41\1\uffff\21\41\10\uffff\1\40\1\uffff\1\41\1\uffff\4\41"+
-        "\1\uffff\6\41\1\uffff\1\41\1\uffff\3\41\1\164\3\41\3\uffff\1\41"+
-        "\1\uffff\7\41\1\157\1\uffff\2\41\2\uffff\2\41\3\uffff\1\41\1\40"+
-        "\1\uffff\3\41\1\uffff\1\144\1\uffff\1\41\1\uffff\1\151\1\uffff\1"+
-        "\163\1\141\1\142\1\154\1\145\1\40\1\167\1\141\1\162\1\156\1\151"+
-        "\1\156\1\147\1\40\1\141\1\142\1\157\1\165\1\164\1\40\1\156\1\157"+
-        "\1\40\1\154\1\145\1\170\1\145\1\162\1\40\1\162\1\165\1\154\1\145"+
-        "\1\40\1\143\1\157\2\162\1\145\1\163\1\160\1\157\1\156\1\144\1\151"+
-        "\1\156\1\147\1\40\1\164\1\157\1\40\1\106\2\uffff";
-    static final String DFA21_maxS =
+        "\3\75\3\41\1\uffff\1\56\12\uffff\1\57\1\uffff\1\41\1\uffff\1\41"+
+        "\1\uffff\1\41\1\uffff\2\41\1\uffff\1\41\2\44\2\uffff\25\41\1\uffff"+
+        "\1\0\2\uffff\1\75\3\uffff\1\41\1\uffff\1\41\1\75\15\uffff\21\41"+
+        "\1\0\1\44\1\41\2\44\4\41\1\uffff\21\41\10\uffff\1\40\1\uffff\1\41"+
+        "\1\uffff\4\41\1\uffff\6\41\1\uffff\1\41\1\uffff\3\41\1\164\3\41"+
+        "\3\uffff\1\41\1\uffff\7\41\1\157\1\uffff\2\41\2\uffff\2\41\3\uffff"+
+        "\1\41\1\40\1\uffff\3\41\1\uffff\1\144\1\uffff\1\41\1\uffff\1\151"+
+        "\1\uffff\1\163\1\141\1\142\1\154\1\145\1\40\1\167\1\141\1\162\1"+
+        "\156\1\151\1\156\1\147\1\40\1\141\1\142\1\157\1\165\1\164\1\40\1"+
+        "\156\1\157\1\40\1\154\1\145\1\170\1\145\1\162\1\40\1\162\1\165\1"+
+        "\154\1\145\1\40\1\143\1\157\2\162\1\145\1\163\1\160\1\157\1\156"+
+        "\1\144\1\151\1\156\1\147\1\40\1\164\1\157\1\40\1\106\2\uffff";
+    static final String DFA23_maxS =
         "\3\176\3\uffff\2\176\1\ufffd\1\uffff\20\176\1\uffff\1\76\1\75\1"+
-        "\46\1\174\3\75\3\176\14\uffff\1\57\1\uffff\1\176\1\uffff\1\176\1"+
-        "\uffff\1\176\1\uffff\2\176\1\uffff\1\176\2\ufffd\2\uffff\25\176"+
-        "\1\uffff\1\0\2\uffff\1\75\3\uffff\1\176\1\uffff\1\176\1\75\14\uffff"+
-        "\21\176\1\0\2\ufffd\1\176\1\ufffd\4\176\1\uffff\21\176\10\uffff"+
-        "\1\176\1\uffff\1\176\1\uffff\4\176\1\uffff\6\176\1\uffff\1\176\1"+
-        "\uffff\3\176\1\164\3\176\3\uffff\1\176\1\uffff\7\176\1\157\1\uffff"+
-        "\2\176\2\uffff\2\176\3\uffff\1\176\1\40\1\uffff\3\176\1\uffff\1"+
-        "\144\1\uffff\1\176\1\uffff\1\151\1\uffff\1\163\1\141\1\142\1\154"+
-        "\1\145\1\40\1\167\1\141\1\162\1\156\1\151\1\156\1\147\1\40\1\141"+
-        "\1\142\1\157\1\165\1\164\1\40\1\156\1\157\1\40\1\154\1\145\1\170"+
-        "\1\145\1\162\1\40\1\162\1\165\1\154\1\145\1\40\1\143\1\157\2\162"+
-        "\1\145\1\163\1\160\1\157\1\156\1\144\1\151\1\156\1\147\1\40\1\164"+
-        "\1\157\1\40\1\111\2\uffff";
-    static final String DFA21_acceptS =
+        "\46\1\174\3\75\3\176\1\uffff\1\56\12\uffff\1\57\1\uffff\1\176\1"+
+        "\uffff\1\176\1\uffff\1\176\1\uffff\2\176\1\uffff\1\176\2\ufffd\2"+
+        "\uffff\25\176\1\uffff\1\0\2\uffff\1\75\3\uffff\1\176\1\uffff\1\176"+
+        "\1\75\15\uffff\21\176\1\0\1\ufffd\1\176\2\ufffd\4\176\1\uffff\21"+
+        "\176\10\uffff\1\176\1\uffff\1\176\1\uffff\4\176\1\uffff\6\176\1"+
+        "\uffff\1\176\1\uffff\3\176\1\164\3\176\3\uffff\1\176\1\uffff\7\176"+
+        "\1\157\1\uffff\2\176\2\uffff\2\176\3\uffff\1\176\1\40\1\uffff\3"+
+        "\176\1\uffff\1\144\1\uffff\1\176\1\uffff\1\151\1\uffff\1\163\1\141"+
+        "\1\142\1\154\1\145\1\40\1\167\1\141\1\162\1\156\1\151\1\156\1\147"+
+        "\1\40\1\141\1\142\1\157\1\165\1\164\1\40\1\156\1\157\1\40\1\154"+
+        "\1\145\1\170\1\145\1\162\1\40\1\162\1\165\1\154\1\145\1\40\1\143"+
+        "\1\157\2\162\1\145\1\163\1\160\1\157\1\156\1\144\1\151\1\156\1\147"+
+        "\1\40\1\164\1\157\1\40\1\111\2\uffff";
+    static final String DFA23_acceptS =
         "\3\uffff\1\3\1\4\1\5\3\uffff\1\10\20\uffff\1\44\12\uffff\1\66\1"+
-        "\70\1\71\1\72\1\73\1\74\1\75\1\77\1\101\1\102\1\103\1\104\1\uffff"+
+        "\uffff\1\70\1\71\1\72\1\73\1\74\1\75\1\77\1\102\1\103\1\104\1\uffff"+
         "\1\105\1\uffff\1\62\1\uffff\1\65\1\uffff\1\42\2\uffff\1\6\3\uffff"+
         "\1\7\1\10\25\uffff\1\43\1\uffff\1\66\1\45\1\uffff\1\67\1\46\1\100"+
         "\1\uffff\1\66\2\uffff\1\76\1\56\1\55\1\60\1\57\1\61\1\63\1\64\1"+
-        "\104\1\106\1\1\1\2\32\uffff\1\15\21\uffff\1\41\1\53\1\51\1\47\1"+
-        "\50\1\54\1\52\1\36\1\uffff\1\13\1\uffff\1\14\4\uffff\1\17\6\uffff"+
-        "\1\23\1\uffff\1\33\7\uffff\1\16\1\30\1\31\1\uffff\1\34\10\uffff"+
-        "\1\35\2\uffff\1\22\1\20\2\uffff\1\32\1\24\1\25\2\uffff\1\37\3\uffff"+
-        "\1\27\1\uffff\1\40\1\uffff\1\21\1\uffff\1\26\64\uffff\1\11\1\12";
-    static final String DFA21_specialS =
-        "\1\26\6\uffff\1\102\1\6\20\uffff\1\1\27\uffff\1\106\7\uffff\1\101"+
-        "\3\uffff\1\0\1\36\30\uffff\1\105\47\uffff\1\103\1\61\1\73\1\uffff"+
-        "\1\104\36\uffff\1\43\24\uffff\1\25\17\uffff\1\23\13\uffff\1\24\5"+
-        "\uffff\1\35\3\uffff\1\37\1\uffff\1\33\1\34\1\31\1\32\1\27\1\30\1"+
-        "\12\1\11\1\10\1\7\1\5\1\4\1\3\1\2\1\22\1\21\1\20\1\17\1\16\1\15"+
-        "\1\14\1\13\1\64\1\65\1\66\1\67\1\57\1\60\1\62\1\63\1\75\1\76\1\77"+
-        "\1\100\1\70\1\71\1\72\1\74\1\46\1\45\1\50\1\47\1\41\1\40\1\44\1"+
-        "\42\1\54\1\53\1\56\1\55\1\52\1\51\2\uffff}>";
-    static final String[] DFA21_transitionS = {
+        "\101\1\104\1\106\1\1\1\2\32\uffff\1\15\21\uffff\1\41\1\53\1\51\1"+
+        "\47\1\50\1\54\1\52\1\36\1\uffff\1\13\1\uffff\1\14\4\uffff\1\17\6"+
+        "\uffff\1\23\1\uffff\1\33\7\uffff\1\16\1\30\1\31\1\uffff\1\34\10"+
+        "\uffff\1\35\2\uffff\1\22\1\20\2\uffff\1\32\1\24\1\25\2\uffff\1\37"+
+        "\3\uffff\1\27\1\uffff\1\40\1\uffff\1\21\1\uffff\1\26\64\uffff\1"+
+        "\11\1\12";
+    static final String DFA23_specialS =
+        "\1\1\6\uffff\1\2\1\101\20\uffff\1\3\27\uffff\1\102\7\uffff\1\103"+
+        "\3\uffff\1\53\1\46\30\uffff\1\106\50\uffff\1\104\1\47\1\uffff\1"+
+        "\36\1\105\36\uffff\1\0\24\uffff\1\26\17\uffff\1\24\13\uffff\1\25"+
+        "\5\uffff\1\35\3\uffff\1\37\1\uffff\1\33\1\34\1\31\1\32\1\27\1\30"+
+        "\1\13\1\12\1\11\1\10\1\7\1\6\1\5\1\4\1\23\1\22\1\21\1\20\1\17\1"+
+        "\16\1\15\1\14\1\65\1\66\1\67\1\70\1\61\1\62\1\63\1\64\1\75\1\76"+
+        "\1\77\1\100\1\71\1\72\1\73\1\74\1\45\1\44\1\51\1\50\1\41\1\40\1"+
+        "\43\1\42\1\56\1\55\1\60\1\57\1\54\1\52\2\uffff}>";
+    static final String[] DFA23_transitionS = {
             "\1\62\1\61\1\uffff\2\62\22\uffff\1\62\1\37\1\4\1\57\1\10\1\43"+
-            "\1\35\1\3\1\46\1\47\1\42\1\44\1\56\1\2\1\55\1\1\12\11\1\34\1"+
-            "\60\1\41\1\33\1\40\1\54\1\31\15\30\1\26\2\30\1\7\1\30\1\25\7"+
-            "\30\1\52\1\32\1\53\2\45\1\5\1\27\1\23\1\20\1\30\1\16\1\21\2"+
+            "\1\35\1\3\1\47\1\50\1\42\1\44\1\56\1\2\1\46\1\1\12\11\1\34\1"+
+            "\60\1\41\1\33\1\40\1\55\1\31\15\30\1\26\2\30\1\7\1\30\1\25\7"+
+            "\30\1\53\1\32\1\54\2\45\1\5\1\27\1\23\1\20\1\30\1\16\1\21\2"+
             "\30\1\15\1\12\3\30\1\6\2\30\1\7\1\24\1\13\1\17\1\30\1\14\1\22"+
-            "\3\30\1\50\1\36\1\51\1\45",
+            "\3\30\1\51\1\36\1\52\1\45",
             "\1\45\2\uffff\3\45\3\uffff\1\63\1\45\1\uffff\1\45\1\uffff\13"+
             "\45\5\uffff\34\45\3\uffff\2\45\1\uffff\32\45\1\uffff\1\45\1"+
             "\uffff\1\45",
@@ -3806,6 +3855,7 @@ public class SQLScriptLexer extends Lexer {
             "\137\5\uffff\34\137\3\uffff\2\137\1\uffff\32\137\1\uffff\1\137"+
             "\1\uffff\1\137",
             "",
+            "\1\137",
             "",
             "",
             "",
@@ -3816,19 +3866,18 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "",
-            "",
-            "\1\152",
+            "\1\153",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\34\137\3\uffff\2\137\1\uffff\32\137\1\uffff\1\137"+
             "\1\uffff\1\137",
             "",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\26\72\1\176\3"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\26\72\1\177\3"+
             "\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "\1\137\2\uffff\3\137\1\73\2\uffff\2\137\1\uffff\1\137\1\uffff"+
@@ -3841,71 +3890,71 @@ public class SQLScriptLexer extends Lexer {
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\34\137\3\uffff\2\137\1\uffff\32\137\1\uffff\1\137"+
             "\1\uffff\1\137",
-            "\1\u0082\13\uffff\12\u0083\7\uffff\32\u0080\4\uffff\1\u0081"+
-            "\1\uffff\32\u0080\5\uffff\uff7e\77",
-            "\1\u0082\13\uffff\12\u0083\7\uffff\32\u0080\4\uffff\1\u0081"+
-            "\1\uffff\32\u0080\5\uffff\uff7e\77",
+            "\1\u0082\13\uffff\12\u0084\7\uffff\32\u0081\4\uffff\1\u0083"+
+            "\1\uffff\32\u0081\5\uffff\uff7e\77",
+            "\1\u0082\13\uffff\12\u0084\7\uffff\32\u0081\4\uffff\1\u0083"+
+            "\1\uffff\32\u0081\5\uffff\uff7e\77",
             "",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u0084"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u0085"+
             "\7\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\13\72\1\u0085\16\72\3\uffff\2\137\1\uffff"+
-            "\13\72\1\u0085\16\72\1\uffff\1\137\1\uffff\1\137",
+            "\137\5\uffff\2\137\13\72\1\u0086\16\72\3\uffff\2\137\1\uffff"+
+            "\13\72\1\u0086\16\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\17\72\1\u0086"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\17\72\1\u0087"+
             "\12\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u0087"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u0088"+
             "\10\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\17\72\1\u0089"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\17\72\1\u008a"+
             "\12\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\2\72\1\u008a"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\2\72\1\u008b"+
             "\27\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u008b"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u008c"+
             "\7\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u008c"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u008d"+
             "\21\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u008e"+
-            "\3\72\1\u008d\1\72\1\uffff\1\137\1\uffff\1\137",
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u008f"+
+            "\3\72\1\u008e\1\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u0090"+
-            "\10\72\1\u008f\10\72\1\uffff\1\137\1\uffff\1\137",
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u0091"+
+            "\10\72\1\u0090\10\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u0091"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u0092"+
             "\6\72\1\uffff\1\137\1\uffff\1\137",
-            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u0092"+
-            "\14\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u0093"+
             "\14\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u0094"+
-            "\10\72\1\uffff\1\137\1\uffff\1\137",
-            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u0095"+
-            "\16\72\1\uffff\1\137\1\uffff\1\137",
-            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u0096"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u0094"+
             "\14\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u0097"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u0095"+
+            "\10\72\1\uffff\1\137\1\uffff\1\137",
+            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u0096"+
+            "\16\72\1\uffff\1\137\1\uffff\1\137",
+            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u0097"+
+            "\14\72\1\uffff\1\137\1\uffff\1\137",
+            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u0098"+
             "\21\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u0098"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u0099"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u0099"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u009a"+
             "\6\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
@@ -3914,7 +3963,7 @@ public class SQLScriptLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "\1\u009b",
+            "\1\u009c",
             "",
             "",
             "",
@@ -3925,7 +3974,7 @@ public class SQLScriptLexer extends Lexer {
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\34\137\3\uffff\2\137\1\uffff\32\137\1\uffff\1\137"+
             "\1\uffff\1\137",
-            "\1\u009f",
+            "\1\u00a0",
             "",
             "",
             "",
@@ -3938,130 +3987,131 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
-            "\1\173\2\uffff\1\172\1\163\1\165\3\uffff\1\166\1\157\1\uffff"+
-            "\1\160\1\uffff\1\167\12\175\5\uffff\1\174\1\162\32\156\3\uffff"+
-            "\1\164\1\170\1\uffff\32\156\1\uffff\1\171\1\uffff\1\161",
+            "",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
+            "\1\174\2\uffff\1\173\1\164\1\166\3\uffff\1\167\1\160\1\uffff"+
+            "\1\161\1\uffff\1\170\12\176\5\uffff\1\175\1\163\32\157\3\uffff"+
+            "\1\165\1\171\1\uffff\32\157\1\uffff\1\172\1\uffff\1\162",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\uffff",
-            "\1\u0082\13\uffff\12\u0083\7\uffff\32\u0080\4\uffff\1\u0081"+
-            "\1\uffff\32\u0080\5\uffff\uff7e\77",
-            "\1\u0082\13\uffff\12\u0083\7\uffff\32\u0080\4\uffff\1\u0081"+
-            "\1\uffff\32\u0080\5\uffff\uff7e\77",
+            "\1\u0082\13\uffff\12\u0084\7\uffff\32\u0081\4\uffff\1\u0083"+
+            "\1\uffff\32\u0081\5\uffff\uff7e\77",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\34\137\3\uffff\2\137\1\uffff\32\137\1\uffff\1\137"+
             "\1\uffff\1\137",
-            "\1\u0082\13\uffff\12\u0083\7\uffff\32\u0080\4\uffff\1\u0081"+
-            "\1\uffff\32\u0080\5\uffff\uff7e\77",
+            "\1\u0082\13\uffff\12\u0084\7\uffff\32\u0081\4\uffff\1\u0083"+
+            "\1\uffff\32\u0081\5\uffff\uff7e\77",
+            "\1\u0082\13\uffff\12\u0084\7\uffff\32\u0081\4\uffff\1\u0083"+
+            "\1\uffff\32\u0081\5\uffff\uff7e\77",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00a2"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00a3"+
             "\6\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00a4"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00a5"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\16\72\1\u00a6"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\16\72\1\u00a7"+
             "\13\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00a7"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00a8"+
             "\16\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00a8"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00a9"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00a9"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00aa"+
             "\6\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00ab"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00ac"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\16\72\1\u00ac"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\16\72\1\u00ad"+
             "\13\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u00ad"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u00ae"+
             "\7\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\2\72\1\u00ae"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\2\72\1\u00af"+
             "\27\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00af"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00b0"+
             "\6\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\1\u00b0\31\72"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\1\u00b1\31\72"+
             "\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u00b2"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\22\72\1\u00b3"+
             "\7\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00b4"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00b5"+
             "\16\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\1\u00b5\31\72"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\1\u00b6\31\72"+
             "\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u00b6"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u00b7"+
             "\5\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "",
@@ -4071,19 +4121,19 @@ public class SQLScriptLexer extends Lexer {
             "",
             "",
             "",
-            "\1\u00b7\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1"+
+            "\1\u00b8\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1"+
             "\uffff\13\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72"+
             "\1\uffff\1\137\1\uffff\1\137",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u00b8"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u00b9"+
             "\10\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u00b9"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u00ba"+
             "\10\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u00ba"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u00bb"+
             "\5\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
@@ -4096,43 +4146,43 @@ public class SQLScriptLexer extends Lexer {
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\26\72\1\u00be"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\26\72\1\u00bf"+
             "\3\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\7\72\1\u00c0"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\7\72\1\u00c1"+
             "\22\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u00c1"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\10\72\1\u00c2"+
             "\21\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00c2"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00c3"+
             "\16\72\1\uffff\1\137\1\uffff\1\137",
-            "",
-            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00c3"+
-            "\25\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00c4"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
+            "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\12\72\1\u00c5"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00c5"+
+            "\25\72\1\uffff\1\137\1\uffff\1\137",
+            "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\12\72\1\u00c6"+
             "\17\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u00c6"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\21\72\1\u00c7"+
             "\10\72\1\uffff\1\137\1\uffff\1\137",
-            "\1\u00c7",
+            "\1\u00c8",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00c9"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\23\72\1\u00ca"+
             "\6\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\3\72\1\u00ca"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\3\72\1\u00cb"+
             "\26\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "",
@@ -4145,10 +4195,10 @@ public class SQLScriptLexer extends Lexer {
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u00cd"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u00ce"+
             "\14\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00ce"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\13\72\1\u00cf"+
             "\16\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
@@ -4160,23 +4210,23 @@ public class SQLScriptLexer extends Lexer {
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u00d2"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\15\72\1\u00d3"+
             "\14\72\1\uffff\1\137\1\uffff\1\137",
-            "\1\u00d3",
+            "\1\u00d4",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00d5"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00d6"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u00d6"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\24\72\1\u00d7"+
             "\5\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\30\72\1\u00d7"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\30\72\1\u00d8"+
             "\1\72\1\uffff\1\137\1\uffff\1\137",
             "",
             "",
@@ -4184,27 +4234,26 @@ public class SQLScriptLexer extends Lexer {
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
-            "\1\u00d9",
+            "\1\u00da",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
-            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00db"+
+            "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\4\72\1\u00dc"+
             "\25\72\1\uffff\1\137\1\uffff\1\137",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "",
-            "\1\u00dd",
+            "\1\u00de",
             "",
             "\1\137\2\uffff\3\137\3\uffff\2\137\1\uffff\1\137\1\uffff\13"+
             "\137\5\uffff\2\137\32\72\3\uffff\2\137\1\uffff\32\72\1\uffff"+
             "\1\137\1\uffff\1\137",
             "",
-            "\1\u00df",
-            "",
             "\1\u00e0",
+            "",
             "\1\u00e1",
             "\1\u00e2",
             "\1\u00e3",
@@ -4255,39 +4304,40 @@ public class SQLScriptLexer extends Lexer {
             "\1\u0110",
             "\1\u0111",
             "\1\u0112",
-            "\1\u0114\2\uffff\1\u0113",
+            "\1\u0113",
+            "\1\u0115\2\uffff\1\u0114",
             "",
             ""
     };
 
-    static final short[] DFA21_eot = DFA.unpackEncodedString(DFA21_eotS);
-    static final short[] DFA21_eof = DFA.unpackEncodedString(DFA21_eofS);
-    static final char[] DFA21_min = DFA.unpackEncodedStringToUnsignedChars(DFA21_minS);
-    static final char[] DFA21_max = DFA.unpackEncodedStringToUnsignedChars(DFA21_maxS);
-    static final short[] DFA21_accept = DFA.unpackEncodedString(DFA21_acceptS);
-    static final short[] DFA21_special = DFA.unpackEncodedString(DFA21_specialS);
-    static final short[][] DFA21_transition;
+    static final short[] DFA23_eot = DFA.unpackEncodedString(DFA23_eotS);
+    static final short[] DFA23_eof = DFA.unpackEncodedString(DFA23_eofS);
+    static final char[] DFA23_min = DFA.unpackEncodedStringToUnsignedChars(DFA23_minS);
+    static final char[] DFA23_max = DFA.unpackEncodedStringToUnsignedChars(DFA23_maxS);
+    static final short[] DFA23_accept = DFA.unpackEncodedString(DFA23_acceptS);
+    static final short[] DFA23_special = DFA.unpackEncodedString(DFA23_specialS);
+    static final short[][] DFA23_transition;
 
     static {
-        int numStates = DFA21_transitionS.length;
-        DFA21_transition = new short[numStates][];
+        int numStates = DFA23_transitionS.length;
+        DFA23_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA21_transition[i] = DFA.unpackEncodedString(DFA21_transitionS[i]);
+            DFA23_transition[i] = DFA.unpackEncodedString(DFA23_transitionS[i]);
         }
     }
 
-    class DFA21 extends DFA {
+    class DFA23 extends DFA {
 
-        public DFA21(BaseRecognizer recognizer) {
+        public DFA23(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 21;
-            this.eot = DFA21_eot;
-            this.eof = DFA21_eof;
-            this.min = DFA21_min;
-            this.max = DFA21_max;
-            this.accept = DFA21_accept;
-            this.special = DFA21_special;
-            this.transition = DFA21_transition;
+            this.decisionNumber = 23;
+            this.eot = DFA23_eot;
+            this.eof = DFA23_eof;
+            this.min = DFA23_min;
+            this.max = DFA23_max;
+            this.accept = DFA23_accept;
+            this.special = DFA23_special;
+            this.transition = DFA23_transition;
         }
         public String getDescription() {
             return "1:1: Tokens : ( COMMENT | LINE_COMMENT | STR_SQUOT | STR_DQUOT | STR_BTICK | STR_QQUOT | STR_DOLQUOT | NUMBER | INT | FLOAT | KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_IMPORT | KW_INCLUDE | KW_AS | WORD | EMB_VAR_START | BACKSLASH | DOUBLE_ARROW | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | OP_MUL | OP_DIV | OP_MOD | OP_ADD | OP_SUB | IDENTIFIER | EQUALS | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EXCLAM | QUESTION | COLON | DOT | COMMA | SQL_SPECIAL_CHAR | SEP | WS | NL );";
@@ -4297,1051 +4347,1066 @@ public class SQLScriptLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA21_61 = input.LA(1);
+                        int LA23_163 = input.LA(1);
 
                          
-                        int index21_61 = input.index();
+                        int index23_163 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA21_61>='A' && LA21_61<='Z')||(LA21_61>='a' && LA21_61<='z')) ) {s = 128;}
+                        if ( (LA23_163==' ') && ((false))) {s = 184;}
 
-                        else if ( (LA21_61=='_') ) {s = 129;}
+                        else if ( ((LA23_163>='A' && LA23_163<='Z')||(LA23_163>='a' && LA23_163<='z')) ) {s = 58;}
 
-                        else if ( (LA21_61=='$') ) {s = 130;}
+                        else if ( (LA23_163=='!'||(LA23_163>='$' && LA23_163<='&')||(LA23_163>='*' && LA23_163<='+')||LA23_163=='-'||(LA23_163>='/' && LA23_163<='9')||(LA23_163>='?' && LA23_163<='@')||(LA23_163>='^' && LA23_163<='_')||LA23_163=='|'||LA23_163=='~') ) {s = 95;}
 
-                        else if ( ((LA21_61>='0' && LA21_61<='9')) ) {s = 131;}
-
-                        else if ( ((LA21_61>='\u0080' && LA21_61<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
-
-                        else s = 95;
+                        else s = 56;
 
                          
-                        input.seek(index21_61);
+                        input.seek(index23_163);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA21_25 = input.LA(1);
+                        int LA23_0 = input.LA(1);
 
                          
-                        int index21_25 = input.index();
+                        int index23_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA21_25=='{') && ((allowEmbeddedVariables))) {s = 86;}
+                        if ( (LA23_0=='/') ) {s = 1;}
 
-                        else if ( (LA21_25=='!'||(LA21_25>='$' && LA21_25<='&')||(LA21_25>='*' && LA21_25<='+')||LA21_25=='-'||(LA21_25>='/' && LA21_25<='9')||(LA21_25>='?' && LA21_25<='Z')||(LA21_25>='^' && LA21_25<='_')||(LA21_25>='a' && LA21_25<='z')||LA21_25=='|'||LA21_25=='~') && ((allowAtSignInIdentifier))) {s = 88;}
+                        else if ( (LA23_0=='-') ) {s = 2;}
+
+                        else if ( (LA23_0=='\'') ) {s = 3;}
+
+                        else if ( (LA23_0=='\"') ) {s = 4;}
+
+                        else if ( (LA23_0=='`') ) {s = 5;}
+
+                        else if ( (LA23_0=='n') ) {s = 6;}
+
+                        else if ( (LA23_0=='Q'||LA23_0=='q') ) {s = 7;}
+
+                        else if ( (LA23_0=='$') ) {s = 8;}
+
+                        else if ( ((LA23_0>='0' && LA23_0<='9')) ) {s = 9;}
+
+                        else if ( (LA23_0=='j') ) {s = 10;}
+
+                        else if ( (LA23_0=='s') ) {s = 11;}
+
+                        else if ( (LA23_0=='v') ) {s = 12;}
+
+                        else if ( (LA23_0=='i') ) {s = 13;}
+
+                        else if ( (LA23_0=='e') ) {s = 14;}
+
+                        else if ( (LA23_0=='t') ) {s = 15;}
+
+                        else if ( (LA23_0=='c') ) {s = 16;}
+
+                        else if ( (LA23_0=='f') ) {s = 17;}
+
+                        else if ( (LA23_0=='w') ) {s = 18;}
+
+                        else if ( (LA23_0=='b') ) {s = 19;}
+
+                        else if ( (LA23_0=='r') ) {s = 20;}
+
+                        else if ( (LA23_0=='S') ) {s = 21;}
+
+                        else if ( (LA23_0=='N') ) {s = 22;}
+
+                        else if ( (LA23_0=='a') ) {s = 23;}
+
+                        else if ( ((LA23_0>='A' && LA23_0<='M')||(LA23_0>='O' && LA23_0<='P')||LA23_0=='R'||(LA23_0>='T' && LA23_0<='Z')||LA23_0=='d'||(LA23_0>='g' && LA23_0<='h')||(LA23_0>='k' && LA23_0<='m')||(LA23_0>='o' && LA23_0<='p')||LA23_0=='u'||(LA23_0>='x' && LA23_0<='z')) ) {s = 24;}
+
+                        else if ( (LA23_0=='@') && (((!allowAtSignInIdentifier)||(allowAtSignInIdentifier)||(allowEmbeddedVariables)))) {s = 25;}
+
+                        else if ( (LA23_0=='\\') ) {s = 26;}
+
+                        else if ( (LA23_0=='=') ) {s = 27;}
+
+                        else if ( (LA23_0==':') ) {s = 28;}
+
+                        else if ( (LA23_0=='&') ) {s = 29;}
+
+                        else if ( (LA23_0=='|') ) {s = 30;}
+
+                        else if ( (LA23_0=='!') ) {s = 31;}
+
+                        else if ( (LA23_0=='>') ) {s = 32;}
+
+                        else if ( (LA23_0=='<') ) {s = 33;}
+
+                        else if ( (LA23_0=='*') ) {s = 34;}
+
+                        else if ( (LA23_0=='%') ) {s = 35;}
+
+                        else if ( (LA23_0=='+') ) {s = 36;}
+
+                        else if ( ((LA23_0>='^' && LA23_0<='_')||LA23_0=='~') ) {s = 37;}
+
+                        else if ( (LA23_0=='.') ) {s = 38;}
+
+                        else if ( (LA23_0=='(') ) {s = 39;}
+
+                        else if ( (LA23_0==')') ) {s = 40;}
+
+                        else if ( (LA23_0=='{') ) {s = 41;}
+
+                        else if ( (LA23_0=='}') ) {s = 42;}
+
+                        else if ( (LA23_0=='[') ) {s = 43;}
+
+                        else if ( (LA23_0==']') ) {s = 44;}
+
+                        else if ( (LA23_0=='?') ) {s = 45;}
+
+                        else if ( (LA23_0==',') ) {s = 46;}
+
+                        else if ( (LA23_0=='#') ) {s = 47;}
+
+                        else if ( (LA23_0==';') ) {s = 48;}
+
+                        else if ( (LA23_0=='\n') ) {s = 49;}
+
+                        else if ( (LA23_0=='\t'||(LA23_0>='\f' && LA23_0<='\r')||LA23_0==' ') ) {s = 50;}
+
+                         
+                        input.seek(index23_0);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA23_7 = input.LA(1);
+
+                         
+                        int index23_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_7=='\'') && ((allowQQuote))) {s = 59;}
+
+                        else if ( ((LA23_7>='A' && LA23_7<='Z')||(LA23_7>='a' && LA23_7<='z')) ) {s = 58;}
+
+                        else if ( (LA23_7=='!'||(LA23_7>='$' && LA23_7<='&')||(LA23_7>='*' && LA23_7<='+')||LA23_7=='-'||(LA23_7>='/' && LA23_7<='9')||(LA23_7>='?' && LA23_7<='@')||(LA23_7>='^' && LA23_7<='_')||LA23_7=='|'||LA23_7=='~') ) {s = 37;}
+
+                        else s = 56;
+
+                         
+                        input.seek(index23_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA23_25 = input.LA(1);
+
+                         
+                        int index23_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_25=='{') && ((allowEmbeddedVariables))) {s = 86;}
+
+                        else if ( (LA23_25=='!'||(LA23_25>='$' && LA23_25<='&')||(LA23_25>='*' && LA23_25<='+')||LA23_25=='-'||(LA23_25>='/' && LA23_25<='9')||(LA23_25>='?' && LA23_25<='Z')||(LA23_25>='^' && LA23_25<='_')||(LA23_25>='a' && LA23_25<='z')||LA23_25=='|'||LA23_25=='~') && ((allowAtSignInIdentifier))) {s = 88;}
 
                         else s = 87;
 
                          
-                        input.seek(index21_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA21_236 = input.LA(1);
-
-                         
-                        int index21_236 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_236==' ') && ((false))) {s = 237;}
-
-                         
-                        input.seek(index21_236);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA21_235 = input.LA(1);
-
-                         
-                        int index21_235 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_235=='g') && ((false))) {s = 236;}
-
-                         
-                        input.seek(index21_235);
+                        input.seek(index23_25);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA21_234 = input.LA(1);
+                        int LA23_237 = input.LA(1);
 
                          
-                        int index21_234 = input.index();
+                        int index23_237 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA21_234=='n') && ((false))) {s = 235;}
+                        if ( (LA23_237==' ') && ((false))) {s = 238;}
 
                          
-                        input.seek(index21_234);
+                        input.seek(index23_237);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA21_233 = input.LA(1);
+                        int LA23_236 = input.LA(1);
 
                          
-                        int index21_233 = input.index();
+                        int index23_236 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA21_233=='i') && ((false))) {s = 234;}
+                        if ( (LA23_236=='g') && ((false))) {s = 237;}
 
                          
-                        input.seek(index21_233);
+                        input.seek(index23_236);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA21_8 = input.LA(1);
+                        int LA23_235 = input.LA(1);
 
                          
-                        int index21_8 = input.index();
+                        int index23_235 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA21_8=='$') ) {s = 60;}
+                        if ( (LA23_235=='n') && ((false))) {s = 236;}
 
-                        else if ( ((LA21_8>='A' && LA21_8<='Z')||(LA21_8>='a' && LA21_8<='z')) ) {s = 61;}
+                         
+                        input.seek(index23_235);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA23_234 = input.LA(1);
 
-                        else if ( (LA21_8=='_') ) {s = 62;}
+                         
+                        int index23_234 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_234=='i') && ((false))) {s = 235;}
 
-                        else if ( ((LA21_8>='\u0080' && LA21_8<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
+                         
+                        input.seek(index23_234);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA23_233 = input.LA(1);
+
+                         
+                        int index23_233 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_233=='n') && ((false))) {s = 234;}
+
+                         
+                        input.seek(index23_233);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA23_232 = input.LA(1);
+
+                         
+                        int index23_232 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_232=='r') && ((false))) {s = 233;}
+
+                         
+                        input.seek(index23_232);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA23_231 = input.LA(1);
+
+                         
+                        int index23_231 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_231=='a') && ((false))) {s = 232;}
+
+                         
+                        input.seek(index23_231);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA23_230 = input.LA(1);
+
+                         
+                        int index23_230 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_230=='w') && ((false))) {s = 231;}
+
+                         
+                        input.seek(index23_230);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA23_245 = input.LA(1);
+
+                         
+                        int index23_245 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_245=='o') && ((false))) {s = 246;}
+
+                         
+                        input.seek(index23_245);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA23_244 = input.LA(1);
+
+                         
+                        int index23_244 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_244=='n') && ((false))) {s = 245;}
+
+                         
+                        input.seek(index23_244);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA23_243 = input.LA(1);
+
+                         
+                        int index23_243 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_243==' ') && ((false))) {s = 244;}
+
+                         
+                        input.seek(index23_243);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA23_242 = input.LA(1);
+
+                         
+                        int index23_242 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_242=='t') && ((false))) {s = 243;}
+
+                         
+                        input.seek(index23_242);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA23_241 = input.LA(1);
+
+                         
+                        int index23_241 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_241=='u') && ((false))) {s = 242;}
+
+                         
+                        input.seek(index23_241);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA23_240 = input.LA(1);
+
+                         
+                        int index23_240 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_240=='o') && ((false))) {s = 241;}
+
+                         
+                        input.seek(index23_240);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA23_239 = input.LA(1);
+
+                         
+                        int index23_239 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_239=='b') && ((false))) {s = 240;}
+
+                         
+                        input.seek(index23_239);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA23_238 = input.LA(1);
+
+                         
+                        int index23_238 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_238=='a') && ((false))) {s = 239;}
+
+                         
+                        input.seek(index23_238);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA23_200 = input.LA(1);
+
+                         
+                        int index23_200 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_200=='o') && ((false))) {s = 212;}
+
+                         
+                        input.seek(index23_200);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA23_212 = input.LA(1);
+
+                         
+                        int index23_212 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_212==' ') && ((false))) {s = 218;}
+
+                         
+                        input.seek(index23_212);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA23_184 = input.LA(1);
+
+                         
+                        int index23_184 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_184=='t') && ((false))) {s = 200;}
+
+                         
+                        input.seek(index23_184);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA23_228 = input.LA(1);
+
+                         
+                        int index23_228 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_228=='e') && ((false))) {s = 229;}
+
+                         
+                        input.seek(index23_228);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA23_229 = input.LA(1);
+
+                         
+                        int index23_229 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_229==' ') && ((false))) {s = 230;}
+
+                         
+                        input.seek(index23_229);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA23_226 = input.LA(1);
+
+                         
+                        int index23_226 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_226=='b') && ((false))) {s = 227;}
+
+                         
+                        input.seek(index23_226);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA23_227 = input.LA(1);
+
+                         
+                        int index23_227 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_227=='l') && ((false))) {s = 228;}
+
+                         
+                        input.seek(index23_227);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA23_224 = input.LA(1);
+
+                         
+                        int index23_224 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_224=='s') && ((false))) {s = 225;}
+
+                         
+                        input.seek(index23_224);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA23_225 = input.LA(1);
+
+                         
+                        int index23_225 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_225=='a') && ((false))) {s = 226;}
+
+                         
+                        input.seek(index23_225);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA23_218 = input.LA(1);
+
+                         
+                        int index23_218 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_218=='d') && ((false))) {s = 222;}
+
+                         
+                        input.seek(index23_218);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA23_131 = input.LA(1);
+
+                         
+                        int index23_131 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_131=='$') ) {s = 130;}
+
+                        else if ( ((LA23_131>='A' && LA23_131<='Z')||(LA23_131>='a' && LA23_131<='z')) ) {s = 129;}
+
+                        else if ( (LA23_131=='_') ) {s = 131;}
+
+                        else if ( ((LA23_131>='0' && LA23_131<='9')) ) {s = 132;}
+
+                        else if ( ((LA23_131>='\u0080' && LA23_131<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
+
+                        else s = 95;
+
+                         
+                        input.seek(index23_131);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA23_222 = input.LA(1);
+
+                         
+                        int index23_222 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_222=='i') && ((false))) {s = 224;}
+
+                         
+                        input.seek(index23_222);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA23_267 = input.LA(1);
+
+                         
+                        int index23_267 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_267=='d') && ((false))) {s = 268;}
+
+                         
+                        input.seek(index23_267);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA23_266 = input.LA(1);
+
+                         
+                        int index23_266 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_266=='n') && ((false))) {s = 267;}
+
+                         
+                        input.seek(index23_266);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA23_269 = input.LA(1);
+
+                         
+                        int index23_269 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_269=='n') && ((false))) {s = 270;}
+
+                         
+                        input.seek(index23_269);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA23_268 = input.LA(1);
+
+                         
+                        int index23_268 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_268=='i') && ((false))) {s = 269;}
+
+                         
+                        input.seek(index23_268);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA23_263 = input.LA(1);
+
+                         
+                        int index23_263 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_263=='s') && ((false))) {s = 264;}
+
+                         
+                        input.seek(index23_263);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA23_262 = input.LA(1);
+
+                         
+                        int index23_262 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_262=='e') && ((false))) {s = 263;}
+
+                         
+                        input.seek(index23_262);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA23_62 = input.LA(1);
+
+                         
+                        int index23_62 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA23_62>='A' && LA23_62<='Z')||(LA23_62>='a' && LA23_62<='z')) ) {s = 129;}
+
+                        else if ( (LA23_62=='$') ) {s = 130;}
+
+                        else if ( (LA23_62=='_') ) {s = 131;}
+
+                        else if ( ((LA23_62>='0' && LA23_62<='9')) ) {s = 132;}
+
+                        else if ( ((LA23_62>='\u0080' && LA23_62<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
+
+                        else s = 95;
+
+                         
+                        input.seek(index23_62);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA23_129 = input.LA(1);
+
+                         
+                        int index23_129 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA23_129>='A' && LA23_129<='Z')||(LA23_129>='a' && LA23_129<='z')) ) {s = 129;}
+
+                        else if ( (LA23_129=='_') ) {s = 131;}
+
+                        else if ( (LA23_129=='$') ) {s = 130;}
+
+                        else if ( ((LA23_129>='0' && LA23_129<='9')) ) {s = 132;}
+
+                        else if ( ((LA23_129>='\u0080' && LA23_129<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
+
+                        else s = 95;
+
+                         
+                        input.seek(index23_129);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA23_265 = input.LA(1);
+
+                         
+                        int index23_265 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_265=='o') && ((false))) {s = 266;}
+
+                         
+                        input.seek(index23_265);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 41 : 
+                        int LA23_264 = input.LA(1);
+
+                         
+                        int index23_264 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_264=='p') && ((false))) {s = 265;}
+
+                         
+                        input.seek(index23_264);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA23_275 = input.LA(1);
+
+                         
+                        int index23_275 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_275=='I') && ((false))) {s = 276;}
+
+                        else if ( (LA23_275=='F') && ((false))) {s = 277;}
+
+                         
+                        input.seek(index23_275);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA23_61 = input.LA(1);
+
+                         
+                        int index23_61 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA23_61>='A' && LA23_61<='Z')||(LA23_61>='a' && LA23_61<='z')) ) {s = 129;}
+
+                        else if ( (LA23_61=='$') ) {s = 130;}
+
+                        else if ( (LA23_61=='_') ) {s = 131;}
+
+                        else if ( ((LA23_61>='0' && LA23_61<='9')) ) {s = 132;}
+
+                        else if ( ((LA23_61>='\u0080' && LA23_61<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
+
+                        else s = 95;
+
+                         
+                        input.seek(index23_61);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 44 : 
+                        int LA23_274 = input.LA(1);
+
+                         
+                        int index23_274 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_274==' ') && ((false))) {s = 275;}
+
+                         
+                        input.seek(index23_274);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA23_271 = input.LA(1);
+
+                         
+                        int index23_271 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_271==' ') && ((false))) {s = 272;}
+
+                         
+                        input.seek(index23_271);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA23_270 = input.LA(1);
+
+                         
+                        int index23_270 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_270=='g') && ((false))) {s = 271;}
+
+                         
+                        input.seek(index23_270);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA23_273 = input.LA(1);
+
+                         
+                        int index23_273 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_273=='o') && ((false))) {s = 274;}
+
+                         
+                        input.seek(index23_273);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA23_272 = input.LA(1);
+
+                         
+                        int index23_272 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_272=='t') && ((false))) {s = 273;}
+
+                         
+                        input.seek(index23_272);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 49 : 
+                        int LA23_250 = input.LA(1);
+
+                         
+                        int index23_250 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_250=='e') && ((false))) {s = 251;}
+
+                         
+                        input.seek(index23_250);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 50 : 
+                        int LA23_251 = input.LA(1);
+
+                         
+                        int index23_251 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_251=='r') && ((false))) {s = 252;}
+
+                         
+                        input.seek(index23_251);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA23_252 = input.LA(1);
+
+                         
+                        int index23_252 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_252==' ') && ((false))) {s = 253;}
+
+                         
+                        input.seek(index23_252);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA23_253 = input.LA(1);
+
+                         
+                        int index23_253 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_253=='r') && ((false))) {s = 254;}
+
+                         
+                        input.seek(index23_253);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 53 : 
+                        int LA23_246 = input.LA(1);
+
+                         
+                        int index23_246 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_246==' ') && ((false))) {s = 247;}
+
+                         
+                        input.seek(index23_246);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 54 : 
+                        int LA23_247 = input.LA(1);
+
+                         
+                        int index23_247 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_247=='l') && ((false))) {s = 248;}
+
+                         
+                        input.seek(index23_247);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 55 : 
+                        int LA23_248 = input.LA(1);
+
+                         
+                        int index23_248 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_248=='e') && ((false))) {s = 249;}
+
+                         
+                        input.seek(index23_248);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 56 : 
+                        int LA23_249 = input.LA(1);
+
+                         
+                        int index23_249 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_249=='x') && ((false))) {s = 250;}
+
+                         
+                        input.seek(index23_249);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 57 : 
+                        int LA23_258 = input.LA(1);
+
+                         
+                        int index23_258 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_258=='c') && ((false))) {s = 259;}
+
+                         
+                        input.seek(index23_258);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 58 : 
+                        int LA23_259 = input.LA(1);
+
+                         
+                        int index23_259 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_259=='o') && ((false))) {s = 260;}
+
+                         
+                        input.seek(index23_259);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 59 : 
+                        int LA23_260 = input.LA(1);
+
+                         
+                        int index23_260 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_260=='r') && ((false))) {s = 261;}
+
+                         
+                        input.seek(index23_260);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 60 : 
+                        int LA23_261 = input.LA(1);
+
+                         
+                        int index23_261 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_261=='r') && ((false))) {s = 262;}
+
+                         
+                        input.seek(index23_261);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 61 : 
+                        int LA23_254 = input.LA(1);
+
+                         
+                        int index23_254 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_254=='u') && ((false))) {s = 255;}
+
+                         
+                        input.seek(index23_254);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 62 : 
+                        int LA23_255 = input.LA(1);
+
+                         
+                        int index23_255 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_255=='l') && ((false))) {s = 256;}
+
+                         
+                        input.seek(index23_255);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 63 : 
+                        int LA23_256 = input.LA(1);
+
+                         
+                        int index23_256 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_256=='e') && ((false))) {s = 257;}
+
+                         
+                        input.seek(index23_256);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 64 : 
+                        int LA23_257 = input.LA(1);
+
+                         
+                        int index23_257 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_257==' ') && ((false))) {s = 258;}
+
+                         
+                        input.seek(index23_257);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 65 : 
+                        int LA23_8 = input.LA(1);
+
+                         
+                        int index23_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_8=='$') ) {s = 60;}
+
+                        else if ( ((LA23_8>='A' && LA23_8<='Z')||(LA23_8>='a' && LA23_8<='z')) ) {s = 61;}
+
+                        else if ( (LA23_8=='_') ) {s = 62;}
+
+                        else if ( ((LA23_8>='\u0080' && LA23_8<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
 
                         else s = 37;
 
                          
-                        input.seek(index21_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA21_232 = input.LA(1);
-
-                         
-                        int index21_232 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_232=='n') && ((false))) {s = 233;}
-
-                         
-                        input.seek(index21_232);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA21_231 = input.LA(1);
-
-                         
-                        int index21_231 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_231=='r') && ((false))) {s = 232;}
-
-                         
-                        input.seek(index21_231);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA21_230 = input.LA(1);
-
-                         
-                        int index21_230 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_230=='a') && ((false))) {s = 231;}
-
-                         
-                        input.seek(index21_230);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA21_229 = input.LA(1);
-
-                         
-                        int index21_229 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_229=='w') && ((false))) {s = 230;}
-
-                         
-                        input.seek(index21_229);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA21_244 = input.LA(1);
-
-                         
-                        int index21_244 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_244=='o') && ((false))) {s = 245;}
-
-                         
-                        input.seek(index21_244);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA21_243 = input.LA(1);
-
-                         
-                        int index21_243 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_243=='n') && ((false))) {s = 244;}
-
-                         
-                        input.seek(index21_243);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA21_242 = input.LA(1);
-
-                         
-                        int index21_242 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_242==' ') && ((false))) {s = 243;}
-
-                         
-                        input.seek(index21_242);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA21_241 = input.LA(1);
-
-                         
-                        int index21_241 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_241=='t') && ((false))) {s = 242;}
-
-                         
-                        input.seek(index21_241);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA21_240 = input.LA(1);
-
-                         
-                        int index21_240 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_240=='u') && ((false))) {s = 241;}
-
-                         
-                        input.seek(index21_240);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA21_239 = input.LA(1);
-
-                         
-                        int index21_239 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_239=='o') && ((false))) {s = 240;}
-
-                         
-                        input.seek(index21_239);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA21_238 = input.LA(1);
-
-                         
-                        int index21_238 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_238=='b') && ((false))) {s = 239;}
-
-                         
-                        input.seek(index21_238);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA21_237 = input.LA(1);
-
-                         
-                        int index21_237 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_237=='a') && ((false))) {s = 238;}
-
-                         
-                        input.seek(index21_237);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA21_199 = input.LA(1);
-
-                         
-                        int index21_199 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_199=='o') && ((false))) {s = 211;}
-
-                         
-                        input.seek(index21_199);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA21_211 = input.LA(1);
-
-                         
-                        int index21_211 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_211==' ') && ((false))) {s = 217;}
-
-                         
-                        input.seek(index21_211);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA21_183 = input.LA(1);
-
-                         
-                        int index21_183 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_183=='t') && ((false))) {s = 199;}
-
-                         
-                        input.seek(index21_183);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA21_0 = input.LA(1);
-
-                         
-                        int index21_0 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_0=='/') ) {s = 1;}
-
-                        else if ( (LA21_0=='-') ) {s = 2;}
-
-                        else if ( (LA21_0=='\'') ) {s = 3;}
-
-                        else if ( (LA21_0=='\"') ) {s = 4;}
-
-                        else if ( (LA21_0=='`') ) {s = 5;}
-
-                        else if ( (LA21_0=='n') ) {s = 6;}
-
-                        else if ( (LA21_0=='Q'||LA21_0=='q') ) {s = 7;}
-
-                        else if ( (LA21_0=='$') ) {s = 8;}
-
-                        else if ( ((LA21_0>='0' && LA21_0<='9')) ) {s = 9;}
-
-                        else if ( (LA21_0=='j') ) {s = 10;}
-
-                        else if ( (LA21_0=='s') ) {s = 11;}
-
-                        else if ( (LA21_0=='v') ) {s = 12;}
-
-                        else if ( (LA21_0=='i') ) {s = 13;}
-
-                        else if ( (LA21_0=='e') ) {s = 14;}
-
-                        else if ( (LA21_0=='t') ) {s = 15;}
-
-                        else if ( (LA21_0=='c') ) {s = 16;}
-
-                        else if ( (LA21_0=='f') ) {s = 17;}
-
-                        else if ( (LA21_0=='w') ) {s = 18;}
-
-                        else if ( (LA21_0=='b') ) {s = 19;}
-
-                        else if ( (LA21_0=='r') ) {s = 20;}
-
-                        else if ( (LA21_0=='S') ) {s = 21;}
-
-                        else if ( (LA21_0=='N') ) {s = 22;}
-
-                        else if ( (LA21_0=='a') ) {s = 23;}
-
-                        else if ( ((LA21_0>='A' && LA21_0<='M')||(LA21_0>='O' && LA21_0<='P')||LA21_0=='R'||(LA21_0>='T' && LA21_0<='Z')||LA21_0=='d'||(LA21_0>='g' && LA21_0<='h')||(LA21_0>='k' && LA21_0<='m')||(LA21_0>='o' && LA21_0<='p')||LA21_0=='u'||(LA21_0>='x' && LA21_0<='z')) ) {s = 24;}
-
-                        else if ( (LA21_0=='@') && (((!allowAtSignInIdentifier)||(allowAtSignInIdentifier)||(allowEmbeddedVariables)))) {s = 25;}
-
-                        else if ( (LA21_0=='\\') ) {s = 26;}
-
-                        else if ( (LA21_0=='=') ) {s = 27;}
-
-                        else if ( (LA21_0==':') ) {s = 28;}
-
-                        else if ( (LA21_0=='&') ) {s = 29;}
-
-                        else if ( (LA21_0=='|') ) {s = 30;}
-
-                        else if ( (LA21_0=='!') ) {s = 31;}
-
-                        else if ( (LA21_0=='>') ) {s = 32;}
-
-                        else if ( (LA21_0=='<') ) {s = 33;}
-
-                        else if ( (LA21_0=='*') ) {s = 34;}
-
-                        else if ( (LA21_0=='%') ) {s = 35;}
-
-                        else if ( (LA21_0=='+') ) {s = 36;}
-
-                        else if ( ((LA21_0>='^' && LA21_0<='_')||LA21_0=='~') ) {s = 37;}
-
-                        else if ( (LA21_0=='(') ) {s = 38;}
-
-                        else if ( (LA21_0==')') ) {s = 39;}
-
-                        else if ( (LA21_0=='{') ) {s = 40;}
-
-                        else if ( (LA21_0=='}') ) {s = 41;}
-
-                        else if ( (LA21_0=='[') ) {s = 42;}
-
-                        else if ( (LA21_0==']') ) {s = 43;}
-
-                        else if ( (LA21_0=='?') ) {s = 44;}
-
-                        else if ( (LA21_0=='.') ) {s = 45;}
-
-                        else if ( (LA21_0==',') ) {s = 46;}
-
-                        else if ( (LA21_0=='#') ) {s = 47;}
-
-                        else if ( (LA21_0==';') ) {s = 48;}
-
-                        else if ( (LA21_0=='\n') ) {s = 49;}
-
-                        else if ( (LA21_0=='\t'||(LA21_0>='\f' && LA21_0<='\r')||LA21_0==' ') ) {s = 50;}
-
-                         
-                        input.seek(index21_0);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA21_227 = input.LA(1);
-
-                         
-                        int index21_227 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_227=='e') && ((false))) {s = 228;}
-
-                         
-                        input.seek(index21_227);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA21_228 = input.LA(1);
-
-                         
-                        int index21_228 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_228==' ') && ((false))) {s = 229;}
-
-                         
-                        input.seek(index21_228);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA21_225 = input.LA(1);
-
-                         
-                        int index21_225 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_225=='b') && ((false))) {s = 226;}
-
-                         
-                        input.seek(index21_225);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA21_226 = input.LA(1);
-
-                         
-                        int index21_226 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_226=='l') && ((false))) {s = 227;}
-
-                         
-                        input.seek(index21_226);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA21_223 = input.LA(1);
-
-                         
-                        int index21_223 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_223=='s') && ((false))) {s = 224;}
-
-                         
-                        input.seek(index21_223);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA21_224 = input.LA(1);
-
-                         
-                        int index21_224 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_224=='a') && ((false))) {s = 225;}
-
-                         
-                        input.seek(index21_224);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA21_217 = input.LA(1);
-
-                         
-                        int index21_217 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_217=='d') && ((false))) {s = 221;}
-
-                         
-                        input.seek(index21_217);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA21_62 = input.LA(1);
-
-                         
-                        int index21_62 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA21_62>='A' && LA21_62<='Z')||(LA21_62>='a' && LA21_62<='z')) ) {s = 128;}
-
-                        else if ( (LA21_62=='_') ) {s = 129;}
-
-                        else if ( (LA21_62=='$') ) {s = 130;}
-
-                        else if ( ((LA21_62>='0' && LA21_62<='9')) ) {s = 131;}
-
-                        else if ( ((LA21_62>='\u0080' && LA21_62<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
-
-                        else s = 95;
-
-                         
-                        input.seek(index21_62);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA21_221 = input.LA(1);
-
-                         
-                        int index21_221 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_221=='i') && ((false))) {s = 223;}
-
-                         
-                        input.seek(index21_221);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
-                        int LA21_266 = input.LA(1);
-
-                         
-                        int index21_266 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_266=='d') && ((false))) {s = 267;}
-
-                         
-                        input.seek(index21_266);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 33 : 
-                        int LA21_265 = input.LA(1);
-
-                         
-                        int index21_265 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_265=='n') && ((false))) {s = 266;}
-
-                         
-                        input.seek(index21_265);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 34 : 
-                        int LA21_268 = input.LA(1);
-
-                         
-                        int index21_268 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_268=='n') && ((false))) {s = 269;}
-
-                         
-                        input.seek(index21_268);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 35 : 
-                        int LA21_162 = input.LA(1);
-
-                         
-                        int index21_162 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_162==' ') && ((false))) {s = 183;}
-
-                        else if ( ((LA21_162>='A' && LA21_162<='Z')||(LA21_162>='a' && LA21_162<='z')) ) {s = 58;}
-
-                        else if ( (LA21_162=='!'||(LA21_162>='$' && LA21_162<='&')||(LA21_162>='*' && LA21_162<='+')||LA21_162=='-'||(LA21_162>='/' && LA21_162<='9')||(LA21_162>='?' && LA21_162<='@')||(LA21_162>='^' && LA21_162<='_')||LA21_162=='|'||LA21_162=='~') ) {s = 95;}
-
-                        else s = 56;
-
-                         
-                        input.seek(index21_162);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 36 : 
-                        int LA21_267 = input.LA(1);
-
-                         
-                        int index21_267 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_267=='i') && ((false))) {s = 268;}
-
-                         
-                        input.seek(index21_267);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 37 : 
-                        int LA21_262 = input.LA(1);
-
-                         
-                        int index21_262 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_262=='s') && ((false))) {s = 263;}
-
-                         
-                        input.seek(index21_262);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 38 : 
-                        int LA21_261 = input.LA(1);
-
-                         
-                        int index21_261 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_261=='e') && ((false))) {s = 262;}
-
-                         
-                        input.seek(index21_261);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 39 : 
-                        int LA21_264 = input.LA(1);
-
-                         
-                        int index21_264 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_264=='o') && ((false))) {s = 265;}
-
-                         
-                        input.seek(index21_264);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
-                        int LA21_263 = input.LA(1);
-
-                         
-                        int index21_263 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_263=='p') && ((false))) {s = 264;}
-
-                         
-                        input.seek(index21_263);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 41 : 
-                        int LA21_274 = input.LA(1);
-
-                         
-                        int index21_274 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_274=='I') && ((false))) {s = 275;}
-
-                        else if ( (LA21_274=='F') && ((false))) {s = 276;}
-
-                         
-                        input.seek(index21_274);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 42 : 
-                        int LA21_273 = input.LA(1);
-
-                         
-                        int index21_273 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_273==' ') && ((false))) {s = 274;}
-
-                         
-                        input.seek(index21_273);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 43 : 
-                        int LA21_270 = input.LA(1);
-
-                         
-                        int index21_270 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_270==' ') && ((false))) {s = 271;}
-
-                         
-                        input.seek(index21_270);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 44 : 
-                        int LA21_269 = input.LA(1);
-
-                         
-                        int index21_269 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_269=='g') && ((false))) {s = 270;}
-
-                         
-                        input.seek(index21_269);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 45 : 
-                        int LA21_272 = input.LA(1);
-
-                         
-                        int index21_272 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_272=='o') && ((false))) {s = 273;}
-
-                         
-                        input.seek(index21_272);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 46 : 
-                        int LA21_271 = input.LA(1);
-
-                         
-                        int index21_271 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_271=='t') && ((false))) {s = 272;}
-
-                         
-                        input.seek(index21_271);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 47 : 
-                        int LA21_249 = input.LA(1);
-
-                         
-                        int index21_249 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_249=='e') && ((false))) {s = 250;}
-
-                         
-                        input.seek(index21_249);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 48 : 
-                        int LA21_250 = input.LA(1);
-
-                         
-                        int index21_250 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_250=='r') && ((false))) {s = 251;}
-
-                         
-                        input.seek(index21_250);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 49 : 
-                        int LA21_128 = input.LA(1);
-
-                         
-                        int index21_128 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA21_128>='A' && LA21_128<='Z')||(LA21_128>='a' && LA21_128<='z')) ) {s = 128;}
-
-                        else if ( (LA21_128=='_') ) {s = 129;}
-
-                        else if ( (LA21_128=='$') ) {s = 130;}
-
-                        else if ( ((LA21_128>='0' && LA21_128<='9')) ) {s = 131;}
-
-                        else if ( ((LA21_128>='\u0080' && LA21_128<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
-
-                        else s = 95;
-
-                         
-                        input.seek(index21_128);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 50 : 
-                        int LA21_251 = input.LA(1);
-
-                         
-                        int index21_251 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_251==' ') && ((false))) {s = 252;}
-
-                         
-                        input.seek(index21_251);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 51 : 
-                        int LA21_252 = input.LA(1);
-
-                         
-                        int index21_252 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_252=='r') && ((false))) {s = 253;}
-
-                         
-                        input.seek(index21_252);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 52 : 
-                        int LA21_245 = input.LA(1);
-
-                         
-                        int index21_245 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_245==' ') && ((false))) {s = 246;}
-
-                         
-                        input.seek(index21_245);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 53 : 
-                        int LA21_246 = input.LA(1);
-
-                         
-                        int index21_246 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_246=='l') && ((false))) {s = 247;}
-
-                         
-                        input.seek(index21_246);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 54 : 
-                        int LA21_247 = input.LA(1);
-
-                         
-                        int index21_247 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_247=='e') && ((false))) {s = 248;}
-
-                         
-                        input.seek(index21_247);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 55 : 
-                        int LA21_248 = input.LA(1);
-
-                         
-                        int index21_248 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_248=='x') && ((false))) {s = 249;}
-
-                         
-                        input.seek(index21_248);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 56 : 
-                        int LA21_257 = input.LA(1);
-
-                         
-                        int index21_257 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_257=='c') && ((false))) {s = 258;}
-
-                         
-                        input.seek(index21_257);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 57 : 
-                        int LA21_258 = input.LA(1);
-
-                         
-                        int index21_258 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_258=='o') && ((false))) {s = 259;}
-
-                         
-                        input.seek(index21_258);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 58 : 
-                        int LA21_259 = input.LA(1);
-
-                         
-                        int index21_259 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_259=='r') && ((false))) {s = 260;}
-
-                         
-                        input.seek(index21_259);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 59 : 
-                        int LA21_129 = input.LA(1);
-
-                         
-                        int index21_129 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA21_129>='A' && LA21_129<='Z')||(LA21_129>='a' && LA21_129<='z')) ) {s = 128;}
-
-                        else if ( (LA21_129=='_') ) {s = 129;}
-
-                        else if ( (LA21_129=='$') ) {s = 130;}
-
-                        else if ( ((LA21_129>='0' && LA21_129<='9')) ) {s = 131;}
-
-                        else if ( ((LA21_129>='\u0080' && LA21_129<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
-
-                        else s = 95;
-
-                         
-                        input.seek(index21_129);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 60 : 
-                        int LA21_260 = input.LA(1);
-
-                         
-                        int index21_260 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_260=='r') && ((false))) {s = 261;}
-
-                         
-                        input.seek(index21_260);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 61 : 
-                        int LA21_253 = input.LA(1);
-
-                         
-                        int index21_253 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_253=='u') && ((false))) {s = 254;}
-
-                         
-                        input.seek(index21_253);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 62 : 
-                        int LA21_254 = input.LA(1);
-
-                         
-                        int index21_254 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_254=='l') && ((false))) {s = 255;}
-
-                         
-                        input.seek(index21_254);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 63 : 
-                        int LA21_255 = input.LA(1);
-
-                         
-                        int index21_255 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_255=='e') && ((false))) {s = 256;}
-
-                         
-                        input.seek(index21_255);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 64 : 
-                        int LA21_256 = input.LA(1);
-
-                         
-                        int index21_256 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_256==' ') && ((false))) {s = 257;}
-
-                         
-                        input.seek(index21_256);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 65 : 
-                        int LA21_57 = input.LA(1);
-
-                         
-                        int index21_57 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_57=='\'') && ((allowQQuote))) {s = 59;}
-
-                        else if ( ((LA21_57>='A' && LA21_57<='Z')||(LA21_57>='a' && LA21_57<='z')) ) {s = 58;}
-
-                        else if ( (LA21_57=='!'||(LA21_57>='$' && LA21_57<='&')||(LA21_57>='*' && LA21_57<='+')||LA21_57=='-'||(LA21_57>='/' && LA21_57<='9')||(LA21_57>='?' && LA21_57<='@')||(LA21_57>='^' && LA21_57<='_')||LA21_57=='|'||LA21_57=='~') ) {s = 95;}
-
-                        else s = 56;
-
-                         
-                        input.seek(index21_57);
+                        input.seek(index23_8);
                         if ( s>=0 ) return s;
                         break;
                     case 66 : 
-                        int LA21_7 = input.LA(1);
+                        int LA23_49 = input.LA(1);
 
                          
-                        int index21_7 = input.index();
+                        int index23_49 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA21_7=='\'') && ((allowQQuote))) {s = 59;}
+                        if ( (LA23_49=='/') && ((allowSpecialSQLSep))) {s = 107;}
 
-                        else if ( ((LA21_7>='A' && LA21_7<='Z')||(LA21_7>='a' && LA21_7<='z')) ) {s = 58;}
+                        else s = 108;
 
-                        else if ( (LA21_7=='!'||(LA21_7>='$' && LA21_7<='&')||(LA21_7>='*' && LA21_7<='+')||LA21_7=='-'||(LA21_7>='/' && LA21_7<='9')||(LA21_7>='?' && LA21_7<='@')||(LA21_7>='^' && LA21_7<='_')||LA21_7=='|'||LA21_7=='~') ) {s = 37;}
+                         
+                        input.seek(index23_49);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 67 : 
+                        int LA23_57 = input.LA(1);
+
+                         
+                        int index23_57 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA23_57=='\'') && ((allowQQuote))) {s = 59;}
+
+                        else if ( ((LA23_57>='A' && LA23_57<='Z')||(LA23_57>='a' && LA23_57<='z')) ) {s = 58;}
+
+                        else if ( (LA23_57=='!'||(LA23_57>='$' && LA23_57<='&')||(LA23_57>='*' && LA23_57<='+')||LA23_57=='-'||(LA23_57>='/' && LA23_57<='9')||(LA23_57>='?' && LA23_57<='@')||(LA23_57>='^' && LA23_57<='_')||LA23_57=='|'||LA23_57=='~') ) {s = 95;}
 
                         else s = 56;
 
                          
-                        input.seek(index21_7);
+                        input.seek(index23_57);
                         if ( s>=0 ) return s;
                         break;
-                    case 67 : 
-                        int LA21_127 = input.LA(1);
+                    case 68 : 
+                        int LA23_128 = input.LA(1);
 
                          
-                        int index21_127 = input.index();
+                        int index23_128 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((allowDollarQuote)) ) {s = 63;}
@@ -5349,37 +5414,37 @@ public class SQLScriptLexer extends Lexer {
                         else if ( (true) ) {s = 95;}
 
                          
-                        input.seek(index21_127);
+                        input.seek(index23_128);
                         if ( s>=0 ) return s;
                         break;
-                    case 68 : 
-                        int LA21_131 = input.LA(1);
+                    case 69 : 
+                        int LA23_132 = input.LA(1);
 
                          
-                        int index21_131 = input.index();
+                        int index23_132 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA21_131>='A' && LA21_131<='Z')||(LA21_131>='a' && LA21_131<='z')) ) {s = 128;}
+                        if ( ((LA23_132>='A' && LA23_132<='Z')||(LA23_132>='a' && LA23_132<='z')) ) {s = 129;}
 
-                        else if ( (LA21_131=='_') ) {s = 129;}
+                        else if ( (LA23_132=='_') ) {s = 131;}
 
-                        else if ( (LA21_131=='$') ) {s = 130;}
+                        else if ( (LA23_132=='$') ) {s = 130;}
 
-                        else if ( ((LA21_131>='0' && LA21_131<='9')) ) {s = 131;}
+                        else if ( ((LA23_132>='0' && LA23_132<='9')) ) {s = 132;}
 
-                        else if ( ((LA21_131>='\u0080' && LA21_131<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
+                        else if ( ((LA23_132>='\u0080' && LA23_132<='\uFFFD')) && ((allowDollarQuote))) {s = 63;}
 
                         else s = 95;
 
                          
-                        input.seek(index21_131);
+                        input.seek(index23_132);
                         if ( s>=0 ) return s;
                         break;
-                    case 69 : 
-                        int LA21_87 = input.LA(1);
+                    case 70 : 
+                        int LA23_87 = input.LA(1);
 
                          
-                        int index21_87 = input.index();
+                        int index23_87 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((allowAtSignInIdentifier)) ) {s = 95;}
@@ -5387,28 +5452,13 @@ public class SQLScriptLexer extends Lexer {
                         else if ( ((!allowAtSignInIdentifier)) ) {s = 47;}
 
                          
-                        input.seek(index21_87);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 70 : 
-                        int LA21_49 = input.LA(1);
-
-                         
-                        int index21_49 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA21_49=='/') && ((allowSpecialSQLSep))) {s = 106;}
-
-                        else s = 107;
-
-                         
-                        input.seek(index21_49);
+                        input.seek(index23_87);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 21, _s, input);
+                new NoViableAltException(getDescription(), 23, _s, input);
             error(nvae);
             throw nvae;
         }

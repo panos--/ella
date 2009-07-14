@@ -75,7 +75,6 @@ public class Str extends AbstractObj {
     public static final Str SYM_numValue = toSym("numValue");
     public static final Str SYM_parent = toSym("parent");
     public static final Str SYM_print = toSym("print");
-    public static final Str SYM_range = toSym("range");
     public static final Str SYM_raise = toSym("raise");
     public static final Str SYM_realValue = toSym("realValue");
     public static final Str SYM_remove = toSym("remove");

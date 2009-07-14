@@ -1057,7 +1057,7 @@ public class SQLScriptEngine
     }
 
     public void processContinuation(ExitCont exitCont) {
-        System.out.println("Computation finished. Exit continuation reached.");
+//        System.out.println("Computation finished. Exit continuation reached.");
         pc = 0;
         finished = true;
         next = CONT;

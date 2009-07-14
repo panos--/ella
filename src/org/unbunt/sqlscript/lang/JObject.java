@@ -18,11 +18,11 @@ public class JObject extends PlainObj {
     protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public final Object value;
-    public final Class cls;
+    public final Class<?> clazz;
 
     public JObject(Object value) {
         this.value = value;
-        this.cls = value.getClass();
+        this.clazz = value.getClass();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class JObject extends PlainObj {
         String keyStr = key.toString();
 
         // try to load method named exactly like the slot
-        List<Method> directMatches = ReflectionUtils.getMethods(cls, keyStr);
+        List<Method> directMatches = ReflectionUtils.getMethods(clazz, keyStr);
         if (!directMatches.isEmpty()) {
             JMethod method = new JMethod(directMatches.toArray(new Method[directMatches.size()]));
             slots.put(key, method);
@@ -46,7 +46,7 @@ public class JObject extends PlainObj {
         String propStr = ReflectionUtils.getterFromProperty(keyStr);
         Method getter = null;
         try {
-            getter = cls.getMethod(propStr, (Class<?>[])null);
+            getter = clazz.getMethod(propStr, (Class[])null);
         } catch (NoSuchMethodException ignored) {
         }
         if (getter != null) {
@@ -62,7 +62,7 @@ public class JObject extends PlainObj {
 
         // try to find property named like the slot
         try {
-            Field field = cls.getField(keyStr);
+            Field field = clazz.getField(keyStr);
             Object fieldValue = field.get(value);
             return NativeWrapper.wrap(context, fieldValue);
         } catch (NoSuchFieldException ignored) {
@@ -84,7 +84,7 @@ public class JObject extends PlainObj {
 
         // interpret given slot name as property name and try to find and invoke corresponding setter method
         String propStr = ReflectionUtils.setterFromProperty(keyStr);
-        Method[] methods = cls.getMethods();
+        Method[] methods = clazz.getMethods();
         Method setter = ReflectionUtils.findMatchingMethod(methods, propStr,
                                                            new Class[] {
                                                                    jvalue == null ? null : jvalue.getClass()
@@ -103,7 +103,7 @@ public class JObject extends PlainObj {
 
         // try to find property named like the slot and set it's value
         try {
-            Field field = cls.getField(keyStr);
+            Field field = clazz.getField(keyStr);
             field.set(value, val);
             return this;
         } catch (NoSuchFieldException ignored) {
@@ -121,7 +121,7 @@ public class JObject extends PlainObj {
     public Map<Obj, Obj> getSlots() {
         Map<Obj, Obj> result = new HashMap<Obj, Obj>();
         Map<String, List<Method>> methodsByName = new HashMap<String, List<Method>>();
-        Method[] methods = cls.getMethods();
+        Method[] methods = clazz.getMethods();
         for (Method method : methods) {
             String name = method.getName();
             List<Method> namedMethods = methodsByName.get(name);

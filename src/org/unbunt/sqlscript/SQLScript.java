@@ -208,29 +208,13 @@ public class SQLScript extends VolatileObservable implements Observer {
         initParserIncremental();
         initEngine();
         try {
-            int i = 0;
             while (parseTokensIncremental() && !engine.isFinished()) {
                 if (tree == null) {
                     continue;
                 }
-                i++;
-//                if (++i == 1000) {
-//                    System.gc();
-//                    i = 0;
-//                }
-//                parseTree();
-//                runBlock();
-                if (i == 1040000) {
-                    System.out.println("dump!");
-                    try {
-                        //noinspection ResultOfMethodCallIgnored
-                        System.in.read();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                parseTree();
+                runBlock();
             }
-            System.out.println("statements: " + i);
         }
         finally {
             finish();
@@ -285,9 +269,9 @@ public class SQLScript extends VolatileObservable implements Observer {
                 }
             }
 
-//            if (result != 0) {
-//                throw new Exception("dot command failed");
-//            }
+            if (result != 0) {
+                throw new Exception("dot command failed");
+            }
 
             Runtime.getRuntime().exec(new String[] { "xdg-open", pngFile.getPath() });
         } catch (Exception e) {
@@ -316,7 +300,6 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected void parseTokens() throws SQLScriptParseException, SQLScriptRuntimeException {
-//        SQLScriptParser parser;
         try {
             if (parser == null) {
                 parser = new SQLScriptParser(tokens);
@@ -411,7 +394,6 @@ public class SQLScript extends VolatileObservable implements Observer {
         nodes.setTokenStream(tokens);
 
         SQLScriptWalker walker = new SQLScriptWalker(nodes);
-        //walker.setScriptContext(context);
         try {
             block = walker.parse(context.getEnv().toScope());
             TailCallOptimizer.process(block);
@@ -434,7 +416,6 @@ public class SQLScript extends VolatileObservable implements Observer {
         nodes.setTokenStream(tokens);
 
         SQLScriptWalker walker = new SQLScriptWalker(nodes);
-        //walker.setScriptContext(context);
         try {
             if (savedScope == null) {
                 savedScope = context.getEnv().toScope();

@@ -84,7 +84,6 @@ public class NRange extends PlainObj {
                 long step  = start < stop ? 1 : -1;
 
                 long i = start;
-                System.out.println("start loop with: " + i);
 
                 Null _null = engine.getObjNull();
                 try {
@@ -105,7 +104,6 @@ public class NRange extends PlainObj {
                         // nothing to do here just proceed to next iteration
                     }
                 }
-                System.out.println("stop loop with: " + i);
 
                 return null;
             }

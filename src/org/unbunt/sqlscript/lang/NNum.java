@@ -278,7 +278,6 @@ public class NNum extends PlainObj implements NNumeric {
 
                 Obj closure = args[1];
                 long i = start;
-                System.out.println("start loop with: " + i);
 
                 Null _null = engine.getObjNull();
                 try {
@@ -299,7 +298,6 @@ public class NNum extends PlainObj implements NNumeric {
                         // nothing to do here just proceed to next iteration
                     }
                 }
-                System.out.println("stop loop with: " + i);
 
                 return null;
             }
@@ -319,7 +317,6 @@ public class NNum extends PlainObj implements NNumeric {
             slots.put(Str.SYM__slash, nativeDivide);
             slots.put(Str.SYM__star, nativeMultiply);
             slots.put(Str.SYM__dotdot, nativeRange);
-            slots.put(Str.SYM_range, nativeRange);
             slots.put(Str.SYM_valueOf, nativeValueOf);
             slots.put(Str.SYM_to, nativeTo);
         }

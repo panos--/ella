@@ -1208,7 +1208,7 @@ DOLQUOT_TAG_END
 	|	DIGIT
 	;
 
-NUMBER	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' (DIGIT+ | EXPONENT) { $type = FLOAT; }
+NUMBER	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' DIGIT+ EXPONENT? { $type = FLOAT; }
 	|	DIGIT+ { $type = INT; }
 	;
 
@@ -1393,6 +1393,7 @@ SIMPLE_IDENTIFIER
 
 IDENTIFIER
 	:	(WORD_CHAR | IDENTIFIER_SPECIAL) (WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT)*
+	|	'.' '.'+
 	;
 
 fragment
@@ -1404,7 +1405,6 @@ IDENTIFIER_SPECIAL
 		 */
 		{allowAtSignInIdentifier}?=> '@'
 	|	'%'|'^'|'&'|'*'|'/'|'_'|'|'|DOLLAR
-//	|	'.' '.'+
 	;
 
 EQUALS	:	'='

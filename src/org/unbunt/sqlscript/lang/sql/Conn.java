@@ -233,7 +233,6 @@ public class Conn extends PlainObj {
                             } catch (SQLException e) {
                                 // finally block abruptly completed here, but not a problem in this case as the throw
                                 // statement is the last statement in the block anyway
-                                System.out.println("throwing commit exception");
                                 throw new SQLScriptTXCommitException("Commit failed: " + e.getMessage(), e);
                             }
                         }
