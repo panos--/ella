@@ -15,18 +15,6 @@ public interface ContinuationVisitor {
 
     void processContinuation(ArrLitCont arrLitCont);
 
-    void processContinuation(LogicNotCont logicNotCont);
-
-    void processContinuation(LogicAndCont logicAndCont);
-
-    void processContinuation(LogicOrCont logicOrCont);
-
-    void processContinuation(CondEqCont condEqCont);
-
-    void processContinuation(CondEq2Cont condEq2Cont);
-
-    void processContinuation(TernCont ternCont);
-
     void processContinuation(AssignExprCont assignExprCont);
 
     void processContinuation(AssignCont assignCont);
@@ -40,16 +28,6 @@ public interface ContinuationVisitor {
     void processContinuation(SlotGetReceiverCont slotGetReceiverCont);
 
     void processContinuation(SlotGetSlotCont slotGetSlotCont);
-
-    void processContinuation(IfCont ifCont);
-
-    void processContinuation(TryCont tryCont);
-
-    void processContinuation(ThrowCont throwCont);
-
-    void processContinuation(CatchCont catchCont);
-
-    void processContinuation(FinallyCont finallyCont);
 
     void processContinuation(SlotCallReceiverCont slotCallReceiverCont);
 
@@ -78,12 +56,6 @@ public interface ContinuationVisitor {
     void processContinuation(NewCont newCont);
 
     void processContinuation(NewResultCont newResultCont);
-
-    void processContinuation(ExitCont exitCont);
-
-    void processContinuation(InitParamCont initParamCont);
-
-    void processContinuation(RestoreEnvCont restoreEnvCont);
 
     void processContinuation(ArgsCont argsCont);
 

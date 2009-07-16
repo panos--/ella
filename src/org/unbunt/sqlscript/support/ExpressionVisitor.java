@@ -21,14 +21,6 @@ public interface ExpressionVisitor {
 
     void processExpression(SQLLiteralExpression sqlLiteralExpression);
 
-    void processExpression(NotExpression notExpression);
-
-    void processExpression(ConditionAnd conditionAnd);
-
-    void processExpression(ConditionOr conditionOr);
-
-    void processExpression(TernaryCondExpression ternaryCondExpression);
-
     void processExpression(DeclareVariableExpression declareVariableExpression);
 
     void processExpression(AssignExpression assignExpression);
@@ -41,12 +33,6 @@ public interface ExpressionVisitor {
 
     void processExpression(VariableExpression variableExpression);
 
-    void processExpression(IfStatement ifStatement);
-
-    void processExpression(TryStatement tryStatement);
-
-    void processExpression(ThrowStatement throwStatement);
-
     void processExpression(FunctionDefinitionExpression functionDefinitionExpression);
 
     void processExpression(FunctionCallExpression functionCallExpression);
@@ -56,36 +42,6 @@ public interface ExpressionVisitor {
     void processExpression(ReturnStatement returnStatement);
 
     void processExpression(NewExpression newExpression);
-
-    void processExpression(ExitStatement exitStatement);
-
-    void processExpression(InitParameter initParameter);
-
-//    void processExpression(AnnotationCommand annotationCommand);
-
-//    void processExpression(EvalCommand evalCommand);
-
-//    void processExpression(SQLStatement sqlStatement);
-
-    /*
-    void processExpression(PrimIdExpression primIdExpression);
-
-    void processExpression(PrimNiExpression primNiExpression);
-
-    void processExpression(PrimIntEqExpression primIntEqExpression);
-
-    void processExpression(PrimIntNeExpression primIntNeExpression);
-
-    void processExpression(PrimIntAddExpression primIntAddExpression);
-
-    void processExpression(PrimIntSubExpression primIntSubExpression);
-
-    void processExpression(PrimIntMulExpression primIntMulExpression);
-
-    void processExpression(PrimIntDivExpression primIntDivExpression);
-
-    void processExpression(PrimIntModExpression primIntModExpression);
-    */
 
     void processExpression(ThisExpression thisExpression);
 

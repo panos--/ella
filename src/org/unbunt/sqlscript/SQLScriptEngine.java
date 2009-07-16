@@ -211,34 +211,6 @@ public class SQLScriptEngine
         next = CONT;
     }
 
-    public void processExpression(NotExpression notExpression) {
-        stmt = notExpression.getExpression();
-        cont[++pc] = new LogicNotCont();
-        next = EVAL;
-    }
-
-    public void processExpression(ConditionAnd conditionAnd) {
-        assert conditionAnd.getExpressions().size() > 1;
-        LogicAndCont logicAndCont = new LogicAndCont(conditionAnd.getExpressions());
-        stmt = logicAndCont.next();
-        cont[++pc] = logicAndCont;
-        next = EVAL;
-    }
-
-    public void processExpression(ConditionOr conditionOr) {
-        assert conditionOr.getExpressions().size() > 1;
-        LogicOrCont logicOrCont = new LogicOrCont(conditionOr.getExpressions());
-        stmt = logicOrCont.next();
-        cont[++pc] = logicOrCont;
-        next = EVAL;
-    }
-
-    public void processExpression(TernaryCondExpression ternaryCondExpression) {
-        stmt = ternaryCondExpression.getCondition();
-        cont[++pc] = new TernCont(ternaryCondExpression.getTrueExpression(), ternaryCondExpression.getFalseExpression());
-        next = EVAL;
-    }
-
     public void processExpression(DeclareVariableExpression declareVariableExpression) {
         env.extend(declareVariableExpression.getVariable());
         next = CONT;
@@ -272,34 +244,6 @@ public class SQLScriptEngine
     public void processExpression(VariableExpression variableExpression) {
         val = env.get(variableExpression.getVariable());
         next = CONT;
-    }
-
-    public void processExpression(IfStatement ifStatement) {
-        stmt = ifStatement.getCondition();
-        Statement trueStmt = ifStatement.getTrueStatement();
-        Statement falseStmt = ifStatement.hasFalseStatement() ? ifStatement.getFalseStatement() : null;
-        cont[++pc] = new RestoreEnvCont(env);
-        env = new StaticEnv(env);
-        cont[++pc] = new IfCont(trueStmt, falseStmt);
-        next = EVAL;
-    }
-
-    public void processExpression(TryStatement tryStatement) {
-        stmt = tryStatement.getBody();
-        Env savedEnv = env;
-        if (tryStatement.hasFinallyClause()) {
-            cont[++pc] = new FinallyCont(tryStatement.getFinallyClause().getBody(), savedEnv);
-        }
-        if (tryStatement.hasCatchClause()) {
-            cont[++pc] = new TryCont(tryStatement.getCatchClause(), savedEnv);
-        }
-        next = EVAL;
-    }
-
-    public void processExpression(ThrowStatement throwStatement) {
-        stmt = throwStatement.getExpression();
-        cont[++pc] = new ThrowCont();
-        next = EVAL;
     }
 
     public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
@@ -411,24 +355,6 @@ public class SQLScriptEngine
         next = EVAL;
     }
 
-    public void processExpression(ExitStatement exitStatement) {
-        cont[++pc] = new ExitCont();
-        if (exitStatement.hasExpression()) {
-            stmt = exitStatement.getExpression();
-            next = EVAL;
-        }
-        else {
-            val = null;
-            next = CONT;
-        }
-    }
-
-    public void processExpression(InitParameter initParameter) {
-        stmt = initParameter.getExpression();
-        cont[++pc] = new InitParamCont(initParameter.getParameter());
-        next = EVAL;
-    }
-
     protected void cont() {
         cont[pc].accept(this);
     }
@@ -501,65 +427,6 @@ public class SQLScriptEngine
         }
     }
 
-    public void processContinuation(LogicNotCont logicNotCont) {
-        val = toBool(val).equals(getObjTrue()) ? getObjFalse() : getObjTrue();
-        pc--;
-        next = CONT;
-    }
-
-    public void processContinuation(LogicAndCont logicAndCont) {
-        Obj curVal = toBool(val);
-        if (curVal.equals(getObjFalse()) || !logicAndCont.hasNext()) {
-            val = curVal;
-            pc--;
-            next = CONT;
-        }
-        else {
-            stmt = logicAndCont.next();
-            next = EVAL;
-        }
-    }
-
-    public void processContinuation(LogicOrCont logicOrCont) {
-        Obj curVal = toBool(val);
-        if (curVal.equals(getObjTrue()) || !logicOrCont.hasNext()) {
-            val = curVal;
-            pc--;
-            next = CONT;
-        }
-        else {
-            stmt = logicOrCont.next();
-            next = EVAL;
-        }
-    }
-
-    public void processContinuation(CondEqCont condEqCont) {
-        stmt = condEqCont.getExpression();
-        cont[pc] = new CondEq2Cont(val);
-        next = EVAL;
-    }
-
-    public void processContinuation(CondEq2Cont condEq2Cont) {
-        Obj val1 = condEq2Cont.getValue();
-        Obj val2 = val;
-
-        val = (val1 != null && val1.equals(val2)) || val1 == val2 ? getObjTrue() : getObjFalse();
-
-        pc--;
-        next = CONT;
-    }
-
-    public void processContinuation(TernCont ternCont) {
-        if (toBool(val).equals(getObjTrue())) {
-            stmt = ternCont.getTrueExpression();
-        }
-        else {
-            stmt = ternCont.getFalseExpression();
-        }
-        pc--;
-        next = EVAL;
-    }
-
     public void processContinuation(AssignExprCont assignExprCont) {
         stmt = assignExprCont.getAssign();
         pc--;
@@ -627,72 +494,6 @@ public class SQLScriptEngine
             val = getObjNull();
         }
         next = CONT;
-    }
-
-    public void processContinuation(IfCont ifCont) {
-        pc--;
-        if (toBool(val).equals(getObjTrue())) {
-            stmt = ifCont.getTrueStatement();
-            next = EVAL;
-        }
-        else if (ifCont.hasFalseStatement()) {
-            stmt = ifCont.getFalseStatement();
-            next = EVAL;
-        }
-        else {
-            next = CONT;
-        }
-    }
-
-    public void processContinuation(TryCont tryCont) {
-        pc--;
-        next = CONT;
-    }
-
-    public void processContinuation(ThrowCont throwCont) {
-        pc--;
-        TryCont tryCont = null;
-        for (int i = pc; i >= 0; i--) {
-            Continuation c = cont[i];
-            if (c instanceof TryCont) {
-                tryCont = (TryCont) c;
-                pc = i;
-            }
-            else if (c instanceof FinallyCont) {
-                FinallyCont finallyCont = (FinallyCont) c;
-                throwCont.setSavedValue(val);
-                pc = i;
-                cont[++pc] = throwCont;
-                cont[++pc] = finallyCont;
-                next = CONT;
-                return;
-            }
-        }
-        if (tryCont == null) {
-            throw new SQLScriptRuntimeException("Unhandled exception: " +
-                                                (val == null ? "null" : val.toString()));
-        }
-        CatchStatement catchStmt = tryCont.getCatchClause();
-        Env savedEnv = tryCont.getEnv();
-        env = new StaticEnv(savedEnv);
-        // FIXME: must provide variable
-//        env.add(throwCont.hasSavedValue() ? throwCont.getSavedValue() : val);
-        stmt = catchStmt.getBody();
-        cont[++pc] = new CatchCont(savedEnv);
-        next = EVAL;
-    }
-
-    public void processContinuation(CatchCont catchCont) {
-        pc--;
-        env = catchCont.getEnv();
-        next = CONT;
-    }
-
-    public void processContinuation(FinallyCont finallyCont) {
-        pc--;
-        env = finallyCont.getEnv();
-        stmt = finallyCont.getBody();
-        next = EVAL;
     }
 
     public void processContinuation(SlotCallReceiverCont slotCallReceiverCont) {
@@ -957,17 +758,6 @@ public class SQLScriptEngine
                 next = CONT;
                 return;
             }
-            else if (c instanceof FinallyCont) {
-                FinallyCont finallyCont = (FinallyCont) c;
-                if (!returnCont.hasSavedValue()) {
-                    returnCont.setSavedValue(val);
-                }
-                pc = i;
-                cont[++pc] = returnCont;
-                cont[++pc] = finallyCont;
-                next = CONT;
-                return;
-            }
         }
         throw new SQLScriptRuntimeException("Found return statement outside of function block");
     }
@@ -1013,12 +803,6 @@ public class SQLScriptEngine
         next = CONT;
     }
 
-    public void processContinuation(RestoreEnvCont restoreEnvCont) {
-        pc--;
-        env = restoreEnvCont.getSavedEnv();
-        next = CONT;
-    }
-
     public void processContinuation(LoopCont loopCont) {
         // LoopCont is used as marker only -> just remove it
         pc--;
@@ -1054,20 +838,6 @@ public class SQLScriptEngine
             }
         }
         throw new SQLScriptRuntimeException("Found continue statement outside of loop");
-    }
-
-    public void processContinuation(ExitCont exitCont) {
-//        System.out.println("Computation finished. Exit continuation reached.");
-        pc = 0;
-        finished = true;
-        next = CONT;
-    }
-
-    public void processContinuation(InitParamCont initParamCont) {
-        Parameter param = initParamCont.getParameter();
-        param.setValue(val);
-        pc--;
-        next = CONT;
     }
 
     protected void checkFunArgs(Callable callable, List args) {

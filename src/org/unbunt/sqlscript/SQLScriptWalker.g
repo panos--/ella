@@ -134,16 +134,9 @@ scope Block, Scope;
 	:	statement*
 	;
 
-// No longer valid: Entry point for incremental script parsing - takes a saved scope as argument which is used as initial scope
+// Depricated: Entry point for incremental script parsing - takes a saved scope as argument which is used as initial scope
 // This now just calls the script rule. We now always need a given scope.
 scriptIncremental [ Scope scope ] returns [ Block value ]
-/*
-scope Block, Scope;
-@init { $Scope::scope = $scope; $Block::block = new Block($scope, false); }
-@after { $value = (Block)$Block::block; }
-	:	statement*
-	;
-*/
 	:	script[$scope] { $value = $script.value; }
 	;
 
@@ -179,67 +172,13 @@ scope Block;
 	;
 
 scriptStmt
-	:	scriptIfElse
-	|	scriptTry
-	|	scriptThrow
-	|	scriptReturn
-	|	scriptExit
+	:	scriptReturn
 	|	scriptImport
 	|	expressionStmt
 	;
 
-scriptIfElse returns [ Statement value ]
-scope Block;
-@init { $Block::block = new IfStatement(); $value = $Block::block; }
-@after { $Block[-1]::block.addStatement($value); }
-	:	^(IF scriptIf scriptElse?)
-	;
-
-scriptIf returns [ Statement value ]
-scope Scope;
-@init { $Scope::scope = new Scope($Scope[-1]::scope); }
-	:	expr=expression unscopedBlock { $Block::block.addStatement($expr.value); }
-	;
-
-scriptElse returns [ Statement value ]
-	:	elseIf=scriptIfElse { $value = $elseIf.value; }
-	|	elseBlock=block { $value = $elseBlock.value; }
-	;
-
-scriptTry returns [ TryStatement value ]
-@after { $Block::block.addStatement($value); }
-	:	^(TRY blk=blockStmt { $value = new TryStatement($blk.value); } (
-			cat=scriptCatch { $value.setCatchClause($cat.value); }
-			(fin=scriptFinally { $value.setFinallyClause($fin.value); })?
-			| fin=scriptFinally { $value.setFinallyClause($fin.value); }
-		))
-	;
-
-scriptCatch returns [ CatchStatement value ]
-scope Scope;
-@init { $Scope::scope = new Scope($Scope[-1]::scope); }
-	:	^(CATCH var=varDef blk=unscopedBlockStmt) {
-			$value = new CatchStatement($var.value, $blk.value);
-		}
-	;
-
-scriptFinally returns [ FinallyStatement value ]
-	:	^(FINALLY blk=blockStmt) { $value = new FinallyStatement($blk.value); }
-	;
-
-scriptThrow returns [ ThrowStatement value ]
-@after { $Block::block.addStatement($value); }
-	:	^(THROW expr=expression) { $value = new ThrowStatement($expr.value); }
-	;
-
 scriptReturn returns [ ReturnStatement value ]
 	:	^(RETURN { $value = new ReturnStatement(); } (expr=expression { $value.setExpression($expr.value); })?) {
-			$Block::block.addStatement($value);
-		}
-	;
-	
-scriptExit returns [ ExitStatement value ]
-	:	^(EXIT { $value = new ExitStatement(); } (expr=expression { $value.setExpression($expr.value); })?) {
 			$Block::block.addStatement($value);
 		}
 	;
@@ -304,10 +243,6 @@ expressionNoSlotExp returns [ Expression value ]
 	|	cl=callExpression { $value = $cl.value; }
 	|	cb=callBinaryExpression { $value = $cb.value; }
 	|	cu=callUnaryExpression { $value = $cu.value; }
-	|	tc=ternaryConditional { $value = $tc.value; }
-	|	oc=orCondition { $value = $oc.value; }
-	|	ac=andCondition { $value = $ac.value; }
-	|	nexp=notExpression { $value = $nexp.value; }
 	|	newx=newExpression { $value = $newx.value; }
 	|	sqlx=sqlExpression { $value = $sqlx.value; }
 	|	sexp=simpleExpression { $value = $sexp.value; }
@@ -509,32 +444,6 @@ callUnaryExpression returns [ SlotCallExpression value ]
 		}
 	;
 
-ternaryConditional returns [ Expression value ]
-	:	^(COND_EXPR cond=expression trueExp=expression falseExp=expression) {
-			$value = new TernaryCondExpression($cond.value, $trueExp.value, $falseExp.value);
-		}
-	;
-
-orCondition returns [ Condition value ]
-@init { List<Expression> expressions = new ArrayList<Expression>(); }
-	:	^(COND_OR (expr=expression { expressions.add($expr.value); })+) {
-			$value = new ConditionOr(expressions);
-		}
-	;
-
-andCondition returns [ Condition value ]
-@init { List<Expression> expressions = new ArrayList<Expression>(); }
-	:	^(COND_AND (expr=expression { expressions.add($expr.value); })+) {
-			$value = new ConditionAnd(expressions);
-		}
-	;
-
-notExpression returns [ Expression value ]
-	:	^(NOT exp=expression) {
-			$value = new NotExpression($exp.value);
-		}
-	;
-
 newExpression returns [ Expression value ]
 	:	^(NEW exp=expression (args=argumentsList)?) {
 			$value = new NewExpression($exp.value, $args.value);
@@ -672,23 +581,6 @@ objectSlot returns [ Expression key, Expression value ]
 arrayLiteral returns [ List<Expression> value ]
 @init { $value = new ArrayList<Expression>(); }
 	:	^(ARRAY (expr=expression { $value.add($expr.value); })*)
-	;
-
-parameter returns [ Parameter value ]
-@init { Expression paramValue = null; }
-	:	PARAM_NAME pname=paramName (PARAM_VALUE pval=paramValue { paramValue = $pval.value; })? {
-			$value = new Parameter();
-			$value.setName($pname.value);
-			$Block::block.addStatement(new InitParameter($value, paramValue));
-		}
-	;
-
-paramName returns [ String value ]
-	:	id=identifier { $value = $id.value; }
-	;
-
-paramValue returns [ Expression value ]
-	:	expr=expression { $value = $expr.value; }
 	;
 
 identifierExpression returns [ Expression value ]

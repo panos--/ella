@@ -62,28 +62,6 @@ public class TailCallOptimizer {
             }
         }
 
-        public void processExpression(NotExpression notExpression) {
-            notExpression.getExpression().accept(this);
-        }
-
-        public void processExpression(ConditionAnd conditionAnd) {
-            for (Expression expression : conditionAnd.getExpressions()) {
-                expression.accept(this);
-            }
-        }
-
-        public void processExpression(ConditionOr conditionOr) {
-            for (Expression expression : conditionOr.getExpressions()) {
-                expression.accept(this);
-            }
-        }
-
-        public void processExpression(TernaryCondExpression ternaryCondExpression) {
-            ternaryCondExpression.getCondition().accept(this);
-            ternaryCondExpression.getTrueExpression().accept(this);
-            ternaryCondExpression.getFalseExpression().accept(this);
-        }
-
         public void processExpression(DeclareVariableExpression declareVariableExpression) {
         }
 
@@ -106,28 +84,6 @@ public class TailCallOptimizer {
         }
 
         public void processExpression(VariableExpression variableExpression) {
-        }
-
-        public void processExpression(IfStatement ifStatement) {
-            ifStatement.getCondition().accept(this);
-            ifStatement.getTrueStatement().accept(this);
-            if (ifStatement.hasFalseStatement()) {
-                ifStatement.getFalseStatement().accept(this);
-            }
-        }
-
-        public void processExpression(TryStatement tryStatement) {
-            tryStatement.getBody().accept(this);
-            if (tryStatement.hasCatchClause()) {
-                tryStatement.getCatchClause().accept(this);
-            }
-            if (tryStatement.hasFinallyClause()) {
-                tryStatement.getFinallyClause().accept(this);
-            }
-        }
-
-        public void processExpression(ThrowStatement throwStatement) {
-            throwStatement.getExpression().accept(this);
         }
 
         public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
@@ -162,12 +118,6 @@ public class TailCallOptimizer {
             for (Expression expression : newExpression.getArguments()) {
                 expression.accept(this);
             }
-        }
-
-        public void processExpression(ExitStatement exitStatement) {
-        }
-
-        public void processExpression(InitParameter initParameter) {
         }
 
         public void processExpression(ThisExpression thisExpression) {
@@ -264,20 +214,6 @@ public class TailCallOptimizer {
             public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
             }
 
-            public void processExpression(NotExpression notExpression) {
-            }
-
-            public void processExpression(ConditionAnd conditionAnd) {
-            }
-
-            public void processExpression(ConditionOr conditionOr) {
-            }
-
-            public void processExpression(TernaryCondExpression ternaryCondExpression) {
-                ternaryCondExpression.getTrueExpression().accept(this);
-                ternaryCondExpression.getFalseExpression().accept(this);
-            }
-
             public void processExpression(DeclareVariableExpression declareVariableExpression) {
             }
 
@@ -295,20 +231,6 @@ public class TailCallOptimizer {
 
             public void processExpression(VariableExpression variableExpression) {
             }
-
-            public void processExpression(IfStatement ifStatement) {
-                ifStatement.getTrueStatement().accept(this);
-                if (ifStatement.hasFalseStatement()) {
-                    ifStatement.getFalseStatement().accept(this);
-                }
-            }
-
-            public void processExpression(TryStatement tryStatement) {
-            }
-
-            public void processExpression(ThrowStatement throwStatement) {
-            }
-
             public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
                 // NOTE: Don't traverse down into nested function definitions - the searcher is responsible for that
             }
@@ -328,12 +250,6 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(NewExpression newExpression) {
-            }
-
-            public void processExpression(ExitStatement exitStatement) {
-            }
-
-            public void processExpression(InitParameter initParameter) {
             }
 
             public void processExpression(ThisExpression thisExpression) {
@@ -383,18 +299,6 @@ public class TailCallOptimizer {
             public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
             }
 
-            public void processExpression(NotExpression notExpression) {
-            }
-
-            public void processExpression(ConditionAnd conditionAnd) {
-            }
-
-            public void processExpression(ConditionOr conditionOr) {
-            }
-
-            public void processExpression(TernaryCondExpression ternaryCondExpression) {
-            }
-
             public void processExpression(DeclareVariableExpression declareVariableExpression) {
             }
 
@@ -411,19 +315,6 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(VariableExpression variableExpression) {
-            }
-
-            public void processExpression(IfStatement ifStatement) {
-                ifStatement.getTrueStatement().accept(this);
-                if (ifStatement.hasFalseStatement()) {
-                    ifStatement.getFalseStatement().accept(this);
-                }
-            }
-
-            public void processExpression(TryStatement tryStatement) {
-            }
-
-            public void processExpression(ThrowStatement throwStatement) {
             }
 
             public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
@@ -447,12 +338,6 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(NewExpression newExpression) {
-            }
-
-            public void processExpression(ExitStatement exitStatement) {
-            }
-
-            public void processExpression(InitParameter initParameter) {
             }
 
             public void processExpression(ThisExpression thisExpression) {
@@ -496,20 +381,6 @@ public class TailCallOptimizer {
             public void processExpression(ArrayLiteralExpression arrayLiteralExpression) {
             }
 
-            public void processExpression(NotExpression notExpression) {
-            }
-
-            public void processExpression(ConditionAnd conditionAnd) {
-            }
-
-            public void processExpression(ConditionOr conditionOr) {
-            }
-
-            public void processExpression(TernaryCondExpression ternaryCondExpression) {
-                ternaryCondExpression.getTrueExpression().accept(this);
-                ternaryCondExpression.getFalseExpression().accept(this);
-            }
-
             public void processExpression(DeclareVariableExpression declareVariableExpression) {
             }
 
@@ -528,15 +399,6 @@ public class TailCallOptimizer {
             public void processExpression(VariableExpression variableExpression) {
             }
 
-            public void processExpression(IfStatement ifStatement) {
-            }
-
-            public void processExpression(TryStatement tryStatement) {
-            }
-
-            public void processExpression(ThrowStatement throwStatement) {
-            }
-
             public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
             }
 
@@ -552,12 +414,6 @@ public class TailCallOptimizer {
             }
 
             public void processExpression(NewExpression newExpression) {
-            }
-
-            public void processExpression(ExitStatement exitStatement) {
-            }
-
-            public void processExpression(InitParameter initParameter) {
             }
 
             public void processExpression(ThisExpression thisExpression) {

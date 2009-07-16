@@ -12,17 +12,11 @@ options {
 
 tokens {
 	BLOCK;
-	EVAL_CMD;
-	EVAL_ARG;
 	SQL;
 	SQL_MODE;
 	SQL_STMT;
 	SQL_EXPR;
 	SQL_PARAM;
-	ANNOT;
-	ANNOT_ARG;
-	PARAM_NAME;
-	PARAM_VALUE;
 	DECLARE_ASSIGN;
 	DECLARE;
 	ASSIGN;
@@ -30,23 +24,7 @@ tokens {
 	FUNC_CALL;
 	BLOCK_CLOSURE;
 	ARGS;
-	ARG_EXPR;
-	ARG_TRUE;
-	ARG_FALSE;
-	IF;
-	IF_BLOCK;
-	ELSE_BLOCK;
-	TRY;
-	CATCH;
-	FINALLY;
-	THROW;
 	RETURN;
-	EXIT;
-	COND_EXPR;
-	COND_AND;
-	COND_OR;
-	COMP_EQ;
-	NOT;
 	TRUE;
 	FALSE;
 	OBJ;
@@ -457,16 +435,6 @@ scriptExpressionStmt
 	:	DOT! expressionStmt
 	;
 
-scriptIfElseOLD
-	:	KW_IF parenExpression block
-		( KW_ELSE
-			( scriptIfElse	-> ^(IF parenExpression block scriptIfElse)
-			| block		-> ^(IF parenExpression block block)
-			)
-		|	-> ^(IF parenExpression block)
-		)
-	;
-
 scriptIfElse
 	:	KW_IF parenExpression block
 		( KW_ELSE
@@ -494,21 +462,6 @@ scriptIfElse
 		)
 	;
 
-scriptTryOLD
-	:	KW_TRY block
-		( scriptCatch scriptFinally?	-> ^(TRY block scriptCatch scriptFinally?)
-		| scriptFinally			-> ^(TRY block scriptFinally)
-		)
-	;
-
-scriptCatchOLD
-	:	KW_CATCH LPAREN identifier RPAREN block	-> ^(CATCH identifier block)
-	;
-
-scriptFinallyOLD
-	:	KW_FINALLY block			-> ^(FINALLY block)
-	;
-
 scriptTry
 	:	KW_TRY block
 		( scriptCatch
@@ -534,10 +487,6 @@ scriptCatch
 
 scriptFinally
 	:	KW_FINALLY block			-> ^(BLOCK_CLOSURE block)
-	;
-
-scriptThrowOLD
-	:	KW_THROW expression -> ^(THROW expression)
 	;
 
 scriptThrow
@@ -580,10 +529,6 @@ scriptContinue
 // TODO: Allow return only inside of function blocks
 scriptReturn
 	:	KW_RETURN expression? -> ^(RETURN expression?)
-	;
-
-scriptExitOLD
-	:	KW_EXIT expression? -> ^(EXIT expression?)
 	;
 
 scriptExit
@@ -692,13 +637,6 @@ options { k=3; }
 	|	objectLiteral // NOTE: quick hack
 	;
 
-orConditionOLD
-	:	andCondition
-		( (OP_OR andCondition)+	-> ^(COND_OR andCondition+)
-		|			-> andCondition
-		)
-	;
-
 orCondition
 	:	(andCondition		-> andCondition)
 		( OP_OR andCondition	-> ^(CALL
@@ -706,13 +644,6 @@ orCondition
 						^(ARGS ^(BLOCK_CLOSURE ^(BLOCK andCondition)))
 						)
 		)*
-	;
-
-andConditionOLD
-	:	eqCondition
-		( (OP_AND eqCondition)+	-> ^(COND_AND eqCondition+)
-		|			-> eqCondition
-		)
 	;
 
 andCondition
@@ -1029,14 +960,6 @@ identifierNoOps
 
 embeddedVar
 	:	EMB_VAR_START id=identifier RCURLY -> EMBEDDED_VAR[$id.start]
-	;
-
-paramName
-	:	identifier
-	;
-
-paramValue
-	:	simpleExpression
 	;
 
 keyword	:	KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW
