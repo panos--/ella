@@ -618,8 +618,8 @@ sqlToken returns [ Object value ]
 sqlAtom returns [ String value ]
 	:	c=( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE
 		  | EQUALS | BACKSLASH | ATSIGN
-		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE
-		  | EXCLAM | QUESTION | COLON | COMMA
+		  | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE
+		  | EXCLAM | QUESTION | COLON | DOT | COMMA
 		  | STR_SQUOT | STR_DQUOT | STR_BTICK
 		  | INT | FLOAT
 		  ) { $value = $c.text; }
