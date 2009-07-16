@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.SQLScriptEngine;
-import org.unbunt.sqlscript.utils.NNumUtils;
+import org.unbunt.sqlscript.utils.NumUtils;
 import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
 import static org.unbunt.sqlscript.utils.NumUtils.toBigInteger;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
@@ -126,7 +126,7 @@ public class NBigReal extends PlainObj implements NNumeric {
     }
 
     public Obj multiply(double arg) {
-        return NNumUtils.multiply(value, arg);
+        return NumUtils.multiply(value, arg);
     }
 
     public Obj multiply(BigInteger arg) {
@@ -138,12 +138,12 @@ public class NBigReal extends PlainObj implements NNumeric {
     }
 
     public Obj divideRev(long arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(toBigDecimal(arg), value);
+        return NumUtils.divide(toBigDecimal(arg), value);
     }
 
     public Obj divideRev(double arg) throws CheckedArithmeticException {
         try {
-            return NNumUtils.divide(toBigDecimal(arg), value);
+            return NumUtils.divide(toBigDecimal(arg), value);
         } catch (DoubleNaNException e) {
             return new NReal(arg);
         } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
@@ -154,11 +154,11 @@ public class NBigReal extends PlainObj implements NNumeric {
     }
 
     public Obj divideRev(BigInteger arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(toBigDecimal(arg), value);
+        return NumUtils.divide(toBigDecimal(arg), value);
     }
 
     public Obj divideRev(BigDecimal arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(arg, value);
+        return NumUtils.divide(arg, value);
     }
 
     public int compareTo(NNumeric arg) {
@@ -260,7 +260,7 @@ public class NBigReal extends PlainObj implements NNumeric {
                 NNumeric arg = ensureType(args[0]);
                 try {
                     if (arg.isBigReal()) {
-                        return NNumUtils.divide(thiz.value, ((NBigReal)arg).value);
+                        return NumUtils.divide(thiz.value, ((NBigReal)arg).value);
                     }
                     return arg.divideRev(thiz.value);
                 } catch (CheckedArithmeticException e) {

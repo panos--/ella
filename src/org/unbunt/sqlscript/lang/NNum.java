@@ -5,9 +5,9 @@ import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.utils.NNumUtils;
-import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
+import org.unbunt.sqlscript.utils.NumUtils;
 import static org.unbunt.sqlscript.utils.NumUtils.toBigInteger;
+import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 import java.math.BigDecimal;
@@ -139,11 +139,11 @@ public class NNum extends PlainObj implements NNumeric {
     }
 
     public Obj divideRev(BigInteger arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(arg, toBigInteger(value));
+        return NumUtils.divide(arg, toBigInteger(value));
     }
 
     public Obj divideRev(BigDecimal arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(arg, toBigDecimal(value));
+        return NumUtils.divide(arg, toBigDecimal(value));
     }
 
     public int compareTo(NNumeric arg) {

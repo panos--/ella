@@ -4,9 +4,9 @@ import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.utils.NNumUtils;
-import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
+import org.unbunt.sqlscript.utils.NumUtils;
 import static org.unbunt.sqlscript.utils.NumUtils.toBigInteger;
+import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 import java.math.BigDecimal;
@@ -151,7 +151,7 @@ public class NBigNum extends PlainObj implements NNumeric {
 
     public Obj divideRev(double arg) throws CheckedArithmeticException {
         try {
-            return NNumUtils.divide(toBigDecimal(arg), toBigDecimal(value));
+            return NumUtils.divide(toBigDecimal(arg), toBigDecimal(value));
         } catch (DoubleNaNException e) {
             return new NReal(arg);
         } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
@@ -162,11 +162,11 @@ public class NBigNum extends PlainObj implements NNumeric {
     }
 
     public Obj divideRev(BigInteger arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(arg, value);
+        return NumUtils.divide(arg, value);
     }
 
     public Obj divideRev(BigDecimal arg) throws CheckedArithmeticException {
-        return NNumUtils.divide(arg, toBigDecimal(value));
+        return NumUtils.divide(arg, toBigDecimal(value));
     }
 
     public int compareTo(NNumeric arg) {

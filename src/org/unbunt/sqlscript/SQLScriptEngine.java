@@ -14,14 +14,11 @@ import org.unbunt.sqlscript.statement.*;
 import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.sqlscript.utils.StringUtils;
-import org.unbunt.sqlscript.utils.VolatileObservable;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class SQLScriptEngine
-        extends VolatileObservable
-        implements ExpressionVisitor, ContinuationVisitor {
+public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final boolean STEP = false;
 
@@ -1098,8 +1095,6 @@ public class SQLScriptEngine
 
     public void setEnv(Env env) {
         this.env = env;
-        // XXX: this is wrong, i think. context should a reference to the main/global env only
-//        this.context.setEnv(env);
     }
 
     public static class EngineState {

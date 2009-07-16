@@ -1,7 +1,6 @@
 package org.unbunt.sqlscript.utils;
 
 import org.apache.commons.collections.list.CursorableLinkedList;
-import org.apache.commons.collections.list.AbstractLinkedList;
 
 import java.util.Collection;
 

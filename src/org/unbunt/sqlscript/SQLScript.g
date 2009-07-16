@@ -69,7 +69,6 @@ tokens {
 	package org.unbunt.sqlscript;
 
 	import org.antlr.runtime.tree.CommonTree;
-	import org.unbunt.sqlscript.antlr.TreeHolderToken;	
 	import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
 }
 

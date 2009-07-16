@@ -2,14 +2,57 @@ package org.unbunt.sqlscript.utils;
 
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.exception.*;
-import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
 
-import java.math.BigInteger;
 import java.math.BigDecimal;
-import static java.lang.Double.isInfinite;
+import java.math.BigInteger;
 
 public class NumUtils {
     public static final BigInteger MAX_DOUBLE = toBigIntegerUnguarded(Double.MAX_VALUE);
+
+    public static Obj divide(BigDecimal divisor, BigDecimal dividend) throws CheckedArithmeticException {
+        try {
+            return new NBigReal(divisor.divide(dividend));
+        } catch (ArithmeticException e) {
+            if (BigDecimal.ZERO.equals(dividend)) {
+                throw new CheckedArithmeticException(e);
+            }
+            return new NBigReal(divisor.divide(dividend,
+                                               NNumeric.DECIMAL_FALLBACK_SCALE,
+                                               NNumeric.DECIMAL_FALLBACK_ROUNDING_MODE));
+        }
+    }
+
+    public static Obj divide(BigInteger divisor, BigInteger dividend) throws CheckedArithmeticException {
+        try {
+            return new NBigNum(divisor.divide(dividend));
+        } catch (ArithmeticException e) {
+            throw new CheckedArithmeticException(e);
+        }
+    }
+
+    public static Obj multiply(BigDecimal a, double b) {
+        try {
+            return new NBigReal(a.multiply(toBigDecimal(b)));
+        } catch (DoubleNegativeInfinityException e) {
+            return new NReal(b);
+        } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
+            return new NReal(b);
+        } catch (DoubleNaNException e) {
+            return new NReal(b);
+        }
+    }
+
+    public static Obj divide(BigDecimal a, double b) {
+        try {
+            return new NBigReal(a.divide(toBigDecimal(b)));
+        } catch (DoubleNegativeInfinityException e) {
+            return new NReal(b);
+        } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
+            return new NReal(b);
+        } catch (DoubleNaNException e) {
+            return new NReal(b);
+        }
+    }
 
     private static BigInteger toBigIntegerUnguarded(double value) {
         try {
@@ -70,9 +113,4 @@ public class NumUtils {
     public static BigDecimal toBigDecimal(BigInteger value) {
         return new BigDecimal(value);
     }
-
-    public static boolean doublePossible(BigInteger result) {
-        return result.abs().compareTo(MAX_DOUBLE) < 1;
-    }
-
 }

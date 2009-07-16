@@ -19,7 +19,6 @@ import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.DBUtils;
 import static org.unbunt.sqlscript.utils.StringUtils.join;
-import org.unbunt.sqlscript.utils.VolatileObservable;
 import org.unbunt.sqlscript.utils.res.FilesystemResource;
 import org.unbunt.sqlscript.utils.res.FilesystemResourceLoader;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
@@ -32,10 +31,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-public class SQLScript extends VolatileObservable implements Observer {
+public class SQLScript {
     protected Context context;
     protected SimpleResource script;
     protected String scriptName;
@@ -451,7 +448,6 @@ public class SQLScript extends VolatileObservable implements Observer {
 
     protected void initEngine() {
         engine = SQLScriptEngine.create(context);
-        engine.addObserver(this);
     }
 
     protected void finish() {
@@ -459,10 +455,6 @@ public class SQLScript extends VolatileObservable implements Observer {
             return;
         }
         engine.finish();
-    }
-
-    public void update(Observable o, Object arg) {
-        notifyObservers(arg);
     }
 
     /*
