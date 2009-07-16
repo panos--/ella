@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
+/**
+ * This interface is intended mainly for documentation purposes and therefore does not define any methods.
+ */
 public interface Expression extends Statement {
-    public static byte CALL_FLAG_SUPER = 0x1;
-    public static byte CALL_FLAG_TAIL  = 0x2;
 }

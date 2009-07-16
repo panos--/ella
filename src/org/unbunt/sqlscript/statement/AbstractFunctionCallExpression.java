@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public abstract class AbstractFunctionCallExpression implements Expression {
+    public static byte CALL_FLAG_SUPER = 0x1;
+    public static byte CALL_FLAG_TAIL  = 0x2;
+
     protected byte callFlags = 0;
 
     protected List<Expression> arguments = new ArrayList<Expression>();
