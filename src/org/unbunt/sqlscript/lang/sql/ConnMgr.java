@@ -1,7 +1,5 @@
 package org.unbunt.sqlscript.lang.sql;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
