@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.support.SQLParseMode;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SQLLiteralExpression extends AbstractExpression {
+public class SQLLiteralExpression implements Expression {
     protected SQLParseMode parseMode = null;
     protected List<Object> parts = new LinkedList<Object>();
 

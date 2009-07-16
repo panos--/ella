@@ -4,7 +4,7 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 import java.util.List;
 
-public class NewExpression extends AbstractExpression {
+public class NewExpression implements Expression {
     protected Expression expression;
     protected List<Expression> arguments;
 

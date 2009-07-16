@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
-public class DeclareAndAssignExpression extends AbstractExpression {
+public class DeclareAndAssignExpression implements Expression {
     protected DeclareVariableExpression declareExpr;
     protected AssignExpression assignExpr;
 

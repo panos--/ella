@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.support.ObjectLiteral;
 
-public class ObjectLiteralExpression extends AbstractExpression {
+public class ObjectLiteralExpression implements Expression {
     protected ObjectLiteral objectLiteral;
 
     public ObjectLiteralExpression(ObjectLiteral objectLiteral) {

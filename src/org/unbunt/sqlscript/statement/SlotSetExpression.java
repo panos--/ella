@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
-public class SlotSetExpression extends AbstractExpression {
+public class SlotSetExpression implements Expression {
     protected SlotExpression slotExpression;
     protected Expression valueExpression;
 

@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.support.BlockClosure;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
-public class BlockClosureExpression extends AbstractExpression implements StatementContainer {
+public class BlockClosureExpression implements Expression, StatementContainer {
     protected BlockClosure blockClosure;
 
     public BlockClosureExpression(BlockClosure blockClosure) {

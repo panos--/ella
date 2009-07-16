@@ -9,7 +9,7 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
  * <p/>
  * Copyright: (c) 2007 marketoolz GmbH
  */
-public class SuperExpression extends AbstractExpression {
+public class SuperExpression implements Expression {
     public void accept(ExpressionVisitor visitor) {
         visitor.processExpression(this);
     }

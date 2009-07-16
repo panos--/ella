@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Variable;
 
-public class VariableExpression extends AbstractStatement implements Expression {
+public class VariableExpression implements Expression {
     protected Variable variable;
 
     public VariableExpression(Variable variable) {

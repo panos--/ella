@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.statement;
 import org.unbunt.sqlscript.lang.Str;
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
-public class IdentifierExpression extends AbstractExpression {
+public class IdentifierExpression implements Expression {
     protected String identifier;
     protected Str value;
 

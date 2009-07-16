@@ -4,7 +4,7 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Function;
 import org.unbunt.sqlscript.support.Variable;
 
-public class FunctionDefinitionExpression extends AbstractExpression implements StatementContainer {
+public class FunctionDefinitionExpression implements Expression, StatementContainer {
     protected Function function;
     protected Variable variable;
     protected boolean declareVariable;

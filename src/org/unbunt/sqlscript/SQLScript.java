@@ -446,9 +446,6 @@ public class SQLScript extends VolatileObservable implements Observer {
     }
 
     protected Object runBlock() {
-        // for interactive mode it is important to keep environment between
-        // the separate run cycles
-        block.setKeepEnv(true);
         return engine.process(block);
     }
 

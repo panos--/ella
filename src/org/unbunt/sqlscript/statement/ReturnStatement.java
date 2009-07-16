@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.support.ExpressionVisitor;
 
-public class ReturnStatement extends AbstractStatement {
+public class ReturnStatement implements Statement {
     protected Expression expression = null;
 
     protected boolean optimizeForTailCall = false;

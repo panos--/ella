@@ -6,22 +6,21 @@ import org.unbunt.sqlscript.support.Scope;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block extends AbstractStatement implements StatementContainer {
+public class Block implements StatementContainer {
     protected List<Statement> statements = new ArrayList<Statement>(16);
 
-    protected boolean scoped = true;
+    protected final Scope scope;
 
-    // indicates that after processing this block the environment should not be reset
-    protected boolean keepEnv = false;
+    protected boolean scoped;
 
     protected boolean optimizeForTailCall = false;
 
     public Block(Scope scope) {
-        super(scope);
+        this(scope, false);
     }
 
     public Block(Scope scope, boolean scoped) {
-        this(scope);
+        this.scope = scope;
         this.scoped = scoped;
     }
 
@@ -38,8 +37,11 @@ public class Block extends AbstractStatement implements StatementContainer {
     }
 
     public void addStatement(Statement statement) {
-        statement.setScope(getScope());
         statements.add(statement);
+    }
+
+    public Scope getScope() {
+        return scope;
     }
 
     public boolean isScoped() {
@@ -48,14 +50,6 @@ public class Block extends AbstractStatement implements StatementContainer {
 
     public void setScoped(boolean scoped) {
         this.scoped = scoped;
-    }
-
-    public boolean isKeepEnv() {
-        return keepEnv;
-    }
-
-    public void setKeepEnv(boolean keepEnv) {
-        this.keepEnv = keepEnv;
     }
 
     public boolean isOptimizeForTailCall() {

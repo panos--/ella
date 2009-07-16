@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.statement;
 import java.util.List;
 import java.util.ArrayList;
 
-public abstract class AbstractFunctionCallExpression extends AbstractExpression {
+public abstract class AbstractFunctionCallExpression implements Expression {
     protected byte callFlags = 0;
 
     protected List<Expression> arguments = new ArrayList<Expression>();
@@ -18,10 +18,6 @@ public abstract class AbstractFunctionCallExpression extends AbstractExpression 
 
     public void addArgument(Expression argument) {
         arguments.add(argument);
-    }
-
-    public boolean isTailCall() {
-        return (callFlags & CALL_FLAG_TAIL) != 0;
     }
 
     public void setTailCall(boolean tailCall) {

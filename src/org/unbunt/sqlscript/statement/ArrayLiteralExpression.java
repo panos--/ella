@@ -4,7 +4,7 @@ import org.unbunt.sqlscript.support.ExpressionVisitor;
 
 import java.util.List;
 
-public class ArrayLiteralExpression extends AbstractExpression {
+public class ArrayLiteralExpression implements Expression {
     protected final Expression[] components;
 
     public ArrayLiteralExpression(List<Expression> components) {
