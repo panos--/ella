@@ -127,9 +127,8 @@ public class Context implements SQLResultProvider {
         mainEnv.add("Func", ensureObject(Func.FuncProto.OBJECT_ID));
         mainEnv.add("JArray", ensureObject(JArray.JArrayProto.OBJECT_ID));
         mainEnv.add("JClass", ensureObject(JClass.JClassProto.OBJECT_ID));
-        mainEnv.add("Conn", ensureObject(ConnMgr.OBJECT_ID));
-        // TODO: which name to use?
-        //mainEnv.add("???", ensureObject(Conn.ConnProto.OBJECT_ID));
+        mainEnv.add("ConnMgr", ensureObject(ConnMgr.OBJECT_ID));
+        mainEnv.add("Conn", ensureObject(Conn.ConnProto.OBJECT_ID));
         mainEnv.add("Stmt", ensureObject(Stmt.StmtProto.OBJECT_ID));
 
         // init arguments

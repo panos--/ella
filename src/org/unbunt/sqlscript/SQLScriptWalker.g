@@ -486,7 +486,7 @@ sqlExpression returns [ Expression value ]
 	SQLLiteralExpression sql = null;
 }
 @after {
-	SlotCallExpression exp = createSlotCall("Conn", slotName, sql);
+	SlotCallExpression exp = createSlotCall("ConnMgr", slotName, sql);
 	$value = exp;
 }
 	:	^(( SQL_STMT { slotName = "execStmt"; }

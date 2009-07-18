@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-07-16 23:21:54
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-07-18 23:05:36
 
 	package org.unbunt.sqlscript;
 
@@ -3222,7 +3222,7 @@ public class SQLScriptWalker extends TreeParser {
 
             if ( state.backtracking==0 ) {
 
-              	SlotCallExpression exp = createSlotCall("Conn", slotName, sql);
+              	SlotCallExpression exp = createSlotCall("ConnMgr", slotName, sql);
               	value = exp;
 
             }

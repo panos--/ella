@@ -1,4 +1,4 @@
-.Conn.withPrepared { =>
+.ConnMgr.withPrepared { =>
 	var ins := sql insert into test (val) values (?);
 	var sel := sql select * from test where id = :id;
 

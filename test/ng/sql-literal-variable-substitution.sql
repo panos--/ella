@@ -1,4 +1,4 @@
-.Conn.createFromProps(ARGV[0]);
+.ConnMgr.createFromProps(ARGV[0]);
 
 var value := 'foo';
 var stmt := sql select * from foo where bar = 'abc->@{value}<-def';

@@ -1,4 +1,4 @@
-.Conn.createFromProps(ARGV[0]);
+.ConnMgr.createFromProps(ARGV[0]);
 
 \set quotes=mysql;
 
@@ -12,7 +12,7 @@ create table txtest1 (
 
 var exCaught := false;
 try {
-	Conn.tx {=>
+	ConnMgr.tx {=>
 		sql insert into txtest1 (`key`, `val`) values ('a', 'b');
 		throw 'aborting transaction';
 	};
@@ -37,7 +37,7 @@ for (row : sql select count(*) as c from txtest1) {
 	}
 }
 
-.Conn.tx {=>
+.ConnMgr.tx {=>
 	sql insert into txtest1 (`key`, `val`) values ('a', 'b');
 };
 

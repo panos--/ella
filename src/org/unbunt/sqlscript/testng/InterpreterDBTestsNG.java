@@ -19,7 +19,7 @@ public class InterpreterDBTestsNG extends AbstractTest {
 
     @Test
     public void connectMysql() throws SQLScriptIOException, SQLScriptParseException, SQLException {
-        Object result = eval(String.format(".Conn.createFromProps('%s', 'mysql');", propsMysql()));
+        Object result = eval(String.format(".ConnMgr.createFromProps('%s', 'mysql');", propsMysql()));
         Connection conn = ensureType(Connection.class, result);
         conn.close();
     }
@@ -28,14 +28,14 @@ public class InterpreterDBTestsNG extends AbstractTest {
     public void connActivate() throws SQLScriptIOException, SQLScriptParseException {
         // TODO: Close connections
         eval("{\n" +
-                String.format("var conn1 := Conn.createFromProps('%s', 'mysql');\n", propsMysql()) +
-                String.format("var conn2 := Conn.createFromProps('%s', 'mysql');\n", propsMysql()) +
+                String.format("var conn1 := ConnMgr.createFromProps('%s', 'mysql');\n", propsMysql()) +
+                String.format("var conn2 := ConnMgr.createFromProps('%s', 'mysql');\n", propsMysql()) +
                 ".conn2.do {=>\n" +
-                "   if (Conn.active !== conn2) {\n" +
+                "   if (ConnMgr.active !== conn2) {\n" +
                 "       throw 'conn2 not active';\n" +
                 "   }\n" +
                 "};\n" +
-                "if (Conn.active !== conn1) {\n" +
+                "if (ConnMgr.active !== conn1) {\n" +
                 "   throw 'conn1 not active';" +
                 "}\n" +
                 "}\n"
