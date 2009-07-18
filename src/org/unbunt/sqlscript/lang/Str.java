@@ -54,7 +54,9 @@ public class Str extends AbstractObj {
     public static final Str SYM_eachSlot = toSym("eachSlot");
     public static final Str SYM_exec = toSym("exec");
     public static final Str SYM_execStmt = toSym("execStmt");
+    public static final Str SYM_explicitSlot = toSym("explicitSlot");
     public static final Str SYM_finish = toSym("finish");
+    public static final Str SYM_first = toSym("first");
     public static final Str SYM_get = toSym("get");
     public static final Str SYM_getQueryString = toSym("getQueryString");
     public static final Str SYM_importPackage = toSym("importPackage");

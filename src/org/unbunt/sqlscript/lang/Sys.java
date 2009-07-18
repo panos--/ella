@@ -244,6 +244,15 @@ public class Sys extends PlainObj {
         }
     };
 
+    protected static final NativeCall nativeExplicitSlot = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            Obj obj = args[0];
+            Obj slot = args[1];
+            Obj value = obj.getSlot(engine.getContext(), slot);
+            return value != null ? value : engine.getObjNull();
+        }
+    };
+
     protected static final NativeCall nativeNoop = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjNull();
@@ -279,6 +288,7 @@ public class Sys extends PlainObj {
         slots.put(Str.SYM_tryFinally, nativeTryFinally);
         slots.put(Str.SYM_scriptName, nativeScriptName);
         slots.put(Str.SYM_scriptResource, nativeScriptResource);
+        slots.put(Str.SYM_explicitSlot, nativeExplicitSlot);
         slots.put(Str.SYM_noop, nativeNoop);
     }
 }

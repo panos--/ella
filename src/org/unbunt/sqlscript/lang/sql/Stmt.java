@@ -461,6 +461,40 @@ public class Stmt extends PlainObj {
             }
         };
 
+        // NOTE: This has to be improved. Result should be wrapped into special object.
+        protected static final NativeCall nativeFirst = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Stmt thiz = ensureType(context);
+                Null _null = engine.getObjNull();
+                Context ctx = engine.getContext();
+                try {
+                    ResultSet rs = thiz.query();
+                    if (rs.next()) {
+                        ResultSetMetaData meta = rs.getMetaData();
+                        int ncols = meta.getColumnCount();
+                        Obj result = new PlainObj();
+                        for (int i = 1; i <= ncols; i++) {
+                            result.setSlot(ctx,
+                                           // XXX: Should name really be intern()ed?
+                                           new Str(meta.getColumnLabel(i)).intern(),
+                                           NativeWrapper.wrap(ctx, rs.getObject(i)));
+                        }
+                        return result;
+                    }
+                    else {
+                        return _null;
+                    }
+                } catch (SQLException e) {
+                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                } finally {
+                    try {
+                        thiz.close();
+                    } catch (SQLException ignored) {
+                    }
+                }
+            }
+        };
+
         protected static final NativeCall nativeEachKey = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Stmt thiz = ensureType(context);
@@ -613,6 +647,7 @@ public class Stmt extends PlainObj {
             slots.put(Str.SYM_do, nativeDo);
             slots.put(Str.SYM_exec, nativeExec);
             slots.put(Str.SYM_each, nativeEach);
+            slots.put(Str.SYM_first, nativeFirst);
             slots.put(Str.SYM_eachKey, nativeEachKey);
             slots.put(Str.SYM_key, nativeKey);
             slots.put(Str.SYM_with, nativeWith);

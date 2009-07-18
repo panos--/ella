@@ -383,7 +383,7 @@ scriptAssign
 			( sqlExpression				-> ^(ASSIGN identifier sqlExpression)
 			| expressionNoSQL scriptAssignRest?	-> ^(ASSIGN identifier expressionNoSQL) scriptAssignRest?
 			)
-		|						-> ^(DECLARE identifier)
+		| scriptAssignRest?				-> ^(DECLARE identifier) scriptAssignRest?
 		)
 	;
 
