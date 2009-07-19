@@ -7,7 +7,7 @@ import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
-public class Args extends PlainObj {
+public class Args extends AbstractObj {
     public final Obj[] args;
 
     public static final Args emptyArgs = new Args(new Obj[0]);
@@ -28,7 +28,7 @@ public class Args extends PlainObj {
         ctx.registerProto(OBJECT_ID, ArgsProto.OBJECT_ID);
     }
 
-    protected static class ArgsProto extends PlainObj {
+    protected static class ArgsProto extends AbstractObj {
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Args thiz = ensureType(context);

@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
-public class NNumericProto extends PlainObj {
+public class NNumericProto extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected static final NativeCall nativeNumValue = new NativeCall() {

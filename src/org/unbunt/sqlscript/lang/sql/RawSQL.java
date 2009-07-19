@@ -27,14 +27,6 @@ public class RawSQL implements Obj {
         return -1;
     }
 
-    public Obj getParent() {
-        return null;
-    }
-
-    public Obj addSlot(Context ctx, Obj key, Obj value) {
-        return null;
-    }
-
     public Obj setSlot(Context ctx, Obj key, Obj value) {
         return null;
     }

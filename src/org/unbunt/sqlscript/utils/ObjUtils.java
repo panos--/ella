@@ -5,12 +5,14 @@ import org.unbunt.sqlscript.lang.Obj;
 import org.unbunt.sqlscript.support.Context;
 
 public class ObjUtils {
+    public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
+
     public static Obj getImplicitParent(Context ctx, Obj obj) {
         return ctx.getObjectProto(obj);
     }
 
     public static Obj getParent(Context ctx, Obj obj) {
-        Obj parent = obj.getParent();
+        Obj parent = obj.getSlot(ctx, SLOT_PARENT);
         if (parent == null) {
             parent = getImplicitParent(ctx, obj);
         }

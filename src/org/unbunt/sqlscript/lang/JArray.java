@@ -9,7 +9,7 @@ import org.unbunt.sqlscript.utils.ObjUtils;
 
 import java.lang.reflect.Array;
 
-public class JArray extends PlainObj {
+public class JArray extends AbstractObj {
     public final Object array;
     public final int length;
     public final NNum lengthObj;
@@ -51,7 +51,7 @@ public class JArray extends PlainObj {
      * <p/>
      * Copyright: (c) 2007 marketoolz GmbH
      */
-    public static class JArrayProto extends PlainObj implements NativeObj {
+    public static class JArrayProto extends AbstractObj implements NativeObj {
         public static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;

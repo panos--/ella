@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * <p/>
  * Copyright: (c) 2007 marketoolz GmbH
  */
-public class JClass extends PlainObj implements NativeObj {
+public class JClass extends AbstractObj implements NativeObj {
     public final Class<?> clazz;
 
     public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
@@ -239,7 +239,7 @@ public class JClass extends PlainObj implements NativeObj {
      * <p/>
      * Copyright: (c) 2007 marketoolz GmbH
      */
-    public static class JClassProto extends PlainObj implements NativeObj {
+    public static class JClassProto extends AbstractObj implements NativeObj {
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 ClassLoader loader = engine.getClass().getClassLoader();

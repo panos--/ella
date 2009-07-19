@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
-public class Bool extends PlainObj {
+public class Bool extends AbstractObj {
     protected final boolean value;
 
     public Bool(boolean value) {
@@ -58,7 +58,7 @@ public class Bool extends PlainObj {
         return "" + value;
     }
 
-    public static class BoolProto extends PlainObj implements NativeObj {
+    public static class BoolProto extends AbstractObj implements NativeObj {
 
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {

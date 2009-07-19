@@ -16,7 +16,7 @@ import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
  * <p/>
  * Copyright: (c) 2007 marketoolz GmbH
  */
-public class NRange extends PlainObj {
+public class NRange extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final long start;
@@ -62,7 +62,7 @@ public class NRange extends PlainObj {
         ctx.registerProto(OBJECT_ID, NRangeProto.OBJECT_ID);
     }
 
-    public static final class NRangeProto extends PlainObj implements NativeObj {
+    public static final class NRangeProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {

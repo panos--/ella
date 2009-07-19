@@ -10,7 +10,7 @@ import org.unbunt.sqlscript.utils.res.SimpleResource;
 
 import java.io.IOException;
 
-public class Sys extends PlainObj {
+public class Sys extends AbstractObj {
     protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             System.out.println(join(" ", (Object[]) args));

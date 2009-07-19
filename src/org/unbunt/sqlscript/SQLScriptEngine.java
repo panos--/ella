@@ -12,6 +12,7 @@ import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.RawSQL;
 import org.unbunt.sqlscript.statement.*;
 import org.unbunt.sqlscript.support.*;
+import org.unbunt.sqlscript.utils.Consts;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.sqlscript.utils.StringUtils;
 
@@ -28,9 +29,8 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
     protected Context context;
     protected boolean finished = false;
 
-    public static final Str STR_SLOT_PARENT = Str.SYM_parent;
-    public static final Str STR_SLOT_INIT = Str.SYM_init;
-    public static final Str STR_SLOT_CLONE_INIT = Str.SYM_cloneInit;
+    public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
+    public static final Obj SLOT_INIT = Consts.SLOT_INIT;
 
     public SQLScriptEngine(Context context) {
         this.context = context;
@@ -402,7 +402,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
 
     public void processContinuation(ObjLitSlotValueCont objLitSlotValueCont) {
         pc--;
-        objLitSlotValueCont.getObj().addSlot(context, objLitSlotValueCont.getSlot(), val);
+        objLitSlotValueCont.getObj().setSlot(context, objLitSlotValueCont.getSlot(), val);
         next = CONT;
     }
 
@@ -769,15 +769,15 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
         else {
             Obj parent = val;
             Obj newObj = new PlainObj();
-            newObj.setSlot(context, STR_SLOT_PARENT, parent);
+            newObj.setSlot(context, SLOT_PARENT, parent);
 
-            Obj initSlot = parent.getSlot(context, STR_SLOT_INIT);
+            Obj initSlot = parent.getSlot(context, SLOT_INIT);
             while (initSlot == null) {
                 Obj nextParent = ObjUtils.getParent(context, parent);
                 if (nextParent == null) {
                     break;
                 }
-                initSlot = nextParent.getSlot(context, STR_SLOT_INIT);
+                initSlot = nextParent.getSlot(context, SLOT_INIT);
                 parent = nextParent;
             }
 

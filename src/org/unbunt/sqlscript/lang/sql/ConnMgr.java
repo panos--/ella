@@ -15,7 +15,7 @@ import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class ConnMgr extends PlainObj {
+public class ConnMgr extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     /**

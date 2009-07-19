@@ -9,7 +9,7 @@ import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
-public class Clos extends PlainObj implements Call {
+public class Clos extends AbstractObj implements Call {
     protected BlockClosure closure;
 
     public Clos(BlockClosure closure) {
@@ -43,7 +43,7 @@ public class Clos extends PlainObj implements Call {
         return closure;
     }
 
-    public static class ClosProto extends PlainObj {
+    public static class ClosProto extends AbstractObj {
         protected static final NativeCall nativeWhileTrue = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) {
                 Call cond = ensureType(context);

@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Stmt extends PlainObj {
+public class Stmt extends AbstractObj {
     protected static final Log logger = LogFactory.getLog(Stmt.class);
     protected static final boolean trace = logger.isTraceEnabled();
 
@@ -385,7 +385,7 @@ public class Stmt extends PlainObj {
         return statement != null ? statement : preparedStatement != null ? preparedStatement : null;
     }
 
-    public static class StmtProto extends PlainObj {
+    public static class StmtProto extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeDo = new NativeCall() {
@@ -670,7 +670,7 @@ public class Stmt extends PlainObj {
         }
     }
 
-    protected static class ParamBatch extends PlainObj {
+    protected static class ParamBatch extends AbstractObj {
         protected Stmt stmt;
         protected int batchSize;
         protected int currentBatchSize = 0;

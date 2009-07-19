@@ -29,13 +29,11 @@ public class Context implements SQLResultProvider {
      * Keys are the respective object id's.
      * Values are the associated prototype objects.
      */
-//    protected Map<Integer, Obj> objectProtos = new HashMap<Integer, Obj>();
     protected Obj[] objectProtos = new Obj[64];
 
     /**
      * Maps object id's to instances. Used as object registry.
      */
-//    protected Map<Integer, Obj> objects = new HashMap<Integer, Obj>();
     protected Obj[] objects = new Obj[64];
 
     protected Object[] args;
@@ -63,6 +61,7 @@ public class Context implements SQLResultProvider {
         // NOTE: Here introduct a circular dependency between Context and the Objects
         // TODO: Break up by using interface instead of concrete class
         Base.registerInContext(this);
+        PlainObj.registerInContext(this);
         Args.registerInContext(this);
         NNum.registerInContext(this);
         NBigNum.registerInContext(this);
@@ -83,11 +82,6 @@ public class Context implements SQLResultProvider {
         Conn.registerInContext(this);
         Stmt.regiserInContext(this);
         ResSet.registerInContext(this);
-
-//        objNull = objects.get(Null.OBJECT_ID);
-//        assert objNull != null;
-//        objSys = objects.get(Sys.OBJECT_ID);
-//        assert objSys != null;
 
         objSys = ensureType(ensureObject(Sys.OBJECT_ID));
         objConnMgr = ensureType(ensureObject(ConnMgr.OBJECT_ID));
@@ -152,7 +146,6 @@ public class Context implements SQLResultProvider {
                                        "Unknown prototype object: " + protoID);
         }
 
-//        objectProtos.put(objectID, objects.get(protoID));
         putObjectProto(objectID, protoID);
     }
 
@@ -166,15 +159,12 @@ public class Context implements SQLResultProvider {
     }
 
     public Obj getObjectProto(Obj obj) {
-//        // No existance check. Returns null if key not found which would also be returned to indicate there is no proto.
-//        return objectProtos.get(obj.getObjectID());
+        // No existance check. Returns null if key not found which would also be returned to indicate there is no proto.
         int id = obj.getObjectID();
         try {
             return objectProtos[id];
         } catch (IndexOutOfBoundsException e) {
-            // XXX: Quick hack make any Object extend from Base
-            int baseID = Base.OBJECT_ID;
-            return id == baseID ? null : objects[baseID];
+            return null;
         }
     }
 
@@ -225,7 +215,6 @@ public class Context implements SQLResultProvider {
     }
 
     public boolean hasObject(int objectID) {
-//        return objects.containsKey(objectID);
         return getObject(objectID) != null;
     }
 

@@ -82,7 +82,7 @@ public class JMethod extends NativeCall {
         ctx.registerProto(OBJECT_ID, JMethodProto.OBJECT_ID);
     }
 
-    protected static class JMethodProto extends PlainObj {
+    protected static class JMethodProto extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeSelect = new NativeCall() {

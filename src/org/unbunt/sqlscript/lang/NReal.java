@@ -28,7 +28,7 @@ import java.math.BigInteger;
  *       with the Java Language Specification. Depending on the usage scenario either way could prove better or worse
  *       than the other.
  */
-public class NReal extends PlainObj implements NNumeric {
+public class NReal extends AbstractObj implements NNumeric {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public final double value;
@@ -283,7 +283,7 @@ public class NReal extends PlainObj implements NNumeric {
         ctx.registerProto(OBJECT_ID, NRealProto.OBJECT_ID);
     }
 
-    public static final class NRealProto extends PlainObj implements NativeObj {
+    public static final class NRealProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {

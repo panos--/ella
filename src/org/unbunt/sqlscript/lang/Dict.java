@@ -18,7 +18,7 @@ import java.util.Map;
  * <p/>
  * Copyright: (c) 2007 marketoolz GmbH
  */
-public class Dict extends PlainObj {
+public class Dict extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final Obj value;
@@ -54,7 +54,7 @@ public class Dict extends PlainObj {
         ctx.registerProto(OBJECT_ID, DictProto.OBJECT_ID);
     }
 
-    public static class DictProto extends PlainObj implements NativeObj {
+    public static class DictProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {

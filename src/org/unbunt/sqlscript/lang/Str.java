@@ -131,10 +131,6 @@ public class Str extends AbstractObj {
         ctx.registerProto(OBJECT_ID, StrProto.OBJECT_ID);
     }
 
-    public Obj getParent() {
-        return slots.get(SYM_parent);
-    }
-
     public String getValue() {
         return value;
     }
@@ -208,10 +204,6 @@ public class Str extends AbstractObj {
 
         public Call getNativeConstructor() {
             return NATIVE_CONSTRUCTOR;
-        }
-
-        public Obj getParent() {
-            return slots.get(SYM_parent);
         }
     }
 }

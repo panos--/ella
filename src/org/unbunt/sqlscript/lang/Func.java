@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
-public class Func extends PlainObj implements Call {
+public class Func extends AbstractObj implements Call {
     protected Function function;
 
     public Func(Function function) {
@@ -40,7 +40,7 @@ public class Func extends PlainObj implements Call {
         return function;
     }
 
-    public static class FuncProto extends PlainObj {
+    public static class FuncProto extends AbstractObj {
         public static NativeCall nativeCall = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Obj[] callArgs = new Obj[args.length - 1];

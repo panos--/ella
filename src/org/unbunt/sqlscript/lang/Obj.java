@@ -7,10 +7,6 @@ import java.util.Map;
 public interface Obj {
     int getObjectID();
 
-    Obj getParent();
-
-    Obj addSlot(Context ctx, Obj key, Obj value);
-
     Obj setSlot(Context ctx, Obj key, Obj value);
 
     Obj getSlot(Context ctx, Obj key);

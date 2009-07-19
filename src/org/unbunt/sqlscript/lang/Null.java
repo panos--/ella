@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
-public class Null extends PlainObj implements NativeObj {
+public class Null extends AbstractObj implements NativeObj {
     public static int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public final Class<?> typeHint;
@@ -56,7 +56,7 @@ public class Null extends PlainObj implements NativeObj {
         return "Null";
     }
 
-    protected static class NullProto extends PlainObj {
+    protected static class NullProto extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeIdentical = new NativeCall() {

@@ -15,12 +15,6 @@ public abstract class AbstractObj implements Obj {
         return -1;
     }
 
-    public abstract Obj getParent();
-
-    public Obj addSlot(Context ctx, Obj key, Obj value) {
-        return slots.put(key, value);
-    }
-
     public Obj setSlot(Context ctx, Obj key, Obj value) {
         return slots.put(key, value);
     }

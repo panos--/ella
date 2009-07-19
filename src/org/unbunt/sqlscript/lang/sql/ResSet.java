@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
 
-public class ResSet extends PlainObj {
+public class ResSet extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final ResultSet resultSet;
@@ -54,7 +54,7 @@ public class ResSet extends PlainObj {
         ctx.registerProto(OBJECT_ID, ResSetProto.OBJECT_ID);
     }
 
-    protected static class ResSetProto extends PlainObj {
+    protected static class ResSetProto extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeGet = new NativeCall() {
@@ -189,7 +189,7 @@ public class ResSet extends PlainObj {
         }
     }
 
-    protected static class UpdateHelper extends PlainObj {
+    protected static class UpdateHelper extends AbstractObj {
         protected final ResultSet resultSet;
 
         protected boolean updated = false;

@@ -13,7 +13,7 @@ import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class NNum extends PlainObj implements NNumeric {
+public class NNum extends AbstractObj implements NNumeric {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public final long value;
@@ -190,7 +190,7 @@ public class NNum extends PlainObj implements NNumeric {
         ctx.registerProto(OBJECT_ID, NNumProto.OBJECT_ID);
     }
 
-    public static final class NNumProto extends PlainObj implements NativeObj {
+    public static final class NNumProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {

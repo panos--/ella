@@ -4,10 +4,6 @@ import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 public abstract class NativeCall extends AbstractObj implements Call {
-    public Obj getParent() {
-        return null;
-    }
-
     // NOTE: Here we have a circular dependency between SQLScriptEngine and NativeCall
     // TODO: Break up by using interface instead of concrete class
     public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {

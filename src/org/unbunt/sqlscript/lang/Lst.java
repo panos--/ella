@@ -13,7 +13,7 @@ import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lst extends PlainObj {
+public class Lst extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final List<Obj> value;
@@ -49,7 +49,7 @@ public class Lst extends PlainObj {
         ctx.registerProto(OBJECT_ID, LstProto.OBJECT_ID);
     }
 
-    public static class LstProto extends PlainObj {
+    public static class LstProto extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeGet = new NativeCall() {

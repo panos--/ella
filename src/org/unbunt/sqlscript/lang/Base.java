@@ -6,6 +6,8 @@ import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
+import static org.unbunt.sqlscript.utils.Consts.SLOT_CLONE_INIT;
+import static org.unbunt.sqlscript.utils.Consts.SLOT_PARENT;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 import java.util.Map;
@@ -74,8 +76,8 @@ public class Base extends AbstractObj {
             Context ctx = engine.getContext();
 
             Obj clone = new PlainObj();
-            clone.setSlot(ctx, SQLScriptEngine.STR_SLOT_PARENT, context);
-            engine.invokeSlotIfPresent(clone, SQLScriptEngine.STR_SLOT_CLONE_INIT);
+            clone.setSlot(ctx, SLOT_PARENT, context);
+            engine.invokeSlotIfPresent(clone, SLOT_CLONE_INIT);
 
             return clone;
         }
@@ -99,15 +101,15 @@ public class Base extends AbstractObj {
     public static void registerInContext(Context ctx) {
         if (!ctx.hasObject(OBJECT_ID)) {
             ctx.registerObject(new Base());
+
+            // to avoid circular dependency between PlainObj and Base we trigger registration of
+            // Base as proto (implicit parent) of PlainObj here, not in PlainObj itself
+            ctx.registerProto(PlainObj.OBJECT_ID, OBJECT_ID);
         }
     }
 
     @Override
     public int getObjectID() {
         return OBJECT_ID;
-    }
-
-    public Obj getParent() {
-        return null; // Base, by definition, has no parent
     }
 }

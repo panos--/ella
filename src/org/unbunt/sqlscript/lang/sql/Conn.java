@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Conn extends PlainObj {
+public class Conn extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final Connection connection;
@@ -64,7 +64,7 @@ public class Conn extends PlainObj {
         return connection;
     }
 
-    public static class ConnProto extends PlainObj {
+    public static class ConnProto extends AbstractObj {
 
         protected static final NativeCall nativeExecStmt = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {

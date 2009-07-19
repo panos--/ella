@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
-public class PrimitiveCall extends PlainObj implements Call {
+public class PrimitiveCall extends AbstractObj implements Call {
     public static enum Type {
         ID,
         NI,

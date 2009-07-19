@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-public class JObject extends PlainObj {
+public class JObject extends AbstractObj {
     protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public final Object value;
