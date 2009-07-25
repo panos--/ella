@@ -1370,7 +1370,7 @@ IDENTIFIER_SPECIAL_START
 fragment
 IDENTIFIER_SPECIAL
 	:	IDENTIFIER_SPECIAL_START
-	|	'+'|'-'|'!'|'?'|'%'|'*'|'/'
+	|	'!'|'?'
 	;
 
 SQL_SPECIAL_CHAR
