@@ -49,8 +49,16 @@ public class Lst extends AbstractObj {
         ctx.registerProto(OBJECT_ID, LstProto.OBJECT_ID);
     }
 
-    public static class LstProto extends AbstractObj {
+    public static class LstProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+        protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                return new Lst();
+            }
+        };
+
+        protected static final NativeCall nativeClone = NATIVE_CONSTRUCTOR;
 
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -184,12 +192,17 @@ public class Lst extends AbstractObj {
         };
 
         private LstProto() {
+            slots.put(Str.SYM_clone, nativeClone);
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
             slots.put(Str.SYM_add, nativeAdd);
             slots.put(Str.SYM_remove, nativeRemove);
             slots.put(Str.SYM_size, nativeSize);
             slots.put(Str.SYM_each, nativeEach);
+        }
+
+        public Call getNativeConstructor() {
+            return NATIVE_CONSTRUCTOR;
         }
 
         @Override

@@ -755,10 +755,6 @@ sqlExpression
 	:	sqlLiteralPrefixed -> ^(SQL_EXPR sqlLiteralPrefixed)
 	;
 
-/*
- * TODO: The parse mode (stringType) has somehow to be attached to the generated tree.
- *       Especially when reparsing the statement this would be required.
- */
 sqlLiteralPrefixed
 	:	sqlStmtNamePrefixed
 		sqlStmtRest[$sqlStmtNamePrefixed.tree]	-> sqlStmtRest
@@ -1038,7 +1034,7 @@ parseDirective
 					}
 				}
 			}
-			else if ("linesep".equals(argument)) {
+			else if ("sep".equals(argument)) {
 				if ("slash".equals(value)) {
 					this.sqlSlashLineSep = true;
 				}
