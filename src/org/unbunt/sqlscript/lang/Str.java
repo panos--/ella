@@ -30,7 +30,7 @@ public class Str extends AbstractObj {
     public static final Str SYM__exit = toSym("_exit");
     public static final Str SYM__logic_and = toSym("&&");
     public static final Str SYM__logic_or = toSym("||");
-    public static final Str SYM__logic_not = toSym("not");
+    public static final Str SYM__logic_not = toSym("!");
     public static final Str SYM_add = toSym("add");
     public static final Str SYM_activate = toSym("activate");
     public static final Str SYM_active = toSym("active");
@@ -74,6 +74,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_loop = toSym("loop");
     public static final Str SYM_new = toSym("new");
     public static final Str SYM_noop = toSym("noop");
+    public static final Str SYM_not = toSym("not");
     public static final Str SYM_numValue = toSym("numValue");
     public static final Str SYM_parent = toSym("parent");
     public static final Str SYM_print = toSym("print");

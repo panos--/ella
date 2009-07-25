@@ -105,6 +105,7 @@ public class Bool extends AbstractObj {
             slots.put(Str.SYM__logic_and, nativeAnd);
             slots.put(Str.SYM__logic_or, nativeOr);
             slots.put(Str.SYM__logic_not, nativeNot);
+            slots.put(Str.SYM_not, nativeNot);
         }
 
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

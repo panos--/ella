@@ -93,6 +93,7 @@ public class Base extends AbstractObj {
         slots.put(Str.SYM__logic_and, nativeAnd);
         slots.put(Str.SYM__logic_or, nativeOr);
         slots.put(Str.SYM__logic_not, nativeNot);
+        slots.put(Str.SYM_not, nativeNot);
         slots.put(Str.SYM_clone, nativeClone);
         slots.put(Str.SYM_each, nativeEach);
         slots.put(Str.SYM_eachSlot, nativeEachSlot);

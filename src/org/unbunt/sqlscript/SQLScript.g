@@ -685,7 +685,7 @@ binaryExpression
 	;
 
 unaryExpression
-	:	EXCLAM unaryExpression -> ^(CALL_UNARY unaryExpression IDENTIFIER["not"])
+	:	exclam=EXCLAM unaryExpression -> ^(CALL_UNARY unaryExpression IDENTIFIER[$exclam])
 	|	callExpression         -> callExpression
 	;
 
@@ -731,7 +731,7 @@ superSuffix [ Token superToken ]
 simpleExpression
 	:	parenExpression
 	|	blockClosure
-	|	identifier
+	|	identifierNoUnary
 	|	stringLiteral
 	|	booleanLiteral
 	|	arrayLiteral
@@ -904,7 +904,7 @@ sqlAtom
 	:	SQL_SPECIAL_CHAR
 	|	EQUALS | BACKSLASH
 	|	OP_DEFINE
-	|	EXCLAM | QUESTION | COLON | DOT | COMMA
+	|	QUESTION | COLON | DOT | COMMA
 	|	DOUBLE_ARROW
 	|	INT | FLOAT
 	;
@@ -941,6 +941,11 @@ argumentsList
 	;
 
 identifier
+	: exclam=EXCLAM		-> IDENTIFIER[$exclam]
+	| identifierNoUnary	-> identifierNoUnary
+	;
+
+identifierNoUnary
 	: op_eq=OP_EQ		-> IDENTIFIER[$op_eq]
 	| op_ne=OP_NE		-> IDENTIFIER[$op_ne]
 	| op_id=OP_ID		-> IDENTIFIER[$op_id]

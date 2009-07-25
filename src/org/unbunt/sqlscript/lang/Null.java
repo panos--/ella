@@ -108,6 +108,7 @@ public class Null extends AbstractObj implements NativeObj {
             slots.put(Str.SYM__logic_and, nativeAnd);
             slots.put(Str.SYM__logic_or, nativeOr);
             slots.put(Str.SYM__logic_not, nativeNot);
+            slots.put(Str.SYM_not, nativeNot);
             slots.put(Str.SYM_type, nativeType);
         }
 
