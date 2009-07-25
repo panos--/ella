@@ -686,6 +686,7 @@ binaryExpression
 
 unaryExpression
 	:	exclam=EXCLAM unaryExpression -> ^(CALL_UNARY unaryExpression IDENTIFIER[$exclam])
+	|	op_sub=OP_SUB unaryExpression -> ^(CALL_UNARY unaryExpression IDENTIFIER["neg"])
 	|	callExpression         -> callExpression
 	;
 
@@ -942,6 +943,7 @@ argumentsList
 
 identifier
 	: exclam=EXCLAM		-> IDENTIFIER[$exclam]
+	| op_sub=OP_SUB		-> IDENTIFIER[$op_sub]
 	| identifierNoUnary	-> identifierNoUnary
 	;
 
@@ -957,7 +959,6 @@ identifierNoUnary
 	| op_mul=OP_MUL		-> IDENTIFIER[$op_mul]
 	| op_div=OP_DIV		-> IDENTIFIER[$op_div]
 	| op_add=OP_ADD		-> IDENTIFIER[$op_add]
-	| op_sub=OP_SUB		-> IDENTIFIER[$op_sub]
 	| op_and=OP_AND		-> IDENTIFIER[$op_and]
 	| op_or=OP_OR		-> IDENTIFIER[$op_or]
 	| identifierNoOps	-> identifierNoOps
@@ -966,9 +967,6 @@ identifierNoUnary
 // NOTE: ordinary identifiers separated out as required by binaryExpression rule to prevent non-LL(*) decision
 identifierNoOps
 	:	( word=WORD		-> IDENTIFIER[$word]
-		// NOTE: Removed support for identifiers starting with an at-sign becuse it results in conflicts now
-		//       that expressions can be stated without a leading dot, so that they can start with an identifier
-		//| annot=ANNOTATION	-> IDENTIFIER[$annot] // annotations are a special case of the identifier syntax
 		| IDENTIFIER		-> IDENTIFIER
 		)
 	;
@@ -1260,10 +1258,8 @@ BACKSLASH
 	;
 
 /*
-DOUBLE_BACKSLASH
-	:	'\\\\'
-	;
-*/
+ *
+ */
 
 DOUBLE_ARROW
 	:	'=>'
@@ -1318,33 +1314,6 @@ OP_ADD	:	'+'
 OP_SUB	:	'-'
 	;
 
-/*
-ANNOTATION
-	:	'@' SIMPLE_IDENTIFIER
-	;
-*/
-
-fragment
-SIMPLE_IDENTIFIER
-	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | DIGIT)*
-	;
-
-IDENTIFIER
-	:	(WORD_CHAR | IDENTIFIER_SPECIAL) (WORD_CHAR | IDENTIFIER_SPECIAL | '!' | '?' | DIGIT)*
-	|	'.' '.'+
-	;
-
-fragment
-IDENTIFIER_SPECIAL
-	:	'+'|'-'|'~'
-	|	/*
-		 * At signs in identifier clash with embedded variable syntax in sql literals.
-		 * This predicate allows to disable at signs in identifiers when parsing sql literals.
-		 */
-		{allowAtSignInIdentifier}?=> '@'
-	|	'%'|'^'|'&'|'*'|'/'|'_'|'|'|DOLLAR
-	;
-
 EQUALS	:	'='
 	;
 
@@ -1379,6 +1348,33 @@ DOT	:	'.'
 	;
 
 COMMA	:	','
+	;
+
+fragment
+SIMPLE_IDENTIFIER
+	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | DIGIT)*
+	;
+
+IDENTIFIER
+	:	(WORD_CHAR | IDENTIFIER_SPECIAL_START) (WORD_CHAR | IDENTIFIER_SPECIAL /*| '!' | '?'*/ | DIGIT)*
+	|	'.' '.'+
+	;
+
+fragment
+IDENTIFIER_SPECIAL_START
+	:	'~'
+	|	/*
+		 * At signs in identifier clash with embedded variable syntax in sql literals.
+		 * This predicate allows to disable at signs in identifiers when parsing sql literals.
+		 */
+		{allowAtSignInIdentifier}?=> '@'
+	|	'^'|'&'|'_'|'|'|DOLLAR
+	;
+
+fragment
+IDENTIFIER_SPECIAL
+	:	IDENTIFIER_SPECIAL_START
+	|	'+'|'-'|'!'|'?'|'%'|'*'|'/'
 	;
 
 SQL_SPECIAL_CHAR

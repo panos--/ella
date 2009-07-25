@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 14:14:44
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 14:52:35
 
 	package org.unbunt.sqlscript;
 
@@ -28,7 +28,7 @@ import org.antlr.runtime.tree.*;
 
 public class SQLScriptParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "SEP", "KW_SQL", "KW_VAR", "OP_DEFINE", "EQUALS", "COMMA", "KW_FUN", "LPAREN", "RPAREN", "DOUBLE_ARROW", "DOT", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "COLON", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "KW_INCLUDE", "QUESTION", "OP_OR", "OP_AND", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_ADD", "OP_SUB", "OP_DIV", "OP_MOD", "EXCLAM", "LSQUARE", "RSQUARE", "INT", "FLOAT", "KW_THIS", "KW_SUPER", "KW_NEW", "WORD", "WS", "NL", "SQL_SPECIAL_CHAR", "BACKSLASH", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DDOLLAR", "DOLLAR", "DIGIT", "EXPONENT", "NUMBER", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "SEP", "KW_SQL", "KW_VAR", "OP_DEFINE", "EQUALS", "COMMA", "KW_FUN", "LPAREN", "RPAREN", "DOUBLE_ARROW", "DOT", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "COLON", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "KW_INCLUDE", "QUESTION", "OP_OR", "OP_AND", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_ADD", "OP_SUB", "OP_DIV", "OP_MOD", "EXCLAM", "LSQUARE", "RSQUARE", "INT", "FLOAT", "KW_THIS", "KW_SUPER", "KW_NEW", "WORD", "WS", "NL", "SQL_SPECIAL_CHAR", "BACKSLASH", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DDOLLAR", "DOLLAR", "DIGIT", "EXPONENT", "NUMBER", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL_START", "IDENTIFIER_SPECIAL"
     };
     public static final int EXPONENT=131;
     public static final int OP_LE=99;
@@ -49,6 +49,7 @@ public class SQLScriptParser extends Parser {
     public static final int OP_EQ=92;
     public static final int SQL=29;
     public static final int RPAREN=69;
+    public static final int IDENTIFIER_SPECIAL_START=134;
     public static final int KW_NEW=111;
     public static final int SQUOT=12;
     public static final int KW_BREAK=81;
@@ -160,7 +161,7 @@ public class SQLScriptParser extends Parser {
     public static final int SQL_EXPR=32;
     public static final int BTICK=14;
     public static final int BLOCK_CLOSURE=39;
-    public static final int IDENTIFIER_SPECIAL=134;
+    public static final int IDENTIFIER_SPECIAL=135;
     public static final int STRING=4;
 
     // delegates
@@ -2109,7 +2110,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: sqlExpression, identifier, identifier
+                            // elements: identifier, sqlExpression, identifier
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2190,7 +2191,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, expressionNoSQL, identifier, scriptAssignRest
+                            // elements: identifier, expressionNoSQL, scriptAssignRest, identifier
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2348,7 +2349,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: scriptAssignRest, expressionNoSQL, identifier
+                            // elements: identifier, expressionNoSQL, scriptAssignRest
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2663,7 +2664,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier, identifier
+                    // elements: identifier, expressionNoSQL, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2865,7 +2866,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: argumentsDef, identifier, block
+            // elements: block, argumentsDef, identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2990,7 +2991,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, identifier, argumentsDef
+            // elements: argumentsDef, block, identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3332,7 +3333,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: blockArgumentsDef, statement
+            // elements: statement, blockArgumentsDef
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3673,7 +3674,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: parenExpression, block, scriptIfElse
+                            // elements: scriptIfElse, block, parenExpression
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -4071,7 +4072,7 @@ public class SQLScriptParser extends Parser {
                             {
 
                             // AST REWRITE
-                            // elements: scriptCatch, block
+                            // elements: block, scriptCatch
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -4144,7 +4145,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: scriptFinally, block
+                    // elements: block, scriptFinally
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4281,7 +4282,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, identifier
+            // elements: identifier, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4674,7 +4675,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, expression, identifierList, scriptFor
+            // elements: identifierList, block, scriptFor, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4801,7 +4802,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, parenExpression
+            // elements: parenExpression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5510,7 +5511,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, javaIdentifier
+                    // elements: javaIdentifier, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6495,7 +6496,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: expression, conditionalExpression
+                            // elements: conditionalExpression, expression
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -6656,7 +6657,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: conditionalResult, conditionalResult, orCondition
+                    // elements: conditionalResult, orCondition, conditionalResult
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -8050,7 +8051,7 @@ public class SQLScriptParser extends Parser {
 
 
                     	    // AST REWRITE
-                    	    // elements: identifierNoOps, unaryExpression
+                    	    // elements: unaryExpression, identifierNoOps
                     	    // token labels: 
                     	    // rule labels: retval
                     	    // token list labels: 
@@ -8130,7 +8131,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "unaryExpression"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:687:1: unaryExpression : (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | callExpression -> callExpression );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:687:1: unaryExpression : (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | op_sub= OP_SUB unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] ) | callExpression -> callExpression );
     public final SQLScriptParser.unaryExpression_return unaryExpression() throws RecognitionException {
         SQLScriptParser.unaryExpression_return retval = new SQLScriptParser.unaryExpression_return();
         retval.start = input.LT(1);
@@ -8138,33 +8139,73 @@ public class SQLScriptParser extends Parser {
         CommonTree root_0 = null;
 
         Token exclam=null;
+        Token op_sub=null;
         SQLScriptParser.unaryExpression_return unaryExpression183 = null;
 
-        SQLScriptParser.callExpression_return callExpression184 = null;
+        SQLScriptParser.unaryExpression_return unaryExpression184 = null;
+
+        SQLScriptParser.callExpression_return callExpression185 = null;
 
 
         CommonTree exclam_tree=null;
+        CommonTree op_sub_tree=null;
+        RewriteRuleTokenStream stream_OP_SUB=new RewriteRuleTokenStream(adaptor,"token OP_SUB");
         RewriteRuleTokenStream stream_EXCLAM=new RewriteRuleTokenStream(adaptor,"token EXCLAM");
         RewriteRuleSubtreeStream stream_unaryExpression=new RewriteRuleSubtreeStream(adaptor,"rule unaryExpression");
         RewriteRuleSubtreeStream stream_callExpression=new RewriteRuleSubtreeStream(adaptor,"rule callExpression");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:688:2: (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | callExpression -> callExpression )
-            int alt56=2;
-            int LA56_0 = input.LA(1);
-
-            if ( (LA56_0==EXCLAM) ) {
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:688:2: (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | op_sub= OP_SUB unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] ) | callExpression -> callExpression )
+            int alt56=3;
+            switch ( input.LA(1) ) {
+            case EXCLAM:
+                {
                 alt56=1;
-            }
-            else if ( (LA56_0==LCURLY||LA56_0==LPAREN||LA56_0==OP_MUL||(LA56_0>=OP_OR && LA56_0<=OP_DIV)||LA56_0==LSQUARE||(LA56_0>=INT && LA56_0<=WORD)||LA56_0==IDENTIFIER||(LA56_0>=KW_TRUE && LA56_0<=STR_DQUOT)) ) {
+                }
+                break;
+            case OP_SUB:
+                {
                 alt56=2;
-            }
-            else {
+                }
+                break;
+            case LCURLY:
+            case LPAREN:
+            case OP_MUL:
+            case OP_OR:
+            case OP_AND:
+            case OP_EQ:
+            case OP_NE:
+            case OP_ID:
+            case OP_NI:
+            case OP_GT:
+            case OP_GE:
+            case OP_LT:
+            case OP_LE:
+            case OP_ADD:
+            case OP_DIV:
+            case LSQUARE:
+            case INT:
+            case FLOAT:
+            case KW_THIS:
+            case KW_SUPER:
+            case KW_NEW:
+            case WORD:
+            case IDENTIFIER:
+            case KW_TRUE:
+            case KW_FALSE:
+            case STR_SQUOT:
+            case STR_DQUOT:
+                {
+                alt56=3;
+                }
+                break;
+            default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 56, 0, input);
 
                 throw nvae;
             }
+
             switch (alt56) {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:688:4: exclam= EXCLAM unaryExpression
@@ -8211,14 +8252,58 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:689:4: callExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:689:4: op_sub= OP_SUB unaryExpression
                     {
-                    pushFollow(FOLLOW_callExpression_in_unaryExpression2996);
-                    callExpression184=callExpression();
+                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_unaryExpression2998); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
+
+                    pushFollow(FOLLOW_unaryExpression_in_unaryExpression3000);
+                    unaryExpression184=unaryExpression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_callExpression.add(callExpression184.getTree());
+                    if ( state.backtracking==0 ) stream_unaryExpression.add(unaryExpression184.getTree());
+
+
+                    // AST REWRITE
+                    // elements: unaryExpression
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (CommonTree)adaptor.nil();
+                    // 689:34: -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] )
+                    {
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:689:37: ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] )
+                        {
+                        CommonTree root_1 = (CommonTree)adaptor.nil();
+                        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_UNARY, "CALL_UNARY"), root_1);
+
+                        adaptor.addChild(root_1, stream_unaryExpression.nextTree());
+                        adaptor.addChild(root_1, (CommonTree)adaptor.create(IDENTIFIER, "neg"));
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 3 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:690:4: callExpression
+                    {
+                    pushFollow(FOLLOW_callExpression_in_unaryExpression3016);
+                    callExpression185=callExpression();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_callExpression.add(callExpression185.getTree());
 
 
                     // AST REWRITE
@@ -8233,7 +8318,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 689:27: -> callExpression
+                    // 690:27: -> callExpression
                     {
                         adaptor.addChild(root_0, stream_callExpression.nextTree());
 
@@ -8269,33 +8354,33 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "callExpression"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:692:1: callExpression : ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:693:1: callExpression : ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) ;
     public final SQLScriptParser.callExpression_return callExpression() throws RecognitionException {
         SQLScriptParser.callExpression_return retval = new SQLScriptParser.callExpression_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.simpleExpression_return simpleExpression185 = null;
+        SQLScriptParser.simpleExpression_return simpleExpression186 = null;
 
-        SQLScriptParser.callExpressionSuffix_return callExpressionSuffix186 = null;
+        SQLScriptParser.callExpressionSuffix_return callExpressionSuffix187 = null;
 
 
         RewriteRuleSubtreeStream stream_callExpressionSuffix=new RewriteRuleSubtreeStream(adaptor,"rule callExpressionSuffix");
         RewriteRuleSubtreeStream stream_simpleExpression=new RewriteRuleSubtreeStream(adaptor,"rule simpleExpression");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:693:2: ( ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:693:4: ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:2: ( ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:4: ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:693:4: ( simpleExpression -> simpleExpression )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:693:5: simpleExpression
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:4: ( simpleExpression -> simpleExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:5: simpleExpression
             {
-            pushFollow(FOLLOW_simpleExpression_in_callExpression3020);
-            simpleExpression185=simpleExpression();
+            pushFollow(FOLLOW_simpleExpression_in_callExpression3040);
+            simpleExpression186=simpleExpression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_simpleExpression.add(simpleExpression185.getTree());
+            if ( state.backtracking==0 ) stream_simpleExpression.add(simpleExpression186.getTree());
 
 
             // AST REWRITE
@@ -8310,7 +8395,7 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 693:22: -> simpleExpression
+            // 694:22: -> simpleExpression
             {
                 adaptor.addChild(root_0, stream_simpleExpression.nextTree());
 
@@ -8319,7 +8404,7 @@ public class SQLScriptParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:3: ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:695:3: ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
             int alt58=2;
             int LA58_0 = input.LA(1);
 
@@ -8338,9 +8423,9 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt58) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:695:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:695:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
                     int cnt57=0;
                     loop57:
                     do {
@@ -8354,14 +8439,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt57) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:694:5: callExpressionSuffix[$callExpression.tree]
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:695:5: callExpressionSuffix[$callExpression.tree]
                     	    {
-                    	    pushFollow(FOLLOW_callExpressionSuffix_in_callExpression3031);
-                    	    callExpressionSuffix186=callExpressionSuffix(((CommonTree)retval.tree));
+                    	    pushFollow(FOLLOW_callExpressionSuffix_in_callExpression3051);
+                    	    callExpressionSuffix187=callExpressionSuffix(((CommonTree)retval.tree));
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_callExpressionSuffix.add(callExpressionSuffix186.getTree());
+                    	    if ( state.backtracking==0 ) stream_callExpressionSuffix.add(callExpressionSuffix187.getTree());
 
 
                     	    // AST REWRITE
@@ -8376,7 +8461,7 @@ public class SQLScriptParser extends Parser {
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     	    root_0 = (CommonTree)adaptor.nil();
-                    	    // 694:48: -> callExpressionSuffix
+                    	    // 695:48: -> callExpressionSuffix
                     	    {
                     	        adaptor.addChild(root_0, stream_callExpressionSuffix.nextTree());
 
@@ -8400,7 +8485,7 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:696:9: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:697:9: 
                     {
 
                     // AST REWRITE
@@ -8415,7 +8500,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 696:9: -> simpleExpression
+                    // 697:9: -> simpleExpression
                     {
                         adaptor.addChild(root_0, stream_simpleExpression.nextTree());
 
@@ -8455,37 +8540,37 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "callExpressionSuffix"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:700:1: callExpressionSuffix[ CommonTree subject ] options {k=3; } : ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:701:1: callExpressionSuffix[ CommonTree subject ] options {k=3; } : ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) );
     public final SQLScriptParser.callExpressionSuffix_return callExpressionSuffix(CommonTree subject) throws RecognitionException {
         SQLScriptParser.callExpressionSuffix_return retval = new SQLScriptParser.callExpressionSuffix_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.callSuffix_return callSuffix187 = null;
+        SQLScriptParser.callSuffix_return callSuffix188 = null;
 
-        SQLScriptParser.slotSuffix_return slotSuffix188 = null;
+        SQLScriptParser.slotSuffix_return slotSuffix189 = null;
 
-        SQLScriptParser.indexSuffix_return indexSuffix189 = null;
+        SQLScriptParser.indexSuffix_return indexSuffix190 = null;
 
 
         RewriteRuleSubtreeStream stream_callSuffix=new RewriteRuleSubtreeStream(adaptor,"rule callSuffix");
         RewriteRuleSubtreeStream stream_slotSuffix=new RewriteRuleSubtreeStream(adaptor,"rule slotSuffix");
         RewriteRuleSubtreeStream stream_indexSuffix=new RewriteRuleSubtreeStream(adaptor,"rule indexSuffix");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:702:2: ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:703:2: ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) )
             int alt59=3;
             alt59 = dfa59.predict(input);
             switch (alt59) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:702:4: callSuffix
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:703:4: callSuffix
                     {
-                    pushFollow(FOLLOW_callSuffix_in_callExpressionSuffix3080);
-                    callSuffix187=callSuffix();
+                    pushFollow(FOLLOW_callSuffix_in_callExpressionSuffix3100);
+                    callSuffix188=callSuffix();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_callSuffix.add(callSuffix187.getTree());
+                    if ( state.backtracking==0 ) stream_callSuffix.add(callSuffix188.getTree());
 
 
                     // AST REWRITE
@@ -8500,15 +8585,15 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 702:15: -> ^( CALL ( callSuffix )? )
+                    // 703:15: -> ^( CALL ( callSuffix )? )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:702:18: ^( CALL ( callSuffix )? )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:703:18: ^( CALL ( callSuffix )? )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
                         adaptor.addChild(root_1, subject);
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:702:37: ( callSuffix )?
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:703:37: ( callSuffix )?
                         if ( stream_callSuffix.hasNext() ) {
                             adaptor.addChild(root_1, stream_callSuffix.nextTree());
 
@@ -8524,14 +8609,14 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:703:4: slotSuffix
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:704:4: slotSuffix
                     {
-                    pushFollow(FOLLOW_slotSuffix_in_callExpressionSuffix3097);
-                    slotSuffix188=slotSuffix();
+                    pushFollow(FOLLOW_slotSuffix_in_callExpressionSuffix3117);
+                    slotSuffix189=slotSuffix();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_slotSuffix.add(slotSuffix188.getTree());
+                    if ( state.backtracking==0 ) stream_slotSuffix.add(slotSuffix189.getTree());
 
 
                     // AST REWRITE
@@ -8546,9 +8631,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 703:15: -> ^( SLOT slotSuffix )
+                    // 704:15: -> ^( SLOT slotSuffix )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:703:18: ^( SLOT slotSuffix )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:704:18: ^( SLOT slotSuffix )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -8565,14 +8650,14 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:704:4: indexSuffix
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:705:4: indexSuffix
                     {
-                    pushFollow(FOLLOW_indexSuffix_in_callExpressionSuffix3113);
-                    indexSuffix189=indexSuffix();
+                    pushFollow(FOLLOW_indexSuffix_in_callExpressionSuffix3133);
+                    indexSuffix190=indexSuffix();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_indexSuffix.add(indexSuffix189.getTree());
+                    if ( state.backtracking==0 ) stream_indexSuffix.add(indexSuffix190.getTree());
 
 
                     // AST REWRITE
@@ -8587,9 +8672,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 704:16: -> ^( INDEX indexSuffix )
+                    // 705:16: -> ^( INDEX indexSuffix )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:704:19: ^( INDEX indexSuffix )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:705:19: ^( INDEX indexSuffix )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(INDEX, "INDEX"), root_1);
@@ -8632,27 +8717,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "slotSuffix"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:707:1: slotSuffix : ( DOT identifier | LCURLY expression RCURLY );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:708:1: slotSuffix : ( DOT identifier | LCURLY expression RCURLY );
     public final SQLScriptParser.slotSuffix_return slotSuffix() throws RecognitionException {
         SQLScriptParser.slotSuffix_return retval = new SQLScriptParser.slotSuffix_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token DOT190=null;
-        Token LCURLY192=null;
-        Token RCURLY194=null;
-        SQLScriptParser.identifier_return identifier191 = null;
+        Token DOT191=null;
+        Token LCURLY193=null;
+        Token RCURLY195=null;
+        SQLScriptParser.identifier_return identifier192 = null;
 
-        SQLScriptParser.expression_return expression193 = null;
+        SQLScriptParser.expression_return expression194 = null;
 
 
-        CommonTree DOT190_tree=null;
-        CommonTree LCURLY192_tree=null;
-        CommonTree RCURLY194_tree=null;
+        CommonTree DOT191_tree=null;
+        CommonTree LCURLY193_tree=null;
+        CommonTree RCURLY195_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:708:2: ( DOT identifier | LCURLY expression RCURLY )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:709:2: ( DOT identifier | LCURLY expression RCURLY )
             int alt60=2;
             int LA60_0 = input.LA(1);
 
@@ -8671,33 +8756,33 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt60) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:708:4: DOT identifier
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:709:4: DOT identifier
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    DOT190=(Token)match(input,DOT,FOLLOW_DOT_in_slotSuffix3134); if (state.failed) return retval;
-                    pushFollow(FOLLOW_identifier_in_slotSuffix3137);
-                    identifier191=identifier();
+                    DOT191=(Token)match(input,DOT,FOLLOW_DOT_in_slotSuffix3154); if (state.failed) return retval;
+                    pushFollow(FOLLOW_identifier_in_slotSuffix3157);
+                    identifier192=identifier();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, identifier191.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, identifier192.getTree());
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:709:4: LCURLY expression RCURLY
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:710:4: LCURLY expression RCURLY
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    LCURLY192=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_slotSuffix3142); if (state.failed) return retval;
-                    pushFollow(FOLLOW_expression_in_slotSuffix3145);
-                    expression193=expression();
+                    LCURLY193=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_slotSuffix3162); if (state.failed) return retval;
+                    pushFollow(FOLLOW_expression_in_slotSuffix3165);
+                    expression194=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, expression193.getTree());
-                    RCURLY194=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_slotSuffix3147); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, expression194.getTree());
+                    RCURLY195=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_slotSuffix3167); if (state.failed) return retval;
 
                     }
                     break;
@@ -8728,35 +8813,35 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "indexSuffix"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:712:1: indexSuffix : LSQUARE expression RSQUARE ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:713:1: indexSuffix : LSQUARE expression RSQUARE ;
     public final SQLScriptParser.indexSuffix_return indexSuffix() throws RecognitionException {
         SQLScriptParser.indexSuffix_return retval = new SQLScriptParser.indexSuffix_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token LSQUARE195=null;
-        Token RSQUARE197=null;
-        SQLScriptParser.expression_return expression196 = null;
+        Token LSQUARE196=null;
+        Token RSQUARE198=null;
+        SQLScriptParser.expression_return expression197 = null;
 
 
-        CommonTree LSQUARE195_tree=null;
-        CommonTree RSQUARE197_tree=null;
+        CommonTree LSQUARE196_tree=null;
+        CommonTree RSQUARE198_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:713:2: ( LSQUARE expression RSQUARE )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:713:4: LSQUARE expression RSQUARE
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:714:2: ( LSQUARE expression RSQUARE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:714:4: LSQUARE expression RSQUARE
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            LSQUARE195=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_indexSuffix3159); if (state.failed) return retval;
-            pushFollow(FOLLOW_expression_in_indexSuffix3162);
-            expression196=expression();
+            LSQUARE196=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_indexSuffix3179); if (state.failed) return retval;
+            pushFollow(FOLLOW_expression_in_indexSuffix3182);
+            expression197=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, expression196.getTree());
-            RSQUARE197=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_indexSuffix3164); if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, expression197.getTree());
+            RSQUARE198=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_indexSuffix3184); if (state.failed) return retval;
 
             }
 
@@ -8785,23 +8870,23 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "callSuffix"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:716:1: callSuffix : ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:717:1: callSuffix : ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure );
     public final SQLScriptParser.callSuffix_return callSuffix() throws RecognitionException {
         SQLScriptParser.callSuffix_return retval = new SQLScriptParser.callSuffix_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.argumentsList_return argumentsList198 = null;
-
-        SQLScriptParser.blockClosure_return blockClosure199 = null;
+        SQLScriptParser.argumentsList_return argumentsList199 = null;
 
         SQLScriptParser.blockClosure_return blockClosure200 = null;
+
+        SQLScriptParser.blockClosure_return blockClosure201 = null;
 
 
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:717:2: ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:718:2: ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure )
             int alt62=2;
             int LA62_0 = input.LA(1);
 
@@ -8820,34 +8905,34 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt62) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:717:4: argumentsList ( ( LCURLY )=> blockClosure | )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:718:4: argumentsList ( ( LCURLY )=> blockClosure | )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_argumentsList_in_callSuffix3176);
-                    argumentsList198=argumentsList();
+                    pushFollow(FOLLOW_argumentsList_in_callSuffix3196);
+                    argumentsList199=argumentsList();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, argumentsList198.getTree());
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:718:3: ( ( LCURLY )=> blockClosure | )
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, argumentsList199.getTree());
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:719:3: ( ( LCURLY )=> blockClosure | )
                     int alt61=2;
                     alt61 = dfa61.predict(input);
                     switch (alt61) {
                         case 1 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:718:5: ( LCURLY )=> blockClosure
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:719:5: ( LCURLY )=> blockClosure
                             {
-                            pushFollow(FOLLOW_blockClosure_in_callSuffix3187);
-                            blockClosure199=blockClosure();
+                            pushFollow(FOLLOW_blockClosure_in_callSuffix3207);
+                            blockClosure200=blockClosure();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) adaptor.addChild(root_0, blockClosure199.getTree());
+                            if ( state.backtracking==0 ) adaptor.addChild(root_0, blockClosure200.getTree());
 
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:720:3: 
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:721:3: 
                             {
                             }
                             break;
@@ -8858,16 +8943,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:721:4: blockClosure
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:722:4: blockClosure
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_blockClosure_in_callSuffix3200);
-                    blockClosure200=blockClosure();
+                    pushFollow(FOLLOW_blockClosure_in_callSuffix3220);
+                    blockClosure201=blockClosure();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, blockClosure200.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, blockClosure201.getTree());
 
                     }
                     break;
@@ -8898,33 +8983,33 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "superSuffix"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:724:1: superSuffix[ Token superToken ] : ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:725:1: superSuffix[ Token superToken ] : ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) ;
     public final SQLScriptParser.superSuffix_return superSuffix(Token superToken) throws RecognitionException {
         SQLScriptParser.superSuffix_return retval = new SQLScriptParser.superSuffix_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.slotSuffix_return slotSuffix201 = null;
+        SQLScriptParser.slotSuffix_return slotSuffix202 = null;
 
-        SQLScriptParser.callSuffix_return callSuffix202 = null;
+        SQLScriptParser.callSuffix_return callSuffix203 = null;
 
 
         RewriteRuleSubtreeStream stream_callSuffix=new RewriteRuleSubtreeStream(adaptor,"rule callSuffix");
         RewriteRuleSubtreeStream stream_slotSuffix=new RewriteRuleSubtreeStream(adaptor,"rule slotSuffix");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:725:2: ( ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:725:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:2: ( ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:725:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:725:5: slotSuffix
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:5: slotSuffix
             {
-            pushFollow(FOLLOW_slotSuffix_in_superSuffix3215);
-            slotSuffix201=slotSuffix();
+            pushFollow(FOLLOW_slotSuffix_in_superSuffix3235);
+            slotSuffix202=slotSuffix();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_slotSuffix.add(slotSuffix201.getTree());
+            if ( state.backtracking==0 ) stream_slotSuffix.add(slotSuffix202.getTree());
 
 
             // AST REWRITE
@@ -8939,9 +9024,9 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 725:18: -> ^( SLOT SUPER[$superToken] slotSuffix )
+            // 726:18: -> ^( SLOT SUPER[$superToken] slotSuffix )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:725:21: ^( SLOT SUPER[$superToken] slotSuffix )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:21: ^( SLOT SUPER[$superToken] slotSuffix )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -8957,19 +9042,19 @@ public class SQLScriptParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:3: ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:727:3: ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
             int alt63=2;
             alt63 = dfa63.predict(input);
             switch (alt63) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:5: ( LPAREN | LCURLY )=> callSuffix
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:727:5: ( LPAREN | LCURLY )=> callSuffix
                     {
-                    pushFollow(FOLLOW_callSuffix_in_superSuffix3242);
-                    callSuffix202=callSuffix();
+                    pushFollow(FOLLOW_callSuffix_in_superSuffix3262);
+                    callSuffix203=callSuffix();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_callSuffix.add(callSuffix202.getTree());
+                    if ( state.backtracking==0 ) stream_callSuffix.add(callSuffix203.getTree());
 
 
                     // AST REWRITE
@@ -8984,15 +9069,15 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 726:34: -> ^( CALL ( callSuffix )? SUPER[$superToken] )
+                    // 727:34: -> ^( CALL ( callSuffix )? SUPER[$superToken] )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:37: ^( CALL ( callSuffix )? SUPER[$superToken] )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:727:37: ^( CALL ( callSuffix )? SUPER[$superToken] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
                         adaptor.addChild(root_1, ((CommonTree)retval.tree));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:64: ( callSuffix )?
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:727:64: ( callSuffix )?
                         if ( stream_callSuffix.hasNext() ) {
                             adaptor.addChild(root_1, stream_callSuffix.nextTree());
 
@@ -9009,7 +9094,7 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:727:8: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:728:8: 
                     {
 
                     // AST REWRITE
@@ -9024,7 +9109,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 727:8: ->
+                    // 728:8: ->
                     {
                         adaptor.addChild(root_0, ((CommonTree)retval.tree));
 
@@ -9064,7 +9149,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "simpleExpression"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:731:1: simpleExpression : ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:732:1: simpleExpression : ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) );
     public final SQLScriptParser.simpleExpression_return simpleExpression() throws RecognitionException {
         SQLScriptParser.simpleExpression_return retval = new SQLScriptParser.simpleExpression_return();
         retval.start = input.LT(1);
@@ -9074,38 +9159,38 @@ public class SQLScriptParser extends Parser {
         Token tokThis=null;
         Token tokSuper=null;
         Token tokNew=null;
-        Token INT209=null;
-        Token FLOAT210=null;
-        SQLScriptParser.parenExpression_return parenExpression203 = null;
+        Token INT210=null;
+        Token FLOAT211=null;
+        SQLScriptParser.parenExpression_return parenExpression204 = null;
 
-        SQLScriptParser.blockClosure_return blockClosure204 = null;
+        SQLScriptParser.blockClosure_return blockClosure205 = null;
 
-        SQLScriptParser.identifierNoUnary_return identifierNoUnary205 = null;
+        SQLScriptParser.identifierNoUnary_return identifierNoUnary206 = null;
 
-        SQLScriptParser.stringLiteral_return stringLiteral206 = null;
+        SQLScriptParser.stringLiteral_return stringLiteral207 = null;
 
-        SQLScriptParser.booleanLiteral_return booleanLiteral207 = null;
+        SQLScriptParser.booleanLiteral_return booleanLiteral208 = null;
 
-        SQLScriptParser.arrayLiteral_return arrayLiteral208 = null;
+        SQLScriptParser.arrayLiteral_return arrayLiteral209 = null;
 
-        SQLScriptParser.superSuffix_return superSuffix211 = null;
+        SQLScriptParser.superSuffix_return superSuffix212 = null;
 
-        SQLScriptParser.simpleExpression_return simpleExpression212 = null;
+        SQLScriptParser.simpleExpression_return simpleExpression213 = null;
 
-        SQLScriptParser.argumentsList_return argumentsList213 = null;
+        SQLScriptParser.argumentsList_return argumentsList214 = null;
 
 
         CommonTree tokThis_tree=null;
         CommonTree tokSuper_tree=null;
         CommonTree tokNew_tree=null;
-        CommonTree INT209_tree=null;
-        CommonTree FLOAT210_tree=null;
+        CommonTree INT210_tree=null;
+        CommonTree FLOAT211_tree=null;
         RewriteRuleTokenStream stream_KW_NEW=new RewriteRuleTokenStream(adaptor,"token KW_NEW");
         RewriteRuleTokenStream stream_KW_THIS=new RewriteRuleTokenStream(adaptor,"token KW_THIS");
         RewriteRuleSubtreeStream stream_argumentsList=new RewriteRuleSubtreeStream(adaptor,"rule argumentsList");
         RewriteRuleSubtreeStream stream_simpleExpression=new RewriteRuleSubtreeStream(adaptor,"rule simpleExpression");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:732:2: ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:733:2: ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) )
             int alt64=11;
             switch ( input.LA(1) ) {
             case LPAREN:
@@ -9130,7 +9215,6 @@ public class SQLScriptParser extends Parser {
             case OP_LT:
             case OP_LE:
             case OP_ADD:
-            case OP_SUB:
             case OP_DIV:
             case WORD:
             case IDENTIFIER:
@@ -9190,119 +9274,119 @@ public class SQLScriptParser extends Parser {
 
             switch (alt64) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:732:4: parenExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:733:4: parenExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_parenExpression_in_simpleExpression3282);
-                    parenExpression203=parenExpression();
+                    pushFollow(FOLLOW_parenExpression_in_simpleExpression3302);
+                    parenExpression204=parenExpression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, parenExpression203.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, parenExpression204.getTree());
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:733:4: blockClosure
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:734:4: blockClosure
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_blockClosure_in_simpleExpression3287);
-                    blockClosure204=blockClosure();
+                    pushFollow(FOLLOW_blockClosure_in_simpleExpression3307);
+                    blockClosure205=blockClosure();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, blockClosure204.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, blockClosure205.getTree());
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:734:4: identifierNoUnary
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:735:4: identifierNoUnary
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_identifierNoUnary_in_simpleExpression3292);
-                    identifierNoUnary205=identifierNoUnary();
+                    pushFollow(FOLLOW_identifierNoUnary_in_simpleExpression3312);
+                    identifierNoUnary206=identifierNoUnary();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, identifierNoUnary205.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, identifierNoUnary206.getTree());
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:735:4: stringLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:736:4: stringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_stringLiteral_in_simpleExpression3297);
-                    stringLiteral206=stringLiteral();
+                    pushFollow(FOLLOW_stringLiteral_in_simpleExpression3317);
+                    stringLiteral207=stringLiteral();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, stringLiteral206.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, stringLiteral207.getTree());
 
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:736:4: booleanLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:737:4: booleanLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_booleanLiteral_in_simpleExpression3302);
-                    booleanLiteral207=booleanLiteral();
+                    pushFollow(FOLLOW_booleanLiteral_in_simpleExpression3322);
+                    booleanLiteral208=booleanLiteral();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, booleanLiteral207.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, booleanLiteral208.getTree());
 
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:737:4: arrayLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:738:4: arrayLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_arrayLiteral_in_simpleExpression3307);
-                    arrayLiteral208=arrayLiteral();
+                    pushFollow(FOLLOW_arrayLiteral_in_simpleExpression3327);
+                    arrayLiteral209=arrayLiteral();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, arrayLiteral208.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, arrayLiteral209.getTree());
 
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:738:4: INT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:739:4: INT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    INT209=(Token)match(input,INT,FOLLOW_INT_in_simpleExpression3312); if (state.failed) return retval;
+                    INT210=(Token)match(input,INT,FOLLOW_INT_in_simpleExpression3332); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    INT209_tree = (CommonTree)adaptor.create(INT209);
-                    adaptor.addChild(root_0, INT209_tree);
+                    INT210_tree = (CommonTree)adaptor.create(INT210);
+                    adaptor.addChild(root_0, INT210_tree);
                     }
 
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:739:4: FLOAT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:740:4: FLOAT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    FLOAT210=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_simpleExpression3317); if (state.failed) return retval;
+                    FLOAT211=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_simpleExpression3337); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    FLOAT210_tree = (CommonTree)adaptor.create(FLOAT210);
-                    adaptor.addChild(root_0, FLOAT210_tree);
+                    FLOAT211_tree = (CommonTree)adaptor.create(FLOAT211);
+                    adaptor.addChild(root_0, FLOAT211_tree);
                     }
 
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:740:4: tokThis= KW_THIS
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:741:4: tokThis= KW_THIS
                     {
-                    tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3324); if (state.failed) return retval; 
+                    tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3344); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_THIS.add(tokThis);
 
 
@@ -9319,7 +9403,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 740:20: -> THIS[$tokThis]
+                    // 741:20: -> THIS[$tokThis]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(THIS, tokThis));
 
@@ -9329,38 +9413,38 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:741:4: tokSuper= KW_SUPER superSuffix[$tokSuper]
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:742:4: tokSuper= KW_SUPER superSuffix[$tokSuper]
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    tokSuper=(Token)match(input,KW_SUPER,FOLLOW_KW_SUPER_in_simpleExpression3336); if (state.failed) return retval;
-                    pushFollow(FOLLOW_superSuffix_in_simpleExpression3339);
-                    superSuffix211=superSuffix(tokSuper);
+                    tokSuper=(Token)match(input,KW_SUPER,FOLLOW_KW_SUPER_in_simpleExpression3356); if (state.failed) return retval;
+                    pushFollow(FOLLOW_superSuffix_in_simpleExpression3359);
+                    superSuffix212=superSuffix(tokSuper);
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, superSuffix211.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, superSuffix212.getTree());
 
                     }
                     break;
                 case 11 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:742:4: tokNew= KW_NEW simpleExpression argumentsList
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:743:4: tokNew= KW_NEW simpleExpression argumentsList
                     {
-                    tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3347); if (state.failed) return retval; 
+                    tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3367); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_NEW.add(tokNew);
 
-                    pushFollow(FOLLOW_simpleExpression_in_simpleExpression3349);
-                    simpleExpression212=simpleExpression();
+                    pushFollow(FOLLOW_simpleExpression_in_simpleExpression3369);
+                    simpleExpression213=simpleExpression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_simpleExpression.add(simpleExpression212.getTree());
-                    pushFollow(FOLLOW_argumentsList_in_simpleExpression3351);
-                    argumentsList213=argumentsList();
+                    if ( state.backtracking==0 ) stream_simpleExpression.add(simpleExpression213.getTree());
+                    pushFollow(FOLLOW_argumentsList_in_simpleExpression3371);
+                    argumentsList214=argumentsList();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_argumentsList.add(argumentsList213.getTree());
+                    if ( state.backtracking==0 ) stream_argumentsList.add(argumentsList214.getTree());
 
 
                     // AST REWRITE
@@ -9375,15 +9459,15 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 742:49: -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
+                    // 743:49: -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:742:52: ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:743:52: ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(NEW, tokNew), root_1);
 
                         adaptor.addChild(root_1, stream_simpleExpression.nextTree());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:742:84: ( argumentsList )?
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:743:84: ( argumentsList )?
                         if ( stream_argumentsList.hasNext() ) {
                             adaptor.addChild(root_1, stream_argumentsList.nextTree());
 
@@ -9425,27 +9509,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlStatementPrefixed"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:745:1: sqlStatementPrefixed : sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:746:1: sqlStatementPrefixed : sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) ;
     public final SQLScriptParser.sqlStatementPrefixed_return sqlStatementPrefixed() throws RecognitionException {
         SQLScriptParser.sqlStatementPrefixed_return retval = new SQLScriptParser.sqlStatementPrefixed_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.sqlLiteralPrefixed_return sqlLiteralPrefixed214 = null;
+        SQLScriptParser.sqlLiteralPrefixed_return sqlLiteralPrefixed215 = null;
 
 
         RewriteRuleSubtreeStream stream_sqlLiteralPrefixed=new RewriteRuleSubtreeStream(adaptor,"rule sqlLiteralPrefixed");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:746:2: ( sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:746:4: sqlLiteralPrefixed
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:747:2: ( sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:747:4: sqlLiteralPrefixed
             {
-            pushFollow(FOLLOW_sqlLiteralPrefixed_in_sqlStatementPrefixed3374);
-            sqlLiteralPrefixed214=sqlLiteralPrefixed();
+            pushFollow(FOLLOW_sqlLiteralPrefixed_in_sqlStatementPrefixed3394);
+            sqlLiteralPrefixed215=sqlLiteralPrefixed();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlLiteralPrefixed.add(sqlLiteralPrefixed214.getTree());
+            if ( state.backtracking==0 ) stream_sqlLiteralPrefixed.add(sqlLiteralPrefixed215.getTree());
 
 
             // AST REWRITE
@@ -9460,9 +9544,9 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 746:23: -> ^( SQL_STMT sqlLiteralPrefixed )
+            // 747:23: -> ^( SQL_STMT sqlLiteralPrefixed )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:746:26: ^( SQL_STMT sqlLiteralPrefixed )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:747:26: ^( SQL_STMT sqlLiteralPrefixed )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL_STMT, "SQL_STMT"), root_1);
@@ -9502,27 +9586,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlStatement"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:749:1: sqlStatement : sqlLiteral -> ^( SQL_STMT sqlLiteral ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:750:1: sqlStatement : sqlLiteral -> ^( SQL_STMT sqlLiteral ) ;
     public final SQLScriptParser.sqlStatement_return sqlStatement() throws RecognitionException {
         SQLScriptParser.sqlStatement_return retval = new SQLScriptParser.sqlStatement_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.sqlLiteral_return sqlLiteral215 = null;
+        SQLScriptParser.sqlLiteral_return sqlLiteral216 = null;
 
 
         RewriteRuleSubtreeStream stream_sqlLiteral=new RewriteRuleSubtreeStream(adaptor,"rule sqlLiteral");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:750:2: ( sqlLiteral -> ^( SQL_STMT sqlLiteral ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:750:4: sqlLiteral
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:751:2: ( sqlLiteral -> ^( SQL_STMT sqlLiteral ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:751:4: sqlLiteral
             {
-            pushFollow(FOLLOW_sqlLiteral_in_sqlStatement3393);
-            sqlLiteral215=sqlLiteral();
+            pushFollow(FOLLOW_sqlLiteral_in_sqlStatement3413);
+            sqlLiteral216=sqlLiteral();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlLiteral.add(sqlLiteral215.getTree());
+            if ( state.backtracking==0 ) stream_sqlLiteral.add(sqlLiteral216.getTree());
 
 
             // AST REWRITE
@@ -9537,9 +9621,9 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 750:15: -> ^( SQL_STMT sqlLiteral )
+            // 751:15: -> ^( SQL_STMT sqlLiteral )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:750:18: ^( SQL_STMT sqlLiteral )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:751:18: ^( SQL_STMT sqlLiteral )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL_STMT, "SQL_STMT"), root_1);
@@ -9579,27 +9663,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlExpression"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:753:1: sqlExpression : sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:754:1: sqlExpression : sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) ;
     public final SQLScriptParser.sqlExpression_return sqlExpression() throws RecognitionException {
         SQLScriptParser.sqlExpression_return retval = new SQLScriptParser.sqlExpression_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.sqlLiteralPrefixed_return sqlLiteralPrefixed216 = null;
+        SQLScriptParser.sqlLiteralPrefixed_return sqlLiteralPrefixed217 = null;
 
 
         RewriteRuleSubtreeStream stream_sqlLiteralPrefixed=new RewriteRuleSubtreeStream(adaptor,"rule sqlLiteralPrefixed");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:754:2: ( sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:754:4: sqlLiteralPrefixed
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:755:2: ( sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:755:4: sqlLiteralPrefixed
             {
-            pushFollow(FOLLOW_sqlLiteralPrefixed_in_sqlExpression3412);
-            sqlLiteralPrefixed216=sqlLiteralPrefixed();
+            pushFollow(FOLLOW_sqlLiteralPrefixed_in_sqlExpression3432);
+            sqlLiteralPrefixed217=sqlLiteralPrefixed();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlLiteralPrefixed.add(sqlLiteralPrefixed216.getTree());
+            if ( state.backtracking==0 ) stream_sqlLiteralPrefixed.add(sqlLiteralPrefixed217.getTree());
 
 
             // AST REWRITE
@@ -9614,9 +9698,9 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 754:23: -> ^( SQL_EXPR sqlLiteralPrefixed )
+            // 755:23: -> ^( SQL_EXPR sqlLiteralPrefixed )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:754:26: ^( SQL_EXPR sqlLiteralPrefixed )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:755:26: ^( SQL_EXPR sqlLiteralPrefixed )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL_EXPR, "SQL_EXPR"), root_1);
@@ -9656,36 +9740,36 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlLiteralPrefixed"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:761:1: sqlLiteralPrefixed : sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:762:1: sqlLiteralPrefixed : sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest ;
     public final SQLScriptParser.sqlLiteralPrefixed_return sqlLiteralPrefixed() throws RecognitionException {
         SQLScriptParser.sqlLiteralPrefixed_return retval = new SQLScriptParser.sqlLiteralPrefixed_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.sqlStmtNamePrefixed_return sqlStmtNamePrefixed217 = null;
+        SQLScriptParser.sqlStmtNamePrefixed_return sqlStmtNamePrefixed218 = null;
 
-        SQLScriptParser.sqlStmtRest_return sqlStmtRest218 = null;
+        SQLScriptParser.sqlStmtRest_return sqlStmtRest219 = null;
 
 
         RewriteRuleSubtreeStream stream_sqlStmtRest=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtRest");
         RewriteRuleSubtreeStream stream_sqlStmtNamePrefixed=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtNamePrefixed");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:762:2: ( sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:762:4: sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:763:2: ( sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:763:4: sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree]
             {
-            pushFollow(FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3433);
-            sqlStmtNamePrefixed217=sqlStmtNamePrefixed();
+            pushFollow(FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3453);
+            sqlStmtNamePrefixed218=sqlStmtNamePrefixed();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlStmtNamePrefixed.add(sqlStmtNamePrefixed217.getTree());
-            pushFollow(FOLLOW_sqlStmtRest_in_sqlLiteralPrefixed3437);
-            sqlStmtRest218=sqlStmtRest((sqlStmtNamePrefixed217!=null?((CommonTree)sqlStmtNamePrefixed217.tree):null));
+            if ( state.backtracking==0 ) stream_sqlStmtNamePrefixed.add(sqlStmtNamePrefixed218.getTree());
+            pushFollow(FOLLOW_sqlStmtRest_in_sqlLiteralPrefixed3457);
+            sqlStmtRest219=sqlStmtRest((sqlStmtNamePrefixed218!=null?((CommonTree)sqlStmtNamePrefixed218.tree):null));
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlStmtRest.add(sqlStmtRest218.getTree());
+            if ( state.backtracking==0 ) stream_sqlStmtRest.add(sqlStmtRest219.getTree());
 
 
             // AST REWRITE
@@ -9700,7 +9784,7 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 763:42: -> sqlStmtRest
+            // 764:42: -> sqlStmtRest
             {
                 adaptor.addChild(root_0, stream_sqlStmtRest.nextTree());
 
@@ -9734,14 +9818,14 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlLiteralParamed"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:769:1: sqlLiteralParamed : sqlLiteral ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:770:1: sqlLiteralParamed : sqlLiteral ;
     public final SQLScriptParser.sqlLiteralParamed_return sqlLiteralParamed() throws RecognitionException {
         SQLScriptParser.sqlLiteralParamed_return retval = new SQLScriptParser.sqlLiteralParamed_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.sqlLiteral_return sqlLiteral219 = null;
+        SQLScriptParser.sqlLiteral_return sqlLiteral220 = null;
 
 
 
@@ -9751,17 +9835,17 @@ public class SQLScriptParser extends Parser {
         	lexer.setAllowEmbeddedVariables(false);
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:778:2: ( sqlLiteral )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:778:4: sqlLiteral
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:779:2: ( sqlLiteral )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:779:4: sqlLiteral
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_sqlLiteral_in_sqlLiteralParamed3465);
-            sqlLiteral219=sqlLiteral();
+            pushFollow(FOLLOW_sqlLiteral_in_sqlLiteralParamed3485);
+            sqlLiteral220=sqlLiteral();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlLiteral219.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlLiteral220.getTree());
 
             }
 
@@ -9795,36 +9879,36 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:781:1: sqlLiteral : sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:782:1: sqlLiteral : sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest ;
     public final SQLScriptParser.sqlLiteral_return sqlLiteral() throws RecognitionException {
         SQLScriptParser.sqlLiteral_return retval = new SQLScriptParser.sqlLiteral_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.sqlStmtName_return sqlStmtName220 = null;
+        SQLScriptParser.sqlStmtName_return sqlStmtName221 = null;
 
-        SQLScriptParser.sqlStmtRest_return sqlStmtRest221 = null;
+        SQLScriptParser.sqlStmtRest_return sqlStmtRest222 = null;
 
 
         RewriteRuleSubtreeStream stream_sqlStmtName=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtName");
         RewriteRuleSubtreeStream stream_sqlStmtRest=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtRest");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:782:2: ( sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:782:4: sqlStmtName sqlStmtRest[$sqlStmtName.tree]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:783:2: ( sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:783:4: sqlStmtName sqlStmtRest[$sqlStmtName.tree]
             {
-            pushFollow(FOLLOW_sqlStmtName_in_sqlLiteral3476);
-            sqlStmtName220=sqlStmtName();
+            pushFollow(FOLLOW_sqlStmtName_in_sqlLiteral3496);
+            sqlStmtName221=sqlStmtName();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlStmtName.add(sqlStmtName220.getTree());
-            pushFollow(FOLLOW_sqlStmtRest_in_sqlLiteral3480);
-            sqlStmtRest221=sqlStmtRest((sqlStmtName220!=null?((CommonTree)sqlStmtName220.tree):null));
+            if ( state.backtracking==0 ) stream_sqlStmtName.add(sqlStmtName221.getTree());
+            pushFollow(FOLLOW_sqlStmtRest_in_sqlLiteral3500);
+            sqlStmtRest222=sqlStmtRest((sqlStmtName221!=null?((CommonTree)sqlStmtName221.tree):null));
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlStmtRest.add(sqlStmtRest221.getTree());
+            if ( state.backtracking==0 ) stream_sqlStmtRest.add(sqlStmtRest222.getTree());
 
 
             // AST REWRITE
@@ -9839,7 +9923,7 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 783:34: -> sqlStmtRest
+            // 784:34: -> sqlStmtRest
             {
                 adaptor.addChild(root_0, stream_sqlStmtRest.nextTree());
 
@@ -9873,31 +9957,31 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlStmtNamePrefixed"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:786:1: sqlStmtNamePrefixed : KW_SQL ( keyword | WORD | embeddedVar ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:787:1: sqlStmtNamePrefixed : KW_SQL ( keyword | WORD | embeddedVar ) ;
     public final SQLScriptParser.sqlStmtNamePrefixed_return sqlStmtNamePrefixed() throws RecognitionException {
         SQLScriptParser.sqlStmtNamePrefixed_return retval = new SQLScriptParser.sqlStmtNamePrefixed_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token KW_SQL222=null;
-        Token WORD224=null;
-        SQLScriptParser.keyword_return keyword223 = null;
+        Token KW_SQL223=null;
+        Token WORD225=null;
+        SQLScriptParser.keyword_return keyword224 = null;
 
-        SQLScriptParser.embeddedVar_return embeddedVar225 = null;
+        SQLScriptParser.embeddedVar_return embeddedVar226 = null;
 
 
-        CommonTree KW_SQL222_tree=null;
-        CommonTree WORD224_tree=null;
+        CommonTree KW_SQL223_tree=null;
+        CommonTree WORD225_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:787:2: ( KW_SQL ( keyword | WORD | embeddedVar ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:787:4: KW_SQL ( keyword | WORD | embeddedVar )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:788:2: ( KW_SQL ( keyword | WORD | embeddedVar ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:788:4: KW_SQL ( keyword | WORD | embeddedVar )
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            KW_SQL222=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3496); if (state.failed) return retval;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:788:3: ( keyword | WORD | embeddedVar )
+            KW_SQL223=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3516); if (state.failed) return retval;
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:789:3: ( keyword | WORD | embeddedVar )
             int alt65=3;
             switch ( input.LA(1) ) {
             case KW_SQL:
@@ -9947,37 +10031,37 @@ public class SQLScriptParser extends Parser {
 
             switch (alt65) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:788:5: keyword
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:789:5: keyword
                     {
-                    pushFollow(FOLLOW_keyword_in_sqlStmtNamePrefixed3503);
-                    keyword223=keyword();
+                    pushFollow(FOLLOW_keyword_in_sqlStmtNamePrefixed3523);
+                    keyword224=keyword();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, keyword223.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, keyword224.getTree());
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:788:15: WORD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:789:15: WORD
                     {
-                    WORD224=(Token)match(input,WORD,FOLLOW_WORD_in_sqlStmtNamePrefixed3507); if (state.failed) return retval;
+                    WORD225=(Token)match(input,WORD,FOLLOW_WORD_in_sqlStmtNamePrefixed3527); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    WORD224_tree = (CommonTree)adaptor.create(WORD224);
-                    adaptor.addChild(root_0, WORD224_tree);
+                    WORD225_tree = (CommonTree)adaptor.create(WORD225);
+                    adaptor.addChild(root_0, WORD225_tree);
                     }
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:788:22: embeddedVar
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:789:22: embeddedVar
                     {
-                    pushFollow(FOLLOW_embeddedVar_in_sqlStmtNamePrefixed3511);
-                    embeddedVar225=embeddedVar();
+                    pushFollow(FOLLOW_embeddedVar_in_sqlStmtNamePrefixed3531);
+                    embeddedVar226=embeddedVar();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, embeddedVar225.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, embeddedVar226.getTree());
 
                     }
                     break;
@@ -10012,21 +10096,21 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlStmtName"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:794:1: sqlStmtName : ( WORD | sqlStmtNamePrefixed );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:795:1: sqlStmtName : ( WORD | sqlStmtNamePrefixed );
     public final SQLScriptParser.sqlStmtName_return sqlStmtName() throws RecognitionException {
         SQLScriptParser.sqlStmtName_return retval = new SQLScriptParser.sqlStmtName_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token WORD226=null;
-        SQLScriptParser.sqlStmtNamePrefixed_return sqlStmtNamePrefixed227 = null;
+        Token WORD227=null;
+        SQLScriptParser.sqlStmtNamePrefixed_return sqlStmtNamePrefixed228 = null;
 
 
-        CommonTree WORD226_tree=null;
+        CommonTree WORD227_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:795:2: ( WORD | sqlStmtNamePrefixed )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:796:2: ( WORD | sqlStmtNamePrefixed )
             int alt66=2;
             int LA66_0 = input.LA(1);
 
@@ -10045,29 +10129,29 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt66) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:795:4: WORD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:796:4: WORD
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    WORD226=(Token)match(input,WORD,FOLLOW_WORD_in_sqlStmtName3532); if (state.failed) return retval;
+                    WORD227=(Token)match(input,WORD,FOLLOW_WORD_in_sqlStmtName3552); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    WORD226_tree = (CommonTree)adaptor.create(WORD226);
-                    adaptor.addChild(root_0, WORD226_tree);
+                    WORD227_tree = (CommonTree)adaptor.create(WORD227);
+                    adaptor.addChild(root_0, WORD227_tree);
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:796:4: sqlStmtNamePrefixed
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:797:4: sqlStmtNamePrefixed
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_sqlStmtNamePrefixed_in_sqlStmtName3537);
-                    sqlStmtNamePrefixed227=sqlStmtNamePrefixed();
+                    pushFollow(FOLLOW_sqlStmtNamePrefixed_in_sqlStmtName3557);
+                    sqlStmtNamePrefixed228=sqlStmtNamePrefixed();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlStmtNamePrefixed227.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlStmtNamePrefixed228.getTree());
 
                     }
                     break;
@@ -10098,20 +10182,20 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlStmtRest"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:809:1: sqlStmtRest[ CommonTree sqlStmtName ] : sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:810:1: sqlStmtRest[ CommonTree sqlStmtName ] : sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) ;
     public final SQLScriptParser.sqlStmtRest_return sqlStmtRest(CommonTree sqlStmtName) throws RecognitionException {
         SQLScriptParser.sqlStmtRest_return retval = new SQLScriptParser.sqlStmtRest_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token EOF230=null;
-        SQLScriptParser.sqlHiddenWS_return sqlHiddenWS228 = null;
+        Token EOF231=null;
+        SQLScriptParser.sqlHiddenWS_return sqlHiddenWS229 = null;
 
-        SQLScriptParser.sqlPart_return sqlPart229 = null;
+        SQLScriptParser.sqlPart_return sqlPart230 = null;
 
 
-        CommonTree EOF230_tree=null;
+        CommonTree EOF231_tree=null;
         RewriteRuleTokenStream stream_EOF=new RewriteRuleTokenStream(adaptor,"token EOF");
         RewriteRuleSubtreeStream stream_sqlHiddenWS=new RewriteRuleSubtreeStream(adaptor,"rule sqlHiddenWS");
         RewriteRuleSubtreeStream stream_sqlPart=new RewriteRuleSubtreeStream(adaptor,"rule sqlPart");
@@ -10145,16 +10229,16 @@ public class SQLScriptParser extends Parser {
         	}
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:859:2: ( sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:3: sqlHiddenWS ( sqlPart )* ( EOF )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:2: ( sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:861:3: sqlHiddenWS ( sqlPart )* ( EOF )?
             {
-            pushFollow(FOLLOW_sqlHiddenWS_in_sqlStmtRest3565);
-            sqlHiddenWS228=sqlHiddenWS();
+            pushFollow(FOLLOW_sqlHiddenWS_in_sqlStmtRest3585);
+            sqlHiddenWS229=sqlHiddenWS();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sqlHiddenWS.add(sqlHiddenWS228.getTree());
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:15: ( sqlPart )*
+            if ( state.backtracking==0 ) stream_sqlHiddenWS.add(sqlHiddenWS229.getTree());
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:861:15: ( sqlPart )*
             loop67:
             do {
                 int alt67=2;
@@ -10167,14 +10251,14 @@ public class SQLScriptParser extends Parser {
 
                 switch (alt67) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:15: sqlPart
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:861:15: sqlPart
             	    {
-            	    pushFollow(FOLLOW_sqlPart_in_sqlStmtRest3567);
-            	    sqlPart229=sqlPart();
+            	    pushFollow(FOLLOW_sqlPart_in_sqlStmtRest3587);
+            	    sqlPart230=sqlPart();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart229.getTree());
+            	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart230.getTree());
 
             	    }
             	    break;
@@ -10184,7 +10268,7 @@ public class SQLScriptParser extends Parser {
                 }
             } while (true);
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:24: ( EOF )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:861:24: ( EOF )?
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -10197,10 +10281,10 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt68) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:24: EOF
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:861:24: EOF
                     {
-                    EOF230=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3570); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_EOF.add(EOF230);
+                    EOF231=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3590); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_EOF.add(EOF231);
 
 
                     }
@@ -10211,7 +10295,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: sqlHiddenWS, sqlPart
+            // elements: sqlPart, sqlHiddenWS
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -10222,22 +10306,22 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 860:29: -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
+            // 861:29: -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:860:32: ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:861:32: ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL, "SQL"), root_1);
 
                 adaptor.addChild(root_1, adaptor.create(new SQLModeToken(SQL_MODE, new SQLParseMode(stringType))));
                 adaptor.addChild(root_1, sqlStmtName);
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:866:22: ( sqlHiddenWS )?
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:867:22: ( sqlHiddenWS )?
                 if ( stream_sqlHiddenWS.hasNext() ) {
                     adaptor.addChild(root_1, stream_sqlHiddenWS.nextTree());
 
                 }
                 stream_sqlHiddenWS.reset();
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:866:35: ( sqlPart )*
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:867:35: ( sqlPart )*
                 while ( stream_sqlPart.hasNext() ) {
                     adaptor.addChild(root_1, stream_sqlPart.nextTree());
 
@@ -10299,53 +10383,53 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlPart"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:875:1: sqlPart : ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:876:1: sqlPart : ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* );
     public final SQLScriptParser.sqlPart_return sqlPart() throws RecognitionException {
         SQLScriptParser.sqlPart_return retval = new SQLScriptParser.sqlPart_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token COLON231=null;
-        Token WORD232=null;
-        Token COLON234=null;
+        Token COLON232=null;
+        Token WORD233=null;
         Token COLON235=null;
-        Token LPAREN239=null;
-        Token RPAREN241=null;
-        Token LCURLY242=null;
-        Token RCURLY244=null;
-        Token LSQUARE245=null;
-        Token RSQUARE247=null;
+        Token COLON236=null;
+        Token LPAREN240=null;
+        Token RPAREN242=null;
+        Token LCURLY243=null;
+        Token RCURLY245=null;
+        Token LSQUARE246=null;
+        Token RSQUARE248=null;
         List list_ws1=null;
         List list_ws2=null;
-        SQLScriptParser.sqlWS_return sqlWS233 = null;
+        SQLScriptParser.sqlWS_return sqlWS234 = null;
 
-        SQLScriptParser.sqlWS_return sqlWS236 = null;
+        SQLScriptParser.sqlWS_return sqlWS237 = null;
 
-        SQLScriptParser.sqlToken_return sqlToken237 = null;
+        SQLScriptParser.sqlToken_return sqlToken238 = null;
 
-        SQLScriptParser.sqlWS_return sqlWS238 = null;
+        SQLScriptParser.sqlWS_return sqlWS239 = null;
 
-        SQLScriptParser.sqlPart_return sqlPart240 = null;
+        SQLScriptParser.sqlPart_return sqlPart241 = null;
 
-        SQLScriptParser.sqlPart_return sqlPart243 = null;
+        SQLScriptParser.sqlPart_return sqlPart244 = null;
 
-        SQLScriptParser.sqlPart_return sqlPart246 = null;
+        SQLScriptParser.sqlPart_return sqlPart247 = null;
 
         SQLScriptParser.sqlWS_return ws1 = null;
          ws1 = null;
         SQLScriptParser.sqlWS_return ws2 = null;
          ws2 = null;
-        CommonTree COLON231_tree=null;
-        CommonTree WORD232_tree=null;
-        CommonTree COLON234_tree=null;
+        CommonTree COLON232_tree=null;
+        CommonTree WORD233_tree=null;
         CommonTree COLON235_tree=null;
-        CommonTree LPAREN239_tree=null;
-        CommonTree RPAREN241_tree=null;
-        CommonTree LCURLY242_tree=null;
-        CommonTree RCURLY244_tree=null;
-        CommonTree LSQUARE245_tree=null;
-        CommonTree RSQUARE247_tree=null;
+        CommonTree COLON236_tree=null;
+        CommonTree LPAREN240_tree=null;
+        CommonTree RPAREN242_tree=null;
+        CommonTree LCURLY243_tree=null;
+        CommonTree RCURLY245_tree=null;
+        CommonTree LSQUARE246_tree=null;
+        CommonTree RSQUARE248_tree=null;
         RewriteRuleTokenStream stream_COLON=new RewriteRuleTokenStream(adaptor,"token COLON");
         RewriteRuleTokenStream stream_WORD=new RewriteRuleTokenStream(adaptor,"token WORD");
         RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
@@ -10358,24 +10442,24 @@ public class SQLScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_sqlWS=new RewriteRuleSubtreeStream(adaptor,"rule sqlWS");
         RewriteRuleSubtreeStream stream_sqlPart=new RewriteRuleSubtreeStream(adaptor,"rule sqlPart");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:876:2: ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:2: ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* )
             int alt81=6;
             alt81 = dfa81.predict(input);
             switch (alt81) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:876:4: {...}? => ( COLON WORD )=> COLON WORD ( sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:4: {...}? => ( COLON WORD )=> COLON WORD ( sqlWS )*
                     {
                     if ( !((parseSQLParams)) ) {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "sqlPart", "parseSQLParams");
                     }
-                    COLON231=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3650); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_COLON.add(COLON231);
+                    COLON232=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3670); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_COLON.add(COLON232);
 
-                    WORD232=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3652); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_WORD.add(WORD232);
+                    WORD233=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3672); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_WORD.add(WORD233);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:876:50: ( sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:50: ( sqlWS )*
                     loop69:
                     do {
                         int alt69=2;
@@ -10388,14 +10472,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt69) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:876:50: sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:50: sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3654);
-                    	    sqlWS233=sqlWS();
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3674);
+                    	    sqlWS234=sqlWS();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_sqlWS.add(sqlWS233.getTree());
+                    	    if ( state.backtracking==0 ) stream_sqlWS.add(sqlWS234.getTree());
 
                     	    }
                     	    break;
@@ -10419,10 +10503,10 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 876:57: -> SQL_PARAM[$WORD.text] ( sqlWS )*
+                    // 877:57: -> SQL_PARAM[$WORD.text] ( sqlWS )*
                     {
-                        adaptor.addChild(root_0, (CommonTree)adaptor.create(SQL_PARAM, (WORD232!=null?WORD232.getText():null)));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:876:82: ( sqlWS )*
+                        adaptor.addChild(root_0, (CommonTree)adaptor.create(SQL_PARAM, (WORD233!=null?WORD233.getText():null)));
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:82: ( sqlWS )*
                         while ( stream_sqlWS.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlWS.nextTree());
 
@@ -10435,19 +10519,19 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:4: {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:4: {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )*
                     {
                     if ( !((parseSQLParams)) ) {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "sqlPart", "parseSQLParams");
                     }
-                    COLON234=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3678); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_COLON.add(COLON234);
-
-                    COLON235=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3680); if (state.failed) return retval; 
+                    COLON235=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3698); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON235);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:52: ( sqlWS )*
+                    COLON236=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3700); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_COLON.add(COLON236);
+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:52: ( sqlWS )*
                     loop70:
                     do {
                         int alt70=2;
@@ -10460,14 +10544,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt70) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:52: sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:52: sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3682);
-                    	    sqlWS236=sqlWS();
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3702);
+                    	    sqlWS237=sqlWS();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_sqlWS.add(sqlWS236.getTree());
+                    	    if ( state.backtracking==0 ) stream_sqlWS.add(sqlWS237.getTree());
 
                     	    }
                     	    break;
@@ -10480,7 +10564,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: COLON, sqlWS, COLON
+                    // elements: sqlWS, COLON, COLON
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10491,11 +10575,11 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 877:59: -> COLON COLON ( sqlWS )*
+                    // 878:59: -> COLON COLON ( sqlWS )*
                     {
                         adaptor.addChild(root_0, stream_COLON.nextNode());
                         adaptor.addChild(root_0, stream_COLON.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:877:74: ( sqlWS )*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:74: ( sqlWS )*
                         while ( stream_sqlWS.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlWS.nextTree());
 
@@ -10508,15 +10592,15 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:4: sqlToken ( sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:4: sqlToken ( sqlWS )*
                     {
-                    pushFollow(FOLLOW_sqlToken_in_sqlPart3697);
-                    sqlToken237=sqlToken();
+                    pushFollow(FOLLOW_sqlToken_in_sqlPart3717);
+                    sqlToken238=sqlToken();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_sqlToken.add(sqlToken237.getTree());
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:13: ( sqlWS )*
+                    if ( state.backtracking==0 ) stream_sqlToken.add(sqlToken238.getTree());
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:13: ( sqlWS )*
                     loop71:
                     do {
                         int alt71=2;
@@ -10529,14 +10613,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt71) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:13: sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:13: sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3699);
-                    	    sqlWS238=sqlWS();
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3719);
+                    	    sqlWS239=sqlWS();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_sqlWS.add(sqlWS238.getTree());
+                    	    if ( state.backtracking==0 ) stream_sqlWS.add(sqlWS239.getTree());
 
                     	    }
                     	    break;
@@ -10549,7 +10633,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlWS, sqlToken
+                    // elements: sqlToken, sqlWS
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10560,10 +10644,10 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 878:25: -> sqlToken ( sqlWS )*
+                    // 879:25: -> sqlToken ( sqlWS )*
                     {
                         adaptor.addChild(root_0, stream_sqlToken.nextTree());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:878:37: ( sqlWS )*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:37: ( sqlWS )*
                         while ( stream_sqlWS.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlWS.nextTree());
 
@@ -10576,12 +10660,12 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:4: LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:4: LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )*
                     {
-                    LPAREN239=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3717); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN239);
+                    LPAREN240=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3737); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN240);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:14: (ws1+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:14: (ws1+= sqlWS )*
                     loop72:
                     do {
                         int alt72=2;
@@ -10594,9 +10678,9 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt72) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:14: ws1+= sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:14: ws1+= sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3721);
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3741);
                     	    ws1=sqlWS();
 
                     	    state._fsp--;
@@ -10614,7 +10698,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:23: ( sqlPart )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:23: ( sqlPart )*
                     loop73:
                     do {
                         int alt73=2;
@@ -10627,14 +10711,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt73) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:23: sqlPart
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:23: sqlPart
                     	    {
-                    	    pushFollow(FOLLOW_sqlPart_in_sqlPart3724);
-                    	    sqlPart240=sqlPart();
+                    	    pushFollow(FOLLOW_sqlPart_in_sqlPart3744);
+                    	    sqlPart241=sqlPart();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart240.getTree());
+                    	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart241.getTree());
 
                     	    }
                     	    break;
@@ -10644,10 +10728,10 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    RPAREN241=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3727); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN241);
+                    RPAREN242=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3747); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN242);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:42: (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:42: (ws2+= sqlWS )*
                     loop74:
                     do {
                         int alt74=2;
@@ -10660,9 +10744,9 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt74) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:42: ws2+= sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:42: ws2+= sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3731);
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3751);
                     	    ws2=sqlWS();
 
                     	    state._fsp--;
@@ -10683,7 +10767,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws2, sqlPart, ws1, RPAREN, LPAREN
+                    // elements: LPAREN, sqlPart, ws2, ws1, RPAREN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10695,23 +10779,23 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_ws1=new RewriteRuleSubtreeStream(adaptor,"token ws1",list_ws1);
                     RewriteRuleSubtreeStream stream_ws2=new RewriteRuleSubtreeStream(adaptor,"token ws2",list_ws2);
                     root_0 = (CommonTree)adaptor.nil();
-                    // 879:52: -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)*
+                    // 880:52: -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)*
                     {
                         adaptor.addChild(root_0, stream_LPAREN.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:62: ( $ws1)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:62: ( $ws1)*
                         while ( stream_ws1.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws1.nextTree());
 
                         }
                         stream_ws1.reset();
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:68: ( sqlPart )*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:68: ( sqlPart )*
                         while ( stream_sqlPart.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlPart.nextTree());
 
                         }
                         stream_sqlPart.reset();
                         adaptor.addChild(root_0, stream_RPAREN.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:879:84: ( $ws2)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:84: ( $ws2)*
                         while ( stream_ws2.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws2.nextTree());
 
@@ -10724,12 +10808,12 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:4: LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:4: LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )*
                     {
-                    LCURLY242=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3755); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY242);
+                    LCURLY243=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3775); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY243);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:14: (ws1+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:14: (ws1+= sqlWS )*
                     loop75:
                     do {
                         int alt75=2;
@@ -10742,9 +10826,9 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt75) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:14: ws1+= sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:14: ws1+= sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3759);
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3779);
                     	    ws1=sqlWS();
 
                     	    state._fsp--;
@@ -10762,7 +10846,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:23: ( sqlPart )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:23: ( sqlPart )*
                     loop76:
                     do {
                         int alt76=2;
@@ -10775,14 +10859,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt76) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:23: sqlPart
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:23: sqlPart
                     	    {
-                    	    pushFollow(FOLLOW_sqlPart_in_sqlPart3762);
-                    	    sqlPart243=sqlPart();
+                    	    pushFollow(FOLLOW_sqlPart_in_sqlPart3782);
+                    	    sqlPart244=sqlPart();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart243.getTree());
+                    	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart244.getTree());
 
                     	    }
                     	    break;
@@ -10792,10 +10876,10 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    RCURLY244=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3765); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY244);
+                    RCURLY245=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3785); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY245);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:42: (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:42: (ws2+= sqlWS )*
                     loop77:
                     do {
                         int alt77=2;
@@ -10808,9 +10892,9 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt77) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:42: ws2+= sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:42: ws2+= sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3769);
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3789);
                     	    ws2=sqlWS();
 
                     	    state._fsp--;
@@ -10831,7 +10915,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws1, ws2, LCURLY, sqlPart, RCURLY
+                    // elements: ws2, ws1, RCURLY, sqlPart, LCURLY
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10843,23 +10927,23 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_ws1=new RewriteRuleSubtreeStream(adaptor,"token ws1",list_ws1);
                     RewriteRuleSubtreeStream stream_ws2=new RewriteRuleSubtreeStream(adaptor,"token ws2",list_ws2);
                     root_0 = (CommonTree)adaptor.nil();
-                    // 880:52: -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)*
+                    // 881:52: -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)*
                     {
                         adaptor.addChild(root_0, stream_LCURLY.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:62: ( $ws1)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:62: ( $ws1)*
                         while ( stream_ws1.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws1.nextTree());
 
                         }
                         stream_ws1.reset();
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:68: ( sqlPart )*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:68: ( sqlPart )*
                         while ( stream_sqlPart.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlPart.nextTree());
 
                         }
                         stream_sqlPart.reset();
                         adaptor.addChild(root_0, stream_RCURLY.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:880:84: ( $ws2)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:84: ( $ws2)*
                         while ( stream_ws2.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws2.nextTree());
 
@@ -10872,12 +10956,12 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:4: LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:4: LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )*
                     {
-                    LSQUARE245=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3793); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE245);
+                    LSQUARE246=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3813); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE246);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:15: (ws1+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:15: (ws1+= sqlWS )*
                     loop78:
                     do {
                         int alt78=2;
@@ -10890,9 +10974,9 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt78) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:15: ws1+= sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:15: ws1+= sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3797);
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3817);
                     	    ws1=sqlWS();
 
                     	    state._fsp--;
@@ -10910,7 +10994,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:24: ( sqlPart )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:24: ( sqlPart )*
                     loop79:
                     do {
                         int alt79=2;
@@ -10923,14 +11007,14 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt79) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:24: sqlPart
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:24: sqlPart
                     	    {
-                    	    pushFollow(FOLLOW_sqlPart_in_sqlPart3800);
-                    	    sqlPart246=sqlPart();
+                    	    pushFollow(FOLLOW_sqlPart_in_sqlPart3820);
+                    	    sqlPart247=sqlPart();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart246.getTree());
+                    	    if ( state.backtracking==0 ) stream_sqlPart.add(sqlPart247.getTree());
 
                     	    }
                     	    break;
@@ -10940,10 +11024,10 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    RSQUARE247=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3803); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE247);
+                    RSQUARE248=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3823); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE248);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:44: (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:44: (ws2+= sqlWS )*
                     loop80:
                     do {
                         int alt80=2;
@@ -10956,9 +11040,9 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt80) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:44: ws2+= sqlWS
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:44: ws2+= sqlWS
                     	    {
-                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3807);
+                    	    pushFollow(FOLLOW_sqlWS_in_sqlPart3827);
                     	    ws2=sqlWS();
 
                     	    state._fsp--;
@@ -10979,7 +11063,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: LSQUARE, sqlPart, ws2, RSQUARE, ws1
+                    // elements: ws1, RSQUARE, LSQUARE, ws2, sqlPart
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10991,23 +11075,23 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_ws1=new RewriteRuleSubtreeStream(adaptor,"token ws1",list_ws1);
                     RewriteRuleSubtreeStream stream_ws2=new RewriteRuleSubtreeStream(adaptor,"token ws2",list_ws2);
                     root_0 = (CommonTree)adaptor.nil();
-                    // 881:53: -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)*
+                    // 882:53: -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)*
                     {
                         adaptor.addChild(root_0, stream_LSQUARE.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:64: ( $ws1)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:64: ( $ws1)*
                         while ( stream_ws1.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws1.nextTree());
 
                         }
                         stream_ws1.reset();
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:70: ( sqlPart )*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:70: ( sqlPart )*
                         while ( stream_sqlPart.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlPart.nextTree());
 
                         }
                         stream_sqlPart.reset();
                         adaptor.addChild(root_0, stream_RSQUARE.nextNode());
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:881:87: ( $ws2)*
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:882:87: ( $ws2)*
                         while ( stream_ws2.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws2.nextTree());
 
@@ -11046,27 +11130,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlWS"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:884:1: sqlWS : ( WS | NL );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:885:1: sqlWS : ( WS | NL );
     public final SQLScriptParser.sqlWS_return sqlWS() throws RecognitionException {
         SQLScriptParser.sqlWS_return retval = new SQLScriptParser.sqlWS_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token set248=null;
+        Token set249=null;
 
-        CommonTree set248_tree=null;
+        CommonTree set249_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:884:7: ( WS | NL )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:885:7: ( WS | NL )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            set248=(Token)input.LT(1);
+            set249=(Token)input.LT(1);
             if ( (input.LA(1)>=WS && input.LA(1)<=NL) ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set248));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set249));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -11103,7 +11187,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlHiddenWS"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:888:1: sqlHiddenWS : -> {hasWhitespace}? ->;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:889:1: sqlHiddenWS : -> {hasWhitespace}? ->;
     public final SQLScriptParser.sqlHiddenWS_return sqlHiddenWS() throws RecognitionException {
         SQLScriptParser.sqlHiddenWS_return retval = new SQLScriptParser.sqlHiddenWS_return();
         retval.start = input.LT(1);
@@ -11115,8 +11199,8 @@ public class SQLScriptParser extends Parser {
         	boolean hasWhitespace = collectedWhitespace.length() != 0;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:893:2: ( -> {hasWhitespace}? ->)
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:894:3: 
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:894:2: ( -> {hasWhitespace}? ->)
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:895:3: 
             {
 
             // AST REWRITE
@@ -11131,12 +11215,12 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 894:3: -> {hasWhitespace}?
+            // 895:3: -> {hasWhitespace}?
             if (hasWhitespace) {
                 adaptor.addChild(root_0, (CommonTree)adaptor.create(WS, collectedWhitespace));
 
             }
-            else // 895:3: ->
+            else // 896:3: ->
             {
                 root_0 = null;
             }
@@ -11164,27 +11248,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlToken"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:898:1: sqlToken : ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:899:1: sqlToken : ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar );
     public final SQLScriptParser.sqlToken_return sqlToken() throws RecognitionException {
         SQLScriptParser.sqlToken_return retval = new SQLScriptParser.sqlToken_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        SQLScriptParser.keyword_return keyword249 = null;
+        SQLScriptParser.keyword_return keyword250 = null;
 
-        SQLScriptParser.sqlStringLiteral_return sqlStringLiteral250 = null;
+        SQLScriptParser.sqlStringLiteral_return sqlStringLiteral251 = null;
 
-        SQLScriptParser.identifier_return identifier251 = null;
+        SQLScriptParser.identifier_return identifier252 = null;
 
-        SQLScriptParser.sqlAtom_return sqlAtom252 = null;
+        SQLScriptParser.sqlAtom_return sqlAtom253 = null;
 
-        SQLScriptParser.embeddedVar_return embeddedVar253 = null;
+        SQLScriptParser.embeddedVar_return embeddedVar254 = null;
 
 
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:899:2: ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:900:2: ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar )
             int alt82=5;
             switch ( input.LA(1) ) {
             case KW_SQL:
@@ -11274,72 +11358,72 @@ public class SQLScriptParser extends Parser {
 
             switch (alt82) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:899:4: keyword
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:900:4: keyword
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_keyword_in_sqlToken3878);
-                    keyword249=keyword();
+                    pushFollow(FOLLOW_keyword_in_sqlToken3898);
+                    keyword250=keyword();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, keyword249.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, keyword250.getTree());
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:899:14: sqlStringLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:900:14: sqlStringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_sqlStringLiteral_in_sqlToken3882);
-                    sqlStringLiteral250=sqlStringLiteral();
+                    pushFollow(FOLLOW_sqlStringLiteral_in_sqlToken3902);
+                    sqlStringLiteral251=sqlStringLiteral();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlStringLiteral250.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlStringLiteral251.getTree());
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:899:33: identifier
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:900:33: identifier
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_identifier_in_sqlToken3886);
-                    identifier251=identifier();
+                    pushFollow(FOLLOW_identifier_in_sqlToken3906);
+                    identifier252=identifier();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, identifier251.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, identifier252.getTree());
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:899:46: sqlAtom
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:900:46: sqlAtom
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_sqlAtom_in_sqlToken3890);
-                    sqlAtom252=sqlAtom();
+                    pushFollow(FOLLOW_sqlAtom_in_sqlToken3910);
+                    sqlAtom253=sqlAtom();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlAtom252.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, sqlAtom253.getTree());
 
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:900:4: embeddedVar
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:901:4: embeddedVar
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_embeddedVar_in_sqlToken3895);
-                    embeddedVar253=embeddedVar();
+                    pushFollow(FOLLOW_embeddedVar_in_sqlToken3915);
+                    embeddedVar254=embeddedVar();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, embeddedVar253.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, embeddedVar254.getTree());
 
                     }
                     break;
@@ -11370,27 +11454,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlAtom"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:903:1: sqlAtom : ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:904:1: sqlAtom : ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT );
     public final SQLScriptParser.sqlAtom_return sqlAtom() throws RecognitionException {
         SQLScriptParser.sqlAtom_return retval = new SQLScriptParser.sqlAtom_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token set254=null;
+        Token set255=null;
 
-        CommonTree set254_tree=null;
+        CommonTree set255_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:904:2: ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:905:2: ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            set254=(Token)input.LT(1);
+            set255=(Token)input.LT(1);
             if ( (input.LA(1)>=OP_DEFINE && input.LA(1)<=COMMA)||(input.LA(1)>=DOUBLE_ARROW && input.LA(1)<=DOT)||input.LA(1)==COLON||input.LA(1)==QUESTION||(input.LA(1)>=INT && input.LA(1)<=FLOAT)||(input.LA(1)>=SQL_SPECIAL_CHAR && input.LA(1)<=BACKSLASH) ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set254));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set255));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -11427,38 +11511,38 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "objectLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:912:1: objectLiteral : LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:913:1: objectLiteral : LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) ;
     public final SQLScriptParser.objectLiteral_return objectLiteral() throws RecognitionException {
         SQLScriptParser.objectLiteral_return retval = new SQLScriptParser.objectLiteral_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token LCURLY255=null;
-        Token COMMA257=null;
-        Token COMMA259=null;
-        Token RCURLY260=null;
-        SQLScriptParser.objectSlot_return objectSlot256 = null;
+        Token LCURLY256=null;
+        Token COMMA258=null;
+        Token COMMA260=null;
+        Token RCURLY261=null;
+        SQLScriptParser.objectSlot_return objectSlot257 = null;
 
-        SQLScriptParser.objectSlot_return objectSlot258 = null;
+        SQLScriptParser.objectSlot_return objectSlot259 = null;
 
 
-        CommonTree LCURLY255_tree=null;
-        CommonTree COMMA257_tree=null;
-        CommonTree COMMA259_tree=null;
-        CommonTree RCURLY260_tree=null;
+        CommonTree LCURLY256_tree=null;
+        CommonTree COMMA258_tree=null;
+        CommonTree COMMA260_tree=null;
+        CommonTree RCURLY261_tree=null;
         RewriteRuleTokenStream stream_LCURLY=new RewriteRuleTokenStream(adaptor,"token LCURLY");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_objectSlot=new RewriteRuleSubtreeStream(adaptor,"rule objectSlot");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:913:2: ( LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:913:4: LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:2: ( LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:4: LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY
             {
-            LCURLY255=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3962); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY255);
+            LCURLY256=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3982); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY256);
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:3: ( objectSlot ( COMMA objectSlot )* ( COMMA )* | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:915:3: ( objectSlot ( COMMA objectSlot )* ( COMMA )* | )
             int alt85=2;
             int LA85_0 = input.LA(1);
 
@@ -11477,15 +11561,15 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt85) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:4: objectSlot ( COMMA objectSlot )* ( COMMA )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:915:4: objectSlot ( COMMA objectSlot )* ( COMMA )*
                     {
-                    pushFollow(FOLLOW_objectSlot_in_objectLiteral3967);
-                    objectSlot256=objectSlot();
+                    pushFollow(FOLLOW_objectSlot_in_objectLiteral3987);
+                    objectSlot257=objectSlot();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_objectSlot.add(objectSlot256.getTree());
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:15: ( COMMA objectSlot )*
+                    if ( state.backtracking==0 ) stream_objectSlot.add(objectSlot257.getTree());
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:915:15: ( COMMA objectSlot )*
                     loop83:
                     do {
                         int alt83=2;
@@ -11504,17 +11588,17 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt83) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:16: COMMA objectSlot
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:915:16: COMMA objectSlot
                     	    {
-                    	    COMMA257=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3970); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA257);
+                    	    COMMA258=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3990); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA258);
 
-                    	    pushFollow(FOLLOW_objectSlot_in_objectLiteral3972);
-                    	    objectSlot258=objectSlot();
+                    	    pushFollow(FOLLOW_objectSlot_in_objectLiteral3992);
+                    	    objectSlot259=objectSlot();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_objectSlot.add(objectSlot258.getTree());
+                    	    if ( state.backtracking==0 ) stream_objectSlot.add(objectSlot259.getTree());
 
                     	    }
                     	    break;
@@ -11524,7 +11608,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:35: ( COMMA )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:915:35: ( COMMA )*
                     loop84:
                     do {
                         int alt84=2;
@@ -11537,10 +11621,10 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt84) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:914:35: COMMA
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:915:35: COMMA
                     	    {
-                    	    COMMA259=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3976); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA259);
+                    	    COMMA260=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3996); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA260);
 
 
                     	    }
@@ -11555,15 +11639,15 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:916:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:917:3: 
                     {
                     }
                     break;
 
             }
 
-            RCURLY260=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral3989); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY260);
+            RCURLY261=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral4009); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY261);
 
 
 
@@ -11579,14 +11663,14 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 918:3: -> ^( OBJ ( objectSlot )* )
+            // 919:3: -> ^( OBJ ( objectSlot )* )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:918:6: ^( OBJ ( objectSlot )* )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:919:6: ^( OBJ ( objectSlot )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(OBJ, "OBJ"), root_1);
 
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:918:12: ( objectSlot )*
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:919:12: ( objectSlot )*
                 while ( stream_objectSlot.hasNext() ) {
                     adaptor.addChild(root_1, stream_objectSlot.nextTree());
 
@@ -11626,32 +11710,32 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "objectSlot"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:921:1: objectSlot : ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:1: objectSlot : ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) );
     public final SQLScriptParser.objectSlot_return objectSlot() throws RecognitionException {
         SQLScriptParser.objectSlot_return retval = new SQLScriptParser.objectSlot_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token COLON262=null;
-        Token COLON265=null;
-        SQLScriptParser.identifier_return identifier261 = null;
+        Token COLON263=null;
+        Token COLON266=null;
+        SQLScriptParser.identifier_return identifier262 = null;
 
-        SQLScriptParser.expressionNoSQL_return expressionNoSQL263 = null;
+        SQLScriptParser.expressionNoSQL_return expressionNoSQL264 = null;
 
-        SQLScriptParser.stringLiteral_return stringLiteral264 = null;
+        SQLScriptParser.stringLiteral_return stringLiteral265 = null;
 
-        SQLScriptParser.expressionNoSQL_return expressionNoSQL266 = null;
+        SQLScriptParser.expressionNoSQL_return expressionNoSQL267 = null;
 
 
-        CommonTree COLON262_tree=null;
-        CommonTree COLON265_tree=null;
+        CommonTree COLON263_tree=null;
+        CommonTree COLON266_tree=null;
         RewriteRuleTokenStream stream_COLON=new RewriteRuleTokenStream(adaptor,"token COLON");
         RewriteRuleSubtreeStream stream_expressionNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule expressionNoSQL");
         RewriteRuleSubtreeStream stream_stringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule stringLiteral");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:2: ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:923:2: ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) )
             int alt86=2;
             int LA86_0 = input.LA(1);
 
@@ -11670,23 +11754,23 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt86) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:4: identifier COLON expressionNoSQL
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:923:4: identifier COLON expressionNoSQL
                     {
-                    pushFollow(FOLLOW_identifier_in_objectSlot4011);
-                    identifier261=identifier();
+                    pushFollow(FOLLOW_identifier_in_objectSlot4031);
+                    identifier262=identifier();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_identifier.add(identifier261.getTree());
-                    COLON262=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4013); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_COLON.add(COLON262);
+                    if ( state.backtracking==0 ) stream_identifier.add(identifier262.getTree());
+                    COLON263=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4033); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_COLON.add(COLON263);
 
-                    pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4015);
-                    expressionNoSQL263=expressionNoSQL();
+                    pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4035);
+                    expressionNoSQL264=expressionNoSQL();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL263.getTree());
+                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL264.getTree());
 
 
                     // AST REWRITE
@@ -11701,9 +11785,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 922:37: -> ^( SLOT identifier expressionNoSQL )
+                    // 923:37: -> ^( SLOT identifier expressionNoSQL )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:922:40: ^( SLOT identifier expressionNoSQL )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:923:40: ^( SLOT identifier expressionNoSQL )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -11720,27 +11804,27 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:923:4: stringLiteral COLON expressionNoSQL
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:924:4: stringLiteral COLON expressionNoSQL
                     {
-                    pushFollow(FOLLOW_stringLiteral_in_objectSlot4030);
-                    stringLiteral264=stringLiteral();
+                    pushFollow(FOLLOW_stringLiteral_in_objectSlot4050);
+                    stringLiteral265=stringLiteral();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_stringLiteral.add(stringLiteral264.getTree());
-                    COLON265=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4032); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_COLON.add(COLON265);
+                    if ( state.backtracking==0 ) stream_stringLiteral.add(stringLiteral265.getTree());
+                    COLON266=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4052); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_COLON.add(COLON266);
 
-                    pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4034);
-                    expressionNoSQL266=expressionNoSQL();
+                    pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4054);
+                    expressionNoSQL267=expressionNoSQL();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL266.getTree());
+                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL267.getTree());
 
 
                     // AST REWRITE
-                    // elements: stringLiteral, expressionNoSQL
+                    // elements: expressionNoSQL, stringLiteral
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11751,9 +11835,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 923:40: -> ^( SLOT stringLiteral expressionNoSQL )
+                    // 924:40: -> ^( SLOT stringLiteral expressionNoSQL )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:923:43: ^( SLOT stringLiteral expressionNoSQL )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:924:43: ^( SLOT stringLiteral expressionNoSQL )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -11796,38 +11880,38 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "arrayLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:926:1: arrayLiteral : LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:927:1: arrayLiteral : LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) ;
     public final SQLScriptParser.arrayLiteral_return arrayLiteral() throws RecognitionException {
         SQLScriptParser.arrayLiteral_return retval = new SQLScriptParser.arrayLiteral_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token LSQUARE267=null;
-        Token COMMA269=null;
-        Token COMMA271=null;
-        Token RSQUARE272=null;
-        SQLScriptParser.expressionNoSQL_return expressionNoSQL268 = null;
+        Token LSQUARE268=null;
+        Token COMMA270=null;
+        Token COMMA272=null;
+        Token RSQUARE273=null;
+        SQLScriptParser.expressionNoSQL_return expressionNoSQL269 = null;
 
-        SQLScriptParser.expressionNoSQL_return expressionNoSQL270 = null;
+        SQLScriptParser.expressionNoSQL_return expressionNoSQL271 = null;
 
 
-        CommonTree LSQUARE267_tree=null;
-        CommonTree COMMA269_tree=null;
-        CommonTree COMMA271_tree=null;
-        CommonTree RSQUARE272_tree=null;
+        CommonTree LSQUARE268_tree=null;
+        CommonTree COMMA270_tree=null;
+        CommonTree COMMA272_tree=null;
+        CommonTree RSQUARE273_tree=null;
         RewriteRuleTokenStream stream_LSQUARE=new RewriteRuleTokenStream(adaptor,"token LSQUARE");
         RewriteRuleTokenStream stream_RSQUARE=new RewriteRuleTokenStream(adaptor,"token RSQUARE");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_expressionNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule expressionNoSQL");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:927:2: ( LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:927:4: LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:2: ( LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:4: LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE
             {
-            LSQUARE267=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4055); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE267);
+            LSQUARE268=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4075); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE268);
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:3: ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:929:3: ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | )
             int alt89=2;
             int LA89_0 = input.LA(1);
 
@@ -11846,15 +11930,15 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt89) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:4: expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:929:4: expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )*
                     {
-                    pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4060);
-                    expressionNoSQL268=expressionNoSQL();
+                    pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4080);
+                    expressionNoSQL269=expressionNoSQL();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL268.getTree());
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:20: ( COMMA expressionNoSQL )*
+                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL269.getTree());
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:929:20: ( COMMA expressionNoSQL )*
                     loop87:
                     do {
                         int alt87=2;
@@ -11873,17 +11957,17 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt87) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:21: COMMA expressionNoSQL
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:929:21: COMMA expressionNoSQL
                     	    {
-                    	    COMMA269=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4063); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA269);
+                    	    COMMA270=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4083); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA270);
 
-                    	    pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4065);
-                    	    expressionNoSQL270=expressionNoSQL();
+                    	    pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4085);
+                    	    expressionNoSQL271=expressionNoSQL();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL270.getTree());
+                    	    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL271.getTree());
 
                     	    }
                     	    break;
@@ -11893,7 +11977,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:45: ( COMMA )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:929:45: ( COMMA )*
                     loop88:
                     do {
                         int alt88=2;
@@ -11906,10 +11990,10 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt88) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:928:45: COMMA
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:929:45: COMMA
                     	    {
-                    	    COMMA271=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4069); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA271);
+                    	    COMMA272=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4089); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA272);
 
 
                     	    }
@@ -11924,15 +12008,15 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:930:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:931:3: 
                     {
                     }
                     break;
 
             }
 
-            RSQUARE272=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_arrayLiteral4082); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE272);
+            RSQUARE273=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_arrayLiteral4102); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE273);
 
 
 
@@ -11948,14 +12032,14 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 932:3: -> ^( ARRAY ( expressionNoSQL )* )
+            // 933:3: -> ^( ARRAY ( expressionNoSQL )* )
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:932:6: ^( ARRAY ( expressionNoSQL )* )
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:6: ^( ARRAY ( expressionNoSQL )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARRAY, "ARRAY"), root_1);
 
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:932:14: ( expressionNoSQL )*
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:933:14: ( expressionNoSQL )*
                 while ( stream_expressionNoSQL.hasNext() ) {
                     adaptor.addChild(root_1, stream_expressionNoSQL.nextTree());
 
@@ -11995,36 +12079,36 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "argumentsList"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:935:1: argumentsList : LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:936:1: argumentsList : LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN ;
     public final SQLScriptParser.argumentsList_return argumentsList() throws RecognitionException {
         SQLScriptParser.argumentsList_return retval = new SQLScriptParser.argumentsList_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token LPAREN273=null;
-        Token COMMA275=null;
-        Token RPAREN277=null;
-        SQLScriptParser.expressionNoSQL_return expressionNoSQL274 = null;
+        Token LPAREN274=null;
+        Token COMMA276=null;
+        Token RPAREN278=null;
+        SQLScriptParser.expressionNoSQL_return expressionNoSQL275 = null;
 
-        SQLScriptParser.expressionNoSQL_return expressionNoSQL276 = null;
+        SQLScriptParser.expressionNoSQL_return expressionNoSQL277 = null;
 
 
-        CommonTree LPAREN273_tree=null;
-        CommonTree COMMA275_tree=null;
-        CommonTree RPAREN277_tree=null;
+        CommonTree LPAREN274_tree=null;
+        CommonTree COMMA276_tree=null;
+        CommonTree RPAREN278_tree=null;
         RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
         RewriteRuleSubtreeStream stream_expressionNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule expressionNoSQL");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:936:2: ( LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:936:4: LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:2: ( LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:4: LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN
             {
-            LPAREN273=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4104); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN273);
+            LPAREN274=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4124); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN274);
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:3: ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:3: ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | )
             int alt91=2;
             int LA91_0 = input.LA(1);
 
@@ -12043,15 +12127,15 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt91) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:5: expressionNoSQL ( COMMA expressionNoSQL )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:5: expressionNoSQL ( COMMA expressionNoSQL )*
                     {
-                    pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4110);
-                    expressionNoSQL274=expressionNoSQL();
+                    pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4130);
+                    expressionNoSQL275=expressionNoSQL();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL274.getTree());
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:21: ( COMMA expressionNoSQL )*
+                    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL275.getTree());
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:21: ( COMMA expressionNoSQL )*
                     loop90:
                     do {
                         int alt90=2;
@@ -12064,17 +12148,17 @@ public class SQLScriptParser extends Parser {
 
                         switch (alt90) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:22: COMMA expressionNoSQL
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:22: COMMA expressionNoSQL
                     	    {
-                    	    COMMA275=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4113); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA275);
+                    	    COMMA276=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4133); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA276);
 
-                    	    pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4115);
-                    	    expressionNoSQL276=expressionNoSQL();
+                    	    pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4135);
+                    	    expressionNoSQL277=expressionNoSQL();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL276.getTree());
+                    	    if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL277.getTree());
 
                     	    }
                     	    break;
@@ -12098,9 +12182,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 937:46: -> ^( ARGS ( expressionNoSQL )+ )
+                    // 938:46: -> ^( ARGS ( expressionNoSQL )+ )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:937:49: ^( ARGS ( expressionNoSQL )+ )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:938:49: ^( ARGS ( expressionNoSQL )+ )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_1);
@@ -12123,15 +12207,15 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:939:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:940:3: 
                     {
                     }
                     break;
 
             }
 
-            RPAREN277=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsList4138); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN277);
+            RPAREN278=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsList4158); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN278);
 
 
             }
@@ -12161,7 +12245,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "identifier"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:943:1: identifier : (exclam= EXCLAM -> IDENTIFIER[$exclam] | identifierNoUnary -> identifierNoUnary );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:944:1: identifier : (exclam= EXCLAM -> IDENTIFIER[$exclam] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | identifierNoUnary -> identifierNoUnary );
     public final SQLScriptParser.identifier_return identifier() throws RecognitionException {
         SQLScriptParser.identifier_return retval = new SQLScriptParser.identifier_return();
         retval.start = input.LT(1);
@@ -12169,35 +12253,61 @@ public class SQLScriptParser extends Parser {
         CommonTree root_0 = null;
 
         Token exclam=null;
-        SQLScriptParser.identifierNoUnary_return identifierNoUnary278 = null;
+        Token op_sub=null;
+        SQLScriptParser.identifierNoUnary_return identifierNoUnary279 = null;
 
 
         CommonTree exclam_tree=null;
+        CommonTree op_sub_tree=null;
+        RewriteRuleTokenStream stream_OP_SUB=new RewriteRuleTokenStream(adaptor,"token OP_SUB");
         RewriteRuleTokenStream stream_EXCLAM=new RewriteRuleTokenStream(adaptor,"token EXCLAM");
         RewriteRuleSubtreeStream stream_identifierNoUnary=new RewriteRuleSubtreeStream(adaptor,"rule identifierNoUnary");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:944:2: (exclam= EXCLAM -> IDENTIFIER[$exclam] | identifierNoUnary -> identifierNoUnary )
-            int alt92=2;
-            int LA92_0 = input.LA(1);
-
-            if ( (LA92_0==EXCLAM) ) {
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:945:2: (exclam= EXCLAM -> IDENTIFIER[$exclam] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | identifierNoUnary -> identifierNoUnary )
+            int alt92=3;
+            switch ( input.LA(1) ) {
+            case EXCLAM:
+                {
                 alt92=1;
-            }
-            else if ( (LA92_0==OP_MUL||(LA92_0>=OP_OR && LA92_0<=OP_DIV)||LA92_0==WORD||LA92_0==IDENTIFIER) ) {
+                }
+                break;
+            case OP_SUB:
+                {
                 alt92=2;
-            }
-            else {
+                }
+                break;
+            case OP_MUL:
+            case OP_OR:
+            case OP_AND:
+            case OP_EQ:
+            case OP_NE:
+            case OP_ID:
+            case OP_NI:
+            case OP_GT:
+            case OP_GE:
+            case OP_LT:
+            case OP_LE:
+            case OP_ADD:
+            case OP_DIV:
+            case WORD:
+            case IDENTIFIER:
+                {
+                alt92=3;
+                }
+                break;
+            default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 92, 0, input);
 
                 throw nvae;
             }
+
             switch (alt92) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:944:4: exclam= EXCLAM
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:945:4: exclam= EXCLAM
                     {
-                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4152); if (state.failed) return retval; 
+                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4172); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
 
 
@@ -12214,7 +12324,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 944:19: -> IDENTIFIER[$exclam]
+                    // 945:19: -> IDENTIFIER[$exclam]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, exclam));
 
@@ -12224,14 +12334,43 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:945:4: identifierNoUnary
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:946:4: op_sub= OP_SUB
                     {
-                    pushFollow(FOLLOW_identifierNoUnary_in_identifier4163);
-                    identifierNoUnary278=identifierNoUnary();
+                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifier4185); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
+
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (CommonTree)adaptor.nil();
+                    // 946:19: -> IDENTIFIER[$op_sub]
+                    {
+                        adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_sub));
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 3 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:947:4: identifierNoUnary
+                    {
+                    pushFollow(FOLLOW_identifierNoUnary_in_identifier4196);
+                    identifierNoUnary279=identifierNoUnary();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_identifierNoUnary.add(identifierNoUnary278.getTree());
+                    if ( state.backtracking==0 ) stream_identifierNoUnary.add(identifierNoUnary279.getTree());
 
 
                     // AST REWRITE
@@ -12246,7 +12385,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 945:22: -> identifierNoUnary
+                    // 947:22: -> identifierNoUnary
                     {
                         adaptor.addChild(root_0, stream_identifierNoUnary.nextTree());
 
@@ -12282,7 +12421,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "identifierNoUnary"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:948:1: identifierNoUnary : (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:950:1: identifierNoUnary : (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps );
     public final SQLScriptParser.identifierNoUnary_return identifierNoUnary() throws RecognitionException {
         SQLScriptParser.identifierNoUnary_return retval = new SQLScriptParser.identifierNoUnary_return();
         retval.start = input.LT(1);
@@ -12300,10 +12439,9 @@ public class SQLScriptParser extends Parser {
         Token op_mul=null;
         Token op_div=null;
         Token op_add=null;
-        Token op_sub=null;
         Token op_and=null;
         Token op_or=null;
-        SQLScriptParser.identifierNoOps_return identifierNoOps279 = null;
+        SQLScriptParser.identifierNoOps_return identifierNoOps280 = null;
 
 
         CommonTree op_eq_tree=null;
@@ -12317,13 +12455,11 @@ public class SQLScriptParser extends Parser {
         CommonTree op_mul_tree=null;
         CommonTree op_div_tree=null;
         CommonTree op_add_tree=null;
-        CommonTree op_sub_tree=null;
         CommonTree op_and_tree=null;
         CommonTree op_or_tree=null;
         RewriteRuleTokenStream stream_OP_ID=new RewriteRuleTokenStream(adaptor,"token OP_ID");
         RewriteRuleTokenStream stream_OP_EQ=new RewriteRuleTokenStream(adaptor,"token OP_EQ");
         RewriteRuleTokenStream stream_OP_NE=new RewriteRuleTokenStream(adaptor,"token OP_NE");
-        RewriteRuleTokenStream stream_OP_SUB=new RewriteRuleTokenStream(adaptor,"token OP_SUB");
         RewriteRuleTokenStream stream_OP_LE=new RewriteRuleTokenStream(adaptor,"token OP_LE");
         RewriteRuleTokenStream stream_OP_AND=new RewriteRuleTokenStream(adaptor,"token OP_AND");
         RewriteRuleTokenStream stream_OP_OR=new RewriteRuleTokenStream(adaptor,"token OP_OR");
@@ -12336,8 +12472,8 @@ public class SQLScriptParser extends Parser {
         RewriteRuleTokenStream stream_OP_GE=new RewriteRuleTokenStream(adaptor,"token OP_GE");
         RewriteRuleSubtreeStream stream_identifierNoOps=new RewriteRuleSubtreeStream(adaptor,"rule identifierNoOps");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:949:2: (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps )
-            int alt93=15;
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:2: (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps )
+            int alt93=14;
             switch ( input.LA(1) ) {
             case OP_EQ:
                 {
@@ -12394,25 +12530,20 @@ public class SQLScriptParser extends Parser {
                 alt93=11;
                 }
                 break;
-            case OP_SUB:
+            case OP_AND:
                 {
                 alt93=12;
                 }
                 break;
-            case OP_AND:
-                {
-                alt93=13;
-                }
-                break;
             case OP_OR:
                 {
-                alt93=14;
+                alt93=13;
                 }
                 break;
             case WORD:
             case IDENTIFIER:
                 {
-                alt93=15;
+                alt93=14;
                 }
                 break;
             default:
@@ -12425,9 +12556,9 @@ public class SQLScriptParser extends Parser {
 
             switch (alt93) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:949:4: op_eq= OP_EQ
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:4: op_eq= OP_EQ
                     {
-                    op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4180); if (state.failed) return retval; 
+                    op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4213); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_EQ.add(op_eq);
 
 
@@ -12444,7 +12575,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 949:17: -> IDENTIFIER[$op_eq]
+                    // 951:17: -> IDENTIFIER[$op_eq]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_eq));
 
@@ -12454,9 +12585,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:950:4: op_ne= OP_NE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:952:4: op_ne= OP_NE
                     {
-                    op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4193); if (state.failed) return retval; 
+                    op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4226); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_NE.add(op_ne);
 
 
@@ -12473,7 +12604,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 950:17: -> IDENTIFIER[$op_ne]
+                    // 952:17: -> IDENTIFIER[$op_ne]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_ne));
 
@@ -12483,9 +12614,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:951:4: op_id= OP_ID
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:4: op_id= OP_ID
                     {
-                    op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4206); if (state.failed) return retval; 
+                    op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4239); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_ID.add(op_id);
 
 
@@ -12502,7 +12633,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 951:17: -> IDENTIFIER[$op_id]
+                    // 953:17: -> IDENTIFIER[$op_id]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_id));
 
@@ -12512,9 +12643,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:952:4: op_ni= OP_NI
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:954:4: op_ni= OP_NI
                     {
-                    op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4219); if (state.failed) return retval; 
+                    op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4252); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_NI.add(op_ni);
 
 
@@ -12531,7 +12662,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 952:17: -> IDENTIFIER[$op_ni]
+                    // 954:17: -> IDENTIFIER[$op_ni]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_ni));
 
@@ -12541,9 +12672,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:953:4: op_gt= OP_GT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:955:4: op_gt= OP_GT
                     {
-                    op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4232); if (state.failed) return retval; 
+                    op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4265); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_GT.add(op_gt);
 
 
@@ -12560,7 +12691,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 953:17: -> IDENTIFIER[$op_gt]
+                    // 955:17: -> IDENTIFIER[$op_gt]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_gt));
 
@@ -12570,9 +12701,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:954:4: op_ge= OP_GE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:956:4: op_ge= OP_GE
                     {
-                    op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4245); if (state.failed) return retval; 
+                    op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4278); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_GE.add(op_ge);
 
 
@@ -12589,7 +12720,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 954:17: -> IDENTIFIER[$op_ge]
+                    // 956:17: -> IDENTIFIER[$op_ge]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_ge));
 
@@ -12599,9 +12730,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:955:4: op_lt= OP_LT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:957:4: op_lt= OP_LT
                     {
-                    op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4258); if (state.failed) return retval; 
+                    op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4291); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_LT.add(op_lt);
 
 
@@ -12618,7 +12749,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 955:17: -> IDENTIFIER[$op_lt]
+                    // 957:17: -> IDENTIFIER[$op_lt]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_lt));
 
@@ -12628,9 +12759,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:956:4: op_le= OP_LE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:958:4: op_le= OP_LE
                     {
-                    op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4271); if (state.failed) return retval; 
+                    op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4304); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_LE.add(op_le);
 
 
@@ -12647,7 +12778,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 956:17: -> IDENTIFIER[$op_le]
+                    // 958:17: -> IDENTIFIER[$op_le]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_le));
 
@@ -12657,9 +12788,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:957:4: op_mul= OP_MUL
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:959:4: op_mul= OP_MUL
                     {
-                    op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4284); if (state.failed) return retval; 
+                    op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4317); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_MUL.add(op_mul);
 
 
@@ -12676,7 +12807,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 957:19: -> IDENTIFIER[$op_mul]
+                    // 959:19: -> IDENTIFIER[$op_mul]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_mul));
 
@@ -12686,9 +12817,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:958:4: op_div= OP_DIV
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:4: op_div= OP_DIV
                     {
-                    op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4297); if (state.failed) return retval; 
+                    op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4330); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DIV.add(op_div);
 
 
@@ -12705,7 +12836,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 958:19: -> IDENTIFIER[$op_div]
+                    // 960:19: -> IDENTIFIER[$op_div]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_div));
 
@@ -12715,9 +12846,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 11 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:959:4: op_add= OP_ADD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:961:4: op_add= OP_ADD
                     {
-                    op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4310); if (state.failed) return retval; 
+                    op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4343); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_ADD.add(op_add);
 
 
@@ -12734,7 +12865,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 959:19: -> IDENTIFIER[$op_add]
+                    // 961:19: -> IDENTIFIER[$op_add]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_add));
 
@@ -12744,38 +12875,9 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 12 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:960:4: op_sub= OP_SUB
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:4: op_and= OP_AND
                     {
-                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifierNoUnary4323); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
-
-
-
-                    // AST REWRITE
-                    // elements: 
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    if ( state.backtracking==0 ) {
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
-
-                    root_0 = (CommonTree)adaptor.nil();
-                    // 960:19: -> IDENTIFIER[$op_sub]
-                    {
-                        adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_sub));
-
-                    }
-
-                    retval.tree = root_0;}
-                    }
-                    break;
-                case 13 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:961:4: op_and= OP_AND
-                    {
-                    op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4336); if (state.failed) return retval; 
+                    op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4356); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_AND.add(op_and);
 
 
@@ -12792,7 +12894,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 961:19: -> IDENTIFIER[$op_and]
+                    // 962:19: -> IDENTIFIER[$op_and]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_and));
 
@@ -12801,10 +12903,10 @@ public class SQLScriptParser extends Parser {
                     retval.tree = root_0;}
                     }
                     break;
-                case 14 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:962:4: op_or= OP_OR
+                case 13 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:963:4: op_or= OP_OR
                     {
-                    op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4349); if (state.failed) return retval; 
+                    op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4369); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_OR.add(op_or);
 
 
@@ -12821,7 +12923,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 962:17: -> IDENTIFIER[$op_or]
+                    // 963:17: -> IDENTIFIER[$op_or]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, op_or));
 
@@ -12830,15 +12932,15 @@ public class SQLScriptParser extends Parser {
                     retval.tree = root_0;}
                     }
                     break;
-                case 15 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:963:4: identifierNoOps
+                case 14 :
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:964:4: identifierNoOps
                     {
-                    pushFollow(FOLLOW_identifierNoOps_in_identifierNoUnary4360);
-                    identifierNoOps279=identifierNoOps();
+                    pushFollow(FOLLOW_identifierNoOps_in_identifierNoUnary4380);
+                    identifierNoOps280=identifierNoOps();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_identifierNoOps.add(identifierNoOps279.getTree());
+                    if ( state.backtracking==0 ) stream_identifierNoOps.add(identifierNoOps280.getTree());
 
 
                     // AST REWRITE
@@ -12853,7 +12955,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 963:20: -> identifierNoOps
+                    // 964:20: -> identifierNoOps
                     {
                         adaptor.addChild(root_0, stream_identifierNoOps.nextTree());
 
@@ -12889,7 +12991,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "identifierNoOps"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:967:1: identifierNoOps : (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:1: identifierNoOps : (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) ;
     public final SQLScriptParser.identifierNoOps_return identifierNoOps() throws RecognitionException {
         SQLScriptParser.identifierNoOps_return retval = new SQLScriptParser.identifierNoOps_return();
         retval.start = input.LT(1);
@@ -12897,18 +12999,18 @@ public class SQLScriptParser extends Parser {
         CommonTree root_0 = null;
 
         Token word=null;
-        Token IDENTIFIER280=null;
+        Token IDENTIFIER281=null;
 
         CommonTree word_tree=null;
-        CommonTree IDENTIFIER280_tree=null;
+        CommonTree IDENTIFIER281_tree=null;
         RewriteRuleTokenStream stream_WORD=new RewriteRuleTokenStream(adaptor,"token WORD");
         RewriteRuleTokenStream stream_IDENTIFIER=new RewriteRuleTokenStream(adaptor,"token IDENTIFIER");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:2: ( (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:969:2: ( (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:969:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:969:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
             int alt94=2;
             int LA94_0 = input.LA(1);
 
@@ -12927,9 +13029,9 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt94) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:968:6: word= WORD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:969:6: word= WORD
                     {
-                    word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4380); if (state.failed) return retval; 
+                    word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4400); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_WORD.add(word);
 
 
@@ -12946,7 +13048,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 968:17: -> IDENTIFIER[$word]
+                    // 969:17: -> IDENTIFIER[$word]
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(IDENTIFIER, word));
 
@@ -12956,10 +13058,10 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:972:5: IDENTIFIER
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:970:5: IDENTIFIER
                     {
-                    IDENTIFIER280=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4401); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_IDENTIFIER.add(IDENTIFIER280);
+                    IDENTIFIER281=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4412); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_IDENTIFIER.add(IDENTIFIER281);
 
 
 
@@ -12975,7 +13077,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 972:17: -> IDENTIFIER
+                    // 970:17: -> IDENTIFIER
                     {
                         adaptor.addChild(root_0, stream_IDENTIFIER.nextNode());
 
@@ -13015,38 +13117,38 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "embeddedVar"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:976:1: embeddedVar : EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:974:1: embeddedVar : EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] ;
     public final SQLScriptParser.embeddedVar_return embeddedVar() throws RecognitionException {
         SQLScriptParser.embeddedVar_return retval = new SQLScriptParser.embeddedVar_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token EMB_VAR_START281=null;
-        Token RCURLY282=null;
+        Token EMB_VAR_START282=null;
+        Token RCURLY283=null;
         SQLScriptParser.identifier_return id = null;
 
 
-        CommonTree EMB_VAR_START281_tree=null;
-        CommonTree RCURLY282_tree=null;
+        CommonTree EMB_VAR_START282_tree=null;
+        CommonTree RCURLY283_tree=null;
         RewriteRuleTokenStream stream_EMB_VAR_START=new RewriteRuleTokenStream(adaptor,"token EMB_VAR_START");
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:977:2: ( EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:977:4: EMB_VAR_START id= identifier RCURLY
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:2: ( EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:975:4: EMB_VAR_START id= identifier RCURLY
             {
-            EMB_VAR_START281=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4421); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_EMB_VAR_START.add(EMB_VAR_START281);
+            EMB_VAR_START282=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4432); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_EMB_VAR_START.add(EMB_VAR_START282);
 
-            pushFollow(FOLLOW_identifier_in_embeddedVar4425);
+            pushFollow(FOLLOW_identifier_in_embeddedVar4436);
             id=identifier();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(id.getTree());
-            RCURLY282=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVar4427); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY282);
+            RCURLY283=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVar4438); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY283);
 
 
 
@@ -13062,7 +13164,7 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 977:39: -> EMBEDDED_VAR[$id.start]
+            // 975:39: -> EMBEDDED_VAR[$id.start]
             {
                 adaptor.addChild(root_0, (CommonTree)adaptor.create(EMBEDDED_VAR, (id!=null?((Token)id.start):null)));
 
@@ -13096,27 +13198,27 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "keyword"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:1: keyword : ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:1: keyword : ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE );
     public final SQLScriptParser.keyword_return keyword() throws RecognitionException {
         SQLScriptParser.keyword_return retval = new SQLScriptParser.keyword_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token set283=null;
+        Token set284=null;
 
-        CommonTree set283_tree=null;
+        CommonTree set284_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:980:9: ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:978:9: ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            set283=(Token)input.LT(1);
+            set284=(Token)input.LT(1);
             if ( (input.LA(1)>=KW_SQL && input.LA(1)<=KW_VAR)||input.LA(1)==KW_FUN||(input.LA(1)>=KW_IF && input.LA(1)<=KW_FOR)||(input.LA(1)>=KW_WHILE && input.LA(1)<=KW_IMPORT)||(input.LA(1)>=KW_AS && input.LA(1)<=KW_INCLUDE)||(input.LA(1)>=KW_THIS && input.LA(1)<=KW_NEW)||(input.LA(1)>=KW_TRUE && input.LA(1)<=KW_FALSE) ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set283));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set284));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -13153,18 +13255,18 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "stringLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:985:1: stringLiteral : ( STR_SQUOT | STR_DQUOT ) -> ^() ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:983:1: stringLiteral : ( STR_SQUOT | STR_DQUOT ) -> ^() ;
     public final SQLScriptParser.stringLiteral_return stringLiteral() throws RecognitionException {
         SQLScriptParser.stringLiteral_return retval = new SQLScriptParser.stringLiteral_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token STR_SQUOT284=null;
-        Token STR_DQUOT285=null;
+        Token STR_SQUOT285=null;
+        Token STR_DQUOT286=null;
 
-        CommonTree STR_SQUOT284_tree=null;
-        CommonTree STR_DQUOT285_tree=null;
+        CommonTree STR_SQUOT285_tree=null;
+        CommonTree STR_DQUOT286_tree=null;
         RewriteRuleTokenStream stream_STR_DQUOT=new RewriteRuleTokenStream(adaptor,"token STR_DQUOT");
         RewriteRuleTokenStream stream_STR_SQUOT=new RewriteRuleTokenStream(adaptor,"token STR_SQUOT");
 
@@ -13175,10 +13277,10 @@ public class SQLScriptParser extends Parser {
         	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:995:2: ( ( STR_SQUOT | STR_DQUOT ) -> ^() )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:995:4: ( STR_SQUOT | STR_DQUOT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:993:2: ( ( STR_SQUOT | STR_DQUOT ) -> ^() )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:993:4: ( STR_SQUOT | STR_DQUOT )
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:995:4: ( STR_SQUOT | STR_DQUOT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:993:4: ( STR_SQUOT | STR_DQUOT )
             int alt95=2;
             int LA95_0 = input.LA(1);
 
@@ -13197,10 +13299,10 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt95) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:995:6: STR_SQUOT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:993:6: STR_SQUOT
                     {
-                    STR_SQUOT284=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4555); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT284);
+                    STR_SQUOT285=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4566); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT285);
 
                     if ( state.backtracking==0 ) {
                        lexer.setAllowEmbeddedVariables(false); 
@@ -13209,10 +13311,10 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:996:5: STR_DQUOT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:994:5: STR_DQUOT
                     {
-                    STR_DQUOT285=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4563); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT285);
+                    STR_DQUOT286=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4574); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT286);
 
 
                     }
@@ -13237,9 +13339,9 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 997:33: -> ^()
+            // 995:33: -> ^()
             {
-                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:997:36: ^()
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:995:36: ^()
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(result, root_1);
@@ -13282,30 +13384,30 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "sqlStringLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:1: sqlStringLiteral : ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:998:1: sqlStringLiteral : ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) );
     public final SQLScriptParser.sqlStringLiteral_return sqlStringLiteral() throws RecognitionException {
         SQLScriptParser.sqlStringLiteral_return retval = new SQLScriptParser.sqlStringLiteral_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token STR_SQUOT286=null;
-        Token STR_DQUOT287=null;
-        Token STR_BTICK288=null;
-        Token STR_QQUOT289=null;
-        Token STR_DOLQUOT290=null;
-        Token STR_SQUOT291=null;
-        Token STR_DQUOT292=null;
-        Token STR_BTICK293=null;
+        Token STR_SQUOT287=null;
+        Token STR_DQUOT288=null;
+        Token STR_BTICK289=null;
+        Token STR_QQUOT290=null;
+        Token STR_DOLQUOT291=null;
+        Token STR_SQUOT292=null;
+        Token STR_DQUOT293=null;
+        Token STR_BTICK294=null;
 
-        CommonTree STR_SQUOT286_tree=null;
-        CommonTree STR_DQUOT287_tree=null;
-        CommonTree STR_BTICK288_tree=null;
-        CommonTree STR_QQUOT289_tree=null;
-        CommonTree STR_DOLQUOT290_tree=null;
-        CommonTree STR_SQUOT291_tree=null;
-        CommonTree STR_DQUOT292_tree=null;
-        CommonTree STR_BTICK293_tree=null;
+        CommonTree STR_SQUOT287_tree=null;
+        CommonTree STR_DQUOT288_tree=null;
+        CommonTree STR_BTICK289_tree=null;
+        CommonTree STR_QQUOT290_tree=null;
+        CommonTree STR_DOLQUOT291_tree=null;
+        CommonTree STR_SQUOT292_tree=null;
+        CommonTree STR_DQUOT293_tree=null;
+        CommonTree STR_BTICK294_tree=null;
         RewriteRuleTokenStream stream_STR_QQUOT=new RewriteRuleTokenStream(adaptor,"token STR_QQUOT");
         RewriteRuleTokenStream stream_STR_DOLQUOT=new RewriteRuleTokenStream(adaptor,"token STR_DOLQUOT");
         RewriteRuleTokenStream stream_STR_DQUOT=new RewriteRuleTokenStream(adaptor,"token STR_DQUOT");
@@ -13314,7 +13416,7 @@ public class SQLScriptParser extends Parser {
 
          CommonTree result = null; 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:2: ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:2: ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) )
             int alt98=2;
             switch ( input.LA(1) ) {
             case STR_SQUOT:
@@ -13390,9 +13492,9 @@ public class SQLScriptParser extends Parser {
 
             switch (alt98) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
                     int alt96=5;
                     switch ( input.LA(1) ) {
                     case STR_SQUOT:
@@ -13430,66 +13532,66 @@ public class SQLScriptParser extends Parser {
 
                     switch (alt96) {
                         case 1 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:6: {...}? STR_SQUOT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1000:6: {...}? STR_SQUOT
                             {
                             if ( !((stringType.hasSingleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasSingleQuote()");
                             }
-                            STR_SQUOT286=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4597); if (state.failed) return retval; 
-                            if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT286);
+                            STR_SQUOT287=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4608); if (state.failed) return retval; 
+                            if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT287);
 
 
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1003:5: {...}? STR_DQUOT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1001:5: {...}? STR_DQUOT
                             {
                             if ( !((stringType.hasDoubleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasDoubleQuote()");
                             }
-                            STR_DQUOT287=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4605); if (state.failed) return retval; 
-                            if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT287);
+                            STR_DQUOT288=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4616); if (state.failed) return retval; 
+                            if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT288);
 
 
                             }
                             break;
                         case 3 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1004:5: {...}? STR_BTICK
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1002:5: {...}? STR_BTICK
                             {
                             if ( !((stringType.hasBackTick())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasBackTick()");
                             }
-                            STR_BTICK288=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4614); if (state.failed) return retval; 
-                            if ( state.backtracking==0 ) stream_STR_BTICK.add(STR_BTICK288);
+                            STR_BTICK289=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4625); if (state.failed) return retval; 
+                            if ( state.backtracking==0 ) stream_STR_BTICK.add(STR_BTICK289);
 
 
                             }
                             break;
                         case 4 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1005:5: {...}? STR_QQUOT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1003:5: {...}? STR_QQUOT
                             {
                             if ( !((stringType.hasQQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasQQuote()");
                             }
-                            STR_QQUOT289=(Token)match(input,STR_QQUOT,FOLLOW_STR_QQUOT_in_sqlStringLiteral4623); if (state.failed) return retval; 
-                            if ( state.backtracking==0 ) stream_STR_QQUOT.add(STR_QQUOT289);
+                            STR_QQUOT290=(Token)match(input,STR_QQUOT,FOLLOW_STR_QQUOT_in_sqlStringLiteral4634); if (state.failed) return retval; 
+                            if ( state.backtracking==0 ) stream_STR_QQUOT.add(STR_QQUOT290);
 
 
                             }
                             break;
                         case 5 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1006:5: {...}? STR_DOLQUOT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1004:5: {...}? STR_DOLQUOT
                             {
                             if ( !((stringType.hasDollarQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasDollarQuote()");
                             }
-                            STR_DOLQUOT290=(Token)match(input,STR_DOLQUOT,FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4631); if (state.failed) return retval; 
-                            if ( state.backtracking==0 ) stream_STR_DOLQUOT.add(STR_DOLQUOT290);
+                            STR_DOLQUOT291=(Token)match(input,STR_DOLQUOT,FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4642); if (state.failed) return retval; 
+                            if ( state.backtracking==0 ) stream_STR_DOLQUOT.add(STR_DOLQUOT291);
 
 
                             }
@@ -13514,9 +13616,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 1007:33: -> ^()
+                    // 1005:33: -> ^()
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1007:36: ^()
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1005:36: ^()
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(result, root_1);
@@ -13530,11 +13632,11 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1008:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1006:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1008:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1006:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
                     int alt97=3;
                     switch ( input.LA(1) ) {
                     case STR_SQUOT:
@@ -13562,46 +13664,46 @@ public class SQLScriptParser extends Parser {
 
                     switch (alt97) {
                         case 1 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1008:6: {...}? STR_SQUOT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1006:6: {...}? STR_SQUOT
                             {
                             if ( !((!stringType.hasSingleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "!stringType.hasSingleQuote()");
                             }
-                            STR_SQUOT291=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4654); if (state.failed) return retval;
+                            STR_SQUOT292=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4665); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
-                            STR_SQUOT291_tree = (CommonTree)adaptor.create(STR_SQUOT291);
-                            adaptor.addChild(root_0, STR_SQUOT291_tree);
+                            STR_SQUOT292_tree = (CommonTree)adaptor.create(STR_SQUOT292);
+                            adaptor.addChild(root_0, STR_SQUOT292_tree);
                             }
 
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1009:5: {...}? STR_DQUOT
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1007:5: {...}? STR_DQUOT
                             {
                             if ( !((!stringType.hasDoubleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "!stringType.hasDoubleQuote()");
                             }
-                            STR_DQUOT292=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4662); if (state.failed) return retval;
+                            STR_DQUOT293=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4673); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
-                            STR_DQUOT292_tree = (CommonTree)adaptor.create(STR_DQUOT292);
-                            adaptor.addChild(root_0, STR_DQUOT292_tree);
+                            STR_DQUOT293_tree = (CommonTree)adaptor.create(STR_DQUOT293);
+                            adaptor.addChild(root_0, STR_DQUOT293_tree);
                             }
 
                             }
                             break;
                         case 3 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1010:5: {...}? STR_BTICK
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1008:5: {...}? STR_BTICK
                             {
                             if ( !((!stringType.hasBackTick())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "!stringType.hasBackTick()");
                             }
-                            STR_BTICK293=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4673); if (state.failed) return retval;
+                            STR_BTICK294=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4684); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
-                            STR_BTICK293_tree = (CommonTree)adaptor.create(STR_BTICK293);
-                            adaptor.addChild(root_0, STR_BTICK293_tree);
+                            STR_BTICK294_tree = (CommonTree)adaptor.create(STR_BTICK294);
+                            adaptor.addChild(root_0, STR_BTICK294_tree);
                             }
 
                             }
@@ -13642,23 +13744,23 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "booleanLiteral"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1014:1: booleanLiteral : ( KW_TRUE -> TRUE | KW_FALSE -> FALSE );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1012:1: booleanLiteral : ( KW_TRUE -> TRUE | KW_FALSE -> FALSE );
     public final SQLScriptParser.booleanLiteral_return booleanLiteral() throws RecognitionException {
         SQLScriptParser.booleanLiteral_return retval = new SQLScriptParser.booleanLiteral_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
-        Token KW_TRUE294=null;
-        Token KW_FALSE295=null;
+        Token KW_TRUE295=null;
+        Token KW_FALSE296=null;
 
-        CommonTree KW_TRUE294_tree=null;
-        CommonTree KW_FALSE295_tree=null;
+        CommonTree KW_TRUE295_tree=null;
+        CommonTree KW_FALSE296_tree=null;
         RewriteRuleTokenStream stream_KW_TRUE=new RewriteRuleTokenStream(adaptor,"token KW_TRUE");
         RewriteRuleTokenStream stream_KW_FALSE=new RewriteRuleTokenStream(adaptor,"token KW_FALSE");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1015:2: ( KW_TRUE -> TRUE | KW_FALSE -> FALSE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1013:2: ( KW_TRUE -> TRUE | KW_FALSE -> FALSE )
             int alt99=2;
             int LA99_0 = input.LA(1);
 
@@ -13677,10 +13779,10 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt99) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1015:4: KW_TRUE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1013:4: KW_TRUE
                     {
-                    KW_TRUE294=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4690); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_KW_TRUE.add(KW_TRUE294);
+                    KW_TRUE295=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4701); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_KW_TRUE.add(KW_TRUE295);
 
 
 
@@ -13696,7 +13798,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 1015:13: -> TRUE
+                    // 1013:13: -> TRUE
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(TRUE, "TRUE"));
 
@@ -13706,10 +13808,10 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1016:4: KW_FALSE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1014:4: KW_FALSE
                     {
-                    KW_FALSE295=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4700); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_KW_FALSE.add(KW_FALSE295);
+                    KW_FALSE296=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4711); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_KW_FALSE.add(KW_FALSE296);
 
 
 
@@ -13725,7 +13827,7 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 1016:13: -> FALSE
+                    // 1014:13: -> FALSE
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(FALSE, "FALSE"));
 
@@ -13761,7 +13863,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "parseDirective"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1019:1: parseDirective : BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1017:1: parseDirective : BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) ;
     public final SQLScriptParser.parseDirective_return parseDirective() throws RecognitionException {
         SQLScriptParser.parseDirective_return retval = new SQLScriptParser.parseDirective_return();
         retval.start = input.LT(1);
@@ -13772,27 +13874,27 @@ public class SQLScriptParser extends Parser {
         Token arg=null;
         Token valId=null;
         Token valWord=null;
-        Token BACKSLASH296=null;
-        Token EQUALS297=null;
+        Token BACKSLASH297=null;
+        Token EQUALS298=null;
 
         CommonTree dir_tree=null;
         CommonTree arg_tree=null;
         CommonTree valId_tree=null;
         CommonTree valWord_tree=null;
-        CommonTree BACKSLASH296_tree=null;
-        CommonTree EQUALS297_tree=null;
+        CommonTree BACKSLASH297_tree=null;
+        CommonTree EQUALS298_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:2: ( BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:4: BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:2: ( BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:4: BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD )
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            BACKSLASH296=(Token)match(input,BACKSLASH,FOLLOW_BACKSLASH_in_parseDirective4715); if (state.failed) return retval;
-            dir=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4720); if (state.failed) return retval;
-            arg=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4725); if (state.failed) return retval;
-            EQUALS297=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_parseDirective4728); if (state.failed) return retval;
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:43: (valId= IDENTIFIER | valWord= WORD )
+            BACKSLASH297=(Token)match(input,BACKSLASH,FOLLOW_BACKSLASH_in_parseDirective4726); if (state.failed) return retval;
+            dir=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4731); if (state.failed) return retval;
+            arg=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4736); if (state.failed) return retval;
+            EQUALS298=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_parseDirective4739); if (state.failed) return retval;
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:43: (valId= IDENTIFIER | valWord= WORD )
             int alt100=2;
             int LA100_0 = input.LA(1);
 
@@ -13811,16 +13913,16 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt100) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:44: valId= IDENTIFIER
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:44: valId= IDENTIFIER
                     {
-                    valId=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_parseDirective4734); if (state.failed) return retval;
+                    valId=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_parseDirective4745); if (state.failed) return retval;
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1020:62: valWord= WORD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1018:62: valWord= WORD
                     {
-                    valWord=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4739); if (state.failed) return retval;
+                    valWord=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4750); if (state.failed) return retval;
 
                     }
                     break;
@@ -13891,10 +13993,10 @@ public class SQLScriptParser extends Parser {
 
     // $ANTLR start synpred1_SQLScript
     public final void synpred1_SQLScript_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:718:5: ( LCURLY )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:718:6: LCURLY
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:719:5: ( LCURLY )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:719:6: LCURLY
         {
-        match(input,LCURLY,FOLLOW_LCURLY_in_synpred1_SQLScript3183); if (state.failed) return ;
+        match(input,LCURLY,FOLLOW_LCURLY_in_synpred1_SQLScript3203); if (state.failed) return ;
 
         }
     }
@@ -13902,7 +14004,7 @@ public class SQLScriptParser extends Parser {
 
     // $ANTLR start synpred2_SQLScript
     public final void synpred2_SQLScript_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:726:5: ( LPAREN | LCURLY )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:727:5: ( LPAREN | LCURLY )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:
         {
         if ( input.LA(1)==LCURLY||input.LA(1)==LPAREN ) {
@@ -13963,17 +14065,17 @@ public class SQLScriptParser extends Parser {
     protected DFA63 dfa63 = new DFA63(this);
     protected DFA81 dfa81 = new DFA81(this);
     static final String DFA4_eotS =
-        "\u0233\uffff";
+        "\u0238\uffff";
     static final String DFA4_eofS =
-        "\u0233\uffff";
+        "\u0238\uffff";
     static final String DFA4_minS =
-        "\2\25\32\uffff\1\25\37\uffff\21\25\u01e6\uffff";
+        "\2\25\32\uffff\1\25\37\uffff\21\25\u01eb\uffff";
     static final String DFA4_maxS =
-        "\1\172\1\170\32\uffff\1\172\37\uffff\1\172\20\165\u01e6\uffff";
+        "\1\172\1\170\32\uffff\1\172\37\uffff\2\172\17\165\u01eb\uffff";
     static final String DFA4_acceptS =
-        "\2\uffff\1\1\46\uffff\1\2\4\uffff\1\3\u0204\uffff";
+        "\2\uffff\1\1\46\uffff\1\2\4\uffff\1\3\u0209\uffff";
     static final String DFA4_specialS =
-        "\u0233\uffff}>";
+        "\u0238\uffff}>";
     static final String[] DFA4_transitionS = {
             "\1\34\47\uffff\1\56\1\1\1\2\3\uffff\1\51\1\2\2\uffff\1\2\1\51"+
             "\1\uffff\1\51\2\uffff\1\2\1\51\1\uffff\1\51\6\2\1\uffff\1\2"+
@@ -14008,9 +14110,9 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "\2\51\46\uffff\3\51\3\uffff\2\51\1\uffff\1\2\2\51\1\uffff\1"+
-            "\51\2\uffff\2\51\1\uffff\6\51\1\105\1\uffff\1\51\1\uffff\1\112"+
-            "\1\111\1\75\1\76\1\77\1\100\1\101\1\102\1\103\1\104\1\107\1"+
-            "\110\1\106\1\uffff\1\74\1\51\1\uffff\5\51\1\113\3\uffff\1\51"+
+            "\51\2\uffff\2\51\1\uffff\6\51\1\106\1\uffff\1\51\1\uffff\1\112"+
+            "\1\111\1\76\1\77\1\100\1\101\1\102\1\103\1\104\1\105\1\110\1"+
+            "\75\1\107\1\uffff\1\74\1\51\1\uffff\5\51\1\113\3\uffff\1\51"+
             "\1\114\1\uffff\4\51",
             "",
             "",
@@ -14043,6 +14145,9 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "",
+            "\1\51\52\uffff\1\51\1\uffff\1\2\1\uffff\1\51\1\uffff\1\2\17"+
+            "\uffff\1\51\3\uffff\15\51\1\uffff\2\51\1\uffff\6\51\4\uffff"+
+            "\1\51\1\uffff\4\51",
             "\1\51\52\uffff\1\51\1\uffff\1\2\1\uffff\1\51\1\uffff\1\2\17"+
             "\uffff\1\51\3\uffff\15\51\1\uffff\2\51\1\uffff\6\51\4\uffff"+
             "\1\51\1\uffff\4\51",
@@ -14091,9 +14196,11 @@ public class SQLScriptParser extends Parser {
             "\1\51\47\uffff\1\51\2\uffff\2\51\1\2\1\uffff\1\51\1\uffff\1"+
             "\2\1\51\16\uffff\1\51\2\uffff\17\51\1\uffff\1\51\6\uffff\1\51"+
             "\4\uffff\1\51",
-            "\1\51\47\uffff\1\51\2\uffff\2\51\1\2\1\uffff\1\51\1\uffff\1"+
-            "\2\1\51\16\uffff\1\51\2\uffff\17\51\1\uffff\1\51\6\uffff\1\51"+
-            "\4\uffff\1\51",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -14648,8 +14755,8 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "",
-            "\1\61\57\uffff\1\1\17\uffff\1\50\3\uffff\1\55\1\54\1\40\1\41"+
-            "\1\42\1\43\1\44\1\45\1\46\1\47\1\52\1\53\1\51\1\uffff\1\37\7"+
+            "\1\61\57\uffff\1\1\17\uffff\1\51\3\uffff\1\55\1\54\1\41\1\42"+
+            "\1\43\1\44\1\45\1\46\1\47\1\50\1\53\1\40\1\52\1\uffff\1\37\7"+
             "\uffff\1\56\4\uffff\1\57\3\uffff\2\61",
             "",
             "",
@@ -14778,7 +14885,7 @@ public class SQLScriptParser extends Parser {
     static final String DFA37_maxS =
         "\1\172\22\uffff\1\172\14\uffff\21\117\67\uffff";
     static final String DFA37_acceptS =
-        "\1\uffff\1\1\34\uffff\1\2\1\4\21\uffff\1\3\66\uffff";
+        "\1\uffff\1\1\34\uffff\1\2\1\4\22\uffff\1\3\65\uffff";
     static final String DFA37_specialS =
         "\150\uffff}>";
     static final String[] DFA37_transitionS = {
@@ -14802,9 +14909,9 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "",
-            "\1\61\57\uffff\1\1\17\uffff\1\51\3\uffff\1\56\1\55\1\41\1\42"+
-            "\1\43\1\44\1\45\1\46\1\47\1\50\1\53\1\54\1\52\1\uffff\1\40\7"+
-            "\uffff\1\57\4\uffff\1\60\3\uffff\2\61",
+            "\1\62\57\uffff\1\1\17\uffff\1\52\3\uffff\1\56\1\55\1\42\1\43"+
+            "\1\44\1\45\1\46\1\47\1\50\1\51\1\54\1\41\1\53\1\uffff\1\40\7"+
+            "\uffff\1\57\4\uffff\1\60\3\uffff\2\62",
             "",
             "",
             "",
@@ -14817,23 +14924,23 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
-            "\1\1\3\uffff\1\1\10\uffff\1\61",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
+            "\1\1\3\uffff\1\1\10\uffff\1\62",
             "",
             "",
             "",
@@ -14931,20 +15038,19 @@ public class SQLScriptParser extends Parser {
     static final String DFA39_minS =
         "\22\25\2\uffff";
     static final String DFA39_maxS =
-        "\2\172\20\165\2\uffff";
+        "\3\172\17\165\2\uffff";
     static final String DFA39_acceptS =
         "\22\uffff\1\2\1\1";
     static final String DFA39_specialS =
         "\24\uffff}>";
     static final String[] DFA39_transitionS = {
-            "\1\22\56\uffff\1\22\21\uffff\1\12\3\uffff\1\17\1\16\1\2\1\3"+
-            "\1\4\1\5\1\6\1\7\1\10\1\11\1\14\1\15\1\13\1\uffff\1\1\1\22\1"+
+            "\1\22\56\uffff\1\22\21\uffff\1\13\3\uffff\1\17\1\16\1\3\1\4"+
+            "\1\5\1\6\1\7\1\10\1\11\1\12\1\15\1\2\1\14\1\uffff\1\1\1\22\1"+
             "\uffff\5\22\1\20\4\uffff\1\21\1\uffff\4\22",
             "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\15\22"+
             "\1\uffff\2\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
-            "\2\22\46\uffff\1\22\2\uffff\1\23\2\22\1\uffff\2\22\1\uffff"+
-            "\1\22\16\uffff\1\22\2\uffff\17\22\1\uffff\2\22\5\uffff\1\22"+
-            "\4\uffff\1\22",
+            "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\15\22"+
+            "\1\uffff\2\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
             "\2\22\46\uffff\1\22\2\uffff\1\23\2\22\1\uffff\2\22\1\uffff"+
             "\1\22\16\uffff\1\22\2\uffff\17\22\1\uffff\2\22\5\uffff\1\22"+
             "\4\uffff\1\22",
@@ -15034,20 +15140,19 @@ public class SQLScriptParser extends Parser {
     static final String DFA41_minS =
         "\22\25\2\uffff";
     static final String DFA41_maxS =
-        "\2\172\20\165\2\uffff";
+        "\3\172\17\165\2\uffff";
     static final String DFA41_acceptS =
         "\22\uffff\1\2\1\1";
     static final String DFA41_specialS =
         "\24\uffff}>";
     static final String[] DFA41_transitionS = {
-            "\1\22\56\uffff\1\22\21\uffff\1\12\3\uffff\1\17\1\16\1\2\1\3"+
-            "\1\4\1\5\1\6\1\7\1\10\1\11\1\14\1\15\1\13\1\uffff\1\1\1\22\1"+
+            "\1\22\56\uffff\1\22\21\uffff\1\13\3\uffff\1\17\1\16\1\3\1\4"+
+            "\1\5\1\6\1\7\1\10\1\11\1\12\1\15\1\2\1\14\1\uffff\1\1\1\22\1"+
             "\uffff\5\22\1\20\4\uffff\1\21\1\uffff\4\22",
             "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\15\22"+
             "\1\uffff\2\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
-            "\2\22\46\uffff\1\22\2\uffff\1\23\1\22\2\uffff\2\22\1\uffff"+
-            "\1\22\16\uffff\1\22\2\uffff\17\22\1\uffff\2\22\5\uffff\1\22"+
-            "\4\uffff\1\22",
+            "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\15\22"+
+            "\1\uffff\2\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
             "\2\22\46\uffff\1\22\2\uffff\1\23\1\22\2\uffff\2\22\1\uffff"+
             "\1\22\16\uffff\1\22\2\uffff\17\22\1\uffff\2\22\5\uffff\1\22"+
             "\4\uffff\1\22",
@@ -15135,21 +15240,22 @@ public class SQLScriptParser extends Parser {
     static final String DFA43_eofS =
         "\146\uffff";
     static final String DFA43_minS =
-        "\1\25\2\uffff\1\26\32\uffff\21\102\67\uffff";
+        "\1\25\3\uffff\1\26\31\uffff\21\102\67\uffff";
     static final String DFA43_maxS =
-        "\1\172\2\uffff\1\172\32\uffff\21\117\67\uffff";
+        "\1\172\3\uffff\1\172\31\uffff\21\117\67\uffff";
     static final String DFA43_acceptS =
-        "\1\uffff\1\1\55\uffff\1\2\66\uffff";
+        "\1\uffff\1\1\56\uffff\1\2\65\uffff";
     static final String DFA43_specialS =
         "\146\uffff}>";
     static final String[] DFA43_transitionS = {
-            "\1\3\56\uffff\1\1\21\uffff\1\1\3\uffff\15\1\1\uffff\2\1\1\uffff"+
+            "\1\4\56\uffff\1\1\21\uffff\1\1\3\uffff\15\1\1\uffff\2\1\1\uffff"+
             "\6\1\4\uffff\1\1\1\uffff\4\1",
             "",
             "",
-            "\1\57\57\uffff\1\1\17\uffff\1\47\3\uffff\1\54\1\53\1\37\1\40"+
-            "\1\41\1\42\1\43\1\44\1\45\1\46\1\51\1\52\1\50\1\uffff\1\36\7"+
-            "\uffff\1\55\4\uffff\1\56\3\uffff\2\57",
+            "",
+            "\1\60\57\uffff\1\1\17\uffff\1\50\3\uffff\1\54\1\53\1\40\1\41"+
+            "\1\42\1\43\1\44\1\45\1\46\1\47\1\52\1\37\1\51\1\uffff\1\36\7"+
+            "\uffff\1\55\4\uffff\1\56\3\uffff\2\60",
             "",
             "",
             "",
@@ -15175,24 +15281,23 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "",
-            "",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
-            "\1\1\3\uffff\1\1\10\uffff\1\57",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
+            "\1\1\3\uffff\1\1\10\uffff\1\60",
             "",
             "",
             "",
@@ -15284,26 +15389,29 @@ public class SQLScriptParser extends Parser {
         }
     }
     static final String DFA59_eotS =
-        "\u01f5\uffff";
+        "\u01fa\uffff";
     static final String DFA59_eofS =
-        "\u01f5\uffff";
+        "\u01fa\uffff";
     static final String DFA59_minS =
-        "\1\25\1\uffff\1\25\2\uffff\21\25\u01df\uffff";
+        "\1\25\1\uffff\1\25\2\uffff\21\25\u01e4\uffff";
     static final String DFA59_maxS =
-        "\1\151\1\uffff\1\172\2\uffff\1\172\20\165\u01df\uffff";
+        "\1\151\1\uffff\1\172\2\uffff\2\172\17\165\u01e4\uffff";
     static final String DFA59_acceptS =
-        "\1\uffff\1\1\1\uffff\1\2\1\3\u01f0\uffff";
+        "\1\uffff\1\1\1\uffff\1\2\1\3\u01f5\uffff";
     static final String DFA59_specialS =
-        "\u01f5\uffff}>";
+        "\u01fa\uffff}>";
     static final String[] DFA59_transitionS = {
             "\1\2\56\uffff\1\1\2\uffff\1\3\41\uffff\1\4",
             "",
-            "\1\3\50\uffff\1\3\4\uffff\2\3\1\uffff\1\1\17\uffff\1\16\3\uffff"+
-            "\1\23\1\22\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\20\1\21\1"+
-            "\17\1\uffff\1\5\1\3\1\uffff\5\3\1\24\4\uffff\1\25\1\uffff\4"+
+            "\1\3\50\uffff\1\3\4\uffff\2\3\1\uffff\1\1\17\uffff\1\17\3\uffff"+
+            "\1\23\1\22\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\21\1\6\1"+
+            "\20\1\uffff\1\5\1\3\1\uffff\5\3\1\24\4\uffff\1\25\1\uffff\4"+
             "\3",
             "",
             "",
+            "\1\3\52\uffff\1\3\1\uffff\1\1\1\uffff\1\3\1\uffff\1\1\17\uffff"+
+            "\1\3\3\uffff\15\3\1\uffff\2\3\1\uffff\6\3\4\uffff\1\3\1\uffff"+
+            "\4\3",
             "\1\3\52\uffff\1\3\1\uffff\1\1\1\uffff\1\3\1\uffff\1\1\17\uffff"+
             "\1\3\3\uffff\15\3\1\uffff\2\3\1\uffff\6\3\4\uffff\1\3\1\uffff"+
             "\4\3",
@@ -15337,8 +15445,11 @@ public class SQLScriptParser extends Parser {
             "\1\3\2\uffff\17\3\1\uffff\1\3\6\uffff\1\3\4\uffff\1\3",
             "\2\3\51\uffff\2\3\1\1\1\uffff\1\3\1\uffff\1\1\1\3\16\uffff"+
             "\1\3\2\uffff\17\3\1\uffff\1\3\6\uffff\1\3\4\uffff\1\3",
-            "\2\3\51\uffff\2\3\1\1\1\uffff\1\3\1\uffff\1\1\1\3\16\uffff"+
-            "\1\3\2\uffff\17\3\1\uffff\1\3\6\uffff\1\3\4\uffff\1\3",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -15850,7 +15961,7 @@ public class SQLScriptParser extends Parser {
             this.transition = DFA59_transition;
         }
         public String getDescription() {
-            return "700:1: callExpressionSuffix[ CommonTree subject ] options {k=3; } : ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) );";
+            return "701:1: callExpressionSuffix[ CommonTree subject ] options {k=3; } : ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) );";
         }
     }
     static final String DFA61_eotS =
@@ -15931,7 +16042,7 @@ public class SQLScriptParser extends Parser {
             this.transition = DFA61_transition;
         }
         public String getDescription() {
-            return "718:3: ( ( LCURLY )=> blockClosure | )";
+            return "719:3: ( ( LCURLY )=> blockClosure | )";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16038,7 +16149,7 @@ public class SQLScriptParser extends Parser {
             this.transition = DFA63_transition;
         }
         public String getDescription() {
-            return "726:3: ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)";
+            return "727:3: ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16138,7 +16249,7 @@ public class SQLScriptParser extends Parser {
             this.transition = DFA81_transition;
         }
         public String getDescription() {
-            return "875:1: sqlPart : ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* );";
+            return "876:1: sqlPart : ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -16381,151 +16492,153 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_unaryExpression_in_binaryExpression2943 = new BitSet(new long[]{0x0000000000000002L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_EXCLAM_in_unaryExpression2978 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
     public static final BitSet FOLLOW_unaryExpression_in_unaryExpression2980 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callExpression_in_unaryExpression2996 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_simpleExpression_in_callExpression3020 = new BitSet(new long[]{0x0000000000200002L,0x0000020000000090L});
-    public static final BitSet FOLLOW_callExpressionSuffix_in_callExpression3031 = new BitSet(new long[]{0x0000000000200002L,0x0000020000000090L});
-    public static final BitSet FOLLOW_callSuffix_in_callExpressionSuffix3080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_slotSuffix_in_callExpressionSuffix3097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indexSuffix_in_callExpressionSuffix3113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOT_in_slotSuffix3134 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
-    public static final BitSet FOLLOW_identifier_in_slotSuffix3137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_slotSuffix3142 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
-    public static final BitSet FOLLOW_expression_in_slotSuffix3145 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_RCURLY_in_slotSuffix3147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LSQUARE_in_indexSuffix3159 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
-    public static final BitSet FOLLOW_expression_in_indexSuffix3162 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
-    public static final BitSet FOLLOW_RSQUARE_in_indexSuffix3164 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_argumentsList_in_callSuffix3176 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_blockClosure_in_callSuffix3187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_blockClosure_in_callSuffix3200 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_slotSuffix_in_superSuffix3215 = new BitSet(new long[]{0x0000000000200002L,0x0000000000000010L});
-    public static final BitSet FOLLOW_callSuffix_in_superSuffix3242 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parenExpression_in_simpleExpression3282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_blockClosure_in_simpleExpression3287 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifierNoUnary_in_simpleExpression3292 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringLiteral_in_simpleExpression3297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_booleanLiteral_in_simpleExpression3302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_arrayLiteral_in_simpleExpression3307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_simpleExpression3312 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOAT_in_simpleExpression3317 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_THIS_in_simpleExpression3324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_SUPER_in_simpleExpression3336 = new BitSet(new long[]{0x0000000000200000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_superSuffix_in_simpleExpression3339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_NEW_in_simpleExpression3347 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
-    public static final BitSet FOLLOW_simpleExpression_in_simpleExpression3349 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_argumentsList_in_simpleExpression3351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlLiteralPrefixed_in_sqlStatementPrefixed3374 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlLiteral_in_sqlStatement3393 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlLiteralPrefixed_in_sqlExpression3412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3433 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlStmtRest_in_sqlLiteralPrefixed3437 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlLiteral_in_sqlLiteralParamed3465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral3476 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlStmtRest_in_sqlLiteral3480 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3496 = new BitSet(new long[]{0xC000000000000000L,0x3FF9F97FFFFFFFCFL});
-    public static final BitSet FOLLOW_keyword_in_sqlStmtNamePrefixed3503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WORD_in_sqlStmtNamePrefixed3507 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_embeddedVar_in_sqlStmtNamePrefixed3511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WORD_in_sqlStmtName3532 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlStmtName3537 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlHiddenWS_in_sqlStmtRest3565 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlStmtRest3567 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_EOF_in_sqlStmtRest3570 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COLON_in_sqlPart3650 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_WORD_in_sqlPart3652 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3654 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_COLON_in_sqlPart3678 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_sqlPart3680 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3682 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlToken_in_sqlPart3697 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3699 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_sqlPart3717 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFB7FFFFFFFFFL});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3721 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFB7FFFFFFFFFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlPart3724 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFFFL});
-    public static final BitSet FOLLOW_RPAREN_in_sqlPart3727 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3731 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_LCURLY_in_sqlPart3755 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3759 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlPart3762 = new BitSet(new long[]{0xC000000000600000L,0x3FF9FB7FFFFFFFDFL});
-    public static final BitSet FOLLOW_RCURLY_in_sqlPart3765 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3769 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_LSQUARE_in_sqlPart3793 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFF7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3797 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFF7FFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlPart3800 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FF7FFFFFFFDFL});
-    public static final BitSet FOLLOW_RSQUARE_in_sqlPart3803 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3807 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_OP_SUB_in_unaryExpression2998 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_unaryExpression_in_unaryExpression3000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callExpression_in_unaryExpression3016 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_simpleExpression_in_callExpression3040 = new BitSet(new long[]{0x0000000000200002L,0x0000020000000090L});
+    public static final BitSet FOLLOW_callExpressionSuffix_in_callExpression3051 = new BitSet(new long[]{0x0000000000200002L,0x0000020000000090L});
+    public static final BitSet FOLLOW_callSuffix_in_callExpressionSuffix3100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_slotSuffix_in_callExpressionSuffix3117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_indexSuffix_in_callExpressionSuffix3133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOT_in_slotSuffix3154 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
+    public static final BitSet FOLLOW_identifier_in_slotSuffix3157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCURLY_in_slotSuffix3162 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
+    public static final BitSet FOLLOW_expression_in_slotSuffix3165 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_RCURLY_in_slotSuffix3167 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LSQUARE_in_indexSuffix3179 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
+    public static final BitSet FOLLOW_expression_in_indexSuffix3182 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_RSQUARE_in_indexSuffix3184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_argumentsList_in_callSuffix3196 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_blockClosure_in_callSuffix3207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_blockClosure_in_callSuffix3220 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_slotSuffix_in_superSuffix3235 = new BitSet(new long[]{0x0000000000200002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_callSuffix_in_superSuffix3262 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parenExpression_in_simpleExpression3302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_blockClosure_in_simpleExpression3307 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifierNoUnary_in_simpleExpression3312 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringLiteral_in_simpleExpression3317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_booleanLiteral_in_simpleExpression3322 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_arrayLiteral_in_simpleExpression3327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_simpleExpression3332 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOAT_in_simpleExpression3337 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KW_THIS_in_simpleExpression3344 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KW_SUPER_in_simpleExpression3356 = new BitSet(new long[]{0x0000000000200000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_superSuffix_in_simpleExpression3359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KW_NEW_in_simpleExpression3367 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_simpleExpression_in_simpleExpression3369 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_argumentsList_in_simpleExpression3371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlLiteralPrefixed_in_sqlStatementPrefixed3394 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlLiteral_in_sqlStatement3413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlLiteralPrefixed_in_sqlExpression3432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3453 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlStmtRest_in_sqlLiteralPrefixed3457 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlLiteral_in_sqlLiteralParamed3485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral3496 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlStmtRest_in_sqlLiteral3500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3516 = new BitSet(new long[]{0xC000000000000000L,0x3FF9F97FFFFFFFCFL});
+    public static final BitSet FOLLOW_keyword_in_sqlStmtNamePrefixed3523 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WORD_in_sqlStmtNamePrefixed3527 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_embeddedVar_in_sqlStmtNamePrefixed3531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WORD_in_sqlStmtName3552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlStmtName3557 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlHiddenWS_in_sqlStmtRest3585 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlStmtRest3587 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_EOF_in_sqlStmtRest3590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COLON_in_sqlPart3670 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_WORD_in_sqlPart3672 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3674 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_COLON_in_sqlPart3698 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_COLON_in_sqlPart3700 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3702 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlToken_in_sqlPart3717 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3719 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_sqlPart3737 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFB7FFFFFFFFFL});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3741 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFB7FFFFFFFFFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlPart3744 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFFFL});
+    public static final BitSet FOLLOW_RPAREN_in_sqlPart3747 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3751 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_LCURLY_in_sqlPart3775 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3779 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlPart3782 = new BitSet(new long[]{0xC000000000600000L,0x3FF9FB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_RCURLY_in_sqlPart3785 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3789 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_LSQUARE_in_sqlPart3813 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFF7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3817 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFF7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlPart3820 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FF7FFFFFFFDFL});
+    public static final BitSet FOLLOW_RSQUARE_in_sqlPart3823 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3827 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_set_in_sqlWS0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_keyword_in_sqlToken3878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStringLiteral_in_sqlToken3882 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_sqlToken3886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlAtom_in_sqlToken3890 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_embeddedVar_in_sqlToken3895 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_keyword_in_sqlToken3898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlStringLiteral_in_sqlToken3902 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_sqlToken3906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlAtom_in_sqlToken3910 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_embeddedVar_in_sqlToken3915 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_sqlAtom0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_objectLiteral3962 = new BitSet(new long[]{0x0000000000400000L,0x0621017FFC400000L});
-    public static final BitSet FOLLOW_objectSlot_in_objectLiteral3967 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_COMMA_in_objectLiteral3970 = new BitSet(new long[]{0x0000000000000000L,0x0621017FFC400000L});
-    public static final BitSet FOLLOW_objectSlot_in_objectLiteral3972 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_COMMA_in_objectLiteral3976 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_RCURLY_in_objectLiteral3989 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifier_in_objectSlot4011 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_objectSlot4013 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
-    public static final BitSet FOLLOW_expressionNoSQL_in_objectSlot4015 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringLiteral_in_objectSlot4030 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_objectSlot4032 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
-    public static final BitSet FOLLOW_expressionNoSQL_in_objectSlot4034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LSQUARE_in_arrayLiteral4055 = new BitSet(new long[]{0x4000000000200000L,0x07A1FF7FFC400018L});
-    public static final BitSet FOLLOW_expressionNoSQL_in_arrayLiteral4060 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
-    public static final BitSet FOLLOW_COMMA_in_arrayLiteral4063 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
-    public static final BitSet FOLLOW_expressionNoSQL_in_arrayLiteral4065 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
-    public static final BitSet FOLLOW_COMMA_in_arrayLiteral4069 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
-    public static final BitSet FOLLOW_RSQUARE_in_arrayLiteral4082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_argumentsList4104 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400038L});
-    public static final BitSet FOLLOW_expressionNoSQL_in_argumentsList4110 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000024L});
-    public static final BitSet FOLLOW_COMMA_in_argumentsList4113 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
-    public static final BitSet FOLLOW_expressionNoSQL_in_argumentsList4115 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000024L});
-    public static final BitSet FOLLOW_RPAREN_in_argumentsList4138 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXCLAM_in_identifier4152 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifierNoUnary_in_identifier4163 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_EQ_in_identifierNoUnary4180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NE_in_identifierNoUnary4193 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_ID_in_identifierNoUnary4206 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NI_in_identifierNoUnary4219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_GT_in_identifierNoUnary4232 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_GE_in_identifierNoUnary4245 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_LT_in_identifierNoUnary4258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_LE_in_identifierNoUnary4271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_MUL_in_identifierNoUnary4284 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_DIV_in_identifierNoUnary4297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_ADD_in_identifierNoUnary4310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_SUB_in_identifierNoUnary4323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_AND_in_identifierNoUnary4336 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_OR_in_identifierNoUnary4349 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_identifierNoOps_in_identifierNoUnary4360 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WORD_in_identifierNoOps4380 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENTIFIER_in_identifierNoOps4401 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EMB_VAR_START_in_embeddedVar4421 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
-    public static final BitSet FOLLOW_identifier_in_embeddedVar4425 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_RCURLY_in_embeddedVar4427 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCURLY_in_objectLiteral3982 = new BitSet(new long[]{0x0000000000400000L,0x0621017FFC400000L});
+    public static final BitSet FOLLOW_objectSlot_in_objectLiteral3987 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_COMMA_in_objectLiteral3990 = new BitSet(new long[]{0x0000000000000000L,0x0621017FFC400000L});
+    public static final BitSet FOLLOW_objectSlot_in_objectLiteral3992 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_COMMA_in_objectLiteral3996 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_RCURLY_in_objectLiteral4009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifier_in_objectSlot4031 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_COLON_in_objectSlot4033 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
+    public static final BitSet FOLLOW_expressionNoSQL_in_objectSlot4035 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringLiteral_in_objectSlot4050 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_COLON_in_objectSlot4052 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
+    public static final BitSet FOLLOW_expressionNoSQL_in_objectSlot4054 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LSQUARE_in_arrayLiteral4075 = new BitSet(new long[]{0x4000000000200000L,0x07A1FF7FFC400018L});
+    public static final BitSet FOLLOW_expressionNoSQL_in_arrayLiteral4080 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
+    public static final BitSet FOLLOW_COMMA_in_arrayLiteral4083 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
+    public static final BitSet FOLLOW_expressionNoSQL_in_arrayLiteral4085 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
+    public static final BitSet FOLLOW_COMMA_in_arrayLiteral4089 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
+    public static final BitSet FOLLOW_RSQUARE_in_arrayLiteral4102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_argumentsList4124 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400038L});
+    public static final BitSet FOLLOW_expressionNoSQL_in_argumentsList4130 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000024L});
+    public static final BitSet FOLLOW_COMMA_in_argumentsList4133 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
+    public static final BitSet FOLLOW_expressionNoSQL_in_argumentsList4135 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000024L});
+    public static final BitSet FOLLOW_RPAREN_in_argumentsList4158 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXCLAM_in_identifier4172 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_SUB_in_identifier4185 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifierNoUnary_in_identifier4196 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_EQ_in_identifierNoUnary4213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NE_in_identifierNoUnary4226 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_ID_in_identifierNoUnary4239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NI_in_identifierNoUnary4252 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_GT_in_identifierNoUnary4265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_GE_in_identifierNoUnary4278 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_LT_in_identifierNoUnary4291 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_LE_in_identifierNoUnary4304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_MUL_in_identifierNoUnary4317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_DIV_in_identifierNoUnary4330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_ADD_in_identifierNoUnary4343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_AND_in_identifierNoUnary4356 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_OR_in_identifierNoUnary4369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_identifierNoOps_in_identifierNoUnary4380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WORD_in_identifierNoOps4400 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENTIFIER_in_identifierNoOps4412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EMB_VAR_START_in_embeddedVar4432 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
+    public static final BitSet FOLLOW_identifier_in_embeddedVar4436 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_RCURLY_in_embeddedVar4438 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_keyword0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_SQUOT_in_stringLiteral4555 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_DQUOT_in_stringLiteral4563 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_SQUOT_in_sqlStringLiteral4597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_DQUOT_in_sqlStringLiteral4605 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_BTICK_in_sqlStringLiteral4614 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_QQUOT_in_sqlStringLiteral4623 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_SQUOT_in_sqlStringLiteral4654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_DQUOT_in_sqlStringLiteral4662 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STR_BTICK_in_sqlStringLiteral4673 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_TRUE_in_booleanLiteral4690 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_FALSE_in_booleanLiteral4700 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BACKSLASH_in_parseDirective4715 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_WORD_in_parseDirective4720 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_WORD_in_parseDirective4725 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_parseDirective4728 = new BitSet(new long[]{0x0000000000000000L,0x0021000000000000L});
-    public static final BitSet FOLLOW_IDENTIFIER_in_parseDirective4734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WORD_in_parseDirective4739 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_synpred1_SQLScript3183 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred2_SQLScript3235 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_SQUOT_in_stringLiteral4566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_DQUOT_in_stringLiteral4574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_SQUOT_in_sqlStringLiteral4608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_DQUOT_in_sqlStringLiteral4616 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_BTICK_in_sqlStringLiteral4625 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_QQUOT_in_sqlStringLiteral4634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4642 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_SQUOT_in_sqlStringLiteral4665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_DQUOT_in_sqlStringLiteral4673 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STR_BTICK_in_sqlStringLiteral4684 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KW_TRUE_in_booleanLiteral4701 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KW_FALSE_in_booleanLiteral4711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BACKSLASH_in_parseDirective4726 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_WORD_in_parseDirective4731 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_WORD_in_parseDirective4736 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUALS_in_parseDirective4739 = new BitSet(new long[]{0x0000000000000000L,0x0021000000000000L});
+    public static final BitSet FOLLOW_IDENTIFIER_in_parseDirective4745 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WORD_in_parseDirective4750 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCURLY_in_synpred1_SQLScript3203 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_synpred2_SQLScript3255 = new BitSet(new long[]{0x0000000000000002L});
 
 }

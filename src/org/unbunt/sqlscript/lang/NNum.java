@@ -257,6 +257,13 @@ public class NNum extends AbstractObj implements NNumeric {
             }
         };
 
+        protected static final NativeCall nativeNegate = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                NNum thiz = ensureType(NNum.class, context);
+                return new NNum(- thiz.value);
+            }
+        };
+
         protected static final NativeCall nativeValueOf = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 try {
@@ -316,6 +323,7 @@ public class NNum extends AbstractObj implements NNumeric {
             slots.put(Str.SYM__minus, nativeSubtract);
             slots.put(Str.SYM__slash, nativeDivide);
             slots.put(Str.SYM__star, nativeMultiply);
+            slots.put(Str.SYM_neg, nativeNegate);
             slots.put(Str.SYM__dotdot, nativeRange);
             slots.put(Str.SYM_valueOf, nativeValueOf);
             slots.put(Str.SYM_to, nativeTo);
