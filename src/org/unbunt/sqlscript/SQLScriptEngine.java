@@ -949,12 +949,12 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
      * @return result of the invocation
      */
     public Obj invokeOnReceiver(Obj call, Obj context, Obj receiver, Obj... args) {
-        Call c = ObjUtils.ensureType(call);
+        Call c = ObjUtils.ensureType(Call.class, call);
         return c.call(this, context, receiver, args);
     }
 
     public Obj invoke(Obj call, Obj context, Obj... args) throws ClosureTerminatedException {
-        Call c = ObjUtils.ensureType(call);
+        Call c = ObjUtils.ensureType(Call.class, call);
         return c.call(this, context, args);
     }
 

@@ -53,7 +53,7 @@ public class Base extends AbstractObj {
 
     protected static final NativeCall nativeAnd = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            Clos closure = ensureType(args[0]);
+            Clos closure = ensureType(Clos.class, args[0]);
             engine.trigger(closure);
             return null;
         }

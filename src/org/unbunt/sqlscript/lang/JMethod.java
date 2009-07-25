@@ -87,7 +87,7 @@ public class JMethod extends NativeCall {
 
         protected static final NativeCall nativeSelect = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                JMethod thiz = ensureType(context);
+                JMethod thiz = ensureType(JMethod.class, context);
                 String[] typeNames = new String[args.length];
                 for (int i = 0; i < args.length; i++) {
                     Obj arg = args[i];
@@ -108,7 +108,7 @@ public class JMethod extends NativeCall {
 
         protected static final NativeCall nativeCall = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                JMethod thiz = ensureType(context);
+                JMethod thiz = ensureType(JMethod.class, context);
                 Obj[] methodArgs = Arrays.copyOfRange(args, 1, args.length);
                 return thiz.call(engine, args[0], methodArgs);
             }

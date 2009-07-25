@@ -59,7 +59,7 @@ public class ResSet extends AbstractObj {
 
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ResSet thiz = ensureType(context);
+                ResSet thiz = ensureType(ResSet.class, context);
                 Obj colRef = args[0];
 
                 Object value;
@@ -84,7 +84,7 @@ public class ResSet extends AbstractObj {
 
         protected static final NativeCall nativeUpdate = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ResSet thiz = ensureType(context);
+                ResSet thiz = ensureType(ResSet.class, context);
                 UpdateHelper helper = new UpdateHelper(thiz.resultSet);
                 try {
                     engine.invoke(args[0], engine.getObjNull(), helper);
@@ -110,7 +110,7 @@ public class ResSet extends AbstractObj {
 
         protected static final NativeCall nativeInsert = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ResSet thiz = ensureType(context);
+                ResSet thiz = ensureType(ResSet.class, context);
                 UpdateHelper helper = new UpdateHelper(thiz.resultSet);
 
                 try {
@@ -142,7 +142,7 @@ public class ResSet extends AbstractObj {
 
         protected static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ResSet thiz = ensureType(context);
+                ResSet thiz = ensureType(ResSet.class, context);
                 Obj closure = args[0];
                 Context ctx = engine.getContext();
                 Null _null = engine.getObjNull();
@@ -201,7 +201,7 @@ public class ResSet extends AbstractObj {
 
         protected static final NativeCall nativeSet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                UpdateHelper thiz = ensureType(context);
+                UpdateHelper thiz = ensureType(UpdateHelper.class, context);
                 Obj colRef = args[0];
                 Obj value = args[1];
 

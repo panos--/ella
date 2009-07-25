@@ -571,6 +571,7 @@ parenExpression
 
 // NOTE: No objectLiteral, no block closure here as it would interfere with block statements
 // NOTE: No scriptFuncDef to disallow anonymous functions in statement context
+
 expressionStmtNoSQL
 	:	assignExpressionNoSQL
 	;
@@ -902,7 +903,7 @@ sqlToken
 sqlAtom
 	:	SQL_SPECIAL_CHAR
 	|	EQUALS | BACKSLASH
-	|	OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE
+	|	OP_DEFINE
 	|	EXCLAM | QUESTION | COLON | DOT | COMMA
 	|	DOUBLE_ARROW
 	|	INT | FLOAT
@@ -940,10 +941,20 @@ argumentsList
 	;
 
 identifier
-	: asterisk=OP_MUL	-> IDENTIFIER[$asterisk]
-	| slash=OP_DIV		-> IDENTIFIER[$slash]
-	| plus=OP_ADD		-> IDENTIFIER[$plus]
-	| minus=OP_SUB		-> IDENTIFIER[$minus]
+	: op_eq=OP_EQ		-> IDENTIFIER[$op_eq]
+	| op_ne=OP_NE		-> IDENTIFIER[$op_ne]
+	| op_id=OP_ID		-> IDENTIFIER[$op_id]
+	| op_ni=OP_NI		-> IDENTIFIER[$op_ni]
+	| op_gt=OP_GT		-> IDENTIFIER[$op_gt]
+	| op_ge=OP_GE		-> IDENTIFIER[$op_ge]
+	| op_lt=OP_LT		-> IDENTIFIER[$op_lt]
+	| op_le=OP_LE		-> IDENTIFIER[$op_le]
+	| op_mul=OP_MUL		-> IDENTIFIER[$op_mul]
+	| op_div=OP_DIV		-> IDENTIFIER[$op_div]
+	| op_add=OP_ADD		-> IDENTIFIER[$op_add]
+	| op_sub=OP_SUB		-> IDENTIFIER[$op_sub]
+	| op_and=OP_AND		-> IDENTIFIER[$op_and]
+	| op_or=OP_OR		-> IDENTIFIER[$op_or]
 	| identifierNoOps	-> identifierNoOps
 	;
 

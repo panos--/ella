@@ -306,7 +306,7 @@ public class Stmt extends AbstractObj {
         Map<String, List<Integer>> knownParams = rawParamedStatement.getParameters();
         Map<String, Obj> result = new HashMap<String, Obj>();
         for (Map.Entry<Obj, Obj> entry : namedParams.getSlots().entrySet()) {
-            Str param = ensureType(entry.getKey());
+            Str param = ensureType(Str.class, entry.getKey());
             String paramName = param.value;
             if (!knownParams.containsKey(paramName)) {
                 throw new SQLScriptRuntimeException("Invalid named parameter: " + paramName);
@@ -390,7 +390,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeDo = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 try {
                     boolean hasResult = thiz.execute();
                     if (hasResult) {
@@ -416,7 +416,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeExec = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 try {
                     thiz.execute();
                 } catch (SQLException e) {
@@ -433,7 +433,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 Obj closure = args[0];
                 Null _null = engine.getObjNull();
                 try {
@@ -464,7 +464,7 @@ public class Stmt extends AbstractObj {
         // NOTE: This has to be improved. Result should be wrapped into special object.
         protected static final NativeCall nativeFirst = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 Null _null = engine.getObjNull();
                 Context ctx = engine.getContext();
                 try {
@@ -497,7 +497,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeEachKey = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 Obj closure = args[0];
                 Obj _null = engine.getObjNull();
 
@@ -528,7 +528,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeKey = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
 
                 try {
                     ResultSet rs = thiz.retrieveKeys();
@@ -551,7 +551,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeWith = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 thiz.setParams(args);
                 return thiz;
             }
@@ -559,7 +559,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeWithNamed = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 Obj params = args[0];
 
                 thiz.parseParams();
@@ -573,7 +573,7 @@ public class Stmt extends AbstractObj {
         protected static final NativeCall nativeBatch = new NativeBatchCall() {
             public Obj batchCall(SQLScriptEngine engine, Obj context, Obj closure, int batchSize)
                     throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
 
                 try {
                     thiz.initPrepared();
@@ -596,7 +596,7 @@ public class Stmt extends AbstractObj {
         protected static final NativeCall nativeBatchNamed = new NativeBatchCall() {
             public Obj batchCall(SQLScriptEngine engine, Obj context, Obj closure, int batchSize)
                     throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
 
                 try {
                     thiz.parseParams();
@@ -619,7 +619,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeWithPrepared = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 Obj closure = args[0];
 
                 try {
@@ -638,7 +638,7 @@ public class Stmt extends AbstractObj {
 
         protected static final NativeCall nativeGetQueryString = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Stmt thiz = ensureType(context);
+                Stmt thiz = ensureType(Stmt.class, context);
                 return new Str(thiz.rawStatement.getStatement());
             }
         };
@@ -677,7 +677,7 @@ public class Stmt extends AbstractObj {
 
         protected static NativeCall nativeAdd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ParamBatch thiz = ensureType(context);
+                ParamBatch thiz = ensureType(ParamBatch.class, context);
                 try {
                     thiz.stmt.addBatch(args);
                     if (++thiz.currentBatchSize % thiz.batchSize == 0) {
@@ -693,7 +693,7 @@ public class Stmt extends AbstractObj {
 
         protected static NativeCall nativeFinish = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ParamBatch thiz = ensureType(context);
+                ParamBatch thiz = ensureType(ParamBatch.class, context);
                 try {
                     thiz.finish();
                 } catch (SQLException e) {
@@ -722,7 +722,7 @@ public class Stmt extends AbstractObj {
     protected static class NamedParamBatch extends ParamBatch {
         protected static NativeCall nativeAdd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                ParamBatch thiz = ensureType(context);
+                ParamBatch thiz = ensureType(ParamBatch.class, context);
                 try {
                     thiz.stmt.addNamedBatch(args[0]);
                     if (++thiz.currentBatchSize % thiz.batchSize == 0) {

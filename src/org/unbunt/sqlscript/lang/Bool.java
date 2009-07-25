@@ -68,8 +68,8 @@ public class Bool extends AbstractObj {
 
         protected static final NativeCall nativeAnd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Bool thiz = ensureType(context);
-                Clos closure = ensureType(args[0]);
+                Bool thiz = ensureType(Bool.class, context);
+                Clos closure = ensureType(Clos.class, args[0]);
                 if (thiz.value) {
                     engine.trigger(closure);
                     return null;
@@ -82,8 +82,8 @@ public class Bool extends AbstractObj {
 
         protected static final NativeCall nativeOr = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Bool thiz = ensureType(context);
-                Clos closure = ensureType(args[0]);
+                Bool thiz = ensureType(Bool.class, context);
+                Clos closure = ensureType(Clos.class, args[0]);
                 if (!thiz.value) {
                     engine.trigger(closure);
                     return null;
@@ -96,7 +96,7 @@ public class Bool extends AbstractObj {
 
         protected static final NativeCall nativeNot = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Bool thiz = ensureType(context);
+                Bool thiz = ensureType(Bool.class, context);
                 return thiz.value ? engine.getObjFalse() : engine.getObjTrue();
             }
         };

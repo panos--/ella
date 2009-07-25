@@ -34,15 +34,15 @@ public class ObjUtils {
         obj.setSlot(ctx, slot, value);
     }
 
-    @SuppressWarnings({"unchecked"})
     public static <T> T ensureType(Class<T> type, Obj object) {
         try {
-            return (T) object;
+            return type.cast(object);
         } catch (ClassCastException e) {
             throw new SQLScriptRuntimeException("Unexpected type: " + object.getClass() + ": Expected: " + type);
         }
     }
 
+    /*
     @SuppressWarnings({"unchecked"})
     public static <T> T ensureType(Obj object) {
         try {
@@ -51,4 +51,5 @@ public class ObjUtils {
             throw new SQLScriptRuntimeException("Unexpected type: " + object.getClass());
         }
     }
+    */
 }

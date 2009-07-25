@@ -381,4 +381,10 @@ public class InterpreterTestsNG extends AbstractTest {
     public void numRange() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("num-range"));
     }
+
+    @Test
+    public void typeCheck() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(file("type-check"));
+        assertEquals(result, 42l);
+    }
 }

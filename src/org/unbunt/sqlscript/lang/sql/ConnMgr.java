@@ -47,7 +47,7 @@ public class ConnMgr extends AbstractObj {
 
     protected static NativeCall nativeActivate = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            ConnMgr thiz = ObjUtils.ensureType(context);
+            ConnMgr thiz = ensureType(ConnMgr.class, context);
             Obj conn = args[0];
             Obj prevConn = ObjUtils.getSlot(engine.getContext(), thiz, Str.SYM_active);
             ObjUtils.setSlot(engine.getContext(), thiz, Str.SYM_active, conn);
@@ -57,7 +57,7 @@ public class ConnMgr extends AbstractObj {
 
     protected static NativeCall nativeCreate = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            ConnMgr mgr = ensureType(context);
+            ConnMgr mgr = ensureType(ConnMgr.class, context);
 
             Str url;
             Str user = null;
@@ -65,22 +65,22 @@ public class ConnMgr extends AbstractObj {
             Str driver = null;
             switch (args.length) {
                 case 1:
-                    url = ensureType(args[0]);
+                    url = ensureType(Str.class, args[0]);
                     break;
                 case 2:
-                    url = ensureType(args[0]);
-                    driver = ensureType(args[1]);
+                    url = ensureType(Str.class, args[0]);
+                    driver = ensureType(Str.class, args[1]);
                     break;
                 case 3:
-                    url = ensureType(args[0]);
-                    user = ensureType(args[1]);
-                    pass = ensureType(args[2]);
+                    url = ensureType(Str.class, args[0]);
+                    user = ensureType(Str.class, args[1]);
+                    pass = ensureType(Str.class, args[2]);
                     break;
                 case 4:
-                    url = ensureType(args[0]);
-                    user = ensureType(args[1]);
-                    pass = ensureType(args[2]);
-                    driver = ensureType(args[3]);
+                    url = ensureType(Str.class, args[0]);
+                    user = ensureType(Str.class, args[1]);
+                    pass = ensureType(Str.class, args[2]);
+                    driver = ensureType(Str.class, args[3]);
                     break;
                 default:
                     throw new SQLScriptRuntimeException("Illegal arguments");
@@ -116,7 +116,7 @@ public class ConnMgr extends AbstractObj {
 
     protected static NativeCall nativeCreateFromProps = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            ConnMgr mgr = ensureType(context);
+            ConnMgr mgr = ensureType(ConnMgr.class, context);
 
             // TODO: make propsFile relative to current script file
             Str propsFile;
@@ -125,22 +125,22 @@ public class ConnMgr extends AbstractObj {
             Str driver = null;
             switch (args.length) {
                 case 1:
-                    propsFile = ensureType(args[0]);
+                    propsFile = ensureType(Str.class, args[0]);
                     break;
                 case 2:
-                    propsFile = ensureType(args[0]);
-                    driver = ensureType(args[1]);
+                    propsFile = ensureType(Str.class, args[0]);
+                    driver = ensureType(Str.class, args[1]);
                     break;
                 case 3:
-                    propsFile = ensureType(args[0]);
-                    user = ensureType(args[1]);
-                    pass = ensureType(args[2]);
+                    propsFile = ensureType(Str.class, args[0]);
+                    user = ensureType(Str.class, args[1]);
+                    pass = ensureType(Str.class, args[2]);
                     break;
                 case 4:
-                    propsFile = ensureType(args[0]);
-                    user = ensureType(args[1]);
-                    pass = ensureType(args[2]);
-                    driver = ensureType(args[3]);
+                    propsFile = ensureType(Str.class, args[0]);
+                    user = ensureType(Str.class, args[1]);
+                    pass = ensureType(Str.class, args[2]);
+                    driver = ensureType(Str.class, args[3]);
                     break;
                 default:
                     throw new SQLScriptRuntimeException("Illegal arguments");

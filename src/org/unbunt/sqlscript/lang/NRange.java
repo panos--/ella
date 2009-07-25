@@ -67,8 +67,8 @@ public class NRange extends AbstractObj {
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NNumeric start = ensureType(args[0]);
-                NNumeric stop = ensureType(args[1]);
+                NNumeric start = ensureType(NNumeric.class, args[0]);
+                NNumeric stop = ensureType(NNumeric.class, args[1]);
 
                 return new NRange(start.longValue(), stop.longValue());
             }
@@ -76,7 +76,7 @@ public class NRange extends AbstractObj {
 
         protected static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NRange thiz = ensureType(context);
+                NRange thiz = ensureType(NRange.class, context);
                 Obj closure = args[0];
 
                 long start = thiz.start;
@@ -111,14 +111,14 @@ public class NRange extends AbstractObj {
 
         protected static final NativeCall nativeStart = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NRange thiz = ensureType(context);
+                NRange thiz = ensureType(NRange.class, context);
                 return new NNum(thiz.start);
             }
         };
 
         protected static final NativeCall nativeStop = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NRange thiz = ensureType(context);
+                NRange thiz = ensureType(NRange.class, context);
                 return new NNum(thiz.stop);
             }
         };

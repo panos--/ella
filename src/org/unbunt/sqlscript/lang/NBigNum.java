@@ -232,8 +232,8 @@ public class NBigNum extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigNum thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigNum thiz = ensureType(NBigNum.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigNum()) {
                     return new NBigNum(thiz.value.add(((NBigNum)arg).value));
                 }
@@ -243,8 +243,8 @@ public class NBigNum extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeSubtract = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigNum thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigNum thiz = ensureType(NBigNum.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigNum()) {
                     return new NBigNum(thiz.value.subtract(((NBigNum) arg).value));
                 }
@@ -254,8 +254,8 @@ public class NBigNum extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeMultiply = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigNum thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigNum thiz = ensureType(NBigNum.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigNum()) {
                     return new NBigNum(thiz.value.multiply(((NBigNum) arg).value));
                 }
@@ -265,8 +265,8 @@ public class NBigNum extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeDivide = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigNum thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigNum thiz = ensureType(NBigNum.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigNum()) {
                     try {
                         return new NBigNum(thiz.value.divide(((NBigNum)arg).value));

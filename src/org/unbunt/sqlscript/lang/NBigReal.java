@@ -223,8 +223,8 @@ public class NBigReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigReal thiz = ensureType(NBigReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigReal()) {
                     return new NBigReal(thiz.value.add(((NBigReal)arg).value));
                 }
@@ -234,8 +234,8 @@ public class NBigReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeSubtract = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigReal thiz = ensureType(NBigReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigNum()) {
                     return new NBigReal(thiz.value.subtract(((NBigReal) arg).value));
                 }
@@ -245,8 +245,8 @@ public class NBigReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeMultiply = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigReal thiz = ensureType(NBigReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigReal()) {
                     return new NBigReal(thiz.value.multiply(((NBigReal) arg).value));
                 }
@@ -256,8 +256,8 @@ public class NBigReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeDivide = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NBigReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NBigReal thiz = ensureType(NBigReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 try {
                     if (arg.isBigReal()) {
                         return NumUtils.divide(thiz.value, ((NBigReal)arg).value);

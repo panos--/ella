@@ -31,8 +31,8 @@ public class Args extends AbstractObj {
     protected static class ArgsProto extends AbstractObj {
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Args thiz = ensureType(context);
-                NNumeric idxObj = ensureType(args[0]);
+                Args thiz = ensureType(Args.class, context);
+                NNumeric idxObj = ensureType(NNumeric.class, args[0]);
                 int idx = idxObj.intValue(); // TODO: maybe throw exception if value doesn't fit in int
                 try {
                     return thiz.args[idx];

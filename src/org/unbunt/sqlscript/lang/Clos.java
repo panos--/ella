@@ -46,7 +46,7 @@ public class Clos extends AbstractObj implements Call {
     public static class ClosProto extends AbstractObj {
         protected static final NativeCall nativeWhileTrue = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) {
-                Call cond = ensureType(context);
+                Call cond = ensureType(Call.class, context);
                 Obj _null = engine.getObjNull();
                 Obj result = null;
                 while (true) {

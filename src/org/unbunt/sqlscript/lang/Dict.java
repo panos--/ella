@@ -65,7 +65,7 @@ public class Dict extends AbstractObj {
 
         protected static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Dict thiz = ensureType(context);
+                Dict thiz = ensureType(Dict.class, context);
                 Obj closure = args[0];
                 Obj _null = engine.getObjNull();
 
@@ -86,7 +86,7 @@ public class Dict extends AbstractObj {
 
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Dict thiz = ensureType(context);
+                Dict thiz = ensureType(Dict.class, context);
                 Obj slot = args[0];
                 return thiz.value.getSlot(engine.getContext(), slot);
             }
@@ -94,7 +94,7 @@ public class Dict extends AbstractObj {
 
         protected static final NativeCall nativeSet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Dict thiz = ensureType(context);
+                Dict thiz = ensureType(Dict.class, context);
                 Obj slot = args[0];
                 Obj value = args[1];
                 thiz.value.setSlot(engine.getContext(), slot, value);
@@ -130,7 +130,7 @@ public class Dict extends AbstractObj {
             DictProto proto = new DictProto();
             ctx.registerObject(proto);
             // NOTE: toDict() method added to Base here, not in Base itself, to avoid circular dependency
-            Base base = ObjUtils.ensureType(ctx.getObjectProto(proto));
+            Base base = ObjUtils.ensureType(Base.class, ctx.getObjectProto(proto));
             base.setSlot(ctx, Str.SYM_toDict, nativeToDict);
         }
     }

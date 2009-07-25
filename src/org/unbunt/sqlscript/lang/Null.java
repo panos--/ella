@@ -61,21 +61,21 @@ public class Null extends AbstractObj implements NativeObj {
 
         protected static final NativeCall nativeIdentical = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Null thiz = ensureType(context);
+                Null thiz = ensureType(Null.class, context);
                 return thiz.getClass() == args[0].getClass() ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeNotIdentical = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Null thiz = ensureType(context);
+                Null thiz = ensureType(Null.class, context);
                 return thiz.getClass() != args[0].getClass() ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeType = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                JClass typeHint = ensureType(args[0]);
+                JClass typeHint = ensureType(JClass.class, args[0]);
                 return new Null(typeHint.clazz);
             }
         };
@@ -88,7 +88,7 @@ public class Null extends AbstractObj implements NativeObj {
 
         protected static final NativeCall nativeOr = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Clos closure = ensureType(args[0]);
+                Clos closure = ensureType(Clos.class, args[0]);
                 engine.trigger(closure);
                 return null;
             }

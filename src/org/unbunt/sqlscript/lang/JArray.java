@@ -72,7 +72,7 @@ public class JArray extends AbstractObj {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
-                NNumeric num = ObjUtils.ensureType(args[0]);
+                NNumeric num = ObjUtils.ensureType(NNumeric.class, args[0]);
                 int idx = num.intValue();
                 return NativeWrapper.wrap(engine.getContext(), Array.get(array, idx));
             }
@@ -82,7 +82,7 @@ public class JArray extends AbstractObj {
             public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
-                NNumeric num = ObjUtils.ensureType(args[0]);
+                NNumeric num = ObjUtils.ensureType(NNumeric.class, args[0]);
                 int idx = num.intValue();
                 Obj value = args[1];
                 Object jvalue = value.toJavaObject();

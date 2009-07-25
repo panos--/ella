@@ -299,8 +299,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isReal()) {
                     return new NReal(thiz.value + ((NReal)arg).value);
                 }
@@ -310,8 +310,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeSubtract = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isReal()) {
                     return new NReal(thiz.value - ((NReal) arg).value);
                 }
@@ -321,8 +321,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeMultiply = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isReal()) {
                     return new NReal(thiz.value * ((NReal) arg).value);
                 }
@@ -332,8 +332,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeDivide = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isReal()) {
                     return new NReal(thiz.value / ((NReal)arg).value);
                 }
@@ -357,8 +357,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeGreaterThan = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {
                     return engine.getObjFalse();
                 }
@@ -368,8 +368,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeGreaterOrEqual = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {
                     return engine.getObjFalse();
                 }
@@ -379,8 +379,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeLessThan = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {
                     return engine.getObjFalse();
                 }
@@ -390,8 +390,8 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeLessOrEqual = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
-                NNumeric arg = ensureType(args[0]);
+                NReal thiz = ensureType(NReal.class, context);
+                NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {
                     return engine.getObjFalse();
                 }
@@ -401,14 +401,14 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeIsNaN = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
+                NReal thiz = ensureType(NReal.class, context);
                 return Double.isNaN(thiz.value) ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeIsInfinity = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
+                NReal thiz = ensureType(NReal.class, context);
                 return thiz.value == Double.POSITIVE_INFINITY || thiz.value == Double.NEGATIVE_INFINITY
                        ? engine.getObjTrue()
                        : engine.getObjFalse();
@@ -417,14 +417,14 @@ public class NReal extends AbstractObj implements NNumeric {
 
         protected static final NativeCall nativeIsPositiveInfinity = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
+                NReal thiz = ensureType(NReal.class, context);
                 return thiz.value == Double.POSITIVE_INFINITY ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeIsNegativeInfinity = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(context);
+                NReal thiz = ensureType(NReal.class, context);
                 return thiz.value == Double.NEGATIVE_INFINITY ? engine.getObjTrue() : engine.getObjFalse();
             }
         };

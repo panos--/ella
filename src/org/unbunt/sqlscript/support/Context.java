@@ -56,7 +56,7 @@ public class Context implements SQLResultProvider {
 
         // init null as early as possible so that it can be used
         // during initialization of other objects
-        objNull = ensureType(ensureObject(Null.OBJECT_ID));
+        objNull = ensureType(Null.class, ensureObject(Null.OBJECT_ID));
 
         // NOTE: Here introduct a circular dependency between Context and the Objects
         // TODO: Break up by using interface instead of concrete class
@@ -83,8 +83,8 @@ public class Context implements SQLResultProvider {
         Stmt.regiserInContext(this);
         ResSet.registerInContext(this);
 
-        objSys = ensureType(ensureObject(Sys.OBJECT_ID));
-        objConnMgr = ensureType(ensureObject(ConnMgr.OBJECT_ID));
+        objSys = ensureType(Sys.class, ensureObject(Sys.OBJECT_ID));
+        objConnMgr = ensureType(ConnMgr.class, ensureObject(ConnMgr.OBJECT_ID));
 
         objTrue = new Bool(true);
         objFalse = new Bool(false);

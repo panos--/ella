@@ -54,8 +54,8 @@ public class Lst extends AbstractObj {
 
         protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Lst thiz = ensureType(context);
-                NNumeric idx = ensureType(args[0]);
+                Lst thiz = ensureType(Lst.class, context);
+                NNumeric idx = ensureType(NNumeric.class, args[0]);
                 try {
                     return thiz.value.get(idx.intValue());
                 } catch (IndexOutOfBoundsException e) {
@@ -66,8 +66,8 @@ public class Lst extends AbstractObj {
 
         protected static final NativeCall nativeSet = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Lst thiz = ensureType(context);
-                NNumeric num = ensureType(args[0]);
+                Lst thiz = ensureType(Lst.class, context);
+                NNumeric num = ensureType(NNumeric.class, args[0]);
                 int idx = num.intValue();
                 Obj value = args[1];
                 try {
@@ -99,7 +99,7 @@ public class Lst extends AbstractObj {
 
         protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Lst thiz = ensureType(context);
+                Lst thiz = ensureType(Lst.class, context);
                 Obj value = args[0];
 
                 try {
@@ -121,8 +121,8 @@ public class Lst extends AbstractObj {
 
         protected static final NativeCall nativeRemove = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Lst thiz = ensureType(context);
-                NNumeric idx = ensureType(args[0]);
+                Lst thiz = ensureType(Lst.class, context);
+                NNumeric idx = ensureType(NNumeric.class, args[0]);
 
                 try {
                     return thiz.value.remove(idx.intValue());
@@ -136,7 +136,7 @@ public class Lst extends AbstractObj {
 
         protected static final NativeCall nativeEach = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Lst thiz = ensureType(context);
+                Lst thiz = ensureType(Lst.class, context);
                 Obj closure = args[0];
                 Obj _null = engine.getObjNull();
 
@@ -178,7 +178,7 @@ public class Lst extends AbstractObj {
 
         protected static final NativeCall nativeSize = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Lst thiz = ensureType(context);
+                Lst thiz = ensureType(Lst.class, context);
                 return new NNum(thiz.value.size());
             }
         };

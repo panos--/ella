@@ -15,7 +15,7 @@ abstract class NativeBatchCall extends NativeCall {
         int batchSize;
         if (args.length > 1) {
             closure = args[1];
-            NNumeric bs = ensureType(args[0]);
+            NNumeric bs = ensureType(NNumeric.class, args[0]);
             batchSize = bs.intValue();
         }
         else {
