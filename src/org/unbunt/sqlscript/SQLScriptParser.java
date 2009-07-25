@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 13:45:29
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 14:14:44
 
 	package org.unbunt.sqlscript;
 
@@ -28,7 +28,7 @@ import org.antlr.runtime.tree.*;
 
 public class SQLScriptParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "SEP", "KW_SQL", "KW_VAR", "OP_DEFINE", "EQUALS", "COMMA", "KW_FUN", "LPAREN", "RPAREN", "DOUBLE_ARROW", "DOT", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "COLON", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "KW_INCLUDE", "QUESTION", "OP_OR", "OP_AND", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "EXCLAM", "LSQUARE", "RSQUARE", "INT", "FLOAT", "KW_THIS", "KW_SUPER", "KW_NEW", "WORD", "WS", "NL", "SQL_SPECIAL_CHAR", "BACKSLASH", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DDOLLAR", "DOLLAR", "DIGIT", "EXPONENT", "NUMBER", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS", "SEP", "KW_SQL", "KW_VAR", "OP_DEFINE", "EQUALS", "COMMA", "KW_FUN", "LPAREN", "RPAREN", "DOUBLE_ARROW", "DOT", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "COLON", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_IMPORT", "OP_MUL", "KW_AS", "KW_INCLUDE", "QUESTION", "OP_OR", "OP_AND", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_ADD", "OP_SUB", "OP_DIV", "OP_MOD", "EXCLAM", "LSQUARE", "RSQUARE", "INT", "FLOAT", "KW_THIS", "KW_SUPER", "KW_NEW", "WORD", "WS", "NL", "SQL_SPECIAL_CHAR", "BACKSLASH", "IDENTIFIER", "EMB_VAR_START", "KW_TRUE", "KW_FALSE", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "STR_DOLQUOT", "COMMENT", "LINE_COMMENT", "DDOLLAR", "DOLLAR", "DIGIT", "EXPONENT", "NUMBER", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL"
     };
     public static final int EXPONENT=131;
     public static final int OP_LE=99;
@@ -45,7 +45,7 @@ public class SQLScriptParser extends Parser {
     public static final int KW_VAR=63;
     public static final int VARNAME=18;
     public static final int WORD=112;
-    public static final int OP_MOD=101;
+    public static final int OP_MOD=103;
     public static final int OP_EQ=92;
     public static final int SQL=29;
     public static final int RPAREN=69;
@@ -72,13 +72,13 @@ public class SQLScriptParser extends Parser {
     public static final int STRING_START=8;
     public static final int LINE_COMMENT=127;
     public static final int EMB_VAR_START=118;
-    public static final int OP_ADD=102;
+    public static final int OP_ADD=100;
     public static final int OP_NI=95;
     public static final int NUMBER=132;
     public static final int KW_CATCH=75;
     public static final int LCURLY=21;
     public static final int INT=107;
-    public static final int OP_DIV=100;
+    public static final int OP_DIV=102;
     public static final int FUNC_DEF=37;
     public static final int DOLQUOT_TAG_START=25;
     public static final int KW_IMPORT=85;
@@ -120,7 +120,7 @@ public class SQLScriptParser extends Parser {
     public static final int DECLARE_ASSIGN=34;
     public static final int INDEX=51;
     public static final int AS=60;
-    public static final int OP_SUB=103;
+    public static final int OP_SUB=101;
     public static final int SEP=61;
     public static final int OBJ=44;
     public static final int COMMA=66;
@@ -874,9 +874,9 @@ public class SQLScriptParser extends Parser {
             case OP_GE:
             case OP_LT:
             case OP_LE:
-            case OP_DIV:
             case OP_ADD:
             case OP_SUB:
+            case OP_DIV:
             case EXCLAM:
             case LSQUARE:
             case INT:
@@ -1123,7 +1123,7 @@ public class SQLScriptParser extends Parser {
                 int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0==LCURLY||(LA8_0>=SEP && LA8_0<=KW_VAR)||(LA8_0>=KW_FUN && LA8_0<=LPAREN)||(LA8_0>=DOT && LA8_0<=KW_IF)||LA8_0==KW_TRY||(LA8_0>=KW_THROW && LA8_0<=KW_FOR)||(LA8_0>=KW_WHILE && LA8_0<=OP_MUL)||LA8_0==KW_INCLUDE||(LA8_0>=OP_OR && LA8_0<=OP_DIV)||(LA8_0>=OP_ADD && LA8_0<=LSQUARE)||(LA8_0>=INT && LA8_0<=WORD)||(LA8_0>=BACKSLASH && LA8_0<=IDENTIFIER)||(LA8_0>=KW_TRUE && LA8_0<=STR_DQUOT)) ) {
+                if ( (LA8_0==LCURLY||(LA8_0>=SEP && LA8_0<=KW_VAR)||(LA8_0>=KW_FUN && LA8_0<=LPAREN)||(LA8_0>=DOT && LA8_0<=KW_IF)||LA8_0==KW_TRY||(LA8_0>=KW_THROW && LA8_0<=KW_FOR)||(LA8_0>=KW_WHILE && LA8_0<=OP_MUL)||LA8_0==KW_INCLUDE||(LA8_0>=OP_OR && LA8_0<=OP_DIV)||(LA8_0>=EXCLAM && LA8_0<=LSQUARE)||(LA8_0>=INT && LA8_0<=WORD)||(LA8_0>=BACKSLASH && LA8_0<=IDENTIFIER)||(LA8_0>=KW_TRUE && LA8_0<=STR_DQUOT)) ) {
                     alt8=1;
                 }
 
@@ -1690,9 +1690,9 @@ public class SQLScriptParser extends Parser {
             case OP_GE:
             case OP_LT:
             case OP_LE:
-            case OP_DIV:
             case OP_ADD:
             case OP_SUB:
+            case OP_DIV:
             case EXCLAM:
             case LSQUARE:
             case INT:
@@ -2086,7 +2086,7 @@ public class SQLScriptParser extends Parser {
                     if ( (LA15_0==KW_SQL) ) {
                         alt15=1;
                     }
-                    else if ( (LA15_0==LCURLY||(LA15_0>=KW_FUN && LA15_0<=LPAREN)||LA15_0==OP_MUL||(LA15_0>=OP_OR && LA15_0<=OP_DIV)||(LA15_0>=OP_ADD && LA15_0<=LSQUARE)||(LA15_0>=INT && LA15_0<=WORD)||LA15_0==IDENTIFIER||(LA15_0>=KW_TRUE && LA15_0<=STR_DQUOT)) ) {
+                    else if ( (LA15_0==LCURLY||(LA15_0>=KW_FUN && LA15_0<=LPAREN)||LA15_0==OP_MUL||(LA15_0>=OP_OR && LA15_0<=OP_DIV)||(LA15_0>=EXCLAM && LA15_0<=LSQUARE)||(LA15_0>=INT && LA15_0<=WORD)||LA15_0==IDENTIFIER||(LA15_0>=KW_TRUE && LA15_0<=STR_DQUOT)) ) {
                         alt15=2;
                     }
                     else {
@@ -2190,7 +2190,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, scriptAssignRest, expressionNoSQL, identifier
+                            // elements: identifier, expressionNoSQL, identifier, scriptAssignRest
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2261,7 +2261,7 @@ public class SQLScriptParser extends Parser {
                     if ( (LA17_0==KW_SQL) ) {
                         alt17=1;
                     }
-                    else if ( (LA17_0==LCURLY||(LA17_0>=KW_FUN && LA17_0<=LPAREN)||LA17_0==OP_MUL||(LA17_0>=OP_OR && LA17_0<=OP_DIV)||(LA17_0>=OP_ADD && LA17_0<=LSQUARE)||(LA17_0>=INT && LA17_0<=WORD)||LA17_0==IDENTIFIER||(LA17_0>=KW_TRUE && LA17_0<=STR_DQUOT)) ) {
+                    else if ( (LA17_0==LCURLY||(LA17_0>=KW_FUN && LA17_0<=LPAREN)||LA17_0==OP_MUL||(LA17_0>=OP_OR && LA17_0<=OP_DIV)||(LA17_0>=EXCLAM && LA17_0<=LSQUARE)||(LA17_0>=INT && LA17_0<=WORD)||LA17_0==IDENTIFIER||(LA17_0>=KW_TRUE && LA17_0<=STR_DQUOT)) ) {
                         alt17=2;
                     }
                     else {
@@ -2284,7 +2284,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, sqlExpression
+                            // elements: sqlExpression, identifier
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2348,7 +2348,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, expressionNoSQL, scriptAssignRest
+                            // elements: scriptAssignRest, expressionNoSQL, identifier
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2663,7 +2663,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, identifier, expressionNoSQL
+                    // elements: expressionNoSQL, identifier, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2724,7 +2724,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, expressionNoSQL
+                    // elements: expressionNoSQL, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2956,7 +2956,7 @@ public class SQLScriptParser extends Parser {
             int alt22=2;
             int LA22_0 = input.LA(1);
 
-            if ( (LA22_0==OP_MUL||(LA22_0>=OP_OR && LA22_0<=OP_DIV)||(LA22_0>=OP_ADD && LA22_0<=EXCLAM)||LA22_0==WORD||LA22_0==IDENTIFIER) ) {
+            if ( (LA22_0==OP_MUL||(LA22_0>=OP_OR && LA22_0<=OP_DIV)||LA22_0==EXCLAM||LA22_0==WORD||LA22_0==IDENTIFIER) ) {
                 alt22=1;
             }
             switch (alt22) {
@@ -3083,7 +3083,7 @@ public class SQLScriptParser extends Parser {
             int alt23=2;
             int LA23_0 = input.LA(1);
 
-            if ( (LA23_0==OP_MUL||(LA23_0>=OP_OR && LA23_0<=OP_DIV)||(LA23_0>=OP_ADD && LA23_0<=EXCLAM)||LA23_0==WORD||LA23_0==IDENTIFIER) ) {
+            if ( (LA23_0==OP_MUL||(LA23_0>=OP_OR && LA23_0<=OP_DIV)||LA23_0==EXCLAM||LA23_0==WORD||LA23_0==IDENTIFIER) ) {
                 alt23=1;
             }
             else if ( (LA23_0==RPAREN) ) {
@@ -3302,7 +3302,7 @@ public class SQLScriptParser extends Parser {
                 int alt25=2;
                 int LA25_0 = input.LA(1);
 
-                if ( (LA25_0==LCURLY||(LA25_0>=SEP && LA25_0<=KW_VAR)||(LA25_0>=KW_FUN && LA25_0<=LPAREN)||(LA25_0>=DOT && LA25_0<=KW_IF)||LA25_0==KW_TRY||(LA25_0>=KW_THROW && LA25_0<=KW_FOR)||(LA25_0>=KW_WHILE && LA25_0<=OP_MUL)||LA25_0==KW_INCLUDE||(LA25_0>=OP_OR && LA25_0<=OP_DIV)||(LA25_0>=OP_ADD && LA25_0<=LSQUARE)||(LA25_0>=INT && LA25_0<=WORD)||(LA25_0>=BACKSLASH && LA25_0<=IDENTIFIER)||(LA25_0>=KW_TRUE && LA25_0<=STR_DQUOT)) ) {
+                if ( (LA25_0==LCURLY||(LA25_0>=SEP && LA25_0<=KW_VAR)||(LA25_0>=KW_FUN && LA25_0<=LPAREN)||(LA25_0>=DOT && LA25_0<=KW_IF)||LA25_0==KW_TRY||(LA25_0>=KW_THROW && LA25_0<=KW_FOR)||(LA25_0>=KW_WHILE && LA25_0<=OP_MUL)||LA25_0==KW_INCLUDE||(LA25_0>=OP_OR && LA25_0<=OP_DIV)||(LA25_0>=EXCLAM && LA25_0<=LSQUARE)||(LA25_0>=INT && LA25_0<=WORD)||(LA25_0>=BACKSLASH && LA25_0<=IDENTIFIER)||(LA25_0>=KW_TRUE && LA25_0<=STR_DQUOT)) ) {
                     alt25=1;
                 }
 
@@ -3332,7 +3332,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: statement, blockArgumentsDef
+            // elements: blockArgumentsDef, statement
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3428,7 +3428,7 @@ public class SQLScriptParser extends Parser {
             int alt26=2;
             int LA26_0 = input.LA(1);
 
-            if ( (LA26_0==OP_MUL||(LA26_0>=OP_OR && LA26_0<=OP_DIV)||(LA26_0>=OP_ADD && LA26_0<=EXCLAM)||LA26_0==WORD||LA26_0==IDENTIFIER) ) {
+            if ( (LA26_0==OP_MUL||(LA26_0>=OP_OR && LA26_0<=OP_DIV)||LA26_0==EXCLAM||LA26_0==WORD||LA26_0==IDENTIFIER) ) {
                 alt26=1;
             }
             else if ( (LA26_0==DOUBLE_ARROW) ) {
@@ -3626,7 +3626,7 @@ public class SQLScriptParser extends Parser {
             if ( (LA28_0==KW_ELSE) ) {
                 alt28=1;
             }
-            else if ( (LA28_0==EOF||(LA28_0>=LCURLY && LA28_0<=RCURLY)||(LA28_0>=SEP && LA28_0<=KW_VAR)||(LA28_0>=KW_FUN && LA28_0<=LPAREN)||(LA28_0>=DOT && LA28_0<=KW_IF)||LA28_0==KW_TRY||(LA28_0>=KW_THROW && LA28_0<=KW_FOR)||(LA28_0>=KW_WHILE && LA28_0<=OP_MUL)||LA28_0==KW_INCLUDE||(LA28_0>=OP_OR && LA28_0<=OP_DIV)||(LA28_0>=OP_ADD && LA28_0<=LSQUARE)||(LA28_0>=INT && LA28_0<=WORD)||(LA28_0>=BACKSLASH && LA28_0<=IDENTIFIER)||(LA28_0>=KW_TRUE && LA28_0<=STR_DQUOT)) ) {
+            else if ( (LA28_0==EOF||(LA28_0>=LCURLY && LA28_0<=RCURLY)||(LA28_0>=SEP && LA28_0<=KW_VAR)||(LA28_0>=KW_FUN && LA28_0<=LPAREN)||(LA28_0>=DOT && LA28_0<=KW_IF)||LA28_0==KW_TRY||(LA28_0>=KW_THROW && LA28_0<=KW_FOR)||(LA28_0>=KW_WHILE && LA28_0<=OP_MUL)||LA28_0==KW_INCLUDE||(LA28_0>=OP_OR && LA28_0<=OP_DIV)||(LA28_0>=EXCLAM && LA28_0<=LSQUARE)||(LA28_0>=INT && LA28_0<=WORD)||(LA28_0>=BACKSLASH && LA28_0<=IDENTIFIER)||(LA28_0>=KW_TRUE && LA28_0<=STR_DQUOT)) ) {
                 alt28=2;
             }
             else {
@@ -3673,7 +3673,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: scriptIfElse, block, parenExpression
+                            // elements: parenExpression, block, scriptIfElse
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -3757,7 +3757,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: parenExpression, block, block
+                            // elements: block, block, parenExpression
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -3987,7 +3987,7 @@ public class SQLScriptParser extends Parser {
                     if ( (LA29_0==KW_FINALLY) ) {
                         alt29=1;
                     }
-                    else if ( (LA29_0==EOF||(LA29_0>=LCURLY && LA29_0<=RCURLY)||(LA29_0>=SEP && LA29_0<=KW_VAR)||(LA29_0>=KW_FUN && LA29_0<=LPAREN)||(LA29_0>=DOT && LA29_0<=KW_IF)||LA29_0==KW_TRY||(LA29_0>=KW_THROW && LA29_0<=KW_FOR)||(LA29_0>=KW_WHILE && LA29_0<=OP_MUL)||LA29_0==KW_INCLUDE||(LA29_0>=OP_OR && LA29_0<=OP_DIV)||(LA29_0>=OP_ADD && LA29_0<=LSQUARE)||(LA29_0>=INT && LA29_0<=WORD)||(LA29_0>=BACKSLASH && LA29_0<=IDENTIFIER)||(LA29_0>=KW_TRUE && LA29_0<=STR_DQUOT)) ) {
+                    else if ( (LA29_0==EOF||(LA29_0>=LCURLY && LA29_0<=RCURLY)||(LA29_0>=SEP && LA29_0<=KW_VAR)||(LA29_0>=KW_FUN && LA29_0<=LPAREN)||(LA29_0>=DOT && LA29_0<=KW_IF)||LA29_0==KW_TRY||(LA29_0>=KW_THROW && LA29_0<=KW_FOR)||(LA29_0>=KW_WHILE && LA29_0<=OP_MUL)||LA29_0==KW_INCLUDE||(LA29_0>=OP_OR && LA29_0<=OP_DIV)||(LA29_0>=EXCLAM && LA29_0<=LSQUARE)||(LA29_0>=INT && LA29_0<=WORD)||(LA29_0>=BACKSLASH && LA29_0<=IDENTIFIER)||(LA29_0>=KW_TRUE && LA29_0<=STR_DQUOT)) ) {
                         alt29=2;
                     }
                     else {
@@ -4010,7 +4010,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: block, scriptCatch, scriptFinally
+                            // elements: scriptFinally, scriptCatch, block
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -4144,7 +4144,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: block, scriptFinally
+                    // elements: scriptFinally, block
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4281,7 +4281,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: identifier, block
+            // elements: block, identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4570,7 +4570,7 @@ public class SQLScriptParser extends Parser {
             int alt31=2;
             int LA31_0 = input.LA(1);
 
-            if ( (LA31_0==OP_MUL||(LA31_0>=OP_OR && LA31_0<=OP_DIV)||(LA31_0>=OP_ADD && LA31_0<=EXCLAM)||LA31_0==WORD||LA31_0==IDENTIFIER) ) {
+            if ( (LA31_0==OP_MUL||(LA31_0>=OP_OR && LA31_0<=OP_DIV)||LA31_0==EXCLAM||LA31_0==WORD||LA31_0==IDENTIFIER) ) {
                 alt31=1;
             }
             else if ( (LA31_0==LPAREN) ) {
@@ -4674,7 +4674,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, scriptFor, block, identifierList
+            // elements: block, expression, identifierList, scriptFor
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4801,7 +4801,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: parenExpression, block
+            // elements: block, parenExpression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5089,7 +5089,7 @@ public class SQLScriptParser extends Parser {
             int alt32=2;
             int LA32_0 = input.LA(1);
 
-            if ( (LA32_0==LCURLY||LA32_0==KW_SQL||(LA32_0>=KW_FUN && LA32_0<=LPAREN)||LA32_0==OP_MUL||(LA32_0>=OP_OR && LA32_0<=OP_DIV)||(LA32_0>=OP_ADD && LA32_0<=LSQUARE)||(LA32_0>=INT && LA32_0<=WORD)||LA32_0==IDENTIFIER||(LA32_0>=KW_TRUE && LA32_0<=STR_DQUOT)) ) {
+            if ( (LA32_0==LCURLY||LA32_0==KW_SQL||(LA32_0>=KW_FUN && LA32_0<=LPAREN)||LA32_0==OP_MUL||(LA32_0>=OP_OR && LA32_0<=OP_DIV)||(LA32_0>=EXCLAM && LA32_0<=LSQUARE)||(LA32_0>=INT && LA32_0<=WORD)||LA32_0==IDENTIFIER||(LA32_0>=KW_TRUE && LA32_0<=STR_DQUOT)) ) {
                 alt32=1;
             }
             switch (alt32) {
@@ -5194,7 +5194,7 @@ public class SQLScriptParser extends Parser {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==LCURLY||LA33_0==KW_SQL||(LA33_0>=KW_FUN && LA33_0<=LPAREN)||LA33_0==OP_MUL||(LA33_0>=OP_OR && LA33_0<=OP_DIV)||(LA33_0>=OP_ADD && LA33_0<=LSQUARE)||(LA33_0>=INT && LA33_0<=WORD)||LA33_0==IDENTIFIER||(LA33_0>=KW_TRUE && LA33_0<=STR_DQUOT)) ) {
+            if ( (LA33_0==LCURLY||LA33_0==KW_SQL||(LA33_0>=KW_FUN && LA33_0<=LPAREN)||LA33_0==OP_MUL||(LA33_0>=OP_OR && LA33_0<=OP_DIV)||(LA33_0>=EXCLAM && LA33_0<=LSQUARE)||(LA33_0>=INT && LA33_0<=WORD)||LA33_0==IDENTIFIER||(LA33_0>=KW_TRUE && LA33_0<=STR_DQUOT)) ) {
                 alt33=1;
             }
             else if ( (LA33_0==SEP) ) {
@@ -6181,7 +6181,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier, identifier
+                    // elements: identifier, expressionNoSQL, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6407,7 +6407,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, expression, identifier
+                    // elements: expression, identifier, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6495,7 +6495,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: conditionalExpression, expression
+                            // elements: expression, conditionalExpression
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -6656,7 +6656,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: conditionalResult, orCondition, conditionalResult
+                    // elements: conditionalResult, conditionalResult, orCondition
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6944,7 +6944,7 @@ public class SQLScriptParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: orCondition, andCondition
+            	    // elements: andCondition, orCondition
             	    // token labels: 
             	    // rule labels: retval
             	    // token list labels: 
@@ -7119,7 +7119,7 @@ public class SQLScriptParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: andCondition, eqCondition
+            	    // elements: eqCondition, andCondition
             	    // token labels: 
             	    // rule labels: retval
             	    // token list labels: 
@@ -7215,7 +7215,7 @@ public class SQLScriptParser extends Parser {
     };
 
     // $ANTLR start "eqCondition"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:658:1: eqCondition : multExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) multExpression -> ^( CALL_BINARY multExpression IDENTIFIER[$op] multExpression ) | -> multExpression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:658:1: eqCondition : addExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) addExpression -> ^( CALL_BINARY addExpression IDENTIFIER[$op] addExpression ) | -> addExpression ) ;
     public final SQLScriptParser.eqCondition_return eqCondition() throws RecognitionException {
         SQLScriptParser.eqCondition_return retval = new SQLScriptParser.eqCondition_return();
         retval.start = input.LT(1);
@@ -7223,9 +7223,9 @@ public class SQLScriptParser extends Parser {
         CommonTree root_0 = null;
 
         Token op=null;
-        SQLScriptParser.multExpression_return multExpression174 = null;
+        SQLScriptParser.addExpression_return addExpression174 = null;
 
-        SQLScriptParser.multExpression_return multExpression175 = null;
+        SQLScriptParser.addExpression_return addExpression175 = null;
 
 
         CommonTree op_tree=null;
@@ -7237,18 +7237,18 @@ public class SQLScriptParser extends Parser {
         RewriteRuleTokenStream stream_OP_LT=new RewriteRuleTokenStream(adaptor,"token OP_LT");
         RewriteRuleTokenStream stream_OP_GE=new RewriteRuleTokenStream(adaptor,"token OP_GE");
         RewriteRuleTokenStream stream_OP_NI=new RewriteRuleTokenStream(adaptor,"token OP_NI");
-        RewriteRuleSubtreeStream stream_multExpression=new RewriteRuleSubtreeStream(adaptor,"rule multExpression");
+        RewriteRuleSubtreeStream stream_addExpression=new RewriteRuleSubtreeStream(adaptor,"rule addExpression");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:659:2: ( multExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) multExpression -> ^( CALL_BINARY multExpression IDENTIFIER[$op] multExpression ) | -> multExpression ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:659:4: multExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) multExpression -> ^( CALL_BINARY multExpression IDENTIFIER[$op] multExpression ) | -> multExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:659:2: ( addExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) addExpression -> ^( CALL_BINARY addExpression IDENTIFIER[$op] addExpression ) | -> addExpression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:659:4: addExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) addExpression -> ^( CALL_BINARY addExpression IDENTIFIER[$op] addExpression ) | -> addExpression )
             {
-            pushFollow(FOLLOW_multExpression_in_eqCondition2717);
-            multExpression174=multExpression();
+            pushFollow(FOLLOW_addExpression_in_eqCondition2717);
+            addExpression174=addExpression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_multExpression.add(multExpression174.getTree());
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:660:3: ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) multExpression -> ^( CALL_BINARY multExpression IDENTIFIER[$op] multExpression ) | -> multExpression )
+            if ( state.backtracking==0 ) stream_addExpression.add(addExpression174.getTree());
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:660:3: ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) addExpression -> ^( CALL_BINARY addExpression IDENTIFIER[$op] addExpression ) | -> addExpression )
             int alt47=2;
             int LA47_0 = input.LA(1);
 
@@ -7267,7 +7267,7 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt47) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:660:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) multExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:660:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) addExpression
                     {
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:660:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE )
                     int alt46=8;
@@ -7396,16 +7396,16 @@ public class SQLScriptParser extends Parser {
 
                     }
 
-                    pushFollow(FOLLOW_multExpression_in_eqCondition2761);
-                    multExpression175=multExpression();
+                    pushFollow(FOLLOW_addExpression_in_eqCondition2761);
+                    addExpression175=addExpression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_multExpression.add(multExpression175.getTree());
+                    if ( state.backtracking==0 ) stream_addExpression.add(addExpression175.getTree());
 
 
                     // AST REWRITE
-                    // elements: multExpression, multExpression
+                    // elements: addExpression, addExpression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -7416,16 +7416,16 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 661:20: -> ^( CALL_BINARY multExpression IDENTIFIER[$op] multExpression )
+                    // 661:19: -> ^( CALL_BINARY addExpression IDENTIFIER[$op] addExpression )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:661:23: ^( CALL_BINARY multExpression IDENTIFIER[$op] multExpression )
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:661:22: ^( CALL_BINARY addExpression IDENTIFIER[$op] addExpression )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
 
-                        adaptor.addChild(root_1, stream_multExpression.nextTree());
+                        adaptor.addChild(root_1, stream_addExpression.nextTree());
                         adaptor.addChild(root_1, (CommonTree)adaptor.create(IDENTIFIER, op));
-                        adaptor.addChild(root_1, stream_multExpression.nextTree());
+                        adaptor.addChild(root_1, stream_addExpression.nextTree());
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -7440,7 +7440,7 @@ public class SQLScriptParser extends Parser {
                     {
 
                     // AST REWRITE
-                    // elements: multExpression
+                    // elements: addExpression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -7451,9 +7451,9 @@ public class SQLScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 662:7: -> multExpression
+                    // 662:7: -> addExpression
                     {
-                        adaptor.addChild(root_0, stream_multExpression.nextTree());
+                        adaptor.addChild(root_0, stream_addExpression.nextTree());
 
                     }
 
@@ -7485,47 +7485,46 @@ public class SQLScriptParser extends Parser {
     }
     // $ANTLR end "eqCondition"
 
-    public static class multExpression_return extends ParserRuleReturnScope {
+    public static class addExpression_return extends ParserRuleReturnScope {
         CommonTree tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "multExpression"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:666:1: multExpression : ( addExpression -> addExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression -> ^( CALL_BINARY IDENTIFIER[$op] addExpression ) )+ | ) ;
-    public final SQLScriptParser.multExpression_return multExpression() throws RecognitionException {
-        SQLScriptParser.multExpression_return retval = new SQLScriptParser.multExpression_return();
+    // $ANTLR start "addExpression"
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:666:1: addExpression : ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | ) ;
+    public final SQLScriptParser.addExpression_return addExpression() throws RecognitionException {
+        SQLScriptParser.addExpression_return retval = new SQLScriptParser.addExpression_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
         Token op=null;
-        SQLScriptParser.addExpression_return addExpression176 = null;
+        SQLScriptParser.multExpression_return multExpression176 = null;
 
-        SQLScriptParser.addExpression_return addExpression177 = null;
+        SQLScriptParser.multExpression_return multExpression177 = null;
 
 
         CommonTree op_tree=null;
-        RewriteRuleTokenStream stream_OP_MUL=new RewriteRuleTokenStream(adaptor,"token OP_MUL");
-        RewriteRuleTokenStream stream_OP_MOD=new RewriteRuleTokenStream(adaptor,"token OP_MOD");
-        RewriteRuleTokenStream stream_OP_DIV=new RewriteRuleTokenStream(adaptor,"token OP_DIV");
-        RewriteRuleSubtreeStream stream_addExpression=new RewriteRuleSubtreeStream(adaptor,"rule addExpression");
+        RewriteRuleTokenStream stream_OP_SUB=new RewriteRuleTokenStream(adaptor,"token OP_SUB");
+        RewriteRuleTokenStream stream_OP_ADD=new RewriteRuleTokenStream(adaptor,"token OP_ADD");
+        RewriteRuleSubtreeStream stream_multExpression=new RewriteRuleSubtreeStream(adaptor,"rule multExpression");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:2: ( ( addExpression -> addExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression -> ^( CALL_BINARY IDENTIFIER[$op] addExpression ) )+ | ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:4: ( addExpression -> addExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression -> ^( CALL_BINARY IDENTIFIER[$op] addExpression ) )+ | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:2: ( ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:4: ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | )
             {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:4: ( addExpression -> addExpression )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:5: addExpression
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:4: ( multExpression -> multExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:667:5: multExpression
             {
-            pushFollow(FOLLOW_addExpression_in_multExpression2801);
-            addExpression176=addExpression();
+            pushFollow(FOLLOW_multExpression_in_addExpression2800);
+            multExpression176=multExpression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_addExpression.add(addExpression176.getTree());
+            if ( state.backtracking==0 ) stream_multExpression.add(multExpression176.getTree());
 
 
             // AST REWRITE
-            // elements: addExpression
+            // elements: multExpression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -7536,20 +7535,20 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 667:24: -> addExpression
+            // 667:24: -> multExpression
             {
-                adaptor.addChild(root_0, stream_addExpression.nextTree());
+                adaptor.addChild(root_0, stream_multExpression.nextTree());
 
             }
 
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:3: ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression -> ^( CALL_BINARY IDENTIFIER[$op] addExpression ) )+ | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:3: ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | )
             int alt50=2;
             int LA50_0 = input.LA(1);
 
-            if ( (LA50_0==OP_MUL||(LA50_0>=OP_DIV && LA50_0<=OP_MOD)) ) {
+            if ( ((LA50_0>=OP_ADD && LA50_0<=OP_SUB)) ) {
                 alt50=1;
             }
             else if ( (LA50_0==RCURLY||LA50_0==SEP||(LA50_0>=EQUALS && LA50_0<=COMMA)||LA50_0==RPAREN||LA50_0==COLON||(LA50_0>=QUESTION && LA50_0<=OP_LE)||LA50_0==RSQUARE) ) {
@@ -7564,74 +7563,56 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt50) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression -> ^( CALL_BINARY IDENTIFIER[$op] addExpression ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:5: ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression -> ^( CALL_BINARY IDENTIFIER[$op] addExpression ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:5: ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+
                     int cnt49=0;
                     loop49:
                     do {
                         int alt49=2;
                         int LA49_0 = input.LA(1);
 
-                        if ( (LA49_0==OP_MUL||(LA49_0>=OP_DIV && LA49_0<=OP_MOD)) ) {
+                        if ( ((LA49_0>=OP_ADD && LA49_0<=OP_SUB)) ) {
                             alt49=1;
                         }
 
 
                         switch (alt49) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD ) addExpression
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:6: (op= OP_ADD | op= OP_SUB ) multExpression
                     	    {
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD )
-                    	    int alt48=3;
-                    	    switch ( input.LA(1) ) {
-                    	    case OP_MUL:
-                    	        {
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:6: (op= OP_ADD | op= OP_SUB )
+                    	    int alt48=2;
+                    	    int LA48_0 = input.LA(1);
+
+                    	    if ( (LA48_0==OP_ADD) ) {
                     	        alt48=1;
-                    	        }
-                    	        break;
-                    	    case OP_DIV:
-                    	        {
+                    	    }
+                    	    else if ( (LA48_0==OP_SUB) ) {
                     	        alt48=2;
-                    	        }
-                    	        break;
-                    	    case OP_MOD:
-                    	        {
-                    	        alt48=3;
-                    	        }
-                    	        break;
-                    	    default:
+                    	    }
+                    	    else {
                     	        if (state.backtracking>0) {state.failed=true; return retval;}
                     	        NoViableAltException nvae =
                     	            new NoViableAltException("", 48, 0, input);
 
                     	        throw nvae;
                     	    }
-
                     	    switch (alt48) {
                     	        case 1 :
-                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:7: op= OP_MUL
+                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:7: op= OP_ADD
                     	            {
-                    	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2821); if (state.failed) return retval; 
-                    	            if ( state.backtracking==0 ) stream_OP_MUL.add(op);
+                    	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2819); if (state.failed) return retval; 
+                    	            if ( state.backtracking==0 ) stream_OP_ADD.add(op);
 
 
                     	            }
                     	            break;
                     	        case 2 :
-                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:17: op= OP_DIV
+                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:17: op= OP_SUB
                     	            {
-                    	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2825); if (state.failed) return retval; 
-                    	            if ( state.backtracking==0 ) stream_OP_DIV.add(op);
-
-
-                    	            }
-                    	            break;
-                    	        case 3 :
-                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:27: op= OP_MOD
-                    	            {
-                    	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2829); if (state.failed) return retval; 
-                    	            if ( state.backtracking==0 ) stream_OP_MOD.add(op);
+                    	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2823); if (state.failed) return retval; 
+                    	            if ( state.backtracking==0 ) stream_OP_SUB.add(op);
 
 
                     	            }
@@ -7639,16 +7620,16 @@ public class SQLScriptParser extends Parser {
 
                     	    }
 
-                    	    pushFollow(FOLLOW_addExpression_in_multExpression2832);
-                    	    addExpression177=addExpression();
+                    	    pushFollow(FOLLOW_multExpression_in_addExpression2826);
+                    	    multExpression177=multExpression();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_addExpression.add(addExpression177.getTree());
+                    	    if ( state.backtracking==0 ) stream_multExpression.add(multExpression177.getTree());
 
 
                     	    // AST REWRITE
-                    	    // elements: addExpression
+                    	    // elements: multExpression
                     	    // token labels: 
                     	    // rule labels: retval
                     	    // token list labels: 
@@ -7659,16 +7640,16 @@ public class SQLScriptParser extends Parser {
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     	    root_0 = (CommonTree)adaptor.nil();
-                    	    // 668:52: -> ^( CALL_BINARY IDENTIFIER[$op] addExpression )
+                    	    // 668:44: -> ^( CALL_BINARY IDENTIFIER[$op] multExpression )
                     	    {
-                    	        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:55: ^( CALL_BINARY IDENTIFIER[$op] addExpression )
+                    	        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:668:47: ^( CALL_BINARY IDENTIFIER[$op] multExpression )
                     	        {
                     	        CommonTree root_1 = (CommonTree)adaptor.nil();
                     	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
 
                     	        adaptor.addChild(root_1, ((CommonTree)retval.tree));
                     	        adaptor.addChild(root_1, (CommonTree)adaptor.create(IDENTIFIER, op));
-                    	        adaptor.addChild(root_1, stream_addExpression.nextTree());
+                    	        adaptor.addChild(root_1, stream_multExpression.nextTree());
 
                     	        adaptor.addChild(root_0, root_1);
                     	        }
@@ -7720,17 +7701,17 @@ public class SQLScriptParser extends Parser {
         }
         return retval;
     }
-    // $ANTLR end "multExpression"
+    // $ANTLR end "addExpression"
 
-    public static class addExpression_return extends ParserRuleReturnScope {
+    public static class multExpression_return extends ParserRuleReturnScope {
         CommonTree tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "addExpression"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:673:1: addExpression : ( binaryExpression -> binaryExpression ) ( ( (op= OP_ADD | op= OP_SUB ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | ) ;
-    public final SQLScriptParser.addExpression_return addExpression() throws RecognitionException {
-        SQLScriptParser.addExpression_return retval = new SQLScriptParser.addExpression_return();
+    // $ANTLR start "multExpression"
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:673:1: multExpression : ( binaryExpression -> binaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | ) ;
+    public final SQLScriptParser.multExpression_return multExpression() throws RecognitionException {
+        SQLScriptParser.multExpression_return retval = new SQLScriptParser.multExpression_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
@@ -7742,17 +7723,18 @@ public class SQLScriptParser extends Parser {
 
 
         CommonTree op_tree=null;
-        RewriteRuleTokenStream stream_OP_SUB=new RewriteRuleTokenStream(adaptor,"token OP_SUB");
-        RewriteRuleTokenStream stream_OP_ADD=new RewriteRuleTokenStream(adaptor,"token OP_ADD");
+        RewriteRuleTokenStream stream_OP_MUL=new RewriteRuleTokenStream(adaptor,"token OP_MUL");
+        RewriteRuleTokenStream stream_OP_MOD=new RewriteRuleTokenStream(adaptor,"token OP_MOD");
+        RewriteRuleTokenStream stream_OP_DIV=new RewriteRuleTokenStream(adaptor,"token OP_DIV");
         RewriteRuleSubtreeStream stream_binaryExpression=new RewriteRuleSubtreeStream(adaptor,"rule binaryExpression");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:674:2: ( ( binaryExpression -> binaryExpression ) ( ( (op= OP_ADD | op= OP_SUB ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | ) )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:674:4: ( binaryExpression -> binaryExpression ) ( ( (op= OP_ADD | op= OP_SUB ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:674:2: ( ( binaryExpression -> binaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:674:4: ( binaryExpression -> binaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | )
             {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:674:4: ( binaryExpression -> binaryExpression )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:674:5: binaryExpression
             {
-            pushFollow(FOLLOW_binaryExpression_in_addExpression2867);
+            pushFollow(FOLLOW_binaryExpression_in_multExpression2862);
             binaryExpression178=binaryExpression();
 
             state._fsp--;
@@ -7772,7 +7754,7 @@ public class SQLScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 674:25: -> binaryExpression
+            // 674:26: -> binaryExpression
             {
                 adaptor.addChild(root_0, stream_binaryExpression.nextTree());
 
@@ -7781,14 +7763,14 @@ public class SQLScriptParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:3: ( ( (op= OP_ADD | op= OP_SUB ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:3: ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+ | )
             int alt53=2;
             int LA53_0 = input.LA(1);
 
-            if ( ((LA53_0>=OP_ADD && LA53_0<=OP_SUB)) ) {
+            if ( (LA53_0==OP_MUL||(LA53_0>=OP_DIV && LA53_0<=OP_MOD)) ) {
                 alt53=1;
             }
-            else if ( (LA53_0==RCURLY||LA53_0==SEP||(LA53_0>=EQUALS && LA53_0<=COMMA)||LA53_0==RPAREN||LA53_0==COLON||LA53_0==OP_MUL||(LA53_0>=QUESTION && LA53_0<=OP_MOD)||LA53_0==RSQUARE) ) {
+            else if ( (LA53_0==RCURLY||LA53_0==SEP||(LA53_0>=EQUALS && LA53_0<=COMMA)||LA53_0==RPAREN||LA53_0==COLON||(LA53_0>=QUESTION && LA53_0<=OP_SUB)||LA53_0==RSQUARE) ) {
                 alt53=2;
             }
             else {
@@ -7800,56 +7782,74 @@ public class SQLScriptParser extends Parser {
             }
             switch (alt53) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:5: ( (op= OP_ADD | op= OP_SUB ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+
                     {
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:5: ( (op= OP_ADD | op= OP_SUB ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression ) )+
                     int cnt52=0;
                     loop52:
                     do {
                         int alt52=2;
                         int LA52_0 = input.LA(1);
 
-                        if ( ((LA52_0>=OP_ADD && LA52_0<=OP_SUB)) ) {
+                        if ( (LA52_0==OP_MUL||(LA52_0>=OP_DIV && LA52_0<=OP_MOD)) ) {
                             alt52=1;
                         }
 
 
                         switch (alt52) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:6: (op= OP_ADD | op= OP_SUB ) binaryExpression
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD ) binaryExpression
                     	    {
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:6: (op= OP_ADD | op= OP_SUB )
-                    	    int alt51=2;
-                    	    int LA51_0 = input.LA(1);
-
-                    	    if ( (LA51_0==OP_ADD) ) {
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD )
+                    	    int alt51=3;
+                    	    switch ( input.LA(1) ) {
+                    	    case OP_MUL:
+                    	        {
                     	        alt51=1;
-                    	    }
-                    	    else if ( (LA51_0==OP_SUB) ) {
+                    	        }
+                    	        break;
+                    	    case OP_DIV:
+                    	        {
                     	        alt51=2;
-                    	    }
-                    	    else {
+                    	        }
+                    	        break;
+                    	    case OP_MOD:
+                    	        {
+                    	        alt51=3;
+                    	        }
+                    	        break;
+                    	    default:
                     	        if (state.backtracking>0) {state.failed=true; return retval;}
                     	        NoViableAltException nvae =
                     	            new NoViableAltException("", 51, 0, input);
 
                     	        throw nvae;
                     	    }
+
                     	    switch (alt51) {
                     	        case 1 :
-                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:7: op= OP_ADD
+                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:7: op= OP_MUL
                     	            {
-                    	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2885); if (state.failed) return retval; 
-                    	            if ( state.backtracking==0 ) stream_OP_ADD.add(op);
+                    	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2881); if (state.failed) return retval; 
+                    	            if ( state.backtracking==0 ) stream_OP_MUL.add(op);
 
 
                     	            }
                     	            break;
                     	        case 2 :
-                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:17: op= OP_SUB
+                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:17: op= OP_DIV
                     	            {
-                    	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2889); if (state.failed) return retval; 
-                    	            if ( state.backtracking==0 ) stream_OP_SUB.add(op);
+                    	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2885); if (state.failed) return retval; 
+                    	            if ( state.backtracking==0 ) stream_OP_DIV.add(op);
+
+
+                    	            }
+                    	            break;
+                    	        case 3 :
+                    	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:27: op= OP_MOD
+                    	            {
+                    	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2889); if (state.failed) return retval; 
+                    	            if ( state.backtracking==0 ) stream_OP_MOD.add(op);
 
 
                     	            }
@@ -7857,7 +7857,7 @@ public class SQLScriptParser extends Parser {
 
                     	    }
 
-                    	    pushFollow(FOLLOW_binaryExpression_in_addExpression2892);
+                    	    pushFollow(FOLLOW_binaryExpression_in_multExpression2892);
                     	    binaryExpression179=binaryExpression();
 
                     	    state._fsp--;
@@ -7877,9 +7877,9 @@ public class SQLScriptParser extends Parser {
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     	    root_0 = (CommonTree)adaptor.nil();
-                    	    // 675:45: -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression )
+                    	    // 675:55: -> ^( CALL_BINARY IDENTIFIER[$op] binaryExpression )
                     	    {
-                    	        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:48: ^( CALL_BINARY IDENTIFIER[$op] binaryExpression )
+                    	        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:675:58: ^( CALL_BINARY IDENTIFIER[$op] binaryExpression )
                     	        {
                     	        CommonTree root_1 = (CommonTree)adaptor.nil();
                     	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
@@ -7938,7 +7938,7 @@ public class SQLScriptParser extends Parser {
         }
         return retval;
     }
-    // $ANTLR end "addExpression"
+    // $ANTLR end "multExpression"
 
     public static class binaryExpression_return extends ParserRuleReturnScope {
         CommonTree tree;
@@ -8005,7 +8005,7 @@ public class SQLScriptParser extends Parser {
             if ( (LA55_0==WORD||LA55_0==IDENTIFIER) ) {
                 alt55=1;
             }
-            else if ( (LA55_0==RCURLY||LA55_0==SEP||(LA55_0>=EQUALS && LA55_0<=COMMA)||LA55_0==RPAREN||LA55_0==COLON||LA55_0==OP_MUL||(LA55_0>=QUESTION && LA55_0<=OP_SUB)||LA55_0==RSQUARE) ) {
+            else if ( (LA55_0==RCURLY||LA55_0==SEP||(LA55_0>=EQUALS && LA55_0<=COMMA)||LA55_0==RPAREN||LA55_0==COLON||LA55_0==OP_MUL||(LA55_0>=QUESTION && LA55_0<=OP_MOD)||LA55_0==RSQUARE) ) {
                 alt55=2;
             }
             else {
@@ -8050,7 +8050,7 @@ public class SQLScriptParser extends Parser {
 
 
                     	    // AST REWRITE
-                    	    // elements: unaryExpression, identifierNoOps
+                    	    // elements: identifierNoOps, unaryExpression
                     	    // token labels: 
                     	    // rule labels: retval
                     	    // token list labels: 
@@ -8155,7 +8155,7 @@ public class SQLScriptParser extends Parser {
             if ( (LA56_0==EXCLAM) ) {
                 alt56=1;
             }
-            else if ( (LA56_0==LCURLY||LA56_0==LPAREN||LA56_0==OP_MUL||(LA56_0>=OP_OR && LA56_0<=OP_DIV)||(LA56_0>=OP_ADD && LA56_0<=OP_SUB)||LA56_0==LSQUARE||(LA56_0>=INT && LA56_0<=WORD)||LA56_0==IDENTIFIER||(LA56_0>=KW_TRUE && LA56_0<=STR_DQUOT)) ) {
+            else if ( (LA56_0==LCURLY||LA56_0==LPAREN||LA56_0==OP_MUL||(LA56_0>=OP_OR && LA56_0<=OP_DIV)||LA56_0==LSQUARE||(LA56_0>=INT && LA56_0<=WORD)||LA56_0==IDENTIFIER||(LA56_0>=KW_TRUE && LA56_0<=STR_DQUOT)) ) {
                 alt56=2;
             }
             else {
@@ -8326,7 +8326,7 @@ public class SQLScriptParser extends Parser {
             if ( (LA58_0==LCURLY||LA58_0==LPAREN||LA58_0==DOT||LA58_0==LSQUARE) ) {
                 alt58=1;
             }
-            else if ( (LA58_0==RCURLY||LA58_0==SEP||(LA58_0>=EQUALS && LA58_0<=COMMA)||LA58_0==RPAREN||LA58_0==COLON||LA58_0==OP_MUL||(LA58_0>=QUESTION && LA58_0<=OP_SUB)||LA58_0==RSQUARE||LA58_0==WORD||LA58_0==IDENTIFIER) ) {
+            else if ( (LA58_0==RCURLY||LA58_0==SEP||(LA58_0>=EQUALS && LA58_0<=COMMA)||LA58_0==RPAREN||LA58_0==COLON||LA58_0==OP_MUL||(LA58_0>=QUESTION && LA58_0<=OP_MOD)||LA58_0==RSQUARE||LA58_0==WORD||LA58_0==IDENTIFIER) ) {
                 alt58=2;
             }
             else {
@@ -9129,9 +9129,9 @@ public class SQLScriptParser extends Parser {
             case OP_GE:
             case OP_LT:
             case OP_LE:
-            case OP_DIV:
             case OP_ADD:
             case OP_SUB:
+            case OP_DIV:
             case WORD:
             case IDENTIFIER:
                 {
@@ -9364,7 +9364,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: simpleExpression, argumentsList
+                    // elements: argumentsList, simpleExpression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10160,7 +10160,7 @@ public class SQLScriptParser extends Parser {
                 int alt67=2;
                 int LA67_0 = input.LA(1);
 
-                if ( (LA67_0==LCURLY||(LA67_0>=KW_SQL && LA67_0<=LPAREN)||(LA67_0>=DOUBLE_ARROW && LA67_0<=OP_DIV)||(LA67_0>=OP_ADD && LA67_0<=LSQUARE)||(LA67_0>=INT && LA67_0<=WORD)||(LA67_0>=SQL_SPECIAL_CHAR && LA67_0<=STR_DOLQUOT)) ) {
+                if ( (LA67_0==LCURLY||(LA67_0>=KW_SQL && LA67_0<=LPAREN)||(LA67_0>=DOUBLE_ARROW && LA67_0<=OP_DIV)||(LA67_0>=EXCLAM && LA67_0<=LSQUARE)||(LA67_0>=INT && LA67_0<=WORD)||(LA67_0>=SQL_SPECIAL_CHAR && LA67_0<=STR_DOLQUOT)) ) {
                     alt67=1;
                 }
 
@@ -10211,7 +10211,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: sqlPart, sqlHiddenWS
+            // elements: sqlHiddenWS, sqlPart
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -10480,7 +10480,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlWS, COLON, COLON
+                    // elements: COLON, sqlWS, COLON
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10549,7 +10549,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlToken, sqlWS
+                    // elements: sqlWS, sqlToken
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10620,7 +10620,7 @@ public class SQLScriptParser extends Parser {
                         int alt73=2;
                         int LA73_0 = input.LA(1);
 
-                        if ( (LA73_0==LCURLY||(LA73_0>=KW_SQL && LA73_0<=LPAREN)||(LA73_0>=DOUBLE_ARROW && LA73_0<=OP_DIV)||(LA73_0>=OP_ADD && LA73_0<=LSQUARE)||(LA73_0>=INT && LA73_0<=WORD)||(LA73_0>=SQL_SPECIAL_CHAR && LA73_0<=STR_DOLQUOT)) ) {
+                        if ( (LA73_0==LCURLY||(LA73_0>=KW_SQL && LA73_0<=LPAREN)||(LA73_0>=DOUBLE_ARROW && LA73_0<=OP_DIV)||(LA73_0>=EXCLAM && LA73_0<=LSQUARE)||(LA73_0>=INT && LA73_0<=WORD)||(LA73_0>=SQL_SPECIAL_CHAR && LA73_0<=STR_DOLQUOT)) ) {
                             alt73=1;
                         }
 
@@ -10683,7 +10683,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws2, RPAREN, ws1, sqlPart, LPAREN
+                    // elements: ws2, sqlPart, ws1, RPAREN, LPAREN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10768,7 +10768,7 @@ public class SQLScriptParser extends Parser {
                         int alt76=2;
                         int LA76_0 = input.LA(1);
 
-                        if ( (LA76_0==LCURLY||(LA76_0>=KW_SQL && LA76_0<=LPAREN)||(LA76_0>=DOUBLE_ARROW && LA76_0<=OP_DIV)||(LA76_0>=OP_ADD && LA76_0<=LSQUARE)||(LA76_0>=INT && LA76_0<=WORD)||(LA76_0>=SQL_SPECIAL_CHAR && LA76_0<=STR_DOLQUOT)) ) {
+                        if ( (LA76_0==LCURLY||(LA76_0>=KW_SQL && LA76_0<=LPAREN)||(LA76_0>=DOUBLE_ARROW && LA76_0<=OP_DIV)||(LA76_0>=EXCLAM && LA76_0<=LSQUARE)||(LA76_0>=INT && LA76_0<=WORD)||(LA76_0>=SQL_SPECIAL_CHAR && LA76_0<=STR_DOLQUOT)) ) {
                             alt76=1;
                         }
 
@@ -10831,7 +10831,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws1, LCURLY, ws2, sqlPart, RCURLY
+                    // elements: ws1, ws2, LCURLY, sqlPart, RCURLY
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10916,7 +10916,7 @@ public class SQLScriptParser extends Parser {
                         int alt79=2;
                         int LA79_0 = input.LA(1);
 
-                        if ( (LA79_0==LCURLY||(LA79_0>=KW_SQL && LA79_0<=LPAREN)||(LA79_0>=DOUBLE_ARROW && LA79_0<=OP_DIV)||(LA79_0>=OP_ADD && LA79_0<=LSQUARE)||(LA79_0>=INT && LA79_0<=WORD)||(LA79_0>=SQL_SPECIAL_CHAR && LA79_0<=STR_DOLQUOT)) ) {
+                        if ( (LA79_0==LCURLY||(LA79_0>=KW_SQL && LA79_0<=LPAREN)||(LA79_0>=DOUBLE_ARROW && LA79_0<=OP_DIV)||(LA79_0>=EXCLAM && LA79_0<=LSQUARE)||(LA79_0>=INT && LA79_0<=WORD)||(LA79_0>=SQL_SPECIAL_CHAR && LA79_0<=STR_DOLQUOT)) ) {
                             alt79=1;
                         }
 
@@ -10979,7 +10979,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws1, RSQUARE, sqlPart, ws2, LSQUARE
+                    // elements: LSQUARE, sqlPart, ws2, RSQUARE, ws1
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11234,9 +11234,9 @@ public class SQLScriptParser extends Parser {
             case OP_GE:
             case OP_LT:
             case OP_LE:
-            case OP_DIV:
             case OP_ADD:
             case OP_SUB:
+            case OP_DIV:
             case EXCLAM:
             case WORD:
             case IDENTIFIER:
@@ -11462,7 +11462,7 @@ public class SQLScriptParser extends Parser {
             int alt85=2;
             int LA85_0 = input.LA(1);
 
-            if ( (LA85_0==OP_MUL||(LA85_0>=OP_OR && LA85_0<=OP_DIV)||(LA85_0>=OP_ADD && LA85_0<=EXCLAM)||LA85_0==WORD||LA85_0==IDENTIFIER||(LA85_0>=STR_SQUOT && LA85_0<=STR_DQUOT)) ) {
+            if ( (LA85_0==OP_MUL||(LA85_0>=OP_OR && LA85_0<=OP_DIV)||LA85_0==EXCLAM||LA85_0==WORD||LA85_0==IDENTIFIER||(LA85_0>=STR_SQUOT && LA85_0<=STR_DQUOT)) ) {
                 alt85=1;
             }
             else if ( (LA85_0==RCURLY) ) {
@@ -11494,7 +11494,7 @@ public class SQLScriptParser extends Parser {
                         if ( (LA83_0==COMMA) ) {
                             int LA83_1 = input.LA(2);
 
-                            if ( (LA83_1==OP_MUL||(LA83_1>=OP_OR && LA83_1<=OP_DIV)||(LA83_1>=OP_ADD && LA83_1<=EXCLAM)||LA83_1==WORD||LA83_1==IDENTIFIER||(LA83_1>=STR_SQUOT && LA83_1<=STR_DQUOT)) ) {
+                            if ( (LA83_1==OP_MUL||(LA83_1>=OP_OR && LA83_1<=OP_DIV)||LA83_1==EXCLAM||LA83_1==WORD||LA83_1==IDENTIFIER||(LA83_1>=STR_SQUOT && LA83_1<=STR_DQUOT)) ) {
                                 alt83=1;
                             }
 
@@ -11655,7 +11655,7 @@ public class SQLScriptParser extends Parser {
             int alt86=2;
             int LA86_0 = input.LA(1);
 
-            if ( (LA86_0==OP_MUL||(LA86_0>=OP_OR && LA86_0<=OP_DIV)||(LA86_0>=OP_ADD && LA86_0<=EXCLAM)||LA86_0==WORD||LA86_0==IDENTIFIER) ) {
+            if ( (LA86_0==OP_MUL||(LA86_0>=OP_OR && LA86_0<=OP_DIV)||LA86_0==EXCLAM||LA86_0==WORD||LA86_0==IDENTIFIER) ) {
                 alt86=1;
             }
             else if ( ((LA86_0>=STR_SQUOT && LA86_0<=STR_DQUOT)) ) {
@@ -11690,7 +11690,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier
+                    // elements: identifier, expressionNoSQL
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11831,7 +11831,7 @@ public class SQLScriptParser extends Parser {
             int alt89=2;
             int LA89_0 = input.LA(1);
 
-            if ( (LA89_0==LCURLY||(LA89_0>=KW_FUN && LA89_0<=LPAREN)||LA89_0==OP_MUL||(LA89_0>=OP_OR && LA89_0<=OP_DIV)||(LA89_0>=OP_ADD && LA89_0<=LSQUARE)||(LA89_0>=INT && LA89_0<=WORD)||LA89_0==IDENTIFIER||(LA89_0>=KW_TRUE && LA89_0<=STR_DQUOT)) ) {
+            if ( (LA89_0==LCURLY||(LA89_0>=KW_FUN && LA89_0<=LPAREN)||LA89_0==OP_MUL||(LA89_0>=OP_OR && LA89_0<=OP_DIV)||(LA89_0>=EXCLAM && LA89_0<=LSQUARE)||(LA89_0>=INT && LA89_0<=WORD)||LA89_0==IDENTIFIER||(LA89_0>=KW_TRUE && LA89_0<=STR_DQUOT)) ) {
                 alt89=1;
             }
             else if ( (LA89_0==RSQUARE) ) {
@@ -11863,7 +11863,7 @@ public class SQLScriptParser extends Parser {
                         if ( (LA87_0==COMMA) ) {
                             int LA87_1 = input.LA(2);
 
-                            if ( (LA87_1==LCURLY||(LA87_1>=KW_FUN && LA87_1<=LPAREN)||LA87_1==OP_MUL||(LA87_1>=OP_OR && LA87_1<=OP_DIV)||(LA87_1>=OP_ADD && LA87_1<=LSQUARE)||(LA87_1>=INT && LA87_1<=WORD)||LA87_1==IDENTIFIER||(LA87_1>=KW_TRUE && LA87_1<=STR_DQUOT)) ) {
+                            if ( (LA87_1==LCURLY||(LA87_1>=KW_FUN && LA87_1<=LPAREN)||LA87_1==OP_MUL||(LA87_1>=OP_OR && LA87_1<=OP_DIV)||(LA87_1>=EXCLAM && LA87_1<=LSQUARE)||(LA87_1>=INT && LA87_1<=WORD)||LA87_1==IDENTIFIER||(LA87_1>=KW_TRUE && LA87_1<=STR_DQUOT)) ) {
                                 alt87=1;
                             }
 
@@ -12028,7 +12028,7 @@ public class SQLScriptParser extends Parser {
             int alt91=2;
             int LA91_0 = input.LA(1);
 
-            if ( (LA91_0==LCURLY||(LA91_0>=KW_FUN && LA91_0<=LPAREN)||LA91_0==OP_MUL||(LA91_0>=OP_OR && LA91_0<=OP_DIV)||(LA91_0>=OP_ADD && LA91_0<=LSQUARE)||(LA91_0>=INT && LA91_0<=WORD)||LA91_0==IDENTIFIER||(LA91_0>=KW_TRUE && LA91_0<=STR_DQUOT)) ) {
+            if ( (LA91_0==LCURLY||(LA91_0>=KW_FUN && LA91_0<=LPAREN)||LA91_0==OP_MUL||(LA91_0>=OP_OR && LA91_0<=OP_DIV)||(LA91_0>=EXCLAM && LA91_0<=LSQUARE)||(LA91_0>=INT && LA91_0<=WORD)||LA91_0==IDENTIFIER||(LA91_0>=KW_TRUE && LA91_0<=STR_DQUOT)) ) {
                 alt91=1;
             }
             else if ( (LA91_0==RPAREN) ) {
@@ -12183,7 +12183,7 @@ public class SQLScriptParser extends Parser {
             if ( (LA92_0==EXCLAM) ) {
                 alt92=1;
             }
-            else if ( (LA92_0==OP_MUL||(LA92_0>=OP_OR && LA92_0<=OP_DIV)||(LA92_0>=OP_ADD && LA92_0<=OP_SUB)||LA92_0==WORD||LA92_0==IDENTIFIER) ) {
+            else if ( (LA92_0==OP_MUL||(LA92_0>=OP_OR && LA92_0<=OP_DIV)||LA92_0==WORD||LA92_0==IDENTIFIER) ) {
                 alt92=2;
             }
             else {
@@ -13977,7 +13977,7 @@ public class SQLScriptParser extends Parser {
     static final String[] DFA4_transitionS = {
             "\1\34\47\uffff\1\56\1\1\1\2\3\uffff\1\51\1\2\2\uffff\1\2\1\51"+
             "\1\uffff\1\51\2\uffff\1\2\1\51\1\uffff\1\51\6\2\1\uffff\1\2"+
-            "\1\uffff\13\2\1\uffff\4\2\1\uffff\6\2\3\uffff\2\2\1\uffff\4"+
+            "\1\uffff\15\2\1\uffff\2\2\1\uffff\6\2\3\uffff\2\2\1\uffff\4"+
             "\2",
             "\1\51\50\uffff\2\2\3\uffff\1\2\4\uffff\7\2\1\uffff\6\2\1\uffff"+
             "\2\2\24\uffff\4\2\5\uffff\3\2",
@@ -14009,8 +14009,8 @@ public class SQLScriptParser extends Parser {
             "",
             "\2\51\46\uffff\3\51\3\uffff\2\51\1\uffff\1\2\2\51\1\uffff\1"+
             "\51\2\uffff\2\51\1\uffff\6\51\1\105\1\uffff\1\51\1\uffff\1\112"+
-            "\1\111\1\75\1\76\1\77\1\100\1\101\1\102\1\103\1\104\1\106\1"+
-            "\uffff\1\107\1\110\1\74\1\51\1\uffff\5\51\1\113\3\uffff\1\51"+
+            "\1\111\1\75\1\76\1\77\1\100\1\101\1\102\1\103\1\104\1\107\1"+
+            "\110\1\106\1\uffff\1\74\1\51\1\uffff\5\51\1\113\3\uffff\1\51"+
             "\1\114\1\uffff\4\51",
             "",
             "",
@@ -14044,7 +14044,7 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "\1\51\52\uffff\1\51\1\uffff\1\2\1\uffff\1\51\1\uffff\1\2\17"+
-            "\uffff\1\51\3\uffff\13\51\1\uffff\4\51\1\uffff\6\51\4\uffff"+
+            "\uffff\1\51\3\uffff\15\51\1\uffff\2\51\1\uffff\6\51\4\uffff"+
             "\1\51\1\uffff\4\51",
             "\1\51\47\uffff\1\51\2\uffff\2\51\1\2\1\uffff\1\51\1\uffff\1"+
             "\2\1\51\16\uffff\1\51\2\uffff\17\51\1\uffff\1\51\6\uffff\1\51"+
@@ -14628,7 +14628,7 @@ public class SQLScriptParser extends Parser {
     static final String DFA36_specialS =
         "\147\uffff}>";
     static final String[] DFA36_transitionS = {
-            "\1\23\55\uffff\1\36\1\1\21\uffff\1\1\3\uffff\13\1\1\uffff\4"+
+            "\1\23\55\uffff\1\36\1\1\21\uffff\1\1\3\uffff\15\1\1\uffff\2"+
             "\1\1\uffff\6\1\4\uffff\1\1\1\uffff\4\1",
             "",
             "",
@@ -14649,7 +14649,7 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "\1\61\57\uffff\1\1\17\uffff\1\50\3\uffff\1\55\1\54\1\40\1\41"+
-            "\1\42\1\43\1\44\1\45\1\46\1\47\1\51\1\uffff\1\52\1\53\1\37\7"+
+            "\1\42\1\43\1\44\1\45\1\46\1\47\1\52\1\53\1\51\1\uffff\1\37\7"+
             "\uffff\1\56\4\uffff\1\57\3\uffff\2\61",
             "",
             "",
@@ -14782,8 +14782,8 @@ public class SQLScriptParser extends Parser {
     static final String DFA37_specialS =
         "\150\uffff}>";
     static final String[] DFA37_transitionS = {
-            "\1\23\50\uffff\1\37\4\uffff\1\36\1\1\21\uffff\1\1\3\uffff\13"+
-            "\1\1\uffff\4\1\1\uffff\6\1\4\uffff\1\1\1\uffff\4\1",
+            "\1\23\50\uffff\1\37\4\uffff\1\36\1\1\21\uffff\1\1\3\uffff\15"+
+            "\1\1\uffff\2\1\1\uffff\6\1\4\uffff\1\1\1\uffff\4\1",
             "",
             "",
             "",
@@ -14803,7 +14803,7 @@ public class SQLScriptParser extends Parser {
             "",
             "",
             "\1\61\57\uffff\1\1\17\uffff\1\51\3\uffff\1\56\1\55\1\41\1\42"+
-            "\1\43\1\44\1\45\1\46\1\47\1\50\1\52\1\uffff\1\53\1\54\1\40\7"+
+            "\1\43\1\44\1\45\1\46\1\47\1\50\1\53\1\54\1\52\1\uffff\1\40\7"+
             "\uffff\1\57\4\uffff\1\60\3\uffff\2\61",
             "",
             "",
@@ -14938,10 +14938,10 @@ public class SQLScriptParser extends Parser {
         "\24\uffff}>";
     static final String[] DFA39_transitionS = {
             "\1\22\56\uffff\1\22\21\uffff\1\12\3\uffff\1\17\1\16\1\2\1\3"+
-            "\1\4\1\5\1\6\1\7\1\10\1\11\1\13\1\uffff\1\14\1\15\1\1\1\22\1"+
+            "\1\4\1\5\1\6\1\7\1\10\1\11\1\14\1\15\1\13\1\uffff\1\1\1\22\1"+
             "\uffff\5\22\1\20\4\uffff\1\21\1\uffff\4\22",
-            "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\13\22"+
-            "\1\uffff\4\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
+            "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\15\22"+
+            "\1\uffff\2\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
             "\2\22\46\uffff\1\22\2\uffff\1\23\2\22\1\uffff\2\22\1\uffff"+
             "\1\22\16\uffff\1\22\2\uffff\17\22\1\uffff\2\22\5\uffff\1\22"+
             "\4\uffff\1\22",
@@ -15041,10 +15041,10 @@ public class SQLScriptParser extends Parser {
         "\24\uffff}>";
     static final String[] DFA41_transitionS = {
             "\1\22\56\uffff\1\22\21\uffff\1\12\3\uffff\1\17\1\16\1\2\1\3"+
-            "\1\4\1\5\1\6\1\7\1\10\1\11\1\13\1\uffff\1\14\1\15\1\1\1\22\1"+
+            "\1\4\1\5\1\6\1\7\1\10\1\11\1\14\1\15\1\13\1\uffff\1\1\1\22\1"+
             "\uffff\5\22\1\20\4\uffff\1\21\1\uffff\4\22",
-            "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\13\22"+
-            "\1\uffff\4\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
+            "\1\22\52\uffff\1\23\3\uffff\1\22\21\uffff\1\22\3\uffff\15\22"+
+            "\1\uffff\2\22\1\uffff\6\22\4\uffff\1\22\1\uffff\4\22",
             "\2\22\46\uffff\1\22\2\uffff\1\23\1\22\2\uffff\2\22\1\uffff"+
             "\1\22\16\uffff\1\22\2\uffff\17\22\1\uffff\2\22\5\uffff\1\22"+
             "\4\uffff\1\22",
@@ -15143,12 +15143,12 @@ public class SQLScriptParser extends Parser {
     static final String DFA43_specialS =
         "\146\uffff}>";
     static final String[] DFA43_transitionS = {
-            "\1\3\56\uffff\1\1\21\uffff\1\1\3\uffff\13\1\1\uffff\4\1\1\uffff"+
+            "\1\3\56\uffff\1\1\21\uffff\1\1\3\uffff\15\1\1\uffff\2\1\1\uffff"+
             "\6\1\4\uffff\1\1\1\uffff\4\1",
             "",
             "",
             "\1\57\57\uffff\1\1\17\uffff\1\47\3\uffff\1\54\1\53\1\37\1\40"+
-            "\1\41\1\42\1\43\1\44\1\45\1\46\1\50\1\uffff\1\51\1\52\1\36\7"+
+            "\1\41\1\42\1\43\1\44\1\45\1\46\1\51\1\52\1\50\1\uffff\1\36\7"+
             "\uffff\1\55\4\uffff\1\56\3\uffff\2\57",
             "",
             "",
@@ -15299,12 +15299,13 @@ public class SQLScriptParser extends Parser {
             "\1\2\56\uffff\1\1\2\uffff\1\3\41\uffff\1\4",
             "",
             "\1\3\50\uffff\1\3\4\uffff\2\3\1\uffff\1\1\17\uffff\1\16\3\uffff"+
-            "\1\23\1\22\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\17\1\uffff"+
-            "\1\20\1\21\1\5\1\3\1\uffff\5\3\1\24\4\uffff\1\25\1\uffff\4\3",
+            "\1\23\1\22\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\20\1\21\1"+
+            "\17\1\uffff\1\5\1\3\1\uffff\5\3\1\24\4\uffff\1\25\1\uffff\4"+
+            "\3",
             "",
             "",
             "\1\3\52\uffff\1\3\1\uffff\1\1\1\uffff\1\3\1\uffff\1\1\17\uffff"+
-            "\1\3\3\uffff\13\3\1\uffff\4\3\1\uffff\6\3\4\uffff\1\3\1\uffff"+
+            "\1\3\3\uffff\15\3\1\uffff\2\3\1\uffff\6\3\4\uffff\1\3\1\uffff"+
             "\4\3",
             "\2\3\51\uffff\2\3\1\1\1\uffff\1\3\1\uffff\1\1\1\3\16\uffff"+
             "\1\3\2\uffff\17\3\1\uffff\1\3\6\uffff\1\3\4\uffff\1\3",
@@ -16094,9 +16095,9 @@ public class SQLScriptParser extends Parser {
     static final String DFA81_specialS =
         "\6\uffff\1\0\1\1\2\uffff}>";
     static final String[] DFA81_transitionS = {
-            "\1\4\50\uffff\6\2\1\3\1\uffff\11\2\1\1\25\2\1\uffff\3\2\1\5"+
+            "\1\4\50\uffff\6\2\1\3\1\uffff\11\2\1\1\27\2\1\uffff\1\2\1\5"+
             "\1\uffff\6\2\2\uffff\13\2",
-            "\2\2\46\uffff\22\2\1\7\25\2\1\uffff\12\2\1\6\15\2",
+            "\2\2\46\uffff\22\2\1\7\27\2\1\uffff\10\2\1\6\15\2",
             "",
             "",
             "",
@@ -16204,8 +16205,8 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_scriptStmtNoSep_in_statementNoSep405 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_block_in_statementNoSep410 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlBlock_in_statementNoSep415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_block436 = new BitSet(new long[]{0xE000000000600000L,0x07B1FBDFFD7F6598L});
-    public static final BitSet FOLLOW_statement_in_block438 = new BitSet(new long[]{0xE000000000600000L,0x07B1FBDFFD7F6598L});
+    public static final BitSet FOLLOW_LCURLY_in_block436 = new BitSet(new long[]{0xE000000000600000L,0x07B1FB7FFD7F6598L});
+    public static final BitSet FOLLOW_statement_in_block438 = new BitSet(new long[]{0xE000000000600000L,0x07B1FB7FFD7F6598L});
     public static final BitSet FOLLOW_RCURLY_in_block441 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_SQL_in_sqlBlock471 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_LCURLY_in_sqlBlock473 = new BitSet(new long[]{0xE000000000600000L,0x00110000013F6588L});
@@ -16229,47 +16230,47 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_scriptTry_in_scriptStmtNoSep598 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_scriptFor_in_scriptStmtNoSep603 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_scriptWhile_in_scriptStmtNoSep608 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_VAR_in_scriptAssignStmt619 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_KW_VAR_in_scriptAssignStmt619 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_scriptAssign_in_scriptAssignStmt622 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifier_in_scriptAssign635 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000007L});
-    public static final BitSet FOLLOW_OP_DEFINE_in_scriptAssign641 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_OP_DEFINE_in_scriptAssign641 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_sqlExpression_in_scriptAssign648 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expressionNoSQL_in_scriptAssign678 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
     public static final BitSet FOLLOW_scriptAssignRest_in_scriptAssign680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_scriptAssign715 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_EQUALS_in_scriptAssign715 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_sqlExpression_in_scriptAssign722 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expressionNoSQL_in_scriptAssign742 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
     public static final BitSet FOLLOW_scriptAssignRest_in_scriptAssign744 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_scriptAssignRest_in_scriptAssign769 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COMMA_in_scriptAssignRest800 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_COMMA_in_scriptAssignRest800 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_scriptAssignNoSQL_in_scriptAssignRest802 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
     public static final BitSet FOLLOW_identifier_in_scriptAssignNoSQL819 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000003L});
-    public static final BitSet FOLLOW_OP_DEFINE_in_scriptAssignNoSQL825 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_OP_DEFINE_in_scriptAssignNoSQL825 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_scriptAssignNoSQL827 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_scriptAssignNoSQL853 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_EQUALS_in_scriptAssignNoSQL853 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_scriptAssignNoSQL855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_FUN_in_scriptFuncDefStmt895 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_KW_FUN_in_scriptFuncDefStmt895 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifier_in_scriptFuncDefStmt897 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
     public static final BitSet FOLLOW_argumentsDef_in_scriptFuncDefStmt899 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_block_in_scriptFuncDefStmt901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_FUN_in_scriptFuncDef925 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400010L});
+    public static final BitSet FOLLOW_KW_FUN_in_scriptFuncDef925 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400010L});
     public static final BitSet FOLLOW_identifier_in_scriptFuncDef927 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
     public static final BitSet FOLLOW_argumentsDef_in_scriptFuncDef930 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_block_in_scriptFuncDef932 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_argumentsDef957 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400020L});
+    public static final BitSet FOLLOW_LPAREN_in_argumentsDef957 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400020L});
     public static final BitSet FOLLOW_identifierList_in_argumentsDef963 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
     public static final BitSet FOLLOW_RPAREN_in_argumentsDef983 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifier_in_identifierList994 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_COMMA_in_identifierList997 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_COMMA_in_identifierList997 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifier_in_identifierList1000 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_LCURLY_in_blockClosure1023 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400040L});
-    public static final BitSet FOLLOW_blockArgumentsDef_in_blockClosure1025 = new BitSet(new long[]{0xE000000000600000L,0x07B1FBDFFD7F6598L});
-    public static final BitSet FOLLOW_statement_in_blockClosure1027 = new BitSet(new long[]{0xE000000000600000L,0x07B1FBDFFD7F6598L});
+    public static final BitSet FOLLOW_LCURLY_in_blockClosure1023 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400040L});
+    public static final BitSet FOLLOW_blockArgumentsDef_in_blockClosure1025 = new BitSet(new long[]{0xE000000000600000L,0x07B1FB7FFD7F6598L});
+    public static final BitSet FOLLOW_statement_in_blockClosure1027 = new BitSet(new long[]{0xE000000000600000L,0x07B1FB7FFD7F6598L});
     public static final BitSet FOLLOW_RCURLY_in_blockClosure1030 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifierList_in_blockArgumentsDef1057 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_DOUBLE_ARROW_in_blockArgumentsDef1059 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_DOUBLE_ARROW_in_blockArgumentsDef1072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOT_in_scriptExpressionStmt1084 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
+    public static final BitSet FOLLOW_DOT_in_scriptExpressionStmt1084 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
     public static final BitSet FOLLOW_expressionStmt_in_scriptExpressionStmt1087 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_IF_in_scriptIfElse1098 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
     public static final BitSet FOLLOW_parenExpression_in_scriptIfElse1100 = new BitSet(new long[]{0x0000000000200000L});
@@ -16283,19 +16284,19 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_scriptFinally_in_scriptTry1372 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_scriptFinally_in_scriptTry1508 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_CATCH_in_scriptCatch1575 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_scriptCatch1577 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_LPAREN_in_scriptCatch1577 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifier_in_scriptCatch1579 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
     public static final BitSet FOLLOW_RPAREN_in_scriptCatch1581 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_block_in_scriptCatch1583 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_FINALLY_in_scriptFinally1608 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_block_in_scriptFinally1610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_THROW_in_scriptThrow1631 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_KW_THROW_in_scriptThrow1631 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_scriptThrow1633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_FOR_in_scriptFor1685 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400010L});
+    public static final BitSet FOLLOW_KW_FOR_in_scriptFor1685 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400010L});
     public static final BitSet FOLLOW_identifier_in_scriptFor1691 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_scriptFor1713 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_LPAREN_in_scriptFor1713 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifierList_in_scriptFor1715 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_scriptFor1717 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_COLON_in_scriptFor1717 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_scriptFor1719 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
     public static final BitSet FOLLOW_RPAREN_in_scriptFor1721 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_block_in_scriptFor1723 = new BitSet(new long[]{0x0000000000000002L});
@@ -16304,22 +16305,22 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_block_in_scriptWhile1783 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_BREAK_in_scriptBreak1839 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_CONTINUE_in_scriptContinue1866 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_RETURN_in_scriptReturn1894 = new BitSet(new long[]{0x4000000000200002L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_KW_RETURN_in_scriptReturn1894 = new BitSet(new long[]{0x4000000000200002L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_scriptReturn1896 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_EXIT_in_scriptExit1917 = new BitSet(new long[]{0x4000000000200002L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_KW_EXIT_in_scriptExit1917 = new BitSet(new long[]{0x4000000000200002L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_scriptExit1923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_IMPORT_in_scriptImport2000 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_KW_IMPORT_in_scriptImport2000 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_javaIdentifier_in_scriptImport2002 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800080L});
-    public static final BitSet FOLLOW_DOT_in_scriptImport2008 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_DOT_in_scriptImport2008 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_javaIdentifier_in_scriptImport2010 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800080L});
     public static final BitSet FOLLOW_DOT_in_scriptImport2019 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_OP_MUL_in_scriptImport2021 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_AS_in_scriptImport2037 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_KW_AS_in_scriptImport2037 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifier_in_scriptImport2039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_INCLUDE_in_scriptInclude2084 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_KW_INCLUDE_in_scriptInclude2084 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_scriptInclude2086 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifierNoOps_in_javaIdentifier2140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_parenExpression2153 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_LPAREN_in_parenExpression2153 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_parenExpression2156 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
     public static final BitSet FOLLOW_RPAREN_in_parenExpression2158 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_assignExpressionNoSQL_in_expressionStmtNoSQL2173 = new BitSet(new long[]{0x0000000000000002L});
@@ -16332,53 +16333,53 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_objectLiteral_in_expression2248 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlExpression_in_expression2253 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifier_in_assignExpressionNoSQL2264 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_OP_DEFINE_in_assignExpressionNoSQL2266 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_OP_DEFINE_in_assignExpressionNoSQL2266 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_assignExpressionNoSQL2268 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_conditionalExpression_in_assignExpressionNoSQL2293 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_assignExpressionNoSQL2299 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_EQUALS_in_assignExpressionNoSQL2299 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_assignExpressionNoSQL2301 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifier_in_assignExpression2339 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_OP_DEFINE_in_assignExpression2341 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_OP_DEFINE_in_assignExpression2341 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_assignExpression2343 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_conditionalExpression_in_assignExpression2368 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_assignExpression2374 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_EQUALS_in_assignExpression2374 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_assignExpression2376 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_orCondition_in_conditionalExpression2413 = new BitSet(new long[]{0x0000000000000002L,0x0000000002000000L});
-    public static final BitSet FOLLOW_QUESTION_in_conditionalExpression2419 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_QUESTION_in_conditionalExpression2419 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_conditionalResult_in_conditionalExpression2421 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_conditionalExpression2423 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_COLON_in_conditionalExpression2423 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_conditionalResult_in_conditionalExpression2425 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_conditionalExpression_in_conditionalResult2540 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_objectLiteral_in_conditionalResult2545 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_andCondition_in_orCondition2558 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
-    public static final BitSet FOLLOW_OP_OR_in_orCondition2570 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
+    public static final BitSet FOLLOW_OP_OR_in_orCondition2570 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
     public static final BitSet FOLLOW_andCondition_in_orCondition2572 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
     public static final BitSet FOLLOW_eqCondition_in_andCondition2638 = new BitSet(new long[]{0x0000000000000002L,0x0000000008000000L});
-    public static final BitSet FOLLOW_OP_AND_in_andCondition2650 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
+    public static final BitSet FOLLOW_OP_AND_in_andCondition2650 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
     public static final BitSet FOLLOW_eqCondition_in_andCondition2652 = new BitSet(new long[]{0x0000000000000002L,0x0000000008000000L});
-    public static final BitSet FOLLOW_multExpression_in_eqCondition2717 = new BitSet(new long[]{0x0000000000000002L,0x0000000FF0000000L});
-    public static final BitSet FOLLOW_OP_EQ_in_eqCondition2726 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_NE_in_eqCondition2730 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_ID_in_eqCondition2734 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_NI_in_eqCondition2738 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_GT_in_eqCondition2742 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_GE_in_eqCondition2746 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_LT_in_eqCondition2750 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_LE_in_eqCondition2754 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_multExpression_in_eqCondition2761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_addExpression_in_multExpression2801 = new BitSet(new long[]{0x0000000000000002L,0x0000003000400000L});
-    public static final BitSet FOLLOW_OP_MUL_in_multExpression2821 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_DIV_in_multExpression2825 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_MOD_in_multExpression2829 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_addExpression_in_multExpression2832 = new BitSet(new long[]{0x0000000000000002L,0x0000003000400000L});
-    public static final BitSet FOLLOW_binaryExpression_in_addExpression2867 = new BitSet(new long[]{0x0000000000000002L,0x000000C000000000L});
-    public static final BitSet FOLLOW_OP_ADD_in_addExpression2885 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_OP_SUB_in_addExpression2889 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_binaryExpression_in_addExpression2892 = new BitSet(new long[]{0x0000000000000002L,0x000000C000000000L});
-    public static final BitSet FOLLOW_unaryExpression_in_binaryExpression2927 = new BitSet(new long[]{0x0000000000000002L,0x002101DFFC400000L});
-    public static final BitSet FOLLOW_identifierNoOps_in_binaryExpression2941 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
-    public static final BitSet FOLLOW_unaryExpression_in_binaryExpression2943 = new BitSet(new long[]{0x0000000000000002L,0x002101DFFC400000L});
-    public static final BitSet FOLLOW_EXCLAM_in_unaryExpression2978 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
+    public static final BitSet FOLLOW_addExpression_in_eqCondition2717 = new BitSet(new long[]{0x0000000000000002L,0x0000000FF0000000L});
+    public static final BitSet FOLLOW_OP_EQ_in_eqCondition2726 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_NE_in_eqCondition2730 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_ID_in_eqCondition2734 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_NI_in_eqCondition2738 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_GT_in_eqCondition2742 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_GE_in_eqCondition2746 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_LT_in_eqCondition2750 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_LE_in_eqCondition2754 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_addExpression_in_eqCondition2761 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_multExpression_in_addExpression2800 = new BitSet(new long[]{0x0000000000000002L,0x0000003000000000L});
+    public static final BitSet FOLLOW_OP_ADD_in_addExpression2819 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_SUB_in_addExpression2823 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_multExpression_in_addExpression2826 = new BitSet(new long[]{0x0000000000000002L,0x0000003000000000L});
+    public static final BitSet FOLLOW_binaryExpression_in_multExpression2862 = new BitSet(new long[]{0x0000000000000002L,0x000000C000400000L});
+    public static final BitSet FOLLOW_OP_MUL_in_multExpression2881 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_DIV_in_multExpression2885 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_OP_MOD_in_multExpression2889 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_binaryExpression_in_multExpression2892 = new BitSet(new long[]{0x0000000000000002L,0x000000C000400000L});
+    public static final BitSet FOLLOW_unaryExpression_in_binaryExpression2927 = new BitSet(new long[]{0x0000000000000002L,0x0021017FFC400000L});
+    public static final BitSet FOLLOW_identifierNoOps_in_binaryExpression2941 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
+    public static final BitSet FOLLOW_unaryExpression_in_binaryExpression2943 = new BitSet(new long[]{0x0000000000000002L,0x0021017FFC400000L});
+    public static final BitSet FOLLOW_EXCLAM_in_unaryExpression2978 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
     public static final BitSet FOLLOW_unaryExpression_in_unaryExpression2980 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_callExpression_in_unaryExpression2996 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_simpleExpression_in_callExpression3020 = new BitSet(new long[]{0x0000000000200002L,0x0000020000000090L});
@@ -16386,12 +16387,12 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_callSuffix_in_callExpressionSuffix3080 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_slotSuffix_in_callExpressionSuffix3097 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_indexSuffix_in_callExpressionSuffix3113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOT_in_slotSuffix3134 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_DOT_in_slotSuffix3134 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifier_in_slotSuffix3137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_slotSuffix3142 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_LCURLY_in_slotSuffix3142 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_slotSuffix3145 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_RCURLY_in_slotSuffix3147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LSQUARE_in_indexSuffix3159 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_LSQUARE_in_indexSuffix3159 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expression_in_indexSuffix3162 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
     public static final BitSet FOLLOW_RSQUARE_in_indexSuffix3164 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_argumentsList_in_callSuffix3176 = new BitSet(new long[]{0x0000000000200002L});
@@ -16410,25 +16411,25 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_KW_THIS_in_simpleExpression3324 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KW_SUPER_in_simpleExpression3336 = new BitSet(new long[]{0x0000000000200000L,0x0000000000000080L});
     public static final BitSet FOLLOW_superSuffix_in_simpleExpression3339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_NEW_in_simpleExpression3347 = new BitSet(new long[]{0x0000000000200000L,0x07A1FBDFFC400010L});
+    public static final BitSet FOLLOW_KW_NEW_in_simpleExpression3347 = new BitSet(new long[]{0x0000000000200000L,0x07A1FB7FFC400010L});
     public static final BitSet FOLLOW_simpleExpression_in_simpleExpression3349 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
     public static final BitSet FOLLOW_argumentsList_in_simpleExpression3351 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlLiteralPrefixed_in_sqlStatementPrefixed3374 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlLiteral_in_sqlStatement3393 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlLiteralPrefixed_in_sqlExpression3412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3433 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FBDFFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3433 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFDFL});
     public static final BitSet FOLLOW_sqlStmtRest_in_sqlLiteralPrefixed3437 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlLiteral_in_sqlLiteralParamed3465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral3476 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FBDFFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral3476 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFDFL});
     public static final BitSet FOLLOW_sqlStmtRest_in_sqlLiteral3480 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3496 = new BitSet(new long[]{0xC000000000000000L,0x3FF9F9DFFFFFFFCFL});
+    public static final BitSet FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3496 = new BitSet(new long[]{0xC000000000000000L,0x3FF9F97FFFFFFFCFL});
     public static final BitSet FOLLOW_keyword_in_sqlStmtNamePrefixed3503 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_WORD_in_sqlStmtNamePrefixed3507 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_embeddedVar_in_sqlStmtNamePrefixed3511 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_WORD_in_sqlStmtName3532 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_sqlStmtNamePrefixed_in_sqlStmtName3537 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlHiddenWS_in_sqlStmtRest3565 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FBDFFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlStmtRest3567 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FBDFFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlHiddenWS_in_sqlStmtRest3565 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlStmtRest3567 = new BitSet(new long[]{0xC000000000200002L,0x3FF9FB7FFFFFFFDFL});
     public static final BitSet FOLLOW_EOF_in_sqlStmtRest3570 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_COLON_in_sqlPart3650 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
     public static final BitSet FOLLOW_WORD_in_sqlPart3652 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
@@ -16438,19 +16439,19 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_sqlWS_in_sqlPart3682 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_sqlToken_in_sqlPart3697 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_sqlWS_in_sqlPart3699 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_sqlPart3717 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFBDFFFFFFFFFL});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3721 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFBDFFFFFFFFFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlPart3724 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FBDFFFFFFFFFL});
+    public static final BitSet FOLLOW_LPAREN_in_sqlPart3717 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFB7FFFFFFFFFL});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3721 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFB7FFFFFFFFFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlPart3724 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FB7FFFFFFFFFL});
     public static final BitSet FOLLOW_RPAREN_in_sqlPart3727 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_sqlWS_in_sqlPart3731 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_LCURLY_in_sqlPart3755 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFBDFFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3759 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFBDFFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlPart3762 = new BitSet(new long[]{0xC000000000600000L,0x3FF9FBDFFFFFFFDFL});
+    public static final BitSet FOLLOW_LCURLY_in_sqlPart3755 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3759 = new BitSet(new long[]{0xC000000000600000L,0x3FFFFB7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlPart3762 = new BitSet(new long[]{0xC000000000600000L,0x3FF9FB7FFFFFFFDFL});
     public static final BitSet FOLLOW_RCURLY_in_sqlPart3765 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_sqlWS_in_sqlPart3769 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
-    public static final BitSet FOLLOW_LSQUARE_in_sqlPart3793 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFFDFFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlWS_in_sqlPart3797 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFFDFFFFFFFDFL});
-    public static final BitSet FOLLOW_sqlPart_in_sqlPart3800 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FFDFFFFFFFDFL});
+    public static final BitSet FOLLOW_LSQUARE_in_sqlPart3793 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFF7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlWS_in_sqlPart3797 = new BitSet(new long[]{0xC000000000200000L,0x3FFFFF7FFFFFFFDFL});
+    public static final BitSet FOLLOW_sqlPart_in_sqlPart3800 = new BitSet(new long[]{0xC000000000200000L,0x3FF9FF7FFFFFFFDFL});
     public static final BitSet FOLLOW_RSQUARE_in_sqlPart3803 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_sqlWS_in_sqlPart3807 = new BitSet(new long[]{0x0000000000000002L,0x0006000000000000L});
     public static final BitSet FOLLOW_set_in_sqlWS0 = new BitSet(new long[]{0x0000000000000002L});
@@ -16460,27 +16461,27 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_sqlAtom_in_sqlToken3890 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_embeddedVar_in_sqlToken3895 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_sqlAtom0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_objectLiteral3962 = new BitSet(new long[]{0x0000000000400000L,0x062101DFFC400000L});
+    public static final BitSet FOLLOW_LCURLY_in_objectLiteral3962 = new BitSet(new long[]{0x0000000000400000L,0x0621017FFC400000L});
     public static final BitSet FOLLOW_objectSlot_in_objectLiteral3967 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_COMMA_in_objectLiteral3970 = new BitSet(new long[]{0x0000000000000000L,0x062101DFFC400000L});
+    public static final BitSet FOLLOW_COMMA_in_objectLiteral3970 = new BitSet(new long[]{0x0000000000000000L,0x0621017FFC400000L});
     public static final BitSet FOLLOW_objectSlot_in_objectLiteral3972 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
     public static final BitSet FOLLOW_COMMA_in_objectLiteral3976 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000004L});
     public static final BitSet FOLLOW_RCURLY_in_objectLiteral3989 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_identifier_in_objectSlot4011 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_objectSlot4013 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_COLON_in_objectSlot4013 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_objectSlot4015 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_stringLiteral_in_objectSlot4030 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COLON_in_objectSlot4032 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_COLON_in_objectSlot4032 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_objectSlot4034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LSQUARE_in_arrayLiteral4055 = new BitSet(new long[]{0x4000000000200000L,0x07A1FFDFFC400018L});
+    public static final BitSet FOLLOW_LSQUARE_in_arrayLiteral4055 = new BitSet(new long[]{0x4000000000200000L,0x07A1FF7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_arrayLiteral4060 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
-    public static final BitSet FOLLOW_COMMA_in_arrayLiteral4063 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_COMMA_in_arrayLiteral4063 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_arrayLiteral4065 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
     public static final BitSet FOLLOW_COMMA_in_arrayLiteral4069 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000004L});
     public static final BitSet FOLLOW_RSQUARE_in_arrayLiteral4082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_argumentsList4104 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400038L});
+    public static final BitSet FOLLOW_LPAREN_in_argumentsList4104 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400038L});
     public static final BitSet FOLLOW_expressionNoSQL_in_argumentsList4110 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000024L});
-    public static final BitSet FOLLOW_COMMA_in_argumentsList4113 = new BitSet(new long[]{0x4000000000200000L,0x07A1FBDFFC400018L});
+    public static final BitSet FOLLOW_COMMA_in_argumentsList4113 = new BitSet(new long[]{0x4000000000200000L,0x07A1FB7FFC400018L});
     public static final BitSet FOLLOW_expressionNoSQL_in_argumentsList4115 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000024L});
     public static final BitSet FOLLOW_RPAREN_in_argumentsList4138 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_EXCLAM_in_identifier4152 = new BitSet(new long[]{0x0000000000000002L});
@@ -16502,7 +16503,7 @@ public class SQLScriptParser extends Parser {
     public static final BitSet FOLLOW_identifierNoOps_in_identifierNoUnary4360 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_WORD_in_identifierNoOps4380 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_IDENTIFIER_in_identifierNoOps4401 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EMB_VAR_START_in_embeddedVar4421 = new BitSet(new long[]{0x0000000000000000L,0x002101DFFC400000L});
+    public static final BitSet FOLLOW_EMB_VAR_START_in_embeddedVar4421 = new BitSet(new long[]{0x0000000000000000L,0x0021017FFC400000L});
     public static final BitSet FOLLOW_identifier_in_embeddedVar4425 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_RCURLY_in_embeddedVar4427 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_keyword0 = new BitSet(new long[]{0x0000000000000002L});

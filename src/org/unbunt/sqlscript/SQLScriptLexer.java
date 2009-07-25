@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 13:45:30
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 14:14:45
 
 	package org.unbunt.sqlscript;
 
@@ -28,7 +28,7 @@ public class SQLScriptLexer extends Lexer {
     public static final int KW_VAR=63;
     public static final int VARNAME=18;
     public static final int WORD=112;
-    public static final int OP_MOD=101;
+    public static final int OP_MOD=103;
     public static final int RPAREN=69;
     public static final int SQL=29;
     public static final int OP_EQ=92;
@@ -55,13 +55,13 @@ public class SQLScriptLexer extends Lexer {
     public static final int STRING_START=8;
     public static final int LINE_COMMENT=127;
     public static final int EMB_VAR_START=118;
-    public static final int OP_ADD=102;
+    public static final int OP_ADD=100;
     public static final int OP_NI=95;
     public static final int NUMBER=132;
     public static final int KW_CATCH=75;
     public static final int LCURLY=21;
     public static final int INT=107;
-    public static final int OP_DIV=100;
+    public static final int OP_DIV=102;
     public static final int FUNC_DEF=37;
     public static final int DOLQUOT_TAG_START=25;
     public static final int KW_IMPORT=85;
@@ -103,7 +103,7 @@ public class SQLScriptLexer extends Lexer {
     public static final int OP_ID=94;
     public static final int DECLARE_ASSIGN=34;
     public static final int INDEX=51;
-    public static final int OP_SUB=103;
+    public static final int OP_SUB=101;
     public static final int SEP=61;
     public static final int COMMA=66;
     public static final int OBJ=44;
