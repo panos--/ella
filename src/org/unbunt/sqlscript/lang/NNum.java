@@ -146,7 +146,7 @@ public class NNum extends AbstractObj implements NNumeric {
         return NumUtils.divide(arg, toBigDecimal(value));
     }
 
-    public int compareTo(NNumeric arg) {
+    public int compareTo(NNumeric arg) throws NumberNotComparableException {
         switch (arg.getType()) {
             case NNumeric.TYPE_NUM: {
                 long cmp = ((NNum) arg).value;
@@ -159,6 +159,9 @@ public class NNum extends AbstractObj implements NNumeric {
             }
             case NNumeric.TYPE_REAL: {
                 double cmp = ((NReal) arg).value;
+                if (Double.isNaN(cmp)) {
+                    throw new NumberNotComparableException();
+                }
                 return value < cmp ? -1 : value == cmp ? 0 : 1;
             }
             case NNumeric.TYPE_BIGREAL: {

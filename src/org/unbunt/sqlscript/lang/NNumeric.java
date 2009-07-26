@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.CheckedArithmeticException;
+import org.unbunt.sqlscript.exception.NumberNotComparableException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -93,5 +94,5 @@ public interface NNumeric extends Obj {
 
     Obj divideRev(BigDecimal arg) throws CheckedArithmeticException;
 
-    int compareTo(NNumeric arg);
+    int compareTo(NNumeric arg) throws NumberNotComparableException;
 }

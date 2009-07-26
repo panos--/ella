@@ -161,7 +161,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
         return NumUtils.divide(arg, value);
     }
 
-    public int compareTo(NNumeric arg) {
+    public int compareTo(NNumeric arg) throws NumberNotComparableException {
         switch (arg.getType()) {
             case NNumeric.TYPE_NUM: {
                 return value.compareTo(toBigDecimal(((NNum) arg).value));
@@ -173,7 +173,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
                 try {
                     return value.compareTo(toBigDecimal(((NReal) arg).value));
                 } catch (DoubleNaNException e) {
-                    return 1;
+                    throw new NumberNotComparableException();
                 } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
                     return -1;
                 } catch (DoubleNegativeInfinityException e) {

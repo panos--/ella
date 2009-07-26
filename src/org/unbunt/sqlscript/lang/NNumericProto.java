@@ -2,6 +2,7 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.NumberNotComparableException;
 import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
@@ -83,7 +84,11 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.compareTo(arg) > 0 ? engine.getObjTrue() : engine.getObjFalse();
+            try {
+                return thiz.compareTo(arg) > 0 ? engine.getObjTrue() : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjFalse();
+            }
         }
     };
 
@@ -91,7 +96,11 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.compareTo(arg) >= 0 ? engine.getObjTrue() : engine.getObjFalse();
+            try {
+                return thiz.compareTo(arg) >= 0 ? engine.getObjTrue() : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjFalse();
+            }
         }
     };
 
@@ -99,7 +108,11 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.compareTo(arg) < 0 ? engine.getObjTrue() : engine.getObjFalse();
+            try {
+                return thiz.compareTo(arg) < 0 ? engine.getObjTrue() : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjFalse();
+            }
         }
     };
 
@@ -107,7 +120,11 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.compareTo(arg) <= 0 ? engine.getObjTrue() : engine.getObjFalse();
+            try {
+                return thiz.compareTo(arg) <= 0 ? engine.getObjTrue() : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjFalse();
+            }
         }
     };
 
@@ -115,7 +132,11 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.compareTo(arg) == 0 ? engine.getObjTrue() : engine.getObjFalse();
+            try {
+                return thiz.compareTo(arg) == 0 ? engine.getObjTrue() : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjFalse();
+            }
         }
     };
 
@@ -123,7 +144,11 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.compareTo(arg) != 0 ? engine.getObjTrue() : engine.getObjFalse();
+            try {
+                return thiz.compareTo(arg) != 0 ? engine.getObjTrue() : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjTrue();
+            }
         }
     };
 
@@ -131,9 +156,13 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.getType() == arg.getType() && thiz.compareTo(arg) == 0
-                   ? engine.getObjTrue()
-                   : engine.getObjFalse();
+            try {
+                return thiz.getType() == arg.getType() && thiz.compareTo(arg) == 0
+                       ? engine.getObjTrue()
+                       : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjFalse();
+            }
         }
     };
 
@@ -141,9 +170,13 @@ public class NNumericProto extends AbstractObj {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
-            return thiz.getType() != arg.getType() || thiz.compareTo(arg) != 0
-                   ? engine.getObjTrue()
-                   : engine.getObjFalse();
+            try {
+                return thiz.getType() != arg.getType() || thiz.compareTo(arg) != 0
+                       ? engine.getObjTrue()
+                       : engine.getObjFalse();
+            } catch (NumberNotComparableException e) {
+                return engine.getObjTrue();
+            }
         }
     };
 

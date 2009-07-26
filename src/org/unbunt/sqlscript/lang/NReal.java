@@ -227,7 +227,10 @@ public class NReal extends AbstractObj implements NNumeric {
         return NumUtils.divide(arg, value);
     }
 
-    public int compareTo(NNumeric arg) {
+    public int compareTo(NNumeric arg) throws NumberNotComparableException {
+        if (Double.isNaN(this.value)) {
+            throw new NumberNotComparableException();
+        }
         switch (arg.getType()) {
             case NNumeric.TYPE_NUM: {
                 long cmp = ((NNum) arg).value;
@@ -362,13 +365,11 @@ public class NReal extends AbstractObj implements NNumeric {
             }
         };
 
+        /*
         protected static final NativeCall nativeGreaterThan = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NReal thiz = ensureType(NReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
-                if (Double.isNaN(thiz.value)) {
-                    return engine.getObjFalse();
-                }
                 return thiz.compareTo(arg) > 0 ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
@@ -405,6 +406,7 @@ public class NReal extends AbstractObj implements NNumeric {
                 return thiz.compareTo(arg) <= 0 ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
+        */
 
         protected static final NativeCall nativeIsNaN = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -449,10 +451,12 @@ public class NReal extends AbstractObj implements NNumeric {
             slots.put(Str.SYM_isNegativeInfinity, nativeIsNegativeInfinity);
 
             // Override behaviour from NNumericProto for special handling of NaN
+            /*
             slots.put(Str.SYM__gt, nativeGreaterThan);
             slots.put(Str.SYM__ge, nativeGreaterOrEqual);
             slots.put(Str.SYM__lt, nativeLessThan);
             slots.put(Str.SYM__le, nativeLessOrEqual);
+            */
         }
 
         @Override

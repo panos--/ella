@@ -169,7 +169,7 @@ public class NBigNum extends AbstractObj implements NNumeric {
         return NumUtils.divide(arg, toBigDecimal(value));
     }
 
-    public int compareTo(NNumeric arg) {
+    public int compareTo(NNumeric arg) throws NumberNotComparableException {
         switch (arg.getType()) {
             case NNumeric.TYPE_NUM: {
                 BigInteger cmp = toBigInteger(((NNum) arg).value);
@@ -182,7 +182,7 @@ public class NBigNum extends AbstractObj implements NNumeric {
                 try {
                     return toBigDecimal(value).compareTo(toBigDecimal(((NReal) arg).value));
                 } catch (DoubleNaNException e) {
-                    return 1;
+                    throw new NumberNotComparableException();
                 } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
                     return -1;
                 } catch (DoubleNegativeInfinityException e) {
