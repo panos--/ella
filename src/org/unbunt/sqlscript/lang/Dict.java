@@ -102,6 +102,22 @@ public class Dict extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeHas = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Dict thiz = ensureType(Dict.class, context);
+                return thiz.value.getSlot(engine.getContext(), args[0]) == null
+                        ? engine.getObjFalse() : engine.getObjTrue();
+            }
+        };
+
+        protected static final NativeCall nativeRemove = new NativeCall() {
+            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Dict thiz = ensureType(Dict.class, context);
+                Obj removedSlot = thiz.value.removeSlot(engine.getContext(), args[0]);
+                return removedSlot == null ? engine.getObjNull() : removedSlot;
+            }
+        };
+
         // NOTE: this is added to Base, not DictProto
         protected static final NativeCall nativeToDict = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -113,6 +129,8 @@ public class Dict extends AbstractObj {
             slots.put(Str.SYM_each, nativeEach);
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
+            slots.put(Str.SYM_has, nativeHas);
+            slots.put(Str.SYM_remove, nativeRemove);
         }
 
         public Call getNativeConstructor() {

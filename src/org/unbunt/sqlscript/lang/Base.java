@@ -51,6 +51,24 @@ public class Base extends AbstractObj {
 
     protected static final Call nativeEachSlot = nativeEach;
 
+    protected static final NativeCall nativeHasSlot = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            return context != null && context.getSlot(engine.getContext(), args[0]) != null
+                    ? engine.getObjTrue()
+                    : engine.getObjFalse();
+        }
+    };
+
+    protected static final NativeCall nativeRemoveSlot = new NativeCall() {
+        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            if (context == null) {
+                return engine.getObjNull();
+            }
+            Obj removedSlot = context.removeSlot(engine.getContext(), args[0]);
+            return removedSlot == null ? engine.getObjNull() : removedSlot;
+        }
+    };
+
     protected static final NativeCall nativeAnd = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Clos closure = ensureType(Clos.class, args[0]);
@@ -97,6 +115,8 @@ public class Base extends AbstractObj {
         slots.put(Str.SYM_clone, nativeClone);
         slots.put(Str.SYM_each, nativeEach);
         slots.put(Str.SYM_eachSlot, nativeEachSlot);
+        slots.put(Str.SYM_hasSlot, nativeHasSlot);
+        slots.put(Str.SYM_removeSlot, nativeRemoveSlot);
     }
 
     public static void registerInContext(Context ctx) {

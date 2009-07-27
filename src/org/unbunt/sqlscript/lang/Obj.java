@@ -11,6 +11,8 @@ public interface Obj {
 
     Obj getSlot(Context ctx, Obj key);
 
+    Obj removeSlot(Context ctx, Obj key);
+
     Map<Obj, Obj> getSlots();
 
     void setSlots(Map<Obj, Obj> slots);

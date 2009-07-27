@@ -35,6 +35,10 @@ public class RawSQL implements Obj {
         return null;
     }
 
+    public Obj removeSlot(Context ctx, Obj key) {
+        return null;
+    }
+
     public Map<Obj,Obj> getSlots() {
         return null;
     }

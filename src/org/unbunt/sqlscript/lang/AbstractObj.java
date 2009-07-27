@@ -23,6 +23,10 @@ public abstract class AbstractObj implements Obj {
         return slots.get(key);
     }
 
+    public Obj removeSlot(Context ctx, Obj key) {
+        return slots.remove(key);
+    }
+
     public Map<Obj,Obj> getSlots() {
         return slots;
     }

@@ -59,6 +59,8 @@ public class Str extends AbstractObj {
     public static final Str SYM_first = toSym("first");
     public static final Str SYM_get = toSym("get");
     public static final Str SYM_getQueryString = toSym("getQueryString");
+    public static final Str SYM_has = toSym("has");
+    public static final Str SYM_hasSlot = toSym("hasSlot");
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_if = toSym("if");
     public static final Str SYM_ifThen = toSym("ifThen");
@@ -82,6 +84,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_raise = toSym("raise");
     public static final Str SYM_realValue = toSym("realValue");
     public static final Str SYM_remove = toSym("remove");
+    public static final Str SYM_removeSlot = toSym("removeSlot");
     public static final Str SYM_resultSet = toSym("resultSet");
     public static final Str SYM_rollback = toSym("rollback");
     public static final Str SYM_scriptName = toSym("scriptName");
