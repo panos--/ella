@@ -1,12 +1,17 @@
 package org.unbunt.sqlscript.antlr;
 
 import org.antlr.runtime.CharStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LazyInputStream implements CharStream {
+    protected static Log logger = LogFactory.getLog(LazyInputStream.class);
+    protected static boolean trace = logger.isTraceEnabled();
+
     // local version of org.antlr.runtime.CharStreamState
     protected static class CharStreamState {
         int pos;
@@ -22,6 +27,7 @@ public class LazyInputStream implements CharStream {
 
     protected int pos = 0;
     protected int read = 0;
+    protected int offs = 0;
 
     protected int charNoInLine = 0;
     protected int lineNo = 0;
@@ -44,6 +50,9 @@ public class LazyInputStream implements CharStream {
      * use this on streams that don't support it.
      */
     public String substring(int start, int stop) {
+        if (trace) {
+            logger.trace("substring: start=" + start + " stop=" + stop);
+        }
         readTo(stop);
         return buf.substring(start, stop + 1);
     }
@@ -111,6 +120,10 @@ public class LazyInputStream implements CharStream {
 		state.lineNo = lineNo;
 		state.charNoInLine = charNoInLine;
 
+        if (trace) {
+            logger.trace("mark: depth now: " + markDepth);
+        }
+
         lastMarker = markDepth;
         return markDepth;
     }
@@ -125,11 +138,21 @@ public class LazyInputStream implements CharStream {
      * was created.
      */
     public void rewind(int marker) {
-		CharStreamState state = markers.get(marker);
+        if (trace) {
+            logger.trace("rewind: marker=" + marker);
+        }
+        rewindOnly(marker);
+        release(marker);
+    }
+
+    protected void rewindOnly(int marker) {
+        if (trace) {
+            logger.trace("rewindOnly: marker=" + marker);
+        }
+        CharStreamState state = markers.get(marker);
         seek(state.pos);
 		lineNo = state.lineNo;
 		charNoInLine = state.charNoInLine;
-		release(marker);
     }
 
     /**
@@ -143,7 +166,10 @@ public class LazyInputStream implements CharStream {
      * the marker off.  It's like seek(last marker's input position).
      */
     public void rewind() {
-        rewind(lastMarker);
+        if (trace) {
+            logger.trace("rewind: last marker: " + lastMarker);
+        }
+        rewindOnly(lastMarker);
     }
 
     /**
@@ -156,7 +182,19 @@ public class LazyInputStream implements CharStream {
      * you have to release resources for depths 2..5.
      */
     public void release(int marker) {
+        if (marker > markDepth) {
+            throw new IllegalArgumentException("Invalid marker: " + marker + ": Current marker depth: " + markDepth);
+        }
+        CharStreamState state = markers.get(marker);
         markDepth = marker - 1;
+        if (markDepth == 0) {
+            logger.trace("RELEASING ALL LOOK-AHEAD NOW");
+            // XXX: state.pos or state.pos+1?
+            buf.delete(state.pos);
+        }
+        if (trace) {
+            logger.trace("release: marker=" + marker + " markDepth now: " + markDepth);
+        }
     }
 
     /**
@@ -181,7 +219,12 @@ public class LazyInputStream implements CharStream {
      * first element in the stream.
      */
     public void seek(int index) {
-//        System.out.println("seek " + pos + " => " + index);
+        if (trace) {
+            logger.trace("seek: index=" + index + " (seek " + (index <= read ? "backward" : "forward") + ")");
+        }
+        if (index == pos) {
+            return;
+        }
         if (index <= read) {
 			pos = index;
 			return;
@@ -245,6 +288,9 @@ public class LazyInputStream implements CharStream {
      * read not the most recently read symbol.
      */
     public int index() {
+        if (trace) {
+            logger.trace("index: current index: " + pos);
+        }
         return pos;
     }
 
