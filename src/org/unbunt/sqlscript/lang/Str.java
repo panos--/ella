@@ -122,10 +122,6 @@ public class Str extends AbstractObj {
         this.value = value;
     }
 
-    public static int generateObjectID() {
-        return ProtoRegistry.generateObjectID();
-    }
-
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {

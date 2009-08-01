@@ -348,6 +348,12 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
+    public void numBigReal() throws SQLScriptIOException, SQLScriptParseException {
+        Object result = eval(file("num-bigreal"));
+        assertEquals(result, "success");
+    }
+
+    @Test
     public void hostIntegrationMethodSelect() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("host-integration-method-select"));
     }
