@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.engine.Env;
 import org.unbunt.sqlscript.continuations.Continuation;
 
 import java.util.ArrayList;

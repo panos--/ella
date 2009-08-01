@@ -1,19 +1,20 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.exception.LoopContinueException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 public class ResSet extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

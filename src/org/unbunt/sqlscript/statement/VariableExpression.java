@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.statement.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Variable;
 
 public class VariableExpression implements Expression {

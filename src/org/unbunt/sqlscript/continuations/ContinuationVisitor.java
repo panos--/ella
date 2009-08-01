@@ -1,6 +1,4 @@
-package org.unbunt.sqlscript.support;
-
-import org.unbunt.sqlscript.continuations.*;
+package org.unbunt.sqlscript.continuations;
 
 public interface ContinuationVisitor {
     void processContinuation(EndCont endCont);

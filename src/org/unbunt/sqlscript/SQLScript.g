@@ -656,10 +656,17 @@ andCondition
 	;
 
 eqCondition
-	:	addExpression
+	:	binaryExpression
 		( (op=OP_EQ|op=OP_NE|op=OP_ID|op=OP_NI|op=OP_GT|op=OP_GE|op=OP_LT|op=OP_LE)
-		  addExpression	-> ^(CALL_BINARY addExpression IDENTIFIER[$op] addExpression)
-		|			-> addExpression
+		  binaryExpression	-> ^(CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression)
+		|			-> binaryExpression
+		)
+	;
+
+binaryExpression
+	:	(addExpression				-> addExpression)
+		( (identifierNoOps addExpression	-> ^(CALL_BINARY {$binaryExpression.tree} identifierNoOps addExpression))+
+		|
 		)
 	;
 
@@ -671,15 +678,8 @@ addExpression
 	;
 
 multExpression
-	:	(binaryExpression					-> binaryExpression)
-		( ((op=OP_MUL|op=OP_DIV|op=OP_MOD) binaryExpression	-> ^(CALL_BINARY {$multExpression.tree} IDENTIFIER[$op] binaryExpression))+
-		|
-		)
-	;
-
-binaryExpression
-	:	(unaryExpression			-> unaryExpression)
-		( (identifierNoOps unaryExpression	-> ^(CALL_BINARY {$binaryExpression.tree} identifierNoOps unaryExpression))+
+	:	(unaryExpression					-> unaryExpression)
+		( ((op=OP_MUL|op=OP_DIV|op=OP_MOD) unaryExpression	-> ^(CALL_BINARY {$multExpression.tree} IDENTIFIER[$op] unaryExpression))+
 		|
 		)
 	;

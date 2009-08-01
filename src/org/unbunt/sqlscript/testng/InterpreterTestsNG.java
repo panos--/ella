@@ -4,11 +4,11 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.unbunt.sqlscript.SQLScript;
+import org.unbunt.sqlscript.lang.ScriptClientException;
 import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.exception.ScriptClientException;
 import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
 import java.util.ArrayList;
@@ -334,6 +334,17 @@ public class InterpreterTestsNG extends AbstractTest {
     @Test
     public void numDoubleSpecials() throws SQLScriptIOException, SQLScriptParseException {
         eval(file("num-double-specials"));
+    }
+
+    @Test
+    public void operatorPrecedence() throws SQLScriptIOException, SQLScriptParseException {
+        Object result;
+
+        result = eval(". 2 + 3 * 4;");
+        assertEquals(result, 14l, "Broken precedance rules with + vs. * operators");
+
+        result= eval("{ Num.mult = Num.*; 2 + 3 mult 4; }");
+        assertEquals(result, 20l, "Broken precedance rules with + vs. generic binary operators");
     }
 
     @Test

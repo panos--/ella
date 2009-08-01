@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.utils;
 
+import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.lang.Obj;
-import org.unbunt.sqlscript.support.Context;
 
 public class ObjUtils {
     public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;

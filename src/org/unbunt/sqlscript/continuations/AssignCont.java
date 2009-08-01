@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.support.ContinuationVisitor;
+import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 import org.unbunt.sqlscript.support.Variable;
 
 public class AssignCont implements Continuation {

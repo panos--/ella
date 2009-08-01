@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.lang.NReal;
-import org.unbunt.sqlscript.lang.Obj;
-import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.statement.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Scope;
 
 public class FloatingPointLiteralExpression implements Expression {

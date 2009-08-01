@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.support.Env;
-import org.unbunt.sqlscript.support.ContinuationVisitor;
+import org.unbunt.sqlscript.engine.Env;
+import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 
 public class FunRetCont implements Continuation {
     protected Env savedEnv;

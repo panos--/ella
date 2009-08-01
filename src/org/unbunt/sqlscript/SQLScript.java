@@ -23,6 +23,7 @@ import org.unbunt.sqlscript.utils.res.FilesystemResource;
 import org.unbunt.sqlscript.utils.res.FilesystemResourceLoader;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
 import org.unbunt.sqlscript.utils.res.StringResource;
+import org.unbunt.sqlscript.engine.DefaultContext;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQLScript {
-    protected Context context;
+    protected DefaultContext context;
     protected SimpleResource script;
     protected String scriptName;
 
@@ -49,10 +50,10 @@ public class SQLScript {
     protected Block block; // the parsed script to be run by the engine
 
     public SQLScript(SimpleResource script) {
-        this(new Context(), script);
+        this(new DefaultContext(), script);
     }
 
-    public SQLScript(Context context, SimpleResource script) {
+    public SQLScript(DefaultContext context, SimpleResource script) {
         this.context = context;
         this.script = script;
         this.scriptName = script.getFilename();
@@ -462,20 +463,20 @@ public class SQLScript {
      */
 
     public static Object eval(File script, Object... args) throws SQLScriptIOException, SQLScriptParseException {
-        return eval(script, new Context(args));
+        return eval(script, new DefaultContext(args));
     }
 
-    protected static Object eval(File script, Context context) throws SQLScriptIOException, SQLScriptParseException {
+    protected static Object eval(File script, DefaultContext context) throws SQLScriptIOException, SQLScriptParseException {
         SimpleResource res = new FilesystemResource(script);
         SQLScript interp = new SQLScript(context, res);
         return interp.execute();
     }
 
     public static Object eval(String script, Object... args) throws SQLScriptIOException, SQLScriptParseException {
-        return eval(script, new Context(args));
+        return eval(script, new DefaultContext(args));
     }
 
-    protected static Object eval(String script, Context context) throws SQLScriptIOException, SQLScriptParseException {
+    protected static Object eval(String script, DefaultContext context) throws SQLScriptIOException, SQLScriptParseException {
         SimpleResource res = new StringResource(script);
         SQLScript interp = new SQLScript(context, res);
         return interp.execute();
@@ -585,7 +586,7 @@ public class SQLScript {
             FilesystemResourceLoader loader = new FilesystemResourceLoader();
             SimpleResource script = file == null ? loader.getStdinResource() : loader.getResource(file);
 
-            Context context = new Context(scriptArgs);
+            DefaultContext context = new DefaultContext(scriptArgs);
             if (conn != null) {
                 context.getObjConnMgr().activate(conn);
             }

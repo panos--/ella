@@ -1,18 +1,19 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
 
 /**
  * TODO: possibly make JClass a subclass of JObject

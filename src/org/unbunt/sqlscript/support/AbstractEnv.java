@@ -1,6 +1,7 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.engine.Env;
 
 public abstract class AbstractEnv implements Env {
     protected Env parent;

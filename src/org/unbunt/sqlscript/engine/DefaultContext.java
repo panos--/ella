@@ -1,18 +1,21 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.engine;
 
 import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.Conn;
-import org.unbunt.sqlscript.lang.sql.Stmt;
+import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.ResSet;
+import org.unbunt.sqlscript.lang.sql.Stmt;
+import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
 
-import java.util.*;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Context implements SQLResultProvider {
+public class DefaultContext implements SQLResultProvider, Context {
     protected String scriptFilename = "<unknown>";
     protected SimpleResource scriptResource = null;
 
@@ -38,7 +41,7 @@ public class Context implements SQLResultProvider {
 
     protected Object[] args;
 
-    public Context(Object[] args) {
+    public DefaultContext(Object[] args) {
         this.args = args;
         Arrays.fill(objectProtos, null);
         Arrays.fill(objects, null);
@@ -46,7 +49,7 @@ public class Context implements SQLResultProvider {
         initEnv();
     }
 
-    public Context() {
+    public DefaultContext() {
         this(new Object[0]);
     }
 

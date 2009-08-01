@@ -1,18 +1,19 @@
 package org.unbunt.sqlscript.lang;
 
+import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.support.NativeWrapper;
-import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
 
 public class JObject extends AbstractObj {
     protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -26,7 +27,7 @@ public class JObject extends AbstractObj {
     }
 
     @Override
-    public Obj getSlot(Context context, Obj key) {
+    public Obj getSlot(Context ctx, Obj key) {
         Obj val = slots.get(key);
         if (val != null) {
             return val;
@@ -51,7 +52,7 @@ public class JObject extends AbstractObj {
         }
         if (getter != null) {
             try {
-                return ReflectionUtils.invokeMethod(context, getter, value, (Object[])null);
+                return ReflectionUtils.invokeMethod(ctx, getter, value, (Object[])null);
             } catch (IllegalAccessException ignored) {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
@@ -64,7 +65,7 @@ public class JObject extends AbstractObj {
         try {
             Field field = clazz.getField(keyStr);
             Object fieldValue = field.get(value);
-            return NativeWrapper.wrap(context, fieldValue);
+            return NativeWrapper.wrap(ctx, fieldValue);
         } catch (NoSuchFieldException ignored) {
         } catch (IllegalAccessException ignored) {
         }
@@ -73,7 +74,7 @@ public class JObject extends AbstractObj {
     }
 
     @Override
-    public Obj setSlot(Context context, Obj key, Obj val) {
+    public Obj setSlot(Context ctx, Obj key, Obj val) {
         if (slots.containsKey(key)) {
             slots.put(key, val);
             return this;
@@ -92,7 +93,7 @@ public class JObject extends AbstractObj {
                                                            new Object[] { jvalue });
         if (setter != null) {
             try {
-                return ReflectionUtils.invokeMethod(context, setter, value, jvalue);
+                return ReflectionUtils.invokeMethod(ctx, setter, value, jvalue);
             } catch (IllegalAccessException ignored) {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {

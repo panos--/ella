@@ -1,6 +1,7 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.engine.Obj;
 
 public class ScriptClientException extends SQLScriptRuntimeException {
     protected Obj exception;

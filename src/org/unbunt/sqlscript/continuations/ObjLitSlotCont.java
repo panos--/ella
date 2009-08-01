@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.statement.Expression;
-import org.unbunt.sqlscript.support.ContinuationVisitor;
+import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 
 public class ObjLitSlotCont implements Continuation {
     protected Obj obj;

@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.engine.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 
 public class PlainObj extends AbstractObj {

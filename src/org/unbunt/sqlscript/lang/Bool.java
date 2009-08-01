@@ -1,8 +1,9 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.engine.Context;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 

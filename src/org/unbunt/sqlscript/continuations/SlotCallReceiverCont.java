@@ -2,9 +2,7 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Expression;
 import org.unbunt.sqlscript.statement.SlotCallExpression;
-import org.unbunt.sqlscript.support.ContinuationVisitor;
-
-import java.util.List;
+import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 
 public class SlotCallReceiverCont implements Continuation {
     protected SlotCallExpression callExpression;

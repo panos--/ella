@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.statement.ExpressionVisitor;
 
 public class BooleanLiteralExpression implements Expression {
     protected boolean value;

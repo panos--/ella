@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.engine.Obj;
 
 /**
  * Acts as global environment. Default bindings may be placed here using the add(String, Obj) method.

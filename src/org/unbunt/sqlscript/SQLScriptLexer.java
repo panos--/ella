@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-07-25 23:36:46
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g 2009-08-01 14:54:00
 
 	package org.unbunt.sqlscript;
 
@@ -2369,7 +2369,7 @@ public class SQLScriptLexer extends Lexer {
                     	    }
                     	    break;
                     	case 3 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1355:93: DIGIT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScript.g:1355:77: DIGIT
                     	    {
                     	    mDIGIT(); if (state.failed) return ;
 

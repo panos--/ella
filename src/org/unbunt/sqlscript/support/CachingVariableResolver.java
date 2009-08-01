@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.support;
 
-import org.unbunt.sqlscript.lang.Obj;
+import org.unbunt.sqlscript.engine.Obj;
 
 import java.util.Map;
 import java.util.HashMap;

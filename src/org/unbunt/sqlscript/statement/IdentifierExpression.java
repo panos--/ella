@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.lang.Str;
-import org.unbunt.sqlscript.support.ExpressionVisitor;
+import org.unbunt.sqlscript.statement.ExpressionVisitor;
 
 public class IdentifierExpression implements Expression {
     protected String identifier;

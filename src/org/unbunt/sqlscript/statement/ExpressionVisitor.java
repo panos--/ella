@@ -1,6 +1,4 @@
-package org.unbunt.sqlscript.support;
-
-import org.unbunt.sqlscript.statement.*;
+package org.unbunt.sqlscript.statement;
 
 public interface ExpressionVisitor {
     void processExpression(Block blockExpression);

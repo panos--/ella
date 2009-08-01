@@ -15,6 +15,9 @@ import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.Consts;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import org.unbunt.sqlscript.utils.StringUtils;
+import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.engine.Env;
+import org.unbunt.sqlscript.engine.DefaultContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,17 +29,17 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
     protected final Log logger = LogFactory.getLog(getClass());
     protected final boolean trace = logger.isTraceEnabled();
 
-    protected Context context;
+    protected DefaultContext context;
     protected boolean finished = false;
 
     public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
     public static final Obj SLOT_INIT = Consts.SLOT_INIT;
 
-    public SQLScriptEngine(Context context) {
+    public SQLScriptEngine(DefaultContext context) {
         this.context = context;
     }
 
-    public static SQLScriptEngine create(Context context) {
+    public static SQLScriptEngine create(DefaultContext context) {
         return new SQLScriptEngine(context);
     }
 
@@ -1107,7 +1110,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
         }
     }
 
-    public Context getContext() {
+    public DefaultContext getContext() {
         return context;
     }
 

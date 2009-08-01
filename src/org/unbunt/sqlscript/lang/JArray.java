@@ -1,8 +1,9 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.support.Context;
 import org.unbunt.sqlscript.support.NativeWrapper;
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.utils.ObjUtils;
@@ -32,11 +33,11 @@ public class JArray extends AbstractObj {
     }
 
     @Override
-    public Obj getSlot(Context context, Obj key) {
+    public Obj getSlot(Context ctx, Obj key) {
         if (Str.SYM_length.equals(key)) {
             return lengthObj;
         }
-        return super.getSlot(context, key);
+        return super.getSlot(ctx, key);
     }
 
     @Override

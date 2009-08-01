@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.support.Env;
-import org.unbunt.sqlscript.support.ContinuationVisitor;
+import org.unbunt.sqlscript.engine.Env;
+import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 import org.unbunt.sqlscript.support.BlockClosure;
 
 public class ClosRetCont implements Continuation {

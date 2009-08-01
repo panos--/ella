@@ -2,8 +2,8 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.support.Callable;
-import org.unbunt.sqlscript.support.ContinuationVisitor;
-import org.unbunt.sqlscript.support.Env;
+import org.unbunt.sqlscript.continuations.ContinuationVisitor;
+import org.unbunt.sqlscript.engine.Env;
 
 public class CallArgCont implements Continuation {
     protected Callable callable;

@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.lang.sql;
 
-import org.unbunt.sqlscript.lang.Obj;
-import org.unbunt.sqlscript.support.Context;
+import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.support.SQLParseMode;
 
 import java.util.Map;
