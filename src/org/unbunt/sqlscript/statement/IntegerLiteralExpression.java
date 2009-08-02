@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.lang.NNum;
 import org.unbunt.sqlscript.engine.Obj;
-import org.unbunt.sqlscript.statement.ExpressionVisitor;
-import org.unbunt.sqlscript.support.Scope;
+import org.unbunt.sqlscript.lang.NNum;
 
 public class IntegerLiteralExpression implements Expression {
     protected String literal;
@@ -16,13 +14,6 @@ public class IntegerLiteralExpression implements Expression {
 
     public Obj getValue() {
         return value;
-    }
-
-    public Scope getScope() {
-        return null;
-    }
-
-    public void setScope(Scope scope) {
     }
 
     public void accept(ExpressionVisitor visitor) {

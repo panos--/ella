@@ -1,9 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.lang.NReal;
 import org.unbunt.sqlscript.engine.Obj;
-import org.unbunt.sqlscript.statement.ExpressionVisitor;
-import org.unbunt.sqlscript.support.Scope;
+import org.unbunt.sqlscript.lang.NReal;
 
 public class FloatingPointLiteralExpression implements Expression {
     protected String literal;
@@ -16,13 +14,6 @@ public class FloatingPointLiteralExpression implements Expression {
 
     public Obj getValue() {
         return value;
-    }
-
-    public Scope getScope() {
-        return null;
-    }
-
-    public void setScope(Scope scope) {
     }
 
     public void accept(ExpressionVisitor visitor) {

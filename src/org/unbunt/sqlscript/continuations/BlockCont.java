@@ -1,9 +1,8 @@
 package org.unbunt.sqlscript.continuations;
 
+import org.unbunt.sqlscript.engine.Env;
 import org.unbunt.sqlscript.statement.Block;
 import org.unbunt.sqlscript.statement.Statement;
-import org.unbunt.sqlscript.engine.Env;
-import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 
 import java.util.List;
 

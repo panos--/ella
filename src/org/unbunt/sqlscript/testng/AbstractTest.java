@@ -2,7 +2,6 @@ package org.unbunt.sqlscript.testng;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class AbstractTest {

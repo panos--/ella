@@ -1,6 +1,5 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.statement.ExpressionVisitor;
 import org.unbunt.sqlscript.support.Scope;
 
 import java.util.ArrayList;
