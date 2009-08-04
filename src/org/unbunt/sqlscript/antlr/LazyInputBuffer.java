@@ -97,7 +97,11 @@ public class LazyInputBuffer {
 
     public LazyInputBuffer delete(int end) {
         int oldLen = buf.length();
-        buf.delete(0, end - offset);
+        try {
+            buf.delete(0, end - offset);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw e;
+        }
         int newLen = buf.length();
         offset += (oldLen - newLen);
         return this;

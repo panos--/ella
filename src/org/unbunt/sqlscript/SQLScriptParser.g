@@ -797,7 +797,7 @@ sqlWS	:	WS
 
 sqlHiddenWS
 @init {
-	String collectedWhitespace = ""; //((LazyTokenStream) input).collectOffChannelTokenText(SQLScriptLexer.HIDDEN);
+	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(SQLScriptLexer.HIDDEN);
 	boolean hasWhitespace = collectedWhitespace.length() != 0;
 }
 	:	

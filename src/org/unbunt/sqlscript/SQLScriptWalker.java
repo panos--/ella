@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-08-04 08:58:02
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptWalker.g 2009-08-04 21:37:09
 
 	package org.unbunt.sqlscript;
 
@@ -24,22 +24,22 @@ import java.util.Map;
 import java.util.HashMap;
 public class SQLScriptWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "SQUOT", "DQUOT", "BTICK", "QQUOT_START", "DOLQUOT", "CHAR", "VARNAME", "QQUOT_END", "ATSIGN", "LCURLY", "RCURLY", "QQUOT_DELIM", "DOLQUOT_TAG", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "WORD_CHAR", "COMMENT", "LINE_COMMENT", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "DDOLLAR", "DOLLAR", "STR_DOLQUOT", "DIGIT", "EXPONENT", "NUMBER", "INT", "FLOAT", "KW_SQL", "KW_VAR", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_TRUE", "KW_FALSE", "KW_FUN", "KW_THIS", "KW_SUPER", "KW_NEW", "KW_IMPORT", "KW_INCLUDE", "KW_AS", "WORD", "EMB_VAR_START", "BACKSLASH", "DOUBLE_ARROW", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_MUL", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "EQUALS", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL_START", "IDENTIFIER_SPECIAL", "IDENTIFIER", "SQL_SPECIAL_CHAR", "SEP", "WS", "NL", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "DQUOT", "SQUOT", "BTICK", "QQUOT_DELIM", "QQUOT_START", "QQUOT_END", "DOLQUOT_TAG", "DOLQUOT", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "ATSIGN", "LCURLY", "RCURLY", "WORD_CHAR", "VARNAME", "CHAR", "COMMENT", "LINE_COMMENT", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "DDOLLAR", "DOLLAR", "STR_DOLQUOT", "DIGIT", "EXPONENT", "NUMBER", "INT", "FLOAT", "KW_SQL", "KW_VAR", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_TRUE", "KW_FALSE", "KW_FUN", "KW_THIS", "KW_SUPER", "KW_NEW", "KW_IMPORT", "KW_INCLUDE", "KW_AS", "WORD", "EMB_VAR_START", "BACKSLASH", "DOUBLE_ARROW", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_MUL", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "EQUALS", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL_START", "IDENTIFIER_SPECIAL", "IDENTIFIER", "SQL_SPECIAL_CHAR", "SEP", "WS", "NL", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS"
     };
     public static final int EXPONENT=38;
     public static final int OP_LE=79;
     public static final int LSQUARE=88;
     public static final int OP_AND=70;
-    public static final int WORD_CHAR=27;
-    public static final int QQUOT_START=15;
+    public static final int WORD_CHAR=25;
+    public static final int QQUOT_START=16;
     public static final int NEW=132;
-    public static final int CHAR=17;
+    public static final int CHAR=27;
     public static final int EQUALS=85;
     public static final int OP_GE=77;
     public static final int EOF=-1;
     public static final int FUNC_CALL=113;
     public static final int KW_VAR=43;
-    public static final int VARNAME=18;
+    public static final int VARNAME=26;
     public static final int WORD=65;
     public static final int OP_MOD=82;
     public static final int RPAREN=87;
@@ -47,7 +47,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final int SQL=104;
     public static final int IDENTIFIER_SPECIAL_START=96;
     public static final int KW_NEW=61;
-    public static final int SQUOT=12;
+    public static final int SQUOT=13;
     public static final int KW_BREAK=52;
     public static final int IDX_GET=125;
     public static final int RETURN=116;
@@ -56,11 +56,11 @@ public class SQLScriptWalker extends TreeParser {
     public static final int ARGS=115;
     public static final int IDX_CALL=124;
     public static final int NL=102;
+    public static final int ATSIGN=22;
     public static final int EMBEDDED_VAR=11;
-    public static final int ATSIGN=20;
     public static final int OP_LT=78;
     public static final int SUPER=131;
-    public static final int DOLQUOT_TAG=24;
+    public static final int DOLQUOT_TAG=18;
     public static final int COMMENT=28;
     public static final int KW_EXIT=55;
     public static final int ARRAY=120;
@@ -73,12 +73,12 @@ public class SQLScriptWalker extends TreeParser {
     public static final int OP_NI=75;
     public static final int KW_CATCH=47;
     public static final int NUMBER=39;
-    public static final int LCURLY=21;
+    public static final int LCURLY=23;
     public static final int OP_DIV=81;
     public static final int INT=40;
     public static final int FUNC_DEF=112;
     public static final int KW_IMPORT=62;
-    public static final int DOLQUOT_TAG_START=25;
+    public static final int DOLQUOT_TAG_START=20;
     public static final int SLOT_CALL=122;
     public static final int SIMPLE_IDENTIFIER=95;
     public static final int STR_BTICK=32;
@@ -88,8 +88,8 @@ public class SQLScriptWalker extends TreeParser {
     public static final int KW_INCLUDE=63;
     public static final int IMPORT_PACKAGE=133;
     public static final int SLOT=121;
-    public static final int QQUOT_DELIM=23;
     public static final int STRING_END=10;
+    public static final int QQUOT_DELIM=15;
     public static final int STR_SQUOT=30;
     public static final int CHARS=7;
     public static final int CALL=127;
@@ -103,7 +103,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final int BACKSLASH=67;
     public static final int DOLLAR=35;
     public static final int OP_OR=71;
-    public static final int DQUOT=13;
+    public static final int DQUOT=12;
     public static final int KW_FUN=58;
     public static final int STRING_CONTENT=9;
     public static final int OP_GT=76;
@@ -125,10 +125,10 @@ public class SQLScriptWalker extends TreeParser {
     public static final int KW_FOR=50;
     public static final int IDENTIFIER=98;
     public static final int KW_RETURN=54;
-    public static final int DOLQUOT=16;
+    public static final int DOLQUOT=19;
     public static final int KW_TRY=46;
     public static final int DIGIT=37;
-    public static final int QQUOT_END=19;
+    public static final int QQUOT_END=17;
     public static final int DOT=93;
     public static final int KW_THIS=59;
     public static final int KW_IF=44;
@@ -142,12 +142,12 @@ public class SQLScriptWalker extends TreeParser {
     public static final int TRUE=117;
     public static final int COLON=92;
     public static final int DDOLLAR=34;
-    public static final int DOLQUOT_TAG_END=26;
+    public static final int DOLQUOT_TAG_END=21;
     public static final int QUESTION=91;
     public static final int SQL_PARAM=108;
     public static final int EXCLAM=90;
     public static final int BLOCK=103;
-    public static final int RCURLY=22;
+    public static final int RCURLY=24;
     public static final int ASSIGN=111;
     public static final int KW_AS=64;
     public static final int DECLARE=110;
@@ -4822,8 +4822,8 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_sqlLiteral_in_sqlExpression1519 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_SQL_in_sqlLiteral1551 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_sqlParseMode_in_sqlLiteral1558 = new BitSet(new long[]{0x0000000000000800L,0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral1567 = new BitSet(new long[]{0xFFFFFF01C0700818L,0x0000006C7FE0FFEBL});
-    public static final BitSet FOLLOW_sqlToken_in_sqlLiteral1577 = new BitSet(new long[]{0xFFFFFF01C0700818L,0x0000006C7FE0FFEBL});
+    public static final BitSet FOLLOW_sqlStmtName_in_sqlLiteral1567 = new BitSet(new long[]{0xFFFFFF01C1C00818L,0x0000006C7FE0FFEBL});
+    public static final BitSet FOLLOW_sqlToken_in_sqlLiteral1577 = new BitSet(new long[]{0xFFFFFF01C1C00818L,0x0000006C7FE0FFEBL});
     public static final BitSet FOLLOW_SQL_MODE_in_sqlParseMode1603 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_WORD_in_sqlStmtName1622 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_embeddedVarRef_in_sqlStmtName1643 = new BitSet(new long[]{0x0000000000000002L});
@@ -4835,7 +4835,7 @@ public class SQLScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_embeddedVarRef_in_sqlToken1750 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_sqlAtom1772 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_SQL_in_sqlLiteralParamed1945 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_sqlTokenParamed_in_sqlLiteralParamed1947 = new BitSet(new long[]{0xFFFFFF01C0700018L,0x0000127C7FE0FFEBL});
+    public static final BitSet FOLLOW_sqlTokenParamed_in_sqlLiteralParamed1947 = new BitSet(new long[]{0xFFFFFF01C1C00018L,0x0000127C7FE0FFEBL});
     public static final BitSet FOLLOW_SQL_MODE_in_sqlTokenParamed1963 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_STRING_in_sqlTokenParamed1969 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_STRING_START_in_sqlTokenParamed1974 = new BitSet(new long[]{0x0000000000000600L});

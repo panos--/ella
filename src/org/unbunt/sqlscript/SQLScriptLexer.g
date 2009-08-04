@@ -1,8 +1,8 @@
 lexer grammar SQLScriptLexer;
 
 options {
-	tokenVocab = SQLScriptString;
 	superClass = LazyLexer;
+	tokenVocab = SQLScriptStringParser;
 }
 
 @lexer::header {

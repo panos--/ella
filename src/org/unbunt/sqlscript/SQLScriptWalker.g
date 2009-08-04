@@ -1,7 +1,7 @@
 tree grammar SQLScriptWalker;
 
 options {
-	tokenVocab = SQLScript;
+	tokenVocab = SQLScriptParser;
 	ASTLabelType = CommonTree;
 }
 

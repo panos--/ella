@@ -36,6 +36,9 @@ public class LazyInputStream implements CharStream {
     protected int markDepth = 0;
     protected int lastMarker;
 
+    protected List<Integer> bufferOffsets = new ArrayList<Integer>();
+//    protected int bufferOffset = -1;
+
     public LazyInputStream(Reader input) {
         this.input = new BufferedReader(input);
     }
@@ -173,59 +176,6 @@ public class LazyInputStream implements CharStream {
         rewindOnly(lastMarker);
     }
 
-    protected List<Integer> bufferOffsets = new ArrayList<Integer>();
-    protected int bufferOffset = -1;
-
-    public int buffer() {
-        if (trace) {
-            logger.trace("Start buffering");
-        }
-        int offs = index();
-        if (bufferOffsets.isEmpty()) {
-            buf.buffer();
-        }
-        bufferOffsets.add(offs);
-        bufferOffset = offs;
-        return offs;
-    }
-
-    public void unbuffer(int buffer) {
-        if (bufferOffsets.isEmpty()) {
-            return;
-        }
-
-        for (int i = 0; i < bufferOffsets.size(); i++) {
-            int offs = bufferOffsets.get(i);
-            if (offs == buffer) {
-                bufferOffsets.remove(i);
-                if (i == 0) {
-                    if (markDepth == 0 || offs < markers.get(1).pos) {
-                        if (trace) {
-                            logger.trace("Unbuffer: Deleting to pos " + offs);
-                        }
-                        buf.delete(offs);
-                    }
-                    else {
-                        if (trace) {
-                            logger.trace("Unbuffer: Not deleting - some marker present");
-                        }
-                    }
-                }
-                break;
-            }
-        }
-
-        if (bufferOffsets.isEmpty()) {
-            if (trace) {
-                logger.trace("Stop buffering");
-            }
-            bufferOffset = -1;
-            if (markDepth == 0) {
-                buf.unbuffer();
-            }
-        }
-    }
-
     /**
      * You may want to commit to a backtrack but don't want to force the
      * stream to keep bookkeeping objects around for a marker that is
@@ -242,17 +192,96 @@ public class LazyInputStream implements CharStream {
         CharStreamState state = markers.get(marker);
         markDepth = marker - 1;
         if (markDepth == 0) {
-            logger.trace("RELEASING ALL LOOK-AHEAD NOW");
 //            if (bufferOffset == -1) {
 //                buf.unbuffer();
 //            }
-            if (bufferOffset == -1 || state.pos < bufferOffset) {
+//            if (bufferOffset == -1 || state.pos < bufferOffset) {
+            if (bufferOffsets.isEmpty() || state.pos < bufferOffsets.get(0)) {
+                if (trace) {
+                    logger.trace("releasing look-back");
+                }
                 buf.delete(state.pos);
-                buf.unbuffer();
+                if (bufferOffsets.isEmpty()) {
+                    buf.unbuffer();
+                }
             }
         }
         if (trace) {
             logger.trace("release: marker=" + marker + " markDepth now: " + markDepth);
+        }
+    }
+
+    public int buffer() {
+        if (trace) {
+            logger.trace("Start buffering");
+        }
+        int offs = index();
+        if (bufferOffsets.isEmpty()) {
+            buf.buffer();
+//            bufferOffset = offs;
+        }
+        else if (bufferOffsets.get(bufferOffsets.size() - 1) > offs) {
+            new Object().hashCode();
+        }
+        bufferOffsets.add(offs);
+        return offs;
+    }
+
+    public void unbuffer(int buffer) {
+        if (bufferOffsets.isEmpty()) {
+            return;
+        }
+
+        if (buffer == 28) {
+            new Object().hashCode();
+        }
+
+        // FIXME: This suffers from poor performance (complexity of O(n) where O(1) is desirable)
+        for (int i = 0; i < bufferOffsets.size(); i++) {
+            int offs = bufferOffsets.get(i);
+            if (offs != buffer) {
+                continue;
+            }
+
+            bufferOffsets.remove(i);
+            if (i != 0) {
+                break;
+            }
+            int discardOffs;
+            if (!bufferOffsets.isEmpty()) {
+                int nextBufOffs = bufferOffsets.get(0);
+                if (nextBufOffs == offs) {
+                    break;
+                }
+                discardOffs = nextBufOffs - 1;
+            }
+            else {
+                discardOffs = index() - 1;
+            }
+
+            if (markDepth == 0 || discardOffs < markers.get(1).pos) {
+                if (trace) {
+                    logger.trace("Unbuffer: Deleting to pos " + offs);
+                }
+                buf.delete(discardOffs);
+            }
+            else {
+                if (trace) {
+                    logger.trace("Unbuffer: Not deleting - some marker present");
+                }
+            }
+
+            break;
+        }
+
+        if (bufferOffsets.isEmpty()) {
+            if (trace) {
+                logger.trace("Stop buffering");
+            }
+//            bufferOffset = -1;
+            if (markDepth == 0) {
+                buf.unbuffer();
+            }
         }
     }
 
