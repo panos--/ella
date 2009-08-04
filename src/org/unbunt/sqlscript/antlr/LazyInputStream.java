@@ -1,12 +1,17 @@
 package org.unbunt.sqlscript.antlr;
 
 import org.antlr.runtime.CharStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LazyInputStream implements CharStream {
+    protected static Log logger = LogFactory.getLog(LazyInputStream.class);
+    protected static boolean trace = logger.isTraceEnabled();
+
     // local version of org.antlr.runtime.CharStreamState
     protected static class CharStreamState {
         int pos;
@@ -22,6 +27,7 @@ public class LazyInputStream implements CharStream {
 
     protected int pos = 0;
     protected int read = 0;
+    protected int offs = 0;
 
     protected int charNoInLine = 0;
     protected int lineNo = 0;
@@ -29,6 +35,9 @@ public class LazyInputStream implements CharStream {
     protected List<CharStreamState> markers = null;
     protected int markDepth = 0;
     protected int lastMarker;
+
+    protected List<Integer> bufferOffsets = new ArrayList<Integer>();
+//    protected int bufferOffset = -1;
 
     public LazyInputStream(Reader input) {
         this.input = new BufferedReader(input);
@@ -44,6 +53,9 @@ public class LazyInputStream implements CharStream {
      * use this on streams that don't support it.
      */
     public String substring(int start, int stop) {
+        if (trace) {
+            logger.trace("substring: start=" + start + " stop=" + stop);
+        }
         readTo(stop);
         return buf.substring(start, stop + 1);
     }
@@ -81,7 +93,7 @@ public class LazyInputStream implements CharStream {
             return CharStream.EOF;
         }
 
-        return buf.charAt(j);
+        return buf.peek(j);
     }
 
     /**
@@ -111,6 +123,11 @@ public class LazyInputStream implements CharStream {
 		state.lineNo = lineNo;
 		state.charNoInLine = charNoInLine;
 
+        if (trace) {
+            logger.trace("mark: depth now: " + markDepth);
+        }
+
+        buf.buffer();
         lastMarker = markDepth;
         return markDepth;
     }
@@ -125,11 +142,21 @@ public class LazyInputStream implements CharStream {
      * was created.
      */
     public void rewind(int marker) {
-		CharStreamState state = markers.get(marker);
+        if (trace) {
+            logger.trace("rewind: marker=" + marker);
+        }
+        rewindOnly(marker);
+        release(marker);
+    }
+
+    protected void rewindOnly(int marker) {
+        if (trace) {
+            logger.trace("rewindOnly: marker=" + marker);
+        }
+        CharStreamState state = markers.get(marker);
         seek(state.pos);
 		lineNo = state.lineNo;
 		charNoInLine = state.charNoInLine;
-		release(marker);
     }
 
     /**
@@ -143,7 +170,10 @@ public class LazyInputStream implements CharStream {
      * the marker off.  It's like seek(last marker's input position).
      */
     public void rewind() {
-        rewind(lastMarker);
+        if (trace) {
+            logger.trace("rewind: last marker: " + lastMarker);
+        }
+        rewindOnly(lastMarker);
     }
 
     /**
@@ -156,7 +186,103 @@ public class LazyInputStream implements CharStream {
      * you have to release resources for depths 2..5.
      */
     public void release(int marker) {
+        if (marker > markDepth) {
+            throw new IllegalArgumentException("Invalid marker: " + marker + ": Current marker depth: " + markDepth);
+        }
+        CharStreamState state = markers.get(marker);
         markDepth = marker - 1;
+        if (markDepth == 0) {
+//            if (bufferOffset == -1) {
+//                buf.unbuffer();
+//            }
+//            if (bufferOffset == -1 || state.pos < bufferOffset) {
+            if (bufferOffsets.isEmpty() || state.pos < bufferOffsets.get(0)) {
+                if (trace) {
+                    logger.trace("releasing look-back");
+                }
+                buf.delete(state.pos);
+                if (bufferOffsets.isEmpty()) {
+                    buf.unbuffer();
+                }
+            }
+        }
+        if (trace) {
+            logger.trace("release: marker=" + marker + " markDepth now: " + markDepth);
+        }
+    }
+
+    public int buffer() {
+        if (trace) {
+            logger.trace("Start buffering");
+        }
+        int offs = index();
+        if (bufferOffsets.isEmpty()) {
+            buf.buffer();
+//            bufferOffset = offs;
+        }
+        else if (bufferOffsets.get(bufferOffsets.size() - 1) > offs) {
+            new Object().hashCode();
+        }
+        bufferOffsets.add(offs);
+        return offs;
+    }
+
+    public void unbuffer(int buffer) {
+        if (bufferOffsets.isEmpty()) {
+            return;
+        }
+
+        if (buffer == 28) {
+            new Object().hashCode();
+        }
+
+        // FIXME: This suffers from poor performance (complexity of O(n) where O(1) is desirable)
+        for (int i = 0; i < bufferOffsets.size(); i++) {
+            int offs = bufferOffsets.get(i);
+            if (offs != buffer) {
+                continue;
+            }
+
+            bufferOffsets.remove(i);
+            if (i != 0) {
+                break;
+            }
+            int discardOffs;
+            if (!bufferOffsets.isEmpty()) {
+                int nextBufOffs = bufferOffsets.get(0);
+                if (nextBufOffs == offs) {
+                    break;
+                }
+                discardOffs = nextBufOffs - 1;
+            }
+            else {
+                discardOffs = index() - 1;
+            }
+
+            if (markDepth == 0 || discardOffs < markers.get(1).pos) {
+                if (trace) {
+                    logger.trace("Unbuffer: Deleting to pos " + offs);
+                }
+                buf.delete(discardOffs);
+            }
+            else {
+                if (trace) {
+                    logger.trace("Unbuffer: Not deleting - some marker present");
+                }
+            }
+
+            break;
+        }
+
+        if (bufferOffsets.isEmpty()) {
+            if (trace) {
+                logger.trace("Stop buffering");
+            }
+//            bufferOffset = -1;
+            if (markDepth == 0) {
+                buf.unbuffer();
+            }
+        }
     }
 
     /**
@@ -181,7 +307,12 @@ public class LazyInputStream implements CharStream {
      * first element in the stream.
      */
     public void seek(int index) {
-//        System.out.println("seek " + pos + " => " + index);
+        if (trace) {
+            logger.trace("seek: index=" + index + " (seek " + (index <= read ? "backward" : "forward") + ")");
+        }
+        if (index == pos) {
+            return;
+        }
         if (index <= read) {
 			pos = index;
 			return;
@@ -197,7 +328,8 @@ public class LazyInputStream implements CharStream {
             return;
         }
 
-        char c = buf.charAt(pos);
+//        char c = buf.charAt(pos);
+        char c = buf.poll(pos);
 
         if (c == '\n') {
             charNoInLine = 0;
@@ -245,6 +377,9 @@ public class LazyInputStream implements CharStream {
      * read not the most recently read symbol.
      */
     public int index() {
+        if (trace) {
+            logger.trace("index: current index: " + pos);
+        }
         return pos;
     }
 

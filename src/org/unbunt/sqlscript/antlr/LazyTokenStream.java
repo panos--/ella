@@ -224,7 +224,22 @@ public class LazyTokenStream implements TokenStream {
                 continue;
             }
 
+            int bufOffs = -1;
+            if (inputStream != null) {
+                try {
+                    bufOffs = ((LazyInputStream)inputStream).buffer();
+                } catch (ClassCastException ignored) {
+                }
+            }
+
             Token token = tokenSource.nextToken();
+            try {
+                int tokOffs = ((CommonToken) token).getStartIndex();
+                if (trace) {
+                    logger.trace("read token: bufOffs=" + bufOffs + " tokOffs=" + tokOffs);
+                }
+            } catch (ClassCastException ignored) {
+            }
             int tokenType = token.getType();
             if (tokenType == CharStream.EOF) {
                 return false;
@@ -463,21 +478,19 @@ public class LazyTokenStream implements TokenStream {
 
         int i = 0;
         while (cursor.hasNext()) {
-            if (i == 0) {
-                // Try to seek input stream back to the starting position of the first look-ahead token.
-                // Can be done only if the tokens starting offset in the stream is known. For now we rely
-                // on CommonToken to provide this information and just skip the seek if the token type
-                // is not CommonToken.
-                try {
-                    CommonToken token = (CommonToken) cursor.next();
+            // Try to seek input stream back to the starting position of the first look-ahead token.
+            // Can be done only if the token's starting offset in the stream is known. For now we rely
+            // on CommonToken to provide this information and just skip the seek if the token type
+            // is not CommonToken.
+            try {
+                CommonToken token = (CommonToken) cursor.next();
+                if (i == 0) {
                     if (inputStream != null) {
                         inputStream.seek(token.getStartIndex());
                     }
-                } catch (ClassCastException ignored) {
                 }
-            }
-            else {
-                cursor.next();
+                ((LazyInputStream) inputStream).unbuffer(token.getStartIndex());
+            } catch (ClassCastException ignored) {
             }
             cursor.remove();
             i++;
@@ -506,7 +519,13 @@ public class LazyTokenStream implements TokenStream {
 
         int n = 0;
         while (cursor.hasPrevious()) {
-            cursor.previous();
+            try {
+                CommonToken prevToken = (CommonToken) cursor.previous();
+                if (inputStream != null) {
+                    ((LazyInputStream) inputStream).unbuffer(prevToken.getStartIndex());
+                }
+            } catch (ClassCastException ignored) {
+            }
             cursor.remove();
             n++;
         }
@@ -514,9 +533,6 @@ public class LazyTokenStream implements TokenStream {
         cursor.close();
 
         discarded += n;
-
-        // TODO: has look-back cache to be reset?
-        //lbCacheIdx = 0;
     }
 
     public void setTokenTypeChannel(int ttype, int channel) {

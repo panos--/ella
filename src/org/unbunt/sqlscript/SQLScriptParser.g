@@ -591,7 +591,7 @@ addExpression
 	;
 
 multExpression
-	:	(unaryExpression					-> unaryExpression)
+	:	(unaryExpression			-> unaryExpression)
 		( ((op=OP_MUL|op=OP_DIV|op=OP_MOD) unaryExpression	-> ^(CALL_BINARY {$multExpression.tree} IDENTIFIER[$op] unaryExpression))+
 		|
 		)
@@ -797,7 +797,7 @@ sqlWS	:	WS
 
 sqlHiddenWS
 @init {
-	String collectedWhitespace = ""; //((LazyTokenStream) input).collectOffChannelTokenText(SQLScriptLexer.HIDDEN);
+	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(SQLScriptLexer.HIDDEN);
 	boolean hasWhitespace = collectedWhitespace.length() != 0;
 }
 	:	
