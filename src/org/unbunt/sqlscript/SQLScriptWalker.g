@@ -1,4 +1,4 @@
-	tree grammar SQLScriptWalker;
+tree grammar SQLScriptWalker;
 
 options {
 	tokenVocab = SQLScript;

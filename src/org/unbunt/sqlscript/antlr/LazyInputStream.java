@@ -90,7 +90,7 @@ public class LazyInputStream implements CharStream {
             return CharStream.EOF;
         }
 
-        return buf.charAt(j);
+        return buf.peek(j);
     }
 
     /**
@@ -124,6 +124,7 @@ public class LazyInputStream implements CharStream {
             logger.trace("mark: depth now: " + markDepth);
         }
 
+        buf.buffer();
         lastMarker = markDepth;
         return markDepth;
     }
@@ -172,6 +173,59 @@ public class LazyInputStream implements CharStream {
         rewindOnly(lastMarker);
     }
 
+    protected List<Integer> bufferOffsets = new ArrayList<Integer>();
+    protected int bufferOffset = -1;
+
+    public int buffer() {
+        if (trace) {
+            logger.trace("Start buffering");
+        }
+        int offs = index();
+        if (bufferOffsets.isEmpty()) {
+            buf.buffer();
+        }
+        bufferOffsets.add(offs);
+        bufferOffset = offs;
+        return offs;
+    }
+
+    public void unbuffer(int buffer) {
+        if (bufferOffsets.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < bufferOffsets.size(); i++) {
+            int offs = bufferOffsets.get(i);
+            if (offs == buffer) {
+                bufferOffsets.remove(i);
+                if (i == 0) {
+                    if (markDepth == 0 || offs < markers.get(1).pos) {
+                        if (trace) {
+                            logger.trace("Unbuffer: Deleting to pos " + offs);
+                        }
+                        buf.delete(offs);
+                    }
+                    else {
+                        if (trace) {
+                            logger.trace("Unbuffer: Not deleting - some marker present");
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        if (bufferOffsets.isEmpty()) {
+            if (trace) {
+                logger.trace("Stop buffering");
+            }
+            bufferOffset = -1;
+            if (markDepth == 0) {
+                buf.unbuffer();
+            }
+        }
+    }
+
     /**
      * You may want to commit to a backtrack but don't want to force the
      * stream to keep bookkeeping objects around for a marker that is
@@ -189,8 +243,13 @@ public class LazyInputStream implements CharStream {
         markDepth = marker - 1;
         if (markDepth == 0) {
             logger.trace("RELEASING ALL LOOK-AHEAD NOW");
-            // XXX: state.pos or state.pos+1?
-            buf.delete(state.pos);
+//            if (bufferOffset == -1) {
+//                buf.unbuffer();
+//            }
+            if (bufferOffset == -1 || state.pos < bufferOffset) {
+                buf.delete(state.pos);
+                buf.unbuffer();
+            }
         }
         if (trace) {
             logger.trace("release: marker=" + marker + " markDepth now: " + markDepth);
@@ -240,7 +299,8 @@ public class LazyInputStream implements CharStream {
             return;
         }
 
-        char c = buf.charAt(pos);
+//        char c = buf.charAt(pos);
+        char c = buf.poll(pos);
 
         if (c == '\n') {
             charNoInLine = 0;
