@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptStringParser.g 2009-08-05 00:08:59
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptStringParser.g 2009-08-05 00:12:51
 
 	package org.unbunt.sqlscript;
 	

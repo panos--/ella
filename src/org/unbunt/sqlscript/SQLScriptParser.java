@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptParser.g 2009-08-05 00:09:14
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/SQLScriptParser.g 2009-08-05 00:12:57
 
 	package org.unbunt.sqlscript;
 
@@ -2110,7 +2110,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: sqlExpression, identifier, identifier
+                            // elements: identifier, sqlExpression, identifier
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2191,7 +2191,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: scriptAssignRest, identifier, identifier, expressionNoSQL
+                            // elements: identifier, identifier, expressionNoSQL, scriptAssignRest
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2349,7 +2349,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, expressionNoSQL, scriptAssignRest
+                            // elements: identifier, scriptAssignRest, expressionNoSQL
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2664,7 +2664,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier, identifier
+                    // elements: identifier, expressionNoSQL, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2866,7 +2866,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, argumentsDef, identifier
+            // elements: identifier, block, argumentsDef
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3333,7 +3333,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: blockArgumentsDef, statement
+            // elements: statement, blockArgumentsDef
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3674,7 +3674,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: block, parenExpression, scriptIfElse
+                            // elements: scriptIfElse, parenExpression, block
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -3833,7 +3833,7 @@ public class SQLScriptParser extends Parser {
                     {
 
                     // AST REWRITE
-                    // elements: block, parenExpression
+                    // elements: parenExpression, block
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4011,7 +4011,7 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: scriptCatch, block, scriptFinally
+                            // elements: scriptCatch, scriptFinally, block
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -4145,7 +4145,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: block, scriptFinally
+                    // elements: scriptFinally, block
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4675,7 +4675,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: scriptFor, identifierList, expression, block
+            // elements: scriptFor, expression, block, identifierList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4802,7 +4802,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, parenExpression
+            // elements: parenExpression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5511,7 +5511,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, javaIdentifier
+                    // elements: javaIdentifier, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6182,7 +6182,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, expressionNoSQL, identifier
+                    // elements: expressionNoSQL, identifier, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6657,7 +6657,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: orCondition, conditionalResult, conditionalResult
+                    // elements: conditionalResult, orCondition, conditionalResult
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6945,7 +6945,7 @@ public class SQLScriptParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: orCondition, andCondition
+            	    // elements: andCondition, orCondition
             	    // token labels: 
             	    // rule labels: retval
             	    // token list labels: 
@@ -7120,7 +7120,7 @@ public class SQLScriptParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: andCondition, eqCondition
+            	    // elements: eqCondition, andCondition
             	    // token labels: 
             	    // rule labels: retval
             	    // token list labels: 
@@ -7596,7 +7596,7 @@ public class SQLScriptParser extends Parser {
 
 
                     	    // AST REWRITE
-                    	    // elements: addExpression, identifierNoOps
+                    	    // elements: identifierNoOps, addExpression
                     	    // token labels: 
                     	    // rule labels: retval
                     	    // token list labels: 
@@ -10295,7 +10295,7 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: sqlPart, sqlHiddenWS
+            // elements: sqlHiddenWS, sqlPart
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -10564,7 +10564,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: COLON, sqlWS, COLON
+                    // elements: COLON, COLON, sqlWS
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10633,7 +10633,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlWS, sqlToken
+                    // elements: sqlToken, sqlWS
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10767,7 +10767,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws2, sqlPart, ws1, LPAREN, RPAREN
+                    // elements: RPAREN, ws1, sqlPart, LPAREN, ws2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10915,7 +10915,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws2, ws1, LCURLY, RCURLY, sqlPart
+                    // elements: LCURLY, RCURLY, sqlPart, ws1, ws2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11063,7 +11063,7 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: RSQUARE, LSQUARE, ws2, sqlPart, ws1
+                    // elements: LSQUARE, ws2, sqlPart, ws1, RSQUARE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
