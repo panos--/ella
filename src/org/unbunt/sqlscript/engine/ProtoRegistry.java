@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.engine;
 
 public class ProtoRegistry {
     public static int id = 0;

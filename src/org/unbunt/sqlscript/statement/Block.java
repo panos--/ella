@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.Scope;
+import org.unbunt.sqlscript.compiler.Scope;
 
 import java.util.ArrayList;
 import java.util.List;

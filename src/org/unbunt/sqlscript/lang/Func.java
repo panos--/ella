@@ -1,11 +1,9 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.support.Function;
-import org.unbunt.sqlscript.support.ProtoRegistry;
-import org.unbunt.sqlscript.engine.Context;
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
-import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.engine.ProtoRegistry;
+import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.compiler.Function;
 
 public class Func extends AbstractObj implements Call {
     protected Function function;

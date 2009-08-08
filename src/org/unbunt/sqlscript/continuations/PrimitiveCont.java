@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.continuations;
 
 import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 import org.unbunt.sqlscript.engine.Obj;
-import org.unbunt.sqlscript.lang.PrimitiveCall;
+import org.unbunt.sqlscript.engine.PrimitiveCall;
 
 public class PrimitiveCont implements Continuation {
     protected PrimitiveCall primitive;

@@ -5,10 +5,10 @@ import org.unbunt.sqlscript.lang.sql.Conn;
 import org.unbunt.sqlscript.lang.sql.ConnMgr;
 import org.unbunt.sqlscript.lang.sql.ResSet;
 import org.unbunt.sqlscript.lang.sql.Stmt;
-import org.unbunt.sqlscript.support.*;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
+import org.unbunt.sqlscript.compiler.Variable;
 
 import java.sql.ResultSet;
 import java.util.Arrays;

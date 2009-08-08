@@ -1,5 +1,7 @@
 package org.unbunt.sqlscript.support;
 
+import org.unbunt.sqlscript.engine.SQLResultListener;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
@@ -33,7 +35,7 @@ public class SimpleSQLResultListener implements SQLResultListener {
 
     /**
      * TODO: Break up into multiple methods. Especially factor out result type handling.
-     * 
+     *
      * @param rs
      * @throws SQLException
      * @throws IOException

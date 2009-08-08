@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.statement.ExpressionVisitor;
-import org.unbunt.sqlscript.support.Function;
-import org.unbunt.sqlscript.support.Variable;
+import org.unbunt.sqlscript.compiler.Function;
+import org.unbunt.sqlscript.compiler.Variable;
 
 public class FunctionDefinitionExpression implements Expression, StatementContainer {
     protected Function function;

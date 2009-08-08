@@ -1,12 +1,9 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
-import org.unbunt.sqlscript.engine.Context;
-import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.support.NativeWrapper;
-import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.engine.NativeWrapper;
 import org.unbunt.sqlscript.utils.ReflectionUtils;
 
 import java.lang.reflect.*;

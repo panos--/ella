@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.statement.ExpressionVisitor;
-import org.unbunt.sqlscript.support.StringLiteral;
+import org.unbunt.sqlscript.compiler.StringLiteral;
 
 public class StringLiteralExpression implements Expression {
     protected StringLiteral stringLiteral;

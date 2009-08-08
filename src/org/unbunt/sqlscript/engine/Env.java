@@ -2,8 +2,8 @@ package org.unbunt.sqlscript.engine;
 
 import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.continuations.Continuation;
-import org.unbunt.sqlscript.support.Variable;
-import org.unbunt.sqlscript.support.Scope;
+import org.unbunt.sqlscript.compiler.Variable;
+import org.unbunt.sqlscript.compiler.Scope;
 
 public interface Env {
     void setContext(Obj context);

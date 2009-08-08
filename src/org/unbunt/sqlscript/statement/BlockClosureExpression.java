@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.statement;
 
-import org.unbunt.sqlscript.support.BlockClosure;
+import org.unbunt.sqlscript.compiler.BlockClosure;
 import org.unbunt.sqlscript.statement.ExpressionVisitor;
 
 public class BlockClosureExpression implements Expression, StatementContainer {

@@ -13,7 +13,7 @@ import org.unbunt.sqlscript.compiler.*;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
 import org.unbunt.sqlscript.lang.sql.RawSQL;
-import org.unbunt.sqlscript.support.RawParamedSQL;
+import org.unbunt.sqlscript.compiler.RawParamedSQL;
 import org.unbunt.sqlscript.compiler.SQLParseMode;
 import org.unbunt.sqlscript.compiler.SQLStringType;
 

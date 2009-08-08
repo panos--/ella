@@ -1,7 +1,5 @@
-package org.unbunt.sqlscript.lang;
+package org.unbunt.sqlscript.engine;
 
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
-import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 public class PrimitiveCall extends AbstractObj implements Call {
@@ -13,7 +11,7 @@ public class PrimitiveCall extends AbstractObj implements Call {
         LOOP_CONTINUE,
         EXIT;
 
-        protected final PrimitiveCall primitive;
+        public final PrimitiveCall primitive;
 
         Type() {
             primitive = new PrimitiveCall(this);

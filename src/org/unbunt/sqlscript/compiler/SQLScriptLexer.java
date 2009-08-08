@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptLexer.g 2009-08-08 17:21:27
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptLexer.g 2009-08-08 17:55:14
 
 	package org.unbunt.sqlscript.compiler;
 

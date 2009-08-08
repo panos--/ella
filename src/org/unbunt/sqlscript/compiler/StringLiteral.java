@@ -1,6 +1,5 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.compiler;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class StringLiteral {

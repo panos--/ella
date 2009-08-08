@@ -56,7 +56,7 @@ tokens {
 	import java.util.ArrayDeque;
 
 	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-	import org.unbunt.sqlscript.compiler.antlr.SQLModeToken;
+	import org.unbunt.sqlscript.compiler.SQLModeToken;
 	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
 	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 	

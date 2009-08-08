@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.support.ObjectLiteral;
+import org.unbunt.sqlscript.compiler.ObjectLiteral;
 import org.unbunt.sqlscript.continuations.ContinuationVisitor;
 import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.lang.PlainObj;

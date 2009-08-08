@@ -1,7 +1,5 @@
-package org.unbunt.sqlscript.lang;
+package org.unbunt.sqlscript.engine;
 
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
-import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 
 public abstract class NativeCall extends AbstractObj implements Call {

@@ -1,7 +1,8 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.compiler;
 
 import org.unbunt.sqlscript.statement.Statement;
 import org.unbunt.sqlscript.engine.Env;
+import org.unbunt.sqlscript.compiler.Variable;
 
 import java.util.List;
 

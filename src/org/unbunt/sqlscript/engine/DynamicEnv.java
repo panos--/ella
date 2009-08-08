@@ -1,8 +1,11 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.engine;
 
 import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.engine.Env;
+import org.unbunt.sqlscript.engine.DynamicVariableResolver;
 import org.unbunt.sqlscript.continuations.Continuation;
+import org.unbunt.sqlscript.compiler.Variable;
+import org.unbunt.sqlscript.compiler.Scope;
 
 import java.util.Map;
 import java.util.HashMap;

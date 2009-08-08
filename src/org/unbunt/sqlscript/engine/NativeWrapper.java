@@ -1,7 +1,5 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.engine;
 
-import org.unbunt.sqlscript.engine.Context;
-import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.lang.*;
 
 import java.math.BigDecimal;

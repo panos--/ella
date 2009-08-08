@@ -1,13 +1,11 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.compiler.ParserHelper;
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
-import org.unbunt.sqlscript.engine.Obj;
-import org.unbunt.sqlscript.engine.Env;
-import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.compiler.Scope;
+import org.unbunt.sqlscript.compiler.Variable;
+import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.statement.Block;
-import org.unbunt.sqlscript.support.*;
 import static org.unbunt.sqlscript.utils.StringUtils.join;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
 

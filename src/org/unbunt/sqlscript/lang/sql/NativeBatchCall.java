@@ -2,9 +2,9 @@ package org.unbunt.sqlscript.lang.sql;
 
 import org.unbunt.sqlscript.engine.SQLScriptEngine;
 import org.unbunt.sqlscript.engine.Obj;
+import org.unbunt.sqlscript.engine.NativeCall;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.lang.NNumeric;
-import org.unbunt.sqlscript.lang.NativeCall;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 abstract class NativeBatchCall extends NativeCall {

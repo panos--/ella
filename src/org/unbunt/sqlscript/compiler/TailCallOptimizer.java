@@ -1,6 +1,7 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.compiler;
 
 import org.unbunt.sqlscript.statement.*;
+import org.unbunt.sqlscript.compiler.ObjectLiteral;
 
 import java.util.List;
 

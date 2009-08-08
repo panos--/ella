@@ -1,13 +1,10 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
-import org.unbunt.sqlscript.engine.Obj;
-import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.compiler.BlockClosure;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
-import org.unbunt.sqlscript.support.BlockClosure;
-import org.unbunt.sqlscript.support.ProtoRegistry;
+import org.unbunt.sqlscript.engine.*;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
 
 public class Clos extends AbstractObj implements Call {
