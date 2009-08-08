@@ -5,7 +5,10 @@
 	import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+    import org.unbunt.sqlscript.compiler.support.SQLStringType;
+    import org.unbunt.sqlscript.compiler.support.SQLParseMode;
+    import org.unbunt.sqlscript.compiler.support.SQLModeToken;
+    import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

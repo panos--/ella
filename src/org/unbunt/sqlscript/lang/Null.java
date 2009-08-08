@@ -2,7 +2,8 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.engine.*;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.*;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 
 public class Null extends AbstractObj implements NativeObj {
     public static int OBJECT_ID = ProtoRegistry.generateObjectID();

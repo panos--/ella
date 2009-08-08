@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.exception;
 
-import org.unbunt.sqlscript.utils.ExceptionUtils;
+import org.unbunt.sqlscript.exception.ExceptionUtils;
 
 /**
  * User: tweiss

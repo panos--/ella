@@ -1,14 +1,17 @@
 package org.unbunt.sqlscript.engine;
 
 import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.lang.sql.Conn;
-import org.unbunt.sqlscript.lang.sql.ConnMgr;
-import org.unbunt.sqlscript.lang.sql.ResSet;
-import org.unbunt.sqlscript.lang.sql.Stmt;
-import org.unbunt.sqlscript.utils.ObjUtils;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.lang.sql.*;
+import org.unbunt.sqlscript.engine.natives.ObjUtils;
+import org.unbunt.sqlscript.engine.natives.ConnMgr;
+import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.engine.environment.Env;
+import org.unbunt.sqlscript.engine.environment.MainEnv;
+import org.unbunt.sqlscript.engine.environment.DynamicVariableResolver;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
-import org.unbunt.sqlscript.compiler.Variable;
+import org.unbunt.sqlscript.compiler.support.Variable;
 
 import java.sql.ResultSet;
 import java.util.Arrays;
@@ -22,7 +25,7 @@ public class DefaultContext implements SQLResultProvider, Context {
     protected Env env;
 
     protected Sys objSys;
-    protected ConnMgr objConnMgr;
+    protected ConnMgrImpl objConnMgr;
     protected Null objNull;
     protected Bool objTrue;
     protected Bool objFalse;
@@ -61,8 +64,6 @@ public class DefaultContext implements SQLResultProvider, Context {
         // during initialization of other objects
         objNull = ensureType(Null.class, ensureObject(Null.OBJECT_ID));
 
-        // NOTE: Here introduct a circular dependency between Context and the Objects
-        // TODO: Break up by using interface instead of concrete class
         Base.registerInContext(this);
         PlainObj.registerInContext(this);
         Args.registerInContext(this);
@@ -81,13 +82,13 @@ public class DefaultContext implements SQLResultProvider, Context {
         JArray.registerInContext(this);
         JClass.registerInContext(this);
         JObject.registerInContext(this);
-        ConnMgr.registerInContext(this);
+        ConnMgrImpl.registerInContext(this);
         Conn.registerInContext(this);
         Stmt.regiserInContext(this);
         ResSet.registerInContext(this);
 
         objSys = ensureType(Sys.class, ensureObject(Sys.OBJECT_ID));
-        objConnMgr = ensureType(ConnMgr.class, ensureObject(ConnMgr.OBJECT_ID));
+        objConnMgr = ensureType(ConnMgrImpl.class, ensureObject(ConnMgrImpl.OBJECT_ID));
 
         objTrue = new Bool(true);
         objFalse = new Bool(false);
@@ -124,7 +125,7 @@ public class DefaultContext implements SQLResultProvider, Context {
         mainEnv.add("Func", ensureObject(Func.FuncProto.OBJECT_ID));
         mainEnv.add("JArray", ensureObject(JArray.JArrayProto.OBJECT_ID));
         mainEnv.add("JClass", ensureObject(JClass.JClassProto.OBJECT_ID));
-        mainEnv.add("ConnMgr", ensureObject(ConnMgr.OBJECT_ID));
+        mainEnv.add("ConnMgr", ensureObject(ConnMgrImpl.OBJECT_ID));
         mainEnv.add("Conn", ensureObject(Conn.ConnProto.OBJECT_ID));
         mainEnv.add("Stmt", ensureObject(Stmt.StmtProto.OBJECT_ID));
 

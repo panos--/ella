@@ -1,10 +1,12 @@
 package org.unbunt.sqlscript.engine;
 
-import org.unbunt.sqlscript.utils.res.SimpleResource;
-import org.unbunt.sqlscript.lang.Sys;
-import org.unbunt.sqlscript.lang.Null;
 import org.unbunt.sqlscript.lang.Bool;
-import org.unbunt.sqlscript.lang.sql.ConnMgr;
+import org.unbunt.sqlscript.lang.Null;
+import org.unbunt.sqlscript.lang.Sys;
+import org.unbunt.sqlscript.engine.natives.ConnMgr;
+import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.environment.Env;
+import org.unbunt.sqlscript.utils.res.SimpleResource;
 
 public interface Context {
     void registerProto(int objectID, int protoID);

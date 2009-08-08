@@ -7,7 +7,7 @@ import org.unbunt.sqlscript.SQLScript;
 import static org.unbunt.sqlscript.SQLScript.eval;
 import static org.unbunt.sqlscript.SQLScript.evalIncremental;
 import org.unbunt.sqlscript.exception.*;
-import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
+import static org.unbunt.sqlscript.testng.TestUtils.ensureType;
 
 import java.util.ArrayList;
 import java.util.Date;

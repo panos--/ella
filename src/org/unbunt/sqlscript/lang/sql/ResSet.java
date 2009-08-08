@@ -6,7 +6,8 @@ import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.engine.*;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.*;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

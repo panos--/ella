@@ -4,9 +4,10 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.engine.*;
-import static org.unbunt.sqlscript.utils.Consts.SLOT_CLONE_INIT;
-import static org.unbunt.sqlscript.utils.Consts.SLOT_PARENT;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.*;
+import static org.unbunt.sqlscript.engine.natives.Consts.SLOT_CLONE_INIT;
+import static org.unbunt.sqlscript.engine.natives.Consts.SLOT_PARENT;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 
 import java.util.Map;
 

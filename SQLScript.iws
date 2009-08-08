@@ -5,7 +5,7 @@
     <option name="ANALYSIS_IN_BACKGROUND" value="true" />
   </component>
   <component name="BookmarkManager">
-    <editor_bookmark url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/ParserHelper.java" line="162" number="9" description="tokens.reset" />
+    <editor_bookmark url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/ParserHelper.java" line="164" number="9" description="tokens.reset" />
   </component>
   <component name="CCaseConfig">
     <option name="checkoutReserved" value="false" />
@@ -33,7 +33,7 @@
     <splitter proportion="0.5" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="/home/panos/.IntelliJIdea70/system/coverage/SQLScript$Unit tests (TestNG)$org.unbunt.sqlscript.testng.es" NAME="org.unbunt.sqlscript.testng Coverage Results" MODIFIED="1249747015680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider">
+    <SUITE FILE_PATH="/home/panos/.IntelliJIdea70/system/coverage/SQLScript$Unit tests (TestNG)$org.unbunt.sqlscript.testng.es" NAME="org.unbunt.sqlscript.testng Coverage Results" MODIFIED="1249761008256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider">
       <FILTER>org.unbunt.sqlscript.*</FILTER>
       <FILTER>org.unbunt.sqlscript.lang.*</FILTER>
       <FILTER>org.unbunt.sqlscript.SQLScriptEngine</FILTER>
@@ -48,7 +48,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/Scope.java" line="54" class="org.unbunt.sqlscript.support.Scope" package="org.unbunt.sqlscript.support">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/Scope.java" line="54" class="org.unbunt.sqlscript.compiler.Scope" package="org.unbunt.sqlscript.compiler">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -61,7 +61,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JClass.java" line="92" class="org.unbunt.sqlscript.lang.JClass" package="org.unbunt.sqlscript.lang">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/JClass.java" line="93" class="org.unbunt.sqlscript.lang.JClass" package="org.unbunt.sqlscript.lang">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -74,7 +74,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/StaticEnv.java" line="49" class="org.unbunt.sqlscript.support.StaticEnv" package="org.unbunt.sqlscript.support">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/environment/StaticEnv.java" line="49" class="org.unbunt.sqlscript.engine.StaticEnv" package="org.unbunt.sqlscript.engine">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -87,7 +87,7 @@
         <option name="CONDITION" value="addr &gt;= vars.size()" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="348" class="org.unbunt.sqlscript.SQLScriptEngine" package="org.unbunt.sqlscript">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="352" class="org.unbunt.sqlscript.engine.SQLScriptEngine" package="org.unbunt.sqlscript.engine">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -100,7 +100,7 @@
         <option name="CONDITION" value="STEP" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="99" class="org.unbunt.sqlscript.SQLScriptEngine" package="org.unbunt.sqlscript">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="103" class="org.unbunt.sqlscript.engine.SQLScriptEngine" package="org.unbunt.sqlscript.engine">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -113,7 +113,7 @@
         <option name="CONDITION" value="STEP" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="356" class="org.unbunt.sqlscript.SQLScriptEngine" package="org.unbunt.sqlscript">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="360" class="org.unbunt.sqlscript.engine.SQLScriptEngine" package="org.unbunt.sqlscript.engine">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -126,7 +126,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/TopEnv.java" line="47" class="org.unbunt.sqlscript.support.TopEnv" package="org.unbunt.sqlscript.support">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/environment/TopEnv.java" line="47" class="org.unbunt.sqlscript.engine.TopEnv" package="org.unbunt.sqlscript.engine">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -139,7 +139,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/ObjUtils.java" line="24" class="org.unbunt.sqlscript.utils.ObjUtils" package="org.unbunt.sqlscript.utils">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/natives/ObjUtils.java" line="23" class="org.unbunt.sqlscript.utils.ObjUtils" package="org.unbunt.sqlscript.utils">
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -152,7 +152,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/TailCallOptimizer.java" line="103" class="org.unbunt.sqlscript.support.TailCallOptimizer.SearchingVisitor" package="org.unbunt.sqlscript.support">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/TailCallOptimizer.java" line="105" class="org.unbunt.sqlscript.compiler.TailCallOptimizer.SearchingVisitor" package="org.unbunt.sqlscript.compiler">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -178,7 +178,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ConnMgr.java" line="57" class="Class at ConnMgr.java:60" package="org.unbunt.sqlscript.lang.sql">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ConnMgrImpl.java" line="56" class="Class at ConnMgr.java:57" package="org.unbunt.sqlscript.lang.sql">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -191,7 +191,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/Scope.java" line="26" class="org.unbunt.sqlscript.support.Scope" package="org.unbunt.sqlscript.support">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/Scope.java" line="26" class="org.unbunt.sqlscript.compiler.Scope" package="org.unbunt.sqlscript.compiler">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -204,7 +204,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java" line="274" class="org.unbunt.sqlscript.SQLScript" package="org.unbunt.sqlscript">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java" line="275" class="org.unbunt.sqlscript.SQLScript" package="org.unbunt.sqlscript">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -217,7 +217,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Base.java" line="70" class="Class at Base.java:73" package="org.unbunt.sqlscript.lang">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Base.java" line="71" class="Class at Base.java:70" package="org.unbunt.sqlscript.lang">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -230,7 +230,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NBigNum.java" line="265" class="Class at NBigNum.java:268" package="org.unbunt.sqlscript.lang">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NBigNum.java" line="266" class="Class at NBigNum.java:265" package="org.unbunt.sqlscript.lang">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -243,7 +243,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java" line="532" class="Class at Stmt.java:535" package="org.unbunt.sqlscript.lang.sql">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java" line="537" class="Class at Stmt.java:532" package="org.unbunt.sqlscript.lang.sql">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -256,7 +256,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="853" class="org.unbunt.sqlscript.SQLScriptEngine" package="org.unbunt.sqlscript">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java" line="857" class="org.unbunt.sqlscript.engine.SQLScriptEngine" package="org.unbunt.sqlscript.engine">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -269,7 +269,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java" line="114" class="org.unbunt.sqlscript.lang.sql.Stmt" package="org.unbunt.sqlscript.lang.sql">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java" line="119" class="org.unbunt.sqlscript.lang.sql.Stmt" package="org.unbunt.sqlscript.lang.sql">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -347,8 +347,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -361,189 +361,93 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Function.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/Function.java">
+      <file leaf-file-name="ParserHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/ParserHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="174" selection-end="174" vertical-scroll-proportion="0.19301471">
-              <folding>
-                <element signature="method#setName#0;class#Function#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQLModeToken.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLModeToken.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.11029412">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NativeObj.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/NativeObj.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="17" selection-start="96" selection-end="96" vertical-scroll-proportion="0.11029412">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractObj.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/AbstractObj.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="22" selection-start="194" selection-end="194" vertical-scroll-proportion="0.11029412">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NativeCall.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/NativeCall.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="14" selection-start="591" selection-end="591" vertical-scroll-proportion="0.33088234">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Base.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="47" selection-start="1428" selection-end="1428" vertical-scroll-proportion="0.32536766">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrimitiveCall.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/PrimitiveCall.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="14" selection-start="310" selection-end="310" vertical-scroll-proportion="0.3584559">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQLScriptParser.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="87" selection-start="2580" selection-end="2580" vertical-scroll-proportion="0.79395086">
+            <state line="161" column="38" selection-start="7332" selection-end="7332" vertical-scroll-proportion="1.0496323">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#setTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTokenNames#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="docComment;method#parseParamedSQLLiteral#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="docComment;field#sqlSlashLineSep#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#isEOF#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#script_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptIncremental_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#topStatement_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#statement_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#topStatementSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#statementSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#statementNoSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#block_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlBlock_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#anyScriptStmtSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#topScriptStmtSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptStmtSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptStmtNoSep_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptAssignStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptAssign_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptAssignRest_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptAssignNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFuncDefStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFuncDef_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#argumentsDef_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#identifierList_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#blockClosure_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#blockArgumentsDef_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptExpressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptIfElse_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptTry_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptCatch_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFinally_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptThrow_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptFor_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptWhile_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptBreak_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptContinue_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptReturn_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptExit_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptImport_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#scriptInclude_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#javaIdentifier_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#parenExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#expressionStmtNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#expressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#expressionNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#expression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#assignExpressionNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#assignExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#conditionalExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#conditionalResult_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#orCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#andCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#eqCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#binaryExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#addExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#multExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#unaryExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#callExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#callExpressionSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#slotSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#indexSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#callSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#superSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#simpleExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStatementPrefixed_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStatement_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlLiteralPrefixed_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlLiteralParamed_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStmtNamePrefixed_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStmtName_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStmtRest_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlPart_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlWS_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlHiddenWS_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlToken_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlAtom_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#objectLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#objectSlot_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#arrayLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#argumentsList_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#identifier_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#identifierNoUnary_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#identifierNoOps_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#embeddedVar_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#keyword_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#stringLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#sqlStringLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#booleanLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-                <element signature="method#getTree#0;class#parseDirective_return#0;class#SQLScriptParser#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQLScriptClientException.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/SQLScriptClientException.java">
+      <file leaf-file-name="RawSQLObj.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/RawSQLObj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="445" selection-end="445" vertical-scroll-proportion="0.38602942">
+            <state line="9" column="16" selection-start="284" selection-end="284" vertical-scroll-proportion="0.11029412">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Args.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Args.java">
+      <file leaf-file-name="ParserTestsNG.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/ParserTestsNG.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="13" selection-start="281" selection-end="281" vertical-scroll-proportion="0.11029412">
+            <state line="167" column="71" selection-start="7883" selection-end="7883" vertical-scroll-proportion="1.221172">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sys.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Sys.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="12" selection-start="1837" selection-end="1837" vertical-scroll-proportion="0.3290441">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IntegerLiteralExpression.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/statement/IntegerLiteralExpression.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="18" selection-start="480" selection-end="480" vertical-scroll-proportion="0.3584559">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlockClosure.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/BlockClosure.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="23" selection-start="430" selection-end="430" vertical-scroll-proportion="0.41360295">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLScriptEngine.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="272" column="0" selection-start="9627" selection-end="9627" vertical-scroll-proportion="0.53119093">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Func.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Func.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="13" selection-start="313" selection-end="313" vertical-scroll-proportion="0.11029412">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RawSQL.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/RawSQL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="17" selection-start="65" selection-end="65" vertical-scroll-proportion="0.05514706">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RawParamedSQL.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/RawParamedSQL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="13" selection-start="161" selection-end="161" vertical-scroll-proportion="0.11029412">
               <folding />
             </state>
           </provider>
@@ -563,8 +467,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptParser.java" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptLexer.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptWalker.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptLexer.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -1175,6 +1079,44 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/utils" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/utils/res" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/testng" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -1349,7 +1291,159 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/engine" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/engine/continuations" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/support" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/stmtbase" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/statement" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -1436,8 +1530,8 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -1462,11 +1556,11 @@
       <recent name="com.marketoolz.sqlscript.continuations" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="org.unbunt.sqlscript.engine" />
+      <recent name="org.unbunt.sqlscript.compiler.support" />
+      <recent name="org.unbunt.sqlscript.compiler.stmtbase" />
       <recent name="org.unbunt.sqlscript.compiler" />
-      <recent name="org.unbunt.sqlscript.statement" />
-      <recent name="org.unbunt.sqlscript.continuations" />
-      <recent name="org.unbunt.sqlscript.lang" />
+      <recent name="org.unbunt.sqlscript.engine.natives" />
+      <recent name="org.unbunt.sqlscript.engine.environment" />
     </key>
   </component>
   <component name="RunManager" selected="TestNG.Unit tests (TestNG)">
@@ -1494,32 +1588,6 @@
         <option name="Make" value="false" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1549,18 +1617,6 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1583,12 +1639,50 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="false" name="SQLScript" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.sqlscript.SQLScript" />
@@ -1874,7 +1968,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1400" height="1000" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -1893,12 +1987,12 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960477" order="4" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935917" order="6" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27421758" order="0" x="513" y="87" width="373" height="875" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27347243" order="0" x="513" y="87" width="373" height="875" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24200913" order="14" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="5" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="15" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31428573" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31428573" order="2" />
       <window_info id="Message Pane" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="9" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="7" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
@@ -1975,343 +2069,234 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Sys.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/ConnMgrImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="0" selection-start="6056" selection-end="6056" vertical-scroll-proportion="0.31066176">
+        <state line="82" column="16" selection-start="3314" selection-end="3314" vertical-scroll-proportion="0.36431226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/DefaultContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="14" selection-start="661" selection-end="661" vertical-scroll-proportion="0.30669144">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/exception/ExceptionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="13" selection-start="163" selection-end="163" vertical-scroll-proportion="0.08364312">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/ReflectionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="588" selection-end="588" vertical-scroll-proportion="0.111524165">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="13" selection-start="50" selection-end="50" vertical-scroll-proportion="0.055762082">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/NumUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="190" selection-end="190" vertical-scroll-proportion="0.111524165">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/DBUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="395" selection-end="395" vertical-scroll-proportion="0.111524165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/natives/ObjUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="160" selection-end="160" vertical-scroll-proportion="0.111524165">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/utils/PathUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="13" selection-start="72" selection-end="72" vertical-scroll-proportion="0.111524165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/TestUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="13" selection-start="78" selection-end="78" vertical-scroll-proportion="0.111524165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/natives/Consts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="13" selection-start="98" selection-end="98" vertical-scroll-proportion="0.11257035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/environment/DynamicVariableResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="35" selection-start="189" selection-end="189" vertical-scroll-proportion="0.09068924">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/AbstractCallable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="195" selection-end="195" vertical-scroll-proportion="0.19480519">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/statement/ExpressionVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="17" selection-start="67" selection-end="67" vertical-scroll-proportion="0.055658627">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/continuations/ContinuationVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="70" selection-start="885" selection-end="885" vertical-scroll-proportion="0.7513915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/statement/ObjectLiteralExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="182" selection-end="182" vertical-scroll-proportion="0.13914657">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/stmtbase/Statement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="17" selection-start="133" selection-end="133" vertical-scroll-proportion="0.111317255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/stmtbase/Expression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="181" selection-end="181" vertical-scroll-proportion="0.08348794">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/stmtbase/StatementContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="17" selection-start="66" selection-end="66" vertical-scroll-proportion="0.055658627">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/Stmt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="339" column="5" selection-start="11801" selection-end="11801" vertical-scroll-proportion="-5.899811">
-          <folding>
-            <element signature="docComment;field#managedExternal#0;class#Stmt#0" expanded="true" />
-            <element signature="docComment;method#setParam#0;class#Stmt#0" expanded="true" />
-            <element signature="method#setRawParamedStmt#0;class#Stmt#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#Stmt#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#StmtProto#0;class#Stmt#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/InterpreterDBTestsNG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="50" selection-start="4943" selection-end="4943" vertical-scroll-proportion="0.8069853">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/UnexpectedEOFException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="141" selection-end="141" vertical-scroll-proportion="0.11029412">
+        <state line="334" column="36" selection-start="11597" selection-end="11597" vertical-scroll-proportion="0.33206108">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptStringLexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="24" selection-start="277" selection-end="277" vertical-scroll-proportion="0.17013232">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="52" selection-start="283" selection-end="283" vertical-scroll-proportion="0.14177693">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLParseMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="106" selection-end="106" vertical-scroll-proportion="0.11029412">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptLexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="4" selection-start="124" selection-end="124" vertical-scroll-proportion="0.056710776">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLStringSyntaxRules.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="13" selection-start="53" selection-end="53" vertical-scroll-proportion="0.05514706">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLStringType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="12" selection-start="101" selection-end="101" vertical-scroll-proportion="0.11029412">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="825" column="0" selection-start="28215" selection-end="28215" vertical-scroll-proportion="-0.056710776">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#isClosureReturnInProgress#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#isFinished#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="docComment;method#invokeOnReceiver#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="docComment;method#invokeSlotIfPresent#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getVal#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#setVal#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getEnv#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#setEnv#0;class#SQLScriptEngine#0" expanded="true" />
-            <element signature="method#getContext#0;class#SQLScriptEngine#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/Variable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.11406844">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/StringLiteral.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="77" selection-end="77" vertical-scroll-proportion="0.074165635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/ObjectLiteral.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="156" selection-end="156" vertical-scroll-proportion="0.074165635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/NativeWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="147" selection-end="147" vertical-scroll-proportion="0.07255139">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/SQLScript.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="615" column="45" selection-start="23017" selection-end="23017" vertical-scroll-proportion="0.21674877">
-          <folding>
-            <element signature="docComment;field#possiblyInteractive#0;class#Args#0;class#SQLScript#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/RawParamedSQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="153" selection-end="153" vertical-scroll-proportion="0.074165635">
+        <state line="401" column="26" selection-start="15371" selection-end="15371" vertical-scroll-proportion="0.21182266">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLResultListener.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/ParserHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="83" selection-end="83" vertical-scroll-proportion="0.074165635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/SimpleSQLResultListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="360" selection-end="360" vertical-scroll-proportion="0.074165635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/support/Drivers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="51" selection-end="51" vertical-scroll-proportion="0.037082817">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptWalker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1488" column="34" selection-start="55195" selection-end="55195" vertical-scroll-proportion="0.3251418">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="174" selection-end="174" vertical-scroll-proportion="0.19301471">
-          <folding>
-            <element signature="method#setName#0;class#Function#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLModeToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.11029412">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/NativeObj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="96" selection-end="96" vertical-scroll-proportion="0.11029412">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/SQLScriptClientException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="445" selection-end="445" vertical-scroll-proportion="0.38602942">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Args.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="281" selection-end="281" vertical-scroll-proportion="0.11029412">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/AbstractObj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="22" selection-start="194" selection-end="194" vertical-scroll-proportion="0.11029412">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/NativeCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="14" selection-start="591" selection-end="591" vertical-scroll-proportion="0.33088234">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Base.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="47" selection-start="1428" selection-end="1428" vertical-scroll-proportion="0.32536766">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/PrimitiveCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="14" selection-start="310" selection-end="310" vertical-scroll-proportion="0.3584559">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/SQLScriptParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="87" selection-start="2580" selection-end="2580" vertical-scroll-proportion="0.79395086">
+        <state line="161" column="38" selection-start="7332" selection-end="7332" vertical-scroll-proportion="1.0496323">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTreeAdaptor#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTokenNames#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="docComment;method#parseParamedSQLLiteral#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="docComment;field#sqlSlashLineSep#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#isEOF#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#script_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptIncremental_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#topStatement_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#statement_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#topStatementSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#statementSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#statementNoSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#block_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlBlock_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#anyScriptStmtSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#topScriptStmtSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptStmtSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptStmtNoSep_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptAssignStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptAssign_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptAssignRest_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptAssignNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFuncDefStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFuncDef_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#argumentsDef_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#identifierList_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#blockClosure_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#blockArgumentsDef_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptExpressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptIfElse_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptTry_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptCatch_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFinally_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptThrow_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptFor_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptWhile_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptBreak_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptContinue_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptReturn_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptExit_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptImport_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#scriptInclude_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#javaIdentifier_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#parenExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#expressionStmtNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#expressionStmt_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#expressionNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#expression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#assignExpressionNoSQL_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#assignExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#conditionalExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#conditionalResult_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#orCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#andCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#eqCondition_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#binaryExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#addExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#multExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#unaryExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#callExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#callExpressionSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#slotSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#indexSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#callSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#superSuffix_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#simpleExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStatementPrefixed_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStatement_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlExpression_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlLiteralPrefixed_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlLiteralParamed_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStmtNamePrefixed_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStmtName_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStmtRest_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlPart_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlWS_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlHiddenWS_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlToken_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlAtom_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#objectLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#objectSlot_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#arrayLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#argumentsList_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#identifier_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#identifierNoUnary_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#identifierNoOps_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#embeddedVar_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#keyword_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#stringLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#sqlStringLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#booleanLiteral_return#0;class#SQLScriptParser#0" expanded="true" />
-            <element signature="method#getTree#0;class#parseDirective_return#0;class#SQLScriptParser#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/RawParamedSQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="161" selection-end="161" vertical-scroll-proportion="0.11029412">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/RawSQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="17" selection-start="65" selection-end="65" vertical-scroll-proportion="0.05514706">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/sql/RawSQLObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="16" selection-start="284" selection-end="284" vertical-scroll-proportion="0.11029412">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/testng/ParserTestsNG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="71" selection-start="7883" selection-end="7883" vertical-scroll-proportion="1.221172">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Sys.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="12" selection-start="1837" selection-end="1837" vertical-scroll-proportion="0.3290441">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/statement/IntegerLiteralExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="18" selection-start="480" selection-end="480" vertical-scroll-proportion="0.3584559">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/compiler/support/BlockClosure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="23" selection-start="430" selection-end="430" vertical-scroll-proportion="0.41360295">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/lang/Func.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="313" selection-end="313" vertical-scroll-proportion="0.11029412">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/sqlscript/engine/SQLScriptEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="272" column="0" selection-start="9627" selection-end="9627" vertical-scroll-proportion="0.53119093">
+          <folding />
         </state>
       </provider>
     </entry>

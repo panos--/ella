@@ -3,7 +3,11 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.engine.*;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.natives.AbstractObj;
+import org.unbunt.sqlscript.engine.natives.NativeCall;
+import org.unbunt.sqlscript.engine.natives.ProtoRegistry;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 
 public class Args extends AbstractObj {
     public final Obj[] args;

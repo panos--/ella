@@ -1,8 +1,8 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.engine.Context;
-import org.unbunt.sqlscript.engine.ProtoRegistry;
-import org.unbunt.sqlscript.engine.AbstractObj;
+import org.unbunt.sqlscript.engine.natives.ProtoRegistry;
+import org.unbunt.sqlscript.engine.natives.AbstractObj;
 
 public class PlainObj extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();

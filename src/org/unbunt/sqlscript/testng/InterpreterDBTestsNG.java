@@ -5,7 +5,7 @@ import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
 import org.unbunt.sqlscript.exception.SQLScriptException;
-import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
+import static org.unbunt.sqlscript.testng.TestUtils.ensureType;
 
 import java.sql.Connection;
 import java.sql.SQLException;

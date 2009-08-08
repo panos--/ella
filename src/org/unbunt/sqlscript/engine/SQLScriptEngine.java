@@ -2,15 +2,19 @@ package org.unbunt.sqlscript.engine;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unbunt.sqlscript.compiler.*;
-import org.unbunt.sqlscript.continuations.*;
+import org.unbunt.sqlscript.compiler.support.*;
+import org.unbunt.sqlscript.engine.continuations.*;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.lang.sql.ConnMgr;
-import org.unbunt.sqlscript.lang.sql.RawSQL;
-import org.unbunt.sqlscript.statement.*;
-import org.unbunt.sqlscript.utils.Consts;
-import org.unbunt.sqlscript.utils.ObjUtils;
+import org.unbunt.sqlscript.lang.sql.RawSQLObj;
+import org.unbunt.sqlscript.compiler.statement.*;
+import org.unbunt.sqlscript.compiler.stmtbase.Expression;
+import org.unbunt.sqlscript.compiler.stmtbase.Statement;
+import org.unbunt.sqlscript.engine.natives.Consts;
+import org.unbunt.sqlscript.engine.natives.ObjUtils;
+import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.engine.environment.Env;
+import org.unbunt.sqlscript.engine.environment.StaticEnv;
 import org.unbunt.sqlscript.utils.StringUtils;
 
 import java.util.Arrays;
@@ -192,7 +196,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
             }
         }
 
-        val = new RawSQL(buf.toString(), parseMode);
+        val = new RawSQLObj(buf.toString(), parseMode);
         next = CONT;
     }
 

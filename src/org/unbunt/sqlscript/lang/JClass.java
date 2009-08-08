@@ -3,8 +3,9 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.engine.NativeWrapper;
-import org.unbunt.sqlscript.utils.ReflectionUtils;
+import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.lang.ReflectionUtils;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;

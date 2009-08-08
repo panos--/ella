@@ -4,8 +4,9 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.engine.*;
-import org.unbunt.sqlscript.engine.NativeWrapper;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.engine.natives.*;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 
 /**
  * User: tweiss

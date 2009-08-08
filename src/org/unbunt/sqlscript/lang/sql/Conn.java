@@ -3,7 +3,9 @@ package org.unbunt.sqlscript.lang.sql;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.engine.*;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.*;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.compiler.support.RawSQL;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -67,7 +69,7 @@ public class Conn extends AbstractObj {
         protected static final NativeCall nativeExecStmt = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
-                RawSQL rawStmt = ensureType(RawSQL.class, args[0]);
+                RawSQL rawStmt = ensureType(RawSQLObj.class, args[0]);
                 if (thiz.batchActive) {
                     try {
                         thiz.batchStmt.add(rawStmt.getStatement());
@@ -86,7 +88,7 @@ public class Conn extends AbstractObj {
         protected static final NativeCall nativeCreateStmt = new NativeCall() {
             public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
-                RawSQL query = ensureType(RawSQL.class, args[0]);
+                RawSQL query = ensureType(RawSQLObj.class, args[0]);
                 Stmt stmt = new Stmt(query, thiz.connection, thiz.keepResources);
                 if (thiz.keepResources) {
                     thiz.managedStatements.add(stmt);

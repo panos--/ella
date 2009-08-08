@@ -12,10 +12,10 @@ import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.compiler.*;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.unbunt.sqlscript.lang.sql.RawSQL;
-import org.unbunt.sqlscript.compiler.RawParamedSQL;
-import org.unbunt.sqlscript.compiler.SQLParseMode;
-import org.unbunt.sqlscript.compiler.SQLStringType;
+import org.unbunt.sqlscript.lang.sql.RawSQLObj;
+import org.unbunt.sqlscript.compiler.support.RawParamedSQL;
+import org.unbunt.sqlscript.compiler.support.SQLParseMode;
+import org.unbunt.sqlscript.compiler.support.SQLStringType;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -129,7 +129,7 @@ public class ParserTestsNG extends AbstractTest {
         expectedParams.put("param", Arrays.asList(1));
         expectedParams.put("qux", Arrays.asList(2, 3));
 
-        RawParamedSQL result = ParserHelper.parseParamedSQLLiteral(new RawSQL(sql, new SQLParseMode(SQLStringType.sql92)));
+        RawParamedSQL result = ParserHelper.parseParamedSQLLiteral(new RawSQLObj(sql, new SQLParseMode(SQLStringType.sql92)));
 
         assertEquals(result.getStatement(), expectedStatement);
         assertEquals(result.getParameters(), expectedParams);
@@ -145,7 +145,7 @@ public class ParserTestsNG extends AbstractTest {
         expectedParams.put("param", Arrays.asList(2));
         expectedParams.put("qux", Arrays.asList(3, 4));
 
-        RawParamedSQL result = ParserHelper.parseParamedSQLLiteral(new RawSQL(sql, new SQLParseMode(SQLStringType.mysql)));
+        RawParamedSQL result = ParserHelper.parseParamedSQLLiteral(new RawSQLObj(sql, new SQLParseMode(SQLStringType.mysql)));
 
         assertEquals(result.getStatement(), expectedStatement);
         assertEquals(result.getParameters(), expectedParams);
@@ -165,7 +165,7 @@ public class ParserTestsNG extends AbstractTest {
 
         String sql = fileContent("sql-literal-paramed-embedded-vars");
 
-        RawParamedSQL result = ParserHelper.parseParamedSQLLiteral(new RawSQL(sql, new SQLParseMode(SQLStringType.mysql)));
+        RawParamedSQL result = ParserHelper.parseParamedSQLLiteral(new RawSQLObj(sql, new SQLParseMode(SQLStringType.mysql)));
 
         assertEquals(result.getStatement(), sql);
     }

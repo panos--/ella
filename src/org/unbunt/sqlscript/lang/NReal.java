@@ -2,10 +2,11 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.engine.*;
-import org.unbunt.sqlscript.utils.NumUtils;
-import static org.unbunt.sqlscript.utils.NumUtils.toBigInteger;
-import static org.unbunt.sqlscript.utils.NumUtils.toBigDecimal;
-import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.lang.NumUtils;
+import static org.unbunt.sqlscript.lang.NumUtils.toBigInteger;
+import static org.unbunt.sqlscript.lang.NumUtils.toBigDecimal;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
