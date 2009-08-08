@@ -16,11 +16,11 @@ tokens {
 }
 
 @lexer::header {
-	package org.unbunt.sqlscript;
+	package org.unbunt.sqlscript.compiler;
 	
 	import java.util.LinkedList;
-	import org.unbunt.sqlscript.antlr.LazyLexer;
-	import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
+	import org.unbunt.sqlscript.compiler.antlr.LazyLexer;
+	import org.unbunt.sqlscript.compiler.RuntimeRecognitionException;
 }
 
 @lexer::members {

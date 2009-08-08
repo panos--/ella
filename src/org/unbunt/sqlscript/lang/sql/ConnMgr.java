@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.SQLScriptEngine;
 import org.unbunt.sqlscript.engine.Context;
 import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;

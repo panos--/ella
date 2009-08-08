@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.sqlscript.compiler;
 
 import org.unbunt.sqlscript.exception.GenericRuntimeException;
 

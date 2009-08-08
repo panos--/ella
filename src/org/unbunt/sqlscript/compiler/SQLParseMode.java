@@ -1,4 +1,6 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.compiler;
+
+import org.unbunt.sqlscript.compiler.SQLStringType;
 
 public class SQLParseMode {
     protected SQLStringType stringType;

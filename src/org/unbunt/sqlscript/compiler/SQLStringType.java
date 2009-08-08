@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.compiler;
 
 import java.util.HashMap;
 import java.util.Map;

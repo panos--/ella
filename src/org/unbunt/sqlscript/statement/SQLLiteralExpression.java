@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.statement;
 
 import org.unbunt.sqlscript.statement.ExpressionVisitor;
-import org.unbunt.sqlscript.support.SQLParseMode;
+import org.unbunt.sqlscript.compiler.SQLParseMode;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -12,10 +12,10 @@ options {
 }
 
 @parser::header {
-	package org.unbunt.sqlscript;
+	package org.unbunt.sqlscript.compiler;
 	
-	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
-	import org.unbunt.sqlscript.exception.UnterminatedStringException;
+	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
+	import org.unbunt.sqlscript.compiler.UnterminatedStringException;
 	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 }
 

@@ -6,11 +6,11 @@ options {
 }
 
 @lexer::header {
-	package org.unbunt.sqlscript;
+	package org.unbunt.sqlscript.compiler;
 
 	import org.antlr.runtime.tree.CommonTree;
-	import org.unbunt.sqlscript.antlr.LazyLexer;
-	import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
+	import org.unbunt.sqlscript.compiler.antlr.LazyLexer;
+	import org.unbunt.sqlscript.compiler.RuntimeRecognitionException;
 }
 
 // stop on first lexer error

@@ -1,11 +1,10 @@
-package org.unbunt.sqlscript;
+package org.unbunt.sqlscript.engine;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.unbunt.sqlscript.compiler.SQLParseMode;
+import org.unbunt.sqlscript.compiler.SQLStringType;
 import org.unbunt.sqlscript.continuations.*;
-import org.unbunt.sqlscript.engine.DefaultContext;
-import org.unbunt.sqlscript.engine.Env;
-import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.lang.sql.ConnMgr;
@@ -858,28 +857,14 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
         }
     }
 
-    public Obj toBool(Obj value) {
-        if (value == null) {
-            return getObjFalse();
-        }
-        if (value instanceof Bool) {
-            return value.equals(getObjTrue()) ? getObjTrue() : getObjFalse();
-        }
-        if (value instanceof Null) {
-            return getObjFalse();
-        }
-        return getObjTrue();
-//        return value != null && (!(value instanceof Bool) || value.equals(Bool.TRUE)) ? Bool.TRUE : Bool.FALSE;
-    }
-
     public boolean toBoolean(Obj value) {
         return context.getObjTrue().equals(value) || (!(value instanceof Bool) && !(value instanceof Null));
     }
 
-    protected void finish() throws SQLScriptRuntimeException {
+    public void finish() throws SQLScriptRuntimeException {
         logger.debug("Finishing");
 
-        // TODO: close connections in ConnMgr
+        // TODO: automatically close connections known to ConnMgr
     }
 
     public boolean isFinished() {

@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.antlr;
+package org.unbunt.sqlscript.compiler.antlr;
 
 import org.antlr.runtime.*;
 import org.apache.commons.collections.list.CursorableLinkedList;

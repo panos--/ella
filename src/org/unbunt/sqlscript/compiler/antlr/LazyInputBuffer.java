@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.antlr;
+package org.unbunt.sqlscript.compiler.antlr;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

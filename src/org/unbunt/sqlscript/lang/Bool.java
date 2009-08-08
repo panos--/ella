@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.SQLScriptEngine;
 import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.engine.Context;

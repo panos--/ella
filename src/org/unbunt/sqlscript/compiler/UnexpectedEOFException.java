@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.sqlscript.compiler;
 
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.IntStream;

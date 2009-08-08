@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript.compiler;
 
 public class SQLStringSyntaxRules {
     public final boolean doubleQuote;

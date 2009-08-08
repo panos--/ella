@@ -48,21 +48,21 @@ tokens {
 }
 
 @parser::header {
-	package org.unbunt.sqlscript;
+	package org.unbunt.sqlscript.compiler;
 
 	import java.util.Map;
 	import java.util.HashMap;
 	import java.util.Deque;
 	import java.util.ArrayDeque;
 
-	import org.unbunt.sqlscript.antlr.LazyTokenStream;
-	import org.unbunt.sqlscript.antlr.SQLModeToken;
-	import org.unbunt.sqlscript.exception.UnexpectedEOFException;
+	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
+	import org.unbunt.sqlscript.compiler.antlr.SQLModeToken;
+	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
 	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 	
-	import org.unbunt.sqlscript.support.SQLParseMode;
-	import org.unbunt.sqlscript.support.SQLStringSyntaxRules;
-	import org.unbunt.sqlscript.support.SQLStringType;
+	import org.unbunt.sqlscript.compiler.SQLParseMode;
+	import org.unbunt.sqlscript.compiler.SQLStringSyntaxRules;
+	import org.unbunt.sqlscript.compiler.SQLStringType;
 }
 
 /*

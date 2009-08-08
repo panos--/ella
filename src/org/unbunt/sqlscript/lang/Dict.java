@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.support.ProtoRegistry;
 import org.unbunt.sqlscript.engine.Context;
-import org.unbunt.sqlscript.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.SQLScriptEngine;
 import org.unbunt.sqlscript.engine.Obj;
 import org.unbunt.sqlscript.utils.ObjUtils;
 import static org.unbunt.sqlscript.utils.ObjUtils.ensureType;

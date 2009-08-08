@@ -14,7 +14,7 @@ scope Block {
 }
 
 @header {
-	package org.unbunt.sqlscript;
+	package org.unbunt.sqlscript.compiler;
 
 	import java.util.Observer;
 	import java.util.LinkedList;
@@ -23,8 +23,7 @@ scope Block {
 	import java.util.Map;
 	import java.util.HashMap;
 
-	import org.unbunt.sqlscript.antlr.*;
-	import org.unbunt.sqlscript.lang.*;
+	import org.unbunt.sqlscript.compiler.antlr.*;
 	import org.unbunt.sqlscript.statement.*;
 	import org.unbunt.sqlscript.support.*;
 	import org.unbunt.sqlscript.exception.*;

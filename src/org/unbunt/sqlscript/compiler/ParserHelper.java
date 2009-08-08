@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript;
+package org.unbunt.sqlscript.compiler;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
@@ -6,11 +6,11 @@ import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.Tree;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.runtime.tree.CommonTree;
-import org.unbunt.sqlscript.antlr.LazyInputStream;
-import org.unbunt.sqlscript.antlr.LazyTokenStream;
+import org.unbunt.sqlscript.compiler.antlr.LazyInputStream;
+import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.lang.sql.RawSQL;
 import org.unbunt.sqlscript.support.RawParamedSQL;
-import org.unbunt.sqlscript.support.SQLParseMode;
+import org.unbunt.sqlscript.compiler.SQLParseMode;
 import org.unbunt.sqlscript.support.Scope;
 import org.unbunt.sqlscript.support.TailCallOptimizer;
 import org.unbunt.sqlscript.statement.Block;
