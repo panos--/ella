@@ -31,6 +31,21 @@ public class Lst extends AbstractObj {
         this.value = wrappedList;
     }
 
+    @SuppressWarnings({"CastToConcreteClass"})
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lst lst = (Lst) o;
+
+        return value.equals(lst.value);
+
+    }
+
+    public int hashCode() {
+        return value.hashCode();
+    }
+
     @Override
     public Object toJavaObject() {
         List<Object> result = new ArrayList<Object>(value.size());

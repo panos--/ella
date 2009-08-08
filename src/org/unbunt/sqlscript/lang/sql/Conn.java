@@ -146,9 +146,8 @@ public class Conn extends AbstractObj {
                     thiz.batchStmt = new StmtBatch(thiz.connection.createStatement(), batchSize);
                     try {
                         engine.invoke(closure, engine.getObjNull());
-                    } catch (ControlFlowException e) {
+                    } finally {
                         thiz.batchStmt.finish();
-                        throw e;
                     }
                 } catch (SQLException e) {
                     throw new SQLScriptRuntimeException("Batch execution failed: " + e.getMessage(), e);
@@ -336,7 +335,7 @@ public class Conn extends AbstractObj {
 
         public void add(String query) throws SQLException {
             statement.addBatch(query);
-            if (currentBatchSize % batchSize == 0) {
+            if (++currentBatchSize % batchSize == 0) {
                 execute();
                 currentBatchSize = 0;
             }

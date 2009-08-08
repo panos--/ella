@@ -54,6 +54,65 @@ public class InterpreterDBTestsNG extends AbstractTest {
         eval(file("tx"), propsMysql());
     }
 
+    @Test(dependsOnMethods = "connectMysql")
+    public void mysqlStmtKey() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("mysql-stmt-key"), propsMysql());
+    }
+
+    @Test(dependsOnMethods = "connectMysql")
+    public void mysqlResSetUpdate() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("mysql-resset-update"), propsMysql());
+    }
+
+    @Test(dependsOnMethods = "connectMysql")
+    public void mysqlResSetInsert() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("mysql-resset-insert"), propsMysql());
+    }
+
+    @Test
+    public void connectOracle() throws SQLScriptIOException, SQLScriptParseException, SQLException, SQLScriptException {
+        Object result = eval(
+                String.format(".ConnMgr.createFromProps('%s', 'oracle');", propsOracle())
+        );
+        Connection conn = ensureType(Connection.class, result);
+        conn.close();
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleInsertSelectSimple() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-insert-select-simple"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleStmtFirst() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-stmt-first"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleConnBatch() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-conn-batch"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleStmtBatch() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-stmt-batch"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleStmtBatchNamed() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-stmt-batch-named"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleConnWithPrepared() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-conn-with-prepared"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "connectOracle")
+    public void oracleConnWithPreparedNamed() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        eval(file("oracle-conn-with-prepared-named"), propsOracle());
+    }
+
     protected static String propsMysql() {
         return props(PROPS_MYSQL);
     }
@@ -62,7 +121,7 @@ public class InterpreterDBTestsNG extends AbstractTest {
         return props(PROPS_PGSQL);
     }
 
-    protected static String propsOra() {
+    protected static String propsOracle() {
         return props(PROPS_ORACLE);
     }
 

@@ -187,6 +187,7 @@ public class Stmt extends AbstractObj {
         }
 
         initialized = true;
+        paramed = true;
     }
 
     protected void initPreparedForKeys() throws SQLException {
