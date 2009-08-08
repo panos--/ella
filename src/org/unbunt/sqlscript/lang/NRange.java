@@ -4,9 +4,10 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.engine.*;
-import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
 /**
  * User: tweiss
@@ -65,7 +66,7 @@ public class NRange extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNumeric start = ensureType(NNumeric.class, args[0]);
                 NNumeric stop = ensureType(NNumeric.class, args[1]);
 
@@ -74,7 +75,7 @@ public class NRange extends AbstractObj {
         };
 
         protected static final NativeCall nativeEach = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NRange thiz = ensureType(NRange.class, context);
                 Obj closure = args[0];
 
@@ -109,14 +110,14 @@ public class NRange extends AbstractObj {
         };
 
         protected static final NativeCall nativeStart = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NRange thiz = ensureType(NRange.class, context);
                 return new NNum(thiz.start);
             }
         };
 
         protected static final NativeCall nativeStop = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NRange thiz = ensureType(NRange.class, context);
                 return new NNum(thiz.stop);
             }

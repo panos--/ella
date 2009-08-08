@@ -3,6 +3,7 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -173,13 +174,13 @@ public class Str extends AbstractObj {
 
     public static class StrProto extends AbstractObj implements NativeObj {
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(args[0].toString());
             }
         };
 
         public static final NativeCall nativeAdd = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(((Str) context).value + args[0].toString());
             }
         };

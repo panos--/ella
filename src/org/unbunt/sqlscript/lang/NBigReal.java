@@ -7,6 +7,7 @@ import static org.unbunt.sqlscript.lang.NumUtils.toBigDecimal;
 import static org.unbunt.sqlscript.lang.NumUtils.toBigInteger;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.*;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -210,7 +211,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 try {
                     NNumeric arg = (NNumeric)args[0];
                     return new NBigReal(arg.bigDecimalValue());
@@ -221,7 +222,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeAdd = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NBigReal thiz = ensureType(NBigReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigReal()) {
@@ -232,7 +233,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeSubtract = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NBigReal thiz = ensureType(NBigReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigNum()) {
@@ -243,7 +244,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeMultiply = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NBigReal thiz = ensureType(NBigReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isBigReal()) {
@@ -254,7 +255,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeDivide = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NBigReal thiz = ensureType(NBigReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 try {
@@ -269,14 +270,14 @@ public class NBigReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeNegate = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NBigReal thiz = ensureType(NBigReal.class, context);
                 return new NBigReal(thiz.value.negate());
             }
         };
 
         protected static final NativeCall nativeValueOf = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 try {
                     return new NBigReal(new BigDecimal(args[0].toString()));
                 } catch (NumberFormatException e) {

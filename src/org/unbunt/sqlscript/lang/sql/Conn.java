@@ -6,6 +6,7 @@ import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 import org.unbunt.sqlscript.compiler.support.RawSQL;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -67,7 +68,7 @@ public class Conn extends AbstractObj {
     public static class ConnProto extends AbstractObj {
 
         protected static final NativeCall nativeExecStmt = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 RawSQL rawStmt = ensureType(RawSQLObj.class, args[0]);
                 if (thiz.batchActive) {
@@ -86,7 +87,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeCreateStmt = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 RawSQL query = ensureType(RawSQLObj.class, args[0]);
                 Stmt stmt = new Stmt(query, thiz.connection, thiz.keepResources);
@@ -98,7 +99,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeDo = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 ConnMgr mgr = engine.getObjConnMgr();
                 Conn thiz = ensureType(Conn.class, context);
 
@@ -117,7 +118,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeClose = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 try {
                     thiz.connection.close();
@@ -129,7 +130,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeBatch = new NativeBatchCall() {
-            protected Obj batchCall(SQLScriptEngine engine, Obj context, Obj closure, int batchSize) {
+            protected Obj batchCall(Engine engine, Obj context, Obj closure, int batchSize) {
                 Conn thiz = ensureType(Conn.class, context);
 
                 if (thiz.batchActive) {
@@ -166,7 +167,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeWithPrepared = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 Obj closure = args[0];
 
@@ -183,7 +184,7 @@ public class Conn extends AbstractObj {
 
         protected static final NativeCall nativeTx = new NativeCall() {
             @SuppressWarnings({"ThrowFromFinallyBlock"})
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 Obj closure = args[0];
 
@@ -250,7 +251,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeBegin = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
 
                 Connection conn = thiz.connection;
@@ -269,7 +270,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeCommit = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 try {
                     thiz.connection.commit();
@@ -281,7 +282,7 @@ public class Conn extends AbstractObj {
         };
 
         protected static final NativeCall nativeRollback = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
                 try {
                     thiz.connection.rollback();

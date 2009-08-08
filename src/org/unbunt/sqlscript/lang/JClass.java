@@ -3,9 +3,10 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.natives.*;
 import org.unbunt.sqlscript.lang.ReflectionUtils;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class JClass extends AbstractObj implements NativeObj {
     public final Class<?> clazz;
 
     public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             Object result = null;
             Class<?> cls = ((JClass) context).clazz;
 
@@ -240,7 +241,7 @@ public class JClass extends AbstractObj implements NativeObj {
      */
     public static class JClassProto extends AbstractObj implements NativeObj {
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 ClassLoader loader = engine.getClass().getClassLoader();
                 try {
                     Class cls = loader.loadClass(args[0].toString());

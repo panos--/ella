@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.engine;
+package org.unbunt.sqlscript.engine.context;
 
 import java.sql.ResultSet;
 

@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.support;
+package org.unbunt.sqlscript;
 
-import org.unbunt.sqlscript.engine.SQLResultListener;
+import org.unbunt.sqlscript.engine.context.SQLResultListener;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

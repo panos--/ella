@@ -7,6 +7,7 @@ import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
 public class Clos extends AbstractObj implements Call {
     protected BlockClosure closure;
@@ -26,15 +27,15 @@ public class Clos extends AbstractObj implements Call {
         ctx.registerProto(OBJECT_ID, ClosProto.OBJECT_ID);
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
         return engine.invoke(this, args);
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
         return engine.invoke(this, args);
     }
 
-    public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
+    public void trigger(Engine engine, Obj context, Obj... args) {
         engine.trigger(this, args);
     }
 
@@ -44,7 +45,7 @@ public class Clos extends AbstractObj implements Call {
 
     public static class ClosProto extends AbstractObj {
         protected static final NativeCall nativeWhileTrue = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) {
+            public Obj call(Engine engine, Obj context, Obj... args) {
                 Call cond = ensureType(Call.class, context);
                 Obj _null = engine.getObjNull();
                 Obj result = null;

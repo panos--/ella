@@ -1,12 +1,12 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.exception.CheckedClassCastException;
-import org.unbunt.sqlscript.engine.*;
+import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.sqlscript.engine.Engine;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
-import org.unbunt.sqlscript.lang.ReflectionUtils;
+import org.unbunt.sqlscript.exception.CheckedClassCastException;
+import org.unbunt.sqlscript.exception.ClosureTerminatedException;
+import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -33,7 +33,7 @@ public class JMethod extends NativeCall {
         this.selected = selected;
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
         Object jcontext = context.toJavaObject();
         Object[] jargs = NativeWrapper.unwrap(args);
 
@@ -84,7 +84,7 @@ public class JMethod extends NativeCall {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeSelect = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 JMethod thiz = ensureType(JMethod.class, context);
                 String[] typeNames = new String[args.length];
                 for (int i = 0; i < args.length; i++) {
@@ -105,7 +105,7 @@ public class JMethod extends NativeCall {
         };
 
         protected static final NativeCall nativeCall = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 JMethod thiz = ensureType(JMethod.class, context);
                 Obj[] methodArgs = Arrays.copyOfRange(args, 1, args.length);
                 return thiz.call(engine, args[0], methodArgs);

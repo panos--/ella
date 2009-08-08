@@ -4,17 +4,18 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
-public class Null extends AbstractObj implements NativeObj {
+public class NullImpl extends AbstractObj implements NativeObj, Null {
     public static int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public final Class<?> typeHint;
 
-    public Null() {
+    public NullImpl() {
         this(null);
     }
 
-    public Null(Class<?> typeHint) {
+    public NullImpl(Class<?> typeHint) {
         this.typeHint = typeHint;
     }
 
@@ -25,10 +26,14 @@ public class Null extends AbstractObj implements NativeObj {
      * TODO: Maybe we should throw an expception instead of just returning null...
      */
     public static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjNull();
         }
     };
+
+    public Class<?> getTypeHint() {
+        return typeHint;
+    }
 
     public int getObjectID() {
         return OBJECT_ID;
@@ -38,7 +43,7 @@ public class Null extends AbstractObj implements NativeObj {
         NullProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, NullProto.OBJECT_ID);
         if (!ctx.hasObject(OBJECT_ID)) {
-            ctx.registerObject(new Null());
+            ctx.registerObject(new NullImpl());
         }
     }
 
@@ -59,34 +64,34 @@ public class Null extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall nativeIdentical = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Null thiz = ensureType(Null.class, context);
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                NullImpl thiz = ensureType(NullImpl.class, context);
                 return thiz.getClass() == args[0].getClass() ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeNotIdentical = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Null thiz = ensureType(Null.class, context);
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                NullImpl thiz = ensureType(NullImpl.class, context);
                 return thiz.getClass() != args[0].getClass() ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeType = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 JClass typeHint = ensureType(JClass.class, args[0]);
-                return new Null(typeHint.clazz);
+                return new NullImpl(typeHint.clazz);
             }
         };
 
         protected static final NativeCall nativeAnd = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 return engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeOr = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Clos closure = ensureType(Clos.class, args[0]);
                 engine.trigger(closure);
                 return null;
@@ -94,7 +99,7 @@ public class Null extends AbstractObj implements NativeObj {
         };
 
         protected static final NativeCall nativeNot = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 return engine.getObjTrue();
             }
         };

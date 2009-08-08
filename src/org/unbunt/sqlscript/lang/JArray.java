@@ -2,9 +2,10 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.natives.ObjUtils;
 import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.lang.reflect.Array;
 
@@ -52,7 +53,7 @@ public class JArray extends AbstractObj {
      */
     public static class JArrayProto extends AbstractObj implements NativeObj {
         public static final NativeCall nativeEach = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Obj code = args[0];
                 Object array = ctx.array;
@@ -68,7 +69,7 @@ public class JArray extends AbstractObj {
         };
 
         public static final NativeCall nativeGet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
                 NNumeric num = ObjUtils.ensureType(NNumeric.class, args[0]);
@@ -78,7 +79,7 @@ public class JArray extends AbstractObj {
         };
 
         public static final NativeCall nativeSet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
                 NNumeric num = ObjUtils.ensureType(NNumeric.class, args[0]);
@@ -91,7 +92,7 @@ public class JArray extends AbstractObj {
         };
 
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 Class componentType;
                 int length = 0;
                 int[] dimensions = null;

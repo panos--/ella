@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.engine.natives;
 
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.Engine;
 
 public class PrimitiveCall extends AbstractObj implements Call {
     public static enum Type {
@@ -27,15 +27,15 @@ public class PrimitiveCall extends AbstractObj implements Call {
         this.code = type.ordinal();
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
         return engine.invoke(this, context, args);
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
         return call(engine, context, args);
     }
 
-    public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
+    public void trigger(Engine engine, Obj context, Obj... args) {
         engine.trigger(this, context, args);
     }
 }

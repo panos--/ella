@@ -8,24 +8,25 @@ import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.Consts.SLOT_CLONE_INIT;
 import static org.unbunt.sqlscript.engine.natives.Consts.SLOT_PARENT;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.util.Map;
 
 public class Base extends AbstractObj {
     protected static final Call nativeEquals = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return context.equals(args[0]) ? engine.getObjTrue() : engine.getObjFalse();
         }
     };
 
     protected static final Call nativeNotEquals = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return context.equals(args[0]) ? engine.getObjFalse() : engine.getObjTrue();
         }
     };
 
     protected static final Call nativeEach = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             if (context == null) {
                 return engine.getObjNull();
             }
@@ -51,7 +52,7 @@ public class Base extends AbstractObj {
     protected static final Call nativeEachSlot = nativeEach;
 
     protected static final NativeCall nativeHasSlot = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return context != null && context.getSlot(engine.getContext(), args[0]) != null
                     ? engine.getObjTrue()
                     : engine.getObjFalse();
@@ -59,7 +60,7 @@ public class Base extends AbstractObj {
     };
 
     protected static final NativeCall nativeRemoveSlot = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             if (context == null) {
                 return engine.getObjNull();
             }
@@ -69,7 +70,7 @@ public class Base extends AbstractObj {
     };
 
     protected static final NativeCall nativeAnd = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Clos closure = ensureType(Clos.class, args[0]);
             engine.trigger(closure);
             return null;
@@ -77,19 +78,19 @@ public class Base extends AbstractObj {
     };
 
     protected static final NativeCall nativeOr = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjTrue();
         }
     };
 
     protected static final NativeCall nativeNot = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjFalse();
         }
     };
 
     protected static final NativeCall nativeClone = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Context ctx = engine.getContext();
 
             Obj clone = new PlainObj();

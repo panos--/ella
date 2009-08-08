@@ -1,12 +1,12 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.exception.*;
-import org.unbunt.sqlscript.engine.*;
+import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.sqlscript.engine.Engine;
 import org.unbunt.sqlscript.engine.natives.*;
-import org.unbunt.sqlscript.lang.NumUtils;
-import static org.unbunt.sqlscript.lang.NumUtils.toBigInteger;
-import static org.unbunt.sqlscript.lang.NumUtils.toBigDecimal;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.exception.*;
+import static org.unbunt.sqlscript.lang.NumUtils.toBigDecimal;
+import static org.unbunt.sqlscript.lang.NumUtils.toBigInteger;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -195,7 +195,7 @@ public class NNum extends AbstractObj implements NNumeric {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 try {
                     NNumeric arg = (NNumeric)args[0];
                     return new NNum(arg.longValue());
@@ -207,7 +207,7 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeAdd = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum thiz = ensureType(NNum.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isNum()) {
@@ -218,7 +218,7 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeSubtract = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum thiz = ensureType(NNum.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isNum()) {
@@ -229,7 +229,7 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeMultiply = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum thiz = ensureType(NNum.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (arg.isNum()) {
@@ -240,7 +240,7 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeDivide = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum thiz = ensureType(NNum.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 try {
@@ -259,14 +259,14 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeNegate = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum thiz = ensureType(NNum.class, context);
                 return new NNum(- thiz.value);
             }
         };
 
         protected static final NativeCall nativeValueOf = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 try {
                     return new NNum(Long.valueOf(args[0].toString()));
                 } catch (NumberFormatException e) {
@@ -276,7 +276,7 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         public static final Call nativeTo = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum numStart = ensureType(NNum.class, context);
                 NNum numStop = ensureType(NNum.class, args[0]);
                 long start = numStart.value;
@@ -312,7 +312,7 @@ public class NNum extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeRange = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum thiz = ensureType(NNum.class, context);
                 NNum stop = ensureType(NNum.class, args[0]);
                 return new NRange(thiz.value, stop.value);

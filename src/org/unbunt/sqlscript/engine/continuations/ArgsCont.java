@@ -1,9 +1,8 @@
 package org.unbunt.sqlscript.engine.continuations;
 
-import org.unbunt.sqlscript.lang.Args;
-import org.unbunt.sqlscript.engine.natives.Obj;
 import org.unbunt.sqlscript.compiler.stmtbase.Expression;
-import org.unbunt.sqlscript.engine.continuations.ContinuationVisitor;
+import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.lang.Args;
 
 import java.util.List;
 

@@ -5,6 +5,7 @@ import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.compiler.support.Function;
+import org.unbunt.sqlscript.engine.context.Context;
 
 public class Func extends AbstractObj implements Call {
     protected Function function;
@@ -24,15 +25,15 @@ public class Func extends AbstractObj implements Call {
         ctx.registerProto(OBJECT_ID, FuncProto.OBJECT_ID);
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
         return engine.invoke(this, context, null, args);
     }
 
-    public Obj call(SQLScriptEngine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
+    public Obj call(Engine engine, Obj context, Obj receiver, Obj... args) throws ClosureTerminatedException {
         return engine.invoke(this, context, receiver, args);
     }
 
-    public void trigger(SQLScriptEngine engine, Obj context, Obj... args) {
+    public void trigger(Engine engine, Obj context, Obj... args) {
         engine.trigger(this, context, args);
     }
 
@@ -42,7 +43,7 @@ public class Func extends AbstractObj implements Call {
 
     public static class FuncProto extends AbstractObj {
         public static NativeCall nativeCall = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Obj[] callArgs = new Obj[args.length - 1];
                 System.arraycopy(args, 1, callArgs, 0, callArgs.length);
                 return engine.invoke(context, args[0], callArgs);

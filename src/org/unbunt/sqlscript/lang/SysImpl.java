@@ -10,19 +10,20 @@ import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.compiler.statement.Block;
 import static org.unbunt.sqlscript.utils.StringUtils.join;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.io.IOException;
 
-public class Sys extends AbstractObj {
+public class SysImpl extends AbstractObj implements Sys {
     protected static final NativeCall nativePrint = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             System.out.println(join(" ", (Object[]) args));
             return engine.getObjNull();
         }
     };
 
     protected static final NativeCall nativeIncludeFile = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Context ctx = engine.getContext();
             String filename = args[0].toString();
             String includingScriptName = ctx.getScriptFilename();
@@ -114,7 +115,7 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeImportPackage = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             final String pkgPrefix = args[0].toString() + ".";
             final ClassLoader loader = engine.getClass().getClassLoader();
             DynamicEnv newEnv = new DynamicEnv(engine.getEnv(), new CachingVariableResolver(
@@ -135,7 +136,7 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeIfThen = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             // FIXME: has to be replaced by more sane scheme
             //        (i.e. send isTrue or smthg like that to the condition value)
             if (engine.toBoolean(args[0])) {
@@ -149,7 +150,7 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeLoop = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             engine.invoke(PrimitiveCall.Type.LOOP.primitive, engine.getObjNull());
             while (true) {
                 try {
@@ -165,14 +166,14 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeThrow = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             throw new SQLScriptClientException(args[0]);
         }
     };
 
     protected static final NativeCall nativeTryCatch = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            SQLScriptEngine.EngineState state = engine.getState();
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
             } catch (SQLScriptClientException e) {
@@ -186,8 +187,8 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeTryFinally = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            SQLScriptEngine.EngineState state = engine.getState();
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
             } finally {
@@ -209,8 +210,8 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeTryCatchFinally = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            SQLScriptEngine.EngineState state = engine.getState();
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
             } catch (SQLScriptClientException e) {
@@ -236,19 +237,19 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeScriptName = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return new Str(engine.getContext().getScriptFilename());
         }
     };
 
     protected static final NativeCall nativeScriptResource = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return new JObject(engine.getContext().getScriptResource());
         }
     };
 
     protected static final NativeCall nativeExplicitSlot = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Obj obj = args[0];
             Obj slot = args[1];
             Obj value = obj.getSlot(engine.getContext(), slot);
@@ -257,7 +258,7 @@ public class Sys extends AbstractObj {
     };
 
     protected static final NativeCall nativeNoop = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjNull();
         }
     };
@@ -271,11 +272,11 @@ public class Sys extends AbstractObj {
     public static void registerInContext(Context ctx) {
         ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
         if (!ctx.hasObject(OBJECT_ID)) {
-            ctx.registerObject(new Sys());
+            ctx.registerObject(new SysImpl());
         }
     }
 
-    public Sys() {
+    public SysImpl() {
         slots.put(Str.SYM_print, nativePrint);
         slots.put(Str.SYM_includeFile, nativeIncludeFile);
         slots.put(Str.SYM_importPackage, nativeImportPackage);

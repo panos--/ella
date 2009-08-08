@@ -4,10 +4,11 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class Lst extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 return new Lst();
             }
         };
@@ -75,7 +76,7 @@ public class Lst extends AbstractObj {
         protected static final NativeCall nativeClone = NATIVE_CONSTRUCTOR;
 
         protected static final NativeCall nativeGet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
                 NNumeric idx = ensureType(NNumeric.class, args[0]);
                 try {
@@ -87,7 +88,7 @@ public class Lst extends AbstractObj {
         };
 
         protected static final NativeCall nativeSet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
                 NNumeric num = ensureType(NNumeric.class, args[0]);
                 int idx = num.intValue();
@@ -120,7 +121,7 @@ public class Lst extends AbstractObj {
         };
 
         protected static final NativeCall nativeAdd = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
                 Obj value = args[0];
 
@@ -142,7 +143,7 @@ public class Lst extends AbstractObj {
         };
 
         protected static final NativeCall nativeRemove = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
                 NNumeric idx = ensureType(NNumeric.class, args[0]);
 
@@ -157,7 +158,7 @@ public class Lst extends AbstractObj {
         };
 
         protected static final NativeCall nativeEach = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
                 Obj closure = args[0];
                 Obj _null = engine.getObjNull();
@@ -199,7 +200,7 @@ public class Lst extends AbstractObj {
         };
 
         protected static final NativeCall nativeSize = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
                 return new NNum(thiz.value.size());
             }

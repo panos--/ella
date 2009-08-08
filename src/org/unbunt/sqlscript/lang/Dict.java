@@ -7,6 +7,7 @@ import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
+import org.unbunt.sqlscript.engine.context.Context;
 
 import java.util.Map;
 
@@ -57,13 +58,13 @@ public class Dict extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 return new Dict(args[0]);
             }
         };
 
         protected static final NativeCall nativeEach = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Dict thiz = ensureType(Dict.class, context);
                 Obj closure = args[0];
                 Obj _null = engine.getObjNull();
@@ -84,7 +85,7 @@ public class Dict extends AbstractObj {
         };
 
         protected static final NativeCall nativeGet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Dict thiz = ensureType(Dict.class, context);
                 Obj slot = args[0];
                 return thiz.value.getSlot(engine.getContext(), slot);
@@ -92,7 +93,7 @@ public class Dict extends AbstractObj {
         };
 
         protected static final NativeCall nativeSet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Dict thiz = ensureType(Dict.class, context);
                 Obj slot = args[0];
                 Obj value = args[1];
@@ -102,7 +103,7 @@ public class Dict extends AbstractObj {
         };
 
         protected static final NativeCall nativeHas = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Dict thiz = ensureType(Dict.class, context);
                 return thiz.value.getSlot(engine.getContext(), args[0]) == null
                         ? engine.getObjFalse() : engine.getObjTrue();
@@ -110,7 +111,7 @@ public class Dict extends AbstractObj {
         };
 
         protected static final NativeCall nativeRemove = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Dict thiz = ensureType(Dict.class, context);
                 Obj removedSlot = thiz.value.removeSlot(engine.getContext(), args[0]);
                 return removedSlot == null ? engine.getObjNull() : removedSlot;
@@ -119,7 +120,7 @@ public class Dict extends AbstractObj {
 
         // NOTE: this is added to Base, not DictProto
         protected static final NativeCall nativeToDict = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 return new Dict(context);
             }
         };

@@ -2,43 +2,43 @@ package org.unbunt.sqlscript.engine;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unbunt.sqlscript.compiler.support.*;
-import org.unbunt.sqlscript.engine.continuations.*;
-import org.unbunt.sqlscript.exception.*;
-import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.lang.sql.RawSQLObj;
 import org.unbunt.sqlscript.compiler.statement.*;
 import org.unbunt.sqlscript.compiler.stmtbase.Expression;
 import org.unbunt.sqlscript.compiler.stmtbase.Statement;
-import org.unbunt.sqlscript.engine.natives.Consts;
-import org.unbunt.sqlscript.engine.natives.ObjUtils;
-import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.compiler.support.*;
+import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.sqlscript.engine.continuations.*;
 import org.unbunt.sqlscript.engine.environment.Env;
 import org.unbunt.sqlscript.engine.environment.StaticEnv;
+import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.exception.*;
+import org.unbunt.sqlscript.lang.*;
+import org.unbunt.sqlscript.engine.natives.RawSQLObj;
 import org.unbunt.sqlscript.utils.StringUtils;
 
+import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
 
-public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
+public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, Engine {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final boolean STEP = false;
 
     protected final Log logger = LogFactory.getLog(getClass());
     protected final boolean trace = logger.isTraceEnabled();
 
-    protected DefaultContext context;
+    protected Context context;
     protected boolean finished = false;
 
     public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
     public static final Obj SLOT_INIT = Consts.SLOT_INIT;
 
-    public SQLScriptEngine(DefaultContext context) {
+    public SQLScriptEngine(Context context) {
         this.context = context;
         this.env = context.getEnv();
     }
 
-    public static SQLScriptEngine create(DefaultContext context) {
+    public static SQLScriptEngine create(Context context) {
         return new SQLScriptEngine(context);
     }
 
@@ -1099,18 +1099,16 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor {
         this.env = env;
     }
 
-    public static class EngineState {
-        protected Env env;
-        protected int pc;
-
-        public EngineState(Env env, int pc) {
-            this.env = env;
-            this.pc = pc;
-        }
+    public Context getContext() {
+        return context;
     }
 
-    public DefaultContext getContext() {
-        return context;
+    public void notifyResultSet(ResultSet resultSet) {
+        context.notifyResultSet(resultSet);
+    }
+
+    public void notifyUpdateCount(int updateCount) {
+        context.notifyUpdateCount(updateCount);
     }
 
     public Sys getObjSys() {

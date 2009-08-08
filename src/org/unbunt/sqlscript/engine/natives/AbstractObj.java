@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.engine.natives;
 
-import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.context.Context;
 import org.unbunt.sqlscript.engine.natives.Obj;
 
 import java.util.HashMap;

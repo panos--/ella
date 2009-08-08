@@ -8,6 +8,7 @@ import org.unbunt.sqlscript.engine.natives.AbstractObj;
 import org.unbunt.sqlscript.engine.natives.NativeCall;
 import org.unbunt.sqlscript.engine.natives.ProtoRegistry;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
 public class Args extends AbstractObj {
     public final Obj[] args;
@@ -32,7 +33,7 @@ public class Args extends AbstractObj {
 
     protected static class ArgsProto extends AbstractObj {
         protected static final NativeCall nativeGet = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Args thiz = ensureType(Args.class, context);
                 NNumeric idxObj = ensureType(NNumeric.class, args[0]);
                 int idx = idxObj.intValue(); // TODO: maybe throw exception if value doesn't fit in int

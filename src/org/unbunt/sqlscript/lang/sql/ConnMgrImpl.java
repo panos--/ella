@@ -1,14 +1,16 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.unbunt.sqlscript.engine.*;
+import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.sqlscript.engine.Engine;
+import org.unbunt.sqlscript.engine.natives.*;
+import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.DBConnectionFailedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.lang.sql.DBUtils;
-import org.unbunt.sqlscript.engine.natives.*;
-import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.lang.Base;
+import org.unbunt.sqlscript.lang.NullImpl;
+import org.unbunt.sqlscript.lang.Str;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,7 +28,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
             this.slot = slot;
         }
 
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Obj activeConn = context.getSlot(engine.getContext(), Str.SYM_active);
             if (activeConn instanceof Null) {
                 throw new SQLScriptRuntimeException("Not conntected");
@@ -44,7 +46,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
     }
 
     protected static NativeCall nativeActivate = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             ConnMgrImpl thiz = ensureType(ConnMgrImpl.class, context);
             Obj conn = args[0];
             Obj prevConn = ObjUtils.getSlot(engine.getContext(), thiz, Str.SYM_active);
@@ -54,7 +56,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
     };
 
     protected static NativeCall nativeCreate = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             ConnMgrImpl mgr = ensureType(ConnMgrImpl.class, context);
 
             Str url;
@@ -113,7 +115,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
     };
 
     protected static NativeCall nativeCreateFromProps = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             ConnMgrImpl mgr = ensureType(ConnMgrImpl.class, context);
 
             // TODO: make propsFile relative to current script file
@@ -173,7 +175,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
     };
 
     public ConnMgrImpl() {
-        slots.put(Str.SYM_active, new Null());
+        slots.put(Str.SYM_active, new NullImpl());
         slots.put(Str.SYM_activate, nativeActivate);
         slots.put(Str.SYM_create, nativeCreate);
         slots.put(Str.SYM_createFromProps, nativeCreateFromProps);

@@ -4,11 +4,12 @@ import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
-public class Bool extends AbstractObj {
+public class BoolImpl extends AbstractObj implements Bool {
     protected final boolean value;
 
-    public Bool(boolean value) {
+    public BoolImpl(boolean value) {
         this.value = value;
     }
 
@@ -44,7 +45,7 @@ public class Bool extends AbstractObj {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Bool bool = (Bool) o;
+        BoolImpl bool = (BoolImpl) o;
 
         return value == bool.value;
     }
@@ -60,14 +61,14 @@ public class Bool extends AbstractObj {
     public static class BoolProto extends AbstractObj implements NativeObj {
 
         public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return engine.toBoolean(args[0]) ? engine.getObjTrue() : engine.getObjFalse();
             }
         };
 
         protected static final NativeCall nativeAnd = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Bool thiz = ensureType(Bool.class, context);
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                BoolImpl thiz = ensureType(BoolImpl.class, context);
                 Clos closure = ensureType(Clos.class, args[0]);
                 if (thiz.value) {
                     engine.trigger(closure);
@@ -80,8 +81,8 @@ public class Bool extends AbstractObj {
         };
 
         protected static final NativeCall nativeOr = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Bool thiz = ensureType(Bool.class, context);
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                BoolImpl thiz = ensureType(BoolImpl.class, context);
                 Clos closure = ensureType(Clos.class, args[0]);
                 if (!thiz.value) {
                     engine.trigger(closure);
@@ -94,8 +95,8 @@ public class Bool extends AbstractObj {
         };
 
         protected static final NativeCall nativeNot = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                Bool thiz = ensureType(Bool.class, context);
+            public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                BoolImpl thiz = ensureType(BoolImpl.class, context);
                 return thiz.value ? engine.getObjFalse() : engine.getObjTrue();
             }
         };

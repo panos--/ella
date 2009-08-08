@@ -1,7 +1,8 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.engine.Context;
-import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.sqlscript.lang.NativeWrapper;
+import org.unbunt.sqlscript.engine.natives.Null;
 import org.unbunt.sqlscript.engine.natives.Obj;
 import org.unbunt.sqlscript.exception.CheckedClassCastException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
@@ -504,7 +505,7 @@ public class ReflectionUtils {
             if (arg == null) {
                 Obj wrappedArg = wrappedArgs[i];
                 if (wrappedArg instanceof Null) {
-                    result[i] = ((Null) wrappedArg).typeHint;
+                    result[i] = ((Null) wrappedArg).getTypeHint();
                 }
             }
             else {
@@ -520,7 +521,7 @@ public class ReflectionUtils {
         if (result == null) {
             Class<?> returnType = method.getReturnType();
             if (!returnType.equals(void.class)) {
-                return new Null(returnType);
+                return new NullImpl(returnType);
             }
             else {
                 return ctx.getObjNull();

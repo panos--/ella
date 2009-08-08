@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.engine.Context;
+import org.unbunt.sqlscript.engine.context.Context;
 import org.unbunt.sqlscript.engine.natives.ProtoRegistry;
 import org.unbunt.sqlscript.engine.natives.AbstractObj;
 

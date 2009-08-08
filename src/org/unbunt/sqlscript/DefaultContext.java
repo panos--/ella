@@ -1,17 +1,20 @@
-package org.unbunt.sqlscript.engine;
+package org.unbunt.sqlscript;
 
-import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.lang.sql.*;
-import org.unbunt.sqlscript.engine.natives.ObjUtils;
-import org.unbunt.sqlscript.engine.natives.ConnMgr;
-import org.unbunt.sqlscript.engine.natives.Obj;
-import org.unbunt.sqlscript.engine.natives.NativeWrapper;
+import org.unbunt.sqlscript.compiler.support.Variable;
+import org.unbunt.sqlscript.engine.environment.DynamicVariableResolver;
 import org.unbunt.sqlscript.engine.environment.Env;
 import org.unbunt.sqlscript.engine.environment.MainEnv;
-import org.unbunt.sqlscript.engine.environment.DynamicVariableResolver;
+import org.unbunt.sqlscript.engine.natives.*;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.lang.*;
+import org.unbunt.sqlscript.lang.sql.Conn;
+import org.unbunt.sqlscript.lang.sql.ConnMgrImpl;
+import org.unbunt.sqlscript.lang.sql.ResSet;
+import org.unbunt.sqlscript.lang.sql.Stmt;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
-import org.unbunt.sqlscript.compiler.support.Variable;
+import org.unbunt.sqlscript.engine.context.SQLResultProvider;
+import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.sqlscript.engine.context.SQLResultListener;
 
 import java.sql.ResultSet;
 import java.util.Arrays;
@@ -25,7 +28,7 @@ public class DefaultContext implements SQLResultProvider, Context {
     protected Env env;
 
     protected Sys objSys;
-    protected ConnMgrImpl objConnMgr;
+    protected ConnMgr objConnMgr;
     protected Null objNull;
     protected Bool objTrue;
     protected Bool objFalse;
@@ -58,11 +61,11 @@ public class DefaultContext implements SQLResultProvider, Context {
 
     protected void initProtos() {
         Str.registerInContext(this);
-        Null.registerInContext(this);
+        NullImpl.registerInContext(this);
 
         // init null as early as possible so that it can be used
         // during initialization of other objects
-        objNull = ensureType(Null.class, ensureObject(Null.OBJECT_ID));
+        objNull = ensureType(NullImpl.class, ensureObject(NullImpl.OBJECT_ID));
 
         Base.registerInContext(this);
         PlainObj.registerInContext(this);
@@ -74,8 +77,8 @@ public class DefaultContext implements SQLResultProvider, Context {
         NRange.registerInContext(this);
         Lst.registerInContext(this);
         Dict.registerInContext(this);
-        Sys.registerInContext(this);
-        Bool.registerInContext(this);
+        SysImpl.registerInContext(this);
+        BoolImpl.registerInContext(this);
         Clos.registerInContext(this);
         Func.registerInContext(this);
         JMethod.registerInContext(this);
@@ -87,11 +90,11 @@ public class DefaultContext implements SQLResultProvider, Context {
         Stmt.regiserInContext(this);
         ResSet.registerInContext(this);
 
-        objSys = ensureType(Sys.class, ensureObject(Sys.OBJECT_ID));
+        objSys = ensureType(SysImpl.class, ensureObject(SysImpl.OBJECT_ID));
         objConnMgr = ensureType(ConnMgrImpl.class, ensureObject(ConnMgrImpl.OBJECT_ID));
 
-        objTrue = new Bool(true);
-        objFalse = new Bool(false);
+        objTrue = new BoolImpl(true);
+        objFalse = new BoolImpl(false);
     }
 
     protected void initEnv() {
@@ -118,7 +121,7 @@ public class DefaultContext implements SQLResultProvider, Context {
         mainEnv.add("Real", ensureObject(NReal.NRealProto.OBJECT_ID));
         mainEnv.add("BigReal", ensureObject(NBigReal.NBigRealProto.OBJECT_ID));
         mainEnv.add("Range", ensureObject(NRange.NRangeProto.OBJECT_ID));
-        mainEnv.add("Bool", ensureObject(Bool.BoolProto.OBJECT_ID));
+        mainEnv.add("Bool", ensureObject(BoolImpl.BoolProto.OBJECT_ID));
         mainEnv.add("true", objTrue);
         mainEnv.add("false", objFalse);
         mainEnv.add("Clos", ensureObject(Clos.ClosProto.OBJECT_ID));

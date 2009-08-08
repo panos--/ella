@@ -8,82 +8,83 @@ import org.unbunt.sqlscript.engine.natives.AbstractObj;
 import org.unbunt.sqlscript.engine.natives.NativeCall;
 import org.unbunt.sqlscript.engine.natives.ProtoRegistry;
 import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.context.Context;
 
 public class NNumericProto extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected static final NativeCall nativeNumValue = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             return new NNum(thiz.longValue());
         }
     };
 
     protected static final NativeCall nativeBigNumValue = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             return new NBigNum(thiz.bigIntegerValue());
         }
     };
 
     protected static final NativeCall nativeRealValue = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             return new NReal(thiz.doubleValue());
         }
     };
 
     protected static final NativeCall nativeBigRealValue = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             return new NBigReal(thiz.bigDecimalValue());
         }
     };
 
     protected static final NativeCall nativeToByte = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric num = ensureType(NNumeric.class, context);
             return new JObject(num.byteValue());
         }
     };
 
     protected static final NativeCall nativeToShort = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric num = ensureType(NNumeric.class, context);
             return new JObject(num.shortValue());
         }
     };
 
     protected static final NativeCall nativeToInteger = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric num = ensureType(NNumeric.class, context);
             return new JObject(num.intValue());
         }
     };
 
     protected static final NativeCall nativeToLong = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric num = ensureType(NNumeric.class, context);
             return new JObject(num.longValue());
         }
     };
 
     protected static final NativeCall nativeToFloat = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric num = ensureType(NNumeric.class, context);
             return new JObject(num.floatValue());
         }
     };
 
     protected static final NativeCall nativeToDouble = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric num = ensureType(NNumeric.class, context);
             return new JObject(num.doubleValue());
         }
     };
 
     protected static final NativeCall nativeGreaterThan = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -95,7 +96,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeGreaterOrEqual = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -107,7 +108,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeLessThan = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -119,7 +120,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeLessOrEqual = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -131,7 +132,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeEqual = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -143,7 +144,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeNotEqual = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -155,7 +156,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeIdentical = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -169,7 +170,7 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeNotIdentical = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             NNumeric thiz = ensureType(NNumeric.class, context);
             NNumeric arg = ensureType(NNumeric.class, args[0]);
             try {
@@ -183,25 +184,25 @@ public class NNumericProto extends AbstractObj {
     };
 
     protected static final NativeCall nativeIsNaN = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjFalse();
         }
     };
 
     protected static final NativeCall nativeIsInfinity = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjFalse();
         }
     };
 
     protected static final NativeCall nativeIsPositiveInfinity = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjFalse();
         }
     };
 
     protected static final NativeCall nativeIsNegativeInfinity = new NativeCall() {
-        public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+        public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjFalse();
         }
     };
