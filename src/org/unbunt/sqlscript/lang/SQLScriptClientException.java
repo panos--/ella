@@ -3,10 +3,10 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.engine.Obj;
 
-public class ScriptClientException extends SQLScriptRuntimeException {
+public class SQLScriptClientException extends SQLScriptRuntimeException {
     protected Obj exception;
 
-    public ScriptClientException(Obj exception) {
+    public SQLScriptClientException(Obj exception) {
         super(exception.toString());
         this.exception = exception;
     }

@@ -4,11 +4,9 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.unbunt.sqlscript.SQLScript;
-import org.unbunt.sqlscript.lang.ScriptClientException;
 import static org.unbunt.sqlscript.SQLScript.eval;
-import org.unbunt.sqlscript.exception.SQLScriptIOException;
-import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import static org.unbunt.sqlscript.SQLScript.evalIncremental;
+import org.unbunt.sqlscript.exception.*;
 import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void blockScope() throws SQLScriptIOException, SQLScriptParseException {
+    public void blockScope() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result;
 
         result = eval("{ var i := 23; } .i;");
@@ -38,7 +36,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void javaIntegration() throws SQLScriptIOException, SQLScriptParseException {
+    public void javaIntegration() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result;
 
         Date before = new Date();
@@ -93,7 +91,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void inheritance() throws SQLScriptIOException, SQLScriptParseException {
+    public void inheritance() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result;
 
         result = eval("{"
@@ -132,15 +130,19 @@ public class InterpreterTestsNG extends AbstractTest {
     public void blockClosures() throws SQLScriptIOException, SQLScriptParseException {
         Object result;
 
-        result = eval(
-                "{\n"
-                + "fun invokeBlock() {\n"
-                + "    fun foo(block) { block(42); return 23; }\n"
-                + "    foo { val => return val; };\n"
-                + "}\n"
-                + "invokeBlock();"
-                + "}\n"
-        );
+        try {
+            result = eval(
+                    "{\n"
+                    + "fun invokeBlock() {\n"
+                    + "    fun foo(block) { block(42); return 23; }\n"
+                    + "    foo { val => return val; };\n"
+                    + "}\n"
+                    + "invokeBlock();"
+                    + "}\n"
+            );
+        } catch (SQLScriptException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(result, "Function invocation returned null");
         assertTrue(result instanceof Number, "Function invocation did not return a number");
         assertTrue(((Number)result).intValue() == 42, "Block closure did not return correctly");
@@ -154,8 +156,8 @@ public class InterpreterTestsNG extends AbstractTest {
             );
             assertTrue(false,
                        "Failed to catch non-local return in top-level block invocation (didn't throw exception)");
-        } catch (SQLScriptRuntimeException e) {
-            assertTrue("Non-local return".equals(e.getMessage()),
+        } catch (SQLScriptException e) {
+            assertTrue(e.isCausedBy(SQLScriptNonLocalReturnException.class),
                        "Incorrect exception thrown on non-local return in top-level block invocation");
         }
 
@@ -168,8 +170,8 @@ public class InterpreterTestsNG extends AbstractTest {
                     + "}"
             );
             assertTrue(false, "Failed to catch non-local return in block invocation (didn't throw exception)");
-        } catch (SQLScriptRuntimeException e) {
-            assertTrue("Non-local return".equals(e.getMessage()),
+        } catch (SQLScriptException e) {
+            assertTrue(e.isCausedBy(SQLScriptNonLocalReturnException.class),
                        "Incorrect exception thrown on non-local return in block invocation");
         }
 
@@ -186,30 +188,34 @@ public class InterpreterTestsNG extends AbstractTest {
             );
             assertTrue(false, "Failed to catch non-local return in block invocation from foreign function "
                               + "(didn't throw exception)");
-        } catch (SQLScriptRuntimeException e) {
-            assertTrue("Non-local return".equals(e.getMessage()),
+        } catch (SQLScriptException e) {
+            assertTrue(e.isCausedBy(SQLScriptNonLocalReturnException.class),
                        "Incorrect exception thrown on non-local return in block invocation from foreign function");
         }
 
-        result = eval(
-                "{\n"
-                + "\n"
-                + "fun ifFunc (cond, trueBody) {\n"
-                + "    if (cond()) {\n"
-                + "        trueBody();\n"
-                + "    }\n"
-                + "    return 13;\n"
-                + "}\n"
-                + "\n"
-                + "fun test() {\n"
-                + "    ifFunc({=> 1 == 1; }, {=> ifFunc({=> 2 == 2; }, {=> return 42; }); });\n"
-                + "    return 23;\n"
-                + "}\n"
-                + "\n"
-                + "test();\n"
-                + "\n"
-                + "}"
-        );
+        try {
+            result = eval(
+                    "{\n"
+                    + "\n"
+                    + "fun ifFunc (cond, trueBody) {\n"
+                    + "    if (cond()) {\n"
+                    + "        trueBody();\n"
+                    + "    }\n"
+                    + "    return 13;\n"
+                    + "}\n"
+                    + "\n"
+                    + "fun test() {\n"
+                    + "    ifFunc({=> 1 == 1; }, {=> ifFunc({=> 2 == 2; }, {=> return 42; }); });\n"
+                    + "    return 23;\n"
+                    + "}\n"
+                    + "\n"
+                    + "test();\n"
+                    + "\n"
+                    + "}"
+            );
+        } catch (SQLScriptException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(result);
         assertTrue(result instanceof Number);
         assertTrue(((Number)result).intValue() == 42,
@@ -217,7 +223,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void loops() throws SQLScriptIOException, SQLScriptParseException {
+    public void loops() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result;
 
         result = eval(
@@ -244,7 +250,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void args() throws SQLScriptIOException, SQLScriptParseException {
+    public void args() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         int arg = 42;
         Object result = eval(".ARGV[0];", arg);
         Number num = ensureType(Number.class, result);
@@ -252,7 +258,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void evalFile() throws SQLScriptIOException, SQLScriptParseException {
+    public void evalFile() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         int arg = 42;
         Object result = eval(file("eval-file"), arg);
         Number num = ensureType(Number.class, result);
@@ -260,62 +266,63 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void includeFile() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFile() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file"));
     }
 
     @Test
-    public void includeFileClosureUpdate() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFileClosureUpdate() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file-closure-update"));
     }
 
     @Test
-    public void includeFileClosureAfterDynamic() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFileClosureAfterDynamic()
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file-closure-after-dynamic"));
     }
 
     @Test
-    public void includeFileDynenv() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFileDynenv() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file-dynenv"));
     }
 
     @Test
-    public void includeFileClosureTerminated() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFileClosureTerminated() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file-closure-terminated"));
     }
 
     @Test
-    public void includeFileNested() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFileNested() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file-nested"));
     }
 
     @Test
-    public void includeFileNestedResource() throws SQLScriptIOException, SQLScriptParseException {
+    public void includeFileNestedResource() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("include-file-nested-resource"));
     }
 
     @Test
-    public void floatVsIntSlotDistinction() throws SQLScriptIOException, SQLScriptParseException {
+    public void floatVsIntSlotDistinction() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(file("float-vs-int-slot-distinction"));
         assertEquals(((Number) result).intValue(), 3);
     }
 
     @Test
     @SuppressWarnings({"UnnecessaryUnboxing"})
-    public void floatLiteral() throws SQLScriptIOException, SQLScriptParseException {
+    public void floatLiteral() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(".1.23;");
         assertEquals(((Double) result).doubleValue(), 1.23d);
     }
 
     @Test
     @SuppressWarnings({"UnnecessaryUnboxing"})
-    public void numPropagateInfinity() throws SQLScriptIOException, SQLScriptParseException {
+    public void numPropagateInfinity() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(".(1 / 0.0) * 1.bigRealValue();");
         assertEquals(Double.POSITIVE_INFINITY, ((Double)result).doubleValue());
     }
 
     @Test
-    public void numPropagateNaN() throws SQLScriptIOException, SQLScriptParseException {
+    public void numPropagateNaN() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(".(0 / 0.0) * 1.bigRealValue();");
         assertTrue(Double.isNaN((Double)result));
     }
@@ -332,12 +339,12 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void numDoubleSpecials() throws SQLScriptIOException, SQLScriptParseException {
+    public void numDoubleSpecials() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("num-double-specials"));
     }
 
     @Test
-    public void operatorPrecedence() throws SQLScriptIOException, SQLScriptParseException {
+    public void operatorPrecedence() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result;
 
         result = eval(". 2 + 3 * 4;");
@@ -348,18 +355,18 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void numBigReal() throws SQLScriptIOException, SQLScriptParseException {
+    public void numBigReal() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(file("num-bigreal"));
         assertEquals(result, "success");
     }
 
     @Test
-    public void hostIntegrationMethodSelect() throws SQLScriptIOException, SQLScriptParseException {
+    public void hostIntegrationMethodSelect() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("host-integration-method-select"));
     }
 
     @Test
-    public void array() throws SQLScriptIOException, SQLScriptParseException {
+    public void array() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(file("array"));
         List<Long> expected = new ArrayList<Long>(5);
         expected.add(1l);
@@ -370,38 +377,45 @@ public class InterpreterTestsNG extends AbstractTest {
         assertEquals(result, expected);
     }
 
+    @SuppressWarnings({"ConstantConditions"})
     @Test
     public void exceptions() throws SQLScriptIOException, SQLScriptParseException {
-        ScriptClientException ex = null;
+        SQLScriptException ex = null;
         try {
             eval(file("exceptions"));
-        } catch (ScriptClientException e) {
+        } catch (SQLScriptException e) {
             ex = e;
         }
 
-        assertNotNull(ex, "Expected ScriptClientException");
+        assertNotNull(ex, "Expected SQLScriptException");
         assertEquals(ex.getMessage(), "intentionally-uncaught-exception");
     }
 
     @Test
-    public void whileExit() throws SQLScriptIOException, SQLScriptParseException {
+    public void whileExit() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(file("while-exit"));
         assertEquals(result, 42l);
     }
 
     @Test
-    public void nativeClone() throws SQLScriptIOException, SQLScriptParseException {
+    public void nativeClone() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("native-clone"));
     }
 
     @Test
-    public void numRange() throws SQLScriptIOException, SQLScriptParseException {
+    public void numRange() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("num-range"));
     }
 
     @Test
-    public void typeCheck() throws SQLScriptIOException, SQLScriptParseException {
+    public void typeCheck() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         Object result = eval(file("type-check"));
         assertEquals(result, 42l);
+    }
+
+    @Test
+    public void incrementalEnvRetain() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        Object result = evalIncremental(file("incremental-env-retain"));
+        assertEquals(result, new ArrayList<Object>());
     }
 }

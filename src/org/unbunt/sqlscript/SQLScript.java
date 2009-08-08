@@ -167,15 +167,14 @@ public class SQLScript {
                         runBlock();
                     } catch (SQLScriptParseException e) {
                         if (e.isCausedBy(UnterminatedStringException.class)) {
-                            UnterminatedStringException ex =
-                                    (UnterminatedStringException) e.getCause(UnterminatedStringException.class);
+                            UnterminatedStringException ex = e.getCause(UnterminatedStringException.class);
                             stringType = ex.getStringType();
                             incompleteInput = true;
                             incompleteString = true;
                         }
                         else if (e.isCausedBy(UnexpectedEOFException.class)
                                 || (e.isCausedBy(RecognitionException.class)
-                                    && ((RecognitionException) e.getCause(RecognitionException.class)).getUnexpectedType() == SQLScriptParser.EOF)) {
+                                    && (e.getCause(RecognitionException.class)).getUnexpectedType() == SQLScriptParser.EOF)) {
                             incompleteInput = true;
                             incompleteString = false;
                         }
@@ -202,24 +201,28 @@ public class SQLScript {
         }
     }
 
-    public void executeIncremental() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
+    public Object executeIncremental()
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException, SQLScriptException {
         initParserIncremental();
         initEngine();
         try {
+            Object result = null;
             while (parseTokensIncremental() && !engine.isFinished()) {
                 if (tree == null) {
                     continue;
                 }
                 parseTree();
-                runBlock();
+                result = runBlock();
             }
+            return result;
         }
         finally {
             finish();
         }
     }
 
-    public Object execute() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
+    public Object execute()
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException, SQLScriptException {
         tokenize();
         parseTokens();
         parseTree();
@@ -436,14 +439,16 @@ public class SQLScript {
         }
     }
 
-    protected Object run() {
+    protected Object run() throws SQLScriptException {
         initEngine();
-        Object result = runBlock();
-        finish();
-        return result;
+        try {
+            return runBlock();
+        } finally {
+            finish();
+        }
     }
 
-    protected Object runBlock() {
+    protected Object runBlock() throws SQLScriptException {
         return engine.process(block);
     }
 
@@ -462,21 +467,37 @@ public class SQLScript {
      * Static methods / Main program
      */
 
-    public static Object eval(File script, Object... args) throws SQLScriptIOException, SQLScriptParseException {
+    public static Object evalIncremental(File script, Object... args)
+            throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        return evalIncremental(script, new DefaultContext(args));
+    }
+
+    public static Object evalIncremental(File script, DefaultContext context)
+            throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+        SimpleResource res = new FilesystemResource(script);
+        SQLScript interp = new SQLScript(context, res);
+        return interp.executeIncremental();
+    }
+
+    public static Object eval(File script, Object... args)
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         return eval(script, new DefaultContext(args));
     }
 
-    protected static Object eval(File script, DefaultContext context) throws SQLScriptIOException, SQLScriptParseException {
+    protected static Object eval(File script, DefaultContext context)
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         SimpleResource res = new FilesystemResource(script);
         SQLScript interp = new SQLScript(context, res);
         return interp.execute();
     }
 
-    public static Object eval(String script, Object... args) throws SQLScriptIOException, SQLScriptParseException {
+    public static Object eval(String script, Object... args)
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         return eval(script, new DefaultContext(args));
     }
 
-    protected static Object eval(String script, DefaultContext context) throws SQLScriptIOException, SQLScriptParseException {
+    protected static Object eval(String script, DefaultContext context)
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         SimpleResource res = new StringResource(script);
         SQLScript interp = new SQLScript(context, res);
         return interp.execute();
@@ -617,8 +638,10 @@ public class SQLScript {
             die(e.getMessage(), e, 2);
         } catch (SQLScriptParseException e) {
             die(e.getMessage(), e, 3);
-        } catch (SQLScriptRuntimeException e) {
-            die(e.getClass().getSimpleName() + (e.getMessage() == null ? "" : ": " + e.getMessage()), e, 4);
+        } catch (SQLScriptException e) {
+            die("Unhandled exception: " + e.getClass().getName() +
+                (e.getMessage() == null ? "" : ": " + e.getMessage()),
+                e, 4);
         }
     }
 

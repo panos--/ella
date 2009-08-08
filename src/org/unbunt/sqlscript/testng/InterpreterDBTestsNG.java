@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import static org.unbunt.sqlscript.SQLScript.eval;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
+import org.unbunt.sqlscript.exception.SQLScriptException;
 import static org.unbunt.sqlscript.utils.TestUtils.ensureType;
 
 import java.sql.Connection;
@@ -18,14 +19,14 @@ public class InterpreterDBTestsNG extends AbstractTest {
     public static final String PROPS_ORACLE = "oracle.properties";
 
     @Test
-    public void connectMysql() throws SQLScriptIOException, SQLScriptParseException, SQLException {
+    public void connectMysql() throws SQLScriptIOException, SQLScriptParseException, SQLException, SQLScriptException {
         Object result = eval(String.format(".ConnMgr.createFromProps('%s', 'mysql');", propsMysql()));
         Connection conn = ensureType(Connection.class, result);
         conn.close();
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void connActivate() throws SQLScriptIOException, SQLScriptParseException {
+    public void connActivate() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         // TODO: Close connections
         eval("{\n" +
                 String.format("var conn1 := ConnMgr.createFromProps('%s', 'mysql');\n", propsMysql()) +
@@ -43,12 +44,13 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "connActivate")
-    public void sqlLiteralVariableSubstitution() throws SQLScriptIOException, SQLScriptParseException {
+    public void sqlLiteralVariableSubstitution()
+            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("sql-literal-variable-substitution"), propsMysql(), "mysql");
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void tx() throws SQLScriptIOException, SQLScriptParseException {
+    public void tx() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
         eval(file("tx"), propsMysql());
     }
 

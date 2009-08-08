@@ -29,7 +29,7 @@ public class GenericException extends Exception {
         return ExceptionUtils.isCausedBy(this, classes);
     }
 
-    public Throwable getCause(Class cls) {
+    public <T extends Throwable> T getCause(Class<T> cls) {
         return ExceptionUtils.getCause(this, cls);
     }
 }

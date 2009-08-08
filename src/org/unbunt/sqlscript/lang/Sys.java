@@ -166,7 +166,7 @@ public class Sys extends AbstractObj {
 
     protected static final NativeCall nativeThrow = new NativeCall() {
         public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            throw new ScriptClientException(args[0]);
+            throw new SQLScriptClientException(args[0]);
         }
     };
 
@@ -175,7 +175,7 @@ public class Sys extends AbstractObj {
             SQLScriptEngine.EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
-            } catch (ScriptClientException e) {
+            } catch (SQLScriptClientException e) {
                 engine.invoke(args[1], engine.getObjNull(), e.getException());
             } catch (SQLScriptRuntimeException e) {
                 engine.invoke(args[1], engine.getObjNull(), new JObject(e));
@@ -213,7 +213,7 @@ public class Sys extends AbstractObj {
             SQLScriptEngine.EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
-            } catch (ScriptClientException e) {
+            } catch (SQLScriptClientException e) {
                 engine.invoke(args[1], engine.getObjNull(), e.getException());
             } catch (SQLScriptRuntimeException e) {
                 engine.invoke(args[1], engine.getObjNull(), new JObject(e));

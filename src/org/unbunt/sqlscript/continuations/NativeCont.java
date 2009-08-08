@@ -1,8 +1,7 @@
 package org.unbunt.sqlscript.continuations;
 
-import org.unbunt.sqlscript.lang.NativeCall;
 import org.unbunt.sqlscript.engine.Obj;
-import org.unbunt.sqlscript.continuations.ContinuationVisitor;
+import org.unbunt.sqlscript.lang.NativeCall;
 
 public class NativeCont implements Continuation {
     protected NativeCall nat;

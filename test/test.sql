@@ -1,5 +1,4 @@
-{
-    var x := BigNum.valueOf('1');
-    var y := x / 3;
-    print(y);
-}
+import java.util.*;
+
+var a := new ArrayList();
+.print(a);

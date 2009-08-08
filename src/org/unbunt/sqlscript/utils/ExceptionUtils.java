@@ -24,7 +24,8 @@ public class ExceptionUtils {
         return false;
     }
 
-    public static Throwable getCause(Throwable t, Class cls) {
+    @SuppressWarnings({"unchecked"})
+    public static <T extends Throwable> T getCause(Throwable t, Class<T> cls) {
         if (cls == null) {
             return null;
         }
@@ -32,7 +33,7 @@ public class ExceptionUtils {
         Throwable cause = t;
         while (cause != null) {
             if (cls.isInstance(cause)) {
-                return cause;
+                return (T) cause;
             }
             cause = cause.getCause();
         }
