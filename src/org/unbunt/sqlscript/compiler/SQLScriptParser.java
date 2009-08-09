@@ -1,19 +1,30 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g 2009-08-08 17:55:51
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g 2009-08-09 09:17:38
 
 	package org.unbunt.sqlscript.compiler;
 
-	import org.antlr.runtime.*;
-import org.antlr.runtime.tree.*;
-import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-    import org.unbunt.sqlscript.compiler.support.SQLStringType;
-    import org.unbunt.sqlscript.compiler.support.SQLParseMode;
-    import org.unbunt.sqlscript.compiler.support.SQLModeToken;
-    import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+	import java.util.Map;
+	import java.util.HashMap;
+	import java.util.Deque;
+	import java.util.ArrayDeque;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
+	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
+	import org.unbunt.sqlscript.compiler.support.SQLModeToken;
+	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
+	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+	
+	import org.unbunt.sqlscript.compiler.support.SQLParseMode;
+	import org.unbunt.sqlscript.compiler.support.SQLStringSyntaxRules;
+	import org.unbunt.sqlscript.compiler.support.SQLStringType;
+
+
+import org.antlr.runtime.*;
+import java.util.Stack;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+import org.antlr.runtime.tree.*;
 
 public class SQLScriptParser extends Parser {
     public static final String[] tokenNames = new String[] {
@@ -162,9 +173,9 @@ public class SQLScriptParser extends Parser {
         }
         public SQLScriptParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-
+             
         }
-
+        
     protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
     public void setTreeAdaptor(TreeAdaptor adaptor) {
@@ -177,20 +188,20 @@ public class SQLScriptParser extends Parser {
     public String[] getTokenNames() { return SQLScriptParser.tokenNames; }
     public String getGrammarFileName() { return "/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g"; }
 
-
+    	
     	protected boolean eof = false;
-
+    	
     	protected boolean parseSQLParams = false;
-
+    	
     	/**
     	 * Public entry point for parsing an sql statement for embedded named parameters.
-    	 *
+    	 * 
     	 * @return Tree the generated AST
-    	 * @see org.unbunt.sqlscript.SQLScriptWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream)
+    	 * @see org.unbunt.sqlscript.SQLScriptWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
     	 */
     	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws RecognitionException {
     		setTokenStream(input); // implicitly resets this instance
-
+    		
     		SQLStringType oldStringType = stringType;
     		stringType = parseMode.getStringType();
     		try {
@@ -211,16 +222,16 @@ public class SQLScriptParser extends Parser {
     	protected boolean sqlSlashLineSep = false;
 
     	protected Deque<Boolean> lineSepStack = new ArrayDeque<Boolean>(16);
-
+    	
     	protected SQLStringType stringType = SQLStringType.sql92;
-
+    	
     	protected Deque<SQLStringType> parseModeStack = new ArrayDeque<SQLStringType>(16);
-
+    	
     	protected void enterBlock() {
     		lineSepStack.push(sqlSlashLineSep);
     		parseModeStack.push(stringType);
     	}
-
+    	
     	protected void leaveBlock() {
     		sqlSlashLineSep = lineSepStack.pop();
     		stringType = parseModeStack.pop();
@@ -231,7 +242,7 @@ public class SQLScriptParser extends Parser {
     	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
     		throw e;
     	}
-
+    	
     	// stop on first parser error
     	@Override
     	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
@@ -242,12 +253,12 @@ public class SQLScriptParser extends Parser {
     		}
     		throw new MismatchedTokenException(ttype, input);
     	}
-
+    	
     	// indicates end of file condition in incremental parsing mode
     	public boolean isEOF() {
     		return eof;
     	}
-
+    	
     	protected CommonTree parseString() throws RecognitionException {
     		LazyTokenStream tokens = (LazyTokenStream) input;
     		SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
@@ -259,21 +270,21 @@ public class SQLScriptParser extends Parser {
     		strLexer.setAllowEmbeddedVariables(lexer.isAllowEmbeddedVariables());
     		tokens.replaceTokenSource(strLexer);
     		SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
-
+    		
     		// rewind input to string start
     		chars.rewind(lastStringStartMarker);
 
     		SQLScriptStringParser.string_return result = strParser.string();
-
+    		
     		// remember generated tree, emit() uses it later on to attach it to the current token
     		CommonTree tree = (CommonTree)result.getTree();
-
+    		
     		// set our lexer as token source in the token stream again
     		tokens.replaceTokenSource(lexer);
-
+    		
     		return tree;
     	}
-
+    	
     	protected void releaseStringStartMarker() {
     		LazyTokenStream tokens = (LazyTokenStream) input;
     		SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
@@ -301,7 +312,7 @@ public class SQLScriptParser extends Parser {
 
         CommonTree EOF2_tree=null;
 
-         enterBlock();
+         enterBlock(); 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:192:2: ( ( topStatement )* EOF )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:192:4: ( topStatement )* EOF
@@ -354,7 +365,7 @@ public class SQLScriptParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock();
+               leaveBlock(); 
             }
         }
 
@@ -387,7 +398,7 @@ public class SQLScriptParser extends Parser {
 
         CommonTree EOF4_tree=null;
 
-         enterBlock();
+         enterBlock(); 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:198:2: ( topStatement | EOF )
             int alt2=2;
@@ -432,7 +443,7 @@ public class SQLScriptParser extends Parser {
                     adaptor.addChild(root_0, EOF4_tree);
                     }
                     if ( state.backtracking==0 ) {
-                       eof = true;
+                       eof = true; 
                     }
 
                     }
@@ -447,7 +458,7 @@ public class SQLScriptParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock();
+               leaveBlock(); 
             }
         }
 
@@ -1099,12 +1110,12 @@ public class SQLScriptParser extends Parser {
         RewriteRuleTokenStream stream_LCURLY=new RewriteRuleTokenStream(adaptor,"token LCURLY");
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
-         enterBlock();
+         enterBlock(); 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:240:2: ( LCURLY ( statement )* RCURLY -> ^( BLOCK ( statement )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:240:4: LCURLY ( statement )* RCURLY
             {
-            LCURLY22=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_block422); if (state.failed) return retval;
+            LCURLY22=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_block422); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY22);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:240:11: ( statement )*
@@ -1137,18 +1148,18 @@ public class SQLScriptParser extends Parser {
                 }
             } while (true);
 
-            RCURLY24=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_block427); if (state.failed) return retval;
+            RCURLY24=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_block427); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY24);
 
 
 
             // AST REWRITE
             // elements: statement
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -1184,7 +1195,7 @@ public class SQLScriptParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock();
+               leaveBlock(); 
             }
         }
 
@@ -1224,15 +1235,15 @@ public class SQLScriptParser extends Parser {
         RewriteRuleTokenStream stream_KW_SQL=new RewriteRuleTokenStream(adaptor,"token KW_SQL");
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_topStatement=new RewriteRuleSubtreeStream(adaptor,"rule topStatement");
-         enterBlock();
+         enterBlock(); 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:246:2: ( KW_SQL LCURLY ( topStatement )* RCURLY -> ^( BLOCK ( topStatement )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:246:4: KW_SQL LCURLY ( topStatement )* RCURLY
             {
-            KW_SQL25=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlBlock457); if (state.failed) return retval;
+            KW_SQL25=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlBlock457); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_SQL.add(KW_SQL25);
 
-            LCURLY26=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlBlock459); if (state.failed) return retval;
+            LCURLY26=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlBlock459); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY26);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:246:18: ( topStatement )*
@@ -1265,18 +1276,18 @@ public class SQLScriptParser extends Parser {
                 }
             } while (true);
 
-            RCURLY28=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlBlock464); if (state.failed) return retval;
+            RCURLY28=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlBlock464); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY28);
 
 
 
             // AST REWRITE
             // elements: topStatement
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -1312,7 +1323,7 @@ public class SQLScriptParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock();
+               leaveBlock(); 
             }
         }
 
@@ -2066,7 +2077,7 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:291:5: OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
                     {
-                    OP_DEFINE50=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssign627); if (state.failed) return retval;
+                    OP_DEFINE50=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssign627); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE50);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:292:4: ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
@@ -2099,12 +2110,12 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, identifier, sqlExpression
-                            // token labels:
+                            // elements: sqlExpression, identifier, identifier
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2180,12 +2191,12 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: expressionNoSQL, identifier, identifier, scriptAssignRest
-                            // token labels:
+                            // elements: identifier, expressionNoSQL, scriptAssignRest, identifier
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2241,7 +2252,7 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:295:5: EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
                     {
-                    EQUALS54=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssign701); if (state.failed) return retval;
+                    EQUALS54=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssign701); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS54);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:296:4: ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
@@ -2275,11 +2286,11 @@ public class SQLScriptParser extends Parser {
 
                             // AST REWRITE
                             // elements: sqlExpression, identifier
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2338,12 +2349,12 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, scriptAssignRest, expressionNoSQL
-                            // token labels:
+                            // elements: identifier, expressionNoSQL, scriptAssignRest
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2409,11 +2420,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier, scriptAssignRest
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2507,7 +2518,7 @@ public class SQLScriptParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:304:5: COMMA scriptAssignNoSQL
             	    {
-            	    COMMA59=(Token)match(input,COMMA,FOLLOW_COMMA_in_scriptAssignRest786); if (state.failed) return retval;
+            	    COMMA59=(Token)match(input,COMMA,FOLLOW_COMMA_in_scriptAssignRest786); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA59);
 
             	    pushFollow(FOLLOW_scriptAssignNoSQL_in_scriptAssignRest788);
@@ -2534,11 +2545,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: scriptAssignNoSQL
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2641,7 +2652,7 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:309:5: OP_DEFINE expressionNoSQL
                     {
-                    OP_DEFINE62=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssignNoSQL811); if (state.failed) return retval;
+                    OP_DEFINE62=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssignNoSQL811); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE62);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_scriptAssignNoSQL813);
@@ -2653,12 +2664,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier, identifier
-                    // token labels:
+                    // elements: identifier, identifier, expressionNoSQL
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2702,7 +2713,7 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:310:5: EQUALS expressionNoSQL
                     {
-                    EQUALS64=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssignNoSQL839); if (state.failed) return retval;
+                    EQUALS64=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssignNoSQL839); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS64);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_scriptAssignNoSQL841);
@@ -2715,11 +2726,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: expressionNoSQL, identifier
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2744,16 +2755,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:311:8:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:311:8: 
                     {
 
                     // AST REWRITE
                     // elements: identifier
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2831,7 +2842,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:316:2: ( KW_FUN identifier argumentsDef block -> ^( FUNC_DEF identifier ( argumentsDef )? block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:316:4: KW_FUN identifier argumentsDef block
             {
-            KW_FUN66=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDefStmt881); if (state.failed) return retval;
+            KW_FUN66=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDefStmt881); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FUN.add(KW_FUN66);
 
             pushFollow(FOLLOW_identifier_in_scriptFuncDefStmt883);
@@ -2856,11 +2867,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: identifier, block, argumentsDef
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2939,7 +2950,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:320:2: ( KW_FUN ( identifier )? argumentsDef block -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:320:4: KW_FUN ( identifier )? argumentsDef block
             {
-            KW_FUN70=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDef911); if (state.failed) return retval;
+            KW_FUN70=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDef911); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FUN.add(KW_FUN70);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:320:11: ( identifier )?
@@ -2980,12 +2991,12 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: argumentsDef, block, identifier
-            // token labels:
+            // elements: block, argumentsDef, identifier
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3066,7 +3077,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:324:2: ( LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:324:4: LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN
             {
-            LPAREN74=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsDef943); if (state.failed) return retval;
+            LPAREN74=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsDef943); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN74);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:325:3: ( identifierList -> ^( ARGS identifierList ) | )
@@ -3100,11 +3111,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifierList
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3128,14 +3139,14 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:327:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:327:3: 
                     {
                     }
                     break;
 
             }
 
-            RPAREN76=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsDef969); if (state.failed) return retval;
+            RPAREN76=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsDef969); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN76);
 
 
@@ -3272,12 +3283,12 @@ public class SQLScriptParser extends Parser {
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_blockArgumentsDef=new RewriteRuleSubtreeStream(adaptor,"rule blockArgumentsDef");
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
-         enterBlock();
+         enterBlock(); 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:338:2: ( LCURLY blockArgumentsDef ( statement )* RCURLY -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:338:4: LCURLY blockArgumentsDef ( statement )* RCURLY
             {
-            LCURLY80=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_blockClosure1009); if (state.failed) return retval;
+            LCURLY80=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_blockClosure1009); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY80);
 
             pushFollow(FOLLOW_blockArgumentsDef_in_blockClosure1011);
@@ -3316,18 +3327,18 @@ public class SQLScriptParser extends Parser {
                 }
             } while (true);
 
-            RCURLY83=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_blockClosure1016); if (state.failed) return retval;
+            RCURLY83=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_blockClosure1016); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY83);
 
 
 
             // AST REWRITE
-            // elements: blockArgumentsDef, statement
-            // token labels:
+            // elements: statement, blockArgumentsDef
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3377,7 +3388,7 @@ public class SQLScriptParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock();
+               leaveBlock(); 
             }
         }
 
@@ -3441,18 +3452,18 @@ public class SQLScriptParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifierList.add(identifierList84.getTree());
-                    DOUBLE_ARROW85=(Token)match(input,DOUBLE_ARROW,FOLLOW_DOUBLE_ARROW_in_blockArgumentsDef1045); if (state.failed) return retval;
+                    DOUBLE_ARROW85=(Token)match(input,DOUBLE_ARROW,FOLLOW_DOUBLE_ARROW_in_blockArgumentsDef1045); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DOUBLE_ARROW.add(DOUBLE_ARROW85);
 
 
 
                     // AST REWRITE
                     // elements: identifierList
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3594,7 +3605,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:351:2: ( KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:351:4: KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) )
             {
-            KW_IF89=(Token)match(input,KW_IF,FOLLOW_KW_IF_in_scriptIfElse1084); if (state.failed) return retval;
+            KW_IF89=(Token)match(input,KW_IF,FOLLOW_KW_IF_in_scriptIfElse1084); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_IF.add(KW_IF89);
 
             pushFollow(FOLLOW_parenExpression_in_scriptIfElse1086);
@@ -3630,7 +3641,7 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:352:5: KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
                     {
-                    KW_ELSE92=(Token)match(input,KW_ELSE,FOLLOW_KW_ELSE_in_scriptIfElse1094); if (state.failed) return retval;
+                    KW_ELSE92=(Token)match(input,KW_ELSE,FOLLOW_KW_ELSE_in_scriptIfElse1094); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_ELSE.add(KW_ELSE92);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:353:4: ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
@@ -3664,11 +3675,11 @@ public class SQLScriptParser extends Parser {
 
                             // AST REWRITE
                             // elements: scriptIfElse, block, parenExpression
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3748,11 +3759,11 @@ public class SQLScriptParser extends Parser {
 
                             // AST REWRITE
                             // elements: block, parenExpression, block
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3818,16 +3829,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:370:5:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:370:5: 
                     {
 
                     // AST REWRITE
                     // elements: block, parenExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3934,7 +3945,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:378:2: ( KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:378:4: KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) )
             {
-            KW_TRY95=(Token)match(input,KW_TRY,FOLLOW_KW_TRY_in_scriptTry1342); if (state.failed) return retval;
+            KW_TRY95=(Token)match(input,KW_TRY,FOLLOW_KW_TRY_in_scriptTry1342); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_TRY.add(KW_TRY95);
 
             pushFollow(FOLLOW_block_in_scriptTry1344);
@@ -4000,12 +4011,12 @@ public class SQLScriptParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: block, scriptCatch, scriptFinally
-                            // token labels:
+                            // elements: scriptCatch, scriptFinally, block
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4057,16 +4068,16 @@ public class SQLScriptParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:384:10:
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:384:10: 
                             {
 
                             // AST REWRITE
-                            // elements: scriptCatch, block
-                            // token labels:
+                            // elements: block, scriptCatch
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4135,11 +4146,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: block, scriptFinally
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4247,10 +4258,10 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:397:2: ( KW_CATCH LPAREN identifier RPAREN block -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:397:4: KW_CATCH LPAREN identifier RPAREN block
             {
-            KW_CATCH100=(Token)match(input,KW_CATCH,FOLLOW_KW_CATCH_in_scriptCatch1561); if (state.failed) return retval;
+            KW_CATCH100=(Token)match(input,KW_CATCH,FOLLOW_KW_CATCH_in_scriptCatch1561); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_CATCH.add(KW_CATCH100);
 
-            LPAREN101=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptCatch1563); if (state.failed) return retval;
+            LPAREN101=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptCatch1563); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN101);
 
             pushFollow(FOLLOW_identifier_in_scriptCatch1565);
@@ -4259,7 +4270,7 @@ public class SQLScriptParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(identifier102.getTree());
-            RPAREN103=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptCatch1567); if (state.failed) return retval;
+            RPAREN103=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptCatch1567); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN103);
 
             pushFollow(FOLLOW_block_in_scriptCatch1569);
@@ -4272,11 +4283,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: block, identifier
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4351,7 +4362,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:401:2: ( KW_FINALLY block -> ^( BLOCK_CLOSURE block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:401:4: KW_FINALLY block
             {
-            KW_FINALLY105=(Token)match(input,KW_FINALLY,FOLLOW_KW_FINALLY_in_scriptFinally1594); if (state.failed) return retval;
+            KW_FINALLY105=(Token)match(input,KW_FINALLY,FOLLOW_KW_FINALLY_in_scriptFinally1594); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FINALLY.add(KW_FINALLY105);
 
             pushFollow(FOLLOW_block_in_scriptFinally1596);
@@ -4364,11 +4375,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: block
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4434,7 +4445,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:405:2: ( KW_THROW expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:405:4: KW_THROW expression
             {
-            KW_THROW107=(Token)match(input,KW_THROW,FOLLOW_KW_THROW_in_scriptThrow1617); if (state.failed) return retval;
+            KW_THROW107=(Token)match(input,KW_THROW,FOLLOW_KW_THROW_in_scriptThrow1617); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_THROW.add(KW_THROW107);
 
             pushFollow(FOLLOW_expression_in_scriptThrow1619);
@@ -4447,11 +4458,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: expression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4553,7 +4564,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:412:2: ( KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:412:4: KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block
             {
-            KW_FOR109=(Token)match(input,KW_FOR,FOLLOW_KW_FOR_in_scriptFor1671); if (state.failed) return retval;
+            KW_FOR109=(Token)match(input,KW_FOR,FOLLOW_KW_FOR_in_scriptFor1671); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FOR.add(KW_FOR109);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:413:3: ( identifier -> identifier | -> IDENTIFIER[\"each\"] )
@@ -4587,11 +4598,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4607,16 +4618,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:414:6:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:414:6: 
                     {
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4634,7 +4645,7 @@ public class SQLScriptParser extends Parser {
 
             }
 
-            LPAREN111=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptFor1699); if (state.failed) return retval;
+            LPAREN111=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptFor1699); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN111);
 
             pushFollow(FOLLOW_identifierList_in_scriptFor1701);
@@ -4643,7 +4654,7 @@ public class SQLScriptParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifierList.add(identifierList112.getTree());
-            COLON113=(Token)match(input,COLON,FOLLOW_COLON_in_scriptFor1703); if (state.failed) return retval;
+            COLON113=(Token)match(input,COLON,FOLLOW_COLON_in_scriptFor1703); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_COLON.add(COLON113);
 
             pushFollow(FOLLOW_expression_in_scriptFor1705);
@@ -4652,7 +4663,7 @@ public class SQLScriptParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_expression.add(expression114.getTree());
-            RPAREN115=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptFor1707); if (state.failed) return retval;
+            RPAREN115=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptFor1707); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN115);
 
             pushFollow(FOLLOW_block_in_scriptFor1709);
@@ -4664,12 +4675,12 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block, identifierList, scriptFor
-            // token labels:
+            // elements: block, scriptFor, expression, identifierList
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4773,7 +4784,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:426:2: ( KW_WHILE parenExpression block -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:426:4: KW_WHILE parenExpression block
             {
-            KW_WHILE117=(Token)match(input,KW_WHILE,FOLLOW_KW_WHILE_in_scriptWhile1765); if (state.failed) return retval;
+            KW_WHILE117=(Token)match(input,KW_WHILE,FOLLOW_KW_WHILE_in_scriptWhile1765); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_WHILE.add(KW_WHILE117);
 
             pushFollow(FOLLOW_parenExpression_in_scriptWhile1767);
@@ -4791,12 +4802,12 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, parenExpression
-            // token labels:
+            // elements: parenExpression, block
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4902,18 +4913,18 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:434:2: ( KW_BREAK -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:434:4: KW_BREAK
             {
-            KW_BREAK120=(Token)match(input,KW_BREAK,FOLLOW_KW_BREAK_in_scriptBreak1825); if (state.failed) return retval;
+            KW_BREAK120=(Token)match(input,KW_BREAK,FOLLOW_KW_BREAK_in_scriptBreak1825); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_BREAK.add(KW_BREAK120);
 
 
 
             // AST REWRITE
-            // elements:
-            // token labels:
+            // elements: 
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4986,18 +4997,18 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:438:2: ( KW_CONTINUE -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:438:4: KW_CONTINUE
             {
-            KW_CONTINUE121=(Token)match(input,KW_CONTINUE,FOLLOW_KW_CONTINUE_in_scriptContinue1852); if (state.failed) return retval;
+            KW_CONTINUE121=(Token)match(input,KW_CONTINUE,FOLLOW_KW_CONTINUE_in_scriptContinue1852); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_CONTINUE.add(KW_CONTINUE121);
 
 
 
             // AST REWRITE
-            // elements:
-            // token labels:
+            // elements: 
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5072,7 +5083,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:443:2: ( KW_RETURN ( expression )? -> ^( RETURN ( expression )? ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:443:4: KW_RETURN ( expression )?
             {
-            KW_RETURN122=(Token)match(input,KW_RETURN,FOLLOW_KW_RETURN_in_scriptReturn1880); if (state.failed) return retval;
+            KW_RETURN122=(Token)match(input,KW_RETURN,FOLLOW_KW_RETURN_in_scriptReturn1880); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_RETURN.add(KW_RETURN122);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:443:14: ( expression )?
@@ -5102,11 +5113,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: expression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5177,7 +5188,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:447:2: ( KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:447:4: KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
             {
-            KW_EXIT124=(Token)match(input,KW_EXIT,FOLLOW_KW_EXIT_in_scriptExit1903); if (state.failed) return retval;
+            KW_EXIT124=(Token)match(input,KW_EXIT,FOLLOW_KW_EXIT_in_scriptExit1903); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_EXIT.add(KW_EXIT124);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:448:3: ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
@@ -5211,11 +5222,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: expression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5257,16 +5268,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:452:6:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:452:6: 
                     {
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5363,7 +5374,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:458:2: ( KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:458:4: KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) )
             {
-            KW_IMPORT126=(Token)match(input,KW_IMPORT,FOLLOW_KW_IMPORT_in_scriptImport1986); if (state.failed) return retval;
+            KW_IMPORT126=(Token)match(input,KW_IMPORT,FOLLOW_KW_IMPORT_in_scriptImport1986); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_IMPORT.add(KW_IMPORT126);
 
             pushFollow(FOLLOW_javaIdentifier_in_scriptImport1988);
@@ -5393,7 +5404,7 @@ public class SQLScriptParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:459:5: DOT javaIdentifier
             	    {
-            	    DOT128=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport1994); if (state.failed) return retval;
+            	    DOT128=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport1994); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_DOT.add(DOT128);
 
             	    pushFollow(FOLLOW_javaIdentifier_in_scriptImport1996);
@@ -5441,21 +5452,21 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:460:5: DOT OP_MUL
                     {
-                    DOT130=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport2005); if (state.failed) return retval;
+                    DOT130=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport2005); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DOT.add(DOT130);
 
-                    OP_MUL131=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_scriptImport2007); if (state.failed) return retval;
+                    OP_MUL131=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_scriptImport2007); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_MUL.add(OP_MUL131);
 
 
 
                     // AST REWRITE
                     // elements: javaIdentifier
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5488,7 +5499,7 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:461:5: KW_AS identifier
                     {
-                    KW_AS132=(Token)match(input,KW_AS,FOLLOW_KW_AS_in_scriptImport2023); if (state.failed) return retval;
+                    KW_AS132=(Token)match(input,KW_AS,FOLLOW_KW_AS_in_scriptImport2023); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_AS.add(KW_AS132);
 
                     pushFollow(FOLLOW_identifier_in_scriptImport2025);
@@ -5500,12 +5511,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, javaIdentifier
-                    // token labels:
+                    // elements: javaIdentifier, identifier
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5545,16 +5556,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:462:7:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:462:7: 
                     {
 
                     // AST REWRITE
                     // elements: javaIdentifier
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5633,7 +5644,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:467:2: ( KW_INCLUDE expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:467:4: KW_INCLUDE expression
             {
-            KW_INCLUDE134=(Token)match(input,KW_INCLUDE,FOLLOW_KW_INCLUDE_in_scriptInclude2070); if (state.failed) return retval;
+            KW_INCLUDE134=(Token)match(input,KW_INCLUDE,FOLLOW_KW_INCLUDE_in_scriptInclude2070); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_INCLUDE.add(KW_INCLUDE134);
 
             pushFollow(FOLLOW_expression_in_scriptInclude2072);
@@ -5646,11 +5657,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: expression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6159,7 +6170,7 @@ public class SQLScriptParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifier.add(identifier149.getTree());
-                    OP_DEFINE150=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpressionNoSQL2252); if (state.failed) return retval;
+                    OP_DEFINE150=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpressionNoSQL2252); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE150);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_assignExpressionNoSQL2254);
@@ -6171,12 +6182,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, expressionNoSQL, identifier
-                    // token labels:
+                    // elements: identifier, identifier, expressionNoSQL
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6247,7 +6258,7 @@ public class SQLScriptParser extends Parser {
                         case 1 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:518:5: EQUALS expressionNoSQL
                             {
-                            EQUALS153=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpressionNoSQL2285); if (state.failed) return retval;
+                            EQUALS153=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpressionNoSQL2285); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS153);
 
                             pushFollow(FOLLOW_expressionNoSQL_in_assignExpressionNoSQL2287);
@@ -6260,11 +6271,11 @@ public class SQLScriptParser extends Parser {
 
                             // AST REWRITE
                             // elements: expressionNoSQL, conditionalExpression
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6289,16 +6300,16 @@ public class SQLScriptParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:519:9:
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:519:9: 
                             {
 
                             // AST REWRITE
                             // elements: conditionalExpression
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6385,7 +6396,7 @@ public class SQLScriptParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifier.add(identifier155.getTree());
-                    OP_DEFINE156=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpression2327); if (state.failed) return retval;
+                    OP_DEFINE156=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpression2327); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE156);
 
                     pushFollow(FOLLOW_expression_in_assignExpression2329);
@@ -6397,12 +6408,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, identifier, identifier
-                    // token labels:
+                    // elements: identifier, expression, identifier
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6473,7 +6484,7 @@ public class SQLScriptParser extends Parser {
                         case 1 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:526:5: EQUALS expression
                             {
-                            EQUALS159=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpression2360); if (state.failed) return retval;
+                            EQUALS159=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpression2360); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS159);
 
                             pushFollow(FOLLOW_expression_in_assignExpression2362);
@@ -6486,11 +6497,11 @@ public class SQLScriptParser extends Parser {
 
                             // AST REWRITE
                             // elements: expression, conditionalExpression
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6515,16 +6526,16 @@ public class SQLScriptParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:527:8:
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:527:8: 
                             {
 
                             // AST REWRITE
                             // elements: conditionalExpression
-                            // token labels:
+                            // token labels: 
                             // rule labels: retval
-                            // token list labels:
-                            // rule list labels:
-                            // wildcard labels:
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6625,7 +6636,7 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:533:5: QUESTION conditionalResult COLON conditionalResult
                     {
-                    QUESTION162=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_conditionalExpression2405); if (state.failed) return retval;
+                    QUESTION162=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_conditionalExpression2405); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_QUESTION.add(QUESTION162);
 
                     pushFollow(FOLLOW_conditionalResult_in_conditionalExpression2407);
@@ -6634,7 +6645,7 @@ public class SQLScriptParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_conditionalResult.add(conditionalResult163.getTree());
-                    COLON164=(Token)match(input,COLON,FOLLOW_COLON_in_conditionalExpression2409); if (state.failed) return retval;
+                    COLON164=(Token)match(input,COLON,FOLLOW_COLON_in_conditionalExpression2409); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON164);
 
                     pushFollow(FOLLOW_conditionalResult_in_conditionalExpression2411);
@@ -6646,12 +6657,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: conditionalResult, conditionalResult, orCondition
-                    // token labels:
+                    // elements: conditionalResult, orCondition, conditionalResult
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6727,16 +6738,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:543:5:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:543:5: 
                     {
 
                     // AST REWRITE
                     // elements: orCondition
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6888,11 +6899,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: andCondition
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6922,7 +6933,7 @@ public class SQLScriptParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:555:5: OP_OR andCondition
             	    {
-            	    OP_OR169=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_orCondition2556); if (state.failed) return retval;
+            	    OP_OR169=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_orCondition2556); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_OP_OR.add(OP_OR169);
 
             	    pushFollow(FOLLOW_andCondition_in_orCondition2558);
@@ -6934,12 +6945,12 @@ public class SQLScriptParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: orCondition, andCondition
-            	    // token labels:
+            	    // elements: andCondition, orCondition
+            	    // token labels: 
             	    // rule labels: retval
-            	    // token list labels:
-            	    // rule list labels:
-            	    // wildcard labels:
+            	    // token list labels: 
+            	    // rule list labels: 
+            	    // wildcard labels: 
             	    if ( state.backtracking==0 ) {
             	    retval.tree = root_0;
             	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7063,11 +7074,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: eqCondition
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7097,7 +7108,7 @@ public class SQLScriptParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:564:5: OP_AND eqCondition
             	    {
-            	    OP_AND172=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_andCondition2636); if (state.failed) return retval;
+            	    OP_AND172=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_andCondition2636); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_OP_AND.add(OP_AND172);
 
             	    pushFollow(FOLLOW_eqCondition_in_andCondition2638);
@@ -7110,11 +7121,11 @@ public class SQLScriptParser extends Parser {
 
             	    // AST REWRITE
             	    // elements: eqCondition, andCondition
-            	    // token labels:
+            	    // token labels: 
             	    // rule labels: retval
-            	    // token list labels:
-            	    // rule list labels:
-            	    // wildcard labels:
+            	    // token list labels: 
+            	    // rule list labels: 
+            	    // wildcard labels: 
             	    if ( state.backtracking==0 ) {
             	    retval.tree = root_0;
             	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7314,7 +7325,7 @@ public class SQLScriptParser extends Parser {
                         case 1 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:6: op= OP_EQ
                             {
-                            op=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_eqCondition2712); if (state.failed) return retval;
+                            op=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_eqCondition2712); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_EQ.add(op);
 
 
@@ -7323,7 +7334,7 @@ public class SQLScriptParser extends Parser {
                         case 2 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:15: op= OP_NE
                             {
-                            op=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_eqCondition2716); if (state.failed) return retval;
+                            op=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_eqCondition2716); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_NE.add(op);
 
 
@@ -7332,7 +7343,7 @@ public class SQLScriptParser extends Parser {
                         case 3 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:24: op= OP_ID
                             {
-                            op=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_eqCondition2720); if (state.failed) return retval;
+                            op=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_eqCondition2720); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_ID.add(op);
 
 
@@ -7341,7 +7352,7 @@ public class SQLScriptParser extends Parser {
                         case 4 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:33: op= OP_NI
                             {
-                            op=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_eqCondition2724); if (state.failed) return retval;
+                            op=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_eqCondition2724); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_NI.add(op);
 
 
@@ -7350,7 +7361,7 @@ public class SQLScriptParser extends Parser {
                         case 5 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:42: op= OP_GT
                             {
-                            op=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_eqCondition2728); if (state.failed) return retval;
+                            op=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_eqCondition2728); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_GT.add(op);
 
 
@@ -7359,7 +7370,7 @@ public class SQLScriptParser extends Parser {
                         case 6 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:51: op= OP_GE
                             {
-                            op=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_eqCondition2732); if (state.failed) return retval;
+                            op=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_eqCondition2732); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_GE.add(op);
 
 
@@ -7368,7 +7379,7 @@ public class SQLScriptParser extends Parser {
                         case 7 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:60: op= OP_LT
                             {
-                            op=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_eqCondition2736); if (state.failed) return retval;
+                            op=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_eqCondition2736); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_LT.add(op);
 
 
@@ -7377,7 +7388,7 @@ public class SQLScriptParser extends Parser {
                         case 8 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:573:69: op= OP_LE
                             {
-                            op=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_eqCondition2740); if (state.failed) return retval;
+                            op=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_eqCondition2740); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_LE.add(op);
 
 
@@ -7396,11 +7407,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: binaryExpression, binaryExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7426,16 +7437,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:575:7:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:575:7: 
                     {
 
                     // AST REWRITE
                     // elements: binaryExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7514,11 +7525,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: addExpression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7585,12 +7596,12 @@ public class SQLScriptParser extends Parser {
 
 
                     	    // AST REWRITE
-                    	    // elements: addExpression, identifierNoOps
-                    	    // token labels:
+                    	    // elements: identifierNoOps, addExpression
+                    	    // token labels: 
                     	    // rule labels: retval
-                    	    // token list labels:
-                    	    // rule list labels:
-                    	    // wildcard labels:
+                    	    // token list labels: 
+                    	    // rule list labels: 
+                    	    // wildcard labels: 
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7630,7 +7641,7 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:583:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:583:3: 
                     {
                     }
                     break;
@@ -7699,11 +7710,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: multExpression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7776,7 +7787,7 @@ public class SQLScriptParser extends Parser {
                     	        case 1 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:588:7: op= OP_ADD
                     	            {
-                    	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2856); if (state.failed) return retval;
+                    	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2856); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_ADD.add(op);
 
 
@@ -7785,7 +7796,7 @@ public class SQLScriptParser extends Parser {
                     	        case 2 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:588:17: op= OP_SUB
                     	            {
-                    	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2860); if (state.failed) return retval;
+                    	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2860); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_SUB.add(op);
 
 
@@ -7804,11 +7815,11 @@ public class SQLScriptParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: multExpression
-                    	    // token labels:
+                    	    // token labels: 
                     	    // rule labels: retval
-                    	    // token list labels:
-                    	    // rule list labels:
-                    	    // wildcard labels:
+                    	    // token list labels: 
+                    	    // rule list labels: 
+                    	    // wildcard labels: 
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7848,7 +7859,7 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:590:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:590:3: 
                     {
                     }
                     break;
@@ -7918,11 +7929,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: unaryExpression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8004,7 +8015,7 @@ public class SQLScriptParser extends Parser {
                     	        case 1 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:595:7: op= OP_MUL
                     	            {
-                    	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2916); if (state.failed) return retval;
+                    	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2916); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_MUL.add(op);
 
 
@@ -8013,7 +8024,7 @@ public class SQLScriptParser extends Parser {
                     	        case 2 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:595:17: op= OP_DIV
                     	            {
-                    	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2920); if (state.failed) return retval;
+                    	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2920); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_DIV.add(op);
 
 
@@ -8022,7 +8033,7 @@ public class SQLScriptParser extends Parser {
                     	        case 3 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:595:27: op= OP_MOD
                     	            {
-                    	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2924); if (state.failed) return retval;
+                    	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2924); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_MOD.add(op);
 
 
@@ -8041,11 +8052,11 @@ public class SQLScriptParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: unaryExpression
-                    	    // token labels:
+                    	    // token labels: 
                     	    // rule labels: retval
-                    	    // token list labels:
-                    	    // rule list labels:
-                    	    // wildcard labels:
+                    	    // token list labels: 
+                    	    // rule list labels: 
+                    	    // wildcard labels: 
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8085,7 +8096,7 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:597:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:597:3: 
                     {
                     }
                     break;
@@ -8199,7 +8210,7 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:601:4: exclam= EXCLAM unaryExpression
                     {
-                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_unaryExpression2963); if (state.failed) return retval;
+                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_unaryExpression2963); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
 
                     pushFollow(FOLLOW_unaryExpression_in_unaryExpression2965);
@@ -8212,11 +8223,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: unaryExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8243,7 +8254,7 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:602:4: op_sub= OP_SUB unaryExpression
                     {
-                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_unaryExpression2983); if (state.failed) return retval;
+                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_unaryExpression2983); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
 
                     pushFollow(FOLLOW_unaryExpression_in_unaryExpression2985);
@@ -8256,11 +8267,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: unaryExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8297,11 +8308,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: callExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8374,11 +8385,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: simpleExpression
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8440,11 +8451,11 @@ public class SQLScriptParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: callExpressionSuffix
-                    	    // token labels:
+                    	    // token labels: 
                     	    // rule labels: retval
-                    	    // token list labels:
-                    	    // rule list labels:
-                    	    // wildcard labels:
+                    	    // token list labels: 
+                    	    // rule list labels: 
+                    	    // wildcard labels: 
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8474,16 +8485,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:610:9:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:610:9: 
                     {
 
                     // AST REWRITE
                     // elements: simpleExpression
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8564,11 +8575,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: callSuffix
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8610,11 +8621,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: slotSuffix
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8651,11 +8662,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: indexSuffix
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8921,7 +8932,7 @@ public class SQLScriptParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:634:3:
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:634:3: 
                             {
                             }
                             break;
@@ -9003,11 +9014,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: slotSuffix
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9048,11 +9059,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: callSuffix
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9083,16 +9094,16 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:641:8:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:641:8: 
                     {
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9375,18 +9386,18 @@ public class SQLScriptParser extends Parser {
                 case 9 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:654:4: tokThis= KW_THIS
                     {
-                    tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3329); if (state.failed) return retval;
+                    tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3329); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_THIS.add(tokThis);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9419,7 +9430,7 @@ public class SQLScriptParser extends Parser {
                 case 11 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:656:4: tokNew= KW_NEW simpleExpression argumentsList
                     {
-                    tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3352); if (state.failed) return retval;
+                    tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3352); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_NEW.add(tokNew);
 
                     pushFollow(FOLLOW_simpleExpression_in_simpleExpression3354);
@@ -9437,12 +9448,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: argumentsList, simpleExpression
-                    // token labels:
+                    // elements: simpleExpression, argumentsList
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9523,11 +9534,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: sqlLiteralPrefixed
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9600,11 +9611,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: sqlLiteral
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9677,11 +9688,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: sqlLiteralPrefixed
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9763,11 +9774,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: sqlStmtRest
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9818,7 +9829,7 @@ public class SQLScriptParser extends Parser {
 
 
 
-
+        	
         	LazyTokenStream tokens = (LazyTokenStream) input;
         	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
         	lexer.setAllowEmbeddedVariables(false);
@@ -9902,11 +9913,11 @@ public class SQLScriptParser extends Parser {
 
             // AST REWRITE
             // elements: sqlStmtRest
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10196,7 +10207,7 @@ public class SQLScriptParser extends Parser {
         	lexer.setAllowQQuote(stringType.hasQQuote());
         	lexer.setAllowDollarQuote(stringType.hasDollarQuote());
         	lexer.setAllowAtSignInIdentifier(false);
-
+        	
         	// XXX: Hack - when reparsing an sql statement for named parameters
         	// XXX: characters might have been introduced by variable substituation
         	// XXX: which normally would be treated as statement separators but must
@@ -10272,7 +10283,7 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:770:24: EOF
                     {
-                    EOF231=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3573); if (state.failed) return retval;
+                    EOF231=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3573); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EOF.add(EOF231);
 
 
@@ -10284,12 +10295,12 @@ public class SQLScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: sqlPart, sqlHiddenWS
-            // token labels:
+            // elements: sqlHiddenWS, sqlPart
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10339,7 +10350,7 @@ public class SQLScriptParser extends Parser {
               	lexer.setAllowDollarQuote(false);
               	lexer.setAllowAtSignInIdentifier(true);
               	lexer.setEscapeSeparators(false);
-
+              	
               	if (sqlSlashLineSep) {
               		// NOTE: The SEP rule in the lexer disables the allowSpecialSQLSep after every
               		//       matched separator. This happens once here as part of the look-ahead.
@@ -10442,10 +10453,10 @@ public class SQLScriptParser extends Parser {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "sqlPart", "parseSQLParams");
                     }
-                    COLON232=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3653); if (state.failed) return retval;
+                    COLON232=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3653); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON232);
 
-                    WORD233=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3655); if (state.failed) return retval;
+                    WORD233=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3655); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_WORD.add(WORD233);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:786:50: ( sqlWS )*
@@ -10482,11 +10493,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: sqlWS
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10514,10 +10525,10 @@ public class SQLScriptParser extends Parser {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "sqlPart", "parseSQLParams");
                     }
-                    COLON235=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3681); if (state.failed) return retval;
+                    COLON235=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3681); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON235);
 
-                    COLON236=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3683); if (state.failed) return retval;
+                    COLON236=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3683); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON236);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:787:52: ( sqlWS )*
@@ -10553,12 +10564,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlWS, COLON, COLON
-                    // token labels:
+                    // elements: COLON, COLON, sqlWS
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10622,12 +10633,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlToken, sqlWS
-                    // token labels:
+                    // elements: sqlWS, sqlToken
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10651,7 +10662,7 @@ public class SQLScriptParser extends Parser {
                 case 4 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:789:4: LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )*
                     {
-                    LPAREN240=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3720); if (state.failed) return retval;
+                    LPAREN240=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3720); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN240);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:789:14: (ws1+= sqlWS )*
@@ -10717,7 +10728,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    RPAREN242=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3730); if (state.failed) return retval;
+                    RPAREN242=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3730); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN242);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:789:42: (ws2+= sqlWS )*
@@ -10756,12 +10767,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: LPAREN, sqlPart, ws2, RPAREN, ws1
-                    // token labels:
+                    // elements: LPAREN, RPAREN, ws2, ws1, sqlPart
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
+                    // token list labels: 
                     // rule list labels: ws1, ws2
-                    // wildcard labels:
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10799,7 +10810,7 @@ public class SQLScriptParser extends Parser {
                 case 5 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:790:4: LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )*
                     {
-                    LCURLY243=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3758); if (state.failed) return retval;
+                    LCURLY243=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3758); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY243);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:790:14: (ws1+= sqlWS )*
@@ -10865,7 +10876,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    RCURLY245=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3768); if (state.failed) return retval;
+                    RCURLY245=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3768); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY245);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:790:42: (ws2+= sqlWS )*
@@ -10904,12 +10915,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws2, sqlPart, ws1, RCURLY, LCURLY
-                    // token labels:
+                    // elements: RCURLY, ws1, ws2, sqlPart, LCURLY
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
+                    // token list labels: 
                     // rule list labels: ws1, ws2
-                    // wildcard labels:
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10947,7 +10958,7 @@ public class SQLScriptParser extends Parser {
                 case 6 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:791:4: LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )*
                     {
-                    LSQUARE246=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3796); if (state.failed) return retval;
+                    LSQUARE246=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3796); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE246);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:791:15: (ws1+= sqlWS )*
@@ -11013,7 +11024,7 @@ public class SQLScriptParser extends Parser {
                         }
                     } while (true);
 
-                    RSQUARE248=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3806); if (state.failed) return retval;
+                    RSQUARE248=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3806); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE248);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:791:44: (ws2+= sqlWS )*
@@ -11052,12 +11063,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlPart, RSQUARE, ws2, LSQUARE, ws1
-                    // token labels:
+                    // elements: sqlPart, RSQUARE, ws1, LSQUARE, ws2
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
+                    // token list labels: 
                     // rule list labels: ws1, ws2
-                    // wildcard labels:
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11189,16 +11200,16 @@ public class SQLScriptParser extends Parser {
 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:803:2: ( -> {hasWhitespace}? ->)
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:804:3:
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:804:3: 
             {
 
             // AST REWRITE
-            // elements:
-            // token labels:
+            // elements: 
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11528,7 +11539,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:823:2: ( LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:823:4: LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY
             {
-            LCURLY256=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3965); if (state.failed) return retval;
+            LCURLY256=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3965); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY256);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:824:3: ( objectSlot ( COMMA objectSlot )* ( COMMA )* | )
@@ -11579,7 +11590,7 @@ public class SQLScriptParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:824:16: COMMA objectSlot
                     	    {
-                    	    COMMA258=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3973); if (state.failed) return retval;
+                    	    COMMA258=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3973); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA258);
 
                     	    pushFollow(FOLLOW_objectSlot_in_objectLiteral3975);
@@ -11612,7 +11623,7 @@ public class SQLScriptParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:824:35: COMMA
                     	    {
-                    	    COMMA260=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3979); if (state.failed) return retval;
+                    	    COMMA260=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3979); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA260);
 
 
@@ -11628,25 +11639,25 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:826:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:826:3: 
                     {
                     }
                     break;
 
             }
 
-            RCURLY261=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral3992); if (state.failed) return retval;
+            RCURLY261=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral3992); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY261);
 
 
 
             // AST REWRITE
             // elements: objectSlot
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11751,7 +11762,7 @@ public class SQLScriptParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifier.add(identifier262.getTree());
-                    COLON263=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4016); if (state.failed) return retval;
+                    COLON263=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4016); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON263);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4018);
@@ -11764,11 +11775,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier, expressionNoSQL
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11801,7 +11812,7 @@ public class SQLScriptParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_stringLiteral.add(stringLiteral265.getTree());
-                    COLON266=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4035); if (state.failed) return retval;
+                    COLON266=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4035); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON266);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4037);
@@ -11813,12 +11824,12 @@ public class SQLScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, stringLiteral
-                    // token labels:
+                    // elements: stringLiteral, expressionNoSQL
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11897,7 +11908,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:837:2: ( LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:837:4: LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE
             {
-            LSQUARE268=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4058); if (state.failed) return retval;
+            LSQUARE268=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4058); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE268);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:838:3: ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | )
@@ -11948,7 +11959,7 @@ public class SQLScriptParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:838:21: COMMA expressionNoSQL
                     	    {
-                    	    COMMA270=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4066); if (state.failed) return retval;
+                    	    COMMA270=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4066); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA270);
 
                     	    pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4068);
@@ -11981,7 +11992,7 @@ public class SQLScriptParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:838:45: COMMA
                     	    {
-                    	    COMMA272=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4072); if (state.failed) return retval;
+                    	    COMMA272=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4072); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA272);
 
 
@@ -11997,25 +12008,25 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:840:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:840:3: 
                     {
                     }
                     break;
 
             }
 
-            RSQUARE273=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_arrayLiteral4085); if (state.failed) return retval;
+            RSQUARE273=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_arrayLiteral4085); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE273);
 
 
 
             // AST REWRITE
             // elements: expressionNoSQL
-            // token labels:
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12094,7 +12105,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:846:2: ( LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:846:4: LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN
             {
-            LPAREN274=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4107); if (state.failed) return retval;
+            LPAREN274=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4107); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN274);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:847:3: ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | )
@@ -12139,7 +12150,7 @@ public class SQLScriptParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:847:22: COMMA expressionNoSQL
                     	    {
-                    	    COMMA276=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4116); if (state.failed) return retval;
+                    	    COMMA276=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4116); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA276);
 
                     	    pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4118);
@@ -12161,11 +12172,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: expressionNoSQL
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12196,14 +12207,14 @@ public class SQLScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:849:3:
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:849:3: 
                     {
                     }
                     break;
 
             }
 
-            RPAREN278=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsList4141); if (state.failed) return retval;
+            RPAREN278=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsList4141); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN278);
 
 
@@ -12296,18 +12307,18 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:854:4: exclam= EXCLAM
                     {
-                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4155); if (state.failed) return retval;
+                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4155); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12325,18 +12336,18 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:855:4: op_sub= OP_SUB
                     {
-                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifier4168); if (state.failed) return retval;
+                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifier4168); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12364,11 +12375,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifierNoUnary
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12547,18 +12558,18 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:860:4: op_eq= OP_EQ
                     {
-                    op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4196); if (state.failed) return retval;
+                    op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4196); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_EQ.add(op_eq);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12576,18 +12587,18 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:861:4: op_ne= OP_NE
                     {
-                    op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4209); if (state.failed) return retval;
+                    op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4209); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_NE.add(op_ne);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12605,18 +12616,18 @@ public class SQLScriptParser extends Parser {
                 case 3 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:862:4: op_id= OP_ID
                     {
-                    op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4222); if (state.failed) return retval;
+                    op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4222); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_ID.add(op_id);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12634,18 +12645,18 @@ public class SQLScriptParser extends Parser {
                 case 4 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:863:4: op_ni= OP_NI
                     {
-                    op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4235); if (state.failed) return retval;
+                    op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4235); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_NI.add(op_ni);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12663,18 +12674,18 @@ public class SQLScriptParser extends Parser {
                 case 5 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:864:4: op_gt= OP_GT
                     {
-                    op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4248); if (state.failed) return retval;
+                    op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4248); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_GT.add(op_gt);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12692,18 +12703,18 @@ public class SQLScriptParser extends Parser {
                 case 6 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:865:4: op_ge= OP_GE
                     {
-                    op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4261); if (state.failed) return retval;
+                    op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4261); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_GE.add(op_ge);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12721,18 +12732,18 @@ public class SQLScriptParser extends Parser {
                 case 7 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:866:4: op_lt= OP_LT
                     {
-                    op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4274); if (state.failed) return retval;
+                    op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4274); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_LT.add(op_lt);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12750,18 +12761,18 @@ public class SQLScriptParser extends Parser {
                 case 8 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:867:4: op_le= OP_LE
                     {
-                    op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4287); if (state.failed) return retval;
+                    op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4287); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_LE.add(op_le);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12779,18 +12790,18 @@ public class SQLScriptParser extends Parser {
                 case 9 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:868:4: op_mul= OP_MUL
                     {
-                    op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4300); if (state.failed) return retval;
+                    op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4300); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_MUL.add(op_mul);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12808,18 +12819,18 @@ public class SQLScriptParser extends Parser {
                 case 10 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:869:4: op_div= OP_DIV
                     {
-                    op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4313); if (state.failed) return retval;
+                    op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4313); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DIV.add(op_div);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12837,18 +12848,18 @@ public class SQLScriptParser extends Parser {
                 case 11 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:870:4: op_add= OP_ADD
                     {
-                    op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4326); if (state.failed) return retval;
+                    op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4326); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_ADD.add(op_add);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12866,18 +12877,18 @@ public class SQLScriptParser extends Parser {
                 case 12 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:871:4: op_and= OP_AND
                     {
-                    op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4339); if (state.failed) return retval;
+                    op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4339); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_AND.add(op_and);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12895,18 +12906,18 @@ public class SQLScriptParser extends Parser {
                 case 13 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:872:4: op_or= OP_OR
                     {
-                    op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4352); if (state.failed) return retval;
+                    op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4352); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_OR.add(op_or);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12934,11 +12945,11 @@ public class SQLScriptParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifierNoOps
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13020,18 +13031,18 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:878:6: word= WORD
                     {
-                    word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4383); if (state.failed) return retval;
+                    word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4383); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_WORD.add(word);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13049,18 +13060,18 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:879:5: IDENTIFIER
                     {
-                    IDENTIFIER281=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4395); if (state.failed) return retval;
+                    IDENTIFIER281=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4395); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IDENTIFIER.add(IDENTIFIER281);
 
 
 
                     // AST REWRITE
                     // elements: IDENTIFIER
-                    // token labels:
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13127,7 +13138,7 @@ public class SQLScriptParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:884:2: ( EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:884:4: EMB_VAR_START id= identifier RCURLY
             {
-            EMB_VAR_START282=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4415); if (state.failed) return retval;
+            EMB_VAR_START282=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4415); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_EMB_VAR_START.add(EMB_VAR_START282);
 
             pushFollow(FOLLOW_identifier_in_embeddedVar4419);
@@ -13136,18 +13147,18 @@ public class SQLScriptParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(id.getTree());
-            RCURLY283=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVar4421); if (state.failed) return retval;
+            RCURLY283=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVar4421); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY283);
 
 
 
             // AST REWRITE
-            // elements:
-            // token labels:
+            // elements: 
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13261,7 +13272,7 @@ public class SQLScriptParser extends Parser {
 
 
         	CommonTree result = null;
-
+        	
         	LazyTokenStream tokens = (LazyTokenStream) input;
         	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
 
@@ -13290,11 +13301,11 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:902:6: STR_SQUOT
                     {
-                    STR_SQUOT285=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4549); if (state.failed) return retval;
+                    STR_SQUOT285=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4549); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT285);
 
                     if ( state.backtracking==0 ) {
-                       lexer.setAllowEmbeddedVariables(false);
+                       lexer.setAllowEmbeddedVariables(false); 
                     }
 
                     }
@@ -13302,7 +13313,7 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:903:5: STR_DQUOT
                     {
-                    STR_DQUOT286=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4557); if (state.failed) return retval;
+                    STR_DQUOT286=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4557); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT286);
 
 
@@ -13312,17 +13323,17 @@ public class SQLScriptParser extends Parser {
             }
 
             if ( state.backtracking==0 ) {
-               result = parseString();
+               result = parseString(); 
             }
 
 
             // AST REWRITE
-            // elements:
-            // token labels:
+            // elements: 
+            // token labels: 
             // rule labels: retval
-            // token list labels:
-            // rule list labels:
-            // wildcard labels:
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13403,7 +13414,7 @@ public class SQLScriptParser extends Parser {
         RewriteRuleTokenStream stream_STR_BTICK=new RewriteRuleTokenStream(adaptor,"token STR_BTICK");
         RewriteRuleTokenStream stream_STR_SQUOT=new RewriteRuleTokenStream(adaptor,"token STR_SQUOT");
 
-         CommonTree result = null;
+         CommonTree result = null; 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:909:2: ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) )
             int alt98=2;
@@ -13527,7 +13538,7 @@ public class SQLScriptParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasSingleQuote()");
                             }
-                            STR_SQUOT287=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4591); if (state.failed) return retval;
+                            STR_SQUOT287=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4591); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT287);
 
 
@@ -13540,7 +13551,7 @@ public class SQLScriptParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasDoubleQuote()");
                             }
-                            STR_DQUOT288=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4599); if (state.failed) return retval;
+                            STR_DQUOT288=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4599); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT288);
 
 
@@ -13553,7 +13564,7 @@ public class SQLScriptParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasBackTick()");
                             }
-                            STR_BTICK289=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4608); if (state.failed) return retval;
+                            STR_BTICK289=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4608); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_STR_BTICK.add(STR_BTICK289);
 
 
@@ -13566,7 +13577,7 @@ public class SQLScriptParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasQQuote()");
                             }
-                            STR_QQUOT290=(Token)match(input,STR_QQUOT,FOLLOW_STR_QQUOT_in_sqlStringLiteral4617); if (state.failed) return retval;
+                            STR_QQUOT290=(Token)match(input,STR_QQUOT,FOLLOW_STR_QQUOT_in_sqlStringLiteral4617); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_STR_QQUOT.add(STR_QQUOT290);
 
 
@@ -13579,7 +13590,7 @@ public class SQLScriptParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasDollarQuote()");
                             }
-                            STR_DOLQUOT291=(Token)match(input,STR_DOLQUOT,FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4625); if (state.failed) return retval;
+                            STR_DOLQUOT291=(Token)match(input,STR_DOLQUOT,FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4625); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_STR_DOLQUOT.add(STR_DOLQUOT291);
 
 
@@ -13589,17 +13600,17 @@ public class SQLScriptParser extends Parser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       result = parseString();
+                       result = parseString(); 
                     }
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13701,7 +13712,7 @@ public class SQLScriptParser extends Parser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       releaseStringStartMarker();
+                       releaseStringStartMarker(); 
                     }
 
                     }
@@ -13770,18 +13781,18 @@ public class SQLScriptParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:922:4: KW_TRUE
                     {
-                    KW_TRUE295=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4684); if (state.failed) return retval;
+                    KW_TRUE295=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4684); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_TRUE.add(KW_TRUE295);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13799,18 +13810,18 @@ public class SQLScriptParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:923:4: KW_FALSE
                     {
-                    KW_FALSE296=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4694); if (state.failed) return retval;
+                    KW_FALSE296=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4694); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_FALSE.add(KW_FALSE296);
 
 
 
                     // AST REWRITE
-                    // elements:
-                    // token labels:
+                    // elements: 
+                    // token labels: 
                     // rule labels: retval
-                    // token list labels:
-                    // rule list labels:
-                    // wildcard labels:
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13923,13 +13934,13 @@ public class SQLScriptParser extends Parser {
               			String directive = (dir!=null?dir.getText():null);
               			String argument = (arg!=null?arg.getText():null);
               			String value = valId == null ? (valWord!=null?valWord.getText():null) : (valId!=null?valId.getText():null);
-
+              			
               			// TODO: throw RecognitionException instead of SQLScriptRuntimeException
-
+              			
               			if (!"set".equals(directive)) {
               				throw new SQLScriptRuntimeException("Unknown parse directive: " + directive);
               			}
-
+              			
               			if ("quotes".equals(argument)) {
               				try {
               					this.stringType = SQLStringType.valueOf(("" + value).toLowerCase());
@@ -13956,7 +13967,7 @@ public class SQLScriptParser extends Parser {
               			else {
               				throw new SQLScriptRuntimeException("Invalid argument to parse directive: " + argument);
               			}
-
+              		
             }
 
             }
@@ -13981,7 +13992,7 @@ public class SQLScriptParser extends Parser {
     // $ANTLR end "parseDirective"
 
     // $ANTLR start synpred1_SQLScriptParser
-    public final void synpred1_SQLScriptParser_fragment() throws RecognitionException {
+    public final void synpred1_SQLScriptParser_fragment() throws RecognitionException {   
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:632:5: ( LCURLY )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:632:6: LCURLY
         {
@@ -13992,7 +14003,7 @@ public class SQLScriptParser extends Parser {
     // $ANTLR end synpred1_SQLScriptParser
 
     // $ANTLR start synpred2_SQLScriptParser
-    public final void synpred2_SQLScriptParser_fragment() throws RecognitionException {
+    public final void synpred2_SQLScriptParser_fragment() throws RecognitionException {   
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:640:5: ( LPAREN | LCURLY )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptParser.g:
         {
@@ -15999,10 +16010,10 @@ public class SQLScriptParser extends Parser {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
-                    case 0 :
+                    case 0 : 
                         int LA61_1 = input.LA(1);
 
-
+                         
                         int index61_1 = input.index();
                         input.rewind();
                         s = -1;
@@ -16010,7 +16021,7 @@ public class SQLScriptParser extends Parser {
 
                         else if ( (true) ) {s = 2;}
 
-
+                         
                         input.seek(index61_1);
                         if ( s>=0 ) return s;
                         break;
@@ -16105,10 +16116,10 @@ public class SQLScriptParser extends Parser {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
-                    case 0 :
+                    case 0 : 
                         int LA63_1 = input.LA(1);
 
-
+                         
                         int index63_1 = input.index();
                         input.rewind();
                         s = -1;
@@ -16116,14 +16127,14 @@ public class SQLScriptParser extends Parser {
 
                         else if ( (true) ) {s = 3;}
 
-
+                         
                         input.seek(index63_1);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 :
+                    case 1 : 
                         int LA63_2 = input.LA(1);
 
-
+                         
                         int index63_2 = input.index();
                         input.rewind();
                         s = -1;
@@ -16131,7 +16142,7 @@ public class SQLScriptParser extends Parser {
 
                         else if ( (true) ) {s = 3;}
 
-
+                         
                         input.seek(index63_2);
                         if ( s>=0 ) return s;
                         break;
@@ -16206,10 +16217,10 @@ public class SQLScriptParser extends Parser {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
-                    case 0 :
+                    case 0 : 
                         int LA81_6 = input.LA(1);
 
-
+                         
                         int index81_6 = input.index();
                         input.rewind();
                         s = -1;
@@ -16217,14 +16228,14 @@ public class SQLScriptParser extends Parser {
 
                         else if ( (true) ) {s = 2;}
 
-
+                         
                         input.seek(index81_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 :
+                    case 1 : 
                         int LA81_7 = input.LA(1);
 
-
+                         
                         int index81_7 = input.index();
                         input.rewind();
                         s = -1;
@@ -16232,7 +16243,7 @@ public class SQLScriptParser extends Parser {
 
                         else if ( (true) ) {s = 2;}
 
-
+                         
                         input.seek(index81_7);
                         if ( s>=0 ) return s;
                         break;
@@ -16244,7 +16255,7 @@ public class SQLScriptParser extends Parser {
             throw nvae;
         }
     }
-
+ 
 
     public static final BitSet FOLLOW_topStatement_in_script234 = new BitSet(new long[]{0xC4FE5C0000800000L,0x000000102000000AL});
     public static final BitSet FOLLOW_EOF_in_script237 = new BitSet(new long[]{0x0000000000000002L});

@@ -16,16 +16,17 @@ scope Block {
 @header {
 	package org.unbunt.sqlscript.compiler;
 
-	import java.util.Observer;
-	import java.util.LinkedList;
+	//import java.util.Observer;
+	//import java.util.LinkedList;
 	import java.util.List;
 	import java.util.ArrayList;
-	import java.util.Map;
-	import java.util.HashMap;
+	//import java.util.Map;
+	//import java.util.HashMap;
 
-	import org.unbunt.sqlscript.compiler.antlr.*;
-	import org.unbunt.sqlscript.statement.*;
-	import org.unbunt.sqlscript.support.*;
+	//import org.unbunt.sqlscript.compiler.antlr.*;
+	import org.unbunt.sqlscript.compiler.stmtbase.*;
+	import org.unbunt.sqlscript.compiler.statement.*;
+	import org.unbunt.sqlscript.compiler.support.*;
 	import org.unbunt.sqlscript.exception.*;
 }
 

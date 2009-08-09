@@ -56,13 +56,13 @@ tokens {
 	import java.util.ArrayDeque;
 
 	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-	import org.unbunt.sqlscript.compiler.SQLModeToken;
+	import org.unbunt.sqlscript.compiler.support.SQLModeToken;
 	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
 	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 	
-	import org.unbunt.sqlscript.compiler.SQLParseMode;
-	import org.unbunt.sqlscript.compiler.SQLStringSyntaxRules;
-	import org.unbunt.sqlscript.compiler.SQLStringType;
+	import org.unbunt.sqlscript.compiler.support.SQLParseMode;
+	import org.unbunt.sqlscript.compiler.support.SQLStringSyntaxRules;
+	import org.unbunt.sqlscript.compiler.support.SQLStringType;
 }
 
 /*
