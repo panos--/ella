@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
-import org.unbunt.sqlscript.exception.GenericException;
+import org.unbunt.ella.exception.GenericException;
 
 public class CheckedArithmeticException extends GenericException {
     public CheckedArithmeticException() {

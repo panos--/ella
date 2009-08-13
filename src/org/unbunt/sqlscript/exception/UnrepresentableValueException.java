@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
 public class UnrepresentableValueException extends GenericException {
     public UnrepresentableValueException() {

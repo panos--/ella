@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
 public class EllaTXCommitException extends EllaRuntimeException {
     protected final Exception originalException;

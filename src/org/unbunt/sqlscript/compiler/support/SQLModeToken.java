@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.compiler.support;
+package org.unbunt.ella.compiler.support;
 
 import org.antlr.runtime.CommonToken;
-import org.unbunt.sqlscript.compiler.support.SQLParseMode;
+import org.unbunt.ella.compiler.support.SQLParseMode;
 
 public class SQLModeToken extends CommonToken {
     protected SQLParseMode parseMode;

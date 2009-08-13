@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.testng;
+package org.unbunt.ella.testng;
 
 import java.io.File;
 import java.io.FileReader;

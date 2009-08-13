@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.testng;
+package org.unbunt.ella.testng;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
@@ -6,16 +6,16 @@ import org.antlr.runtime.tree.Tree;
 import org.antlr.runtime.tree.TreeNodeStream;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
-import static org.unbunt.sqlscript.Ella.compile;
-import org.unbunt.sqlscript.compiler.antlr.LazyInputStream;
-import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-import org.unbunt.sqlscript.compiler.*;
-import org.unbunt.sqlscript.exception.EllaIOException;
-import org.unbunt.sqlscript.exception.EllaParseException;
-import org.unbunt.sqlscript.engine.corelang.RawSQLObj;
-import org.unbunt.sqlscript.compiler.support.RawParamedSQL;
-import org.unbunt.sqlscript.compiler.support.SQLParseMode;
-import org.unbunt.sqlscript.compiler.support.SQLStringType;
+import static org.unbunt.ella.Ella.compile;
+import org.unbunt.ella.compiler.antlr.LazyInputStream;
+import org.unbunt.ella.compiler.antlr.LazyTokenStream;
+import org.unbunt.ella.compiler.*;
+import org.unbunt.ella.exception.EllaIOException;
+import org.unbunt.ella.exception.EllaParseException;
+import org.unbunt.ella.engine.corelang.RawSQLObj;
+import org.unbunt.ella.compiler.support.RawParamedSQL;
+import org.unbunt.ella.compiler.support.SQLParseMode;
+import org.unbunt.ella.compiler.support.SQLStringType;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

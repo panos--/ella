@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.compiler.stmtbase;
+package org.unbunt.ella.compiler.stmtbase;
 
 public interface StatementContainer extends Expression {
     public void addStatement(Statement statement);

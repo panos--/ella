@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.compiler.statement;
+package org.unbunt.ella.compiler.statement;
 
-import org.unbunt.sqlscript.compiler.stmtbase.Expression;
+import org.unbunt.ella.compiler.stmtbase.Expression;
 
 import java.util.List;
 import java.util.ArrayList;

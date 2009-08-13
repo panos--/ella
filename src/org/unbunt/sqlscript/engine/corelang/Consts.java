@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.engine.corelang;
+package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.sqlscript.lang.Str;
+import org.unbunt.ella.lang.Str;
 
 public class Consts {
     public static final Str SLOT_PARENT = Str.SYM_parent;

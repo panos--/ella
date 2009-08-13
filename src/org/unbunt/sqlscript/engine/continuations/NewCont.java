@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.engine.continuations;
+package org.unbunt.ella.engine.continuations;
 
-import org.unbunt.sqlscript.compiler.stmtbase.Expression;
-import org.unbunt.sqlscript.engine.continuations.ContinuationVisitor;
+import org.unbunt.ella.compiler.stmtbase.Expression;
+import org.unbunt.ella.engine.continuations.ContinuationVisitor;
 
 import java.util.List;
 import java.util.ArrayList;

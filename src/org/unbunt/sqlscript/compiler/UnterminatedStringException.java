@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.compiler;
+package org.unbunt.ella.compiler;
 
 import org.antlr.runtime.IntStream;
-import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
+import org.unbunt.ella.compiler.UnexpectedEOFException;
 
 public class UnterminatedStringException extends UnexpectedEOFException {
     protected int stringType;

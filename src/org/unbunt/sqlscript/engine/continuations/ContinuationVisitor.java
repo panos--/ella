@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.engine.continuations;
+package org.unbunt.ella.engine.continuations;
 
 public interface ContinuationVisitor {
     void processContinuation(EndCont endCont);

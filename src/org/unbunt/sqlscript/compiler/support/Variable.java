@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.compiler.support;
+package org.unbunt.ella.compiler.support;
 
-import org.unbunt.sqlscript.lang.Str;
+import org.unbunt.ella.lang.Str;
 
 public class Variable {
     public final int address;

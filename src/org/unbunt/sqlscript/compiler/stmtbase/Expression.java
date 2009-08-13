@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.compiler.stmtbase;
+package org.unbunt.ella.compiler.stmtbase;
 
 /**
  * This interface is intended mainly for documentation purposes and therefore does not define any methods.

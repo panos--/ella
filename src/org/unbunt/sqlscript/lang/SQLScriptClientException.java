@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.lang;
+package org.unbunt.ella.lang;
 
-import org.unbunt.sqlscript.exception.EllaRuntimeException;
-import org.unbunt.sqlscript.engine.corelang.Obj;
+import org.unbunt.ella.exception.EllaRuntimeException;
+import org.unbunt.ella.engine.corelang.Obj;
 
 public class EllaClientException extends EllaRuntimeException {
     protected Obj exception;

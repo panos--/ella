@@ -13,7 +13,7 @@
     </containerInfo>
     <setting name="jarUrl" value="file://$MODULE_DIR$/dist/Ella.jar" />
     <setting name="buildJar" value="true" />
-    <setting name="mainClass" value="org.unbunt.sqlscript.Ella" />
+    <setting name="mainClass" value="org.unbunt.ella.Ella" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />

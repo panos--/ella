@@ -1,10 +1,10 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g 2009-08-09 09:15:30
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g 2009-08-09 09:15:30
 
-	package org.unbunt.sqlscript.compiler;
+	package org.unbunt.ella.compiler;
 	
 	import java.util.LinkedList;
-	import org.unbunt.sqlscript.compiler.antlr.LazyLexer;
-	import org.unbunt.sqlscript.compiler.RuntimeRecognitionException;
+	import org.unbunt.ella.compiler.antlr.LazyLexer;
+	import org.unbunt.ella.compiler.RuntimeRecognitionException;
 
 
 import org.antlr.runtime.*;
@@ -160,15 +160,15 @@ public class EllaStringLexer extends LazyLexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "/home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g"; }
+    public String getGrammarFileName() { return "/home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g"; }
 
     // $ANTLR start "DQUOT"
     public final void mDQUOT() throws RecognitionException {
         try {
             int _type = DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:139:2: ( '\"' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:139:4: '\"'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:139:2: ( '\"' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:139:4: '\"'
             {
             match('\"'); 
              if (atStart) { quoteStyle = DQUOT; } 
@@ -188,8 +188,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:162:2: ( '\\'' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:162:4: '\\''
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:162:2: ( '\\'' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:162:4: '\\''
             {
             match('\''); 
 
@@ -226,8 +226,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:167:2: ( '`' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:167:4: '`'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:167:2: ( '`' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:167:4: '`'
             {
             match('`'); 
              if (atStart) { quoteStyle = BTICK; } 
@@ -249,13 +249,13 @@ public class EllaStringLexer extends LazyLexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token delim=null;
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:171:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:171:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:171:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:171:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) SQUOT delim= QQUOT_DELIM
             {
             if ( !((atStart)) ) {
                 throw new FailedPredicateException(input, "QQUOT_START", "atStart");
             }
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:171:17: ( 'N' | 'n' )?
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:171:17: ( 'N' | 'n' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -264,7 +264,7 @@ public class EllaStringLexer extends LazyLexer {
             }
             switch (alt1) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:
                     {
                     if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                         input.consume();
@@ -311,8 +311,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = QQUOT_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:175:2: ({...}? => 'just to disable warning' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:175:4: {...}? => 'just to disable warning'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:175:2: ({...}? => 'just to disable warning' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:175:4: {...}? => 'just to disable warning'
             {
             if ( !((false)) ) {
                 throw new FailedPredicateException(input, "QQUOT_END", "false");
@@ -333,8 +333,8 @@ public class EllaStringLexer extends LazyLexer {
     // $ANTLR start "QQUOT_DELIM"
     public final void mQQUOT_DELIM() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:180:2: (~ ( ' ' | '\\t' | '\\n' ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:180:4: ~ ( ' ' | '\\t' | '\\n' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:180:2: (~ ( ' ' | '\\t' | '\\n' ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:180:4: ~ ( ' ' | '\\t' | '\\n' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\u001F')||(input.LA(1)>='!' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -367,12 +367,12 @@ public class EllaStringLexer extends LazyLexer {
             	boolean matched = false;
             	String endDelim;
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:201:2: ( '$$' | {...}? => '$' stag= DOLQUOT_TAG '$' | {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:201:2: ( '$$' | {...}? => '$' stag= DOLQUOT_TAG '$' | {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' ) )
             int alt2=3;
             alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:201:4: '$$'
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:201:4: '$$'
                     {
                     match("$$"); 
 
@@ -381,7 +381,7 @@ public class EllaStringLexer extends LazyLexer {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:202:4: {...}? => '$' stag= DOLQUOT_TAG '$'
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:202:4: {...}? => '$' stag= DOLQUOT_TAG '$'
                     {
                     if ( !((atStart)) ) {
                         throw new FailedPredicateException(input, "DOLQUOT", "atStart");
@@ -397,7 +397,7 @@ public class EllaStringLexer extends LazyLexer {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:204:4: {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:204:4: {...}? =>{...}? => ( '$' etag= DOLQUOT_TAG '$' )
                     {
                     if ( !((!atStart)) ) {
                         throw new FailedPredicateException(input, "DOLQUOT", "!atStart");
@@ -405,8 +405,8 @@ public class EllaStringLexer extends LazyLexer {
                     if ( !((quoteStyle == DOLQUOT)) ) {
                         throw new FailedPredicateException(input, "DOLQUOT", "quoteStyle == DOLQUOT");
                     }
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:204:45: ( '$' etag= DOLQUOT_TAG '$' )
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:205:4: '$' etag= DOLQUOT_TAG '$'
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:204:45: ( '$' etag= DOLQUOT_TAG '$' )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:205:4: '$' etag= DOLQUOT_TAG '$'
                     {
                     match('$'); 
                     int etagStart253 = getCharIndex();
@@ -445,11 +445,11 @@ public class EllaStringLexer extends LazyLexer {
     // $ANTLR start "DOLQUOT_TAG"
     public final void mDOLQUOT_TAG() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:212:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:212:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:212:2: ( DOLQUOT_TAG_START ( DOLQUOT_TAG_END )* )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:212:4: DOLQUOT_TAG_START ( DOLQUOT_TAG_END )*
             {
             mDOLQUOT_TAG_START(); 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:212:22: ( DOLQUOT_TAG_END )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:212:22: ( DOLQUOT_TAG_END )*
             loop3:
             do {
                 int alt3=2;
@@ -462,7 +462,7 @@ public class EllaStringLexer extends LazyLexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:212:22: DOLQUOT_TAG_END
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:212:22: DOLQUOT_TAG_END
             	    {
             	    mDOLQUOT_TAG_END(); 
 
@@ -486,8 +486,8 @@ public class EllaStringLexer extends LazyLexer {
     // $ANTLR start "DOLQUOT_TAG_START"
     public final void mDOLQUOT_TAG_START() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:217:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:217:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:217:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:217:4: ( 'A' .. 'Z' | 'a' .. 'z' | '\\u0080' .. '\\uffff' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -510,8 +510,8 @@ public class EllaStringLexer extends LazyLexer {
     // $ANTLR start "DOLQUOT_TAG_END"
     public final void mDOLQUOT_TAG_END() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:222:2: ( DOLQUOT_TAG_START | '0' .. '9' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:222:2: ( DOLQUOT_TAG_START | '0' .. '9' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u0080' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -536,8 +536,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = ATSIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:226:8: ( '@' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:226:10: '@'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:226:8: ( '@' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:226:10: '@'
             {
             match('@'); 
              if (!allowEmbeddedVariables) { _type = CHAR; } 
@@ -557,8 +557,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = LCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:229:8: ( '{' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:229:10: '{'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:229:8: ( '{' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:229:10: '{'
             {
             match('{'); 
 
@@ -577,8 +577,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = RCURLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:232:8: ( '}' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:232:10: '}'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:232:8: ( '}' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:232:10: '}'
             {
             match('}'); 
 
@@ -597,17 +597,17 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = VARNAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:235:9: ( ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:235:11: ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:235:9: ( ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )* )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:235:11: ( WORD_CHAR ) ( WORD_CHAR | '0' .. '9' )*
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:235:11: ( WORD_CHAR )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:235:12: WORD_CHAR
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:235:11: ( WORD_CHAR )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:235:12: WORD_CHAR
             {
             mWORD_CHAR(); 
 
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:235:23: ( WORD_CHAR | '0' .. '9' )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:235:23: ( WORD_CHAR | '0' .. '9' )*
             loop4:
             do {
                 int alt4=2;
@@ -620,7 +620,7 @@ public class EllaStringLexer extends LazyLexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -654,8 +654,8 @@ public class EllaStringLexer extends LazyLexer {
     // $ANTLR start "WORD_CHAR"
     public final void mWORD_CHAR() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:240:2: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:240:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:240:2: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:240:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -680,8 +680,8 @@ public class EllaStringLexer extends LazyLexer {
         try {
             int _type = CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:243:6: ( '\\u0000' .. '\\uffff' )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:243:8: '\\u0000' .. '\\uffff'
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:243:6: ( '\\u0000' .. '\\uffff' )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:243:8: '\\u0000' .. '\\uffff'
             {
             matchRange('\u0000','\uFFFF'); 
 
@@ -696,82 +696,82 @@ public class EllaStringLexer extends LazyLexer {
     // $ANTLR end "CHAR"
 
     public void mTokens() throws RecognitionException {
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:8: ( DQUOT | SQUOT | BTICK | QQUOT_START | QQUOT_END | DOLQUOT | ATSIGN | LCURLY | RCURLY | VARNAME | CHAR )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:8: ( DQUOT | SQUOT | BTICK | QQUOT_START | QQUOT_END | DOLQUOT | ATSIGN | LCURLY | RCURLY | VARNAME | CHAR )
         int alt5=11;
         alt5 = dfa5.predict(input);
         switch (alt5) {
             case 1 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:10: DQUOT
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:10: DQUOT
                 {
                 mDQUOT(); 
 
                 }
                 break;
             case 2 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:16: SQUOT
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:16: SQUOT
                 {
                 mSQUOT(); 
 
                 }
                 break;
             case 3 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:22: BTICK
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:22: BTICK
                 {
                 mBTICK(); 
 
                 }
                 break;
             case 4 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:28: QQUOT_START
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:28: QQUOT_START
                 {
                 mQQUOT_START(); 
 
                 }
                 break;
             case 5 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:40: QQUOT_END
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:40: QQUOT_END
                 {
                 mQQUOT_END(); 
 
                 }
                 break;
             case 6 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:50: DOLQUOT
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:50: DOLQUOT
                 {
                 mDOLQUOT(); 
 
                 }
                 break;
             case 7 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:58: ATSIGN
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:58: ATSIGN
                 {
                 mATSIGN(); 
 
                 }
                 break;
             case 8 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:65: LCURLY
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:65: LCURLY
                 {
                 mLCURLY(); 
 
                 }
                 break;
             case 9 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:72: RCURLY
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:72: RCURLY
                 {
                 mRCURLY(); 
 
                 }
                 break;
             case 10 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:79: VARNAME
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:79: VARNAME
                 {
                 mVARNAME(); 
 
                 }
                 break;
             case 11 :
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringLexer.g:1:87: CHAR
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaStringLexer.g:1:87: CHAR
                 {
                 mCHAR(); 
 

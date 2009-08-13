@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.compiler.antlr;
+package org.unbunt.ella.compiler.antlr;
 
 import org.antlr.runtime.CharStream;
 import org.apache.commons.logging.Log;

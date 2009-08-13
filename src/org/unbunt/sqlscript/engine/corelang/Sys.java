@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.engine.corelang;
+package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.sqlscript.engine.corelang.Obj;
+import org.unbunt.ella.engine.corelang.Obj;
 
 public interface Sys extends Obj {
 }

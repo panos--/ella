@@ -1,8 +1,8 @@
-package org.unbunt.sqlscript.engine.corelang;
+package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.sqlscript.exception.EllaRuntimeException;
-import org.unbunt.sqlscript.engine.corelang.Consts;
-import org.unbunt.sqlscript.engine.context.Context;
+import org.unbunt.ella.exception.EllaRuntimeException;
+import org.unbunt.ella.engine.corelang.Consts;
+import org.unbunt.ella.engine.context.Context;
 
 public class ObjUtils {
     public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;

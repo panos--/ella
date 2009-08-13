@@ -1,13 +1,13 @@
-package org.unbunt.sqlscript.testng;
+package org.unbunt.ella.testng;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.unbunt.sqlscript.Ella;
-import static org.unbunt.sqlscript.Ella.eval;
-import static org.unbunt.sqlscript.Ella.evalIncremental;
-import org.unbunt.sqlscript.exception.*;
-import static org.unbunt.sqlscript.testng.TestUtils.ensureType;
+import org.unbunt.ella.Ella;
+import static org.unbunt.ella.Ella.eval;
+import static org.unbunt.ella.Ella.evalIncremental;
+import org.unbunt.ella.exception.*;
+import static org.unbunt.ella.testng.TestUtils.ensureType;
 
 import java.util.ArrayList;
 import java.util.Date;

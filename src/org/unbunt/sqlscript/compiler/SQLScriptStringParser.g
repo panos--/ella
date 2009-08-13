@@ -12,11 +12,11 @@ options {
 }
 
 @parser::header {
-	package org.unbunt.sqlscript.compiler;
+	package org.unbunt.ella.compiler;
 	
-	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
-	import org.unbunt.sqlscript.compiler.UnterminatedStringException;
-	import org.unbunt.sqlscript.exception.EllaRuntimeException;
+	import org.unbunt.ella.compiler.UnexpectedEOFException;
+	import org.unbunt.ella.compiler.UnterminatedStringException;
+	import org.unbunt.ella.exception.EllaRuntimeException;
 }
 
 @parser::members {

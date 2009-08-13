@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.engine.environment;
+package org.unbunt.ella.engine.environment;
 
-import org.unbunt.sqlscript.engine.corelang.Obj;
-import org.unbunt.sqlscript.engine.environment.Env;
+import org.unbunt.ella.engine.corelang.Obj;
+import org.unbunt.ella.engine.environment.Env;
 
 public interface SearchableEnv extends Env {
     public Obj findLocal(String name);

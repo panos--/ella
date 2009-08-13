@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
 /**
  * There are a few cases in the script engine where exceptions are used for modeling control flow.

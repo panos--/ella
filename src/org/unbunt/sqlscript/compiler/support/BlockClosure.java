@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.compiler.support;
+package org.unbunt.ella.compiler.support;
 
-import org.unbunt.sqlscript.engine.continuations.Continuation;
-import org.unbunt.sqlscript.compiler.stmtbase.Statement;
+import org.unbunt.ella.engine.continuations.Continuation;
+import org.unbunt.ella.compiler.stmtbase.Statement;
 
 public class BlockClosure extends AbstractCallable {
     protected int homeOffset = -1;

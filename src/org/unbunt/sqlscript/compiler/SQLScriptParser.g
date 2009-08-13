@@ -48,29 +48,29 @@ tokens {
 }
 
 @parser::header {
-	package org.unbunt.sqlscript.compiler;
+	package org.unbunt.ella.compiler;
 
 	import java.util.Map;
 	import java.util.HashMap;
 	import java.util.Deque;
 	import java.util.ArrayDeque;
 
-	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-	import org.unbunt.sqlscript.compiler.support.SQLModeToken;
-	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
-	import org.unbunt.sqlscript.exception.EllaRuntimeException;
+	import org.unbunt.ella.compiler.antlr.LazyTokenStream;
+	import org.unbunt.ella.compiler.support.SQLModeToken;
+	import org.unbunt.ella.compiler.UnexpectedEOFException;
+	import org.unbunt.ella.exception.EllaRuntimeException;
 	
-	import org.unbunt.sqlscript.compiler.support.SQLParseMode;
-	import org.unbunt.sqlscript.compiler.support.SQLStringSyntaxRules;
-	import org.unbunt.sqlscript.compiler.support.SQLStringType;
+	import org.unbunt.ella.compiler.support.SQLParseMode;
+	import org.unbunt.ella.compiler.support.SQLStringSyntaxRules;
+	import org.unbunt.ella.compiler.support.SQLStringType;
 }
 
 /*
 @lexer::header {
-	package org.unbunt.sqlscript;
+	package org.unbunt.ella;
 
 	import org.antlr.runtime.tree.CommonTree;
-	import org.unbunt.sqlscript.exception.RuntimeRecognitionException;
+	import org.unbunt.ella.exception.RuntimeRecognitionException;
 }
 */
 
@@ -83,7 +83,7 @@ tokens {
 	 * Public entry point for parsing an sql statement for embedded named parameters.
 	 * 
 	 * @return Tree the generated AST
-	 * @see org.unbunt.sqlscript.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
+	 * @see org.unbunt.ella.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
 	 */
 	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws RecognitionException {
 		setTokenStream(input); // implicitly resets this instance

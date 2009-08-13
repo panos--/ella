@@ -1,11 +1,11 @@
-package org.unbunt.sqlscript.testng;
+package org.unbunt.ella.testng;
 
 import org.testng.annotations.Test;
-import static org.unbunt.sqlscript.Ella.eval;
-import org.unbunt.sqlscript.exception.EllaIOException;
-import org.unbunt.sqlscript.exception.EllaParseException;
-import org.unbunt.sqlscript.exception.EllaException;
-import static org.unbunt.sqlscript.testng.TestUtils.ensureType;
+import static org.unbunt.ella.Ella.eval;
+import org.unbunt.ella.exception.EllaIOException;
+import org.unbunt.ella.exception.EllaParseException;
+import org.unbunt.ella.exception.EllaException;
+import static org.unbunt.ella.testng.TestUtils.ensureType;
 
 import java.sql.Connection;
 import java.sql.SQLException;

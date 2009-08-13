@@ -1,6 +1,6 @@
 out/*
-src/com/marketoolz/sqlscript/classes
-src/com/marketoolz/sqlscript/__Test___input.txt
+src/com/marketoolz/ella/classes
+src/com/marketoolz/ella/__Test___input.txt
 .classpath
 .project
 Ella.vpdm
@@ -12,5 +12,5 @@ vpproject
 src/*.grn
 src/Test.java
 *.essModel
-sqlscript.properties
-sqlscript.xml
+ella.properties
+ella.xml

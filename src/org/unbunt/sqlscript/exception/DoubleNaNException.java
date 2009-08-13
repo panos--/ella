@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
 public class DoubleNaNException extends UnrepresentableValueException {
     public DoubleNaNException() {

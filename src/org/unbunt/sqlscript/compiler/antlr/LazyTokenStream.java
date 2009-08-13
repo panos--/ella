@@ -1,10 +1,10 @@
-package org.unbunt.sqlscript.compiler.antlr;
+package org.unbunt.ella.compiler.antlr;
 
 import org.antlr.runtime.*;
 import org.apache.commons.collections.list.CursorableLinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unbunt.sqlscript.compiler.antlr.ExtendedCursorableLinkedList;
+import org.unbunt.ella.compiler.antlr.ExtendedCursorableLinkedList;
 
 import java.util.*;
 

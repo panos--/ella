@@ -1,20 +1,20 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g 2009-08-09 09:17:38
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g 2009-08-09 09:17:38
 
-	package org.unbunt.sqlscript.compiler;
+	package org.unbunt.ella.compiler;
 
 	import java.util.Map;
 	import java.util.HashMap;
 	import java.util.Deque;
 	import java.util.ArrayDeque;
 
-	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
-	import org.unbunt.sqlscript.compiler.support.SQLModeToken;
-	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
-	import org.unbunt.sqlscript.exception.EllaRuntimeException;
+	import org.unbunt.ella.compiler.antlr.LazyTokenStream;
+	import org.unbunt.ella.compiler.support.SQLModeToken;
+	import org.unbunt.ella.compiler.UnexpectedEOFException;
+	import org.unbunt.ella.exception.EllaRuntimeException;
 	
-	import org.unbunt.sqlscript.compiler.support.SQLParseMode;
-	import org.unbunt.sqlscript.compiler.support.SQLStringSyntaxRules;
-	import org.unbunt.sqlscript.compiler.support.SQLStringType;
+	import org.unbunt.ella.compiler.support.SQLParseMode;
+	import org.unbunt.ella.compiler.support.SQLStringSyntaxRules;
+	import org.unbunt.ella.compiler.support.SQLStringType;
 
 
 import org.antlr.runtime.*;
@@ -186,7 +186,7 @@ public class EllaParser extends Parser {
     }
 
     public String[] getTokenNames() { return EllaParser.tokenNames; }
-    public String getGrammarFileName() { return "/home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g"; }
+    public String getGrammarFileName() { return "/home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g"; }
 
     	
     	protected boolean eof = false;
@@ -197,7 +197,7 @@ public class EllaParser extends Parser {
     	 * Public entry point for parsing an sql statement for embedded named parameters.
     	 * 
     	 * @return Tree the generated AST
-    	 * @see org.unbunt.sqlscript.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
+    	 * @see org.unbunt.ella.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
     	 */
     	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws RecognitionException {
     		setTokenStream(input); // implicitly resets this instance
@@ -299,7 +299,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "script"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:189:1: script : ( topStatement )* EOF ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:189:1: script : ( topStatement )* EOF ;
     public final EllaParser.script_return script() throws RecognitionException {
         EllaParser.script_return retval = new EllaParser.script_return();
         retval.start = input.LT(1);
@@ -314,12 +314,12 @@ public class EllaParser extends Parser {
 
          enterBlock(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:192:2: ( ( topStatement )* EOF )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:192:4: ( topStatement )* EOF
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:192:2: ( ( topStatement )* EOF )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:192:4: ( topStatement )* EOF
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:192:4: ( topStatement )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:192:4: ( topStatement )*
             loop1:
             do {
                 int alt1=2;
@@ -332,7 +332,7 @@ public class EllaParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:192:4: topStatement
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:192:4: topStatement
             	    {
             	    pushFollow(FOLLOW_topStatement_in_script234);
             	    topStatement1=topStatement();
@@ -385,7 +385,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptIncremental"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:195:1: scriptIncremental : ( topStatement | EOF );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:195:1: scriptIncremental : ( topStatement | EOF );
     public final EllaParser.scriptIncremental_return scriptIncremental() throws RecognitionException {
         EllaParser.scriptIncremental_return retval = new EllaParser.scriptIncremental_return();
         retval.start = input.LT(1);
@@ -400,7 +400,7 @@ public class EllaParser extends Parser {
 
          enterBlock(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:198:2: ( topStatement | EOF )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:198:2: ( topStatement | EOF )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -419,7 +419,7 @@ public class EllaParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:198:4: topStatement
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:198:4: topStatement
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -433,7 +433,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:199:4: EOF
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:199:4: EOF
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -478,7 +478,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "topStatement"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:202:1: topStatement : ( topStatementSep SEP | statementNoSep | SEP );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:202:1: topStatement : ( topStatementSep SEP | statementNoSep | SEP );
     public final EllaParser.topStatement_return topStatement() throws RecognitionException {
         EllaParser.topStatement_return retval = new EllaParser.topStatement_return();
         retval.start = input.LT(1);
@@ -496,7 +496,7 @@ public class EllaParser extends Parser {
         CommonTree SEP8_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:203:2: ( topStatementSep SEP | statementNoSep | SEP )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:203:2: ( topStatementSep SEP | statementNoSep | SEP )
             int alt3=3;
             switch ( input.LA(1) ) {
             case KW_VAR:
@@ -558,7 +558,7 @@ public class EllaParser extends Parser {
 
             switch (alt3) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:203:4: topStatementSep SEP
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:203:4: topStatementSep SEP
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -573,7 +573,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:204:4: statementNoSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:204:4: statementNoSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -587,7 +587,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:205:4: SEP
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:205:4: SEP
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -622,7 +622,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "statement"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:208:1: statement options {k=3; } : ( statementSep SEP | statementNoSep | SEP );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:208:1: statement options {k=3; } : ( statementSep SEP | statementNoSep | SEP );
     public final EllaParser.statement_return statement() throws RecognitionException {
         EllaParser.statement_return retval = new EllaParser.statement_return();
         retval.start = input.LT(1);
@@ -640,12 +640,12 @@ public class EllaParser extends Parser {
         CommonTree SEP12_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:210:2: ( statementSep SEP | statementNoSep | SEP )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:210:2: ( statementSep SEP | statementNoSep | SEP )
             int alt4=3;
             alt4 = dfa4.predict(input);
             switch (alt4) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:210:4: statementSep SEP
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:210:4: statementSep SEP
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -660,7 +660,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:215:4: statementNoSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:215:4: statementNoSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -674,7 +674,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:216:4: SEP
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:216:4: SEP
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -709,7 +709,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "topStatementSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:219:1: topStatementSep : ( sqlStatement | topScriptStmtSep | parseDirective );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:219:1: topStatementSep : ( sqlStatement | topScriptStmtSep | parseDirective );
     public final EllaParser.topStatementSep_return topStatementSep() throws RecognitionException {
         EllaParser.topStatementSep_return retval = new EllaParser.topStatementSep_return();
         retval.start = input.LT(1);
@@ -725,7 +725,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:220:2: ( sqlStatement | topScriptStmtSep | parseDirective )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:220:2: ( sqlStatement | topScriptStmtSep | parseDirective )
             int alt5=3;
             switch ( input.LA(1) ) {
             case KW_SQL:
@@ -762,7 +762,7 @@ public class EllaParser extends Parser {
 
             switch (alt5) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:220:4: sqlStatement
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:220:4: sqlStatement
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -776,7 +776,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:221:4: topScriptStmtSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:221:4: topScriptStmtSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -790,7 +790,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:222:4: parseDirective
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:222:4: parseDirective
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -829,7 +829,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "statementSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:225:1: statementSep : ( sqlStatementPrefixed | scriptStmtSep | parseDirective );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:225:1: statementSep : ( sqlStatementPrefixed | scriptStmtSep | parseDirective );
     public final EllaParser.statementSep_return statementSep() throws RecognitionException {
         EllaParser.statementSep_return retval = new EllaParser.statementSep_return();
         retval.start = input.LT(1);
@@ -845,7 +845,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:226:2: ( sqlStatementPrefixed | scriptStmtSep | parseDirective )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:226:2: ( sqlStatementPrefixed | scriptStmtSep | parseDirective )
             int alt6=3;
             switch ( input.LA(1) ) {
             case KW_SQL:
@@ -910,7 +910,7 @@ public class EllaParser extends Parser {
 
             switch (alt6) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:226:4: sqlStatementPrefixed
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:226:4: sqlStatementPrefixed
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -924,7 +924,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:227:4: scriptStmtSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:227:4: scriptStmtSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -938,7 +938,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:228:4: parseDirective
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:228:4: parseDirective
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -977,7 +977,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "statementNoSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:231:1: statementNoSep : ( scriptStmtNoSep | block | sqlBlock );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:231:1: statementNoSep : ( scriptStmtNoSep | block | sqlBlock );
     public final EllaParser.statementNoSep_return statementNoSep() throws RecognitionException {
         EllaParser.statementNoSep_return retval = new EllaParser.statementNoSep_return();
         retval.start = input.LT(1);
@@ -993,7 +993,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:232:2: ( scriptStmtNoSep | block | sqlBlock )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:232:2: ( scriptStmtNoSep | block | sqlBlock )
             int alt7=3;
             switch ( input.LA(1) ) {
             case KW_IF:
@@ -1025,7 +1025,7 @@ public class EllaParser extends Parser {
 
             switch (alt7) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:232:4: scriptStmtNoSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:232:4: scriptStmtNoSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1039,7 +1039,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:233:4: block
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:233:4: block
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1053,7 +1053,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:234:4: sqlBlock
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:234:4: sqlBlock
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1093,7 +1093,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "block"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:237:1: block : LCURLY ( statement )* RCURLY -> ^( BLOCK ( statement )* ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:237:1: block : LCURLY ( statement )* RCURLY -> ^( BLOCK ( statement )* ) ;
     public final EllaParser.block_return block() throws RecognitionException {
         EllaParser.block_return retval = new EllaParser.block_return();
         retval.start = input.LT(1);
@@ -1112,13 +1112,13 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
          enterBlock(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:240:2: ( LCURLY ( statement )* RCURLY -> ^( BLOCK ( statement )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:240:4: LCURLY ( statement )* RCURLY
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:240:2: ( LCURLY ( statement )* RCURLY -> ^( BLOCK ( statement )* ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:240:4: LCURLY ( statement )* RCURLY
             {
             LCURLY22=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_block422); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY22);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:240:11: ( statement )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:240:11: ( statement )*
             loop8:
             do {
                 int alt8=2;
@@ -1131,7 +1131,7 @@ public class EllaParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:240:11: statement
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:240:11: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_block424);
             	    statement23=statement();
@@ -1167,12 +1167,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 240:29: -> ^( BLOCK ( statement )* )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:240:32: ^( BLOCK ( statement )* )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:240:32: ^( BLOCK ( statement )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:240:40: ( statement )*
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:240:40: ( statement )*
                 while ( stream_statement.hasNext() ) {
                     adaptor.addChild(root_1, stream_statement.nextTree());
 
@@ -1215,7 +1215,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlBlock"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:243:1: sqlBlock : KW_SQL LCURLY ( topStatement )* RCURLY -> ^( BLOCK ( topStatement )* ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:243:1: sqlBlock : KW_SQL LCURLY ( topStatement )* RCURLY -> ^( BLOCK ( topStatement )* ) ;
     public final EllaParser.sqlBlock_return sqlBlock() throws RecognitionException {
         EllaParser.sqlBlock_return retval = new EllaParser.sqlBlock_return();
         retval.start = input.LT(1);
@@ -1237,8 +1237,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_topStatement=new RewriteRuleSubtreeStream(adaptor,"rule topStatement");
          enterBlock(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:246:2: ( KW_SQL LCURLY ( topStatement )* RCURLY -> ^( BLOCK ( topStatement )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:246:4: KW_SQL LCURLY ( topStatement )* RCURLY
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:246:2: ( KW_SQL LCURLY ( topStatement )* RCURLY -> ^( BLOCK ( topStatement )* ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:246:4: KW_SQL LCURLY ( topStatement )* RCURLY
             {
             KW_SQL25=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlBlock457); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_SQL.add(KW_SQL25);
@@ -1246,7 +1246,7 @@ public class EllaParser extends Parser {
             LCURLY26=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlBlock459); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY26);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:246:18: ( topStatement )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:246:18: ( topStatement )*
             loop9:
             do {
                 int alt9=2;
@@ -1259,7 +1259,7 @@ public class EllaParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:246:18: topStatement
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:246:18: topStatement
             	    {
             	    pushFollow(FOLLOW_topStatement_in_sqlBlock461);
             	    topStatement27=topStatement();
@@ -1295,12 +1295,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 246:39: -> ^( BLOCK ( topStatement )* )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:246:42: ^( BLOCK ( topStatement )* )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:246:42: ^( BLOCK ( topStatement )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:246:50: ( topStatement )*
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:246:50: ( topStatement )*
                 while ( stream_topStatement.hasNext() ) {
                     adaptor.addChild(root_1, stream_topStatement.nextTree());
 
@@ -1343,7 +1343,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "anyScriptStmtSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:249:1: anyScriptStmtSep : ( scriptAssignStmt | scriptThrow | scriptBreak | scriptContinue | scriptReturn | scriptExit | scriptImport | scriptInclude );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:249:1: anyScriptStmtSep : ( scriptAssignStmt | scriptThrow | scriptBreak | scriptContinue | scriptReturn | scriptExit | scriptImport | scriptInclude );
     public final EllaParser.anyScriptStmtSep_return anyScriptStmtSep() throws RecognitionException {
         EllaParser.anyScriptStmtSep_return retval = new EllaParser.anyScriptStmtSep_return();
         retval.start = input.LT(1);
@@ -1369,7 +1369,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:250:2: ( scriptAssignStmt | scriptThrow | scriptBreak | scriptContinue | scriptReturn | scriptExit | scriptImport | scriptInclude )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:250:2: ( scriptAssignStmt | scriptThrow | scriptBreak | scriptContinue | scriptReturn | scriptExit | scriptImport | scriptInclude )
             int alt10=8;
             switch ( input.LA(1) ) {
             case KW_VAR:
@@ -1422,7 +1422,7 @@ public class EllaParser extends Parser {
 
             switch (alt10) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:250:4: scriptAssignStmt
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:250:4: scriptAssignStmt
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1436,7 +1436,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:251:4: scriptThrow
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:251:4: scriptThrow
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1450,7 +1450,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:252:4: scriptBreak
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:252:4: scriptBreak
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1464,7 +1464,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:253:4: scriptContinue
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:253:4: scriptContinue
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1478,7 +1478,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:254:4: scriptReturn
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:254:4: scriptReturn
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1492,7 +1492,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:255:4: scriptExit
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:255:4: scriptExit
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1506,7 +1506,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:256:4: scriptImport
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:256:4: scriptImport
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1520,7 +1520,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:257:4: scriptInclude
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:257:4: scriptInclude
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1560,7 +1560,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "topScriptStmtSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:260:1: topScriptStmtSep : ( anyScriptStmtSep | scriptExpressionStmt );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:260:1: topScriptStmtSep : ( anyScriptStmtSep | scriptExpressionStmt );
     public final EllaParser.topScriptStmtSep_return topScriptStmtSep() throws RecognitionException {
         EllaParser.topScriptStmtSep_return retval = new EllaParser.topScriptStmtSep_return();
         retval.start = input.LT(1);
@@ -1574,7 +1574,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:261:2: ( anyScriptStmtSep | scriptExpressionStmt )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:261:2: ( anyScriptStmtSep | scriptExpressionStmt )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1593,7 +1593,7 @@ public class EllaParser extends Parser {
             }
             switch (alt11) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:261:4: anyScriptStmtSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:261:4: anyScriptStmtSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1607,7 +1607,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:262:4: scriptExpressionStmt
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:262:4: scriptExpressionStmt
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1647,7 +1647,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptStmtSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:267:1: scriptStmtSep : ( anyScriptStmtSep | expressionStmt | scriptExpressionStmt );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:267:1: scriptStmtSep : ( anyScriptStmtSep | expressionStmt | scriptExpressionStmt );
     public final EllaParser.scriptStmtSep_return scriptStmtSep() throws RecognitionException {
         EllaParser.scriptStmtSep_return retval = new EllaParser.scriptStmtSep_return();
         retval.start = input.LT(1);
@@ -1663,7 +1663,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:268:2: ( anyScriptStmtSep | expressionStmt | scriptExpressionStmt )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:268:2: ( anyScriptStmtSep | expressionStmt | scriptExpressionStmt )
             int alt12=3;
             switch ( input.LA(1) ) {
             case KW_VAR:
@@ -1726,7 +1726,7 @@ public class EllaParser extends Parser {
 
             switch (alt12) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:268:4: anyScriptStmtSep
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:268:4: anyScriptStmtSep
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1740,7 +1740,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:269:4: expressionStmt
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:269:4: expressionStmt
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1754,7 +1754,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:270:4: scriptExpressionStmt
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:270:4: scriptExpressionStmt
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1794,7 +1794,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptStmtNoSep"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:273:1: scriptStmtNoSep : ( scriptFuncDefStmt | scriptIfElse | scriptTry | scriptFor | scriptWhile );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:273:1: scriptStmtNoSep : ( scriptFuncDefStmt | scriptIfElse | scriptTry | scriptFor | scriptWhile );
     public final EllaParser.scriptStmtNoSep_return scriptStmtNoSep() throws RecognitionException {
         EllaParser.scriptStmtNoSep_return retval = new EllaParser.scriptStmtNoSep_return();
         retval.start = input.LT(1);
@@ -1814,7 +1814,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:274:2: ( scriptFuncDefStmt | scriptIfElse | scriptTry | scriptFor | scriptWhile )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:274:2: ( scriptFuncDefStmt | scriptIfElse | scriptTry | scriptFor | scriptWhile )
             int alt13=5;
             switch ( input.LA(1) ) {
             case KW_FUN:
@@ -1852,7 +1852,7 @@ public class EllaParser extends Parser {
 
             switch (alt13) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:274:4: scriptFuncDefStmt
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:274:4: scriptFuncDefStmt
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1866,7 +1866,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:275:4: scriptIfElse
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:275:4: scriptIfElse
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1880,7 +1880,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:276:4: scriptTry
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:276:4: scriptTry
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1894,7 +1894,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:277:4: scriptFor
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:277:4: scriptFor
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1908,7 +1908,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:278:4: scriptWhile
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:278:4: scriptWhile
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1948,7 +1948,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptAssignStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:281:1: scriptAssignStmt : KW_VAR scriptAssign ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:281:1: scriptAssignStmt : KW_VAR scriptAssign ;
     public final EllaParser.scriptAssignStmt_return scriptAssignStmt() throws RecognitionException {
         EllaParser.scriptAssignStmt_return retval = new EllaParser.scriptAssignStmt_return();
         retval.start = input.LT(1);
@@ -1962,8 +1962,8 @@ public class EllaParser extends Parser {
         CommonTree KW_VAR47_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:282:2: ( KW_VAR scriptAssign )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:282:4: KW_VAR scriptAssign
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:282:2: ( KW_VAR scriptAssign )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:282:4: KW_VAR scriptAssign
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -2002,7 +2002,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptAssign"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:289:1: scriptAssign : identifier ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:289:1: scriptAssign : identifier ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? ) ;
     public final EllaParser.scriptAssign_return scriptAssign() throws RecognitionException {
         EllaParser.scriptAssign_return retval = new EllaParser.scriptAssign_return();
         retval.start = input.LT(1);
@@ -2037,8 +2037,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_scriptAssignRest=new RewriteRuleSubtreeStream(adaptor,"rule scriptAssignRest");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:290:2: ( identifier ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:290:4: identifier ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:290:2: ( identifier ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:290:4: identifier ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? )
             {
             pushFollow(FOLLOW_identifier_in_scriptAssign621);
             identifier49=identifier();
@@ -2046,7 +2046,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(identifier49.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:291:3: ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:291:3: ( OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? ) | EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? ) | ( scriptAssignRest )? -> ^( DECLARE identifier ) ( scriptAssignRest )? )
             int alt19=3;
             switch ( input.LA(1) ) {
             case OP_DEFINE:
@@ -2075,12 +2075,12 @@ public class EllaParser extends Parser {
 
             switch (alt19) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:291:5: OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:291:5: OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
                     {
                     OP_DEFINE50=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssign627); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE50);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:292:4: ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:292:4: ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2099,7 +2099,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:292:6: sqlExpression
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:292:6: sqlExpression
                             {
                             pushFollow(FOLLOW_sqlExpression_in_scriptAssign634);
                             sqlExpression51=sqlExpression();
@@ -2123,12 +2123,12 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 292:23: -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:292:26: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:292:26: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE_ASSIGN, "DECLARE_ASSIGN"), root_1);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:292:43: ^( DECLARE identifier )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:292:43: ^( DECLARE identifier )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_2);
@@ -2137,7 +2137,7 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_1, root_2);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:292:65: ^( ASSIGN identifier sqlExpression )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:292:65: ^( ASSIGN identifier sqlExpression )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_2);
@@ -2157,7 +2157,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:6: expressionNoSQL ( scriptAssignRest )?
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:6: expressionNoSQL ( scriptAssignRest )?
                             {
                             pushFollow(FOLLOW_expressionNoSQL_in_scriptAssign664);
                             expressionNoSQL52=expressionNoSQL();
@@ -2165,7 +2165,7 @@ public class EllaParser extends Parser {
                             state._fsp--;
                             if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL52.getTree());
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:22: ( scriptAssignRest )?
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:22: ( scriptAssignRest )?
                             int alt14=2;
                             int LA14_0 = input.LA(1);
 
@@ -2174,7 +2174,7 @@ public class EllaParser extends Parser {
                             }
                             switch (alt14) {
                                 case 1 :
-                                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:22: scriptAssignRest
+                                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:22: scriptAssignRest
                                     {
                                     pushFollow(FOLLOW_scriptAssignRest_in_scriptAssign666);
                                     scriptAssignRest53=scriptAssignRest();
@@ -2204,12 +2204,12 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 293:40: -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )?
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:43: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:43: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE_ASSIGN, "DECLARE_ASSIGN"), root_1);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:60: ^( DECLARE identifier )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:60: ^( DECLARE identifier )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_2);
@@ -2218,7 +2218,7 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_1, root_2);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:82: ^( ASSIGN identifier expressionNoSQL )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:82: ^( ASSIGN identifier expressionNoSQL )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_2);
@@ -2231,7 +2231,7 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_0, root_1);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:293:120: ( scriptAssignRest )?
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:293:120: ( scriptAssignRest )?
                                 if ( stream_scriptAssignRest.hasNext() ) {
                                     adaptor.addChild(root_0, stream_scriptAssignRest.nextTree());
 
@@ -2250,12 +2250,12 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:295:5: EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:295:5: EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
                     {
                     EQUALS54=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssign701); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS54);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:296:4: ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:296:4: ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -2274,7 +2274,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt17) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:296:6: sqlExpression
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:296:6: sqlExpression
                             {
                             pushFollow(FOLLOW_sqlExpression_in_scriptAssign708);
                             sqlExpression55=sqlExpression();
@@ -2298,7 +2298,7 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 296:23: -> ^( ASSIGN identifier sqlExpression )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:296:26: ^( ASSIGN identifier sqlExpression )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:296:26: ^( ASSIGN identifier sqlExpression )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_1);
@@ -2315,7 +2315,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:297:6: expressionNoSQL ( scriptAssignRest )?
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:297:6: expressionNoSQL ( scriptAssignRest )?
                             {
                             pushFollow(FOLLOW_expressionNoSQL_in_scriptAssign728);
                             expressionNoSQL56=expressionNoSQL();
@@ -2323,7 +2323,7 @@ public class EllaParser extends Parser {
                             state._fsp--;
                             if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL56.getTree());
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:297:22: ( scriptAssignRest )?
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:297:22: ( scriptAssignRest )?
                             int alt16=2;
                             int LA16_0 = input.LA(1);
 
@@ -2332,7 +2332,7 @@ public class EllaParser extends Parser {
                             }
                             switch (alt16) {
                                 case 1 :
-                                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:297:22: scriptAssignRest
+                                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:297:22: scriptAssignRest
                                     {
                                     pushFollow(FOLLOW_scriptAssignRest_in_scriptAssign730);
                                     scriptAssignRest57=scriptAssignRest();
@@ -2362,7 +2362,7 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 297:40: -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )?
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:297:43: ^( ASSIGN identifier expressionNoSQL )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:297:43: ^( ASSIGN identifier expressionNoSQL )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_1);
@@ -2372,7 +2372,7 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_0, root_1);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:297:80: ( scriptAssignRest )?
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:297:80: ( scriptAssignRest )?
                                 if ( stream_scriptAssignRest.hasNext() ) {
                                     adaptor.addChild(root_0, stream_scriptAssignRest.nextTree());
 
@@ -2391,9 +2391,9 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:299:5: ( scriptAssignRest )?
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:299:5: ( scriptAssignRest )?
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:299:5: ( scriptAssignRest )?
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:299:5: ( scriptAssignRest )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -2402,7 +2402,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt18) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:299:5: scriptAssignRest
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:299:5: scriptAssignRest
                             {
                             pushFollow(FOLLOW_scriptAssignRest_in_scriptAssign755);
                             scriptAssignRest58=scriptAssignRest();
@@ -2432,7 +2432,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 299:26: -> ^( DECLARE identifier ) ( scriptAssignRest )?
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:299:29: ^( DECLARE identifier )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:299:29: ^( DECLARE identifier )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_1);
@@ -2441,7 +2441,7 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_0, root_1);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:299:51: ( scriptAssignRest )?
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:299:51: ( scriptAssignRest )?
                         if ( stream_scriptAssignRest.hasNext() ) {
                             adaptor.addChild(root_0, stream_scriptAssignRest.nextTree());
 
@@ -2484,7 +2484,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptAssignRest"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:303:1: scriptAssignRest : ( COMMA scriptAssignNoSQL )+ -> scriptAssignNoSQL ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:303:1: scriptAssignRest : ( COMMA scriptAssignNoSQL )+ -> scriptAssignNoSQL ;
     public final EllaParser.scriptAssignRest_return scriptAssignRest() throws RecognitionException {
         EllaParser.scriptAssignRest_return retval = new EllaParser.scriptAssignRest_return();
         retval.start = input.LT(1);
@@ -2499,10 +2499,10 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_scriptAssignNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule scriptAssignNoSQL");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:304:2: ( ( COMMA scriptAssignNoSQL )+ -> scriptAssignNoSQL )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:304:4: ( COMMA scriptAssignNoSQL )+
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:304:2: ( ( COMMA scriptAssignNoSQL )+ -> scriptAssignNoSQL )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:304:4: ( COMMA scriptAssignNoSQL )+
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:304:4: ( COMMA scriptAssignNoSQL )+
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:304:4: ( COMMA scriptAssignNoSQL )+
             int cnt20=0;
             loop20:
             do {
@@ -2516,7 +2516,7 @@ public class EllaParser extends Parser {
 
                 switch (alt20) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:304:5: COMMA scriptAssignNoSQL
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:304:5: COMMA scriptAssignNoSQL
             	    {
             	    COMMA59=(Token)match(input,COMMA,FOLLOW_COMMA_in_scriptAssignRest786); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA59);
@@ -2589,7 +2589,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptAssignNoSQL"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:307:1: scriptAssignNoSQL : identifier ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:307:1: scriptAssignNoSQL : identifier ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) ) ;
     public final EllaParser.scriptAssignNoSQL_return scriptAssignNoSQL() throws RecognitionException {
         EllaParser.scriptAssignNoSQL_return retval = new EllaParser.scriptAssignNoSQL_return();
         retval.start = input.LT(1);
@@ -2612,8 +2612,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_expressionNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule expressionNoSQL");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:308:2: ( identifier ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:308:4: identifier ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:308:2: ( identifier ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:308:4: identifier ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) )
             {
             pushFollow(FOLLOW_identifier_in_scriptAssignNoSQL805);
             identifier61=identifier();
@@ -2621,7 +2621,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(identifier61.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:309:3: ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:309:3: ( OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | EQUALS expressionNoSQL -> ^( ASSIGN identifier expressionNoSQL ) | -> ^( DECLARE identifier ) )
             int alt21=3;
             switch ( input.LA(1) ) {
             case OP_DEFINE:
@@ -2650,7 +2650,7 @@ public class EllaParser extends Parser {
 
             switch (alt21) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:309:5: OP_DEFINE expressionNoSQL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:309:5: OP_DEFINE expressionNoSQL
                     {
                     OP_DEFINE62=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssignNoSQL811); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE62);
@@ -2677,12 +2677,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 309:31: -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:309:34: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:309:34: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE_ASSIGN, "DECLARE_ASSIGN"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:309:51: ^( DECLARE identifier )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:309:51: ^( DECLARE identifier )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_2);
@@ -2691,7 +2691,7 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:309:73: ^( ASSIGN identifier expressionNoSQL )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:309:73: ^( ASSIGN identifier expressionNoSQL )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_2);
@@ -2711,7 +2711,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:310:5: EQUALS expressionNoSQL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:310:5: EQUALS expressionNoSQL
                     {
                     EQUALS64=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssignNoSQL839); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS64);
@@ -2738,7 +2738,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 310:28: -> ^( ASSIGN identifier expressionNoSQL )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:310:31: ^( ASSIGN identifier expressionNoSQL )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:310:31: ^( ASSIGN identifier expressionNoSQL )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_1);
@@ -2755,7 +2755,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:311:8: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:311:8: 
                     {
 
                     // AST REWRITE
@@ -2772,7 +2772,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 311:8: -> ^( DECLARE identifier )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:311:11: ^( DECLARE identifier )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:311:11: ^( DECLARE identifier )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_1);
@@ -2818,7 +2818,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptFuncDefStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:315:1: scriptFuncDefStmt : KW_FUN identifier argumentsDef block -> ^( FUNC_DEF identifier ( argumentsDef )? block ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:315:1: scriptFuncDefStmt : KW_FUN identifier argumentsDef block -> ^( FUNC_DEF identifier ( argumentsDef )? block ) ;
     public final EllaParser.scriptFuncDefStmt_return scriptFuncDefStmt() throws RecognitionException {
         EllaParser.scriptFuncDefStmt_return retval = new EllaParser.scriptFuncDefStmt_return();
         retval.start = input.LT(1);
@@ -2839,8 +2839,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         RewriteRuleSubtreeStream stream_argumentsDef=new RewriteRuleSubtreeStream(adaptor,"rule argumentsDef");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:316:2: ( KW_FUN identifier argumentsDef block -> ^( FUNC_DEF identifier ( argumentsDef )? block ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:316:4: KW_FUN identifier argumentsDef block
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:316:2: ( KW_FUN identifier argumentsDef block -> ^( FUNC_DEF identifier ( argumentsDef )? block ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:316:4: KW_FUN identifier argumentsDef block
             {
             KW_FUN66=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDefStmt881); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FUN.add(KW_FUN66);
@@ -2879,13 +2879,13 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 316:41: -> ^( FUNC_DEF identifier ( argumentsDef )? block )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:316:44: ^( FUNC_DEF identifier ( argumentsDef )? block )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:316:44: ^( FUNC_DEF identifier ( argumentsDef )? block )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(FUNC_DEF, "FUNC_DEF"), root_1);
 
                 adaptor.addChild(root_1, stream_identifier.nextTree());
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:316:66: ( argumentsDef )?
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:316:66: ( argumentsDef )?
                 if ( stream_argumentsDef.hasNext() ) {
                     adaptor.addChild(root_1, stream_argumentsDef.nextTree());
 
@@ -2926,7 +2926,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptFuncDef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:319:1: scriptFuncDef : KW_FUN ( identifier )? argumentsDef block -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:319:1: scriptFuncDef : KW_FUN ( identifier )? argumentsDef block -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block ) ;
     public final EllaParser.scriptFuncDef_return scriptFuncDef() throws RecognitionException {
         EllaParser.scriptFuncDef_return retval = new EllaParser.scriptFuncDef_return();
         retval.start = input.LT(1);
@@ -2947,13 +2947,13 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         RewriteRuleSubtreeStream stream_argumentsDef=new RewriteRuleSubtreeStream(adaptor,"rule argumentsDef");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:2: ( KW_FUN ( identifier )? argumentsDef block -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:4: KW_FUN ( identifier )? argumentsDef block
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:2: ( KW_FUN ( identifier )? argumentsDef block -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:4: KW_FUN ( identifier )? argumentsDef block
             {
             KW_FUN70=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDef911); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FUN.add(KW_FUN70);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:11: ( identifier )?
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:11: ( identifier )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -2962,7 +2962,7 @@ public class EllaParser extends Parser {
             }
             switch (alt22) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:11: identifier
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:11: identifier
                     {
                     pushFollow(FOLLOW_identifier_in_scriptFuncDef913);
                     identifier71=identifier();
@@ -3004,18 +3004,18 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 320:42: -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:45: ^( FUNC_DEF ( identifier )? ( argumentsDef )? block )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:45: ^( FUNC_DEF ( identifier )? ( argumentsDef )? block )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(FUNC_DEF, "FUNC_DEF"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:56: ( identifier )?
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:56: ( identifier )?
                 if ( stream_identifier.hasNext() ) {
                     adaptor.addChild(root_1, stream_identifier.nextTree());
 
                 }
                 stream_identifier.reset();
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:320:68: ( argumentsDef )?
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:320:68: ( argumentsDef )?
                 if ( stream_argumentsDef.hasNext() ) {
                     adaptor.addChild(root_1, stream_argumentsDef.nextTree());
 
@@ -3056,7 +3056,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "argumentsDef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:323:1: argumentsDef : LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:323:1: argumentsDef : LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN ;
     public final EllaParser.argumentsDef_return argumentsDef() throws RecognitionException {
         EllaParser.argumentsDef_return retval = new EllaParser.argumentsDef_return();
         retval.start = input.LT(1);
@@ -3074,13 +3074,13 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
         RewriteRuleSubtreeStream stream_identifierList=new RewriteRuleSubtreeStream(adaptor,"rule identifierList");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:324:2: ( LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:324:4: LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:324:2: ( LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:324:4: LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN
             {
             LPAREN74=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsDef943); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN74);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:325:3: ( identifierList -> ^( ARGS identifierList ) | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:325:3: ( identifierList -> ^( ARGS identifierList ) | )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -3099,7 +3099,7 @@ public class EllaParser extends Parser {
             }
             switch (alt23) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:325:5: identifierList
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:325:5: identifierList
                     {
                     pushFollow(FOLLOW_identifierList_in_argumentsDef949);
                     identifierList75=identifierList();
@@ -3123,7 +3123,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 325:20: -> ^( ARGS identifierList )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:325:23: ^( ARGS identifierList )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:325:23: ^( ARGS identifierList )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_1);
@@ -3139,7 +3139,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:327:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:327:3: 
                     {
                     }
                     break;
@@ -3177,7 +3177,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "identifierList"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:331:1: identifierList : identifier ( COMMA identifier )* ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:331:1: identifierList : identifier ( COMMA identifier )* ;
     public final EllaParser.identifierList_return identifierList() throws RecognitionException {
         EllaParser.identifierList_return retval = new EllaParser.identifierList_return();
         retval.start = input.LT(1);
@@ -3193,8 +3193,8 @@ public class EllaParser extends Parser {
         CommonTree COMMA78_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:332:2: ( identifier ( COMMA identifier )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:332:4: identifier ( COMMA identifier )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:332:2: ( identifier ( COMMA identifier )* )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:332:4: identifier ( COMMA identifier )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -3204,7 +3204,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, identifier77.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:332:15: ( COMMA identifier )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:332:15: ( COMMA identifier )*
             loop24:
             do {
                 int alt24=2;
@@ -3217,7 +3217,7 @@ public class EllaParser extends Parser {
 
                 switch (alt24) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:332:16: COMMA identifier
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:332:16: COMMA identifier
             	    {
             	    COMMA78=(Token)match(input,COMMA,FOLLOW_COMMA_in_identifierList983); if (state.failed) return retval;
             	    pushFollow(FOLLOW_identifier_in_identifierList986);
@@ -3263,7 +3263,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "blockClosure"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:335:1: blockClosure : LCURLY blockArgumentsDef ( statement )* RCURLY -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:335:1: blockClosure : LCURLY blockArgumentsDef ( statement )* RCURLY -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) ) ;
     public final EllaParser.blockClosure_return blockClosure() throws RecognitionException {
         EllaParser.blockClosure_return retval = new EllaParser.blockClosure_return();
         retval.start = input.LT(1);
@@ -3285,8 +3285,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
          enterBlock(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:2: ( LCURLY blockArgumentsDef ( statement )* RCURLY -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:4: LCURLY blockArgumentsDef ( statement )* RCURLY
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:2: ( LCURLY blockArgumentsDef ( statement )* RCURLY -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:4: LCURLY blockArgumentsDef ( statement )* RCURLY
             {
             LCURLY80=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_blockClosure1009); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY80);
@@ -3297,7 +3297,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_blockArgumentsDef.add(blockArgumentsDef81.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:29: ( statement )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:29: ( statement )*
             loop25:
             do {
                 int alt25=2;
@@ -3310,7 +3310,7 @@ public class EllaParser extends Parser {
 
                 switch (alt25) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:29: statement
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:29: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_blockClosure1013);
             	    statement82=statement();
@@ -3346,23 +3346,23 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 338:47: -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:50: ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:50: ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:66: ( blockArgumentsDef )?
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:66: ( blockArgumentsDef )?
                 if ( stream_blockArgumentsDef.hasNext() ) {
                     adaptor.addChild(root_1, stream_blockArgumentsDef.nextTree());
 
                 }
                 stream_blockArgumentsDef.reset();
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:85: ^( BLOCK ( statement )* )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:85: ^( BLOCK ( statement )* )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_2);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:338:93: ( statement )*
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:338:93: ( statement )*
                 while ( stream_statement.hasNext() ) {
                     adaptor.addChild(root_2, stream_statement.nextTree());
 
@@ -3408,7 +3408,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "blockArgumentsDef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:341:1: blockArgumentsDef : ( identifierList DOUBLE_ARROW -> ^( ARGS identifierList ) | DOUBLE_ARROW );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:341:1: blockArgumentsDef : ( identifierList DOUBLE_ARROW -> ^( ARGS identifierList ) | DOUBLE_ARROW );
     public final EllaParser.blockArgumentsDef_return blockArgumentsDef() throws RecognitionException {
         EllaParser.blockArgumentsDef_return retval = new EllaParser.blockArgumentsDef_return();
         retval.start = input.LT(1);
@@ -3425,7 +3425,7 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_DOUBLE_ARROW=new RewriteRuleTokenStream(adaptor,"token DOUBLE_ARROW");
         RewriteRuleSubtreeStream stream_identifierList=new RewriteRuleSubtreeStream(adaptor,"rule identifierList");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:342:2: ( identifierList DOUBLE_ARROW -> ^( ARGS identifierList ) | DOUBLE_ARROW )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:342:2: ( identifierList DOUBLE_ARROW -> ^( ARGS identifierList ) | DOUBLE_ARROW )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3444,7 +3444,7 @@ public class EllaParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:342:4: identifierList DOUBLE_ARROW
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:342:4: identifierList DOUBLE_ARROW
                     {
                     pushFollow(FOLLOW_identifierList_in_blockArgumentsDef1043);
                     identifierList84=identifierList();
@@ -3471,7 +3471,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 342:32: -> ^( ARGS identifierList )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:342:35: ^( ARGS identifierList )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:342:35: ^( ARGS identifierList )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_1);
@@ -3487,7 +3487,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:343:4: DOUBLE_ARROW
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:343:4: DOUBLE_ARROW
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -3522,7 +3522,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptExpressionStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:346:1: scriptExpressionStmt : DOT expressionStmt ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:346:1: scriptExpressionStmt : DOT expressionStmt ;
     public final EllaParser.scriptExpressionStmt_return scriptExpressionStmt() throws RecognitionException {
         EllaParser.scriptExpressionStmt_return retval = new EllaParser.scriptExpressionStmt_return();
         retval.start = input.LT(1);
@@ -3536,8 +3536,8 @@ public class EllaParser extends Parser {
         CommonTree DOT87_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:347:2: ( DOT expressionStmt )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:347:4: DOT expressionStmt
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:347:2: ( DOT expressionStmt )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:347:4: DOT expressionStmt
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -3576,7 +3576,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptIfElse"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:350:1: scriptIfElse : KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:350:1: scriptIfElse : KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) ) ;
     public final EllaParser.scriptIfElse_return scriptIfElse() throws RecognitionException {
         EllaParser.scriptIfElse_return retval = new EllaParser.scriptIfElse_return();
         retval.start = input.LT(1);
@@ -3602,8 +3602,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         RewriteRuleSubtreeStream stream_parenExpression=new RewriteRuleSubtreeStream(adaptor,"rule parenExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:351:2: ( KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:351:4: KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:351:2: ( KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:351:4: KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) )
             {
             KW_IF89=(Token)match(input,KW_IF,FOLLOW_KW_IF_in_scriptIfElse1084); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_IF.add(KW_IF89);
@@ -3620,7 +3620,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_block.add(block91.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:352:3: ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:352:3: ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) )
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -3639,12 +3639,12 @@ public class EllaParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:352:5: KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:352:5: KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
                     {
                     KW_ELSE92=(Token)match(input,KW_ELSE,FOLLOW_KW_ELSE_in_scriptIfElse1094); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_ELSE.add(KW_ELSE92);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:353:4: ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:353:4: ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -3663,7 +3663,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt27) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:353:6: scriptIfElse
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:353:6: scriptIfElse
                             {
                             pushFollow(FOLLOW_scriptIfElse_in_scriptIfElse1101);
                             scriptIfElse93=scriptIfElse();
@@ -3687,12 +3687,12 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 353:19: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:353:22: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:353:22: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:354:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:354:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -3702,13 +3702,13 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_1, root_2);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:355:7: ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:355:7: ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
                                 adaptor.addChild(root_2, stream_parenExpression.nextTree());
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:357:8: ^( BLOCK_CLOSURE block )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:357:8: ^( BLOCK_CLOSURE block )
                                 {
                                 CommonTree root_3 = (CommonTree)adaptor.nil();
                                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -3717,12 +3717,12 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_2, root_3);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:358:8: ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:358:8: ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) )
                                 {
                                 CommonTree root_3 = (CommonTree)adaptor.nil();
                                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:358:24: ^( BLOCK scriptIfElse )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:358:24: ^( BLOCK scriptIfElse )
                                 {
                                 CommonTree root_4 = (CommonTree)adaptor.nil();
                                 root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_4);
@@ -3747,7 +3747,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:361:6: block
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:361:6: block
                             {
                             pushFollow(FOLLOW_block_in_scriptIfElse1194);
                             block94=block();
@@ -3771,12 +3771,12 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 361:13: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:361:16: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:361:16: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:362:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:362:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -3786,13 +3786,13 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_1, root_2);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:363:7: ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:363:7: ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
                                 adaptor.addChild(root_2, stream_parenExpression.nextTree());
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:365:8: ^( BLOCK_CLOSURE block )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:365:8: ^( BLOCK_CLOSURE block )
                                 {
                                 CommonTree root_3 = (CommonTree)adaptor.nil();
                                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -3801,7 +3801,7 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_2, root_3);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:366:8: ^( BLOCK_CLOSURE block )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:366:8: ^( BLOCK_CLOSURE block )
                                 {
                                 CommonTree root_3 = (CommonTree)adaptor.nil();
                                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -3829,7 +3829,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:370:5: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:370:5: 
                     {
 
                     // AST REWRITE
@@ -3846,12 +3846,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 370:5: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:370:8: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:370:8: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:371:5: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:371:5: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -3861,13 +3861,13 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:372:5: ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:372:5: ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
                         adaptor.addChild(root_2, stream_parenExpression.nextTree());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:372:28: ^( BLOCK_CLOSURE block )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:372:28: ^( BLOCK_CLOSURE block )
                         {
                         CommonTree root_3 = (CommonTree)adaptor.nil();
                         root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -3919,7 +3919,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptTry"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:377:1: scriptTry : KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:377:1: scriptTry : KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) ) ;
     public final EllaParser.scriptTry_return scriptTry() throws RecognitionException {
         EllaParser.scriptTry_return retval = new EllaParser.scriptTry_return();
         retval.start = input.LT(1);
@@ -3942,8 +3942,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         RewriteRuleSubtreeStream stream_scriptFinally=new RewriteRuleSubtreeStream(adaptor,"rule scriptFinally");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:378:2: ( KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:378:4: KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:378:2: ( KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:378:4: KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) )
             {
             KW_TRY95=(Token)match(input,KW_TRY,FOLLOW_KW_TRY_in_scriptTry1342); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_TRY.add(KW_TRY95);
@@ -3954,7 +3954,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_block.add(block96.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:379:3: ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:379:3: ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) )
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -3973,7 +3973,7 @@ public class EllaParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:379:5: scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:379:5: scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) )
                     {
                     pushFollow(FOLLOW_scriptCatch_in_scriptTry1350);
                     scriptCatch97=scriptCatch();
@@ -3981,7 +3981,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_scriptCatch.add(scriptCatch97.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:380:5: ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:380:5: ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) )
                     int alt29=2;
                     int LA29_0 = input.LA(1);
 
@@ -4000,7 +4000,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt29) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:380:7: scriptFinally
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:380:7: scriptFinally
                             {
                             pushFollow(FOLLOW_scriptFinally_in_scriptTry1358);
                             scriptFinally98=scriptFinally();
@@ -4024,12 +4024,12 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 380:22: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:380:25: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:380:25: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:381:10: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:381:10: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -4039,12 +4039,12 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_1, root_2);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:382:10: ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:382:10: ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:382:17: ^( BLOCK_CLOSURE block )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:382:17: ^( BLOCK_CLOSURE block )
                                 {
                                 CommonTree root_3 = (CommonTree)adaptor.nil();
                                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -4068,7 +4068,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:384:10: 
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:384:10: 
                             {
 
                             // AST REWRITE
@@ -4085,12 +4085,12 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 384:10: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:384:13: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:384:13: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:385:10: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:385:10: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -4100,12 +4100,12 @@ public class EllaParser extends Parser {
 
                                 adaptor.addChild(root_1, root_2);
                                 }
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:386:10: ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:386:10: ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch )
                                 {
                                 CommonTree root_2 = (CommonTree)adaptor.nil();
                                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:386:17: ^( BLOCK_CLOSURE block )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:386:17: ^( BLOCK_CLOSURE block )
                                 {
                                 CommonTree root_3 = (CommonTree)adaptor.nil();
                                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -4134,7 +4134,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:389:5: scriptFinally
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:389:5: scriptFinally
                     {
                     pushFollow(FOLLOW_scriptFinally_in_scriptTry1494);
                     scriptFinally99=scriptFinally();
@@ -4158,12 +4158,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 389:21: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:389:24: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:389:24: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:390:8: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:390:8: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -4173,12 +4173,12 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:391:8: ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:391:8: ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:391:15: ^( BLOCK_CLOSURE block )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:391:15: ^( BLOCK_CLOSURE block )
                         {
                         CommonTree root_3 = (CommonTree)adaptor.nil();
                         root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -4231,7 +4231,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptCatch"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:396:1: scriptCatch : KW_CATCH LPAREN identifier RPAREN block -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:396:1: scriptCatch : KW_CATCH LPAREN identifier RPAREN block -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block ) ;
     public final EllaParser.scriptCatch_return scriptCatch() throws RecognitionException {
         EllaParser.scriptCatch_return retval = new EllaParser.scriptCatch_return();
         retval.start = input.LT(1);
@@ -4255,8 +4255,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:397:2: ( KW_CATCH LPAREN identifier RPAREN block -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:397:4: KW_CATCH LPAREN identifier RPAREN block
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:397:2: ( KW_CATCH LPAREN identifier RPAREN block -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:397:4: KW_CATCH LPAREN identifier RPAREN block
             {
             KW_CATCH100=(Token)match(input,KW_CATCH,FOLLOW_KW_CATCH_in_scriptCatch1561); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_CATCH.add(KW_CATCH100);
@@ -4295,12 +4295,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 397:44: -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:397:47: ^( BLOCK_CLOSURE ^( ARGS identifier ) block )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:397:47: ^( BLOCK_CLOSURE ^( ARGS identifier ) block )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:397:63: ^( ARGS identifier )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:397:63: ^( ARGS identifier )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
@@ -4344,7 +4344,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptFinally"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:400:1: scriptFinally : KW_FINALLY block -> ^( BLOCK_CLOSURE block ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:400:1: scriptFinally : KW_FINALLY block -> ^( BLOCK_CLOSURE block ) ;
     public final EllaParser.scriptFinally_return scriptFinally() throws RecognitionException {
         EllaParser.scriptFinally_return retval = new EllaParser.scriptFinally_return();
         retval.start = input.LT(1);
@@ -4359,8 +4359,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_FINALLY=new RewriteRuleTokenStream(adaptor,"token KW_FINALLY");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:401:2: ( KW_FINALLY block -> ^( BLOCK_CLOSURE block ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:401:4: KW_FINALLY block
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:401:2: ( KW_FINALLY block -> ^( BLOCK_CLOSURE block ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:401:4: KW_FINALLY block
             {
             KW_FINALLY105=(Token)match(input,KW_FINALLY,FOLLOW_KW_FINALLY_in_scriptFinally1594); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FINALLY.add(KW_FINALLY105);
@@ -4387,7 +4387,7 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 401:23: -> ^( BLOCK_CLOSURE block )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:401:26: ^( BLOCK_CLOSURE block )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:401:26: ^( BLOCK_CLOSURE block )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_1);
@@ -4427,7 +4427,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptThrow"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:404:1: scriptThrow : KW_THROW expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:404:1: scriptThrow : KW_THROW expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) ) ;
     public final EllaParser.scriptThrow_return scriptThrow() throws RecognitionException {
         EllaParser.scriptThrow_return retval = new EllaParser.scriptThrow_return();
         retval.start = input.LT(1);
@@ -4442,8 +4442,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_THROW=new RewriteRuleTokenStream(adaptor,"token KW_THROW");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:405:2: ( KW_THROW expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:405:4: KW_THROW expression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:405:2: ( KW_THROW expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:405:4: KW_THROW expression
             {
             KW_THROW107=(Token)match(input,KW_THROW,FOLLOW_KW_THROW_in_scriptThrow1617); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_THROW.add(KW_THROW107);
@@ -4470,12 +4470,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 405:24: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:405:27: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:405:27: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:406:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:406:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -4485,7 +4485,7 @@ public class EllaParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:407:7: ^( ARGS expression )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:407:7: ^( ARGS expression )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
@@ -4528,7 +4528,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptFor"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:411:1: scriptFor : KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:411:1: scriptFor : KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) ) ;
     public final EllaParser.scriptFor_return scriptFor() throws RecognitionException {
         EllaParser.scriptFor_return retval = new EllaParser.scriptFor_return();
         retval.start = input.LT(1);
@@ -4561,13 +4561,13 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_identifierList=new RewriteRuleSubtreeStream(adaptor,"rule identifierList");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:412:2: ( KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:412:4: KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:412:2: ( KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:412:4: KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block
             {
             KW_FOR109=(Token)match(input,KW_FOR,FOLLOW_KW_FOR_in_scriptFor1671); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_FOR.add(KW_FOR109);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:413:3: ( identifier -> identifier | -> IDENTIFIER[\"each\"] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:413:3: ( identifier -> identifier | -> IDENTIFIER[\"each\"] )
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -4586,7 +4586,7 @@ public class EllaParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:413:5: identifier
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:413:5: identifier
                     {
                     pushFollow(FOLLOW_identifier_in_scriptFor1677);
                     identifier110=identifier();
@@ -4618,7 +4618,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:414:6: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:414:6: 
                     {
 
                     // AST REWRITE
@@ -4688,12 +4688,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 417:3: -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:417:6: ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:417:6: ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:418:4: ^( SLOT expression $scriptFor)
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:418:4: ^( SLOT expression $scriptFor)
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -4703,17 +4703,17 @@ public class EllaParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:419:4: ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:419:4: ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:419:11: ^( BLOCK_CLOSURE ^( ARGS identifierList ) block )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:419:11: ^( BLOCK_CLOSURE ^( ARGS identifierList ) block )
                 {
                 CommonTree root_3 = (CommonTree)adaptor.nil();
                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:419:27: ^( ARGS identifierList )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:419:27: ^( ARGS identifierList )
                 {
                 CommonTree root_4 = (CommonTree)adaptor.nil();
                 root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_4);
@@ -4763,7 +4763,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptWhile"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:425:1: scriptWhile : KW_WHILE parenExpression block -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:425:1: scriptWhile : KW_WHILE parenExpression block -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) ) ;
     public final EllaParser.scriptWhile_return scriptWhile() throws RecognitionException {
         EllaParser.scriptWhile_return retval = new EllaParser.scriptWhile_return();
         retval.start = input.LT(1);
@@ -4781,8 +4781,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         RewriteRuleSubtreeStream stream_parenExpression=new RewriteRuleSubtreeStream(adaptor,"rule parenExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:426:2: ( KW_WHILE parenExpression block -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:426:4: KW_WHILE parenExpression block
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:426:2: ( KW_WHILE parenExpression block -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:426:4: KW_WHILE parenExpression block
             {
             KW_WHILE117=(Token)match(input,KW_WHILE,FOLLOW_KW_WHILE_in_scriptWhile1765); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_WHILE.add(KW_WHILE117);
@@ -4815,22 +4815,22 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 427:3: -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:427:6: ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:427:6: ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:428:4: ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:428:4: ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:428:11: ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:428:11: ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) )
                 {
                 CommonTree root_3 = (CommonTree)adaptor.nil();
                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:428:27: ^( BLOCK parenExpression )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:428:27: ^( BLOCK parenExpression )
                 {
                 CommonTree root_4 = (CommonTree)adaptor.nil();
                 root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_4);
@@ -4846,12 +4846,12 @@ public class EllaParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:429:4: ^( ARGS ^( BLOCK_CLOSURE block ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:429:4: ^( ARGS ^( BLOCK_CLOSURE block ) )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:429:11: ^( BLOCK_CLOSURE block )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:429:11: ^( BLOCK_CLOSURE block )
                 {
                 CommonTree root_3 = (CommonTree)adaptor.nil();
                 root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
@@ -4897,7 +4897,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptBreak"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:433:1: scriptBreak : KW_BREAK -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:433:1: scriptBreak : KW_BREAK -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) ) ;
     public final EllaParser.scriptBreak_return scriptBreak() throws RecognitionException {
         EllaParser.scriptBreak_return retval = new EllaParser.scriptBreak_return();
         retval.start = input.LT(1);
@@ -4910,8 +4910,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_BREAK=new RewriteRuleTokenStream(adaptor,"token KW_BREAK");
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:434:2: ( KW_BREAK -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:434:4: KW_BREAK
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:434:2: ( KW_BREAK -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:434:4: KW_BREAK
             {
             KW_BREAK120=(Token)match(input,KW_BREAK,FOLLOW_KW_BREAK_in_scriptBreak1825); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_BREAK.add(KW_BREAK120);
@@ -4932,12 +4932,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 434:13: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:434:16: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:434:16: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:434:23: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:434:23: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -4981,7 +4981,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptContinue"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:437:1: scriptContinue : KW_CONTINUE -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:437:1: scriptContinue : KW_CONTINUE -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) ) ;
     public final EllaParser.scriptContinue_return scriptContinue() throws RecognitionException {
         EllaParser.scriptContinue_return retval = new EllaParser.scriptContinue_return();
         retval.start = input.LT(1);
@@ -4994,8 +4994,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_CONTINUE=new RewriteRuleTokenStream(adaptor,"token KW_CONTINUE");
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:438:2: ( KW_CONTINUE -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:438:4: KW_CONTINUE
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:438:2: ( KW_CONTINUE -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:438:4: KW_CONTINUE
             {
             KW_CONTINUE121=(Token)match(input,KW_CONTINUE,FOLLOW_KW_CONTINUE_in_scriptContinue1852); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_CONTINUE.add(KW_CONTINUE121);
@@ -5016,12 +5016,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 438:16: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:438:19: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:438:19: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:438:26: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:438:26: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -5065,7 +5065,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptReturn"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:442:1: scriptReturn : KW_RETURN ( expression )? -> ^( RETURN ( expression )? ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:442:1: scriptReturn : KW_RETURN ( expression )? -> ^( RETURN ( expression )? ) ;
     public final EllaParser.scriptReturn_return scriptReturn() throws RecognitionException {
         EllaParser.scriptReturn_return retval = new EllaParser.scriptReturn_return();
         retval.start = input.LT(1);
@@ -5080,13 +5080,13 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_RETURN=new RewriteRuleTokenStream(adaptor,"token KW_RETURN");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:443:2: ( KW_RETURN ( expression )? -> ^( RETURN ( expression )? ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:443:4: KW_RETURN ( expression )?
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:443:2: ( KW_RETURN ( expression )? -> ^( RETURN ( expression )? ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:443:4: KW_RETURN ( expression )?
             {
             KW_RETURN122=(Token)match(input,KW_RETURN,FOLLOW_KW_RETURN_in_scriptReturn1880); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_RETURN.add(KW_RETURN122);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:443:14: ( expression )?
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:443:14: ( expression )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -5095,7 +5095,7 @@ public class EllaParser extends Parser {
             }
             switch (alt32) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:443:14: expression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:443:14: expression
                     {
                     pushFollow(FOLLOW_expression_in_scriptReturn1882);
                     expression123=expression();
@@ -5125,12 +5125,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 443:26: -> ^( RETURN ( expression )? )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:443:29: ^( RETURN ( expression )? )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:443:29: ^( RETURN ( expression )? )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(RETURN, "RETURN"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:443:38: ( expression )?
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:443:38: ( expression )?
                 if ( stream_expression.hasNext() ) {
                     adaptor.addChild(root_1, stream_expression.nextTree());
 
@@ -5170,7 +5170,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptExit"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:446:1: scriptExit : KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:446:1: scriptExit : KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) ) ;
     public final EllaParser.scriptExit_return scriptExit() throws RecognitionException {
         EllaParser.scriptExit_return retval = new EllaParser.scriptExit_return();
         retval.start = input.LT(1);
@@ -5185,13 +5185,13 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_EXIT=new RewriteRuleTokenStream(adaptor,"token KW_EXIT");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:447:2: ( KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:447:4: KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:447:2: ( KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:447:4: KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
             {
             KW_EXIT124=(Token)match(input,KW_EXIT,FOLLOW_KW_EXIT_in_scriptExit1903); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_EXIT.add(KW_EXIT124);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:448:3: ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:448:3: ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -5210,7 +5210,7 @@ public class EllaParser extends Parser {
             }
             switch (alt33) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:448:5: expression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:448:5: expression
                     {
                     pushFollow(FOLLOW_expression_in_scriptExit1909);
                     expression125=expression();
@@ -5234,12 +5234,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 448:16: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:448:19: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:448:19: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:449:6: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:449:6: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -5249,7 +5249,7 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:450:6: ^( ARGS expression )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:450:6: ^( ARGS expression )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
@@ -5268,7 +5268,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:452:6: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:452:6: 
                     {
 
                     // AST REWRITE
@@ -5285,12 +5285,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 452:6: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:452:9: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:452:9: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:452:16: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:452:16: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -5340,7 +5340,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptImport"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:457:1: scriptImport : KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:457:1: scriptImport : KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) ) ;
     public final EllaParser.scriptImport_return scriptImport() throws RecognitionException {
         EllaParser.scriptImport_return retval = new EllaParser.scriptImport_return();
         retval.start = input.LT(1);
@@ -5371,8 +5371,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_javaIdentifier=new RewriteRuleSubtreeStream(adaptor,"rule javaIdentifier");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:458:2: ( KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:458:4: KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:458:2: ( KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:458:4: KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) )
             {
             KW_IMPORT126=(Token)match(input,KW_IMPORT,FOLLOW_KW_IMPORT_in_scriptImport1986); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_IMPORT.add(KW_IMPORT126);
@@ -5383,7 +5383,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_javaIdentifier.add(javaIdentifier127.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:459:3: ( DOT javaIdentifier )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:459:3: ( DOT javaIdentifier )*
             loop34:
             do {
                 int alt34=2;
@@ -5402,7 +5402,7 @@ public class EllaParser extends Parser {
 
                 switch (alt34) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:459:5: DOT javaIdentifier
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:459:5: DOT javaIdentifier
             	    {
             	    DOT128=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport1994); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_DOT.add(DOT128);
@@ -5422,7 +5422,7 @@ public class EllaParser extends Parser {
                 }
             } while (true);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:460:3: ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:460:3: ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) )
             int alt35=3;
             switch ( input.LA(1) ) {
             case DOT:
@@ -5450,7 +5450,7 @@ public class EllaParser extends Parser {
 
             switch (alt35) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:460:5: DOT OP_MUL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:460:5: DOT OP_MUL
                     {
                     DOT130=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport2005); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DOT.add(DOT130);
@@ -5474,7 +5474,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 460:17: -> ^( IMPORT_PACKAGE ( javaIdentifier )+ )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:460:20: ^( IMPORT_PACKAGE ( javaIdentifier )+ )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:460:20: ^( IMPORT_PACKAGE ( javaIdentifier )+ )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(IMPORT_PACKAGE, "IMPORT_PACKAGE"), root_1);
@@ -5497,7 +5497,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:461:5: KW_AS identifier
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:461:5: KW_AS identifier
                     {
                     KW_AS132=(Token)match(input,KW_AS,FOLLOW_KW_AS_in_scriptImport2023); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_AS.add(KW_AS132);
@@ -5524,12 +5524,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 461:22: -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:461:25: ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:461:25: ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(IMPORT_CLASS, "IMPORT_CLASS"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:461:40: ^( AS identifier )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:461:40: ^( AS identifier )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(AS, "AS"), root_2);
@@ -5556,7 +5556,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:462:7: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:462:7: 
                     {
 
                     // AST REWRITE
@@ -5573,7 +5573,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 462:7: -> ^( IMPORT_CLASS ( javaIdentifier )+ )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:462:10: ^( IMPORT_CLASS ( javaIdentifier )+ )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:462:10: ^( IMPORT_CLASS ( javaIdentifier )+ )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(IMPORT_CLASS, "IMPORT_CLASS"), root_1);
@@ -5626,7 +5626,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "scriptInclude"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:466:1: scriptInclude : KW_INCLUDE expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:466:1: scriptInclude : KW_INCLUDE expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) ) ;
     public final EllaParser.scriptInclude_return scriptInclude() throws RecognitionException {
         EllaParser.scriptInclude_return retval = new EllaParser.scriptInclude_return();
         retval.start = input.LT(1);
@@ -5641,8 +5641,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_INCLUDE=new RewriteRuleTokenStream(adaptor,"token KW_INCLUDE");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:467:2: ( KW_INCLUDE expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:467:4: KW_INCLUDE expression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:467:2: ( KW_INCLUDE expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:467:4: KW_INCLUDE expression
             {
             KW_INCLUDE134=(Token)match(input,KW_INCLUDE,FOLLOW_KW_INCLUDE_in_scriptInclude2070); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_KW_INCLUDE.add(KW_INCLUDE134);
@@ -5669,12 +5669,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 467:26: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:467:29: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:467:29: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:468:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:468:7: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -5684,7 +5684,7 @@ public class EllaParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:469:7: ^( ARGS expression )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:469:7: ^( ARGS expression )
                 {
                 CommonTree root_2 = (CommonTree)adaptor.nil();
                 root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
@@ -5727,7 +5727,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "javaIdentifier"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:475:1: javaIdentifier : identifierNoOps ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:475:1: javaIdentifier : identifierNoOps ;
     public final EllaParser.javaIdentifier_return javaIdentifier() throws RecognitionException {
         EllaParser.javaIdentifier_return retval = new EllaParser.javaIdentifier_return();
         retval.start = input.LT(1);
@@ -5739,8 +5739,8 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:476:2: ( identifierNoOps )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:476:4: identifierNoOps
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:476:2: ( identifierNoOps )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:476:4: identifierNoOps
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5778,7 +5778,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "parenExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:481:1: parenExpression : LPAREN expression RPAREN ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:481:1: parenExpression : LPAREN expression RPAREN ;
     public final EllaParser.parenExpression_return parenExpression() throws RecognitionException {
         EllaParser.parenExpression_return retval = new EllaParser.parenExpression_return();
         retval.start = input.LT(1);
@@ -5794,8 +5794,8 @@ public class EllaParser extends Parser {
         CommonTree RPAREN139_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:482:2: ( LPAREN expression RPAREN )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:482:4: LPAREN expression RPAREN
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:482:2: ( LPAREN expression RPAREN )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:482:4: LPAREN expression RPAREN
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5835,7 +5835,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "expressionStmtNoSQL"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:488:1: expressionStmtNoSQL : assignExpressionNoSQL ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:488:1: expressionStmtNoSQL : assignExpressionNoSQL ;
     public final EllaParser.expressionStmtNoSQL_return expressionStmtNoSQL() throws RecognitionException {
         EllaParser.expressionStmtNoSQL_return retval = new EllaParser.expressionStmtNoSQL_return();
         retval.start = input.LT(1);
@@ -5847,8 +5847,8 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:489:2: ( assignExpressionNoSQL )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:489:4: assignExpressionNoSQL
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:489:2: ( assignExpressionNoSQL )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:489:4: assignExpressionNoSQL
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5886,7 +5886,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "expressionStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:493:1: expressionStmt : assignExpression ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:493:1: expressionStmt : assignExpression ;
     public final EllaParser.expressionStmt_return expressionStmt() throws RecognitionException {
         EllaParser.expressionStmt_return retval = new EllaParser.expressionStmt_return();
         retval.start = input.LT(1);
@@ -5898,8 +5898,8 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:494:2: ( assignExpression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:494:4: assignExpression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:494:2: ( assignExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:494:4: assignExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5937,7 +5937,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "expressionNoSQL"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:500:1: expressionNoSQL options {k=3; } : ( expressionStmtNoSQL | scriptFuncDef | objectLiteral );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:500:1: expressionNoSQL options {k=3; } : ( expressionStmtNoSQL | scriptFuncDef | objectLiteral );
     public final EllaParser.expressionNoSQL_return expressionNoSQL() throws RecognitionException {
         EllaParser.expressionNoSQL_return retval = new EllaParser.expressionNoSQL_return();
         retval.start = input.LT(1);
@@ -5953,12 +5953,12 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:502:2: ( expressionStmtNoSQL | scriptFuncDef | objectLiteral )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:502:2: ( expressionStmtNoSQL | scriptFuncDef | objectLiteral )
             int alt36=3;
             alt36 = dfa36.predict(input);
             switch (alt36) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:502:4: expressionStmtNoSQL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:502:4: expressionStmtNoSQL
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -5972,7 +5972,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:503:4: scriptFuncDef
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:503:4: scriptFuncDef
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -5986,7 +5986,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:504:4: objectLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:504:4: objectLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6026,7 +6026,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "expression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:507:1: expression options {k=3; } : ( expressionStmt | scriptFuncDef | objectLiteral | sqlExpression );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:507:1: expression options {k=3; } : ( expressionStmt | scriptFuncDef | objectLiteral | sqlExpression );
     public final EllaParser.expression_return expression() throws RecognitionException {
         EllaParser.expression_return retval = new EllaParser.expression_return();
         retval.start = input.LT(1);
@@ -6044,12 +6044,12 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:509:2: ( expressionStmt | scriptFuncDef | objectLiteral | sqlExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:509:2: ( expressionStmt | scriptFuncDef | objectLiteral | sqlExpression )
             int alt37=4;
             alt37 = dfa37.predict(input);
             switch (alt37) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:509:4: expressionStmt
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:509:4: expressionStmt
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6063,7 +6063,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:510:4: scriptFuncDef
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:510:4: scriptFuncDef
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6077,7 +6077,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:511:4: objectLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:511:4: objectLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6091,7 +6091,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:512:4: sqlExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:512:4: sqlExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6131,7 +6131,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "assignExpressionNoSQL"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:515:1: assignExpressionNoSQL : ( identifier OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | conditionalExpression ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression ) );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:515:1: assignExpressionNoSQL : ( identifier OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | conditionalExpression ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression ) );
     public final EllaParser.assignExpressionNoSQL_return assignExpressionNoSQL() throws RecognitionException {
         EllaParser.assignExpressionNoSQL_return retval = new EllaParser.assignExpressionNoSQL_return();
         retval.start = input.LT(1);
@@ -6157,12 +6157,12 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         RewriteRuleSubtreeStream stream_conditionalExpression=new RewriteRuleSubtreeStream(adaptor,"rule conditionalExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:516:2: ( identifier OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | conditionalExpression ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:516:2: ( identifier OP_DEFINE expressionNoSQL -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) | conditionalExpression ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression ) )
             int alt39=2;
             alt39 = dfa39.predict(input);
             switch (alt39) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:516:4: identifier OP_DEFINE expressionNoSQL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:516:4: identifier OP_DEFINE expressionNoSQL
                     {
                     pushFollow(FOLLOW_identifier_in_assignExpressionNoSQL2250);
                     identifier149=identifier();
@@ -6195,12 +6195,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 516:41: -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:516:44: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:516:44: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE_ASSIGN, "DECLARE_ASSIGN"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:516:61: ^( DECLARE identifier )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:516:61: ^( DECLARE identifier )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_2);
@@ -6209,7 +6209,7 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:516:83: ^( ASSIGN identifier expressionNoSQL )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:516:83: ^( ASSIGN identifier expressionNoSQL )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_2);
@@ -6229,7 +6229,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:517:4: conditionalExpression ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:517:4: conditionalExpression ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression )
                     {
                     pushFollow(FOLLOW_conditionalExpression_in_assignExpressionNoSQL2279);
                     conditionalExpression152=conditionalExpression();
@@ -6237,7 +6237,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_conditionalExpression.add(conditionalExpression152.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:518:3: ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:518:3: ( EQUALS expressionNoSQL -> ^( ASSIGN conditionalExpression expressionNoSQL ) | -> conditionalExpression )
                     int alt38=2;
                     int LA38_0 = input.LA(1);
 
@@ -6256,7 +6256,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt38) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:518:5: EQUALS expressionNoSQL
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:518:5: EQUALS expressionNoSQL
                             {
                             EQUALS153=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpressionNoSQL2285); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS153);
@@ -6283,7 +6283,7 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 518:29: -> ^( ASSIGN conditionalExpression expressionNoSQL )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:518:32: ^( ASSIGN conditionalExpression expressionNoSQL )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:518:32: ^( ASSIGN conditionalExpression expressionNoSQL )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_1);
@@ -6300,7 +6300,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:519:9: 
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:519:9: 
                             {
 
                             // AST REWRITE
@@ -6357,7 +6357,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "assignExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:523:1: assignExpression : ( identifier OP_DEFINE expression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) ) | conditionalExpression ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression ) );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:523:1: assignExpression : ( identifier OP_DEFINE expression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) ) | conditionalExpression ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression ) );
     public final EllaParser.assignExpression_return assignExpression() throws RecognitionException {
         EllaParser.assignExpression_return retval = new EllaParser.assignExpression_return();
         retval.start = input.LT(1);
@@ -6383,12 +6383,12 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         RewriteRuleSubtreeStream stream_conditionalExpression=new RewriteRuleSubtreeStream(adaptor,"rule conditionalExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:524:2: ( identifier OP_DEFINE expression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) ) | conditionalExpression ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:524:2: ( identifier OP_DEFINE expression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) ) | conditionalExpression ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression ) )
             int alt41=2;
             alt41 = dfa41.predict(input);
             switch (alt41) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:524:4: identifier OP_DEFINE expression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:524:4: identifier OP_DEFINE expression
                     {
                     pushFollow(FOLLOW_identifier_in_assignExpression2325);
                     identifier155=identifier();
@@ -6421,12 +6421,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 524:36: -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:524:39: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:524:39: ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expression ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE_ASSIGN, "DECLARE_ASSIGN"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:524:56: ^( DECLARE identifier )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:524:56: ^( DECLARE identifier )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(DECLARE, "DECLARE"), root_2);
@@ -6435,7 +6435,7 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:524:78: ^( ASSIGN identifier expression )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:524:78: ^( ASSIGN identifier expression )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_2);
@@ -6455,7 +6455,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:525:4: conditionalExpression ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:525:4: conditionalExpression ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression )
                     {
                     pushFollow(FOLLOW_conditionalExpression_in_assignExpression2354);
                     conditionalExpression158=conditionalExpression();
@@ -6463,7 +6463,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_conditionalExpression.add(conditionalExpression158.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:526:3: ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:526:3: ( EQUALS expression -> ^( ASSIGN conditionalExpression expression ) | -> conditionalExpression )
                     int alt40=2;
                     int LA40_0 = input.LA(1);
 
@@ -6482,7 +6482,7 @@ public class EllaParser extends Parser {
                     }
                     switch (alt40) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:526:5: EQUALS expression
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:526:5: EQUALS expression
                             {
                             EQUALS159=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpression2360); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS159);
@@ -6509,7 +6509,7 @@ public class EllaParser extends Parser {
                             root_0 = (CommonTree)adaptor.nil();
                             // 526:24: -> ^( ASSIGN conditionalExpression expression )
                             {
-                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:526:27: ^( ASSIGN conditionalExpression expression )
+                                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:526:27: ^( ASSIGN conditionalExpression expression )
                                 {
                                 CommonTree root_1 = (CommonTree)adaptor.nil();
                                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ASSIGN, "ASSIGN"), root_1);
@@ -6526,7 +6526,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:527:8: 
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:527:8: 
                             {
 
                             // AST REWRITE
@@ -6583,7 +6583,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "conditionalExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:531:1: conditionalExpression : orCondition ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:531:1: conditionalExpression : orCondition ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition ) ;
     public final EllaParser.conditionalExpression_return conditionalExpression() throws RecognitionException {
         EllaParser.conditionalExpression_return retval = new EllaParser.conditionalExpression_return();
         retval.start = input.LT(1);
@@ -6606,8 +6606,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_orCondition=new RewriteRuleSubtreeStream(adaptor,"rule orCondition");
         RewriteRuleSubtreeStream stream_conditionalResult=new RewriteRuleSubtreeStream(adaptor,"rule conditionalResult");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:532:2: ( orCondition ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:532:4: orCondition ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:532:2: ( orCondition ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:532:4: orCondition ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition )
             {
             pushFollow(FOLLOW_orCondition_in_conditionalExpression2399);
             orCondition161=orCondition();
@@ -6615,7 +6615,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_orCondition.add(orCondition161.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:533:3: ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:533:3: ( QUESTION conditionalResult COLON conditionalResult -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) ) | -> orCondition )
             int alt42=2;
             int LA42_0 = input.LA(1);
 
@@ -6634,7 +6634,7 @@ public class EllaParser extends Parser {
             }
             switch (alt42) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:533:5: QUESTION conditionalResult COLON conditionalResult
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:533:5: QUESTION conditionalResult COLON conditionalResult
                     {
                     QUESTION162=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_conditionalExpression2405); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_QUESTION.add(QUESTION162);
@@ -6670,12 +6670,12 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 535:4: -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:535:7: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:535:7: ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:536:5: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:536:5: ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -6685,18 +6685,18 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_1, root_2);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:537:5: ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:537:5: ^( ARGS orCondition ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) ) )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
                         adaptor.addChild(root_2, stream_orCondition.nextTree());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:539:6: ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:539:6: ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) )
                         {
                         CommonTree root_3 = (CommonTree)adaptor.nil();
                         root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:539:22: ^( BLOCK conditionalResult )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:539:22: ^( BLOCK conditionalResult )
                         {
                         CommonTree root_4 = (CommonTree)adaptor.nil();
                         root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_4);
@@ -6708,12 +6708,12 @@ public class EllaParser extends Parser {
 
                         adaptor.addChild(root_2, root_3);
                         }
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:540:6: ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:540:6: ^( BLOCK_CLOSURE ^( BLOCK conditionalResult ) )
                         {
                         CommonTree root_3 = (CommonTree)adaptor.nil();
                         root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:540:22: ^( BLOCK conditionalResult )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:540:22: ^( BLOCK conditionalResult )
                         {
                         CommonTree root_4 = (CommonTree)adaptor.nil();
                         root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_4);
@@ -6738,7 +6738,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:543:5: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:543:5: 
                     {
 
                     // AST REWRITE
@@ -6793,7 +6793,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "conditionalResult"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:547:1: conditionalResult options {k=3; } : ( conditionalExpression | objectLiteral );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:547:1: conditionalResult options {k=3; } : ( conditionalExpression | objectLiteral );
     public final EllaParser.conditionalResult_return conditionalResult() throws RecognitionException {
         EllaParser.conditionalResult_return retval = new EllaParser.conditionalResult_return();
         retval.start = input.LT(1);
@@ -6807,12 +6807,12 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:549:2: ( conditionalExpression | objectLiteral )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:549:2: ( conditionalExpression | objectLiteral )
             int alt43=2;
             alt43 = dfa43.predict(input);
             switch (alt43) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:549:4: conditionalExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:549:4: conditionalExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6826,7 +6826,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:550:4: objectLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:550:4: objectLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -6866,7 +6866,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "orCondition"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:553:1: orCondition : ( andCondition -> andCondition ) ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )* ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:553:1: orCondition : ( andCondition -> andCondition ) ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )* ;
     public final EllaParser.orCondition_return orCondition() throws RecognitionException {
         EllaParser.orCondition_return retval = new EllaParser.orCondition_return();
         retval.start = input.LT(1);
@@ -6883,11 +6883,11 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_OP_OR=new RewriteRuleTokenStream(adaptor,"token OP_OR");
         RewriteRuleSubtreeStream stream_andCondition=new RewriteRuleSubtreeStream(adaptor,"rule andCondition");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:554:2: ( ( andCondition -> andCondition ) ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:554:4: ( andCondition -> andCondition ) ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:554:2: ( ( andCondition -> andCondition ) ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )* )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:554:4: ( andCondition -> andCondition ) ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )*
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:554:4: ( andCondition -> andCondition )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:554:5: andCondition
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:554:4: ( andCondition -> andCondition )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:554:5: andCondition
             {
             pushFollow(FOLLOW_andCondition_in_orCondition2544);
             andCondition168=andCondition();
@@ -6918,7 +6918,7 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:555:3: ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:555:3: ( OP_OR andCondition -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) ) )*
             loop44:
             do {
                 int alt44=2;
@@ -6931,7 +6931,7 @@ public class EllaParser extends Parser {
 
                 switch (alt44) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:555:5: OP_OR andCondition
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:555:5: OP_OR andCondition
             	    {
             	    OP_OR169=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_orCondition2556); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_OP_OR.add(OP_OR169);
@@ -6958,12 +6958,12 @@ public class EllaParser extends Parser {
             	    root_0 = (CommonTree)adaptor.nil();
             	    // 555:24: -> ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) )
             	    {
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:555:27: ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:555:27: ^( CALL ^( SLOT $orCondition IDENTIFIER[\"||\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) ) )
             	        {
             	        CommonTree root_1 = (CommonTree)adaptor.nil();
             	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:556:7: ^( SLOT $orCondition IDENTIFIER[\"||\"] )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:556:7: ^( SLOT $orCondition IDENTIFIER[\"||\"] )
             	        {
             	        CommonTree root_2 = (CommonTree)adaptor.nil();
             	        root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -6973,17 +6973,17 @@ public class EllaParser extends Parser {
 
             	        adaptor.addChild(root_1, root_2);
             	        }
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:557:7: ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:557:7: ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK andCondition ) ) )
             	        {
             	        CommonTree root_2 = (CommonTree)adaptor.nil();
             	        root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:557:14: ^( BLOCK_CLOSURE ^( BLOCK andCondition ) )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:557:14: ^( BLOCK_CLOSURE ^( BLOCK andCondition ) )
             	        {
             	        CommonTree root_3 = (CommonTree)adaptor.nil();
             	        root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:557:30: ^( BLOCK andCondition )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:557:30: ^( BLOCK andCondition )
             	        {
             	        CommonTree root_4 = (CommonTree)adaptor.nil();
             	        root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_4);
@@ -7041,7 +7041,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "andCondition"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:562:1: andCondition : ( eqCondition -> eqCondition ) ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )* ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:562:1: andCondition : ( eqCondition -> eqCondition ) ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )* ;
     public final EllaParser.andCondition_return andCondition() throws RecognitionException {
         EllaParser.andCondition_return retval = new EllaParser.andCondition_return();
         retval.start = input.LT(1);
@@ -7058,11 +7058,11 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_OP_AND=new RewriteRuleTokenStream(adaptor,"token OP_AND");
         RewriteRuleSubtreeStream stream_eqCondition=new RewriteRuleSubtreeStream(adaptor,"rule eqCondition");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:563:2: ( ( eqCondition -> eqCondition ) ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:563:4: ( eqCondition -> eqCondition ) ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:563:2: ( ( eqCondition -> eqCondition ) ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )* )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:563:4: ( eqCondition -> eqCondition ) ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )*
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:563:4: ( eqCondition -> eqCondition )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:563:5: eqCondition
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:563:4: ( eqCondition -> eqCondition )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:563:5: eqCondition
             {
             pushFollow(FOLLOW_eqCondition_in_andCondition2624);
             eqCondition171=eqCondition();
@@ -7093,7 +7093,7 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:564:3: ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:564:3: ( OP_AND eqCondition -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) ) )*
             loop45:
             do {
                 int alt45=2;
@@ -7106,7 +7106,7 @@ public class EllaParser extends Parser {
 
                 switch (alt45) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:564:5: OP_AND eqCondition
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:564:5: OP_AND eqCondition
             	    {
             	    OP_AND172=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_andCondition2636); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_OP_AND.add(OP_AND172);
@@ -7133,12 +7133,12 @@ public class EllaParser extends Parser {
             	    root_0 = (CommonTree)adaptor.nil();
             	    // 564:24: -> ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) )
             	    {
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:564:27: ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:564:27: ^( CALL ^( SLOT $andCondition IDENTIFIER[\"&&\"] ) ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) ) )
             	        {
             	        CommonTree root_1 = (CommonTree)adaptor.nil();
             	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:565:7: ^( SLOT $andCondition IDENTIFIER[\"&&\"] )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:565:7: ^( SLOT $andCondition IDENTIFIER[\"&&\"] )
             	        {
             	        CommonTree root_2 = (CommonTree)adaptor.nil();
             	        root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_2);
@@ -7148,17 +7148,17 @@ public class EllaParser extends Parser {
 
             	        adaptor.addChild(root_1, root_2);
             	        }
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:566:7: ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:566:7: ^( ARGS ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) ) )
             	        {
             	        CommonTree root_2 = (CommonTree)adaptor.nil();
             	        root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_2);
 
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:566:14: ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:566:14: ^( BLOCK_CLOSURE ^( BLOCK eqCondition ) )
             	        {
             	        CommonTree root_3 = (CommonTree)adaptor.nil();
             	        root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK_CLOSURE, "BLOCK_CLOSURE"), root_3);
 
-            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:566:30: ^( BLOCK eqCondition )
+            	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:566:30: ^( BLOCK eqCondition )
             	        {
             	        CommonTree root_4 = (CommonTree)adaptor.nil();
             	        root_4 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(BLOCK, "BLOCK"), root_4);
@@ -7216,7 +7216,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "eqCondition"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:571:1: eqCondition : binaryExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:571:1: eqCondition : binaryExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression ) ;
     public final EllaParser.eqCondition_return eqCondition() throws RecognitionException {
         EllaParser.eqCondition_return retval = new EllaParser.eqCondition_return();
         retval.start = input.LT(1);
@@ -7240,8 +7240,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_OP_NI=new RewriteRuleTokenStream(adaptor,"token OP_NI");
         RewriteRuleSubtreeStream stream_binaryExpression=new RewriteRuleSubtreeStream(adaptor,"rule binaryExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:572:2: ( binaryExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:572:4: binaryExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:572:2: ( binaryExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:572:4: binaryExpression ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression )
             {
             pushFollow(FOLLOW_binaryExpression_in_eqCondition2703);
             binaryExpression174=binaryExpression();
@@ -7249,7 +7249,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_binaryExpression.add(binaryExpression174.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:3: ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:3: ( (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression ) | -> binaryExpression )
             int alt47=2;
             int LA47_0 = input.LA(1);
 
@@ -7268,9 +7268,9 @@ public class EllaParser extends Parser {
             }
             switch (alt47) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE ) binaryExpression
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:5: (op= OP_EQ | op= OP_NE | op= OP_ID | op= OP_NI | op= OP_GT | op= OP_GE | op= OP_LT | op= OP_LE )
                     int alt46=8;
                     switch ( input.LA(1) ) {
                     case OP_EQ:
@@ -7323,7 +7323,7 @@ public class EllaParser extends Parser {
 
                     switch (alt46) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:6: op= OP_EQ
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:6: op= OP_EQ
                             {
                             op=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_eqCondition2712); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_EQ.add(op);
@@ -7332,7 +7332,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:15: op= OP_NE
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:15: op= OP_NE
                             {
                             op=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_eqCondition2716); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_NE.add(op);
@@ -7341,7 +7341,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 3 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:24: op= OP_ID
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:24: op= OP_ID
                             {
                             op=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_eqCondition2720); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_ID.add(op);
@@ -7350,7 +7350,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 4 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:33: op= OP_NI
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:33: op= OP_NI
                             {
                             op=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_eqCondition2724); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_NI.add(op);
@@ -7359,7 +7359,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 5 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:42: op= OP_GT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:42: op= OP_GT
                             {
                             op=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_eqCondition2728); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_GT.add(op);
@@ -7368,7 +7368,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 6 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:51: op= OP_GE
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:51: op= OP_GE
                             {
                             op=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_eqCondition2732); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_GE.add(op);
@@ -7377,7 +7377,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 7 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:60: op= OP_LT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:60: op= OP_LT
                             {
                             op=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_eqCondition2736); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_LT.add(op);
@@ -7386,7 +7386,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 8 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:573:69: op= OP_LE
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:573:69: op= OP_LE
                             {
                             op=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_eqCondition2740); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_OP_LE.add(op);
@@ -7419,7 +7419,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 574:22: -> ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:574:25: ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:574:25: ^( CALL_BINARY binaryExpression IDENTIFIER[$op] binaryExpression )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
@@ -7437,7 +7437,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:575:7: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:575:7: 
                     {
 
                     // AST REWRITE
@@ -7492,7 +7492,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "binaryExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:579:1: binaryExpression : ( addExpression -> addExpression ) ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:579:1: binaryExpression : ( addExpression -> addExpression ) ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | ) ;
     public final EllaParser.binaryExpression_return binaryExpression() throws RecognitionException {
         EllaParser.binaryExpression_return retval = new EllaParser.binaryExpression_return();
         retval.start = input.LT(1);
@@ -7509,11 +7509,11 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_identifierNoOps=new RewriteRuleSubtreeStream(adaptor,"rule identifierNoOps");
         RewriteRuleSubtreeStream stream_addExpression=new RewriteRuleSubtreeStream(adaptor,"rule addExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:580:2: ( ( addExpression -> addExpression ) ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:580:4: ( addExpression -> addExpression ) ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:580:2: ( ( addExpression -> addExpression ) ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:580:4: ( addExpression -> addExpression ) ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:580:4: ( addExpression -> addExpression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:580:5: addExpression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:580:4: ( addExpression -> addExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:580:5: addExpression
             {
             pushFollow(FOLLOW_addExpression_in_binaryExpression2786);
             addExpression176=addExpression();
@@ -7544,7 +7544,7 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:581:3: ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:581:3: ( ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+ | )
             int alt49=2;
             int LA49_0 = input.LA(1);
 
@@ -7563,9 +7563,9 @@ public class EllaParser extends Parser {
             }
             switch (alt49) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:581:5: ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:581:5: ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:581:5: ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:581:5: ( identifierNoOps addExpression -> ^( CALL_BINARY identifierNoOps addExpression ) )+
                     int cnt48=0;
                     loop48:
                     do {
@@ -7579,7 +7579,7 @@ public class EllaParser extends Parser {
 
                         switch (alt48) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:581:6: identifierNoOps addExpression
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:581:6: identifierNoOps addExpression
                     	    {
                     	    pushFollow(FOLLOW_identifierNoOps_in_binaryExpression2801);
                     	    identifierNoOps177=identifierNoOps();
@@ -7609,7 +7609,7 @@ public class EllaParser extends Parser {
                     	    root_0 = (CommonTree)adaptor.nil();
                     	    // 581:36: -> ^( CALL_BINARY identifierNoOps addExpression )
                     	    {
-                    	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:581:39: ^( CALL_BINARY identifierNoOps addExpression )
+                    	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:581:39: ^( CALL_BINARY identifierNoOps addExpression )
                     	        {
                     	        CommonTree root_1 = (CommonTree)adaptor.nil();
                     	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
@@ -7641,7 +7641,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:583:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:583:3: 
                     {
                     }
                     break;
@@ -7676,7 +7676,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "addExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:586:1: addExpression : ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:586:1: addExpression : ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | ) ;
     public final EllaParser.addExpression_return addExpression() throws RecognitionException {
         EllaParser.addExpression_return retval = new EllaParser.addExpression_return();
         retval.start = input.LT(1);
@@ -7694,11 +7694,11 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_OP_ADD=new RewriteRuleTokenStream(adaptor,"token OP_ADD");
         RewriteRuleSubtreeStream stream_multExpression=new RewriteRuleSubtreeStream(adaptor,"rule multExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:587:2: ( ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:587:4: ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:587:2: ( ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:587:4: ( multExpression -> multExpression ) ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:587:4: ( multExpression -> multExpression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:587:5: multExpression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:587:4: ( multExpression -> multExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:587:5: multExpression
             {
             pushFollow(FOLLOW_multExpression_in_addExpression2837);
             multExpression179=multExpression();
@@ -7729,7 +7729,7 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:3: ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:3: ( ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+ | )
             int alt52=2;
             int LA52_0 = input.LA(1);
 
@@ -7748,9 +7748,9 @@ public class EllaParser extends Parser {
             }
             switch (alt52) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:5: ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:5: ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:5: ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:5: ( (op= OP_ADD | op= OP_SUB ) multExpression -> ^( CALL_BINARY IDENTIFIER[$op] multExpression ) )+
                     int cnt51=0;
                     loop51:
                     do {
@@ -7764,9 +7764,9 @@ public class EllaParser extends Parser {
 
                         switch (alt51) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:6: (op= OP_ADD | op= OP_SUB ) multExpression
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:6: (op= OP_ADD | op= OP_SUB ) multExpression
                     	    {
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:6: (op= OP_ADD | op= OP_SUB )
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:6: (op= OP_ADD | op= OP_SUB )
                     	    int alt50=2;
                     	    int LA50_0 = input.LA(1);
 
@@ -7785,7 +7785,7 @@ public class EllaParser extends Parser {
                     	    }
                     	    switch (alt50) {
                     	        case 1 :
-                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:7: op= OP_ADD
+                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:7: op= OP_ADD
                     	            {
                     	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2856); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_ADD.add(op);
@@ -7794,7 +7794,7 @@ public class EllaParser extends Parser {
                     	            }
                     	            break;
                     	        case 2 :
-                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:17: op= OP_SUB
+                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:17: op= OP_SUB
                     	            {
                     	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2860); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_SUB.add(op);
@@ -7827,7 +7827,7 @@ public class EllaParser extends Parser {
                     	    root_0 = (CommonTree)adaptor.nil();
                     	    // 588:44: -> ^( CALL_BINARY IDENTIFIER[$op] multExpression )
                     	    {
-                    	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:588:47: ^( CALL_BINARY IDENTIFIER[$op] multExpression )
+                    	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:588:47: ^( CALL_BINARY IDENTIFIER[$op] multExpression )
                     	        {
                     	        CommonTree root_1 = (CommonTree)adaptor.nil();
                     	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
@@ -7859,7 +7859,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:590:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:590:3: 
                     {
                     }
                     break;
@@ -7894,7 +7894,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "multExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:593:1: multExpression : ( unaryExpression -> unaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:593:1: multExpression : ( unaryExpression -> unaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | ) ;
     public final EllaParser.multExpression_return multExpression() throws RecognitionException {
         EllaParser.multExpression_return retval = new EllaParser.multExpression_return();
         retval.start = input.LT(1);
@@ -7913,11 +7913,11 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_OP_DIV=new RewriteRuleTokenStream(adaptor,"token OP_DIV");
         RewriteRuleSubtreeStream stream_unaryExpression=new RewriteRuleSubtreeStream(adaptor,"rule unaryExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:594:2: ( ( unaryExpression -> unaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:594:4: ( unaryExpression -> unaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:594:2: ( ( unaryExpression -> unaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:594:4: ( unaryExpression -> unaryExpression ) ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:594:4: ( unaryExpression -> unaryExpression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:594:5: unaryExpression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:594:4: ( unaryExpression -> unaryExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:594:5: unaryExpression
             {
             pushFollow(FOLLOW_unaryExpression_in_multExpression2899);
             unaryExpression181=unaryExpression();
@@ -7948,7 +7948,7 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:3: ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:3: ( ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+ | )
             int alt55=2;
             int LA55_0 = input.LA(1);
 
@@ -7967,9 +7967,9 @@ public class EllaParser extends Parser {
             }
             switch (alt55) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:5: ( (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression ) )+
                     int cnt54=0;
                     loop54:
                     do {
@@ -7983,9 +7983,9 @@ public class EllaParser extends Parser {
 
                         switch (alt54) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD ) unaryExpression
                     	    {
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD )
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:6: (op= OP_MUL | op= OP_DIV | op= OP_MOD )
                     	    int alt53=3;
                     	    switch ( input.LA(1) ) {
                     	    case OP_MUL:
@@ -8013,7 +8013,7 @@ public class EllaParser extends Parser {
 
                     	    switch (alt53) {
                     	        case 1 :
-                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:7: op= OP_MUL
+                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:7: op= OP_MUL
                     	            {
                     	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2916); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_MUL.add(op);
@@ -8022,7 +8022,7 @@ public class EllaParser extends Parser {
                     	            }
                     	            break;
                     	        case 2 :
-                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:17: op= OP_DIV
+                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:17: op= OP_DIV
                     	            {
                     	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2920); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_DIV.add(op);
@@ -8031,7 +8031,7 @@ public class EllaParser extends Parser {
                     	            }
                     	            break;
                     	        case 3 :
-                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:27: op= OP_MOD
+                    	            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:27: op= OP_MOD
                     	            {
                     	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2924); if (state.failed) return retval; 
                     	            if ( state.backtracking==0 ) stream_OP_MOD.add(op);
@@ -8064,7 +8064,7 @@ public class EllaParser extends Parser {
                     	    root_0 = (CommonTree)adaptor.nil();
                     	    // 595:54: -> ^( CALL_BINARY IDENTIFIER[$op] unaryExpression )
                     	    {
-                    	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:595:57: ^( CALL_BINARY IDENTIFIER[$op] unaryExpression )
+                    	        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:595:57: ^( CALL_BINARY IDENTIFIER[$op] unaryExpression )
                     	        {
                     	        CommonTree root_1 = (CommonTree)adaptor.nil();
                     	        root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_BINARY, "CALL_BINARY"), root_1);
@@ -8096,7 +8096,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:597:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:597:3: 
                     {
                     }
                     break;
@@ -8131,7 +8131,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "unaryExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:600:1: unaryExpression : (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | op_sub= OP_SUB unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] ) | callExpression -> callExpression );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:600:1: unaryExpression : (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | op_sub= OP_SUB unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] ) | callExpression -> callExpression );
     public final EllaParser.unaryExpression_return unaryExpression() throws RecognitionException {
         EllaParser.unaryExpression_return retval = new EllaParser.unaryExpression_return();
         retval.start = input.LT(1);
@@ -8154,7 +8154,7 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_unaryExpression=new RewriteRuleSubtreeStream(adaptor,"rule unaryExpression");
         RewriteRuleSubtreeStream stream_callExpression=new RewriteRuleSubtreeStream(adaptor,"rule callExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:601:2: (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | op_sub= OP_SUB unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] ) | callExpression -> callExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:601:2: (exclam= EXCLAM unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] ) | op_sub= OP_SUB unaryExpression -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] ) | callExpression -> callExpression )
             int alt56=3;
             switch ( input.LA(1) ) {
             case EXCLAM:
@@ -8208,7 +8208,7 @@ public class EllaParser extends Parser {
 
             switch (alt56) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:601:4: exclam= EXCLAM unaryExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:601:4: exclam= EXCLAM unaryExpression
                     {
                     exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_unaryExpression2963); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
@@ -8235,7 +8235,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 601:34: -> ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:601:37: ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:601:37: ^( CALL_UNARY unaryExpression IDENTIFIER[$exclam] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_UNARY, "CALL_UNARY"), root_1);
@@ -8252,7 +8252,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:602:4: op_sub= OP_SUB unaryExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:602:4: op_sub= OP_SUB unaryExpression
                     {
                     op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_unaryExpression2983); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
@@ -8279,7 +8279,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 602:34: -> ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:602:37: ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:602:37: ^( CALL_UNARY unaryExpression IDENTIFIER[\"neg\"] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL_UNARY, "CALL_UNARY"), root_1);
@@ -8296,7 +8296,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:603:4: callExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:603:4: callExpression
                     {
                     pushFollow(FOLLOW_callExpression_in_unaryExpression3001);
                     callExpression185=callExpression();
@@ -8354,7 +8354,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "callExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:606:1: callExpression : ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:606:1: callExpression : ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) ;
     public final EllaParser.callExpression_return callExpression() throws RecognitionException {
         EllaParser.callExpression_return retval = new EllaParser.callExpression_return();
         retval.start = input.LT(1);
@@ -8369,11 +8369,11 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_callExpressionSuffix=new RewriteRuleSubtreeStream(adaptor,"rule callExpressionSuffix");
         RewriteRuleSubtreeStream stream_simpleExpression=new RewriteRuleSubtreeStream(adaptor,"rule simpleExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:607:2: ( ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:607:4: ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:607:2: ( ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:607:4: ( simpleExpression -> simpleExpression ) ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:607:4: ( simpleExpression -> simpleExpression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:607:5: simpleExpression
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:607:4: ( simpleExpression -> simpleExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:607:5: simpleExpression
             {
             pushFollow(FOLLOW_simpleExpression_in_callExpression3025);
             simpleExpression186=simpleExpression();
@@ -8404,7 +8404,7 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:608:3: ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:608:3: ( ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+ | -> simpleExpression )
             int alt58=2;
             int LA58_0 = input.LA(1);
 
@@ -8423,9 +8423,9 @@ public class EllaParser extends Parser {
             }
             switch (alt58) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:608:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:608:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:608:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:608:4: ( callExpressionSuffix[$callExpression.tree] -> callExpressionSuffix )+
                     int cnt57=0;
                     loop57:
                     do {
@@ -8439,7 +8439,7 @@ public class EllaParser extends Parser {
 
                         switch (alt57) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:608:5: callExpressionSuffix[$callExpression.tree]
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:608:5: callExpressionSuffix[$callExpression.tree]
                     	    {
                     	    pushFollow(FOLLOW_callExpressionSuffix_in_callExpression3036);
                     	    callExpressionSuffix187=callExpressionSuffix(((CommonTree)retval.tree));
@@ -8485,7 +8485,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:610:9: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:610:9: 
                     {
 
                     // AST REWRITE
@@ -8540,7 +8540,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "callExpressionSuffix"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:614:1: callExpressionSuffix[ CommonTree subject ] options {k=3; } : ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:614:1: callExpressionSuffix[ CommonTree subject ] options {k=3; } : ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) );
     public final EllaParser.callExpressionSuffix_return callExpressionSuffix(CommonTree subject) throws RecognitionException {
         EllaParser.callExpressionSuffix_return retval = new EllaParser.callExpressionSuffix_return();
         retval.start = input.LT(1);
@@ -8558,12 +8558,12 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_slotSuffix=new RewriteRuleSubtreeStream(adaptor,"rule slotSuffix");
         RewriteRuleSubtreeStream stream_indexSuffix=new RewriteRuleSubtreeStream(adaptor,"rule indexSuffix");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:616:2: ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:616:2: ( callSuffix -> ^( CALL ( callSuffix )? ) | slotSuffix -> ^( SLOT slotSuffix ) | indexSuffix -> ^( INDEX indexSuffix ) )
             int alt59=3;
             alt59 = dfa59.predict(input);
             switch (alt59) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:616:4: callSuffix
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:616:4: callSuffix
                     {
                     pushFollow(FOLLOW_callSuffix_in_callExpressionSuffix3085);
                     callSuffix188=callSuffix();
@@ -8587,13 +8587,13 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 616:15: -> ^( CALL ( callSuffix )? )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:616:18: ^( CALL ( callSuffix )? )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:616:18: ^( CALL ( callSuffix )? )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
                         adaptor.addChild(root_1, subject);
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:616:37: ( callSuffix )?
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:616:37: ( callSuffix )?
                         if ( stream_callSuffix.hasNext() ) {
                             adaptor.addChild(root_1, stream_callSuffix.nextTree());
 
@@ -8609,7 +8609,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:617:4: slotSuffix
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:617:4: slotSuffix
                     {
                     pushFollow(FOLLOW_slotSuffix_in_callExpressionSuffix3102);
                     slotSuffix189=slotSuffix();
@@ -8633,7 +8633,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 617:15: -> ^( SLOT slotSuffix )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:617:18: ^( SLOT slotSuffix )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:617:18: ^( SLOT slotSuffix )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -8650,7 +8650,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:618:4: indexSuffix
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:618:4: indexSuffix
                     {
                     pushFollow(FOLLOW_indexSuffix_in_callExpressionSuffix3118);
                     indexSuffix190=indexSuffix();
@@ -8674,7 +8674,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 618:16: -> ^( INDEX indexSuffix )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:618:19: ^( INDEX indexSuffix )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:618:19: ^( INDEX indexSuffix )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(INDEX, "INDEX"), root_1);
@@ -8717,7 +8717,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "slotSuffix"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:621:1: slotSuffix : ( DOT identifier | LCURLY expression RCURLY );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:621:1: slotSuffix : ( DOT identifier | LCURLY expression RCURLY );
     public final EllaParser.slotSuffix_return slotSuffix() throws RecognitionException {
         EllaParser.slotSuffix_return retval = new EllaParser.slotSuffix_return();
         retval.start = input.LT(1);
@@ -8737,7 +8737,7 @@ public class EllaParser extends Parser {
         CommonTree RCURLY195_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:622:2: ( DOT identifier | LCURLY expression RCURLY )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:622:2: ( DOT identifier | LCURLY expression RCURLY )
             int alt60=2;
             int LA60_0 = input.LA(1);
 
@@ -8756,7 +8756,7 @@ public class EllaParser extends Parser {
             }
             switch (alt60) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:622:4: DOT identifier
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:622:4: DOT identifier
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -8771,7 +8771,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:623:4: LCURLY expression RCURLY
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:623:4: LCURLY expression RCURLY
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -8813,7 +8813,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "indexSuffix"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:626:1: indexSuffix : LSQUARE expression RSQUARE ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:626:1: indexSuffix : LSQUARE expression RSQUARE ;
     public final EllaParser.indexSuffix_return indexSuffix() throws RecognitionException {
         EllaParser.indexSuffix_return retval = new EllaParser.indexSuffix_return();
         retval.start = input.LT(1);
@@ -8829,8 +8829,8 @@ public class EllaParser extends Parser {
         CommonTree RSQUARE198_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:627:2: ( LSQUARE expression RSQUARE )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:627:4: LSQUARE expression RSQUARE
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:627:2: ( LSQUARE expression RSQUARE )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:627:4: LSQUARE expression RSQUARE
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -8870,7 +8870,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "callSuffix"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:630:1: callSuffix : ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:630:1: callSuffix : ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure );
     public final EllaParser.callSuffix_return callSuffix() throws RecognitionException {
         EllaParser.callSuffix_return retval = new EllaParser.callSuffix_return();
         retval.start = input.LT(1);
@@ -8886,7 +8886,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:631:2: ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:631:2: ( argumentsList ( ( LCURLY )=> blockClosure | ) | blockClosure )
             int alt62=2;
             int LA62_0 = input.LA(1);
 
@@ -8905,7 +8905,7 @@ public class EllaParser extends Parser {
             }
             switch (alt62) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:631:4: argumentsList ( ( LCURLY )=> blockClosure | )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:631:4: argumentsList ( ( LCURLY )=> blockClosure | )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -8915,12 +8915,12 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, argumentsList199.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:632:3: ( ( LCURLY )=> blockClosure | )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:632:3: ( ( LCURLY )=> blockClosure | )
                     int alt61=2;
                     alt61 = dfa61.predict(input);
                     switch (alt61) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:632:5: ( LCURLY )=> blockClosure
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:632:5: ( LCURLY )=> blockClosure
                             {
                             pushFollow(FOLLOW_blockClosure_in_callSuffix3192);
                             blockClosure200=blockClosure();
@@ -8932,7 +8932,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:634:3: 
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:634:3: 
                             {
                             }
                             break;
@@ -8943,7 +8943,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:635:4: blockClosure
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:635:4: blockClosure
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -8983,7 +8983,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "superSuffix"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:638:1: superSuffix[ Token superToken ] : ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:638:1: superSuffix[ Token superToken ] : ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) ;
     public final EllaParser.superSuffix_return superSuffix(Token superToken) throws RecognitionException {
         EllaParser.superSuffix_return retval = new EllaParser.superSuffix_return();
         retval.start = input.LT(1);
@@ -8998,11 +8998,11 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_callSuffix=new RewriteRuleSubtreeStream(adaptor,"rule callSuffix");
         RewriteRuleSubtreeStream stream_slotSuffix=new RewriteRuleSubtreeStream(adaptor,"rule slotSuffix");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:639:2: ( ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:639:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:639:2: ( ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:639:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) ) ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:639:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:639:5: slotSuffix
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:639:4: ( slotSuffix -> ^( SLOT SUPER[$superToken] slotSuffix ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:639:5: slotSuffix
             {
             pushFollow(FOLLOW_slotSuffix_in_superSuffix3220);
             slotSuffix202=slotSuffix();
@@ -9026,7 +9026,7 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 639:18: -> ^( SLOT SUPER[$superToken] slotSuffix )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:639:21: ^( SLOT SUPER[$superToken] slotSuffix )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:639:21: ^( SLOT SUPER[$superToken] slotSuffix )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -9042,12 +9042,12 @@ public class EllaParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:640:3: ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:640:3: ( ( LPAREN | LCURLY )=> callSuffix -> ^( CALL ( callSuffix )? SUPER[$superToken] ) | ->)
             int alt63=2;
             alt63 = dfa63.predict(input);
             switch (alt63) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:640:5: ( LPAREN | LCURLY )=> callSuffix
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:640:5: ( LPAREN | LCURLY )=> callSuffix
                     {
                     pushFollow(FOLLOW_callSuffix_in_superSuffix3247);
                     callSuffix203=callSuffix();
@@ -9071,13 +9071,13 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 640:34: -> ^( CALL ( callSuffix )? SUPER[$superToken] )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:640:37: ^( CALL ( callSuffix )? SUPER[$superToken] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:640:37: ^( CALL ( callSuffix )? SUPER[$superToken] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(CALL, "CALL"), root_1);
 
                         adaptor.addChild(root_1, ((CommonTree)retval.tree));
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:640:64: ( callSuffix )?
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:640:64: ( callSuffix )?
                         if ( stream_callSuffix.hasNext() ) {
                             adaptor.addChild(root_1, stream_callSuffix.nextTree());
 
@@ -9094,7 +9094,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:641:8: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:641:8: 
                     {
 
                     // AST REWRITE
@@ -9149,7 +9149,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "simpleExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:645:1: simpleExpression : ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:645:1: simpleExpression : ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) );
     public final EllaParser.simpleExpression_return simpleExpression() throws RecognitionException {
         EllaParser.simpleExpression_return retval = new EllaParser.simpleExpression_return();
         retval.start = input.LT(1);
@@ -9190,7 +9190,7 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_argumentsList=new RewriteRuleSubtreeStream(adaptor,"rule argumentsList");
         RewriteRuleSubtreeStream stream_simpleExpression=new RewriteRuleSubtreeStream(adaptor,"rule simpleExpression");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:646:2: ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:646:2: ( parenExpression | blockClosure | identifierNoUnary | stringLiteral | booleanLiteral | arrayLiteral | INT | FLOAT | tokThis= KW_THIS -> THIS[$tokThis] | tokSuper= KW_SUPER superSuffix[$tokSuper] | tokNew= KW_NEW simpleExpression argumentsList -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? ) )
             int alt64=11;
             switch ( input.LA(1) ) {
             case LPAREN:
@@ -9274,7 +9274,7 @@ public class EllaParser extends Parser {
 
             switch (alt64) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:646:4: parenExpression
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:646:4: parenExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9288,7 +9288,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:647:4: blockClosure
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:647:4: blockClosure
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9302,7 +9302,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:648:4: identifierNoUnary
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:648:4: identifierNoUnary
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9316,7 +9316,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:649:4: stringLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:649:4: stringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9330,7 +9330,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:650:4: booleanLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:650:4: booleanLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9344,7 +9344,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:651:4: arrayLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:651:4: arrayLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9358,7 +9358,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:652:4: INT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:652:4: INT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9371,7 +9371,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:653:4: FLOAT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:653:4: FLOAT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9384,7 +9384,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:654:4: tokThis= KW_THIS
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:654:4: tokThis= KW_THIS
                     {
                     tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3329); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_THIS.add(tokThis);
@@ -9413,7 +9413,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:655:4: tokSuper= KW_SUPER superSuffix[$tokSuper]
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:655:4: tokSuper= KW_SUPER superSuffix[$tokSuper]
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -9428,7 +9428,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 11 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:656:4: tokNew= KW_NEW simpleExpression argumentsList
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:656:4: tokNew= KW_NEW simpleExpression argumentsList
                     {
                     tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3352); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_NEW.add(tokNew);
@@ -9461,13 +9461,13 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 656:49: -> ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:656:52: ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:656:52: ^( NEW[$tokNew] simpleExpression ( argumentsList )? )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(NEW, tokNew), root_1);
 
                         adaptor.addChild(root_1, stream_simpleExpression.nextTree());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:656:84: ( argumentsList )?
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:656:84: ( argumentsList )?
                         if ( stream_argumentsList.hasNext() ) {
                             adaptor.addChild(root_1, stream_argumentsList.nextTree());
 
@@ -9509,7 +9509,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlStatementPrefixed"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:659:1: sqlStatementPrefixed : sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:659:1: sqlStatementPrefixed : sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) ;
     public final EllaParser.sqlStatementPrefixed_return sqlStatementPrefixed() throws RecognitionException {
         EllaParser.sqlStatementPrefixed_return retval = new EllaParser.sqlStatementPrefixed_return();
         retval.start = input.LT(1);
@@ -9521,8 +9521,8 @@ public class EllaParser extends Parser {
 
         RewriteRuleSubtreeStream stream_sqlLiteralPrefixed=new RewriteRuleSubtreeStream(adaptor,"rule sqlLiteralPrefixed");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:660:2: ( sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:660:4: sqlLiteralPrefixed
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:660:2: ( sqlLiteralPrefixed -> ^( SQL_STMT sqlLiteralPrefixed ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:660:4: sqlLiteralPrefixed
             {
             pushFollow(FOLLOW_sqlLiteralPrefixed_in_sqlStatementPrefixed3379);
             sqlLiteralPrefixed215=sqlLiteralPrefixed();
@@ -9546,7 +9546,7 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 660:23: -> ^( SQL_STMT sqlLiteralPrefixed )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:660:26: ^( SQL_STMT sqlLiteralPrefixed )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:660:26: ^( SQL_STMT sqlLiteralPrefixed )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL_STMT, "SQL_STMT"), root_1);
@@ -9586,7 +9586,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlStatement"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:663:1: sqlStatement : sqlLiteral -> ^( SQL_STMT sqlLiteral ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:663:1: sqlStatement : sqlLiteral -> ^( SQL_STMT sqlLiteral ) ;
     public final EllaParser.sqlStatement_return sqlStatement() throws RecognitionException {
         EllaParser.sqlStatement_return retval = new EllaParser.sqlStatement_return();
         retval.start = input.LT(1);
@@ -9598,8 +9598,8 @@ public class EllaParser extends Parser {
 
         RewriteRuleSubtreeStream stream_sqlLiteral=new RewriteRuleSubtreeStream(adaptor,"rule sqlLiteral");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:664:2: ( sqlLiteral -> ^( SQL_STMT sqlLiteral ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:664:4: sqlLiteral
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:664:2: ( sqlLiteral -> ^( SQL_STMT sqlLiteral ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:664:4: sqlLiteral
             {
             pushFollow(FOLLOW_sqlLiteral_in_sqlStatement3398);
             sqlLiteral216=sqlLiteral();
@@ -9623,7 +9623,7 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 664:15: -> ^( SQL_STMT sqlLiteral )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:664:18: ^( SQL_STMT sqlLiteral )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:664:18: ^( SQL_STMT sqlLiteral )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL_STMT, "SQL_STMT"), root_1);
@@ -9663,7 +9663,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:667:1: sqlExpression : sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:667:1: sqlExpression : sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) ;
     public final EllaParser.sqlExpression_return sqlExpression() throws RecognitionException {
         EllaParser.sqlExpression_return retval = new EllaParser.sqlExpression_return();
         retval.start = input.LT(1);
@@ -9675,8 +9675,8 @@ public class EllaParser extends Parser {
 
         RewriteRuleSubtreeStream stream_sqlLiteralPrefixed=new RewriteRuleSubtreeStream(adaptor,"rule sqlLiteralPrefixed");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:668:2: ( sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:668:4: sqlLiteralPrefixed
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:668:2: ( sqlLiteralPrefixed -> ^( SQL_EXPR sqlLiteralPrefixed ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:668:4: sqlLiteralPrefixed
             {
             pushFollow(FOLLOW_sqlLiteralPrefixed_in_sqlExpression3417);
             sqlLiteralPrefixed217=sqlLiteralPrefixed();
@@ -9700,7 +9700,7 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 668:23: -> ^( SQL_EXPR sqlLiteralPrefixed )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:668:26: ^( SQL_EXPR sqlLiteralPrefixed )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:668:26: ^( SQL_EXPR sqlLiteralPrefixed )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL_EXPR, "SQL_EXPR"), root_1);
@@ -9740,7 +9740,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlLiteralPrefixed"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:671:1: sqlLiteralPrefixed : sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:671:1: sqlLiteralPrefixed : sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest ;
     public final EllaParser.sqlLiteralPrefixed_return sqlLiteralPrefixed() throws RecognitionException {
         EllaParser.sqlLiteralPrefixed_return retval = new EllaParser.sqlLiteralPrefixed_return();
         retval.start = input.LT(1);
@@ -9755,8 +9755,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_sqlStmtRest=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtRest");
         RewriteRuleSubtreeStream stream_sqlStmtNamePrefixed=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtNamePrefixed");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:672:2: ( sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:672:4: sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree]
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:672:2: ( sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree] -> sqlStmtRest )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:672:4: sqlStmtNamePrefixed sqlStmtRest[$sqlStmtNamePrefixed.tree]
             {
             pushFollow(FOLLOW_sqlStmtNamePrefixed_in_sqlLiteralPrefixed3436);
             sqlStmtNamePrefixed218=sqlStmtNamePrefixed();
@@ -9818,7 +9818,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlLiteralParamed"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:679:1: sqlLiteralParamed : sqlLiteral ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:679:1: sqlLiteralParamed : sqlLiteral ;
     public final EllaParser.sqlLiteralParamed_return sqlLiteralParamed() throws RecognitionException {
         EllaParser.sqlLiteralParamed_return retval = new EllaParser.sqlLiteralParamed_return();
         retval.start = input.LT(1);
@@ -9835,8 +9835,8 @@ public class EllaParser extends Parser {
         	lexer.setAllowEmbeddedVariables(false);
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:688:2: ( sqlLiteral )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:688:4: sqlLiteral
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:688:2: ( sqlLiteral )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:688:4: sqlLiteral
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -9879,7 +9879,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:691:1: sqlLiteral : sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:691:1: sqlLiteral : sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest ;
     public final EllaParser.sqlLiteral_return sqlLiteral() throws RecognitionException {
         EllaParser.sqlLiteral_return retval = new EllaParser.sqlLiteral_return();
         retval.start = input.LT(1);
@@ -9894,8 +9894,8 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_sqlStmtName=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtName");
         RewriteRuleSubtreeStream stream_sqlStmtRest=new RewriteRuleSubtreeStream(adaptor,"rule sqlStmtRest");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:692:2: ( sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:692:4: sqlStmtName sqlStmtRest[$sqlStmtName.tree]
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:692:2: ( sqlStmtName sqlStmtRest[$sqlStmtName.tree] -> sqlStmtRest )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:692:4: sqlStmtName sqlStmtRest[$sqlStmtName.tree]
             {
             pushFollow(FOLLOW_sqlStmtName_in_sqlLiteral3479);
             sqlStmtName221=sqlStmtName();
@@ -9957,7 +9957,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlStmtNamePrefixed"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:696:1: sqlStmtNamePrefixed : KW_SQL ( keyword | WORD | embeddedVar ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:696:1: sqlStmtNamePrefixed : KW_SQL ( keyword | WORD | embeddedVar ) ;
     public final EllaParser.sqlStmtNamePrefixed_return sqlStmtNamePrefixed() throws RecognitionException {
         EllaParser.sqlStmtNamePrefixed_return retval = new EllaParser.sqlStmtNamePrefixed_return();
         retval.start = input.LT(1);
@@ -9975,13 +9975,13 @@ public class EllaParser extends Parser {
         CommonTree WORD225_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:697:2: ( KW_SQL ( keyword | WORD | embeddedVar ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:697:4: KW_SQL ( keyword | WORD | embeddedVar )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:697:2: ( KW_SQL ( keyword | WORD | embeddedVar ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:697:4: KW_SQL ( keyword | WORD | embeddedVar )
             {
             root_0 = (CommonTree)adaptor.nil();
 
             KW_SQL223=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlStmtNamePrefixed3499); if (state.failed) return retval;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:698:3: ( keyword | WORD | embeddedVar )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:698:3: ( keyword | WORD | embeddedVar )
             int alt65=3;
             switch ( input.LA(1) ) {
             case KW_SQL:
@@ -10031,7 +10031,7 @@ public class EllaParser extends Parser {
 
             switch (alt65) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:698:5: keyword
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:698:5: keyword
                     {
                     pushFollow(FOLLOW_keyword_in_sqlStmtNamePrefixed3506);
                     keyword224=keyword();
@@ -10043,7 +10043,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:698:15: WORD
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:698:15: WORD
                     {
                     WORD225=(Token)match(input,WORD,FOLLOW_WORD_in_sqlStmtNamePrefixed3510); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -10054,7 +10054,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:698:22: embeddedVar
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:698:22: embeddedVar
                     {
                     pushFollow(FOLLOW_embeddedVar_in_sqlStmtNamePrefixed3514);
                     embeddedVar226=embeddedVar();
@@ -10096,7 +10096,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlStmtName"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:704:1: sqlStmtName : ( WORD | sqlStmtNamePrefixed );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:704:1: sqlStmtName : ( WORD | sqlStmtNamePrefixed );
     public final EllaParser.sqlStmtName_return sqlStmtName() throws RecognitionException {
         EllaParser.sqlStmtName_return retval = new EllaParser.sqlStmtName_return();
         retval.start = input.LT(1);
@@ -10110,7 +10110,7 @@ public class EllaParser extends Parser {
         CommonTree WORD227_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:705:2: ( WORD | sqlStmtNamePrefixed )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:705:2: ( WORD | sqlStmtNamePrefixed )
             int alt66=2;
             int LA66_0 = input.LA(1);
 
@@ -10129,7 +10129,7 @@ public class EllaParser extends Parser {
             }
             switch (alt66) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:705:4: WORD
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:705:4: WORD
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -10142,7 +10142,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:706:4: sqlStmtNamePrefixed
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:706:4: sqlStmtNamePrefixed
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -10182,7 +10182,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlStmtRest"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:719:1: sqlStmtRest[ CommonTree sqlStmtName ] : sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:719:1: sqlStmtRest[ CommonTree sqlStmtName ] : sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) ;
     public final EllaParser.sqlStmtRest_return sqlStmtRest(CommonTree sqlStmtName) throws RecognitionException {
         EllaParser.sqlStmtRest_return retval = new EllaParser.sqlStmtRest_return();
         retval.start = input.LT(1);
@@ -10229,8 +10229,8 @@ public class EllaParser extends Parser {
         	}
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:769:2: ( sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:770:3: sqlHiddenWS ( sqlPart )* ( EOF )?
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:769:2: ( sqlHiddenWS ( sqlPart )* ( EOF )? -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:770:3: sqlHiddenWS ( sqlPart )* ( EOF )?
             {
             pushFollow(FOLLOW_sqlHiddenWS_in_sqlStmtRest3568);
             sqlHiddenWS229=sqlHiddenWS();
@@ -10238,7 +10238,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_sqlHiddenWS.add(sqlHiddenWS229.getTree());
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:770:15: ( sqlPart )*
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:770:15: ( sqlPart )*
             loop67:
             do {
                 int alt67=2;
@@ -10251,7 +10251,7 @@ public class EllaParser extends Parser {
 
                 switch (alt67) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:770:15: sqlPart
+            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:770:15: sqlPart
             	    {
             	    pushFollow(FOLLOW_sqlPart_in_sqlStmtRest3570);
             	    sqlPart230=sqlPart();
@@ -10268,7 +10268,7 @@ public class EllaParser extends Parser {
                 }
             } while (true);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:770:24: ( EOF )?
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:770:24: ( EOF )?
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -10281,7 +10281,7 @@ public class EllaParser extends Parser {
             }
             switch (alt68) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:770:24: EOF
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:770:24: EOF
                     {
                     EOF231=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3573); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EOF.add(EOF231);
@@ -10308,20 +10308,20 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 770:29: -> ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:770:32: ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:770:32: ^( SQL ( sqlHiddenWS )? ( sqlPart )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SQL, "SQL"), root_1);
 
                 adaptor.addChild(root_1, adaptor.create(new SQLModeToken(SQL_MODE, new SQLParseMode(stringType))));
                 adaptor.addChild(root_1, sqlStmtName);
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:776:22: ( sqlHiddenWS )?
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:776:22: ( sqlHiddenWS )?
                 if ( stream_sqlHiddenWS.hasNext() ) {
                     adaptor.addChild(root_1, stream_sqlHiddenWS.nextTree());
 
                 }
                 stream_sqlHiddenWS.reset();
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:776:35: ( sqlPart )*
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:776:35: ( sqlPart )*
                 while ( stream_sqlPart.hasNext() ) {
                     adaptor.addChild(root_1, stream_sqlPart.nextTree());
 
@@ -10383,7 +10383,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlPart"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:785:1: sqlPart : ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:785:1: sqlPart : ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* );
     public final EllaParser.sqlPart_return sqlPart() throws RecognitionException {
         EllaParser.sqlPart_return retval = new EllaParser.sqlPart_return();
         retval.start = input.LT(1);
@@ -10442,12 +10442,12 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_sqlWS=new RewriteRuleSubtreeStream(adaptor,"rule sqlWS");
         RewriteRuleSubtreeStream stream_sqlPart=new RewriteRuleSubtreeStream(adaptor,"rule sqlPart");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:786:2: ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:786:2: ({...}? => ( COLON WORD )=> COLON WORD ( sqlWS )* -> SQL_PARAM[$WORD.text] ( sqlWS )* | {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )* -> COLON COLON ( sqlWS )* | sqlToken ( sqlWS )* -> sqlToken ( sqlWS )* | LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )* -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)* | LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )* -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)* | LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )* -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)* )
             int alt81=6;
             alt81 = dfa81.predict(input);
             switch (alt81) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:786:4: {...}? => ( COLON WORD )=> COLON WORD ( sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:786:4: {...}? => ( COLON WORD )=> COLON WORD ( sqlWS )*
                     {
                     if ( !((parseSQLParams)) ) {
                         if (state.backtracking>0) {state.failed=true; return retval;}
@@ -10459,7 +10459,7 @@ public class EllaParser extends Parser {
                     WORD233=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3655); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_WORD.add(WORD233);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:786:50: ( sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:786:50: ( sqlWS )*
                     loop69:
                     do {
                         int alt69=2;
@@ -10472,7 +10472,7 @@ public class EllaParser extends Parser {
 
                         switch (alt69) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:786:50: sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:786:50: sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3657);
                     	    sqlWS234=sqlWS();
@@ -10506,7 +10506,7 @@ public class EllaParser extends Parser {
                     // 786:57: -> SQL_PARAM[$WORD.text] ( sqlWS )*
                     {
                         adaptor.addChild(root_0, (CommonTree)adaptor.create(SQL_PARAM, (WORD233!=null?WORD233.getText():null)));
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:786:82: ( sqlWS )*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:786:82: ( sqlWS )*
                         while ( stream_sqlWS.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlWS.nextTree());
 
@@ -10519,7 +10519,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:787:4: {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:787:4: {...}? => ( COLON COLON )=> COLON COLON ( sqlWS )*
                     {
                     if ( !((parseSQLParams)) ) {
                         if (state.backtracking>0) {state.failed=true; return retval;}
@@ -10531,7 +10531,7 @@ public class EllaParser extends Parser {
                     COLON236=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3683); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON236);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:787:52: ( sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:787:52: ( sqlWS )*
                     loop70:
                     do {
                         int alt70=2;
@@ -10544,7 +10544,7 @@ public class EllaParser extends Parser {
 
                         switch (alt70) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:787:52: sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:787:52: sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3685);
                     	    sqlWS237=sqlWS();
@@ -10579,7 +10579,7 @@ public class EllaParser extends Parser {
                     {
                         adaptor.addChild(root_0, stream_COLON.nextNode());
                         adaptor.addChild(root_0, stream_COLON.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:787:74: ( sqlWS )*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:787:74: ( sqlWS )*
                         while ( stream_sqlWS.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlWS.nextTree());
 
@@ -10592,7 +10592,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:788:4: sqlToken ( sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:788:4: sqlToken ( sqlWS )*
                     {
                     pushFollow(FOLLOW_sqlToken_in_sqlPart3700);
                     sqlToken238=sqlToken();
@@ -10600,7 +10600,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_sqlToken.add(sqlToken238.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:788:13: ( sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:788:13: ( sqlWS )*
                     loop71:
                     do {
                         int alt71=2;
@@ -10613,7 +10613,7 @@ public class EllaParser extends Parser {
 
                         switch (alt71) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:788:13: sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:788:13: sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3702);
                     	    sqlWS239=sqlWS();
@@ -10647,7 +10647,7 @@ public class EllaParser extends Parser {
                     // 788:25: -> sqlToken ( sqlWS )*
                     {
                         adaptor.addChild(root_0, stream_sqlToken.nextTree());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:788:37: ( sqlWS )*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:788:37: ( sqlWS )*
                         while ( stream_sqlWS.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlWS.nextTree());
 
@@ -10660,12 +10660,12 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:4: LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:4: LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )*
                     {
                     LPAREN240=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3720); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN240);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:14: (ws1+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:14: (ws1+= sqlWS )*
                     loop72:
                     do {
                         int alt72=2;
@@ -10678,7 +10678,7 @@ public class EllaParser extends Parser {
 
                         switch (alt72) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:14: ws1+= sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:14: ws1+= sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3724);
                     	    ws1=sqlWS();
@@ -10698,7 +10698,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:23: ( sqlPart )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:23: ( sqlPart )*
                     loop73:
                     do {
                         int alt73=2;
@@ -10711,7 +10711,7 @@ public class EllaParser extends Parser {
 
                         switch (alt73) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:23: sqlPart
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:23: sqlPart
                     	    {
                     	    pushFollow(FOLLOW_sqlPart_in_sqlPart3727);
                     	    sqlPart241=sqlPart();
@@ -10731,7 +10731,7 @@ public class EllaParser extends Parser {
                     RPAREN242=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3730); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN242);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:42: (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:42: (ws2+= sqlWS )*
                     loop74:
                     do {
                         int alt74=2;
@@ -10744,7 +10744,7 @@ public class EllaParser extends Parser {
 
                         switch (alt74) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:42: ws2+= sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:42: ws2+= sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3734);
                     	    ws2=sqlWS();
@@ -10782,20 +10782,20 @@ public class EllaParser extends Parser {
                     // 789:52: -> LPAREN ( $ws1)* ( sqlPart )* RPAREN ( $ws2)*
                     {
                         adaptor.addChild(root_0, stream_LPAREN.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:62: ( $ws1)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:62: ( $ws1)*
                         while ( stream_ws1.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws1.nextTree());
 
                         }
                         stream_ws1.reset();
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:68: ( sqlPart )*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:68: ( sqlPart )*
                         while ( stream_sqlPart.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlPart.nextTree());
 
                         }
                         stream_sqlPart.reset();
                         adaptor.addChild(root_0, stream_RPAREN.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:789:84: ( $ws2)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:789:84: ( $ws2)*
                         while ( stream_ws2.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws2.nextTree());
 
@@ -10808,12 +10808,12 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:4: LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:4: LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )*
                     {
                     LCURLY243=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3758); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY243);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:14: (ws1+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:14: (ws1+= sqlWS )*
                     loop75:
                     do {
                         int alt75=2;
@@ -10826,7 +10826,7 @@ public class EllaParser extends Parser {
 
                         switch (alt75) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:14: ws1+= sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:14: ws1+= sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3762);
                     	    ws1=sqlWS();
@@ -10846,7 +10846,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:23: ( sqlPart )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:23: ( sqlPart )*
                     loop76:
                     do {
                         int alt76=2;
@@ -10859,7 +10859,7 @@ public class EllaParser extends Parser {
 
                         switch (alt76) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:23: sqlPart
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:23: sqlPart
                     	    {
                     	    pushFollow(FOLLOW_sqlPart_in_sqlPart3765);
                     	    sqlPart244=sqlPart();
@@ -10879,7 +10879,7 @@ public class EllaParser extends Parser {
                     RCURLY245=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3768); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY245);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:42: (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:42: (ws2+= sqlWS )*
                     loop77:
                     do {
                         int alt77=2;
@@ -10892,7 +10892,7 @@ public class EllaParser extends Parser {
 
                         switch (alt77) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:42: ws2+= sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:42: ws2+= sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3772);
                     	    ws2=sqlWS();
@@ -10930,20 +10930,20 @@ public class EllaParser extends Parser {
                     // 790:52: -> LCURLY ( $ws1)* ( sqlPart )* RCURLY ( $ws2)*
                     {
                         adaptor.addChild(root_0, stream_LCURLY.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:62: ( $ws1)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:62: ( $ws1)*
                         while ( stream_ws1.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws1.nextTree());
 
                         }
                         stream_ws1.reset();
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:68: ( sqlPart )*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:68: ( sqlPart )*
                         while ( stream_sqlPart.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlPart.nextTree());
 
                         }
                         stream_sqlPart.reset();
                         adaptor.addChild(root_0, stream_RCURLY.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:790:84: ( $ws2)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:790:84: ( $ws2)*
                         while ( stream_ws2.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws2.nextTree());
 
@@ -10956,12 +10956,12 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:4: LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:4: LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )*
                     {
                     LSQUARE246=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3796); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE246);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:15: (ws1+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:15: (ws1+= sqlWS )*
                     loop78:
                     do {
                         int alt78=2;
@@ -10974,7 +10974,7 @@ public class EllaParser extends Parser {
 
                         switch (alt78) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:15: ws1+= sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:15: ws1+= sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3800);
                     	    ws1=sqlWS();
@@ -10994,7 +10994,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:24: ( sqlPart )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:24: ( sqlPart )*
                     loop79:
                     do {
                         int alt79=2;
@@ -11007,7 +11007,7 @@ public class EllaParser extends Parser {
 
                         switch (alt79) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:24: sqlPart
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:24: sqlPart
                     	    {
                     	    pushFollow(FOLLOW_sqlPart_in_sqlPart3803);
                     	    sqlPart247=sqlPart();
@@ -11027,7 +11027,7 @@ public class EllaParser extends Parser {
                     RSQUARE248=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3806); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE248);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:44: (ws2+= sqlWS )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:44: (ws2+= sqlWS )*
                     loop80:
                     do {
                         int alt80=2;
@@ -11040,7 +11040,7 @@ public class EllaParser extends Parser {
 
                         switch (alt80) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:44: ws2+= sqlWS
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:44: ws2+= sqlWS
                     	    {
                     	    pushFollow(FOLLOW_sqlWS_in_sqlPart3810);
                     	    ws2=sqlWS();
@@ -11078,20 +11078,20 @@ public class EllaParser extends Parser {
                     // 791:53: -> LSQUARE ( $ws1)* ( sqlPart )* RSQUARE ( $ws2)*
                     {
                         adaptor.addChild(root_0, stream_LSQUARE.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:64: ( $ws1)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:64: ( $ws1)*
                         while ( stream_ws1.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws1.nextTree());
 
                         }
                         stream_ws1.reset();
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:70: ( sqlPart )*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:70: ( sqlPart )*
                         while ( stream_sqlPart.hasNext() ) {
                             adaptor.addChild(root_0, stream_sqlPart.nextTree());
 
                         }
                         stream_sqlPart.reset();
                         adaptor.addChild(root_0, stream_RSQUARE.nextNode());
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:791:87: ( $ws2)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:791:87: ( $ws2)*
                         while ( stream_ws2.hasNext() ) {
                             adaptor.addChild(root_0, stream_ws2.nextTree());
 
@@ -11130,7 +11130,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlWS"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:794:1: sqlWS : ( WS | NL );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:794:1: sqlWS : ( WS | NL );
     public final EllaParser.sqlWS_return sqlWS() throws RecognitionException {
         EllaParser.sqlWS_return retval = new EllaParser.sqlWS_return();
         retval.start = input.LT(1);
@@ -11142,8 +11142,8 @@ public class EllaParser extends Parser {
         CommonTree set249_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:794:7: ( WS | NL )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:794:7: ( WS | NL )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -11187,7 +11187,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlHiddenWS"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:798:1: sqlHiddenWS : -> {hasWhitespace}? ->;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:798:1: sqlHiddenWS : -> {hasWhitespace}? ->;
     public final EllaParser.sqlHiddenWS_return sqlHiddenWS() throws RecognitionException {
         EllaParser.sqlHiddenWS_return retval = new EllaParser.sqlHiddenWS_return();
         retval.start = input.LT(1);
@@ -11199,8 +11199,8 @@ public class EllaParser extends Parser {
         	boolean hasWhitespace = collectedWhitespace.length() != 0;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:803:2: ( -> {hasWhitespace}? ->)
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:804:3: 
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:803:2: ( -> {hasWhitespace}? ->)
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:804:3: 
             {
 
             // AST REWRITE
@@ -11248,7 +11248,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlToken"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:808:1: sqlToken : ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:808:1: sqlToken : ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar );
     public final EllaParser.sqlToken_return sqlToken() throws RecognitionException {
         EllaParser.sqlToken_return retval = new EllaParser.sqlToken_return();
         retval.start = input.LT(1);
@@ -11268,7 +11268,7 @@ public class EllaParser extends Parser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:809:2: ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:809:2: ( keyword | sqlStringLiteral | identifier | sqlAtom | embeddedVar )
             int alt82=5;
             switch ( input.LA(1) ) {
             case KW_SQL:
@@ -11358,7 +11358,7 @@ public class EllaParser extends Parser {
 
             switch (alt82) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:809:4: keyword
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:809:4: keyword
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -11372,7 +11372,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:809:14: sqlStringLiteral
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:809:14: sqlStringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -11386,7 +11386,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:809:33: identifier
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:809:33: identifier
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -11400,7 +11400,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:809:46: sqlAtom
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:809:46: sqlAtom
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -11414,7 +11414,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:810:4: embeddedVar
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:810:4: embeddedVar
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -11454,7 +11454,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlAtom"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:813:1: sqlAtom : ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:813:1: sqlAtom : ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT );
     public final EllaParser.sqlAtom_return sqlAtom() throws RecognitionException {
         EllaParser.sqlAtom_return retval = new EllaParser.sqlAtom_return();
         retval.start = input.LT(1);
@@ -11466,8 +11466,8 @@ public class EllaParser extends Parser {
         CommonTree set255_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:814:2: ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:814:2: ( SQL_SPECIAL_CHAR | EQUALS | BACKSLASH | OP_DEFINE | QUESTION | COLON | DOT | COMMA | DOUBLE_ARROW | INT | FLOAT )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -11511,7 +11511,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "objectLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:822:1: objectLiteral : LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:822:1: objectLiteral : LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) ;
     public final EllaParser.objectLiteral_return objectLiteral() throws RecognitionException {
         EllaParser.objectLiteral_return retval = new EllaParser.objectLiteral_return();
         retval.start = input.LT(1);
@@ -11536,13 +11536,13 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_objectSlot=new RewriteRuleSubtreeStream(adaptor,"rule objectSlot");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:823:2: ( LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:823:4: LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:823:2: ( LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:823:4: LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY
             {
             LCURLY256=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3965); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY256);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:824:3: ( objectSlot ( COMMA objectSlot )* ( COMMA )* | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:824:3: ( objectSlot ( COMMA objectSlot )* ( COMMA )* | )
             int alt85=2;
             int LA85_0 = input.LA(1);
 
@@ -11561,7 +11561,7 @@ public class EllaParser extends Parser {
             }
             switch (alt85) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:824:4: objectSlot ( COMMA objectSlot )* ( COMMA )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:824:4: objectSlot ( COMMA objectSlot )* ( COMMA )*
                     {
                     pushFollow(FOLLOW_objectSlot_in_objectLiteral3970);
                     objectSlot257=objectSlot();
@@ -11569,7 +11569,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_objectSlot.add(objectSlot257.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:824:15: ( COMMA objectSlot )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:824:15: ( COMMA objectSlot )*
                     loop83:
                     do {
                         int alt83=2;
@@ -11588,7 +11588,7 @@ public class EllaParser extends Parser {
 
                         switch (alt83) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:824:16: COMMA objectSlot
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:824:16: COMMA objectSlot
                     	    {
                     	    COMMA258=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3973); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA258);
@@ -11608,7 +11608,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:824:35: ( COMMA )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:824:35: ( COMMA )*
                     loop84:
                     do {
                         int alt84=2;
@@ -11621,7 +11621,7 @@ public class EllaParser extends Parser {
 
                         switch (alt84) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:824:35: COMMA
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:824:35: COMMA
                     	    {
                     	    COMMA260=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3979); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA260);
@@ -11639,7 +11639,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:826:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:826:3: 
                     {
                     }
                     break;
@@ -11665,12 +11665,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 828:3: -> ^( OBJ ( objectSlot )* )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:828:6: ^( OBJ ( objectSlot )* )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:828:6: ^( OBJ ( objectSlot )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(OBJ, "OBJ"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:828:12: ( objectSlot )*
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:828:12: ( objectSlot )*
                 while ( stream_objectSlot.hasNext() ) {
                     adaptor.addChild(root_1, stream_objectSlot.nextTree());
 
@@ -11710,7 +11710,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "objectSlot"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:831:1: objectSlot : ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:831:1: objectSlot : ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) );
     public final EllaParser.objectSlot_return objectSlot() throws RecognitionException {
         EllaParser.objectSlot_return retval = new EllaParser.objectSlot_return();
         retval.start = input.LT(1);
@@ -11735,7 +11735,7 @@ public class EllaParser extends Parser {
         RewriteRuleSubtreeStream stream_stringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule stringLiteral");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:832:2: ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:832:2: ( identifier COLON expressionNoSQL -> ^( SLOT identifier expressionNoSQL ) | stringLiteral COLON expressionNoSQL -> ^( SLOT stringLiteral expressionNoSQL ) )
             int alt86=2;
             int LA86_0 = input.LA(1);
 
@@ -11754,7 +11754,7 @@ public class EllaParser extends Parser {
             }
             switch (alt86) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:832:4: identifier COLON expressionNoSQL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:832:4: identifier COLON expressionNoSQL
                     {
                     pushFollow(FOLLOW_identifier_in_objectSlot4014);
                     identifier262=identifier();
@@ -11787,7 +11787,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 832:37: -> ^( SLOT identifier expressionNoSQL )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:832:40: ^( SLOT identifier expressionNoSQL )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:832:40: ^( SLOT identifier expressionNoSQL )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -11804,7 +11804,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:833:4: stringLiteral COLON expressionNoSQL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:833:4: stringLiteral COLON expressionNoSQL
                     {
                     pushFollow(FOLLOW_stringLiteral_in_objectSlot4033);
                     stringLiteral265=stringLiteral();
@@ -11837,7 +11837,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 833:40: -> ^( SLOT stringLiteral expressionNoSQL )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:833:43: ^( SLOT stringLiteral expressionNoSQL )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:833:43: ^( SLOT stringLiteral expressionNoSQL )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SLOT, "SLOT"), root_1);
@@ -11880,7 +11880,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "arrayLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:836:1: arrayLiteral : LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:836:1: arrayLiteral : LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) ;
     public final EllaParser.arrayLiteral_return arrayLiteral() throws RecognitionException {
         EllaParser.arrayLiteral_return retval = new EllaParser.arrayLiteral_return();
         retval.start = input.LT(1);
@@ -11905,13 +11905,13 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_expressionNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule expressionNoSQL");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:837:2: ( LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:837:4: LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:837:2: ( LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:837:4: LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE
             {
             LSQUARE268=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4058); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE268);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:838:3: ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:838:3: ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | )
             int alt89=2;
             int LA89_0 = input.LA(1);
 
@@ -11930,7 +11930,7 @@ public class EllaParser extends Parser {
             }
             switch (alt89) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:838:4: expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:838:4: expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )*
                     {
                     pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4063);
                     expressionNoSQL269=expressionNoSQL();
@@ -11938,7 +11938,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL269.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:838:20: ( COMMA expressionNoSQL )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:838:20: ( COMMA expressionNoSQL )*
                     loop87:
                     do {
                         int alt87=2;
@@ -11957,7 +11957,7 @@ public class EllaParser extends Parser {
 
                         switch (alt87) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:838:21: COMMA expressionNoSQL
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:838:21: COMMA expressionNoSQL
                     	    {
                     	    COMMA270=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4066); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA270);
@@ -11977,7 +11977,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:838:45: ( COMMA )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:838:45: ( COMMA )*
                     loop88:
                     do {
                         int alt88=2;
@@ -11990,7 +11990,7 @@ public class EllaParser extends Parser {
 
                         switch (alt88) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:838:45: COMMA
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:838:45: COMMA
                     	    {
                     	    COMMA272=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4072); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA272);
@@ -12008,7 +12008,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:840:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:840:3: 
                     {
                     }
                     break;
@@ -12034,12 +12034,12 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 842:3: -> ^( ARRAY ( expressionNoSQL )* )
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:842:6: ^( ARRAY ( expressionNoSQL )* )
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:842:6: ^( ARRAY ( expressionNoSQL )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARRAY, "ARRAY"), root_1);
 
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:842:14: ( expressionNoSQL )*
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:842:14: ( expressionNoSQL )*
                 while ( stream_expressionNoSQL.hasNext() ) {
                     adaptor.addChild(root_1, stream_expressionNoSQL.nextTree());
 
@@ -12079,7 +12079,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "argumentsList"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:845:1: argumentsList : LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:845:1: argumentsList : LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN ;
     public final EllaParser.argumentsList_return argumentsList() throws RecognitionException {
         EllaParser.argumentsList_return retval = new EllaParser.argumentsList_return();
         retval.start = input.LT(1);
@@ -12102,13 +12102,13 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
         RewriteRuleSubtreeStream stream_expressionNoSQL=new RewriteRuleSubtreeStream(adaptor,"rule expressionNoSQL");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:846:2: ( LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:846:4: LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:846:2: ( LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:846:4: LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN
             {
             LPAREN274=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4107); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN274);
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:847:3: ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:847:3: ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | )
             int alt91=2;
             int LA91_0 = input.LA(1);
 
@@ -12127,7 +12127,7 @@ public class EllaParser extends Parser {
             }
             switch (alt91) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:847:5: expressionNoSQL ( COMMA expressionNoSQL )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:847:5: expressionNoSQL ( COMMA expressionNoSQL )*
                     {
                     pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4113);
                     expressionNoSQL275=expressionNoSQL();
@@ -12135,7 +12135,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expressionNoSQL.add(expressionNoSQL275.getTree());
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:847:21: ( COMMA expressionNoSQL )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:847:21: ( COMMA expressionNoSQL )*
                     loop90:
                     do {
                         int alt90=2;
@@ -12148,7 +12148,7 @@ public class EllaParser extends Parser {
 
                         switch (alt90) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:847:22: COMMA expressionNoSQL
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:847:22: COMMA expressionNoSQL
                     	    {
                     	    COMMA276=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4116); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA276);
@@ -12184,7 +12184,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 847:46: -> ^( ARGS ( expressionNoSQL )+ )
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:847:49: ^( ARGS ( expressionNoSQL )+ )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:847:49: ^( ARGS ( expressionNoSQL )+ )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARGS, "ARGS"), root_1);
@@ -12207,7 +12207,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:849:3: 
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:849:3: 
                     {
                     }
                     break;
@@ -12245,7 +12245,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "identifier"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:853:1: identifier : (exclam= EXCLAM -> IDENTIFIER[$exclam] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | identifierNoUnary -> identifierNoUnary );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:853:1: identifier : (exclam= EXCLAM -> IDENTIFIER[$exclam] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | identifierNoUnary -> identifierNoUnary );
     public final EllaParser.identifier_return identifier() throws RecognitionException {
         EllaParser.identifier_return retval = new EllaParser.identifier_return();
         retval.start = input.LT(1);
@@ -12263,7 +12263,7 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_EXCLAM=new RewriteRuleTokenStream(adaptor,"token EXCLAM");
         RewriteRuleSubtreeStream stream_identifierNoUnary=new RewriteRuleSubtreeStream(adaptor,"rule identifierNoUnary");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:854:2: (exclam= EXCLAM -> IDENTIFIER[$exclam] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | identifierNoUnary -> identifierNoUnary )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:854:2: (exclam= EXCLAM -> IDENTIFIER[$exclam] | op_sub= OP_SUB -> IDENTIFIER[$op_sub] | identifierNoUnary -> identifierNoUnary )
             int alt92=3;
             switch ( input.LA(1) ) {
             case EXCLAM:
@@ -12305,7 +12305,7 @@ public class EllaParser extends Parser {
 
             switch (alt92) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:854:4: exclam= EXCLAM
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:854:4: exclam= EXCLAM
                     {
                     exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4155); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
@@ -12334,7 +12334,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:855:4: op_sub= OP_SUB
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:855:4: op_sub= OP_SUB
                     {
                     op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifier4168); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
@@ -12363,7 +12363,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:856:4: identifierNoUnary
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:856:4: identifierNoUnary
                     {
                     pushFollow(FOLLOW_identifierNoUnary_in_identifier4179);
                     identifierNoUnary279=identifierNoUnary();
@@ -12421,7 +12421,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "identifierNoUnary"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:859:1: identifierNoUnary : (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:859:1: identifierNoUnary : (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps );
     public final EllaParser.identifierNoUnary_return identifierNoUnary() throws RecognitionException {
         EllaParser.identifierNoUnary_return retval = new EllaParser.identifierNoUnary_return();
         retval.start = input.LT(1);
@@ -12472,7 +12472,7 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_OP_GE=new RewriteRuleTokenStream(adaptor,"token OP_GE");
         RewriteRuleSubtreeStream stream_identifierNoOps=new RewriteRuleSubtreeStream(adaptor,"rule identifierNoOps");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:860:2: (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:860:2: (op_eq= OP_EQ -> IDENTIFIER[$op_eq] | op_ne= OP_NE -> IDENTIFIER[$op_ne] | op_id= OP_ID -> IDENTIFIER[$op_id] | op_ni= OP_NI -> IDENTIFIER[$op_ni] | op_gt= OP_GT -> IDENTIFIER[$op_gt] | op_ge= OP_GE -> IDENTIFIER[$op_ge] | op_lt= OP_LT -> IDENTIFIER[$op_lt] | op_le= OP_LE -> IDENTIFIER[$op_le] | op_mul= OP_MUL -> IDENTIFIER[$op_mul] | op_div= OP_DIV -> IDENTIFIER[$op_div] | op_add= OP_ADD -> IDENTIFIER[$op_add] | op_and= OP_AND -> IDENTIFIER[$op_and] | op_or= OP_OR -> IDENTIFIER[$op_or] | identifierNoOps -> identifierNoOps )
             int alt93=14;
             switch ( input.LA(1) ) {
             case OP_EQ:
@@ -12556,7 +12556,7 @@ public class EllaParser extends Parser {
 
             switch (alt93) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:860:4: op_eq= OP_EQ
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:860:4: op_eq= OP_EQ
                     {
                     op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4196); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_EQ.add(op_eq);
@@ -12585,7 +12585,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:861:4: op_ne= OP_NE
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:861:4: op_ne= OP_NE
                     {
                     op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4209); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_NE.add(op_ne);
@@ -12614,7 +12614,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:862:4: op_id= OP_ID
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:862:4: op_id= OP_ID
                     {
                     op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4222); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_ID.add(op_id);
@@ -12643,7 +12643,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:863:4: op_ni= OP_NI
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:863:4: op_ni= OP_NI
                     {
                     op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4235); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_NI.add(op_ni);
@@ -12672,7 +12672,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:864:4: op_gt= OP_GT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:864:4: op_gt= OP_GT
                     {
                     op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4248); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_GT.add(op_gt);
@@ -12701,7 +12701,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:865:4: op_ge= OP_GE
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:865:4: op_ge= OP_GE
                     {
                     op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4261); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_GE.add(op_ge);
@@ -12730,7 +12730,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:866:4: op_lt= OP_LT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:866:4: op_lt= OP_LT
                     {
                     op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4274); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_LT.add(op_lt);
@@ -12759,7 +12759,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:867:4: op_le= OP_LE
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:867:4: op_le= OP_LE
                     {
                     op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4287); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_LE.add(op_le);
@@ -12788,7 +12788,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:868:4: op_mul= OP_MUL
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:868:4: op_mul= OP_MUL
                     {
                     op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4300); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_MUL.add(op_mul);
@@ -12817,7 +12817,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:869:4: op_div= OP_DIV
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:869:4: op_div= OP_DIV
                     {
                     op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4313); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_DIV.add(op_div);
@@ -12846,7 +12846,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 11 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:870:4: op_add= OP_ADD
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:870:4: op_add= OP_ADD
                     {
                     op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4326); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_ADD.add(op_add);
@@ -12875,7 +12875,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 12 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:871:4: op_and= OP_AND
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:871:4: op_and= OP_AND
                     {
                     op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4339); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_AND.add(op_and);
@@ -12904,7 +12904,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 13 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:872:4: op_or= OP_OR
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:872:4: op_or= OP_OR
                     {
                     op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4352); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OP_OR.add(op_or);
@@ -12933,7 +12933,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 14 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:873:4: identifierNoOps
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:873:4: identifierNoOps
                     {
                     pushFollow(FOLLOW_identifierNoOps_in_identifierNoUnary4363);
                     identifierNoOps280=identifierNoOps();
@@ -12991,7 +12991,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "identifierNoOps"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:877:1: identifierNoOps : (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:877:1: identifierNoOps : (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) ;
     public final EllaParser.identifierNoOps_return identifierNoOps() throws RecognitionException {
         EllaParser.identifierNoOps_return retval = new EllaParser.identifierNoOps_return();
         retval.start = input.LT(1);
@@ -13007,10 +13007,10 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_IDENTIFIER=new RewriteRuleTokenStream(adaptor,"token IDENTIFIER");
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:878:2: ( (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:878:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:878:2: ( (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:878:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:878:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:878:4: (word= WORD -> IDENTIFIER[$word] | IDENTIFIER -> IDENTIFIER )
             int alt94=2;
             int LA94_0 = input.LA(1);
 
@@ -13029,7 +13029,7 @@ public class EllaParser extends Parser {
             }
             switch (alt94) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:878:6: word= WORD
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:878:6: word= WORD
                     {
                     word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4383); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_WORD.add(word);
@@ -13058,7 +13058,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:879:5: IDENTIFIER
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:879:5: IDENTIFIER
                     {
                     IDENTIFIER281=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4395); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IDENTIFIER.add(IDENTIFIER281);
@@ -13117,7 +13117,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "embeddedVar"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:883:1: embeddedVar : EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:883:1: embeddedVar : EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] ;
     public final EllaParser.embeddedVar_return embeddedVar() throws RecognitionException {
         EllaParser.embeddedVar_return retval = new EllaParser.embeddedVar_return();
         retval.start = input.LT(1);
@@ -13135,8 +13135,8 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_identifier=new RewriteRuleSubtreeStream(adaptor,"rule identifier");
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:884:2: ( EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:884:4: EMB_VAR_START id= identifier RCURLY
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:884:2: ( EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:884:4: EMB_VAR_START id= identifier RCURLY
             {
             EMB_VAR_START282=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4415); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_EMB_VAR_START.add(EMB_VAR_START282);
@@ -13198,7 +13198,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "keyword"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:887:1: keyword : ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:887:1: keyword : ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE );
     public final EllaParser.keyword_return keyword() throws RecognitionException {
         EllaParser.keyword_return retval = new EllaParser.keyword_return();
         retval.start = input.LT(1);
@@ -13210,8 +13210,8 @@ public class EllaParser extends Parser {
         CommonTree set284_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:887:9: ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:887:9: ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -13255,7 +13255,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "stringLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:892:1: stringLiteral : ( STR_SQUOT | STR_DQUOT ) -> ^() ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:892:1: stringLiteral : ( STR_SQUOT | STR_DQUOT ) -> ^() ;
     public final EllaParser.stringLiteral_return stringLiteral() throws RecognitionException {
         EllaParser.stringLiteral_return retval = new EllaParser.stringLiteral_return();
         retval.start = input.LT(1);
@@ -13277,10 +13277,10 @@ public class EllaParser extends Parser {
         	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:902:2: ( ( STR_SQUOT | STR_DQUOT ) -> ^() )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:902:4: ( STR_SQUOT | STR_DQUOT )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:902:2: ( ( STR_SQUOT | STR_DQUOT ) -> ^() )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:902:4: ( STR_SQUOT | STR_DQUOT )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:902:4: ( STR_SQUOT | STR_DQUOT )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:902:4: ( STR_SQUOT | STR_DQUOT )
             int alt95=2;
             int LA95_0 = input.LA(1);
 
@@ -13299,7 +13299,7 @@ public class EllaParser extends Parser {
             }
             switch (alt95) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:902:6: STR_SQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:902:6: STR_SQUOT
                     {
                     STR_SQUOT285=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4549); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT285);
@@ -13311,7 +13311,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:903:5: STR_DQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:903:5: STR_DQUOT
                     {
                     STR_DQUOT286=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4557); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT286);
@@ -13341,7 +13341,7 @@ public class EllaParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 904:33: -> ^()
             {
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:904:36: ^()
+                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:904:36: ^()
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(result, root_1);
@@ -13384,7 +13384,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "sqlStringLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:907:1: sqlStringLiteral : ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:907:1: sqlStringLiteral : ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) );
     public final EllaParser.sqlStringLiteral_return sqlStringLiteral() throws RecognitionException {
         EllaParser.sqlStringLiteral_return retval = new EllaParser.sqlStringLiteral_return();
         retval.start = input.LT(1);
@@ -13416,7 +13416,7 @@ public class EllaParser extends Parser {
 
          CommonTree result = null; 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:909:2: ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:909:2: ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) )
             int alt98=2;
             switch ( input.LA(1) ) {
             case STR_SQUOT:
@@ -13492,9 +13492,9 @@ public class EllaParser extends Parser {
 
             switch (alt98) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:909:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:909:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
                     {
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:909:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:909:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT )
                     int alt96=5;
                     switch ( input.LA(1) ) {
                     case STR_SQUOT:
@@ -13532,7 +13532,7 @@ public class EllaParser extends Parser {
 
                     switch (alt96) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:909:6: {...}? STR_SQUOT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:909:6: {...}? STR_SQUOT
                             {
                             if ( !((stringType.hasSingleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13545,7 +13545,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:910:5: {...}? STR_DQUOT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:910:5: {...}? STR_DQUOT
                             {
                             if ( !((stringType.hasDoubleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13558,7 +13558,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 3 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:911:5: {...}? STR_BTICK
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:911:5: {...}? STR_BTICK
                             {
                             if ( !((stringType.hasBackTick())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13571,7 +13571,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 4 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:912:5: {...}? STR_QQUOT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:912:5: {...}? STR_QQUOT
                             {
                             if ( !((stringType.hasQQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13584,7 +13584,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 5 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:913:5: {...}? STR_DOLQUOT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:913:5: {...}? STR_DOLQUOT
                             {
                             if ( !((stringType.hasDollarQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13618,7 +13618,7 @@ public class EllaParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 914:33: -> ^()
                     {
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:914:36: ^()
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:914:36: ^()
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(result, root_1);
@@ -13632,11 +13632,11 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:915:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:915:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:915:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:915:4: ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK )
                     int alt97=3;
                     switch ( input.LA(1) ) {
                     case STR_SQUOT:
@@ -13664,7 +13664,7 @@ public class EllaParser extends Parser {
 
                     switch (alt97) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:915:6: {...}? STR_SQUOT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:915:6: {...}? STR_SQUOT
                             {
                             if ( !((!stringType.hasSingleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13679,7 +13679,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:916:5: {...}? STR_DQUOT
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:916:5: {...}? STR_DQUOT
                             {
                             if ( !((!stringType.hasDoubleQuote())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13694,7 +13694,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 3 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:917:5: {...}? STR_BTICK
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:917:5: {...}? STR_BTICK
                             {
                             if ( !((!stringType.hasBackTick())) ) {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -13744,7 +13744,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "booleanLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:921:1: booleanLiteral : ( KW_TRUE -> TRUE | KW_FALSE -> FALSE );
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:921:1: booleanLiteral : ( KW_TRUE -> TRUE | KW_FALSE -> FALSE );
     public final EllaParser.booleanLiteral_return booleanLiteral() throws RecognitionException {
         EllaParser.booleanLiteral_return retval = new EllaParser.booleanLiteral_return();
         retval.start = input.LT(1);
@@ -13760,7 +13760,7 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_FALSE=new RewriteRuleTokenStream(adaptor,"token KW_FALSE");
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:922:2: ( KW_TRUE -> TRUE | KW_FALSE -> FALSE )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:922:2: ( KW_TRUE -> TRUE | KW_FALSE -> FALSE )
             int alt99=2;
             int LA99_0 = input.LA(1);
 
@@ -13779,7 +13779,7 @@ public class EllaParser extends Parser {
             }
             switch (alt99) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:922:4: KW_TRUE
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:922:4: KW_TRUE
                     {
                     KW_TRUE295=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4684); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_TRUE.add(KW_TRUE295);
@@ -13808,7 +13808,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:923:4: KW_FALSE
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:923:4: KW_FALSE
                     {
                     KW_FALSE296=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4694); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_KW_FALSE.add(KW_FALSE296);
@@ -13863,7 +13863,7 @@ public class EllaParser extends Parser {
     };
 
     // $ANTLR start "parseDirective"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:926:1: parseDirective : BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) ;
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:926:1: parseDirective : BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) ;
     public final EllaParser.parseDirective_return parseDirective() throws RecognitionException {
         EllaParser.parseDirective_return retval = new EllaParser.parseDirective_return();
         retval.start = input.LT(1);
@@ -13885,8 +13885,8 @@ public class EllaParser extends Parser {
         CommonTree EQUALS298_tree=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:927:2: ( BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:927:4: BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:927:2: ( BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:927:4: BACKSLASH dir= WORD arg= WORD EQUALS (valId= IDENTIFIER | valWord= WORD )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -13894,7 +13894,7 @@ public class EllaParser extends Parser {
             dir=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4714); if (state.failed) return retval;
             arg=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4719); if (state.failed) return retval;
             EQUALS298=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_parseDirective4722); if (state.failed) return retval;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:927:43: (valId= IDENTIFIER | valWord= WORD )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:927:43: (valId= IDENTIFIER | valWord= WORD )
             int alt100=2;
             int LA100_0 = input.LA(1);
 
@@ -13913,14 +13913,14 @@ public class EllaParser extends Parser {
             }
             switch (alt100) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:927:44: valId= IDENTIFIER
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:927:44: valId= IDENTIFIER
                     {
                     valId=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_parseDirective4728); if (state.failed) return retval;
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:927:62: valWord= WORD
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:927:62: valWord= WORD
                     {
                     valWord=(Token)match(input,WORD,FOLLOW_WORD_in_parseDirective4733); if (state.failed) return retval;
 
@@ -13993,8 +13993,8 @@ public class EllaParser extends Parser {
 
     // $ANTLR start synpred1_EllaParser
     public final void synpred1_EllaParser_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:632:5: ( LCURLY )
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:632:6: LCURLY
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:632:5: ( LCURLY )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:632:6: LCURLY
         {
         match(input,LCURLY,FOLLOW_LCURLY_in_synpred1_EllaParser3188); if (state.failed) return ;
 
@@ -14004,8 +14004,8 @@ public class EllaParser extends Parser {
 
     // $ANTLR start synpred2_EllaParser
     public final void synpred2_EllaParser_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:640:5: ( LPAREN | LCURLY )
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaParser.g:
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:640:5: ( LPAREN | LCURLY )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaParser.g:
         {
         if ( input.LA(1)==LCURLY||input.LA(1)==LPAREN ) {
             input.consume();

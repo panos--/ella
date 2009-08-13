@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.utils;
+package org.unbunt.ella.utils;
 
 public class StringUtils {
     public static String unescapeSQLString(String str, String delim) {

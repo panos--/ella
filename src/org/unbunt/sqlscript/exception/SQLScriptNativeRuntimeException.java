@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
 public class EllaNativeRuntimeException extends GenericRuntimeException {
     public EllaNativeRuntimeException() {

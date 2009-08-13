@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.testng;
+package org.unbunt.ella.testng;
 
 public class MethodSelectTest {
     public String foo(byte foo) {

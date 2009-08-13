@@ -1,8 +1,8 @@
-package org.unbunt.sqlscript.engine.environment;
+package org.unbunt.ella.engine.environment;
 
-import org.unbunt.sqlscript.engine.corelang.Obj;
-import org.unbunt.sqlscript.engine.environment.DynamicVariableResolver;
-import org.unbunt.sqlscript.compiler.support.Variable;
+import org.unbunt.ella.engine.corelang.Obj;
+import org.unbunt.ella.engine.environment.DynamicVariableResolver;
+import org.unbunt.ella.compiler.support.Variable;
 
 /**
  * Acts as global environment. Default bindings may be placed here using the add(String, Obj) method.

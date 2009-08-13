@@ -1,8 +1,8 @@
-package org.unbunt.sqlscript.lang;
+package org.unbunt.ella.lang;
 
-import org.unbunt.sqlscript.exception.CheckedArithmeticException;
-import org.unbunt.sqlscript.exception.NumberNotComparableException;
-import org.unbunt.sqlscript.engine.corelang.Obj;
+import org.unbunt.ella.exception.CheckedArithmeticException;
+import org.unbunt.ella.exception.NumberNotComparableException;
+import org.unbunt.ella.engine.corelang.Obj;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -51,14 +51,14 @@ public interface NNumeric extends Obj {
 
     /**
      * @return BigInteger
-     * @throws org.unbunt.sqlscript.exception.EllaRuntimeException if this number's value cannot be represented
+     * @throws org.unbunt.ella.exception.EllaRuntimeException if this number's value cannot be represented
      *          as BigInteger
      */
     BigInteger bigIntegerValue();
 
     /**
      * @return BigDecimal
-     * @throws org.unbunt.sqlscript.exception.EllaRuntimeException if this number's value cannot be represented
+     * @throws org.unbunt.ella.exception.EllaRuntimeException if this number's value cannot be represented
      *          as BigDecimal
      */
     BigDecimal bigDecimalValue();

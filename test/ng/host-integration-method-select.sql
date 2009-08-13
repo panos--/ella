@@ -1,4 +1,4 @@
-import org.unbunt.sqlscript.testng.*;
+import org.unbunt.ella.testng.*;
 
 fun assert(expected, actual) {
 	if (expected != actual) {

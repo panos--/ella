@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.engine.continuations;
+package org.unbunt.ella.engine.continuations;
 
-import org.unbunt.sqlscript.engine.continuations.ContinuationVisitor;
+import org.unbunt.ella.engine.continuations.ContinuationVisitor;
 
 public class LoopContinueCont implements Continuation {
     public void accept(ContinuationVisitor visitor) {

@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.engine.continuations;
+package org.unbunt.ella.engine.continuations;
 
-import org.unbunt.sqlscript.engine.continuations.ContinuationVisitor;
-import org.unbunt.sqlscript.compiler.support.Variable;
+import org.unbunt.ella.engine.continuations.ContinuationVisitor;
+import org.unbunt.ella.compiler.support.Variable;
 
 public class AssignCont implements Continuation {
     protected Variable variable;

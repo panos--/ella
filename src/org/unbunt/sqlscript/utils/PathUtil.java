@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.utils;
+package org.unbunt.ella.utils;
 
 import java.io.File;
 

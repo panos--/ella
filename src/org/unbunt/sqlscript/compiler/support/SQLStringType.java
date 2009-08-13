@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.compiler.support;
+package org.unbunt.ella.compiler.support;
 
-import org.unbunt.sqlscript.compiler.support.SQLStringSyntaxRules;
+import org.unbunt.ella.compiler.support.SQLStringSyntaxRules;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,9 +1,9 @@
-package org.unbunt.sqlscript.lang.sql;
+package org.unbunt.ella.lang.sql;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import org.unbunt.sqlscript.exception.DBConnectionFailedException;
-import org.unbunt.sqlscript.support.Drivers;
+import org.unbunt.ella.exception.DBConnectionFailedException;
+import org.unbunt.ella.support.Drivers;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.compiler.statement;
+package org.unbunt.ella.compiler.statement;
 
-import org.unbunt.sqlscript.compiler.stmtbase.Expression;
-import org.unbunt.sqlscript.compiler.support.ObjectLiteral;
+import org.unbunt.ella.compiler.stmtbase.Expression;
+import org.unbunt.ella.compiler.support.ObjectLiteral;
 
 public class ObjectLiteralExpression implements Expression {
     protected ObjectLiteral objectLiteral;

@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.engine.corelang;
+package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.engine.Engine;
+import org.unbunt.ella.exception.ClosureTerminatedException;
+import org.unbunt.ella.engine.Engine;
 
 public abstract class NativeCall extends AbstractObj implements Call {
     // NOTE: Here we have a circular dependency between EllaEngine and NativeCall

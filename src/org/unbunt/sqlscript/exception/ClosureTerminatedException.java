@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.exception;
+package org.unbunt.ella.exception;
 
 /**
  * Signals the termination of a closure through a return to it's home method.

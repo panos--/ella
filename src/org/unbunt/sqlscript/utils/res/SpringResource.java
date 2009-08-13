@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.utils.res;
+package org.unbunt.ella.utils.res;
 
 import org.springframework.core.io.Resource;
 

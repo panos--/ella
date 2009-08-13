@@ -1,8 +1,8 @@
-package org.unbunt.sqlscript.compiler.statement;
+package org.unbunt.ella.compiler.statement;
 
-import org.unbunt.sqlscript.engine.corelang.Obj;
-import org.unbunt.sqlscript.lang.NNum;
-import org.unbunt.sqlscript.compiler.stmtbase.Expression;
+import org.unbunt.ella.engine.corelang.Obj;
+import org.unbunt.ella.lang.NNum;
+import org.unbunt.ella.compiler.stmtbase.Expression;
 
 public class IntegerLiteralExpression implements Expression {
     protected String literal;

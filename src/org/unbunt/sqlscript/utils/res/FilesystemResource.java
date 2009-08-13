@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.utils.res;
+package org.unbunt.ella.utils.res;
 
-import static org.unbunt.sqlscript.utils.PathUtil.concatPaths;
-import static org.unbunt.sqlscript.utils.PathUtil.isAbsPath;
+import static org.unbunt.ella.utils.PathUtil.concatPaths;
+import static org.unbunt.ella.utils.PathUtil.isAbsPath;
 
 import java.io.File;
 import java.io.FileInputStream;

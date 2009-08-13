@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.compiler.stmtbase;
+package org.unbunt.ella.compiler.stmtbase;
 
-import org.unbunt.sqlscript.compiler.statement.ExpressionVisitor;
+import org.unbunt.ella.compiler.statement.ExpressionVisitor;
 
 public interface Statement {
     public void accept(ExpressionVisitor visitor);

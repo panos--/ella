@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.engine.corelang;
+package org.unbunt.ella.engine.corelang;
 
 public interface Null extends Obj {
     Class<?> getTypeHint();
