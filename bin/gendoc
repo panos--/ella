@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ROOT="`dirname "$0"`"
+ROOT="`dirname "$ROOT"`"
+
+cd "$ROOT" || exit
+
+cp=lib
+for j in lib/*.jar; do
+	cp="$cp:$j";
+done
+
+exec javadoc -d doc -classpath "$cp" -sourcepath src -subpackages org.unbunt.ella -public -use

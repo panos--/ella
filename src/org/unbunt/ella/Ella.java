@@ -35,6 +35,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main interface for executing programs written in the EllaScript programming language. Also implements a
+ * <code>main</code> method providing a command line interface which allows for the compilation, tree generation
+ * and execution of EllaScript programs. 
+ */
 public class Ella {
     protected DefaultContext context;
     protected SimpleResource script;

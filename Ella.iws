@@ -155,11 +155,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Str.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Str.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Str.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="25" selection-start="289" selection-end="289" vertical-scroll-proportion="0.106571935">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/package.html">
+          <provider editor-type-id="HtmlPreview">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="54" selection-start="68" selection-end="68" vertical-scroll-proportion="0.057915058">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ella.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="3" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.18650089">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;field#possiblyInteractive#0;class#Args#0;class#Ella#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -917,7 +941,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1680" height="1000" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -935,7 +959,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935917" order="6" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27222222" order="0" x="513" y="87" width="373" height="875" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27222222" order="0" x="513" y="87" width="373" height="875" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24200913" order="14" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="5" />
@@ -1017,13 +1041,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/JMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="43" selection-start="3510" selection-end="3510" vertical-scroll-proportion="0.33272058">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/NRange.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="87" column="20" selection-start="2768" selection-end="2768" vertical-scroll-proportion="0.33272058">
@@ -1094,13 +1111,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="615" column="45" selection-start="23036" selection-end="23036" vertical-scroll-proportion="0.018159807">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/Engine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="17" selection-start="749" selection-end="749" vertical-scroll-proportion="0.026642984">
@@ -1126,6 +1136,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="25" selection-start="289" selection-end="289" vertical-scroll-proportion="0.106571935">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/package.html">
+      <provider editor-type-id="HtmlPreview">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="54" selection-start="68" selection-end="68" vertical-scroll-proportion="0.057915058">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="3" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.18650089">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;field#possiblyInteractive#0;class#Args#0;class#Ella#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
