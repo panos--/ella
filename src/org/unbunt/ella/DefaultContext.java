@@ -1,27 +1,133 @@
 package org.unbunt.ella;
 
 import org.unbunt.ella.compiler.support.Variable;
+import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.context.SQLResultListener;
+import org.unbunt.ella.engine.corelang.*;
+import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.environment.DynamicVariableResolver;
 import org.unbunt.ella.engine.environment.Env;
 import org.unbunt.ella.engine.environment.MainEnv;
-import org.unbunt.ella.engine.corelang.*;
-import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.lang.*;
 import org.unbunt.ella.lang.sql.Conn;
 import org.unbunt.ella.lang.sql.ConnMgrImpl;
 import org.unbunt.ella.lang.sql.ResSet;
 import org.unbunt.ella.lang.sql.Stmt;
 import org.unbunt.ella.utils.res.SimpleResource;
-import org.unbunt.ella.engine.context.SQLResultProvider;
-import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.context.SQLResultListener;
 
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DefaultContext implements SQLResultProvider, Context {
+/**
+ * Default implementation of the <code>Context</context> interface.
+ * <p>
+ * On creation, it initializes the available native objects and a global environment where the objects are exposed in.
+ * <p>
+ * The following table gives an overview of the native objects and their names in the environment.
+ * <table>
+ * <thead>
+ *      <tr>
+ *          <th align="left">Name</th>
+ *          <th align="left">Native Object</th>
+ *      </tr>
+ * </thead>
+ * <tbody>
+ *      <tr>
+ *          <td>Null</td>
+ *          <td>{@link org.unbunt.ella.lang.NullImpl}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>null</td>
+ *          <td>{@link org.unbunt.ella.lang.NullImpl}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Sys</td>
+ *          <td>{@link org.unbunt.ella.lang.SysImpl}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Obj</td>
+ *          <td>{@link org.unbunt.ella.lang.Base}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Lst</td>
+ *          <td>{@link org.unbunt.ella.lang.Lst.LstProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Dict</td>
+ *          <td>{@link org.unbunt.ella.lang.Dict.DictProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Str</td>
+ *          <td>{@link org.unbunt.ella.lang.Str}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Num</td>
+ *          <td>{@link org.unbunt.ella.lang.NNum.NNumProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>BigNum</td>
+ *          <td>{@link org.unbunt.ella.lang.NBigNum.NBigNumProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Real</td>
+ *          <td>{@link org.unbunt.ella.lang.NReal.NRealProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>BigReal</td>
+ *          <td>{@link org.unbunt.ella.lang.NBigReal.NBigRealProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Range</td>
+ *          <td>{@link org.unbunt.ella.lang.NRange.NRangeProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Bool</td>
+ *          <td>{@link org.unbunt.ella.lang.BoolImpl.BoolProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>true</td>
+ *          <td>{@link org.unbunt.ella.lang.BoolImpl}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>false</td>
+ *          <td>{@link org.unbunt.ella.lang.BoolImpl}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Clos</td>
+ *          <td>{@link org.unbunt.ella.lang.Clos.ClosProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Func</td>
+ *          <td>{@link org.unbunt.ella.lang.Func.FuncProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>JArray</td>
+ *          <td>{@link org.unbunt.ella.lang.JArray.JArrayProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>JClass</td>
+ *          <td>{@link org.unbunt.ella.lang.JClass.JClassProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>ConnMgr</td>
+ *          <td>{@link org.unbunt.ella.lang.sql.ConnMgrImpl}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Conn</td>
+ *          <td>{@link org.unbunt.ella.lang.sql.Conn.ConnProto}</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Stmt</td>
+ *          <td>{@link org.unbunt.ella.lang.sql.Stmt.StmtProto}</td>
+ *      </tr>
+ * </tbody>
+ * </table>
+ *
+ * @see org.unbunt.ella.engine.context.Context
+ */
+public class DefaultContext implements Context {
     protected String scriptFilename = "<unknown>";
     protected SimpleResource scriptResource = null;
 
@@ -47,16 +153,33 @@ public class DefaultContext implements SQLResultProvider, Context {
 
     protected Object[] args;
 
+    /**
+     * Creates a DefaultContext with an empty set of program arguments exposed in the environment.
+     * <p>
+     * The program arguments are made available to the programs executed within this context under the
+     * <code>ARGV</code> name as an object of type <code>Lst</code>.
+     *
+     * @see org.unbunt.ella.lang.Lst
+     */
+    public DefaultContext() {
+        this(new Object[0]);
+    }
+
+    /**
+     * Creates a DefaultContext with the given program arguments exposed in the environment.
+     * <p>
+     * The program arguments are made available to the programs executed within this context under the
+     * <code>ARGV</code> name as an object of type <code>Lst</code>.
+     *
+     * @param args the object to be used as program arguments
+     * @see org.unbunt.ella.lang.Lst
+     */
     public DefaultContext(Object[] args) {
         this.args = args;
         Arrays.fill(objectProtos, null);
         Arrays.fill(objects, null);
         initProtos();
         initEnv();
-    }
-
-    public DefaultContext() {
-        this(new Object[0]);
     }
 
     protected void initProtos() {

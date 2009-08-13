@@ -1,24 +1,27 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g 2009-08-09 09:20:59
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g 2009-08-13 23:59:01
 
 	package org.unbunt.ella.compiler;
 
 	//import java.util.Observer;
 	//import java.util.LinkedList;
-	import org.antlr.runtime.*;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.TreeNodeStream;
-import org.antlr.runtime.tree.TreeParser;
-import org.antlr.runtime.tree.TreeRuleReturnScope;
-import org.unbunt.ella.compiler.statement.*;
-import org.unbunt.ella.compiler.stmtbase.Expression;
-import org.unbunt.ella.compiler.stmtbase.Statement;
-import org.unbunt.ella.compiler.stmtbase.StatementContainer;
-import org.unbunt.ella.compiler.support.*;
-import org.unbunt.ella.exception.EllaRuntimeException;
+	import java.util.List;
+	import java.util.ArrayList;
+	//import java.util.Map;
+	//import java.util.HashMap;
 
-import java.util.ArrayList;
+	//import org.unbunt.ella.compiler.antlr.*;
+	import org.unbunt.ella.compiler.stmtbase.*;
+	import org.unbunt.ella.compiler.statement.*;
+	import org.unbunt.ella.compiler.support.*;
+	import org.unbunt.ella.exception.*;
+
+
+import org.antlr.runtime.*;
+import org.antlr.runtime.tree.*;import java.util.Stack;
 import java.util.List;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 public class EllaWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "DQUOT", "SQUOT", "BTICK", "QQUOT_DELIM", "QQUOT_START", "QQUOT_END", "DOLQUOT_TAG", "DOLQUOT", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "ATSIGN", "LCURLY", "RCURLY", "WORD_CHAR", "VARNAME", "CHAR", "COMMENT", "LINE_COMMENT", "STR_SQUOT", "STR_DQUOT", "STR_BTICK", "STR_QQUOT", "DDOLLAR", "DOLLAR", "STR_DOLQUOT", "DIGIT", "EXPONENT", "NUMBER", "INT", "FLOAT", "KW_SQL", "KW_VAR", "KW_IF", "KW_ELSE", "KW_TRY", "KW_CATCH", "KW_FINALLY", "KW_THROW", "KW_FOR", "KW_WHILE", "KW_BREAK", "KW_CONTINUE", "KW_RETURN", "KW_EXIT", "KW_TRUE", "KW_FALSE", "KW_FUN", "KW_THIS", "KW_SUPER", "KW_NEW", "KW_IMPORT", "KW_INCLUDE", "KW_AS", "WORD", "EMB_VAR_START", "BACKSLASH", "DOUBLE_ARROW", "OP_DEFINE", "OP_AND", "OP_OR", "OP_EQ", "OP_NE", "OP_ID", "OP_NI", "OP_GT", "OP_GE", "OP_LT", "OP_LE", "OP_MUL", "OP_DIV", "OP_MOD", "OP_ADD", "OP_SUB", "EQUALS", "LPAREN", "RPAREN", "LSQUARE", "RSQUARE", "EXCLAM", "QUESTION", "COLON", "DOT", "COMMA", "SIMPLE_IDENTIFIER", "IDENTIFIER_SPECIAL_START", "IDENTIFIER_SPECIAL", "IDENTIFIER", "SQL_SPECIAL_CHAR", "SEP", "WS", "NL", "BLOCK", "SQL", "SQL_MODE", "SQL_STMT", "SQL_EXPR", "SQL_PARAM", "DECLARE_ASSIGN", "DECLARE", "ASSIGN", "FUNC_DEF", "FUNC_CALL", "BLOCK_CLOSURE", "ARGS", "RETURN", "TRUE", "FALSE", "OBJ", "ARRAY", "SLOT", "SLOT_CALL", "SLOT_GET", "IDX_CALL", "IDX_GET", "INDEX", "CALL", "CALL_BINARY", "CALL_UNARY", "THIS", "SUPER", "NEW", "IMPORT_PACKAGE", "IMPORT_CLASS", "AS"
@@ -175,17 +178,17 @@ public class EllaWalker extends TreeParser {
         }
         public EllaWalker(TreeNodeStream input, RecognizerSharedState state) {
             super(input, state);
-
+             
         }
-
+        
 
     public String[] getTokenNames() { return EllaWalker.tokenNames; }
-    public String getGrammarFileName() { return "/home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g"; }
+    public String getGrammarFileName() { return "/home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g"; }
 
 
     	protected final static int POS_RHS = 1;
     	protected final static int POS_LHS = 2;
-
+    	
     	/**
     	 * Public entry point for named parameter parsing in sql statements.
     	 */
@@ -203,7 +206,7 @@ public class EllaWalker extends TreeParser {
     		//System.out.println("recovering from mismatched set" + e.getMessage());
     		throw e;
     	}
-
+    	
     	@Override
     	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
     		CommonTree tree = (CommonTree) ((TreeNodeStream) input).LT(1);
@@ -227,11 +230,11 @@ public class EllaWalker extends TreeParser {
     	public Block parse(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
     		return script(scope);
     	}
-
+    	
     	public Block parseIncremental(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
     		return scriptIncremental(scope);
     	}
-
+    	
     	protected boolean verbose = false;
 
     	private void print(String msg) {
@@ -240,11 +243,11 @@ public class EllaWalker extends TreeParser {
     		}
     		System.out.println(msg);
     	}
-
+    	
     	public static String extractString(String s) {
     		return s.substring(1, s.length() - 1).replace("''", "'");
     	}
-
+    	
     	/*
     	 * Helper methods for building commonly used expressions
     	 */
@@ -257,11 +260,11 @@ public class EllaWalker extends TreeParser {
     		}
     		return slotCallExpression;
     	}
-
+    	
     	protected SlotCallExpression createSlotCall(String receiver, String slot, Expression... args) {
     		return createSlotCall(new VariableExpression(getVariable(receiver)), new IdentifierExpression(slot), args);
     	}
-
+    	
     	protected Variable getVariable(String name) {
     		return ((Scope_scope)Scope_stack.peek()).scope.getVariable(name);
     	}
@@ -269,7 +272,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "script"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:125:1: script[ Scope scope ] returns [ Block value ] : ( statement )* ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:125:1: script[ Scope scope ] returns [ Block value ] : ( statement )* ;
     public final Block script(Scope scope) throws RecognitionException {
         Block_stack.push(new Block_scope());
         Scope_stack.push(new Scope_scope());
@@ -281,10 +284,10 @@ public class EllaWalker extends TreeParser {
         	((Block_scope)Block_stack.peek()).block = new Block(((Scope_scope)Scope_stack.peek()).scope, false);
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:134:2: ( ( statement )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:134:4: ( statement )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:134:2: ( ( statement )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:134:4: ( statement )*
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:134:4: ( statement )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:134:4: ( statement )*
             loop1:
             do {
                 int alt1=2;
@@ -297,7 +300,7 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:134:4: statement
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:134:4: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_script89);
             	    statement();
@@ -338,7 +341,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptIncremental"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:139:1: scriptIncremental[ Scope scope ] returns [ Block value ] : script[$scope] ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:139:1: scriptIncremental[ Scope scope ] returns [ Block value ] : script[$scope] ;
     public final Block scriptIncremental(Scope scope) throws RecognitionException {
         Block value = null;
 
@@ -346,8 +349,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:140:2: ( script[$scope] )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:140:4: script[$scope]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:140:2: ( script[$scope] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:140:4: script[$scope]
             {
             pushFollow(FOLLOW_script_in_scriptIncremental109);
             script1=script(scope);
@@ -355,7 +358,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = script1;
+               value = script1; 
             }
 
             }
@@ -374,10 +377,10 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "statement"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:143:1: statement : ( scriptStmt | block );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:143:1: statement : ( scriptStmt | block );
     public final void statement() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:144:2: ( scriptStmt | block )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:144:2: ( scriptStmt | block )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -396,7 +399,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt2) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:144:4: scriptStmt
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:144:4: scriptStmt
                     {
                     pushFollow(FOLLOW_scriptStmt_in_statement123);
                     scriptStmt();
@@ -407,7 +410,7 @@ public class EllaWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:145:4: block
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:145:4: block
                     {
                     pushFollow(FOLLOW_block_in_statement128);
                     block();
@@ -433,7 +436,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "block"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:148:1: block returns [ Statement value ] : blk= blockStmt ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:148:1: block returns [ Statement value ] : blk= blockStmt ;
     public final Statement block() throws RecognitionException {
         Statement value = null;
 
@@ -441,8 +444,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:149:2: (blk= blockStmt )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:149:4: blk= blockStmt
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:149:2: (blk= blockStmt )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:149:4: blk= blockStmt
             {
             pushFollow(FOLLOW_blockStmt_in_block145);
             blk=blockStmt();
@@ -450,7 +453,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(blk);
+               ((Block_scope)Block_stack.peek()).block.addStatement(blk); 
             }
 
             }
@@ -469,7 +472,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "unscopedBlock"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:152:1: unscopedBlock returns [ Statement value ] : blk= unscopedBlockStmt ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:152:1: unscopedBlock returns [ Statement value ] : blk= unscopedBlockStmt ;
     public final Statement unscopedBlock() throws RecognitionException {
         Statement value = null;
 
@@ -477,8 +480,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:153:2: (blk= unscopedBlockStmt )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:153:4: blk= unscopedBlockStmt
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:153:2: (blk= unscopedBlockStmt )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:153:4: blk= unscopedBlockStmt
             {
             pushFollow(FOLLOW_unscopedBlockStmt_in_unscopedBlock164);
             blk=unscopedBlockStmt();
@@ -486,7 +489,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(blk);
+               ((Block_scope)Block_stack.peek()).block.addStatement(blk); 
             }
 
             }
@@ -505,7 +508,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "blockStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:158:1: blockStmt returns [ Statement value ] : blk= unscopedBlockStmt ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:158:1: blockStmt returns [ Statement value ] : blk= unscopedBlockStmt ;
     public final Statement blockStmt() throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
@@ -514,10 +517,10 @@ public class EllaWalker extends TreeParser {
         Block blk = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:161:2: (blk= unscopedBlockStmt )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:161:4: blk= unscopedBlockStmt
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:161:2: (blk= unscopedBlockStmt )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:161:4: blk= unscopedBlockStmt
             {
             pushFollow(FOLLOW_unscopedBlockStmt_in_blockStmt195);
             blk=unscopedBlockStmt();
@@ -525,7 +528,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               blk.setScoped(true); value = blk;
+               blk.setScoped(true); value = blk; 
             }
 
             }
@@ -546,7 +549,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "unscopedBlockStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:164:1: unscopedBlockStmt returns [ Block value ] : ^( BLOCK ( statement )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:164:1: unscopedBlockStmt returns [ Block value ] : ^( BLOCK ( statement )* ) ;
     public final Block unscopedBlockStmt() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -558,14 +561,14 @@ public class EllaWalker extends TreeParser {
         	value = block;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:171:2: ( ^( BLOCK ( statement )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:171:4: ^( BLOCK ( statement )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:171:2: ( ^( BLOCK ( statement )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:171:4: ^( BLOCK ( statement )* )
             {
             match(input,BLOCK,FOLLOW_BLOCK_in_unscopedBlockStmt223); if (state.failed) return value;
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:171:12: ( statement )*
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:171:12: ( statement )*
                 loop3:
                 do {
                     int alt3=2;
@@ -578,7 +581,7 @@ public class EllaWalker extends TreeParser {
 
                     switch (alt3) {
                 	case 1 :
-                	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:171:12: statement
+                	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:171:12: statement
                 	    {
                 	    pushFollow(FOLLOW_statement_in_unscopedBlockStmt225);
                 	    statement();
@@ -616,10 +619,10 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:174:1: scriptStmt : ( scriptReturn | scriptImport | expressionStmt );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:174:1: scriptStmt : ( scriptReturn | scriptImport | expressionStmt );
     public final void scriptStmt() throws RecognitionException {
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:175:2: ( scriptReturn | scriptImport | expressionStmt )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:175:2: ( scriptReturn | scriptImport | expressionStmt )
             int alt4=3;
             switch ( input.LA(1) ) {
             case RETURN:
@@ -670,7 +673,7 @@ public class EllaWalker extends TreeParser {
 
             switch (alt4) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:175:4: scriptReturn
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:175:4: scriptReturn
                     {
                     pushFollow(FOLLOW_scriptReturn_in_scriptStmt238);
                     scriptReturn();
@@ -681,7 +684,7 @@ public class EllaWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:176:4: scriptImport
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:176:4: scriptImport
                     {
                     pushFollow(FOLLOW_scriptImport_in_scriptStmt243);
                     scriptImport();
@@ -692,7 +695,7 @@ public class EllaWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:177:4: expressionStmt
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:177:4: expressionStmt
                     {
                     pushFollow(FOLLOW_expressionStmt_in_scriptStmt248);
                     expressionStmt();
@@ -718,7 +721,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptReturn"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:180:1: scriptReturn returns [ ReturnStatement value ] : ^( RETURN (expr= expression )? ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:180:1: scriptReturn returns [ ReturnStatement value ] : ^( RETURN (expr= expression )? ) ;
     public final ReturnStatement scriptReturn() throws RecognitionException {
         ReturnStatement value = null;
 
@@ -726,18 +729,18 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:181:2: ( ^( RETURN (expr= expression )? ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:181:4: ^( RETURN (expr= expression )? )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:181:2: ( ^( RETURN (expr= expression )? ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:181:4: ^( RETURN (expr= expression )? )
             {
             match(input,RETURN,FOLLOW_RETURN_in_scriptReturn264); if (state.failed) return value;
 
             if ( state.backtracking==0 ) {
-               value = new ReturnStatement();
+               value = new ReturnStatement(); 
             }
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:181:49: (expr= expression )?
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:181:49: (expr= expression )?
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
@@ -746,7 +749,7 @@ public class EllaWalker extends TreeParser {
                 }
                 switch (alt5) {
                     case 1 :
-                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:181:50: expr= expression
+                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:181:50: expr= expression
                         {
                         pushFollow(FOLLOW_expression_in_scriptReturn271);
                         expr=expression();
@@ -754,7 +757,7 @@ public class EllaWalker extends TreeParser {
                         state._fsp--;
                         if (state.failed) return value;
                         if ( state.backtracking==0 ) {
-                           value.setExpression(expr);
+                           value.setExpression(expr); 
                         }
 
                         }
@@ -768,7 +771,7 @@ public class EllaWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			((Block_scope)Block_stack.peek()).block.addStatement(value);
-
+              		
             }
 
             }
@@ -787,7 +790,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptImport"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:186:1: scriptImport returns [ Expression value ] : ( ^( IMPORT_PACKAGE pkg= importIdentifier ) | ^( IMPORT_CLASS ( ^( AS classAlias= identifier ) | ) className= importIdentifier ) );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:186:1: scriptImport returns [ Expression value ] : ( ^( IMPORT_PACKAGE pkg= importIdentifier ) | ^( IMPORT_CLASS ( ^( AS classAlias= identifier ) | ) className= importIdentifier ) );
     public final Expression scriptImport() throws RecognitionException {
         Expression value = null;
 
@@ -799,7 +802,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:188:2: ( ^( IMPORT_PACKAGE pkg= importIdentifier ) | ^( IMPORT_CLASS ( ^( AS classAlias= identifier ) | ) className= importIdentifier ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:188:2: ( ^( IMPORT_PACKAGE pkg= importIdentifier ) | ^( IMPORT_CLASS ( ^( AS classAlias= identifier ) | ) className= importIdentifier ) )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -818,7 +821,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt7) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:188:4: ^( IMPORT_PACKAGE pkg= importIdentifier )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:188:4: ^( IMPORT_PACKAGE pkg= importIdentifier )
                     {
                     match(input,IMPORT_PACKAGE,FOLLOW_IMPORT_PACKAGE_in_scriptImport299); if (state.failed) return value;
 
@@ -833,18 +836,18 @@ public class EllaWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = createSlotCall("Sys", "importPackage", new IdentifierExpression(pkg));
-
+                      		
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:192:4: ^( IMPORT_CLASS ( ^( AS classAlias= identifier ) | ) className= importIdentifier )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:192:4: ^( IMPORT_CLASS ( ^( AS classAlias= identifier ) | ) className= importIdentifier )
                     {
                     match(input,IMPORT_CLASS,FOLLOW_IMPORT_CLASS_in_scriptImport314); if (state.failed) return value;
 
                     match(input, Token.DOWN, null); if (state.failed) return value;
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:193:4: ( ^( AS classAlias= identifier ) | )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:193:4: ( ^( AS classAlias= identifier ) | )
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -863,7 +866,7 @@ public class EllaWalker extends TreeParser {
                     }
                     switch (alt6) {
                         case 1 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:193:5: ^( AS classAlias= identifier )
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:193:5: ^( AS classAlias= identifier )
                             {
                             match(input,AS,FOLLOW_AS_in_scriptImport321); if (state.failed) return value;
 
@@ -879,7 +882,7 @@ public class EllaWalker extends TreeParser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:193:33:
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:193:33: 
                             {
                             }
                             break;
@@ -903,20 +906,20 @@ public class EllaWalker extends TreeParser {
                       			else {
                       				varName = classAlias;
                       			}
-
+                      			
                       			Variable jclassVar = ((Scope_scope)Scope_stack.peek()).scope.getVariable("JClass");
-
+                      			
                       			List<Expression> newArgs = new ArrayList<Expression>();
                       			newArgs.add(new IdentifierExpression(className));
                       			NewExpression newExpression = new NewExpression(new VariableExpression(jclassVar), newArgs);
-
+                      			
                       			Variable classVar = ((Scope_scope)Scope_stack.peek()).scope.addVariable(varName);
                       			DeclareVariableExpression declareExpression = new DeclareVariableExpression(classVar);
                       			AssignExpression assignExpression = new AssignExpression(classVar, newExpression);
                       			DeclareAndAssignExpression declareAndAssignExpression = new DeclareAndAssignExpression(declareExpression, assignExpression);
-
+                      			
                       			value = declareAndAssignExpression;
-
+                      		
                     }
 
                     }
@@ -924,7 +927,7 @@ public class EllaWalker extends TreeParser {
 
             }
             if ( state.backtracking==0 ) {
-               ((Block_scope)Block_stack.peek()).block.addStatement(value);
+               ((Block_scope)Block_stack.peek()).block.addStatement(value); 
             }
         }
 
@@ -940,7 +943,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "importIdentifier"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:220:1: importIdentifier returns [ String value ] : id1= identifier (id2= identifier )* ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:220:1: importIdentifier returns [ String value ] : id1= identifier (id2= identifier )* ;
     public final String importIdentifier() throws RecognitionException {
         String value = null;
 
@@ -949,10 +952,10 @@ public class EllaWalker extends TreeParser {
         String id2 = null;
 
 
-         StringBuilder buf = new StringBuilder();
+         StringBuilder buf = new StringBuilder(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:223:2: (id1= identifier (id2= identifier )* )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:223:4: id1= identifier (id2= identifier )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:223:2: (id1= identifier (id2= identifier )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:223:4: id1= identifier (id2= identifier )*
             {
             pushFollow(FOLLOW_identifier_in_importIdentifier367);
             id1=identifier();
@@ -960,9 +963,9 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               buf.append(id1);
+               buf.append(id1); 
             }
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:224:3: (id2= identifier )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:224:3: (id2= identifier )*
             loop8:
             do {
                 int alt8=2;
@@ -975,7 +978,7 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt8) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:224:4: id2= identifier
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:224:4: id2= identifier
             	    {
             	    pushFollow(FOLLOW_identifier_in_importIdentifier376);
             	    id2=identifier();
@@ -983,7 +986,7 @@ public class EllaWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       buf.append(".").append(id2);
+            	       buf.append(".").append(id2); 
             	    }
 
             	    }
@@ -998,7 +1001,7 @@ public class EllaWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = buf.toString();
+               value = buf.toString(); 
             }
         }
 
@@ -1014,14 +1017,14 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "expressionStmt"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:227:1: expressionStmt : expr= expression ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:227:1: expressionStmt : expr= expression ;
     public final void expressionStmt() throws RecognitionException {
         Expression expr = null;
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:228:2: (expr= expression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:228:4: expr= expression
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:228:2: (expr= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:228:4: expr= expression
             {
             pushFollow(FOLLOW_expression_in_expressionStmt393);
             expr=expression();
@@ -1029,7 +1032,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               if (expr != null) { ((Block_scope)Block_stack.peek()).block.addStatement(expr); }
+               if (expr != null) { ((Block_scope)Block_stack.peek()).block.addStatement(expr); } 
             }
 
             }
@@ -1048,7 +1051,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "expression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:231:1: expression returns [ Expression value ] : (ex= expressionNoSlotExp | st= slotExpressionRHS );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:231:1: expression returns [ Expression value ] : (ex= expressionNoSlotExp | st= slotExpressionRHS );
     public final Expression expression() throws RecognitionException {
         Expression value = null;
 
@@ -1058,7 +1061,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:232:2: (ex= expressionNoSlotExp | st= slotExpressionRHS )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:232:2: (ex= expressionNoSlotExp | st= slotExpressionRHS )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1077,7 +1080,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt9) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:232:4: ex= expressionNoSlotExp
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:232:4: ex= expressionNoSlotExp
                     {
                     pushFollow(FOLLOW_expressionNoSlotExp_in_expression412);
                     ex=expressionNoSlotExp();
@@ -1085,13 +1088,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ex;
+                       value = ex; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:233:4: st= slotExpressionRHS
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:233:4: st= slotExpressionRHS
                     {
                     pushFollow(FOLLOW_slotExpressionRHS_in_expression421);
                     st=slotExpressionRHS();
@@ -1099,7 +1102,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = st;
+                       value = st; 
                     }
 
                     }
@@ -1120,7 +1123,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "expressionNoSlotExp"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:236:1: expressionNoSlotExp returns [ Expression value ] : (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | cu= callUnaryExpression | newx= newExpression | sqlx= sqlExpression | sexp= simpleExpression );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:236:1: expressionNoSlotExp returns [ Expression value ] : (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | cu= callUnaryExpression | newx= newExpression | sqlx= sqlExpression | sexp= simpleExpression );
     public final Expression expressionNoSlotExp() throws RecognitionException {
         Expression value = null;
 
@@ -1150,7 +1153,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:237:2: (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | cu= callUnaryExpression | newx= newExpression | sqlx= sqlExpression | sexp= simpleExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:237:2: (fd= scriptFuncDef | bc= blockClosure | da= scriptDeclareAndAssign | de= scriptDeclare | ae= scriptAssign | ix= indexExpressionRHS | cl= callExpression | cb= callBinaryExpression | cu= callUnaryExpression | newx= newExpression | sqlx= sqlExpression | sexp= simpleExpression )
             int alt10=12;
             switch ( input.LA(1) ) {
             case FUNC_DEF:
@@ -1233,7 +1236,7 @@ public class EllaWalker extends TreeParser {
 
             switch (alt10) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:237:4: fd= scriptFuncDef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:237:4: fd= scriptFuncDef
                     {
                     pushFollow(FOLLOW_scriptFuncDef_in_expressionNoSlotExp441);
                     fd=scriptFuncDef();
@@ -1241,13 +1244,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = fd;
+                       value = fd; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:238:4: bc= blockClosure
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:238:4: bc= blockClosure
                     {
                     pushFollow(FOLLOW_blockClosure_in_expressionNoSlotExp450);
                     bc=blockClosure();
@@ -1255,13 +1258,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = bc;
+                       value = bc; 
                     }
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:239:4: da= scriptDeclareAndAssign
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:239:4: da= scriptDeclareAndAssign
                     {
                     pushFollow(FOLLOW_scriptDeclareAndAssign_in_expressionNoSlotExp459);
                     da=scriptDeclareAndAssign();
@@ -1269,13 +1272,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = da;
+                       value = da; 
                     }
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:240:4: de= scriptDeclare
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:240:4: de= scriptDeclare
                     {
                     pushFollow(FOLLOW_scriptDeclare_in_expressionNoSlotExp468);
                     de=scriptDeclare();
@@ -1283,13 +1286,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = de;
+                       value = de; 
                     }
 
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:241:4: ae= scriptAssign
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:241:4: ae= scriptAssign
                     {
                     pushFollow(FOLLOW_scriptAssign_in_expressionNoSlotExp477);
                     ae=scriptAssign();
@@ -1297,13 +1300,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ae;
+                       value = ae; 
                     }
 
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:242:4: ix= indexExpressionRHS
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:242:4: ix= indexExpressionRHS
                     {
                     pushFollow(FOLLOW_indexExpressionRHS_in_expressionNoSlotExp486);
                     ix=indexExpressionRHS();
@@ -1311,13 +1314,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = ix;
+                       value = ix; 
                     }
 
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:243:4: cl= callExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:243:4: cl= callExpression
                     {
                     pushFollow(FOLLOW_callExpression_in_expressionNoSlotExp495);
                     cl=callExpression();
@@ -1325,13 +1328,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = cl;
+                       value = cl; 
                     }
 
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:244:4: cb= callBinaryExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:244:4: cb= callBinaryExpression
                     {
                     pushFollow(FOLLOW_callBinaryExpression_in_expressionNoSlotExp504);
                     cb=callBinaryExpression();
@@ -1339,13 +1342,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = cb;
+                       value = cb; 
                     }
 
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:245:4: cu= callUnaryExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:245:4: cu= callUnaryExpression
                     {
                     pushFollow(FOLLOW_callUnaryExpression_in_expressionNoSlotExp513);
                     cu=callUnaryExpression();
@@ -1353,13 +1356,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = cu;
+                       value = cu; 
                     }
 
                     }
                     break;
                 case 10 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:246:4: newx= newExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:246:4: newx= newExpression
                     {
                     pushFollow(FOLLOW_newExpression_in_expressionNoSlotExp522);
                     newx=newExpression();
@@ -1367,13 +1370,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = newx;
+                       value = newx; 
                     }
 
                     }
                     break;
                 case 11 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:247:4: sqlx= sqlExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:247:4: sqlx= sqlExpression
                     {
                     pushFollow(FOLLOW_sqlExpression_in_expressionNoSlotExp531);
                     sqlx=sqlExpression();
@@ -1381,13 +1384,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = sqlx;
+                       value = sqlx; 
                     }
 
                     }
                     break;
                 case 12 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:248:4: sexp= simpleExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:248:4: sexp= simpleExpression
                     {
                     pushFollow(FOLLOW_simpleExpression_in_expressionNoSlotExp540);
                     sexp=simpleExpression();
@@ -1395,7 +1398,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = sexp;
+                       value = sexp; 
                     }
 
                     }
@@ -1416,7 +1419,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptFuncDef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:251:1: scriptFuncDef returns [ FunctionDefinitionExpression value ] : ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:251:1: scriptFuncDef returns [ FunctionDefinitionExpression value ] : ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) ;
     public final FunctionDefinitionExpression scriptFuncDef() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -1431,13 +1434,13 @@ public class EllaWalker extends TreeParser {
         	((Block_scope)Block_stack.peek()).block = value;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:258:2: ( ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:258:4: ^( FUNC_DEF (var= varDef )? funcDefRest[function] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:258:2: ( ^( FUNC_DEF (var= varDef )? funcDefRest[function] ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:258:4: ^( FUNC_DEF (var= varDef )? funcDefRest[function] )
             {
             match(input,FUNC_DEF,FOLLOW_FUNC_DEF_in_scriptFuncDef568); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:259:4: (var= varDef )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:259:4: (var= varDef )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1446,7 +1449,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt11) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:259:6: var= varDef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:259:6: var= varDef
                     {
                     pushFollow(FOLLOW_varDef_in_scriptFuncDef577);
                     var=varDef();
@@ -1458,7 +1461,7 @@ public class EllaWalker extends TreeParser {
                       				function.setName(var.name);
                       				value.setVariable(var);
                       				value.setDeclareVariable(!var.defined);
-
+                      			
                     }
 
                     }
@@ -1492,19 +1495,19 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "funcDefRest"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:268:1: funcDefRest[ Function function ] : (args= argumentsDef )? unscopedBlock ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:268:1: funcDefRest[ Function function ] : (args= argumentsDef )? unscopedBlock ;
     public final void funcDefRest(Function function) throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
         List<Variable> args = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:271:2: ( (args= argumentsDef )? unscopedBlock )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:271:4: (args= argumentsDef )? unscopedBlock
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:271:2: ( (args= argumentsDef )? unscopedBlock )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:271:4: (args= argumentsDef )? unscopedBlock
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:271:4: (args= argumentsDef )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:271:4: (args= argumentsDef )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1513,7 +1516,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt12) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:271:6: args= argumentsDef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:271:6: args= argumentsDef
                     {
                     pushFollow(FOLLOW_argumentsDef_in_funcDefRest619);
                     args=argumentsDef();
@@ -1521,7 +1524,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       function.setArguments(args);
+                       function.setArguments(args); 
                     }
 
                     }
@@ -1553,7 +1556,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "blockClosure"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:275:1: blockClosure returns [ BlockClosureExpression value ] : ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:275:1: blockClosure returns [ BlockClosureExpression value ] : ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) ;
     public final BlockClosureExpression blockClosure() throws RecognitionException {
         Block_stack.push(new Block_scope());
 
@@ -1565,8 +1568,8 @@ public class EllaWalker extends TreeParser {
         	((Block_scope)Block_stack.peek()).block = value;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:282:2: ( ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:282:4: ^( BLOCK_CLOSURE blockClosureRest[blockClosure] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:282:2: ( ^( BLOCK_CLOSURE blockClosureRest[blockClosure] ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:282:4: ^( BLOCK_CLOSURE blockClosureRest[blockClosure] )
             {
             match(input,BLOCK_CLOSURE,FOLLOW_BLOCK_CLOSURE_in_blockClosure654); if (state.failed) return value;
 
@@ -1597,19 +1600,19 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "blockClosureRest"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:285:1: blockClosureRest[ BlockClosure blockClosure ] : (args= argumentsDef )? unscopedBlock ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:285:1: blockClosureRest[ BlockClosure blockClosure ] : (args= argumentsDef )? unscopedBlock ;
     public final void blockClosureRest(BlockClosure blockClosure) throws RecognitionException {
         Scope_stack.push(new Scope_scope());
 
         List<Variable> args = null;
 
 
-         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope);
+         ((Scope_scope)Scope_stack.peek()).scope = new Scope(((Scope_scope)Scope_stack.elementAt(Scope_stack.size()-1-1)).scope); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:288:2: ( (args= argumentsDef )? unscopedBlock )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:288:4: (args= argumentsDef )? unscopedBlock
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:288:2: ( (args= argumentsDef )? unscopedBlock )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:288:4: (args= argumentsDef )? unscopedBlock
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:288:4: (args= argumentsDef )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:288:4: (args= argumentsDef )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1618,7 +1621,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt13) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:288:6: args= argumentsDef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:288:6: args= argumentsDef
                     {
                     pushFollow(FOLLOW_argumentsDef_in_blockClosureRest685);
                     args=argumentsDef();
@@ -1626,7 +1629,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       blockClosure.setArguments(args);
+                       blockClosure.setArguments(args); 
                     }
 
                     }
@@ -1658,22 +1661,22 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "argumentsDef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:293:1: argumentsDef returns [ List<Variable> value ] : ^( ARGS (name= varDef )+ ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:293:1: argumentsDef returns [ List<Variable> value ] : ^( ARGS (name= varDef )+ ) ;
     public final List<Variable> argumentsDef() throws RecognitionException {
         List<Variable> value = null;
 
         Variable name = null;
 
 
-         value = new ArrayList<Variable>(10);
+         value = new ArrayList<Variable>(10); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:295:2: ( ^( ARGS (name= varDef )+ ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:295:4: ^( ARGS (name= varDef )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:295:2: ( ^( ARGS (name= varDef )+ ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:295:4: ^( ARGS (name= varDef )+ )
             {
             match(input,ARGS,FOLLOW_ARGS_in_argumentsDef716); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:295:11: (name= varDef )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:295:11: (name= varDef )+
             int cnt14=0;
             loop14:
             do {
@@ -1687,7 +1690,7 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt14) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:295:12: name= varDef
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:295:12: name= varDef
             	    {
             	    pushFollow(FOLLOW_varDef_in_argumentsDef721);
             	    name=varDef();
@@ -1695,7 +1698,7 @@ public class EllaWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       value.add(name);
+            	       value.add(name); 
             	    }
 
             	    }
@@ -1730,22 +1733,22 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "argumentsList"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:299:1: argumentsList returns [ List<Expression> value ] : ^( ARGS (expr= expression )+ ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:299:1: argumentsList returns [ List<Expression> value ] : ^( ARGS (expr= expression )+ ) ;
     public final List<Expression> argumentsList() throws RecognitionException {
         List<Expression> value = null;
 
         Expression expr = null;
 
 
-         value = new ArrayList<Expression>(10);
+         value = new ArrayList<Expression>(10); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:301:2: ( ^( ARGS (expr= expression )+ ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:301:4: ^( ARGS (expr= expression )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:301:2: ( ^( ARGS (expr= expression )+ ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:301:4: ^( ARGS (expr= expression )+ )
             {
             match(input,ARGS,FOLLOW_ARGS_in_argumentsList748); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:301:11: (expr= expression )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:301:11: (expr= expression )+
             int cnt15=0;
             loop15:
             do {
@@ -1759,7 +1762,7 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt15) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:301:13: expr= expression
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:301:13: expr= expression
             	    {
             	    pushFollow(FOLLOW_expression_in_argumentsList754);
             	    expr=expression();
@@ -1767,7 +1770,7 @@ public class EllaWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       value.add(expr);
+            	       value.add(expr); 
             	    }
 
             	    }
@@ -1802,7 +1805,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptDeclareAndAssign"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:304:1: scriptDeclareAndAssign returns [ Expression value ] : ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:304:1: scriptDeclareAndAssign returns [ Expression value ] : ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) ;
     public final Expression scriptDeclareAndAssign() throws RecognitionException {
         Expression value = null;
 
@@ -1811,10 +1814,10 @@ public class EllaWalker extends TreeParser {
         Expression assign = null;
 
 
-         Expression decl = null;
+         Expression decl = null; 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:306:2: ( ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:306:4: ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:306:2: ( ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:306:4: ^( DECLARE_ASSIGN declare= scriptDeclare assign= scriptAssign )
             {
             match(input,DECLARE_ASSIGN,FOLLOW_DECLARE_ASSIGN_in_scriptDeclareAndAssign782); if (state.failed) return value;
 
@@ -1825,7 +1828,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               decl = declare;
+               decl = declare; 
             }
             pushFollow(FOLLOW_scriptAssign_in_scriptDeclareAndAssign798);
             assign=scriptAssign();
@@ -1840,7 +1843,7 @@ public class EllaWalker extends TreeParser {
               				else {
               					value = assign;
               				}
-
+              			
             }
 
             match(input, Token.UP, null); if (state.failed) return value;
@@ -1861,7 +1864,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptDeclare"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:320:1: scriptDeclare returns [ DeclareVariableExpression value ] : ^( DECLARE var= varDef ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:320:1: scriptDeclare returns [ DeclareVariableExpression value ] : ^( DECLARE var= varDef ) ;
     public final DeclareVariableExpression scriptDeclare() throws RecognitionException {
         DeclareVariableExpression value = null;
 
@@ -1869,8 +1872,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:321:2: ( ^( DECLARE var= varDef ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:321:4: ^( DECLARE var= varDef )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:321:2: ( ^( DECLARE var= varDef ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:321:4: ^( DECLARE var= varDef )
             {
             match(input,DECLARE,FOLLOW_DECLARE_in_scriptDeclare821); if (state.failed) return value;
 
@@ -1889,7 +1892,7 @@ public class EllaWalker extends TreeParser {
               			else {
               				value = new DeclareVariableExpression(var);
               			}
-
+              		
             }
 
             match(input, Token.UP, null); if (state.failed) return value;
@@ -1910,7 +1913,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "scriptAssign"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:332:1: scriptAssign returns [ Expression value ] : ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:332:1: scriptAssign returns [ Expression value ] : ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) ;
     public final Expression scriptAssign() throws RecognitionException {
         Expression value = null;
 
@@ -1922,13 +1925,13 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:333:2: ( ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:333:4: ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:333:2: ( ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:333:4: ^( ASSIGN (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot ) )
             {
             match(input,ASSIGN,FOLLOW_ASSIGN_in_scriptAssign844); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:334:4: (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:334:4: (varExp= assignVariable | idxExp= assignIndex | slotExp= assignSlot )
             int alt16=3;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -1956,7 +1959,7 @@ public class EllaWalker extends TreeParser {
 
             switch (alt16) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:334:6: varExp= assignVariable
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:334:6: varExp= assignVariable
                     {
                     pushFollow(FOLLOW_assignVariable_in_scriptAssign853);
                     varExp=assignVariable();
@@ -1964,13 +1967,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = varExp;
+                       value = varExp; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:335:6: idxExp= assignIndex
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:335:6: idxExp= assignIndex
                     {
                     pushFollow(FOLLOW_assignIndex_in_scriptAssign864);
                     idxExp=assignIndex();
@@ -1978,13 +1981,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = idxExp;
+                       value = idxExp; 
                     }
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:336:6: slotExp= assignSlot
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:336:6: slotExp= assignSlot
                     {
                     pushFollow(FOLLOW_assignSlot_in_scriptAssign875);
                     slotExp=assignSlot();
@@ -1992,7 +1995,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = slotExp;
+                       value = slotExp; 
                     }
 
                     }
@@ -2019,7 +2022,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "assignVariable"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:341:1: assignVariable returns [ Expression value ] : lval= varRef rval= expression ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:341:1: assignVariable returns [ Expression value ] : lval= varRef rval= expression ;
     public final Expression assignVariable() throws RecognitionException {
         Expression value = null;
 
@@ -2029,8 +2032,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:342:2: (lval= varRef rval= expression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:342:4: lval= varRef rval= expression
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:342:2: (lval= varRef rval= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:342:4: lval= varRef rval= expression
             {
             pushFollow(FOLLOW_varRef_in_assignVariable903);
             lval=varRef();
@@ -2055,7 +2058,7 @@ public class EllaWalker extends TreeParser {
               			else {
               				value = new AssignExpression(variable, rval);
               			}
-
+              		
             }
 
             }
@@ -2074,7 +2077,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "assignIndex"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:357:1: assignIndex returns [ Expression value ] : lval= indexExpressionLHS rval= expression ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:357:1: assignIndex returns [ Expression value ] : lval= indexExpressionLHS rval= expression ;
     public final Expression assignIndex() throws RecognitionException {
         Expression value = null;
 
@@ -2084,8 +2087,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:358:2: (lval= indexExpressionLHS rval= expression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:358:4: lval= indexExpressionLHS rval= expression
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:358:2: (lval= indexExpressionLHS rval= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:358:4: lval= indexExpressionLHS rval= expression
             {
             pushFollow(FOLLOW_indexExpressionLHS_in_assignIndex926);
             lval=indexExpressionLHS();
@@ -2101,7 +2104,7 @@ public class EllaWalker extends TreeParser {
 
               			lval.addArgument(rval);
               			value = lval;
-
+              		
             }
 
             }
@@ -2120,7 +2123,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "assignSlot"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:365:1: assignSlot returns [ Expression value ] : lval= slotExpressionLHS rval= expression ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:365:1: assignSlot returns [ Expression value ] : lval= slotExpressionLHS rval= expression ;
     public final Expression assignSlot() throws RecognitionException {
         Expression value = null;
 
@@ -2130,8 +2133,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:366:2: (lval= slotExpressionLHS rval= expression )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:366:4: lval= slotExpressionLHS rval= expression
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:366:2: (lval= slotExpressionLHS rval= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:366:4: lval= slotExpressionLHS rval= expression
             {
             pushFollow(FOLLOW_slotExpressionLHS_in_assignSlot951);
             lval=slotExpressionLHS();
@@ -2144,7 +2147,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new SlotSetExpression(lval, rval);
+               value = new SlotSetExpression(lval, rval); 
             }
 
             }
@@ -2163,7 +2166,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "indexExpressionLHS"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:370:1: indexExpressionLHS returns [ SlotCallExpression value ] : exp= indexExpression_[POS_LHS] ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:370:1: indexExpressionLHS returns [ SlotCallExpression value ] : exp= indexExpression_[POS_LHS] ;
     public final SlotCallExpression indexExpressionLHS() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -2171,8 +2174,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:371:2: (exp= indexExpression_[POS_LHS] )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:371:4: exp= indexExpression_[POS_LHS]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:371:2: (exp= indexExpression_[POS_LHS] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:371:4: exp= indexExpression_[POS_LHS]
             {
             pushFollow(FOLLOW_indexExpression__in_indexExpressionLHS976);
             exp=indexExpression_(POS_LHS);
@@ -2180,7 +2183,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp;
+               value = exp; 
             }
 
             }
@@ -2199,7 +2202,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "indexExpressionRHS"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:374:1: indexExpressionRHS returns [ SlotCallExpression value ] : exp= indexExpression_[POS_RHS] ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:374:1: indexExpressionRHS returns [ SlotCallExpression value ] : exp= indexExpression_[POS_RHS] ;
     public final SlotCallExpression indexExpressionRHS() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -2207,8 +2210,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:375:2: (exp= indexExpression_[POS_RHS] )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:375:4: exp= indexExpression_[POS_RHS]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:375:2: (exp= indexExpression_[POS_RHS] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:375:4: exp= indexExpression_[POS_RHS]
             {
             pushFollow(FOLLOW_indexExpression__in_indexExpressionRHS996);
             exp=indexExpression_(POS_RHS);
@@ -2216,7 +2219,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp;
+               value = exp; 
             }
 
             }
@@ -2235,7 +2238,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "indexExpression_"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:378:1: indexExpression_[ int pos ] returns [ SlotCallExpression value ] : ^( INDEX receiver= expression index= expression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:378:1: indexExpression_[ int pos ] returns [ SlotCallExpression value ] : ^( INDEX receiver= expression index= expression ) ;
     public final SlotCallExpression indexExpression_(int pos) throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -2245,8 +2248,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:379:2: ( ^( INDEX receiver= expression index= expression ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:379:4: ^( INDEX receiver= expression index= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:379:2: ( ^( INDEX receiver= expression index= expression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:379:4: ^( INDEX receiver= expression index= expression )
             {
             match(input,INDEX,FOLLOW_INDEX_in_indexExpression_1017); if (state.failed) return value;
 
@@ -2269,7 +2272,7 @@ public class EllaWalker extends TreeParser {
               			value = new SlotCallExpression(new SlotExpression(receiver, slotExp));
               			value.addArgument(index);
               			//value = pos == POS_RHS ? /* gen "get" */ new NullExpression() : /* gen "set" */ new NullExpression();
-
+              		
             }
 
             }
@@ -2288,7 +2291,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "slotExpressionLHS"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:388:1: slotExpressionLHS returns [ SlotExpression value ] : exp= slotExpression_[POS_LHS] ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:388:1: slotExpressionLHS returns [ SlotExpression value ] : exp= slotExpression_[POS_LHS] ;
     public final SlotExpression slotExpressionLHS() throws RecognitionException {
         SlotExpression value = null;
 
@@ -2296,8 +2299,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:389:2: (exp= slotExpression_[POS_LHS] )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:389:4: exp= slotExpression_[POS_LHS]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:389:2: (exp= slotExpression_[POS_LHS] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:389:4: exp= slotExpression_[POS_LHS]
             {
             pushFollow(FOLLOW_slotExpression__in_slotExpressionLHS1047);
             exp=slotExpression_(POS_LHS);
@@ -2305,7 +2308,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp;
+               value = exp; 
             }
 
             }
@@ -2324,7 +2327,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "slotExpressionRHS"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:392:1: slotExpressionRHS returns [ SlotExpression value ] : exp= slotExpression_[POS_RHS] ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:392:1: slotExpressionRHS returns [ SlotExpression value ] : exp= slotExpression_[POS_RHS] ;
     public final SlotExpression slotExpressionRHS() throws RecognitionException {
         SlotExpression value = null;
 
@@ -2332,8 +2335,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:393:2: (exp= slotExpression_[POS_RHS] )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:393:4: exp= slotExpression_[POS_RHS]
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:393:2: (exp= slotExpression_[POS_RHS] )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:393:4: exp= slotExpression_[POS_RHS]
             {
             pushFollow(FOLLOW_slotExpression__in_slotExpressionRHS1067);
             exp=slotExpression_(POS_RHS);
@@ -2341,7 +2344,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = exp;
+               value = exp; 
             }
 
             }
@@ -2360,7 +2363,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "slotExpression_"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:396:1: slotExpression_[ int pos ] returns [ SlotExpression value ] : ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:396:1: slotExpression_[ int pos ] returns [ SlotExpression value ] : ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) ;
     public final SlotExpression slotExpression_(int pos) throws RecognitionException {
         SlotExpression value = null;
 
@@ -2372,8 +2375,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:397:2: ( ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:397:4: ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:397:2: ( ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:397:4: ^( SLOT receiver= expression ( ( identifier )=>slotName= identifierExpression | slotExpr= expression ) )
             {
             match(input,SLOT,FOLLOW_SLOT_in_slotExpression_1088); if (state.failed) return value;
 
@@ -2383,7 +2386,7 @@ public class EllaWalker extends TreeParser {
 
             state._fsp--;
             if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:398:4: ( ( identifier )=>slotName= identifierExpression | slotExpr= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:398:4: ( ( identifier )=>slotName= identifierExpression | slotExpr= expression )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2416,7 +2419,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt17) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:398:6: ( identifier )=>slotName= identifierExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:398:6: ( identifier )=>slotName= identifierExpression
                     {
                     pushFollow(FOLLOW_identifierExpression_in_slotExpression_1106);
                     slotName=identifierExpression();
@@ -2424,13 +2427,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = new SlotExpression(receiver, slotName);
+                       value = new SlotExpression(receiver, slotName); 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:399:6: slotExpr= expression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:399:6: slotExpr= expression
                     {
                     pushFollow(FOLLOW_expression_in_slotExpression_1117);
                     slotExpr=expression();
@@ -2438,7 +2441,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = new SlotExpression(receiver, slotExpr);
+                       value = new SlotExpression(receiver, slotExpr); 
                     }
 
                     }
@@ -2465,7 +2468,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "callExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:404:1: callExpression returns [ Expression value ] : ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:404:1: callExpression returns [ Expression value ] : ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) ;
     public final Expression callExpression() throws RecognitionException {
         Expression value = null;
 
@@ -2475,13 +2478,13 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:405:2: ( ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:405:4: ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:405:2: ( ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:405:4: ^( CALL (slotCall= slotCallExpression | funcCall= funcCallExpression ) )
             {
             match(input,CALL,FOLLOW_CALL_in_callExpression1147); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:406:4: (slotCall= slotCallExpression | funcCall= funcCallExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:406:4: (slotCall= slotCallExpression | funcCall= funcCallExpression )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2500,7 +2503,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt18) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:406:6: slotCall= slotCallExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:406:6: slotCall= slotCallExpression
                     {
                     pushFollow(FOLLOW_slotCallExpression_in_callExpression1156);
                     slotCall=slotCallExpression();
@@ -2508,13 +2511,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = slotCall;
+                       value = slotCall; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:407:6: funcCall= funcCallExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:407:6: funcCall= funcCallExpression
                     {
                     pushFollow(FOLLOW_funcCallExpression_in_callExpression1167);
                     funcCall=funcCallExpression();
@@ -2522,7 +2525,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = funcCall;
+                       value = funcCall; 
                     }
 
                     }
@@ -2549,7 +2552,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "slotCallExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:412:1: slotCallExpression returns [ SlotCallExpression value ] : slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ( SUPER )? ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:412:1: slotCallExpression returns [ SlotCallExpression value ] : slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ( SUPER )? ;
     public final SlotCallExpression slotCallExpression() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -2561,8 +2564,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:413:2: (slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ( SUPER )? )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:413:4: slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ( SUPER )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:413:2: (slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ( SUPER )? )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:413:4: slotExpr= slotExpressionRHS (callArgs= argumentsList )? (blockArg= blockClosure )? ( SUPER )?
             {
             pushFollow(FOLLOW_slotExpressionRHS_in_slotCallExpression1195);
             slotExpr=slotExpressionRHS();
@@ -2570,9 +2573,9 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new SlotCallExpression(slotExpr);
+               value = new SlotCallExpression(slotExpr); 
             }
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:414:3: (callArgs= argumentsList )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:414:3: (callArgs= argumentsList )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2581,7 +2584,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt19) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:414:4: callArgs= argumentsList
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:414:4: callArgs= argumentsList
                     {
                     pushFollow(FOLLOW_argumentsList_in_slotCallExpression1204);
                     callArgs=argumentsList();
@@ -2589,7 +2592,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setArguments(callArgs);
+                       value.setArguments(callArgs); 
                     }
 
                     }
@@ -2597,7 +2600,7 @@ public class EllaWalker extends TreeParser {
 
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:415:3: (blockArg= blockClosure )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:415:3: (blockArg= blockClosure )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2606,7 +2609,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt20) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:415:4: blockArg= blockClosure
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:415:4: blockArg= blockClosure
                     {
                     pushFollow(FOLLOW_blockClosure_in_slotCallExpression1215);
                     blockArg=blockClosure();
@@ -2614,7 +2617,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.addArgument(blockArg);
+                       value.addArgument(blockArg); 
                     }
 
                     }
@@ -2622,7 +2625,7 @@ public class EllaWalker extends TreeParser {
 
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:416:3: ( SUPER )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:416:3: ( SUPER )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2631,11 +2634,11 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt21) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:416:4: SUPER
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:416:4: SUPER
                     {
                     match(input,SUPER,FOLLOW_SUPER_in_slotCallExpression1224); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setSuperCall(true);
+                       value.setSuperCall(true); 
                     }
 
                     }
@@ -2660,7 +2663,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "funcCallExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:419:1: funcCallExpression returns [ AbstractFunctionCallExpression value ] : expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:419:1: funcCallExpression returns [ AbstractFunctionCallExpression value ] : expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? ;
     public final AbstractFunctionCallExpression funcCallExpression() throws RecognitionException {
         AbstractFunctionCallExpression value = null;
 
@@ -2672,8 +2675,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:420:2: (expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:420:4: expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:420:2: (expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )? )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:420:4: expr= expressionNoSlotExp (callArgs= argumentsList )? (blockArg= blockClosure )?
             {
             pushFollow(FOLLOW_expressionNoSlotExp_in_funcCallExpression1245);
             expr=expressionNoSlotExp();
@@ -2681,9 +2684,9 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new FunctionCallExpression(expr);
+               value = new FunctionCallExpression(expr); 
             }
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:421:3: (callArgs= argumentsList )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:421:3: (callArgs= argumentsList )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -2692,7 +2695,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt22) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:421:4: callArgs= argumentsList
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:421:4: callArgs= argumentsList
                     {
                     pushFollow(FOLLOW_argumentsList_in_funcCallExpression1254);
                     callArgs=argumentsList();
@@ -2700,7 +2703,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.setArguments(callArgs);
+                       value.setArguments(callArgs); 
                     }
 
                     }
@@ -2708,7 +2711,7 @@ public class EllaWalker extends TreeParser {
 
             }
 
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:422:3: (blockArg= blockClosure )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:422:3: (blockArg= blockClosure )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2717,7 +2720,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt23) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:422:4: blockArg= blockClosure
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:422:4: blockArg= blockClosure
                     {
                     pushFollow(FOLLOW_blockClosure_in_funcCallExpression1265);
                     blockArg=blockClosure();
@@ -2725,7 +2728,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value.addArgument(blockArg);
+                       value.addArgument(blockArg); 
                     }
 
                     }
@@ -2750,7 +2753,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "callBinaryExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:425:1: callBinaryExpression returns [ SlotCallExpression value ] : ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:425:1: callBinaryExpression returns [ SlotCallExpression value ] : ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) ;
     public final SlotCallExpression callBinaryExpression() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -2762,8 +2765,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:426:2: ( ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:426:4: ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:426:2: ( ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:426:4: ^( CALL_BINARY receiver= expression op= identifierExpression arg= expression )
             {
             match(input,CALL_BINARY,FOLLOW_CALL_BINARY_in_callBinaryExpression1285); if (state.failed) return value;
 
@@ -2791,7 +2794,7 @@ public class EllaWalker extends TreeParser {
               			List<Expression> args = new ArrayList<Expression>(1);
               			args.add(arg);
               			value.setArguments(args);
-
+              		
             }
 
             }
@@ -2810,7 +2813,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "callUnaryExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:438:1: callUnaryExpression returns [ SlotCallExpression value ] : ^( CALL_UNARY receiver= expression op= identifierExpression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:438:1: callUnaryExpression returns [ SlotCallExpression value ] : ^( CALL_UNARY receiver= expression op= identifierExpression ) ;
     public final SlotCallExpression callUnaryExpression() throws RecognitionException {
         SlotCallExpression value = null;
 
@@ -2820,8 +2823,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:439:2: ( ^( CALL_UNARY receiver= expression op= identifierExpression ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:439:4: ^( CALL_UNARY receiver= expression op= identifierExpression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:439:2: ( ^( CALL_UNARY receiver= expression op= identifierExpression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:439:4: ^( CALL_UNARY receiver= expression op= identifierExpression )
             {
             match(input,CALL_UNARY,FOLLOW_CALL_UNARY_in_callUnaryExpression1328); if (state.failed) return value;
 
@@ -2841,7 +2844,7 @@ public class EllaWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new SlotCallExpression(new SlotExpression(receiver, op));
-
+              		
             }
 
             }
@@ -2860,7 +2863,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "newExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:447:1: newExpression returns [ Expression value ] : ^( NEW exp= expression (args= argumentsList )? ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:447:1: newExpression returns [ Expression value ] : ^( NEW exp= expression (args= argumentsList )? ) ;
     public final Expression newExpression() throws RecognitionException {
         Expression value = null;
 
@@ -2870,8 +2873,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:448:2: ( ^( NEW exp= expression (args= argumentsList )? ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:448:4: ^( NEW exp= expression (args= argumentsList )? )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:448:2: ( ^( NEW exp= expression (args= argumentsList )? ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:448:4: ^( NEW exp= expression (args= argumentsList )? )
             {
             match(input,NEW,FOLLOW_NEW_in_newExpression1364); if (state.failed) return value;
 
@@ -2881,7 +2884,7 @@ public class EllaWalker extends TreeParser {
 
             state._fsp--;
             if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:448:25: (args= argumentsList )?
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:448:25: (args= argumentsList )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -2890,7 +2893,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt24) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:448:26: args= argumentsList
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:448:26: args= argumentsList
                     {
                     pushFollow(FOLLOW_argumentsList_in_newExpression1373);
                     args=argumentsList();
@@ -2908,7 +2911,7 @@ public class EllaWalker extends TreeParser {
             if ( state.backtracking==0 ) {
 
               			value = new NewExpression(exp, args);
-
+              		
             }
 
             }
@@ -2927,7 +2930,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "simpleExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:453:1: simpleExpression returns [ Expression value ] : (var= varRef | THIS | SUPER | intLit= INT | floatLit= FLOAT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral | array= arrayLiteral );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:453:1: simpleExpression returns [ Expression value ] : (var= varRef | THIS | SUPER | intLit= INT | floatLit= FLOAT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral | array= arrayLiteral );
     public final Expression simpleExpression() throws RecognitionException {
         Expression value = null;
 
@@ -2945,7 +2948,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:454:2: (var= varRef | THIS | SUPER | intLit= INT | floatLit= FLOAT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral | array= arrayLiteral )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:454:2: (var= varRef | THIS | SUPER | intLit= INT | floatLit= FLOAT | str= stringLiteral | bool= booleanLiteral | obj= objectLiteral | array= arrayLiteral )
             int alt25=9;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -3004,7 +3007,7 @@ public class EllaWalker extends TreeParser {
 
             switch (alt25) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:454:4: var= varRef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:454:4: var= varRef
                     {
                     pushFollow(FOLLOW_varRef_in_simpleExpression1395);
                     var=varRef();
@@ -3014,61 +3017,61 @@ public class EllaWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new VariableExpression(var);
-
+                      		
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:457:4: THIS
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:457:4: THIS
                     {
                     match(input,THIS,FOLLOW_THIS_in_simpleExpression1402); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
 
                       			value = new ThisExpression();
-
+                      		
                     }
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:460:4: SUPER
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:460:4: SUPER
                     {
                     match(input,SUPER,FOLLOW_SUPER_in_simpleExpression1409); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
 
                       			value = new SuperExpression();
-
+                      		
                     }
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:463:4: intLit= INT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:463:4: intLit= INT
                     {
                     intLit=(CommonTree)match(input,INT,FOLLOW_INT_in_simpleExpression1418); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
 
                       			value = new IntegerLiteralExpression((intLit!=null?intLit.getText():null));
-
+                      		
                     }
 
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:466:4: floatLit= FLOAT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:466:4: floatLit= FLOAT
                     {
                     floatLit=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_simpleExpression1427); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
 
                       			value = new FloatingPointLiteralExpression((floatLit!=null?floatLit.getText():null));
-
+                      		
                     }
 
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:469:4: str= stringLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:469:4: str= stringLiteral
                     {
                     pushFollow(FOLLOW_stringLiteral_in_simpleExpression1436);
                     str=stringLiteral();
@@ -3078,13 +3081,13 @@ public class EllaWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new StringLiteralExpression(str);
-
+                      		
                     }
 
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:472:4: bool= booleanLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:472:4: bool= booleanLiteral
                     {
                     pushFollow(FOLLOW_booleanLiteral_in_simpleExpression1445);
                     bool=booleanLiteral();
@@ -3094,13 +3097,13 @@ public class EllaWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new BooleanLiteralExpression(bool);
-
+                      		
                     }
 
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:475:4: obj= objectLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:475:4: obj= objectLiteral
                     {
                     pushFollow(FOLLOW_objectLiteral_in_simpleExpression1454);
                     obj=objectLiteral();
@@ -3110,13 +3113,13 @@ public class EllaWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new ObjectLiteralExpression(obj);
-
+                      		
                     }
 
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:478:4: array= arrayLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:478:4: array= arrayLiteral
                     {
                     pushFollow(FOLLOW_arrayLiteral_in_simpleExpression1463);
                     array=arrayLiteral();
@@ -3126,7 +3129,7 @@ public class EllaWalker extends TreeParser {
                     if ( state.backtracking==0 ) {
 
                       			value = new ArrayLiteralExpression(array);
-
+                      		
                     }
 
                     }
@@ -3147,7 +3150,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:483:1: sqlExpression returns [ Expression value ] : ^( ( SQL_STMT | SQL_EXPR ) lit= sqlLiteral ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:483:1: sqlExpression returns [ Expression value ] : ^( ( SQL_STMT | SQL_EXPR ) lit= sqlLiteral ) ;
     public final Expression sqlExpression() throws RecognitionException {
         Expression value = null;
 
@@ -3159,10 +3162,10 @@ public class EllaWalker extends TreeParser {
         	SQLLiteralExpression sql = null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:492:2: ( ^( ( SQL_STMT | SQL_EXPR ) lit= sqlLiteral ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:492:4: ^( ( SQL_STMT | SQL_EXPR ) lit= sqlLiteral )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:492:2: ( ^( ( SQL_STMT | SQL_EXPR ) lit= sqlLiteral ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:492:4: ^( ( SQL_STMT | SQL_EXPR ) lit= sqlLiteral )
             {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:492:6: ( SQL_STMT | SQL_EXPR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:492:6: ( SQL_STMT | SQL_EXPR )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3181,21 +3184,21 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt26) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:492:8: SQL_STMT
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:492:8: SQL_STMT
                     {
                     match(input,SQL_STMT,FOLLOW_SQL_STMT_in_sqlExpression1493); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       slotName = "execStmt";
+                       slotName = "execStmt"; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:493:7: SQL_EXPR
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:493:7: SQL_EXPR
                     {
                     match(input,SQL_EXPR,FOLLOW_SQL_EXPR_in_sqlExpression1503); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       slotName = "createStmt";
+                       slotName = "createStmt"; 
                     }
 
                     }
@@ -3211,7 +3214,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               sql = lit;
+               sql = lit; 
             }
 
             match(input, Token.UP, null); if (state.failed) return value;
@@ -3238,7 +3241,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:499:1: sqlLiteral returns [ SQLLiteralExpression value ] : ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:499:1: sqlLiteral returns [ SQLLiteralExpression value ] : ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* ) ;
     public final SQLLiteralExpression sqlLiteral() throws RecognitionException {
         SQLLiteralExpression value = null;
 
@@ -3249,10 +3252,10 @@ public class EllaWalker extends TreeParser {
         Object param = null;
 
 
-         SQLLiteralExpression sql = new SQLLiteralExpression();
+         SQLLiteralExpression sql = new SQLLiteralExpression(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:502:2: ( ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:502:4: ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:502:2: ( ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:502:4: ^( SQL mode= sqlParseMode name= sqlStmtName (param= sqlToken )* )
             {
             match(input,SQL,FOLLOW_SQL_in_sqlLiteral1551); if (state.failed) return value;
 
@@ -3263,7 +3266,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               sql.setParseMode(mode);
+               sql.setParseMode(mode); 
             }
             pushFollow(FOLLOW_sqlStmtName_in_sqlLiteral1567);
             name=sqlStmtName();
@@ -3271,9 +3274,9 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               sql.addPart(name);
+               sql.addPart(name); 
             }
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:505:4: (param= sqlToken )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:505:4: (param= sqlToken )*
             loop27:
             do {
                 int alt27=2;
@@ -3286,7 +3289,7 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt27) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:505:5: param= sqlToken
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:505:5: param= sqlToken
             	    {
             	    pushFollow(FOLLOW_sqlToken_in_sqlLiteral1577);
             	    param=sqlToken();
@@ -3294,7 +3297,7 @@ public class EllaWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       sql.addPart(param);
+            	       sql.addPart(param); 
             	    }
 
             	    }
@@ -3311,7 +3314,7 @@ public class EllaWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = sql;
+               value = sql; 
             }
         }
 
@@ -3327,19 +3330,19 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlParseMode"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:509:1: sqlParseMode returns [ SQLParseMode value ] : mode= SQL_MODE ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:509:1: sqlParseMode returns [ SQLParseMode value ] : mode= SQL_MODE ;
     public final SQLParseMode sqlParseMode() throws RecognitionException {
         SQLParseMode value = null;
 
         CommonTree mode=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:510:2: (mode= SQL_MODE )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:510:4: mode= SQL_MODE
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:510:2: (mode= SQL_MODE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:510:4: mode= SQL_MODE
             {
             mode=(CommonTree)match(input,SQL_MODE,FOLLOW_SQL_MODE_in_sqlParseMode1603); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((SQLModeToken)mode.token).getParseMode();
+               value = ((SQLModeToken)mode.token).getParseMode(); 
             }
 
             }
@@ -3358,7 +3361,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlStmtName"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:513:1: sqlStmtName returns [ Object value ] : (name= WORD | var= embeddedVarRef );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:513:1: sqlStmtName returns [ Object value ] : (name= WORD | var= embeddedVarRef );
     public final Object sqlStmtName() throws RecognitionException {
         Object value = null;
 
@@ -3367,7 +3370,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:514:2: (name= WORD | var= embeddedVarRef )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:514:2: (name= WORD | var= embeddedVarRef )
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -3386,17 +3389,17 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt28) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:514:4: name= WORD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:514:4: name= WORD
                     {
                     name=(CommonTree)match(input,WORD,FOLLOW_WORD_in_sqlStmtName1622); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = (name!=null?name.getText():null);
+                       value = (name!=null?name.getText():null); 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:515:4: var= embeddedVarRef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:515:4: var= embeddedVarRef
                     {
                     pushFollow(FOLLOW_embeddedVarRef_in_sqlStmtName1643);
                     var=embeddedVarRef();
@@ -3404,7 +3407,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = var;
+                       value = var; 
                     }
 
                     }
@@ -3425,7 +3428,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlToken"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:518:1: sqlToken returns [ Object value ] : (str= stringLiteral | id= identifier | chr= sqlAtom | kw= keyword | ws= ( WS | NL ) | var= embeddedVarRef );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:518:1: sqlToken returns [ Object value ] : (str= stringLiteral | id= identifier | chr= sqlAtom | kw= keyword | ws= ( WS | NL ) | var= embeddedVarRef );
     public final Object sqlToken() throws RecognitionException {
         Object value = null;
 
@@ -3442,7 +3445,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:519:2: (str= stringLiteral | id= identifier | chr= sqlAtom | kw= keyword | ws= ( WS | NL ) | var= embeddedVarRef )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:519:2: (str= stringLiteral | id= identifier | chr= sqlAtom | kw= keyword | ws= ( WS | NL ) | var= embeddedVarRef )
             int alt29=6;
             switch ( input.LA(1) ) {
             case STRING:
@@ -3538,7 +3541,7 @@ public class EllaWalker extends TreeParser {
 
             switch (alt29) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:519:4: str= stringLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:519:4: str= stringLiteral
                     {
                     pushFollow(FOLLOW_stringLiteral_in_sqlToken1665);
                     str=stringLiteral();
@@ -3546,13 +3549,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = str;
+                       value = str; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:520:4: id= identifier
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:520:4: id= identifier
                     {
                     pushFollow(FOLLOW_identifier_in_sqlToken1678);
                     id=identifier();
@@ -3560,13 +3563,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = id;
+                       value = id; 
                     }
 
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:521:4: chr= sqlAtom
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:521:4: chr= sqlAtom
                     {
                     pushFollow(FOLLOW_sqlAtom_in_sqlToken1695);
                     chr=sqlAtom();
@@ -3574,13 +3577,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = chr;
+                       value = chr; 
                     }
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:522:4: kw= keyword
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:522:4: kw= keyword
                     {
                     pushFollow(FOLLOW_keyword_in_sqlToken1706);
                     kw=keyword();
@@ -3588,13 +3591,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = kw;
+                       value = kw; 
                     }
 
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:523:4: ws= ( WS | NL )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:523:4: ws= ( WS | NL )
                     {
                     ws=(CommonTree)input.LT(1);
                     if ( (input.LA(1)>=WS && input.LA(1)<=NL) ) {
@@ -3608,13 +3611,13 @@ public class EllaWalker extends TreeParser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       value = (ws!=null?ws.getText():null);
+                       value = (ws!=null?ws.getText():null); 
                     }
 
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:524:4: var= embeddedVarRef
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:524:4: var= embeddedVarRef
                     {
                     pushFollow(FOLLOW_embeddedVarRef_in_sqlToken1750);
                     var=embeddedVarRef();
@@ -3622,7 +3625,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = var;
+                       value = var; 
                     }
 
                     }
@@ -3643,15 +3646,15 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlAtom"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:527:1: sqlAtom returns [ String value ] : c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | EXCLAM | QUESTION | COLON | DOT | COMMA | STR_SQUOT | STR_DQUOT | STR_BTICK | INT | FLOAT ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:527:1: sqlAtom returns [ String value ] : c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | EXCLAM | QUESTION | COLON | DOT | COMMA | STR_SQUOT | STR_DQUOT | STR_BTICK | INT | FLOAT ) ;
     public final String sqlAtom() throws RecognitionException {
         String value = null;
 
         CommonTree c=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:528:2: (c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | EXCLAM | QUESTION | COLON | DOT | COMMA | STR_SQUOT | STR_DQUOT | STR_BTICK | INT | FLOAT ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:528:4: c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | EXCLAM | QUESTION | COLON | DOT | COMMA | STR_SQUOT | STR_DQUOT | STR_BTICK | INT | FLOAT )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:528:2: (c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | EXCLAM | QUESTION | COLON | DOT | COMMA | STR_SQUOT | STR_DQUOT | STR_BTICK | INT | FLOAT ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:528:4: c= ( SQL_SPECIAL_CHAR | LPAREN | RPAREN | LCURLY | RCURLY | LSQUARE | RSQUARE | EQUALS | BACKSLASH | ATSIGN | OP_DEFINE | OP_AND | OP_OR | OP_EQ | OP_NE | OP_ID | OP_NI | OP_GT | OP_GE | OP_LT | OP_LE | EXCLAM | QUESTION | COLON | DOT | COMMA | STR_SQUOT | STR_DQUOT | STR_BTICK | INT | FLOAT )
             {
             c=(CommonTree)input.LT(1);
             if ( (input.LA(1)>=ATSIGN && input.LA(1)<=RCURLY)||(input.LA(1)>=STR_SQUOT && input.LA(1)<=STR_BTICK)||(input.LA(1)>=INT && input.LA(1)<=FLOAT)||input.LA(1)==BACKSLASH||(input.LA(1)>=OP_DEFINE && input.LA(1)<=OP_LE)||(input.LA(1)>=EQUALS && input.LA(1)<=COMMA)||input.LA(1)==SQL_SPECIAL_CHAR ) {
@@ -3665,7 +3668,7 @@ public class EllaWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = (c!=null?c.getText():null);
+               value = (c!=null?c.getText():null); 
             }
 
             }
@@ -3684,19 +3687,19 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlLiteralParamed"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:542:1: sqlLiteralParamed returns [ RawParamedSQL value ] : ^( SQL ( sqlTokenParamed[$value] )+ ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:542:1: sqlLiteralParamed returns [ RawParamedSQL value ] : ^( SQL ( sqlTokenParamed[$value] )+ ) ;
     public final RawParamedSQL sqlLiteralParamed() throws RecognitionException {
         RawParamedSQL value = null;
 
-         value = new RawParamedSQL();
+         value = new RawParamedSQL(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:544:2: ( ^( SQL ( sqlTokenParamed[$value] )+ ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:544:4: ^( SQL ( sqlTokenParamed[$value] )+ )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:544:2: ( ^( SQL ( sqlTokenParamed[$value] )+ ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:544:4: ^( SQL ( sqlTokenParamed[$value] )+ )
             {
             match(input,SQL,FOLLOW_SQL_in_sqlLiteralParamed1945); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:544:10: ( sqlTokenParamed[$value] )+
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:544:10: ( sqlTokenParamed[$value] )+
             int cnt30=0;
             loop30:
             do {
@@ -3710,7 +3713,7 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt30) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:544:10: sqlTokenParamed[$value]
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:544:10: sqlTokenParamed[$value]
             	    {
             	    pushFollow(FOLLOW_sqlTokenParamed_in_sqlLiteralParamed1947);
             	    sqlTokenParamed(value);
@@ -3750,7 +3753,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "sqlTokenParamed"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:547:1: sqlTokenParamed[ RawParamedSQL stmt ] : ( SQL_MODE | ^( STRING STRING_START ( STRING_CONTENT )* STRING_END ) | SEP | WORD | WS | NL | identifier | sqlAtom | keyword | SQL_PARAM );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:547:1: sqlTokenParamed[ RawParamedSQL stmt ] : ( SQL_MODE | ^( STRING STRING_START ( STRING_CONTENT )* STRING_END ) | SEP | WORD | WS | NL | identifier | sqlAtom | keyword | SQL_PARAM );
     public final void sqlTokenParamed(RawParamedSQL stmt) throws RecognitionException {
         CommonTree STRING_START2=null;
         CommonTree STRING_CONTENT3=null;
@@ -3768,7 +3771,7 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:548:2: ( SQL_MODE | ^( STRING STRING_START ( STRING_CONTENT )* STRING_END ) | SEP | WORD | WS | NL | identifier | sqlAtom | keyword | SQL_PARAM )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:548:2: ( SQL_MODE | ^( STRING STRING_START ( STRING_CONTENT )* STRING_END ) | SEP | WORD | WS | NL | identifier | sqlAtom | keyword | SQL_PARAM )
             int alt32=10;
             switch ( input.LA(1) ) {
             case SQL_MODE:
@@ -3883,23 +3886,23 @@ public class EllaWalker extends TreeParser {
 
             switch (alt32) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:548:4: SQL_MODE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:548:4: SQL_MODE
                     {
                     match(input,SQL_MODE,FOLLOW_SQL_MODE_in_sqlTokenParamed1963); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:549:4: ^( STRING STRING_START ( STRING_CONTENT )* STRING_END )
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:549:4: ^( STRING STRING_START ( STRING_CONTENT )* STRING_END )
                     {
                     match(input,STRING,FOLLOW_STRING_in_sqlTokenParamed1969); if (state.failed) return ;
 
                     match(input, Token.DOWN, null); if (state.failed) return ;
                     STRING_START2=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_sqlTokenParamed1974); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((STRING_START2!=null?STRING_START2.getText():null));
+                       stmt.appendToken((STRING_START2!=null?STRING_START2.getText():null)); 
                     }
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:551:4: ( STRING_CONTENT )*
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:551:4: ( STRING_CONTENT )*
                     loop31:
                     do {
                         int alt31=2;
@@ -3912,11 +3915,11 @@ public class EllaWalker extends TreeParser {
 
                         switch (alt31) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:551:5: STRING_CONTENT
+                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:551:5: STRING_CONTENT
                     	    {
                     	    STRING_CONTENT3=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_sqlTokenParamed1982); if (state.failed) return ;
                     	    if ( state.backtracking==0 ) {
-                    	       stmt.appendToken((STRING_CONTENT3!=null?STRING_CONTENT3.getText():null));
+                    	       stmt.appendToken((STRING_CONTENT3!=null?STRING_CONTENT3.getText():null)); 
                     	    }
 
                     	    }
@@ -3929,7 +3932,7 @@ public class EllaWalker extends TreeParser {
 
                     STRING_END4=(CommonTree)match(input,STRING_END,FOLLOW_STRING_END_in_sqlTokenParamed1991); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((STRING_END4!=null?STRING_END4.getText():null));
+                       stmt.appendToken((STRING_END4!=null?STRING_END4.getText():null)); 
                     }
 
                     match(input, Token.UP, null); if (state.failed) return ;
@@ -3937,47 +3940,47 @@ public class EllaWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:554:4: SEP
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:554:4: SEP
                     {
                     SEP5=(CommonTree)match(input,SEP,FOLLOW_SEP_in_sqlTokenParamed2002); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((SEP5!=null?SEP5.getText():null));
+                       stmt.appendToken((SEP5!=null?SEP5.getText():null)); 
                     }
 
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:555:4: WORD
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:555:4: WORD
                     {
                     WORD6=(CommonTree)match(input,WORD,FOLLOW_WORD_in_sqlTokenParamed2009); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((WORD6!=null?WORD6.getText():null));
+                       stmt.appendToken((WORD6!=null?WORD6.getText():null)); 
                     }
 
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:556:4: WS
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:556:4: WS
                     {
                     WS7=(CommonTree)match(input,WS,FOLLOW_WS_in_sqlTokenParamed2016); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((WS7!=null?WS7.getText():null));
+                       stmt.appendToken((WS7!=null?WS7.getText():null)); 
                     }
 
                     }
                     break;
                 case 6 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:557:4: NL
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:557:4: NL
                     {
                     NL8=(CommonTree)match(input,NL,FOLLOW_NL_in_sqlTokenParamed2023); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken((NL8!=null?NL8.getText():null));
+                       stmt.appendToken((NL8!=null?NL8.getText():null)); 
                     }
 
                     }
                     break;
                 case 7 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:558:4: identifier
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:558:4: identifier
                     {
                     pushFollow(FOLLOW_identifier_in_sqlTokenParamed2030);
                     identifier9=identifier();
@@ -3985,13 +3988,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken(identifier9);
+                       stmt.appendToken(identifier9); 
                     }
 
                     }
                     break;
                 case 8 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:559:4: sqlAtom
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:559:4: sqlAtom
                     {
                     pushFollow(FOLLOW_sqlAtom_in_sqlTokenParamed2037);
                     sqlAtom10=sqlAtom();
@@ -3999,13 +4002,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken(sqlAtom10);
+                       stmt.appendToken(sqlAtom10); 
                     }
 
                     }
                     break;
                 case 9 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:560:4: keyword
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:560:4: keyword
                     {
                     pushFollow(FOLLOW_keyword_in_sqlTokenParamed2044);
                     keyword11=keyword();
@@ -4013,20 +4016,20 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       stmt.appendToken(keyword11);
+                       stmt.appendToken(keyword11); 
                     }
 
                     }
                     break;
                 case 10 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:561:4: SQL_PARAM
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:561:4: SQL_PARAM
                     {
                     SQL_PARAM12=(CommonTree)match(input,SQL_PARAM,FOLLOW_SQL_PARAM_in_sqlTokenParamed2051); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
 
                       			stmt.addParam((SQL_PARAM12!=null?SQL_PARAM12.getText():null));
                       			stmt.appendToken('?');
-
+                      		
                     }
 
                     }
@@ -4047,23 +4050,23 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "objectLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:567:1: objectLiteral returns [ ObjectLiteral value ] : ^( OBJ (slot= objectSlot )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:567:1: objectLiteral returns [ ObjectLiteral value ] : ^( OBJ (slot= objectSlot )* ) ;
     public final ObjectLiteral objectLiteral() throws RecognitionException {
         ObjectLiteral value = null;
 
         EllaWalker.objectSlot_return slot = null;
 
 
-         value = new ObjectLiteral();
+         value = new ObjectLiteral(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:569:2: ( ^( OBJ (slot= objectSlot )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:569:4: ^( OBJ (slot= objectSlot )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:569:2: ( ^( OBJ (slot= objectSlot )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:569:4: ^( OBJ (slot= objectSlot )* )
             {
             match(input,OBJ,FOLLOW_OBJ_in_objectLiteral2074); if (state.failed) return value;
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:569:10: (slot= objectSlot )*
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:569:10: (slot= objectSlot )*
                 loop33:
                 do {
                     int alt33=2;
@@ -4076,7 +4079,7 @@ public class EllaWalker extends TreeParser {
 
                     switch (alt33) {
                 	case 1 :
-                	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:569:11: slot= objectSlot
+                	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:569:11: slot= objectSlot
                 	    {
                 	    pushFollow(FOLLOW_objectSlot_in_objectLiteral2079);
                 	    slot=objectSlot();
@@ -4084,7 +4087,7 @@ public class EllaWalker extends TreeParser {
                 	    state._fsp--;
                 	    if (state.failed) return value;
                 	    if ( state.backtracking==0 ) {
-                	       value.putSlot((slot!=null?slot.key:null), (slot!=null?slot.value:null));
+                	       value.putSlot((slot!=null?slot.key:null), (slot!=null?slot.value:null)); 
                 	    }
 
                 	    }
@@ -4119,7 +4122,7 @@ public class EllaWalker extends TreeParser {
     };
 
     // $ANTLR start "objectSlot"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:572:1: objectSlot returns [ Expression key, Expression value ] : ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:572:1: objectSlot returns [ Expression key, Expression value ] : ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) ;
     public final EllaWalker.objectSlot_return objectSlot() throws RecognitionException {
         EllaWalker.objectSlot_return retval = new EllaWalker.objectSlot_return();
         retval.start = input.LT(1);
@@ -4132,13 +4135,13 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:573:2: ( ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:573:4: ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:573:2: ( ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:573:4: ^( SLOT (id= identifierExpression | str= stringLiteral ) expr= expression )
             {
             match(input,SLOT,FOLLOW_SLOT_in_objectSlot2100); if (state.failed) return retval;
 
             match(input, Token.DOWN, null); if (state.failed) return retval;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:574:4: (id= identifierExpression | str= stringLiteral )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:574:4: (id= identifierExpression | str= stringLiteral )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -4157,7 +4160,7 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt34) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:574:6: id= identifierExpression
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:574:6: id= identifierExpression
                     {
                     pushFollow(FOLLOW_identifierExpression_in_objectSlot2109);
                     id=identifierExpression();
@@ -4165,13 +4168,13 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                       retval.key = id;
+                       retval.key = id; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:575:6: str= stringLiteral
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:575:6: str= stringLiteral
                     {
                     pushFollow(FOLLOW_stringLiteral_in_objectSlot2120);
                     str=stringLiteral();
@@ -4179,7 +4182,7 @@ public class EllaWalker extends TreeParser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                       retval.key = new StringLiteralExpression(str);
+                       retval.key = new StringLiteralExpression(str); 
                     }
 
                     }
@@ -4193,7 +4196,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-               retval.value = expr;
+               retval.value = expr; 
             }
 
             match(input, Token.UP, null); if (state.failed) return retval;
@@ -4214,23 +4217,23 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "arrayLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:581:1: arrayLiteral returns [ List<Expression> value ] : ^( ARRAY (expr= expression )* ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:581:1: arrayLiteral returns [ List<Expression> value ] : ^( ARRAY (expr= expression )* ) ;
     public final List<Expression> arrayLiteral() throws RecognitionException {
         List<Expression> value = null;
 
         Expression expr = null;
 
 
-         value = new ArrayList<Expression>();
+         value = new ArrayList<Expression>(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:583:2: ( ^( ARRAY (expr= expression )* ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:583:4: ^( ARRAY (expr= expression )* )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:583:2: ( ^( ARRAY (expr= expression )* ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:583:4: ^( ARRAY (expr= expression )* )
             {
             match(input,ARRAY,FOLLOW_ARRAY_in_arrayLiteral2161); if (state.failed) return value;
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); if (state.failed) return value;
-                // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:583:12: (expr= expression )*
+                // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:583:12: (expr= expression )*
                 loop35:
                 do {
                     int alt35=2;
@@ -4243,7 +4246,7 @@ public class EllaWalker extends TreeParser {
 
                     switch (alt35) {
                 	case 1 :
-                	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:583:13: expr= expression
+                	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:583:13: expr= expression
                 	    {
                 	    pushFollow(FOLLOW_expression_in_arrayLiteral2166);
                 	    expr=expression();
@@ -4251,7 +4254,7 @@ public class EllaWalker extends TreeParser {
                 	    state._fsp--;
                 	    if (state.failed) return value;
                 	    if ( state.backtracking==0 ) {
-                	       value.add(expr);
+                	       value.add(expr); 
                 	    }
 
                 	    }
@@ -4282,7 +4285,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "identifierExpression"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:586:1: identifierExpression returns [ Expression value ] : id= identifier ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:586:1: identifierExpression returns [ Expression value ] : id= identifier ;
     public final Expression identifierExpression() throws RecognitionException {
         Expression value = null;
 
@@ -4290,8 +4293,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:587:2: (id= identifier )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:587:4: id= identifier
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:587:2: (id= identifier )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:587:4: id= identifier
             {
             pushFollow(FOLLOW_identifier_in_identifierExpression2188);
             id=identifier();
@@ -4299,7 +4302,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new IdentifierExpression(id);
+               value = new IdentifierExpression(id); 
             }
 
             }
@@ -4318,19 +4321,19 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "embeddedVarRef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:590:1: embeddedVarRef returns [ Variable value ] : var= EMBEDDED_VAR ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:590:1: embeddedVarRef returns [ Variable value ] : var= EMBEDDED_VAR ;
     public final Variable embeddedVarRef() throws RecognitionException {
         Variable value = null;
 
         CommonTree var=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:591:2: (var= EMBEDDED_VAR )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:591:4: var= EMBEDDED_VAR
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:591:2: (var= EMBEDDED_VAR )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:591:4: var= EMBEDDED_VAR
             {
             var=(CommonTree)match(input,EMBEDDED_VAR,FOLLOW_EMBEDDED_VAR_in_embeddedVarRef2207); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable((var!=null?var.getText():null));
+               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable((var!=null?var.getText():null)); 
             }
 
             }
@@ -4349,7 +4352,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "varDef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:594:1: varDef returns [ Variable value ] : id= identifier ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:594:1: varDef returns [ Variable value ] : id= identifier ;
     public final Variable varDef() throws RecognitionException {
         Variable value = null;
 
@@ -4357,8 +4360,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:595:2: (id= identifier )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:595:4: id= identifier
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:595:2: (id= identifier )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:595:4: id= identifier
             {
             pushFollow(FOLLOW_identifier_in_varDef2226);
             id=identifier();
@@ -4366,7 +4369,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((Scope_scope)Scope_stack.peek()).scope.addVariable(id);
+               value = ((Scope_scope)Scope_stack.peek()).scope.addVariable(id); 
             }
 
             }
@@ -4385,7 +4388,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "varRef"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:598:1: varRef returns [ Variable value ] : id= identifier ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:598:1: varRef returns [ Variable value ] : id= identifier ;
     public final Variable varRef() throws RecognitionException {
         Variable value = null;
 
@@ -4393,8 +4396,8 @@ public class EllaWalker extends TreeParser {
 
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:599:2: (id= identifier )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:599:4: id= identifier
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:599:2: (id= identifier )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:599:4: id= identifier
             {
             pushFollow(FOLLOW_identifier_in_varRef2245);
             id=identifier();
@@ -4402,7 +4405,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable(id);
+               value = ((Scope_scope)Scope_stack.peek()).scope.getVariable(id); 
             }
 
             }
@@ -4421,19 +4424,19 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "identifier"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:602:1: identifier returns [ String value ] : id= IDENTIFIER ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:602:1: identifier returns [ String value ] : id= IDENTIFIER ;
     public final String identifier() throws RecognitionException {
         String value = null;
 
         CommonTree id=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:603:2: (id= IDENTIFIER )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:603:4: id= IDENTIFIER
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:603:2: (id= IDENTIFIER )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:603:4: id= IDENTIFIER
             {
             id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier2264); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = (id!=null?id.getText():null);
+               value = (id!=null?id.getText():null); 
             }
 
             }
@@ -4452,15 +4455,15 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "keyword"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:606:1: keyword returns [ String value ] : kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:606:1: keyword returns [ String value ] : kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE ) ;
     public final String keyword() throws RecognitionException {
         String value = null;
 
         CommonTree kw=null;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:607:2: (kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:607:4: kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:607:2: (kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:607:4: kw= ( KW_SQL | KW_VAR | KW_IF | KW_ELSE | KW_TRY | KW_CATCH | KW_FINALLY | KW_THROW | KW_RETURN | KW_EXIT | KW_TRUE | KW_FALSE | KW_FUN | KW_THIS | KW_SUPER | KW_NEW | KW_INCLUDE | KW_IMPORT | KW_AS | KW_FOR | KW_WHILE | KW_BREAK | KW_CONTINUE )
             {
             kw=(CommonTree)input.LT(1);
             if ( (input.LA(1)>=KW_SQL && input.LA(1)<=KW_AS) ) {
@@ -4474,7 +4477,7 @@ public class EllaWalker extends TreeParser {
             }
 
             if ( state.backtracking==0 ) {
-               value = (kw!=null?kw.getText():null);
+               value = (kw!=null?kw.getText():null); 
             }
 
             }
@@ -4493,7 +4496,7 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "stringLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:613:1: stringLiteral returns [ StringLiteral value ] : ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:613:1: stringLiteral returns [ StringLiteral value ] : ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) ;
     public final StringLiteral stringLiteral() throws RecognitionException {
         StringLiteral value = null;
 
@@ -4503,16 +4506,16 @@ public class EllaWalker extends TreeParser {
         Variable var = null;
 
 
-         List<Object> parts = new ArrayList<Object>();
+         List<Object> parts = new ArrayList<Object>(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:615:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:615:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:615:2: ( ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END ) )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:615:4: ^( STRING start= STRING_START (str= STRING_CONTENT | var= embeddedVarRef )* end= STRING_END )
             {
             match(input,STRING,FOLLOW_STRING_in_stringLiteral2404); if (state.failed) return value;
 
             match(input, Token.DOWN, null); if (state.failed) return value;
             start=(CommonTree)match(input,STRING_START,FOLLOW_STRING_START_in_stringLiteral2408); if (state.failed) return value;
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:616:4: (str= STRING_CONTENT | var= embeddedVarRef )*
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:616:4: (str= STRING_CONTENT | var= embeddedVarRef )*
             loop36:
             do {
                 int alt36=3;
@@ -4528,17 +4531,17 @@ public class EllaWalker extends TreeParser {
 
                 switch (alt36) {
             	case 1 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:616:6: str= STRING_CONTENT
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:616:6: str= STRING_CONTENT
             	    {
             	    str=(CommonTree)match(input,STRING_CONTENT,FOLLOW_STRING_CONTENT_in_stringLiteral2417); if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       parts.add((str!=null?str.getText():null));
+            	       parts.add((str!=null?str.getText():null)); 
             	    }
 
             	    }
             	    break;
             	case 2 :
-            	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:617:6: var= embeddedVarRef
+            	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:617:6: var= embeddedVarRef
             	    {
             	    pushFollow(FOLLOW_embeddedVarRef_in_stringLiteral2431);
             	    var=embeddedVarRef();
@@ -4546,7 +4549,7 @@ public class EllaWalker extends TreeParser {
             	    state._fsp--;
             	    if (state.failed) return value;
             	    if ( state.backtracking==0 ) {
-            	       parts.add(var);
+            	       parts.add(var); 
             	    }
 
             	    }
@@ -4561,7 +4564,7 @@ public class EllaWalker extends TreeParser {
 
             match(input, Token.UP, null); if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               value = new StringLiteral((start!=null?start.getText():null), (end!=null?end.getText():null), parts);
+               value = new StringLiteral((start!=null?start.getText():null), (end!=null?end.getText():null), parts); 
             }
 
             }
@@ -4580,17 +4583,17 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "identifierStringLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:623:1: identifierStringLiteral returns [ StringLiteral value ] : id= identifier ;
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:623:1: identifierStringLiteral returns [ StringLiteral value ] : id= identifier ;
     public final StringLiteral identifierStringLiteral() throws RecognitionException {
         StringLiteral value = null;
 
         String id = null;
 
 
-         List<Object> parts = new ArrayList<Object>();
+         List<Object> parts = new ArrayList<Object>(); 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:625:2: (id= identifier )
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:625:4: id= identifier
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:625:2: (id= identifier )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:625:4: id= identifier
             {
             pushFollow(FOLLOW_identifier_in_identifierStringLiteral2473);
             id=identifier();
@@ -4598,7 +4601,7 @@ public class EllaWalker extends TreeParser {
             state._fsp--;
             if (state.failed) return value;
             if ( state.backtracking==0 ) {
-               parts.add(id); value = new StringLiteral("'", "'", parts);
+               parts.add(id); value = new StringLiteral("'", "'", parts); 
             }
 
             }
@@ -4617,12 +4620,12 @@ public class EllaWalker extends TreeParser {
 
 
     // $ANTLR start "booleanLiteral"
-    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:628:1: booleanLiteral returns [ boolean value ] : ( TRUE | FALSE );
+    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:628:1: booleanLiteral returns [ boolean value ] : ( TRUE | FALSE );
     public final boolean booleanLiteral() throws RecognitionException {
         boolean value = false;
 
         try {
-            // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:629:2: ( TRUE | FALSE )
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:629:2: ( TRUE | FALSE )
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -4641,21 +4644,21 @@ public class EllaWalker extends TreeParser {
             }
             switch (alt37) {
                 case 1 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:629:4: TRUE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:629:4: TRUE
                     {
                     match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral2490); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = true;
+                       value = true; 
                     }
 
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:630:4: FALSE
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:630:4: FALSE
                     {
                     match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral2498); if (state.failed) return value;
                     if ( state.backtracking==0 ) {
-                       value = false;
+                       value = false; 
                     }
 
                     }
@@ -4675,9 +4678,9 @@ public class EllaWalker extends TreeParser {
     // $ANTLR end "booleanLiteral"
 
     // $ANTLR start synpred1_EllaWalker
-    public final void synpred1_EllaWalker_fragment() throws RecognitionException {
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:398:6: ( identifier )
-        // /home/panos/IdeaProjects/Ella/src/org/unbunt/ella/compiler/EllaWalker.g:398:7: identifier
+    public final void synpred1_EllaWalker_fragment() throws RecognitionException {   
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:398:6: ( identifier )
+        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaWalker.g:398:7: identifier
         {
         pushFollow(FOLLOW_identifier_in_synpred1_EllaWalker1100);
         identifier();
@@ -4707,7 +4710,7 @@ public class EllaWalker extends TreeParser {
     }
 
 
-
+ 
 
     public static final BitSet FOLLOW_statement_in_script89 = new BitSet(new long[]{0x0000030000000012L,0xC3F5EC8400000000L,0x000000000000007FL});
     public static final BitSet FOLLOW_script_in_scriptIncremental109 = new BitSet(new long[]{0x0000000000000002L});
