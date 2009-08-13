@@ -1,7 +1,7 @@
-package org.unbunt.sqlscript.engine.natives;
+package org.unbunt.sqlscript.engine.corelang;
 
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.engine.natives.Consts;
+import org.unbunt.sqlscript.engine.corelang.Consts;
 import org.unbunt.sqlscript.engine.context.Context;
 
 public class ObjUtils {

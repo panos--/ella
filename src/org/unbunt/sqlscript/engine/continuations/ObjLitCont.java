@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.engine.continuations;
 
 import org.unbunt.sqlscript.compiler.support.ObjectLiteral;
 import org.unbunt.sqlscript.engine.continuations.ContinuationVisitor;
-import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.lang.PlainObj;
 
 import java.util.Iterator;

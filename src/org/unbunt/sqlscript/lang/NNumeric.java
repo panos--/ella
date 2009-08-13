@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.CheckedArithmeticException;
 import org.unbunt.sqlscript.exception.NumberNotComparableException;
-import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.corelang.Obj;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -10,10 +10,10 @@ import org.unbunt.sqlscript.engine.context.Context;
 import org.unbunt.sqlscript.engine.continuations.*;
 import org.unbunt.sqlscript.engine.environment.Env;
 import org.unbunt.sqlscript.engine.environment.StaticEnv;
-import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.engine.corelang.*;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.*;
-import org.unbunt.sqlscript.engine.natives.RawSQLObj;
+import org.unbunt.sqlscript.engine.corelang.RawSQLObj;
 import org.unbunt.sqlscript.utils.StringUtils;
 
 import java.sql.ResultSet;

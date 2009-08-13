@@ -1,11 +1,11 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.engine.*;
-import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.engine.corelang.*;
 import org.unbunt.sqlscript.lang.NumUtils;
 import static org.unbunt.sqlscript.lang.NumUtils.toBigDecimal;
 import static org.unbunt.sqlscript.lang.NumUtils.toBigInteger;
-import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import static org.unbunt.sqlscript.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.engine.context.Context;
 

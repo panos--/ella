@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.exception.*;
 
 import java.math.BigDecimal;

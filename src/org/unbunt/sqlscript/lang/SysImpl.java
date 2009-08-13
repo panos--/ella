@@ -4,7 +4,7 @@ import org.unbunt.sqlscript.compiler.ParserHelper;
 import org.unbunt.sqlscript.compiler.support.Scope;
 import org.unbunt.sqlscript.compiler.support.Variable;
 import org.unbunt.sqlscript.engine.*;
-import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.engine.corelang.*;
 import org.unbunt.sqlscript.engine.environment.*;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.compiler.statement.Block;

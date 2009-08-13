@@ -1,6 +1,6 @@
-package org.unbunt.sqlscript.engine.natives;
+package org.unbunt.sqlscript.engine.corelang;
 
-import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.corelang.Obj;
 
 public interface Bool extends Obj {
     boolean isTrue();

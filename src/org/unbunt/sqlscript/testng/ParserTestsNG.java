@@ -12,7 +12,7 @@ import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.compiler.*;
 import org.unbunt.sqlscript.exception.SQLScriptIOException;
 import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.unbunt.sqlscript.engine.natives.RawSQLObj;
+import org.unbunt.sqlscript.engine.corelang.RawSQLObj;
 import org.unbunt.sqlscript.compiler.support.RawParamedSQL;
 import org.unbunt.sqlscript.compiler.support.SQLParseMode;
 import org.unbunt.sqlscript.compiler.support.SQLStringType;

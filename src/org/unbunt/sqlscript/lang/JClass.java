@@ -4,7 +4,7 @@ import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
 import org.unbunt.sqlscript.lang.NativeWrapper;
-import org.unbunt.sqlscript.engine.natives.*;
+import org.unbunt.sqlscript.engine.corelang.*;
 import org.unbunt.sqlscript.lang.ReflectionUtils;
 import org.unbunt.sqlscript.engine.context.Context;
 

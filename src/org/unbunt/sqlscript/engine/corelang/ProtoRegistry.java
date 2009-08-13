@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.engine.natives;
+package org.unbunt.sqlscript.engine.corelang;
 
 public class ProtoRegistry {
     public static int id = 0;

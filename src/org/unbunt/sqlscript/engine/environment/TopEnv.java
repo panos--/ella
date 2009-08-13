@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.engine.environment;
 
 import org.unbunt.sqlscript.engine.continuations.Continuation;
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.engine.environment.Env;
 import org.unbunt.sqlscript.compiler.support.Variable;
 import org.unbunt.sqlscript.compiler.support.Scope;

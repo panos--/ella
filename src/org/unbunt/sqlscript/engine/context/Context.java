@@ -1,11 +1,11 @@
 package org.unbunt.sqlscript.engine.context;
 
 import org.unbunt.sqlscript.engine.environment.Env;
-import org.unbunt.sqlscript.engine.natives.ConnMgr;
-import org.unbunt.sqlscript.engine.natives.Null;
-import org.unbunt.sqlscript.engine.natives.Obj;
-import org.unbunt.sqlscript.engine.natives.Bool;
-import org.unbunt.sqlscript.engine.natives.Sys;
+import org.unbunt.sqlscript.engine.corelang.ConnMgr;
+import org.unbunt.sqlscript.engine.corelang.Null;
+import org.unbunt.sqlscript.engine.corelang.Obj;
+import org.unbunt.sqlscript.engine.corelang.Bool;
+import org.unbunt.sqlscript.engine.corelang.Sys;
 import org.unbunt.sqlscript.utils.res.SimpleResource;
 
 public interface Context extends SQLResultProvider {

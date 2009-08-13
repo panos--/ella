@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.engine.continuations;
 
-import org.unbunt.sqlscript.engine.natives.Obj;
+import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.compiler.stmtbase.Expression;
 import org.unbunt.sqlscript.compiler.statement.SlotCallExpression;
 import org.unbunt.sqlscript.engine.continuations.ContinuationVisitor;

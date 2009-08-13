@@ -1,9 +1,9 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
-import org.unbunt.sqlscript.engine.natives.Obj;
-import org.unbunt.sqlscript.engine.natives.AbstractObj;
-import org.unbunt.sqlscript.engine.natives.ProtoRegistry;
+import org.unbunt.sqlscript.engine.corelang.Obj;
+import org.unbunt.sqlscript.engine.corelang.AbstractObj;
+import org.unbunt.sqlscript.engine.corelang.ProtoRegistry;
 import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.lang.ReflectionUtils;
 import org.unbunt.sqlscript.engine.context.Context;

@@ -2,8 +2,8 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.engine.*;
-import org.unbunt.sqlscript.engine.natives.*;
-import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import org.unbunt.sqlscript.engine.corelang.*;
+import static org.unbunt.sqlscript.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.sqlscript.engine.context.Context;
 
 public class NullImpl extends AbstractObj implements NativeObj, Null {

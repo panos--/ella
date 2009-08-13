@@ -1,11 +1,11 @@
 package org.unbunt.sqlscript.lang.sql;
 
 import org.unbunt.sqlscript.engine.Engine;
-import org.unbunt.sqlscript.engine.natives.Obj;
-import org.unbunt.sqlscript.engine.natives.NativeCall;
+import org.unbunt.sqlscript.engine.corelang.Obj;
+import org.unbunt.sqlscript.engine.corelang.NativeCall;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.lang.NNumeric;
-import static org.unbunt.sqlscript.engine.natives.ObjUtils.ensureType;
+import static org.unbunt.sqlscript.engine.corelang.ObjUtils.ensureType;
 
 abstract class NativeBatchCall extends NativeCall {
     public static final int DEFAULT_BATCH_SIZE = 1000;

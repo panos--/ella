@@ -1,4 +1,4 @@
-package org.unbunt.sqlscript.engine.natives;
+package org.unbunt.sqlscript.engine.corelang;
 
 import org.unbunt.sqlscript.compiler.support.RawSQL;
 import org.unbunt.sqlscript.compiler.support.SQLParseMode;
