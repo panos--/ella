@@ -13,7 +13,7 @@ import static org.unbunt.sqlscript.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.lang.Base;
 import org.unbunt.sqlscript.lang.PlainObj;
 import org.unbunt.sqlscript.lang.Str;
@@ -138,7 +138,7 @@ public class Stmt extends AbstractObj {
                 return;
             }
             else {
-                throw new SQLScriptRuntimeException("Illegal state");
+                throw new EllaRuntimeException("Illegal state");
             }
         }
 
@@ -171,7 +171,7 @@ public class Stmt extends AbstractObj {
                 return;
             }
             else {
-                throw new SQLScriptRuntimeException("Illegal state");
+                throw new EllaRuntimeException("Illegal state");
             }
         }
 
@@ -198,7 +198,7 @@ public class Stmt extends AbstractObj {
                 return;
             }
             else {
-                throw new SQLScriptRuntimeException("Illegal state");
+                throw new EllaRuntimeException("Illegal state");
             }
         }
 
@@ -290,10 +290,10 @@ public class Stmt extends AbstractObj {
     protected void setParams(Obj[] params) {
         if (initialized) {
             if (!paramed) {
-                throw new SQLScriptRuntimeException("Illegal state");
+                throw new EllaRuntimeException("Illegal state");
             }
             else if (namedParams != null) {
-                throw new SQLScriptRuntimeException("Illegal state: Statement requires named parameters.");
+                throw new EllaRuntimeException("Illegal state: Statement requires named parameters.");
             }
         }
         this.params = params;
@@ -303,10 +303,10 @@ public class Stmt extends AbstractObj {
     protected void setNamedParams(Obj namedParams) {
         if (initialized) {
             if (!paramed) {
-                throw new SQLScriptRuntimeException("Illegal state");
+                throw new EllaRuntimeException("Illegal state");
             }
             else if (params != null) {
-                throw new SQLScriptRuntimeException("Illegal state: Statement requires positional parameters.");
+                throw new EllaRuntimeException("Illegal state: Statement requires positional parameters.");
             }
         }
         Map<String, List<Integer>> knownParams = rawParamedStatement.getParameters();
@@ -315,7 +315,7 @@ public class Stmt extends AbstractObj {
             Str param = ensureType(Str.class, entry.getKey());
             String paramName = param.value;
             if (!knownParams.containsKey(paramName)) {
-                throw new SQLScriptRuntimeException("Invalid named parameter: " + paramName);
+                throw new EllaRuntimeException("Invalid named parameter: " + paramName);
             }
             result.put(paramName, entry.getValue());
         }
@@ -329,7 +329,7 @@ public class Stmt extends AbstractObj {
                 return;
             }
             else {
-                throw new SQLScriptRuntimeException("Illegal state");
+                throw new EllaRuntimeException("Illegal state");
             }
         }
 
@@ -337,7 +337,7 @@ public class Stmt extends AbstractObj {
         try {
             paramedStmt = ParserHelper.parseParamedSQLLiteral(rawStatement);
         } catch (RecognitionException e) {
-            throw new SQLScriptRuntimeException("Failed to parse SQL statement: " +
+            throw new EllaRuntimeException("Failed to parse SQL statement: " +
                                                 rawStatement.getStatement(), e);
         }
         setRawParamedStmt(paramedStmt);
@@ -409,7 +409,7 @@ public class Stmt extends AbstractObj {
                     }
 
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.close();
@@ -426,7 +426,7 @@ public class Stmt extends AbstractObj {
                 try {
                     thiz.execute();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.close();
@@ -455,7 +455,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.close();
@@ -491,7 +491,7 @@ public class Stmt extends AbstractObj {
                         return _null;
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.close();
@@ -520,7 +520,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.close();
@@ -545,7 +545,7 @@ public class Stmt extends AbstractObj {
                         return engine.getObjNull();
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.close();
@@ -587,7 +587,7 @@ public class Stmt extends AbstractObj {
                     engine.invoke(closure, engine.getObjNull(), batch);
                     batch.finish();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Batch execution failed: " + e, e);
+                    throw new EllaRuntimeException("Batch execution failed: " + e, e);
                 } finally {
                     try {
                         thiz.close();
@@ -611,7 +611,7 @@ public class Stmt extends AbstractObj {
                     engine.invoke(closure, engine.getObjNull(), batch);
                     batch.finish();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Batch execution failed " + e, e);
+                    throw new EllaRuntimeException("Batch execution failed " + e, e);
                 } finally {
                     try {
                         thiz.close();
@@ -691,7 +691,7 @@ public class Stmt extends AbstractObj {
                         thiz.currentBatchSize = 0;
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
                 return thiz;
             }
@@ -703,7 +703,7 @@ public class Stmt extends AbstractObj {
                 try {
                     thiz.finish();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
                 return thiz;
             }
@@ -736,7 +736,7 @@ public class Stmt extends AbstractObj {
                         thiz.currentBatchSize = 0;
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
                 return thiz;
             }

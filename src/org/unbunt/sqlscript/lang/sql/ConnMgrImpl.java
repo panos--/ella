@@ -7,7 +7,7 @@ import org.unbunt.sqlscript.engine.corelang.*;
 import static org.unbunt.sqlscript.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.DBConnectionFailedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.lang.Base;
 import org.unbunt.sqlscript.lang.NullImpl;
 import org.unbunt.sqlscript.lang.Str;
@@ -31,7 +31,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Obj activeConn = context.getSlot(engine.getContext(), Str.SYM_active);
             if (activeConn instanceof Null) {
-                throw new SQLScriptRuntimeException("Not conntected");
+                throw new EllaRuntimeException("Not conntected");
             }
 
             Obj connSlot = ObjUtils.getSlot(engine.getContext(), activeConn, slot);
@@ -83,7 +83,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
                     driver = ensureType(Str.class, args[3]);
                     break;
                 default:
-                    throw new SQLScriptRuntimeException("Illegal arguments");
+                    throw new EllaRuntimeException("Illegal arguments");
             }
 
             DriverManagerDataSource ds;
@@ -93,14 +93,14 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
                                               pass == null ? null : pass.value,
                                               driver == null ? null : driver.value);
             } catch (DBConnectionFailedException e) {
-                throw new SQLScriptRuntimeException("Connection failed: " + e.getMessage(), e);
+                throw new EllaRuntimeException("Connection failed: " + e.getMessage(), e);
             }
 
             Connection jdbcConn;
             try {
                 jdbcConn = ds.getConnection();
             } catch (SQLException e) {
-                throw new SQLScriptRuntimeException("Connection failed: " + e.getMessage(), e);
+                throw new EllaRuntimeException("Connection failed: " + e.getMessage(), e);
             }
 
             Conn conn = new Conn(jdbcConn);
@@ -143,7 +143,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
                     driver = ensureType(Str.class, args[3]);
                     break;
                 default:
-                    throw new SQLScriptRuntimeException("Illegal arguments");
+                    throw new EllaRuntimeException("Illegal arguments");
             }
 
             DriverManagerDataSource ds;
@@ -153,14 +153,14 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
                                                        pass == null ? null : pass.value,
                                                        driver == null ? null : driver.value);
             } catch (DBConnectionFailedException e) {
-                throw new SQLScriptRuntimeException("Connection failed: " + e.getMessage(), e);
+                throw new EllaRuntimeException("Connection failed: " + e.getMessage(), e);
             }
 
             Connection jdbcConn;
             try {
                 jdbcConn = ds.getConnection();
             } catch (SQLException e) {
-                throw new SQLScriptRuntimeException("Connection failed: " + e.getMessage(), e);
+                throw new EllaRuntimeException("Connection failed: " + e.getMessage(), e);
             }
 
             Conn conn = new Conn(jdbcConn);

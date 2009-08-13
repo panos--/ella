@@ -168,7 +168,7 @@ public class NNum extends AbstractObj implements NNumeric {
                 return value.compareTo(cmp);
             }
         }
-        throw new SQLScriptRuntimeException("Unknown numeric type: " + arg.getType());
+        throw new EllaRuntimeException("Unknown numeric type: " + arg.getType());
     }
 
     @Override
@@ -253,7 +253,7 @@ public class NNum extends AbstractObj implements NNumeric {
                     }
                     return arg.divideRev(thiz.value);
             } catch (CheckedArithmeticException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };
@@ -270,7 +270,7 @@ public class NNum extends AbstractObj implements NNumeric {
                 try {
                     return new NNum(Long.valueOf(args[0].toString()));
                 } catch (NumberFormatException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

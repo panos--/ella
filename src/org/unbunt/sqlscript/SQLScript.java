@@ -17,7 +17,7 @@ import org.unbunt.sqlscript.compiler.antlr.LazyInputStream;
 import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.compiler.statement.Block;
 import org.unbunt.sqlscript.compiler.support.Scope;
-import org.unbunt.sqlscript.engine.SQLScriptEngine;
+import org.unbunt.sqlscript.engine.EllaEngine;
 import org.unbunt.sqlscript.exception.*;
 import org.unbunt.sqlscript.lang.sql.DBUtils;
 import org.unbunt.sqlscript.support.Drivers;
@@ -35,27 +35,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SQLScript {
+public class Ella {
     protected DefaultContext context;
     protected SimpleResource script;
     protected String scriptName;
 
-    protected SQLScriptLexer lexer;
+    protected EllaLexer lexer;
     protected LazyTokenStream tokens;
 
-    protected SQLScriptParser parser;
+    protected EllaParser parser;
     protected CommonTree tree;
 
-    protected SQLScriptWalker walker;
+    protected EllaWalker walker;
 
-    protected SQLScriptEngine engine = null;
+    protected EllaEngine engine = null;
     protected Block block; // the parsed script to be run by the engine
 
-    public SQLScript(SimpleResource script) {
+    public Ella(SimpleResource script) {
         this(new DefaultContext(), script);
     }
 
-    public SQLScript(DefaultContext context, SimpleResource script) {
+    public Ella(DefaultContext context, SimpleResource script) {
         this.context = context;
         this.script = script;
         this.scriptName = script.getFilename();
@@ -85,7 +85,7 @@ public class SQLScript {
             } catch (Exception ignored) {
             }
         }
-        Readline.initReadline("SQLScript");
+        Readline.initReadline("Ella");
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 Readline.cleanup();
@@ -108,7 +108,7 @@ public class SQLScript {
         Signal.handle(new Signal("INT"), signalHandler);
     }
 
-    public void executeInteractive() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
+    public void executeInteractive() throws EllaIOException, EllaParseException, EllaRuntimeException {
         initInteractive();
         initEngine();
 
@@ -124,11 +124,11 @@ public class SQLScript {
                 if (continued) {
                     if (incompleteString) {
                         switch (stringType) {
-                            case SQLScriptParser.SQUOT:   prompt = "'>";  break;
-                            case SQLScriptParser.DQUOT:   prompt = "\">"; break;
-                            case SQLScriptParser.BTICK:   prompt = "`>";  break;
-                            case SQLScriptParser.QQUOT:   prompt = "Q>";  break;
-                            case SQLScriptParser.DOLQUOT: prompt = "$>";  break;
+                            case EllaParser.SQUOT:   prompt = "'>";  break;
+                            case EllaParser.DQUOT:   prompt = "\">"; break;
+                            case EllaParser.BTICK:   prompt = "`>";  break;
+                            case EllaParser.QQUOT:   prompt = "Q>";  break;
+                            case EllaParser.DOLQUOT: prompt = "$>";  break;
                         }
                     }
                     else {
@@ -149,7 +149,7 @@ public class SQLScript {
                 } catch (EOFException e) { // input closed
                     break;
                 } catch (IOException e) {
-                    throw new SQLScriptIOException(e);
+                    throw new EllaIOException(e);
                 }
 
                 if (continued) {
@@ -167,7 +167,7 @@ public class SQLScript {
                         parseTokens();
                         parseTreeIncremental();
                         runBlock();
-                    } catch (SQLScriptParseException e) {
+                    } catch (EllaParseException e) {
                         if (e.isCausedBy(UnterminatedStringException.class)) {
                             UnterminatedStringException ex = e.getCause(UnterminatedStringException.class);
                             stringType = ex.getStringType();
@@ -176,7 +176,7 @@ public class SQLScript {
                         }
                         else if (e.isCausedBy(UnexpectedEOFException.class)
                                 || (e.isCausedBy(RecognitionException.class)
-                                    && (e.getCause(RecognitionException.class)).getUnexpectedType() == SQLScriptParser.EOF)) {
+                                    && (e.getCause(RecognitionException.class)).getUnexpectedType() == EllaParser.EOF)) {
                             incompleteInput = true;
                             incompleteString = false;
                         }
@@ -204,7 +204,7 @@ public class SQLScript {
     }
 
     public Object executeIncremental()
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaRuntimeException, EllaException {
         initParserIncremental();
         initEngine();
         try {
@@ -224,21 +224,21 @@ public class SQLScript {
     }
 
     public Object execute()
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaRuntimeException, EllaException {
         tokenize();
         parseTokens();
         parseTree();
         return run();
     }
 
-    public Block compile() throws SQLScriptIOException, SQLScriptParseException {
+    public Block compile() throws EllaIOException, EllaParseException {
         tokenize();
         parseTokens();
         parseTree();
         return block;
     }
 
-    public void showAST() throws SQLScriptIOException, SQLScriptParseException, SQLScriptRuntimeException {
+    public void showAST() throws EllaIOException, EllaParseException, EllaRuntimeException {
         tokenize();
         parseTokens();
 
@@ -282,53 +282,53 @@ public class SQLScript {
         }
     }
 
-    protected void tokenize() throws SQLScriptIOException {
+    protected void tokenize() throws EllaIOException {
         try {
             tokenize(script.getInputStream());
         } catch (Exception e) {
-            throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
+            throw new EllaIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
         }
     }
 
-    protected void tokenize(InputStream stream) throws SQLScriptIOException {
+    protected void tokenize(InputStream stream) throws EllaIOException {
         LazyInputStream input;
         try {
             input = new LazyInputStream(stream);
         } catch (Exception e) {
-            throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
+            throw new EllaIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
         }
 
-        lexer = new SQLScriptLexer(input);
+        lexer = new EllaLexer(input);
         tokens = new LazyTokenStream(lexer);
     }
 
-    protected void parseTokens() throws SQLScriptParseException, SQLScriptRuntimeException {
+    protected void parseTokens() throws EllaParseException, EllaRuntimeException {
         try {
             if (parser == null) {
-                parser = new SQLScriptParser(tokens);
+                parser = new EllaParser(tokens);
             }
             else {
                 parser.setTokenStream(tokens);
             }
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               lexer.getErrorHeader(e) + " " +
                                               lexer.getErrorMessage(e, lexer.getTokenNames()),
                                               e);
         }
 
-        SQLScriptParser.script_return r;
+        EllaParser.script_return r;
         try {
             r = parser.script();
         } catch (RecognitionException e) {
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               parser.getErrorHeader(e) + " " +
                                               parser.getErrorMessage(e, parser.getTokenNames()),
                                               e);
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               lexer.getErrorHeader(e) + " " +
                                               lexer.getErrorMessage(e, lexer.getTokenNames()),
                                               e);
@@ -338,29 +338,29 @@ public class SQLScript {
     }
 
     protected void initParserIncremental()
-            throws SQLScriptParseException, SQLScriptRuntimeException, SQLScriptIOException {
+            throws EllaParseException, EllaRuntimeException, EllaIOException {
         InputStream stream;
         try {
             stream = script.getInputStream();
         } catch (IOException e) {
-            throw new SQLScriptIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
+            throw new EllaIOException("Failed to read sql script: " + scriptName + ": " + e.getMessage(), e);
         }
 
         initParserIncremental(stream);
     }
 
     protected void initParserIncremental(InputStream stream)
-            throws SQLScriptParseException, SQLScriptRuntimeException {
+            throws EllaParseException, EllaRuntimeException {
         LazyInputStream input = new LazyInputStream(stream);
 
-        lexer = new SQLScriptLexer(input);
+        lexer = new EllaLexer(input);
         tokens = new LazyTokenStream(lexer);
 
         try {
-            parser = new SQLScriptParser(tokens);
+            parser = new EllaParser(tokens);
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               lexer.getErrorHeader(e) + " " +
                                               lexer.getErrorMessage(e, lexer.getTokenNames()),
                                               e);
@@ -368,20 +368,20 @@ public class SQLScript {
     }
 
     protected boolean parseTokensIncremental()
-            throws SQLScriptParseException, SQLScriptRuntimeException {
-        SQLScriptParser.scriptIncremental_return r;
+            throws EllaParseException, EllaRuntimeException {
+        EllaParser.scriptIncremental_return r;
         try {
             r = parser.scriptIncremental();
         } catch (RecognitionException e) {
             e.printStackTrace();
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               parser.getErrorHeader(e) + " " +
                                               parser.getErrorMessage(e, parser.getTokenNames()),
                                               e);
         } catch (RuntimeRecognitionException re) {
             RecognitionException e = (RecognitionException) re.getCause();
             re.printStackTrace();
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               lexer.getErrorHeader(e) + " " +
                                               lexer.getErrorMessage(e, lexer.getTokenNames()),
                                               e);
@@ -392,33 +392,33 @@ public class SQLScript {
         return !parser.isEOF();
     }
 
-    protected void parseTree() throws SQLScriptParseException, SQLScriptRuntimeException {
+    protected void parseTree() throws EllaParseException, EllaRuntimeException {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
         nodes.setTokenStream(tokens);
 
-        SQLScriptWalker walker = new SQLScriptWalker(nodes);
+        EllaWalker walker = new EllaWalker(nodes);
         try {
             block = walker.parse(context.getEnv().toScope());
             TailCallOptimizer.process(block);
         } catch (RecognitionException e) {
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               walker.getErrorHeader(e) + " " +
                                               walker.getErrorMessage(e, walker.getTokenNames()),
                                               e);
-        } catch (SQLScriptRuntimeException e) {
+        } catch (EllaRuntimeException e) {
             throw e;
         } catch (RuntimeException e) {
-            throw new SQLScriptRuntimeException(e.getMessage(), e);
+            throw new EllaRuntimeException(e.getMessage(), e);
         }
     }
 
     protected Scope savedScope = null;
 
-    protected void parseTreeIncremental() throws SQLScriptParseException, SQLScriptRuntimeException {
+    protected void parseTreeIncremental() throws EllaParseException, EllaRuntimeException {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
         nodes.setTokenStream(tokens);
 
-        SQLScriptWalker walker = new SQLScriptWalker(nodes);
+        EllaWalker walker = new EllaWalker(nodes);
         try {
             if (savedScope == null) {
                 savedScope = context.getEnv().toScope();
@@ -428,20 +428,20 @@ public class SQLScript {
 
             TailCallOptimizer.process(block);
         } catch (RecognitionException e) {
-            throw new SQLScriptParseException("Failed to parse sql script: " + scriptName + ": " +
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
                                               walker.getErrorHeader(e) + " " +
                                               walker.getErrorMessage(e, walker.getTokenNames()),
                                               e);
-        } catch (SQLScriptRuntimeException e) {
+        } catch (EllaRuntimeException e) {
             throw e;
         } catch (RuntimeException e) {
-            throw new SQLScriptRuntimeException(e.getMessage(), e);
+            throw new EllaRuntimeException(e.getMessage(), e);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected Object run() throws SQLScriptException {
+    protected Object run() throws EllaException {
         initEngine();
         try {
             return runBlock();
@@ -450,12 +450,12 @@ public class SQLScript {
         }
     }
 
-    protected Object runBlock() throws SQLScriptException {
+    protected Object runBlock() throws EllaException {
         return engine.process(block);
     }
 
     protected void initEngine() {
-        engine = SQLScriptEngine.create(context);
+        engine = EllaEngine.create(context);
     }
 
     protected void finish() {
@@ -470,50 +470,50 @@ public class SQLScript {
      */
 
     public static Object evalIncremental(File script, Object... args)
-            throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+            throws EllaIOException, EllaException, EllaParseException {
         return evalIncremental(script, new DefaultContext(args));
     }
 
     public static Object evalIncremental(File script, DefaultContext context)
-            throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+            throws EllaIOException, EllaException, EllaParseException {
         SimpleResource res = new FilesystemResource(script);
-        SQLScript interp = new SQLScript(context, res);
+        Ella interp = new Ella(context, res);
         return interp.executeIncremental();
     }
 
     public static Object eval(File script, Object... args)
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaException {
         return eval(script, new DefaultContext(args));
     }
 
     protected static Object eval(File script, DefaultContext context)
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaException {
         SimpleResource res = new FilesystemResource(script);
-        SQLScript interp = new SQLScript(context, res);
+        Ella interp = new Ella(context, res);
         return interp.execute();
     }
 
     public static Object eval(String script, Object... args)
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaException {
         return eval(script, new DefaultContext(args));
     }
 
     protected static Object eval(String script, DefaultContext context)
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaException {
         SimpleResource res = new StringResource(script);
-        SQLScript interp = new SQLScript(context, res);
+        Ella interp = new Ella(context, res);
         return interp.execute();
     }
 
-    public static Block compile(File script) throws SQLScriptIOException, SQLScriptParseException {
+    public static Block compile(File script) throws EllaIOException, EllaParseException {
         SimpleResource res = new FilesystemResource(script);
-        SQLScript interp = new SQLScript(res);
+        Ella interp = new Ella(res);
         return interp.compile();
     }
 
-    public static Block compile(String script) throws SQLScriptIOException, SQLScriptParseException {
+    public static Block compile(String script) throws EllaIOException, EllaParseException {
         SimpleResource res = new StringResource(script);
-        SQLScript interp = new SQLScript(res);
+        Ella interp = new Ella(res);
         return interp.compile();
     }
 
@@ -537,7 +537,7 @@ public class SQLScript {
     }
 
     protected static void usage(CmdLineParser parser) {
-        System.err.println("usage: SQLScript [-url|-props] OPTION... {-i | [-large] [FILE]} [ARG]...");
+        System.err.println("usage: Ella [-url|-props] OPTION... {-i | [-large] [FILE]} [ARG]...");
         parser.printUsage(System.err);
         System.err.println();
         System.err.println("Known drivers:");
@@ -615,7 +615,7 @@ public class SQLScript {
             }
             context.addSQLResultListener(new SimpleSQLResultListener(System.out));
 
-            SQLScript interp = new SQLScript(context, script);
+            Ella interp = new Ella(context, script);
             if (pargs.compile) {
                 interp.compile();
             }
@@ -636,11 +636,11 @@ public class SQLScript {
                     interp.execute();
                 }
             }
-        } catch (SQLScriptIOException e) {
+        } catch (EllaIOException e) {
             die(e.getMessage(), e, 2);
-        } catch (SQLScriptParseException e) {
+        } catch (EllaParseException e) {
             die(e.getMessage(), e, 3);
-        } catch (SQLScriptException e) {
+        } catch (EllaException e) {
             die("Unhandled exception: " + e.getClass().getName() +
                 (e.getMessage() == null ? "" : ": " + e.getMessage()),
                 e, 4);

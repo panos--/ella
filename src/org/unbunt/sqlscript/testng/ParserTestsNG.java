@@ -6,12 +6,12 @@ import org.antlr.runtime.tree.Tree;
 import org.antlr.runtime.tree.TreeNodeStream;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
-import static org.unbunt.sqlscript.SQLScript.compile;
+import static org.unbunt.sqlscript.Ella.compile;
 import org.unbunt.sqlscript.compiler.antlr.LazyInputStream;
 import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
 import org.unbunt.sqlscript.compiler.*;
-import org.unbunt.sqlscript.exception.SQLScriptIOException;
-import org.unbunt.sqlscript.exception.SQLScriptParseException;
+import org.unbunt.sqlscript.exception.EllaIOException;
+import org.unbunt.sqlscript.exception.EllaParseException;
 import org.unbunt.sqlscript.engine.corelang.RawSQLObj;
 import org.unbunt.sqlscript.compiler.support.RawParamedSQL;
 import org.unbunt.sqlscript.compiler.support.SQLParseMode;
@@ -32,35 +32,35 @@ public class ParserTestsNG extends AbstractTest {
      */
 
     @Test
-    public void sqlStringOracleQQuote() throws SQLScriptIOException, SQLScriptParseException {
+    public void sqlStringOracleQQuote() throws EllaIOException, EllaParseException {
         compile("\\set quotes=oracle; select * from foo where bar = q'Xfoo')barX';");
     }
 
     @Test
-    public void sqlStringMysqlBacktick() throws SQLScriptIOException, SQLScriptParseException {
+    public void sqlStringMysqlBacktick() throws EllaIOException, EllaParseException {
         compile("\\set quotes=mysql; select * from foo where bar = `foo)bla`;");
     }
 
     /*
-     * FIXME: Disabled. Does currently not work. See comment in STR_DOLQUOT rule of SQLScriptLexer.
+     * FIXME: Disabled. Does currently not work. See comment in STR_DOLQUOT rule of EllaLexer.
      */
     @Test(enabled = false)
-    public void sqlStringPostgresDollar() throws SQLScriptIOException, SQLScriptParseException {
+    public void sqlStringPostgresDollar() throws EllaIOException, EllaParseException {
         compile("\\set quotes=pg; select * from foo where bar = $$bla)blubb$$ or baz = $xyz$foo}bar$xzy$;");
     }
 
     @Test
-    public void assignSingleSQL() throws SQLScriptIOException, SQLScriptParseException {
+    public void assignSingleSQL() throws EllaIOException, EllaParseException {
         compile("var foo := sql select * from foo;");
     }
 
     @Test
-    public void assignMultiSQL() throws SQLScriptIOException, SQLScriptParseException {
+    public void assignMultiSQL() throws EllaIOException, EllaParseException {
         compile("var foo = 'bla', bar = (sql select * from foo), bla = 'blubb';");
     }
 
     @Test(dependsOnMethods = { "sqlStringMysqlBacktick" })
-    public void scopedParseMode() throws SQLScriptIOException, SQLScriptParseException {
+    public void scopedParseMode() throws EllaIOException, EllaParseException {
         compile("\\set quotes=mysql;         \n" +
                 "select `foo)bar`;           \n" +
                 "{                           \n" +
@@ -81,14 +81,14 @@ public class ParserTestsNG extends AbstractTest {
         expectedParams.put("qux", Arrays.asList(2, 3));
 
         LazyInputStream chars = new LazyInputStream(new ByteArrayInputStream(sql.getBytes()));
-        SQLScriptLexer lexer = new SQLScriptLexer(chars);
+        EllaLexer lexer = new EllaLexer(chars);
         LazyTokenStream tokens = new LazyTokenStream(lexer);
 
-        SQLScriptParser parser = new SQLScriptParser(null);
+        EllaParser parser = new EllaParser(null);
         Tree tree = parser.parseParamedSQLLiteral(tokens, new SQLParseMode(SQLStringType.sql92));
 
         TreeNodeStream nodes = new CommonTreeNodeStream(tree);
-        SQLScriptWalker walker = new SQLScriptWalker(null);
+        EllaWalker walker = new EllaWalker(null);
         RawParamedSQL result = walker.parseParamedSQLLiteral(nodes);
 
         assertEquals(result.getStatement(), expectedStatement);
@@ -106,14 +106,14 @@ public class ParserTestsNG extends AbstractTest {
         expectedParams.put("qux", Arrays.asList(3, 4));
 
         LazyInputStream chars = new LazyInputStream(new ByteArrayInputStream(sql.getBytes()));
-        SQLScriptLexer lexer = new SQLScriptLexer(chars);
+        EllaLexer lexer = new EllaLexer(chars);
         LazyTokenStream tokens = new LazyTokenStream(lexer);
 
-        SQLScriptParser parser = new SQLScriptParser(null);
+        EllaParser parser = new EllaParser(null);
         Tree tree = parser.parseParamedSQLLiteral(tokens, new SQLParseMode(SQLStringType.mysql));
 
         TreeNodeStream nodes = new CommonTreeNodeStream(tree);
-        SQLScriptWalker walker = new SQLScriptWalker(null);
+        EllaWalker walker = new EllaWalker(null);
         RawParamedSQL result = walker.parseParamedSQLLiteral(nodes);
 
         assertEquals(result.getStatement(), expectedStatement);
@@ -152,13 +152,13 @@ public class ParserTestsNG extends AbstractTest {
     }
 
     @Test
-    public void sqlLiteralLookAheadDiscard() throws SQLScriptIOException, SQLScriptParseException {
+    public void sqlLiteralLookAheadDiscard() throws EllaIOException, EllaParseException {
         compile(file("sql-literal-look-ahead-discard"));
     }
 
     @Test
     public void sqlLiteralParamedEmbeddedVars()
-            throws SQLScriptIOException, SQLScriptParseException, IOException, RecognitionException {
+            throws EllaIOException, EllaParseException, IOException, RecognitionException {
         // Here we parse an SQL literal containing several embedded variables for named parameters
         // and expect to not be parsed as such.
         // Thereby we verify the involved lexers to be set up correctly.

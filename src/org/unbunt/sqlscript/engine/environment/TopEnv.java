@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.engine.environment;
 
 import org.unbunt.sqlscript.engine.continuations.Continuation;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.engine.environment.Env;
 import org.unbunt.sqlscript.compiler.support.Variable;
@@ -92,7 +92,7 @@ public class TopEnv implements Env {
     }
 
     public void setClosureHome(int offset, Continuation cont) {
-        throw new SQLScriptRuntimeException("TopEnv.setClosureHome() should not be called");
+        throw new EllaRuntimeException("TopEnv.setClosureHome() should not be called");
     }
 
     public int getClosureHomeOffset() {

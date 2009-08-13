@@ -2,7 +2,7 @@ package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.corelang.*;
 import org.unbunt.sqlscript.lang.ReflectionUtils;
@@ -34,7 +34,7 @@ public class JClass extends AbstractObj implements NativeObj {
                 try {
                     return new JObject(cls.getConstructor().newInstance());
                 } catch (NoSuchMethodException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -52,7 +52,7 @@ public class JClass extends AbstractObj implements NativeObj {
                                                             jargs);
 
             if (ctor == null) {
-                throw new SQLScriptRuntimeException("No such constructor");
+                throw new EllaRuntimeException("No such constructor");
             }
 
             try {
@@ -122,7 +122,7 @@ public class JClass extends AbstractObj implements NativeObj {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by getter -> re-throw as script exception
-                throw new SQLScriptRuntimeException(e.getCause());
+                throw new EllaRuntimeException(e.getCause());
             }
         }
 
@@ -173,7 +173,7 @@ public class JClass extends AbstractObj implements NativeObj {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by setter -> re-throw as script exception
-                throw new SQLScriptRuntimeException(e.getCause());
+                throw new EllaRuntimeException(e.getCause());
             }
         }
 
@@ -247,7 +247,7 @@ public class JClass extends AbstractObj implements NativeObj {
                     Class cls = loader.loadClass(args[0].toString());
                     return new JClass(cls);
                 } catch (ClassNotFoundException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

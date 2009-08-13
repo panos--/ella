@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.engine.corelang;
 
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.engine.corelang.Consts;
 import org.unbunt.sqlscript.engine.context.Context;
 
@@ -38,7 +38,7 @@ public class ObjUtils {
         try {
             return type.cast(object);
         } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException("Unexpected type: " + object.getClass() + ": Expected: " + type);
+            throw new EllaRuntimeException("Unexpected type: " + object.getClass() + ": Expected: " + type);
         }
     }
 
@@ -48,7 +48,7 @@ public class ObjUtils {
         try {
             return (T) object;
         } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException("Unexpected type: " + object.getClass());
+            throw new EllaRuntimeException("Unexpected type: " + object.getClass());
         }
     }
     */

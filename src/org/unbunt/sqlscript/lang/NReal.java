@@ -86,11 +86,11 @@ public class NReal extends AbstractObj implements NNumeric {
         try {
             return toBigInteger(value);
         } catch (DoubleNaNException e) {
-            throw new SQLScriptRuntimeException("Cannot convert NaN to BigInteger");
+            throw new EllaRuntimeException("Cannot convert NaN to BigInteger");
         } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
-            throw new SQLScriptRuntimeException("Cannot convert Infinity to BigInteger");
+            throw new EllaRuntimeException("Cannot convert Infinity to BigInteger");
         } catch (DoubleNegativeInfinityException e) {
-            throw new SQLScriptRuntimeException("Cannot convert -Infinity to BigInteger");
+            throw new EllaRuntimeException("Cannot convert -Infinity to BigInteger");
         }
     }
 
@@ -99,11 +99,11 @@ public class NReal extends AbstractObj implements NNumeric {
         try {
             return toBigDecimal(value);
         } catch (DoubleNaNException e) {
-            throw new SQLScriptRuntimeException("Cannot convert NaN to BigDecimal");
+            throw new EllaRuntimeException("Cannot convert NaN to BigDecimal");
         } catch (DoublePositiveInfinityExcepetion doublePositiveInfinityExcepetion) {
-            throw new SQLScriptRuntimeException("Cannot convert Infinity to BigDecimal");
+            throw new EllaRuntimeException("Cannot convert Infinity to BigDecimal");
         } catch (DoubleNegativeInfinityException e) {
-            throw new SQLScriptRuntimeException("Cannot convert -Infinity to BigDecimal");
+            throw new EllaRuntimeException("Cannot convert -Infinity to BigDecimal");
         }
     }
 
@@ -263,7 +263,7 @@ public class NReal extends AbstractObj implements NNumeric {
                 }
             }
         }
-        throw new SQLScriptRuntimeException("Unknown numeric type: " + arg.getType());
+        throw new EllaRuntimeException("Unknown numeric type: " + arg.getType());
     }
 
     @Override
@@ -295,7 +295,7 @@ public class NReal extends AbstractObj implements NNumeric {
                     NNumeric arg = (NNumeric)args[0];
                     return new NReal(arg.doubleValue());
                 } catch (ClassCastException e) {
-                    throw new SQLScriptRuntimeException();
+                    throw new EllaRuntimeException();
                 }
             }
         };
@@ -343,7 +343,7 @@ public class NReal extends AbstractObj implements NNumeric {
                 try {
                     return arg.divideRev(thiz.value);
                 } catch (CheckedArithmeticException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };
@@ -360,14 +360,14 @@ public class NReal extends AbstractObj implements NNumeric {
                 try {
                     return new NReal(Double.valueOf(args[0].toString()));
                 } catch (NumberFormatException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };
 
         /*
         protected static final NativeCall nativeGreaterThan = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NReal thiz = ensureType(NReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 return thiz.compareTo(arg) > 0 ? engine.getObjTrue() : engine.getObjFalse();
@@ -375,7 +375,7 @@ public class NReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeGreaterOrEqual = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NReal thiz = ensureType(NReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {
@@ -386,7 +386,7 @@ public class NReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeLessThan = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NReal thiz = ensureType(NReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {
@@ -397,7 +397,7 @@ public class NReal extends AbstractObj implements NNumeric {
         };
 
         protected static final NativeCall nativeLessOrEqual = new NativeCall() {
-            public Obj call(SQLScriptEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NReal thiz = ensureType(NReal.class, context);
                 NNumeric arg = ensureType(NNumeric.class, args[0]);
                 if (Double.isNaN(thiz.value)) {

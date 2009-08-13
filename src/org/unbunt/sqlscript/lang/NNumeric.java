@@ -51,14 +51,14 @@ public interface NNumeric extends Obj {
 
     /**
      * @return BigInteger
-     * @throws org.unbunt.sqlscript.exception.SQLScriptRuntimeException if this number's value cannot be represented
+     * @throws org.unbunt.sqlscript.exception.EllaRuntimeException if this number's value cannot be represented
      *          as BigInteger
      */
     BigInteger bigIntegerValue();
 
     /**
      * @return BigDecimal
-     * @throws org.unbunt.sqlscript.exception.SQLScriptRuntimeException if this number's value cannot be represented
+     * @throws org.unbunt.sqlscript.exception.EllaRuntimeException if this number's value cannot be represented
      *          as BigDecimal
      */
     BigDecimal bigDecimalValue();

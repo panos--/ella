@@ -1,4 +1,4 @@
-lexer grammar SQLScriptStringLexer;
+lexer grammar EllaStringLexer;
 
 options {
 	superClass = LazyLexer;

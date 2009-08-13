@@ -5,7 +5,7 @@ import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.corelang.Null;
 import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.exception.CheckedClassCastException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -172,7 +172,7 @@ public class ReflectionUtils {
             if (matchedMethod != null) {
                 Method bestMatch = getBestMatchingMethod(method, matchedMethod, args, values);
                 if (bestMatch == null) {
-                    throw new SQLScriptRuntimeException("Ambiguous method call");
+                    throw new EllaRuntimeException("Ambiguous method call");
                 }
                 matchedMethod = bestMatch;
             }
@@ -217,7 +217,7 @@ public class ReflectionUtils {
             if (matchedConstructor != null) {
                 Constructor bestMatch = getBestMatchingConstructor(ctor, matchedConstructor, args, values);
                 if (bestMatch == null) {
-                    throw new SQLScriptRuntimeException("Ambiguous constructor call");
+                    throw new EllaRuntimeException("Ambiguous constructor call");
                 }
                 matchedConstructor = bestMatch;
             }

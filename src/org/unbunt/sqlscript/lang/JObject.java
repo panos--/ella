@@ -1,6 +1,6 @@
 package org.unbunt.sqlscript.lang;
 
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.engine.corelang.AbstractObj;
 import org.unbunt.sqlscript.engine.corelang.ProtoRegistry;
@@ -58,7 +58,7 @@ public class JObject extends AbstractObj {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by getter -> re-throw as script exception
-                throw new SQLScriptRuntimeException(e.getCause());
+                throw new EllaRuntimeException(e.getCause());
             }
         }
 
@@ -99,7 +99,7 @@ public class JObject extends AbstractObj {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by setter -> re-throw as script exception
-                throw new SQLScriptRuntimeException(e.getCause());
+                throw new EllaRuntimeException(e.getCause());
             }
         }
 

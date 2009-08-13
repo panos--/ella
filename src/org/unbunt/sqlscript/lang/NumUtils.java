@@ -80,7 +80,7 @@ public class NumUtils {
             else if (value == Double.NEGATIVE_INFINITY) {
                 throw new DoubleNegativeInfinityException(e);
             }
-            throw new SQLScriptRuntimeException("Internal error: " + e.getMessage(), e);
+            throw new EllaRuntimeException("Internal error: " + e.getMessage(), e);
         }
     }
 
@@ -106,7 +106,7 @@ public class NumUtils {
             else if (value == Double.NEGATIVE_INFINITY) {
                 throw new DoubleNegativeInfinityException(e);
             }
-            throw new SQLScriptRuntimeException("Internal error: " + e.getMessage(), e);
+            throw new EllaRuntimeException("Internal error: " + e.getMessage(), e);
         }
     }
 

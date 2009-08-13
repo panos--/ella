@@ -75,7 +75,7 @@ public class Conn extends AbstractObj {
                     try {
                         thiz.batchStmt.add(rawStmt.getStatement());
                     } catch (SQLException e) {
-                        throw new SQLScriptRuntimeException(e);
+                        throw new EllaRuntimeException(e);
                     }
                     return engine.getObjNull();
                 }
@@ -123,7 +123,7 @@ public class Conn extends AbstractObj {
                 try {
                     thiz.connection.close();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e.getMessage(), e);
+                    throw new EllaRuntimeException(e.getMessage(), e);
                 }
                 return engine.getObjNull();
             }
@@ -150,7 +150,7 @@ public class Conn extends AbstractObj {
                         thiz.batchStmt.finish();
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException("Batch execution failed: " + e.getMessage(), e);
+                    throw new EllaRuntimeException("Batch execution failed: " + e.getMessage(), e);
                 } finally {
                     try {
                         thiz.batchStmt.close();
@@ -196,11 +196,11 @@ public class Conn extends AbstractObj {
                     try {
                         if (!conn.getAutoCommit()) {
                             // TODO: Possibly make use of savepoints if supported by the driver
-                            throw new SQLScriptRuntimeException("Already in a transaction");
+                            throw new EllaRuntimeException("Already in a transaction");
                         }
                         thiz.connection.setAutoCommit(false);
                     } catch (SQLException e) {
-                        throw new SQLScriptRuntimeException(e);
+                        throw new EllaRuntimeException(e);
                     }
                 }
 
@@ -223,7 +223,7 @@ public class Conn extends AbstractObj {
                             //       Thereby the exception causing the rollback will be masked. To preserve
                             //       information about the exception we throw a special exception providing
                             //       access to the original exception.
-                            throw new SQLScriptTXRollbackException("Rollback failed - triggered by error: " +
+                            throw new EllaTXRollbackException("Rollback failed - triggered by error: " +
                                                                    e1.getMessage(), e1, e);
                         }
                     } finally {
@@ -233,7 +233,7 @@ public class Conn extends AbstractObj {
                             } catch (SQLException e) {
                                 // finally block abruptly completed here, but not a problem in this case as the throw
                                 // statement is the last statement in the block anyway
-                                throw new SQLScriptTXCommitException("Commit failed: " + e.getMessage(), e);
+                                throw new EllaTXCommitException("Commit failed: " + e.getMessage(), e);
                             }
                         }
                     }
@@ -261,7 +261,7 @@ public class Conn extends AbstractObj {
                     try {
                         thiz.connection.setAutoCommit(false);
                     } catch (SQLException e) {
-                        throw new SQLScriptRuntimeException(e);
+                        throw new EllaRuntimeException(e);
                     }
                 }
 
@@ -275,7 +275,7 @@ public class Conn extends AbstractObj {
                 try {
                     thiz.connection.commit();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
                 return thiz;
             }
@@ -287,7 +287,7 @@ public class Conn extends AbstractObj {
                 try {
                     thiz.connection.rollback();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
                 return thiz;
             }

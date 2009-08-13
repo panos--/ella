@@ -1,9 +1,9 @@
-parser grammar SQLScriptParser;
+parser grammar EllaParser;
 
 options {
 	output = AST;
 	ASTLabelType = CommonTree;
-	tokenVocab = SQLScriptLexer;
+	tokenVocab = EllaLexer;
 	// NOTE: k = 2 works but is actually quite a bit slower than k=*,
 	// NOTE: so we stick to the latter one for now.
 	//k = 2;
@@ -58,7 +58,7 @@ tokens {
 	import org.unbunt.sqlscript.compiler.antlr.LazyTokenStream;
 	import org.unbunt.sqlscript.compiler.support.SQLModeToken;
 	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
-	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+	import org.unbunt.sqlscript.exception.EllaRuntimeException;
 	
 	import org.unbunt.sqlscript.compiler.support.SQLParseMode;
 	import org.unbunt.sqlscript.compiler.support.SQLStringSyntaxRules;
@@ -83,7 +83,7 @@ tokens {
 	 * Public entry point for parsing an sql statement for embedded named parameters.
 	 * 
 	 * @return Tree the generated AST
-	 * @see org.unbunt.sqlscript.SQLScriptWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
+	 * @see org.unbunt.sqlscript.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
 	 */
 	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws RecognitionException {
 		setTokenStream(input); // implicitly resets this instance
@@ -147,20 +147,20 @@ tokens {
 	
 	protected CommonTree parseString() throws RecognitionException {
 		LazyTokenStream tokens = (LazyTokenStream) input;
-		SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 		CharStream chars = lexer.getCharStream();
 		int lastStringStartMarker = lexer.getLastStringStartMarker();
 
 		// call string parser to handle the string
-		SQLScriptStringLexer strLexer = new SQLScriptStringLexer(chars);
+		EllaStringLexer strLexer = new EllaStringLexer(chars);
 		strLexer.setAllowEmbeddedVariables(lexer.isAllowEmbeddedVariables());
 		tokens.replaceTokenSource(strLexer);
-		SQLScriptStringParser strParser = new SQLScriptStringParser(tokens);
+		EllaStringParser strParser = new EllaStringParser(tokens);
 		
 		// rewind input to string start
 		chars.rewind(lastStringStartMarker);
 
-		SQLScriptStringParser.string_return result = strParser.string();
+		EllaStringParser.string_return result = strParser.string();
 		
 		// remember generated tree, emit() uses it later on to attach it to the current token
 		CommonTree tree = (CommonTree)result.getTree();
@@ -173,7 +173,7 @@ tokens {
 	
 	protected void releaseStringStartMarker() {
 		LazyTokenStream tokens = (LazyTokenStream) input;
-		SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 		CharStream chars = lexer.getCharStream();
 		chars.release(lexer.getLastStringStartMarker());
 	}
@@ -679,7 +679,7 @@ sqlLiteralPrefixed
 sqlLiteralParamed
 @init {	
 	LazyTokenStream tokens = (LazyTokenStream) input;
-	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 	lexer.setAllowEmbeddedVariables(false);
 }
 @after {
@@ -719,7 +719,7 @@ sqlStmtName
 sqlStmtRest [ CommonTree sqlStmtName ]
 @init {
 	LazyTokenStream tokens = (LazyTokenStream) input;
-	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 
 	lexer.setIgnoreWhitespace(false);
 	lexer.setAllowQQuote(stringType.hasQQuote());
@@ -797,7 +797,7 @@ sqlWS	:	WS
 
 sqlHiddenWS
 @init {
-	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(SQLScriptLexer.HIDDEN);
+	String collectedWhitespace = ((LazyTokenStream) input).collectOffChannelTokenText(EllaLexer.HIDDEN);
 	boolean hasWhitespace = collectedWhitespace.length() != 0;
 }
 	:	
@@ -894,7 +894,7 @@ stringLiteral
 	CommonTree result = null;
 	
 	LazyTokenStream tokens = (LazyTokenStream) input;
-	SQLScriptLexer lexer = (SQLScriptLexer) tokens.getTokenSource();
+	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 }
 @after {
 	lexer.setAllowEmbeddedVariables(true);
@@ -929,10 +929,10 @@ parseDirective
 			String argument = $arg.text;
 			String value = $valId == null ? $valWord.text : $valId.text;
 			
-			// TODO: throw RecognitionException instead of SQLScriptRuntimeException
+			// TODO: throw RecognitionException instead of EllaRuntimeException
 			
 			if (!"set".equals(directive)) {
-				throw new SQLScriptRuntimeException("Unknown parse directive: " + directive);
+				throw new EllaRuntimeException("Unknown parse directive: " + directive);
 			}
 			
 			if ("quotes".equals(argument)) {
@@ -943,7 +943,7 @@ parseDirective
 						this.stringType = SQLStringType.valueOfAlias(("" + value).toLowerCase());
 					}
 					catch (IllegalArgumentException e2) {
-						throw new SQLScriptRuntimeException("Invalid string syntax type: " + value);
+						throw new EllaRuntimeException("Invalid string syntax type: " + value);
 					}
 				}
 			}
@@ -955,11 +955,11 @@ parseDirective
 					this.sqlSlashLineSep = false;
 				}
 				else {
-					throw new SQLScriptRuntimeException("Invalid argument to parse directive: Invalid value for linesep: " + value);
+					throw new EllaRuntimeException("Invalid argument to parse directive: Invalid value for linesep: " + value);
 				}
 			}
 			else {
-				throw new SQLScriptRuntimeException("Invalid argument to parse directive: " + argument);
+				throw new EllaRuntimeException("Invalid argument to parse directive: " + argument);
 			}
 		}
 		//-> // omit tree generation

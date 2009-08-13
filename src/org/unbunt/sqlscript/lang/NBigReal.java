@@ -184,7 +184,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
                 return value.compareTo(((NBigReal) arg).value);
             }
         }
-        throw new SQLScriptRuntimeException("Unknown numeric type: " + arg.getType());
+        throw new EllaRuntimeException("Unknown numeric type: " + arg.getType());
     }
 
     @Override
@@ -264,7 +264,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
                     }
                     return arg.divideRev(thiz.value);
                 } catch (CheckedArithmeticException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };
@@ -281,7 +281,7 @@ public class NBigReal extends AbstractObj implements NNumeric {
                 try {
                     return new NBigReal(new BigDecimal(args[0].toString()));
                 } catch (NumberFormatException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

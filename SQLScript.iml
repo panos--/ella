@@ -2,7 +2,7 @@
 <module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="BuildJarSettings">
     <containerInfo>
-      <containerElement type="module" name="SQLScript">
+      <containerElement type="module" name="Ella">
         <attribute name="method" value="1" />
         <attribute name="URI" value="/" />
       </containerElement>
@@ -11,9 +11,9 @@
         <attribute name="URI" value="/lib" />
       </containerElement>
     </containerInfo>
-    <setting name="jarUrl" value="file://$MODULE_DIR$/dist/SQLScript.jar" />
+    <setting name="jarUrl" value="file://$MODULE_DIR$/dist/Ella.jar" />
     <setting name="buildJar" value="true" />
-    <setting name="mainClass" value="org.unbunt.sqlscript.SQLScript" />
+    <setting name="mainClass" value="org.unbunt.sqlscript.Ella" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />

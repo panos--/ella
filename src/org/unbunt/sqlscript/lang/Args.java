@@ -1,7 +1,7 @@
 package org.unbunt.sqlscript.lang;
 
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.corelang.Obj;
 import org.unbunt.sqlscript.engine.corelang.AbstractObj;
@@ -40,7 +40,7 @@ public class Args extends AbstractObj {
                 try {
                     return thiz.args[idx];
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

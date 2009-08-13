@@ -6,7 +6,7 @@ import org.unbunt.sqlscript.engine.corelang.*;
 import static org.unbunt.sqlscript.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.sqlscript.exception.CheckedClassCastException;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,19 +49,19 @@ public class JMethod extends NativeCall {
                 method = ReflectionUtils.findMatchingMethod(methods, ReflectionUtils.getArgTypes(jargs, args), jargs);
             }
             if (method == null) {
-                throw new SQLScriptRuntimeException("No such method");
+                throw new EllaRuntimeException("No such method");
             }
             return ReflectionUtils.invokeMethod(engine.getContext(), method, jcontext, jargs);
         } catch (IllegalArgumentException e) {
-            throw new SQLScriptRuntimeException("No such method: " + e.getMessage(), e);
+            throw new EllaRuntimeException("No such method: " + e.getMessage(), e);
         } catch (RuntimeException e) {
-            throw new SQLScriptRuntimeException(e);
+            throw new EllaRuntimeException(e);
         } catch (InvocationTargetException e) {
-            throw new SQLScriptRuntimeException(e);
+            throw new EllaRuntimeException(e);
         } catch (IllegalAccessException e) {
-            throw new SQLScriptRuntimeException(e);
+            throw new EllaRuntimeException(e);
         } catch (CheckedClassCastException e) {
-            throw new SQLScriptRuntimeException("Argument conversion failed: " + e.getMessage(), e);
+            throw new EllaRuntimeException("Argument conversion failed: " + e.getMessage(), e);
         }
     }
 
@@ -98,7 +98,7 @@ public class JMethod extends NativeCall {
                 }
                 Method[] selectedMethods = ReflectionUtils.selectMethods(thiz.methods, typeNames);
                 if (selectedMethods.length == 0) {
-                    throw new SQLScriptRuntimeException("No such method");
+                    throw new EllaRuntimeException("No such method");
                 }
                 return new JMethod(selectedMethods, true);
             }

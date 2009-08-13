@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.lang.sql;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.lang.*;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.corelang.*;
@@ -71,10 +71,10 @@ public class ResSet extends AbstractObj {
                         value = rs.getObject(((Str)colRef).value);
                     }
                     else {
-                        throw new SQLScriptRuntimeException("Illegal argument: " + colRef);
+                        throw new EllaRuntimeException("Illegal argument: " + colRef);
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
 
                 return NativeWrapper.wrap(engine.getContext(), value);
@@ -91,7 +91,7 @@ public class ResSet extends AbstractObj {
                         try {
                             helper.resultSet.updateRow();
                         } catch (SQLException e) {
-                            throw new SQLScriptRuntimeException(e);
+                            throw new EllaRuntimeException(e);
                         }
                     }
                     helper = null; // nullified to indicate no cleanup nessessary
@@ -115,7 +115,7 @@ public class ResSet extends AbstractObj {
                 try {
                     thiz.resultSet.moveToInsertRow();
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
 
                 try {
@@ -126,7 +126,7 @@ public class ResSet extends AbstractObj {
                     }
                     helper = null; // nullified to indicate no cleanup nessessary
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } finally {
                     if (helper != null) {
                         try {
@@ -162,7 +162,7 @@ public class ResSet extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
 
                 return null;
@@ -214,12 +214,12 @@ public class ResSet extends AbstractObj {
                         rs.updateObject(((Str)colRef).value, value.toJavaObject());
                     }
                     else {
-                        throw new SQLScriptRuntimeException("Illegal argument: " + colRef);
+                        throw new EllaRuntimeException("Illegal argument: " + colRef);
                     }
 
                     thiz.updated = true;
                 } catch (SQLException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
 
                 return value;

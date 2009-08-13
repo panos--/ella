@@ -3,7 +3,7 @@
 ME="$0"
 MYDIR="`dirname "$ME"`"
 APPDIR="`dirname "$MYDIR"`"
-JAR="$APPDIR/dist/SQLScript.jar"
+JAR="$APPDIR/dist/Ella.jar"
 
 # request interactive mode if stdin is a tty
 test -t 0 && opt_int=-I || opt_int=

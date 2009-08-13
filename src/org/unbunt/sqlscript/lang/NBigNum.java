@@ -193,7 +193,7 @@ public class NBigNum extends AbstractObj implements NNumeric {
                 return toBigDecimal(value).compareTo(((NBigReal) arg).value);
             }
         }
-        throw new SQLScriptRuntimeException("Unknown numeric type: " + arg.getType());
+        throw new EllaRuntimeException("Unknown numeric type: " + arg.getType());
     }
 
     @Override
@@ -271,13 +271,13 @@ public class NBigNum extends AbstractObj implements NNumeric {
                     try {
                         return new NBigNum(thiz.value.divide(((NBigNum)arg).value));
                     } catch (ArithmeticException e) {
-                        throw new SQLScriptRuntimeException(e);
+                        throw new EllaRuntimeException(e);
                     }
                 }
                 try {
                     return arg.divideRev(thiz.value);
                 } catch (CheckedArithmeticException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };
@@ -294,7 +294,7 @@ public class NBigNum extends AbstractObj implements NNumeric {
                 try {
                     return new NBigNum(new BigInteger(args[0].toString()));
                 } catch (NumberFormatException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

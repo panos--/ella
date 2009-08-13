@@ -1,4 +1,4 @@
-parser grammar SQLScriptStringParser;
+parser grammar EllaStringParser;
 
 // TODO:
 // - Optimize overridden lexer method nextToken()
@@ -8,7 +8,7 @@ parser grammar SQLScriptStringParser;
 options {
 	output = AST;
 	ASTLabelType = CommonTree;
-	tokenVocab = SQLScriptStringLexer;
+	tokenVocab = EllaStringLexer;
 }
 
 @parser::header {
@@ -16,7 +16,7 @@ options {
 	
 	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
 	import org.unbunt.sqlscript.compiler.UnterminatedStringException;
-	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+	import org.unbunt.sqlscript.exception.EllaRuntimeException;
 }
 
 @parser::members {

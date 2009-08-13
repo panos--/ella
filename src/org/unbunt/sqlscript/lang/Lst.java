@@ -3,7 +3,7 @@ package org.unbunt.sqlscript.lang;
 import org.unbunt.sqlscript.exception.ClosureTerminatedException;
 import org.unbunt.sqlscript.exception.LoopBreakException;
 import org.unbunt.sqlscript.exception.LoopContinueException;
-import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+import org.unbunt.sqlscript.exception.EllaRuntimeException;
 import org.unbunt.sqlscript.lang.NativeWrapper;
 import org.unbunt.sqlscript.engine.*;
 import org.unbunt.sqlscript.engine.corelang.*;
@@ -82,7 +82,7 @@ public class Lst extends AbstractObj {
                 try {
                     return thiz.value.get(idx.intValue());
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };
@@ -101,20 +101,20 @@ public class Lst extends AbstractObj {
                             thiz.value.add(value);
                         }
                         else {
-                            throw new SQLScriptRuntimeException(e);
+                            throw new EllaRuntimeException(e);
                         }
                     }
                 } catch (UnsupportedOperationException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (ClassCastException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (NullPointerException e) {
                     // NOTE: should not happen as script objects are never null
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (IllegalArgumentException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
                 return value;
             }
@@ -128,14 +128,14 @@ public class Lst extends AbstractObj {
                 try {
                     thiz.value.add(value);
                 } catch (UnsupportedOperationException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (ClassCastException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (NullPointerException e) {
                     // NOTE: should not happen as script objects are never null
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (IllegalArgumentException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
 
                 return thiz;
@@ -150,9 +150,9 @@ public class Lst extends AbstractObj {
                 try {
                     return thiz.value.remove(idx.intValue());
                 } catch (UnsupportedOperationException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SQLScriptRuntimeException(e);
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

@@ -371,7 +371,7 @@
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SQLScript.iml" filepath="$PROJECT_DIR$/SQLScript.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ella.iml" filepath="$PROJECT_DIR$/Ella.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">

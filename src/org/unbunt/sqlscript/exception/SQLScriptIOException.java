@@ -1,18 +1,18 @@
 package org.unbunt.sqlscript.exception;
 
-public class SQLScriptIOException extends GenericException {
-    public SQLScriptIOException() {
+public class EllaIOException extends GenericException {
+    public EllaIOException() {
     }
 
-    public SQLScriptIOException(Throwable cause) {
+    public EllaIOException(Throwable cause) {
         super(cause);
     }
 
-    public SQLScriptIOException(String message) {
+    public EllaIOException(String message) {
         super(message);
     }
 
-    public SQLScriptIOException(String message, Throwable cause) {
+    public EllaIOException(String message, Throwable cause) {
         super(message, cause);
     }
 }

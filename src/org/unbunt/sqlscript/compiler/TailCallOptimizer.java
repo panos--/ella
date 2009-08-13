@@ -113,7 +113,7 @@ public class TailCallOptimizer {
 
         public void processExpression(NewExpression newExpression) {
             newExpression.getExpression().accept(this);
-            // TODO: adjust SQLScriptWalker so that arguments property of newExpression cannot be null
+            // TODO: adjust EllaWalker so that arguments property of newExpression cannot be null
             List<Expression> args = newExpression.getArguments();
             if (args == null) {
                 return;

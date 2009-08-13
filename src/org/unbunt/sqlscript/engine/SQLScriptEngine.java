@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
 
-public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, Engine {
+public class EllaEngine implements ExpressionVisitor, ContinuationVisitor, Engine {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final boolean STEP = false;
 
@@ -33,13 +33,13 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
     public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
     public static final Obj SLOT_INIT = Consts.SLOT_INIT;
 
-    public SQLScriptEngine(Context context) {
+    public EllaEngine(Context context) {
         this.context = context;
         this.env = context.getEnv();
     }
 
-    public static SQLScriptEngine create(Context context) {
-        return new SQLScriptEngine(context);
+    public static EllaEngine create(Context context) {
+        return new EllaEngine(context);
     }
 
     protected Statement stmt;
@@ -51,7 +51,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
     protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
     protected int pc;
 
-    public Object process(Block block) throws SQLScriptException {
+    public Object process(Block block) throws EllaException {
         next = EVAL;
         stmt = block;
         val = null;
@@ -62,13 +62,13 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
             process();
         } catch (ArrayIndexOutOfBoundsException e) {
             if (pc >= MAX_CONT_STACK) {
-                throw new SQLScriptRuntimeException("Continuation stack overflow", e);
+                throw new EllaRuntimeException("Continuation stack overflow", e);
             }
             else {
                 throw e;
             }
-        } catch (SQLScriptRuntimeException e) {
-            throw new SQLScriptException(e);
+        } catch (EllaRuntimeException e) {
+            throw new EllaException(e);
         }
 
         return val == null ? null : val.toJavaObject();
@@ -80,7 +80,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
     protected boolean next;
 
     @SuppressWarnings({"PointlessBooleanExpression"})
-    protected void process() throws SQLScriptRuntimeException {
+    protected void process() throws EllaRuntimeException {
         while (true) {
             if (next == CONT) {
                 if (pc == 0) {
@@ -95,7 +95,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
     }
 
     @SuppressWarnings({"PointlessBooleanExpression"})
-    protected boolean step() throws SQLScriptRuntimeException {
+    protected boolean step() throws EllaRuntimeException {
         if (next == CONT) {
             if (pc == 0) {
                 return false;
@@ -563,7 +563,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
             cont[pc] = new CallArgCont(clos, closEnv, savedEnv);
         }
         else {
-            throw new SQLScriptRuntimeException("Invalid call: Neither block nor function");
+            throw new EllaRuntimeException("Invalid call: Neither block nor function");
         }
 
         next = evalArgs(callCont.getArguments());
@@ -623,7 +623,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
             cont[pc] = new ClosRetCont(clos, callArgCont.getSavedEnv());
         }
         else {
-            throw new SQLScriptRuntimeException("Internal error: Unhandled callable");
+            throw new EllaRuntimeException("Internal error: Unhandled callable");
         }
 
         next = EVAL;
@@ -653,10 +653,10 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
             closureReturnInProgress = false;
         } catch (ControlFlowException e) {
             throw e;
-        } catch (SQLScriptRuntimeException e) {
+        } catch (EllaRuntimeException e) {
             throw e;
         } catch (RuntimeException e) {
-            throw new SQLScriptNativeRuntimeException(e);
+            throw new EllaNativeRuntimeException(e);
         }
     }
 
@@ -673,10 +673,10 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
             }
         } catch (ControlFlowException e) {
             throw e;
-        } catch (SQLScriptRuntimeException e) {
+        } catch (EllaRuntimeException e) {
             throw e;
         } catch (RuntimeException e) {
-            throw new SQLScriptNativeRuntimeException(e);
+            throw new EllaNativeRuntimeException(e);
         }
         next = CONT;
     }
@@ -727,7 +727,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
                 finished = true;
                 break;
             default:
-                throw new SQLScriptRuntimeException("Unhandled primitive: " + primitive);
+                throw new EllaRuntimeException("Unhandled primitive: " + primitive);
         }
     }
 
@@ -754,7 +754,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
                 if (homeOffset < 0 || homeOffset >= i || cont[homeOffset] != homeCont) {
                     // NOTE: This exact message is checked for in some unit tests (due to the lack of a proper
                     //       exception handling scheme)
-                    throw new SQLScriptNonLocalReturnException("Non-local return");
+                    throw new EllaNonLocalReturnException("Non-local return");
                 }
                 pc = homeOffset;
                 if (returnCont.hasSavedValue()) {
@@ -772,7 +772,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
                 return;
             }
         }
-        throw new SQLScriptRuntimeException("Found return statement outside of function block");
+        throw new EllaRuntimeException("Found return statement outside of function block");
     }
 
     public void processContinuation(NewCont newCont) {
@@ -834,7 +834,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
                 throw new LoopBreakException();
             }
         }
-        throw new SQLScriptRuntimeException("Found break statement outside of loop");
+        throw new EllaRuntimeException("Found break statement outside of loop");
     }
 
     public void processContinuation(LoopContinueCont loopContinueCont) {
@@ -850,12 +850,12 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
                 throw new LoopContinueException();
             }
         }
-        throw new SQLScriptRuntimeException("Found continue statement outside of loop");
+        throw new EllaRuntimeException("Found continue statement outside of loop");
     }
 
     protected void checkFunArgs(Callable callable, List args) {
         if (callable.getArgCount() != args.size()) {
-            throw new SQLScriptRuntimeException("Arguments do not match function");
+            throw new EllaRuntimeException("Arguments do not match function");
         }
     }
 
@@ -863,7 +863,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
         return context.getObjTrue().equals(value) || (!(value instanceof Bool) && !(value instanceof Null));
     }
 
-    public void finish() throws SQLScriptRuntimeException {
+    public void finish() throws EllaRuntimeException {
         logger.debug("Finishing");
 
         // TODO: automatically close connections known to ConnMgr
@@ -881,7 +881,7 @@ public class SQLScriptEngine implements ExpressionVisitor, ContinuationVisitor, 
         try {
             call = (Call) obj;
         } catch (ClassCastException e) {
-            throw new SQLScriptRuntimeException(e);
+            throw new EllaRuntimeException(e);
         }
 
         call.trigger(this, context, args);

@@ -1,7 +1,7 @@
-tree grammar SQLScriptWalker;
+tree grammar EllaWalker;
 
 options {
-	tokenVocab = SQLScriptParser;
+	tokenVocab = EllaParser;
 	ASTLabelType = CommonTree;
 }
 
@@ -68,15 +68,15 @@ scope Block {
 			   (e.approximateLineInfo?"after ":"")+"line "+e.line+":"+e.charPositionInLine;
 	}
 
-	public Block walk(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+	public Block walk(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
 		return parse(scope);
 	}
 
-	public Block parse(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+	public Block parse(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
 		return script(scope);
 	}
 	
-	public Block parseIncremental(Scope scope) throws RecognitionException, SQLScriptRuntimeException, RuntimeException {
+	public Block parseIncremental(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
 		return scriptIncremental(scope);
 	}
 	

@@ -1,18 +1,18 @@
 package org.unbunt.sqlscript.exception;
 
-public class SQLScriptNonLocalReturnException extends SQLScriptRuntimeException {
-    public SQLScriptNonLocalReturnException() {
+public class EllaNonLocalReturnException extends EllaRuntimeException {
+    public EllaNonLocalReturnException() {
     }
 
-    public SQLScriptNonLocalReturnException(Throwable cause) {
+    public EllaNonLocalReturnException(Throwable cause) {
         super(cause);
     }
 
-    public SQLScriptNonLocalReturnException(String message) {
+    public EllaNonLocalReturnException(String message) {
         super(message);
     }
 
-    public SQLScriptNonLocalReturnException(String message, Throwable cause) {
+    public EllaNonLocalReturnException(String message, Throwable cause) {
         super(message, cause);
     }
 }

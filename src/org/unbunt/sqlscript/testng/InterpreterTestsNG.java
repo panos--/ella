@@ -3,9 +3,9 @@ package org.unbunt.sqlscript.testng;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.unbunt.sqlscript.SQLScript;
-import static org.unbunt.sqlscript.SQLScript.eval;
-import static org.unbunt.sqlscript.SQLScript.evalIncremental;
+import org.unbunt.sqlscript.Ella;
+import static org.unbunt.sqlscript.Ella.eval;
+import static org.unbunt.sqlscript.Ella.evalIncremental;
 import org.unbunt.sqlscript.exception.*;
 import static org.unbunt.sqlscript.testng.TestUtils.ensureType;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Test(groups = { "interpreter" }, dependsOnGroups = { "parser" })
 public class InterpreterTestsNG extends AbstractTest {
-    protected SQLScript interp;
+    protected Ella interp;
 
     @BeforeTest
     public void init() {
@@ -23,7 +23,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void blockScope() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void blockScope() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
         result = eval("{ var i := 23; } .i;");
@@ -36,7 +36,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void javaIntegration() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void javaIntegration() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
         Date before = new Date();
@@ -91,7 +91,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void inheritance() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void inheritance() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
         result = eval("{"
@@ -127,7 +127,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void blockClosures() throws SQLScriptIOException, SQLScriptParseException {
+    public void blockClosures() throws EllaIOException, EllaParseException {
         Object result;
 
         try {
@@ -140,7 +140,7 @@ public class InterpreterTestsNG extends AbstractTest {
                     + "invokeBlock();"
                     + "}\n"
             );
-        } catch (SQLScriptException e) {
+        } catch (EllaException e) {
             throw new RuntimeException(e);
         }
         assertNotNull(result, "Function invocation returned null");
@@ -156,8 +156,8 @@ public class InterpreterTestsNG extends AbstractTest {
             );
             assertTrue(false,
                        "Failed to catch non-local return in top-level block invocation (didn't throw exception)");
-        } catch (SQLScriptException e) {
-            assertTrue(e.isCausedBy(SQLScriptNonLocalReturnException.class),
+        } catch (EllaException e) {
+            assertTrue(e.isCausedBy(EllaNonLocalReturnException.class),
                        "Incorrect exception thrown on non-local return in top-level block invocation");
         }
 
@@ -170,8 +170,8 @@ public class InterpreterTestsNG extends AbstractTest {
                     + "}"
             );
             assertTrue(false, "Failed to catch non-local return in block invocation (didn't throw exception)");
-        } catch (SQLScriptException e) {
-            assertTrue(e.isCausedBy(SQLScriptNonLocalReturnException.class),
+        } catch (EllaException e) {
+            assertTrue(e.isCausedBy(EllaNonLocalReturnException.class),
                        "Incorrect exception thrown on non-local return in block invocation");
         }
 
@@ -188,8 +188,8 @@ public class InterpreterTestsNG extends AbstractTest {
             );
             assertTrue(false, "Failed to catch non-local return in block invocation from foreign function "
                               + "(didn't throw exception)");
-        } catch (SQLScriptException e) {
-            assertTrue(e.isCausedBy(SQLScriptNonLocalReturnException.class),
+        } catch (EllaException e) {
+            assertTrue(e.isCausedBy(EllaNonLocalReturnException.class),
                        "Incorrect exception thrown on non-local return in block invocation from foreign function");
         }
 
@@ -213,7 +213,7 @@ public class InterpreterTestsNG extends AbstractTest {
                     + "\n"
                     + "}"
             );
-        } catch (SQLScriptException e) {
+        } catch (EllaException e) {
             throw new RuntimeException(e);
         }
         assertNotNull(result);
@@ -223,7 +223,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void loops() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void loops() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
         result = eval(
@@ -250,7 +250,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void args() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void args() throws EllaIOException, EllaParseException, EllaException {
         int arg = 42;
         Object result = eval(".ARGV[0];", arg);
         Number num = ensureType(Number.class, result);
@@ -258,7 +258,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void evalFile() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void evalFile() throws EllaIOException, EllaParseException, EllaException {
         int arg = 42;
         Object result = eval(file("eval-file"), arg);
         Number num = ensureType(Number.class, result);
@@ -266,69 +266,69 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void includeFile() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void includeFile() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file"));
     }
 
     @Test
-    public void includeFileClosureUpdate() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void includeFileClosureUpdate() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-closure-update"));
     }
 
     @Test
     public void includeFileClosureAfterDynamic()
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-closure-after-dynamic"));
     }
 
     @Test
-    public void includeFileDynenv() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void includeFileDynenv() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-dynenv"));
     }
 
     @Test
-    public void includeFileClosureTerminated() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void includeFileClosureTerminated() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-closure-terminated"));
     }
 
     @Test
-    public void includeFileNested() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void includeFileNested() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-nested"));
     }
 
     @Test
-    public void includeFileNestedResource() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void includeFileNestedResource() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-nested-resource"));
     }
 
     @Test
-    public void floatVsIntSlotDistinction() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void floatVsIntSlotDistinction() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("float-vs-int-slot-distinction"));
         assertEquals(((Number) result).intValue(), 3);
     }
 
     @Test
     @SuppressWarnings({"UnnecessaryUnboxing"})
-    public void floatLiteral() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void floatLiteral() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(".1.23;");
         assertEquals(((Double) result).doubleValue(), 1.23d);
     }
 
     @Test
     @SuppressWarnings({"UnnecessaryUnboxing"})
-    public void numPropagateInfinity() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void numPropagateInfinity() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(".(1 / 0.0) * 1.bigRealValue();");
         assertEquals(Double.POSITIVE_INFINITY, ((Double)result).doubleValue());
     }
 
     @Test
-    public void numPropagateNaN() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void numPropagateNaN() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(".(0 / 0.0) * 1.bigRealValue();");
         assertTrue(Double.isNaN((Double)result));
     }
 
     @Test
-    public void numFailOnNaNToBigReal() throws SQLScriptIOException, SQLScriptParseException {
+    public void numFailOnNaNToBigReal() throws EllaIOException, EllaParseException {
         try {
             eval(".(0 / 0.0).bigRealValue();");
         } catch (Exception e) {
@@ -339,12 +339,12 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void numDoubleSpecials() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void numDoubleSpecials() throws EllaIOException, EllaParseException, EllaException {
         eval(file("num-double-specials"));
     }
 
     @Test
-    public void operatorPrecedence() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void operatorPrecedence() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
         result = eval(". 2 + 3 * 4;");
@@ -355,18 +355,18 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void numBigReal() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void numBigReal() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("num-bigreal"));
         assertEquals(result, "success");
     }
 
     @Test
-    public void hostIntegrationMethodSelect() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void hostIntegrationMethodSelect() throws EllaIOException, EllaParseException, EllaException {
         eval(file("host-integration-method-select"));
     }
 
     @Test
-    public void array() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void array() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("array"));
         List<Long> expected = new ArrayList<Long>(5);
         expected.add(1l);
@@ -379,42 +379,42 @@ public class InterpreterTestsNG extends AbstractTest {
 
     @SuppressWarnings({"ConstantConditions"})
     @Test
-    public void exceptions() throws SQLScriptIOException, SQLScriptParseException {
-        SQLScriptException ex = null;
+    public void exceptions() throws EllaIOException, EllaParseException {
+        EllaException ex = null;
         try {
             eval(file("exceptions"));
-        } catch (SQLScriptException e) {
+        } catch (EllaException e) {
             ex = e;
         }
 
-        assertNotNull(ex, "Expected SQLScriptException");
+        assertNotNull(ex, "Expected EllaException");
         assertEquals(ex.getMessage(), "intentionally-uncaught-exception");
     }
 
     @Test
-    public void whileExit() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void whileExit() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("while-exit"));
         assertEquals(result, 42l);
     }
 
     @Test
-    public void nativeClone() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void nativeClone() throws EllaIOException, EllaParseException, EllaException {
         eval(file("native-clone"));
     }
 
     @Test
-    public void numRange() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void numRange() throws EllaIOException, EllaParseException, EllaException {
         eval(file("num-range"));
     }
 
     @Test
-    public void typeCheck() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void typeCheck() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("type-check"));
         assertEquals(result, 42l);
     }
 
     @Test
-    public void incrementalEnvRetain() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void incrementalEnvRetain() throws EllaIOException, EllaException, EllaParseException {
         Object result = evalIncremental(file("incremental-env-retain"));
         assertEquals(result, new ArrayList<Object>());
     }

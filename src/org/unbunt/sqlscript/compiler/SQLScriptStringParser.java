@@ -1,10 +1,10 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g 2009-08-09 09:15:33
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g 2009-08-09 09:15:33
 
 	package org.unbunt.sqlscript.compiler;
 	
 	import org.unbunt.sqlscript.compiler.UnexpectedEOFException;
 	import org.unbunt.sqlscript.compiler.UnterminatedStringException;
-	import org.unbunt.sqlscript.exception.SQLScriptRuntimeException;
+	import org.unbunt.sqlscript.exception.EllaRuntimeException;
 
 
 import org.antlr.runtime.*;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import org.antlr.runtime.tree.*;
 
-public class SQLScriptStringParser extends Parser {
+public class EllaStringParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "STRING", "QUOTTED_IDENFITIER", "QQUOT", "CHARS", "STRING_START", "STRING_CONTENT", "STRING_END", "EMBEDDED_VAR", "DQUOT", "SQUOT", "BTICK", "QQUOT_DELIM", "QQUOT_START", "QQUOT_END", "DOLQUOT_TAG", "DOLQUOT", "DOLQUOT_TAG_START", "DOLQUOT_TAG_END", "ATSIGN", "LCURLY", "RCURLY", "WORD_CHAR", "VARNAME", "CHAR"
     };
@@ -50,10 +50,10 @@ public class SQLScriptStringParser extends Parser {
     // delegators
 
 
-        public SQLScriptStringParser(TokenStream input) {
+        public EllaStringParser(TokenStream input) {
             this(input, new RecognizerSharedState());
         }
-        public SQLScriptStringParser(TokenStream input, RecognizerSharedState state) {
+        public EllaStringParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
              
         }
@@ -67,8 +67,8 @@ public class SQLScriptStringParser extends Parser {
         return adaptor;
     }
 
-    public String[] getTokenNames() { return SQLScriptStringParser.tokenNames; }
-    public String getGrammarFileName() { return "/home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g"; }
+    public String[] getTokenNames() { return EllaStringParser.tokenNames; }
+    public String getGrammarFileName() { return "/home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g"; }
 
 
 
@@ -115,9 +115,9 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "string"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:1: string : (start= SQUOT (content1+= singleQuoteContent )* endt= SQUOT -> ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] ) | start= DQUOT (content2+= doubleQuoteContent )* endt= DQUOT -> ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] ) | start= BTICK (content3+= backTickContent )* endt= BTICK -> ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] ) | start= QQUOT_START (content4+= unquotedContent )* end= qQuoteEnd -> ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] ) | start= DOLQUOT (content5+= unquotedContent )* endt= DOLQUOT -> ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] ) );
-    public final SQLScriptStringParser.string_return string() throws RecognitionException {
-        SQLScriptStringParser.string_return retval = new SQLScriptStringParser.string_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:1: string : (start= SQUOT (content1+= singleQuoteContent )* endt= SQUOT -> ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] ) | start= DQUOT (content2+= doubleQuoteContent )* endt= DQUOT -> ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] ) | start= BTICK (content3+= backTickContent )* endt= BTICK -> ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] ) | start= QQUOT_START (content4+= unquotedContent )* end= qQuoteEnd -> ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] ) | start= DOLQUOT (content5+= unquotedContent )* endt= DOLQUOT -> ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] ) );
+    public final EllaStringParser.string_return string() throws RecognitionException {
+        EllaStringParser.string_return retval = new EllaStringParser.string_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
@@ -129,17 +129,17 @@ public class SQLScriptStringParser extends Parser {
         List list_content3=null;
         List list_content4=null;
         List list_content5=null;
-        SQLScriptStringParser.qQuoteEnd_return end = null;
+        EllaStringParser.qQuoteEnd_return end = null;
 
-        SQLScriptStringParser.singleQuoteContent_return content1 = null;
+        EllaStringParser.singleQuoteContent_return content1 = null;
          content1 = null;
-        SQLScriptStringParser.doubleQuoteContent_return content2 = null;
+        EllaStringParser.doubleQuoteContent_return content2 = null;
          content2 = null;
-        SQLScriptStringParser.backTickContent_return content3 = null;
+        EllaStringParser.backTickContent_return content3 = null;
          content3 = null;
-        SQLScriptStringParser.unquotedContent_return content4 = null;
+        EllaStringParser.unquotedContent_return content4 = null;
          content4 = null;
-        SQLScriptStringParser.unquotedContent_return content5 = null;
+        EllaStringParser.unquotedContent_return content5 = null;
          content5 = null;
         CommonTree start_tree=null;
         CommonTree endt_tree=null;
@@ -154,7 +154,7 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleSubtreeStream stream_backTickContent=new RewriteRuleSubtreeStream(adaptor,"rule backTickContent");
         RewriteRuleSubtreeStream stream_qQuoteEnd=new RewriteRuleSubtreeStream(adaptor,"rule qQuoteEnd");
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:8: (start= SQUOT (content1+= singleQuoteContent )* endt= SQUOT -> ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] ) | start= DQUOT (content2+= doubleQuoteContent )* endt= DQUOT -> ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] ) | start= BTICK (content3+= backTickContent )* endt= BTICK -> ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] ) | start= QQUOT_START (content4+= unquotedContent )* end= qQuoteEnd -> ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] ) | start= DOLQUOT (content5+= unquotedContent )* endt= DOLQUOT -> ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] ) )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:8: (start= SQUOT (content1+= singleQuoteContent )* endt= SQUOT -> ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] ) | start= DQUOT (content2+= doubleQuoteContent )* endt= DQUOT -> ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] ) | start= BTICK (content3+= backTickContent )* endt= BTICK -> ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] ) | start= QQUOT_START (content4+= unquotedContent )* end= qQuoteEnd -> ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] ) | start= DOLQUOT (content5+= unquotedContent )* endt= DOLQUOT -> ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] ) )
             int alt6=5;
             switch ( input.LA(1) ) {
             case SQUOT:
@@ -192,7 +192,7 @@ public class SQLScriptStringParser extends Parser {
 
             switch (alt6) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:10: start= SQUOT (content1+= singleQuoteContent )* endt= SQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:10: start= SQUOT (content1+= singleQuoteContent )* endt= SQUOT
                     {
                     start=(Token)match(input,SQUOT,FOLLOW_SQUOT_in_string72); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_SQUOT.add(start);
@@ -200,7 +200,7 @@ public class SQLScriptStringParser extends Parser {
                     if ( state.backtracking==0 ) {
                        stringType = SQUOT; 
                     }
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:54: (content1+= singleQuoteContent )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:54: (content1+= singleQuoteContent )*
                     loop1:
                     do {
                         int alt1=2;
@@ -222,7 +222,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:55: content1+= singleQuoteContent
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:55: content1+= singleQuoteContent
                     	    {
                     	    pushFollow(FOLLOW_singleQuoteContent_in_string87);
                     	    content1=singleQuoteContent();
@@ -261,13 +261,13 @@ public class SQLScriptStringParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 68:98: -> ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:101: ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:101: ^( STRING STRING_START[$start] ( $content1)* STRING_END[$endt] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, (CommonTree)adaptor.create(STRING_START, start));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:68:131: ( $content1)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:68:131: ( $content1)*
                         while ( stream_content1.hasNext() ) {
                             adaptor.addChild(root_1, stream_content1.nextTree());
 
@@ -284,7 +284,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:69:4: start= DQUOT (content2+= doubleQuoteContent )* endt= DQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:69:4: start= DQUOT (content2+= doubleQuoteContent )* endt= DQUOT
                     {
                     start=(Token)match(input,DQUOT,FOLLOW_DQUOT_in_string117); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DQUOT.add(start);
@@ -292,7 +292,7 @@ public class SQLScriptStringParser extends Parser {
                     if ( state.backtracking==0 ) {
                        stringType = DQUOT; 
                     }
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:69:48: (content2+= doubleQuoteContent )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:69:48: (content2+= doubleQuoteContent )*
                     loop2:
                     do {
                         int alt2=2;
@@ -314,7 +314,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:69:49: content2+= doubleQuoteContent
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:69:49: content2+= doubleQuoteContent
                     	    {
                     	    pushFollow(FOLLOW_doubleQuoteContent_in_string132);
                     	    content2=doubleQuoteContent();
@@ -353,13 +353,13 @@ public class SQLScriptStringParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 69:92: -> ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:69:95: ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:69:95: ^( STRING STRING_START[$start] ( $content2)* STRING_END[$endt] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, (CommonTree)adaptor.create(STRING_START, start));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:69:125: ( $content2)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:69:125: ( $content2)*
                         while ( stream_content2.hasNext() ) {
                             adaptor.addChild(root_1, stream_content2.nextTree());
 
@@ -376,7 +376,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:70:4: start= BTICK (content3+= backTickContent )* endt= BTICK
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:70:4: start= BTICK (content3+= backTickContent )* endt= BTICK
                     {
                     start=(Token)match(input,BTICK,FOLLOW_BTICK_in_string162); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BTICK.add(start);
@@ -384,7 +384,7 @@ public class SQLScriptStringParser extends Parser {
                     if ( state.backtracking==0 ) {
                        stringType = BTICK; 
                     }
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:70:48: (content3+= backTickContent )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:70:48: (content3+= backTickContent )*
                     loop3:
                     do {
                         int alt3=2;
@@ -406,7 +406,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt3) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:70:49: content3+= backTickContent
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:70:49: content3+= backTickContent
                     	    {
                     	    pushFollow(FOLLOW_backTickContent_in_string177);
                     	    content3=backTickContent();
@@ -445,13 +445,13 @@ public class SQLScriptStringParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 70:92: -> ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:70:95: ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:70:95: ^( STRING STRING_START[$start] ( $content3)* STRING_END[$endt] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, (CommonTree)adaptor.create(STRING_START, start));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:70:125: ( $content3)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:70:125: ( $content3)*
                         while ( stream_content3.hasNext() ) {
                             adaptor.addChild(root_1, stream_content3.nextTree());
 
@@ -468,7 +468,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:71:4: start= QQUOT_START (content4+= unquotedContent )* end= qQuoteEnd
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:71:4: start= QQUOT_START (content4+= unquotedContent )* end= qQuoteEnd
                     {
                     start=(Token)match(input,QQUOT_START,FOLLOW_QQUOT_START_in_string210); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_QQUOT_START.add(start);
@@ -476,7 +476,7 @@ public class SQLScriptStringParser extends Parser {
                     if ( state.backtracking==0 ) {
                        stringType = QQUOT; 
                     }
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:71:48: (content4+= unquotedContent )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:71:48: (content4+= unquotedContent )*
                     loop4:
                     do {
                         int alt4=2;
@@ -489,7 +489,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:71:49: content4+= unquotedContent
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:71:49: content4+= unquotedContent
                     	    {
                     	    pushFollow(FOLLOW_unquotedContent_in_string219);
                     	    content4=unquotedContent();
@@ -531,13 +531,13 @@ public class SQLScriptStringParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 71:94: -> ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:71:97: ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:71:97: ^( STRING STRING_START[$start] ( $content4)* STRING_END[$end.token] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, (CommonTree)adaptor.create(STRING_START, start));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:71:127: ( $content4)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:71:127: ( $content4)*
                         while ( stream_content4.hasNext() ) {
                             adaptor.addChild(root_1, stream_content4.nextTree());
 
@@ -554,7 +554,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:72:4: start= DOLQUOT (content5+= unquotedContent )* endt= DOLQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:72:4: start= DOLQUOT (content5+= unquotedContent )* endt= DOLQUOT
                     {
                     start=(Token)match(input,DOLQUOT,FOLLOW_DOLQUOT_in_string251); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DOLQUOT.add(start);
@@ -562,7 +562,7 @@ public class SQLScriptStringParser extends Parser {
                     if ( state.backtracking==0 ) {
                        stringType = DOLQUOT; 
                     }
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:72:48: (content5+= unquotedContent )*
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:72:48: (content5+= unquotedContent )*
                     loop5:
                     do {
                         int alt5=2;
@@ -575,7 +575,7 @@ public class SQLScriptStringParser extends Parser {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:72:49: content5+= unquotedContent
+                    	    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:72:49: content5+= unquotedContent
                     	    {
                     	    pushFollow(FOLLOW_unquotedContent_in_string262);
                     	    content5=unquotedContent();
@@ -614,13 +614,13 @@ public class SQLScriptStringParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 72:93: -> ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] )
                     {
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:72:96: ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] )
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:72:96: ^( STRING STRING_START[$start] ( $content5)* STRING_END[$endt] )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(STRING, "STRING"), root_1);
 
                         adaptor.addChild(root_1, (CommonTree)adaptor.create(STRING_START, start));
-                        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:72:126: ( $content5)*
+                        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:72:126: ( $content5)*
                         while ( stream_content5.hasNext() ) {
                             adaptor.addChild(root_1, stream_content5.nextTree());
 
@@ -663,16 +663,16 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "singleQuoteContent"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:75:1: singleQuoteContent : ( ( SQUOT SQUOT )=>q= SQUOT SQUOT -> STRING_CONTENT[$q] | genericContent | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] );
-    public final SQLScriptStringParser.singleQuoteContent_return singleQuoteContent() throws RecognitionException {
-        SQLScriptStringParser.singleQuoteContent_return retval = new SQLScriptStringParser.singleQuoteContent_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:75:1: singleQuoteContent : ( ( SQUOT SQUOT )=>q= SQUOT SQUOT -> STRING_CONTENT[$q] | genericContent | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] );
+    public final EllaStringParser.singleQuoteContent_return singleQuoteContent() throws RecognitionException {
+        EllaStringParser.singleQuoteContent_return retval = new EllaStringParser.singleQuoteContent_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
         Token q=null;
         Token SQUOT1=null;
-        SQLScriptStringParser.genericContent_return genericContent2 = null;
+        EllaStringParser.genericContent_return genericContent2 = null;
 
 
         CommonTree q_tree=null;
@@ -682,11 +682,11 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_DQUOT=new RewriteRuleTokenStream(adaptor,"token DQUOT");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:76:2: ( ( SQUOT SQUOT )=>q= SQUOT SQUOT -> STRING_CONTENT[$q] | genericContent | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:76:2: ( ( SQUOT SQUOT )=>q= SQUOT SQUOT -> STRING_CONTENT[$q] | genericContent | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] )
             int alt7=4;
             int LA7_0 = input.LA(1);
 
-            if ( (LA7_0==SQUOT) && (synpred1_SQLScriptStringParser())) {
+            if ( (LA7_0==SQUOT) && (synpred1_EllaStringParser())) {
                 alt7=1;
             }
             else if ( ((LA7_0>=ATSIGN && LA7_0<=RCURLY)||(LA7_0>=VARNAME && LA7_0<=CHAR)) ) {
@@ -707,7 +707,7 @@ public class SQLScriptStringParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:76:4: ( SQUOT SQUOT )=>q= SQUOT SQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:76:4: ( SQUOT SQUOT )=>q= SQUOT SQUOT
                     {
                     q=(Token)match(input,SQUOT,FOLLOW_SQUOT_in_singleQuoteContent307); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_SQUOT.add(q);
@@ -739,7 +739,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:77:4: genericContent
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:77:4: genericContent
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -753,7 +753,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:78:4: q= DQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:78:4: q= DQUOT
                     {
                     q=(Token)match(input,DQUOT,FOLLOW_DQUOT_in_singleQuoteContent326); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DQUOT.add(q);
@@ -782,7 +782,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:79:4: q= BTICK
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:79:4: q= BTICK
                     {
                     q=(Token)match(input,BTICK,FOLLOW_BTICK_in_singleQuoteContent341); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BTICK.add(q);
@@ -837,16 +837,16 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "doubleQuoteContent"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:82:1: doubleQuoteContent : ( ( DQUOT DQUOT )=>q= DQUOT DQUOT -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] );
-    public final SQLScriptStringParser.doubleQuoteContent_return doubleQuoteContent() throws RecognitionException {
-        SQLScriptStringParser.doubleQuoteContent_return retval = new SQLScriptStringParser.doubleQuoteContent_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:82:1: doubleQuoteContent : ( ( DQUOT DQUOT )=>q= DQUOT DQUOT -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] );
+    public final EllaStringParser.doubleQuoteContent_return doubleQuoteContent() throws RecognitionException {
+        EllaStringParser.doubleQuoteContent_return retval = new EllaStringParser.doubleQuoteContent_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
         Token q=null;
         Token DQUOT3=null;
-        SQLScriptStringParser.genericContent_return genericContent4 = null;
+        EllaStringParser.genericContent_return genericContent4 = null;
 
 
         CommonTree q_tree=null;
@@ -856,11 +856,11 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_DQUOT=new RewriteRuleTokenStream(adaptor,"token DQUOT");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:83:2: ( ( DQUOT DQUOT )=>q= DQUOT DQUOT -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:83:2: ( ( DQUOT DQUOT )=>q= DQUOT DQUOT -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] )
             int alt8=4;
             int LA8_0 = input.LA(1);
 
-            if ( (LA8_0==DQUOT) && (synpred2_SQLScriptStringParser())) {
+            if ( (LA8_0==DQUOT) && (synpred2_EllaStringParser())) {
                 alt8=1;
             }
             else if ( ((LA8_0>=ATSIGN && LA8_0<=RCURLY)||(LA8_0>=VARNAME && LA8_0<=CHAR)) ) {
@@ -881,7 +881,7 @@ public class SQLScriptStringParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:83:4: ( DQUOT DQUOT )=>q= DQUOT DQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:83:4: ( DQUOT DQUOT )=>q= DQUOT DQUOT
                     {
                     q=(Token)match(input,DQUOT,FOLLOW_DQUOT_in_doubleQuoteContent369); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DQUOT.add(q);
@@ -913,7 +913,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:84:4: genericContent
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:84:4: genericContent
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -927,7 +927,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:85:4: q= SQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:85:4: q= SQUOT
                     {
                     q=(Token)match(input,SQUOT,FOLLOW_SQUOT_in_doubleQuoteContent388); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_SQUOT.add(q);
@@ -956,7 +956,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:86:4: q= BTICK
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:86:4: q= BTICK
                     {
                     q=(Token)match(input,BTICK,FOLLOW_BTICK_in_doubleQuoteContent403); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BTICK.add(q);
@@ -1011,16 +1011,16 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "backTickContent"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:89:1: backTickContent : ( ( BTICK BTICK )=>q= BTICK BTICK -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] );
-    public final SQLScriptStringParser.backTickContent_return backTickContent() throws RecognitionException {
-        SQLScriptStringParser.backTickContent_return retval = new SQLScriptStringParser.backTickContent_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:89:1: backTickContent : ( ( BTICK BTICK )=>q= BTICK BTICK -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] );
+    public final EllaStringParser.backTickContent_return backTickContent() throws RecognitionException {
+        EllaStringParser.backTickContent_return retval = new EllaStringParser.backTickContent_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
         Token q=null;
         Token BTICK5=null;
-        SQLScriptStringParser.genericContent_return genericContent6 = null;
+        EllaStringParser.genericContent_return genericContent6 = null;
 
 
         CommonTree q_tree=null;
@@ -1030,11 +1030,11 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_DQUOT=new RewriteRuleTokenStream(adaptor,"token DQUOT");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:90:2: ( ( BTICK BTICK )=>q= BTICK BTICK -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:90:2: ( ( BTICK BTICK )=>q= BTICK BTICK -> STRING_CONTENT[$q] | genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] )
             int alt9=4;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==BTICK) && (synpred3_SQLScriptStringParser())) {
+            if ( (LA9_0==BTICK) && (synpred3_EllaStringParser())) {
                 alt9=1;
             }
             else if ( ((LA9_0>=ATSIGN && LA9_0<=RCURLY)||(LA9_0>=VARNAME && LA9_0<=CHAR)) ) {
@@ -1055,7 +1055,7 @@ public class SQLScriptStringParser extends Parser {
             }
             switch (alt9) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:90:4: ( BTICK BTICK )=>q= BTICK BTICK
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:90:4: ( BTICK BTICK )=>q= BTICK BTICK
                     {
                     q=(Token)match(input,BTICK,FOLLOW_BTICK_in_backTickContent431); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BTICK.add(q);
@@ -1087,7 +1087,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:91:4: genericContent
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:91:4: genericContent
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1101,7 +1101,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:92:4: q= SQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:92:4: q= SQUOT
                     {
                     q=(Token)match(input,SQUOT,FOLLOW_SQUOT_in_backTickContent450); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_SQUOT.add(q);
@@ -1130,7 +1130,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:93:4: q= DQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:93:4: q= DQUOT
                     {
                     q=(Token)match(input,DQUOT,FOLLOW_DQUOT_in_backTickContent465); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DQUOT.add(q);
@@ -1185,15 +1185,15 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "unquotedContent"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:96:1: unquotedContent : ( genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] );
-    public final SQLScriptStringParser.unquotedContent_return unquotedContent() throws RecognitionException {
-        SQLScriptStringParser.unquotedContent_return retval = new SQLScriptStringParser.unquotedContent_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:96:1: unquotedContent : ( genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] );
+    public final EllaStringParser.unquotedContent_return unquotedContent() throws RecognitionException {
+        EllaStringParser.unquotedContent_return retval = new EllaStringParser.unquotedContent_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
         Token q=null;
-        SQLScriptStringParser.genericContent_return genericContent7 = null;
+        EllaStringParser.genericContent_return genericContent7 = null;
 
 
         CommonTree q_tree=null;
@@ -1202,7 +1202,7 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_DQUOT=new RewriteRuleTokenStream(adaptor,"token DQUOT");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:97:2: ( genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:97:2: ( genericContent | q= SQUOT -> STRING_CONTENT[$q] | q= DQUOT -> STRING_CONTENT[$q] | q= BTICK -> STRING_CONTENT[$q] )
             int alt10=4;
             switch ( input.LA(1) ) {
             case ATSIGN:
@@ -1239,7 +1239,7 @@ public class SQLScriptStringParser extends Parser {
 
             switch (alt10) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:97:4: genericContent
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:97:4: genericContent
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1253,7 +1253,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:98:4: q= SQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:98:4: q= SQUOT
                     {
                     q=(Token)match(input,SQUOT,FOLLOW_SQUOT_in_unquotedContent491); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_SQUOT.add(q);
@@ -1282,7 +1282,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:99:4: q= DQUOT
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:99:4: q= DQUOT
                     {
                     q=(Token)match(input,DQUOT,FOLLOW_DQUOT_in_unquotedContent506); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DQUOT.add(q);
@@ -1311,7 +1311,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:100:4: q= BTICK
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:100:4: q= BTICK
                     {
                     q=(Token)match(input,BTICK,FOLLOW_BTICK_in_unquotedContent521); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BTICK.add(q);
@@ -1366,15 +1366,15 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "genericContent"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:103:1: genericContent : ( embeddedVariable | q= CHAR -> STRING_CONTENT[$q] | q= VARNAME -> STRING_CONTENT[$q] );
-    public final SQLScriptStringParser.genericContent_return genericContent() throws RecognitionException {
-        SQLScriptStringParser.genericContent_return retval = new SQLScriptStringParser.genericContent_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:103:1: genericContent : ( embeddedVariable | q= CHAR -> STRING_CONTENT[$q] | q= VARNAME -> STRING_CONTENT[$q] );
+    public final EllaStringParser.genericContent_return genericContent() throws RecognitionException {
+        EllaStringParser.genericContent_return retval = new EllaStringParser.genericContent_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
 
         Token q=null;
-        SQLScriptStringParser.embeddedVariable_return embeddedVariable8 = null;
+        EllaStringParser.embeddedVariable_return embeddedVariable8 = null;
 
 
         CommonTree q_tree=null;
@@ -1382,7 +1382,7 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_VARNAME=new RewriteRuleTokenStream(adaptor,"token VARNAME");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:104:2: ( embeddedVariable | q= CHAR -> STRING_CONTENT[$q] | q= VARNAME -> STRING_CONTENT[$q] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:104:2: ( embeddedVariable | q= CHAR -> STRING_CONTENT[$q] | q= VARNAME -> STRING_CONTENT[$q] )
             int alt11=3;
             switch ( input.LA(1) ) {
             case ATSIGN:
@@ -1412,7 +1412,7 @@ public class SQLScriptStringParser extends Parser {
 
             switch (alt11) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:104:4: embeddedVariable
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:104:4: embeddedVariable
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1426,7 +1426,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:105:4: q= CHAR
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:105:4: q= CHAR
                     {
                     q=(Token)match(input,CHAR,FOLLOW_CHAR_in_genericContent547); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CHAR.add(q);
@@ -1455,7 +1455,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:106:4: q= VARNAME
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:106:4: q= VARNAME
                     {
                     q=(Token)match(input,VARNAME,FOLLOW_VARNAME_in_genericContent562); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VARNAME.add(q);
@@ -1511,9 +1511,9 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "qQuoteEnd"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:109:1: qQuoteEnd returns [ Token token ] : q= QQUOT_END -> STRING_END[$q] ;
-    public final SQLScriptStringParser.qQuoteEnd_return qQuoteEnd() throws RecognitionException {
-        SQLScriptStringParser.qQuoteEnd_return retval = new SQLScriptStringParser.qQuoteEnd_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:109:1: qQuoteEnd returns [ Token token ] : q= QQUOT_END -> STRING_END[$q] ;
+    public final EllaStringParser.qQuoteEnd_return qQuoteEnd() throws RecognitionException {
+        EllaStringParser.qQuoteEnd_return retval = new EllaStringParser.qQuoteEnd_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
@@ -1524,8 +1524,8 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_QQUOT_END=new RewriteRuleTokenStream(adaptor,"token QQUOT_END");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:110:2: (q= QQUOT_END -> STRING_END[$q] )
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:110:4: q= QQUOT_END
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:110:2: (q= QQUOT_END -> STRING_END[$q] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:110:4: q= QQUOT_END
             {
             q=(Token)match(input,QQUOT_END,FOLLOW_QQUOT_END_in_qQuoteEnd586); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_QQUOT_END.add(q);
@@ -1581,9 +1581,9 @@ public class SQLScriptStringParser extends Parser {
     };
 
     // $ANTLR start "embeddedVariable"
-    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:113:1: embeddedVariable : ( ( ATSIGN LCURLY )=>a1= ATSIGN (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) ) | ATSIGN -> STRING_CONTENT[$ATSIGN] | LCURLY -> STRING_CONTENT[$LCURLY] | RCURLY -> STRING_CONTENT[$RCURLY] );
-    public final SQLScriptStringParser.embeddedVariable_return embeddedVariable() throws RecognitionException {
-        SQLScriptStringParser.embeddedVariable_return retval = new SQLScriptStringParser.embeddedVariable_return();
+    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:113:1: embeddedVariable : ( ( ATSIGN LCURLY )=>a1= ATSIGN (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) ) | ATSIGN -> STRING_CONTENT[$ATSIGN] | LCURLY -> STRING_CONTENT[$LCURLY] | RCURLY -> STRING_CONTENT[$RCURLY] );
+    public final EllaStringParser.embeddedVariable_return embeddedVariable() throws RecognitionException {
+        EllaStringParser.embeddedVariable_return retval = new EllaStringParser.embeddedVariable_return();
         retval.start = input.LT(1);
 
         CommonTree root_0 = null;
@@ -1611,23 +1611,23 @@ public class SQLScriptStringParser extends Parser {
         RewriteRuleTokenStream stream_VARNAME=new RewriteRuleTokenStream(adaptor,"token VARNAME");
 
         try {
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:114:2: ( ( ATSIGN LCURLY )=>a1= ATSIGN (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) ) | ATSIGN -> STRING_CONTENT[$ATSIGN] | LCURLY -> STRING_CONTENT[$LCURLY] | RCURLY -> STRING_CONTENT[$RCURLY] )
+            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:114:2: ( ( ATSIGN LCURLY )=>a1= ATSIGN (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) ) | ATSIGN -> STRING_CONTENT[$ATSIGN] | LCURLY -> STRING_CONTENT[$LCURLY] | RCURLY -> STRING_CONTENT[$RCURLY] )
             int alt13=4;
             alt13 = dfa13.predict(input);
             switch (alt13) {
                 case 1 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:114:4: ( ATSIGN LCURLY )=>a1= ATSIGN (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:114:4: ( ATSIGN LCURLY )=>a1= ATSIGN (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) )
                     {
                     a1=(Token)match(input,ATSIGN,FOLLOW_ATSIGN_in_embeddedVariable615); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ATSIGN.add(a1);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:116:3: (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) )
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:116:5: lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:116:3: (lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] ) )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:116:5: lc= LCURLY ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] )
                     {
                     lc=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_embeddedVariable623); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LCURLY.add(lc);
 
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:117:5: ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] )
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:117:5: ( RCURLY -> STRING_CONTENT[$a1] | var= VARNAME RCURLY -> EMBEDDED_VAR[$var] )
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1646,7 +1646,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     switch (alt12) {
                         case 1 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:117:7: RCURLY
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:117:7: RCURLY
                             {
                             RCURLY9=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVariable631); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY9);
@@ -1675,7 +1675,7 @@ public class SQLScriptStringParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:118:7: var= VARNAME RCURLY
+                            // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:118:7: var= VARNAME RCURLY
                             {
                             var=(Token)match(input,VARNAME,FOLLOW_VARNAME_in_embeddedVariable647); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_VARNAME.add(var);
@@ -1716,7 +1716,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:123:4: ATSIGN
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:123:4: ATSIGN
                     {
                     ATSIGN11=(Token)match(input,ATSIGN,FOLLOW_ATSIGN_in_embeddedVariable677); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ATSIGN.add(ATSIGN11);
@@ -1745,7 +1745,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:124:4: LCURLY
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:124:4: LCURLY
                     {
                     LCURLY12=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_embeddedVariable689); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY12);
@@ -1774,7 +1774,7 @@ public class SQLScriptStringParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:125:4: RCURLY
+                    // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:125:4: RCURLY
                     {
                     RCURLY13=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVariable701); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY13);
@@ -1823,61 +1823,61 @@ public class SQLScriptStringParser extends Parser {
     }
     // $ANTLR end "embeddedVariable"
 
-    // $ANTLR start synpred1_SQLScriptStringParser
-    public final void synpred1_SQLScriptStringParser_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:76:4: ( SQUOT SQUOT )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:76:5: SQUOT SQUOT
+    // $ANTLR start synpred1_EllaStringParser
+    public final void synpred1_EllaStringParser_fragment() throws RecognitionException {   
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:76:4: ( SQUOT SQUOT )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:76:5: SQUOT SQUOT
         {
-        match(input,SQUOT,FOLLOW_SQUOT_in_synpred1_SQLScriptStringParser299); if (state.failed) return ;
-        match(input,SQUOT,FOLLOW_SQUOT_in_synpred1_SQLScriptStringParser301); if (state.failed) return ;
+        match(input,SQUOT,FOLLOW_SQUOT_in_synpred1_EllaStringParser299); if (state.failed) return ;
+        match(input,SQUOT,FOLLOW_SQUOT_in_synpred1_EllaStringParser301); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred1_SQLScriptStringParser
+    // $ANTLR end synpred1_EllaStringParser
 
-    // $ANTLR start synpred2_SQLScriptStringParser
-    public final void synpred2_SQLScriptStringParser_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:83:4: ( DQUOT DQUOT )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:83:5: DQUOT DQUOT
+    // $ANTLR start synpred2_EllaStringParser
+    public final void synpred2_EllaStringParser_fragment() throws RecognitionException {   
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:83:4: ( DQUOT DQUOT )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:83:5: DQUOT DQUOT
         {
-        match(input,DQUOT,FOLLOW_DQUOT_in_synpred2_SQLScriptStringParser361); if (state.failed) return ;
-        match(input,DQUOT,FOLLOW_DQUOT_in_synpred2_SQLScriptStringParser363); if (state.failed) return ;
+        match(input,DQUOT,FOLLOW_DQUOT_in_synpred2_EllaStringParser361); if (state.failed) return ;
+        match(input,DQUOT,FOLLOW_DQUOT_in_synpred2_EllaStringParser363); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred2_SQLScriptStringParser
+    // $ANTLR end synpred2_EllaStringParser
 
-    // $ANTLR start synpred3_SQLScriptStringParser
-    public final void synpred3_SQLScriptStringParser_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:90:4: ( BTICK BTICK )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:90:5: BTICK BTICK
+    // $ANTLR start synpred3_EllaStringParser
+    public final void synpred3_EllaStringParser_fragment() throws RecognitionException {   
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:90:4: ( BTICK BTICK )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:90:5: BTICK BTICK
         {
-        match(input,BTICK,FOLLOW_BTICK_in_synpred3_SQLScriptStringParser423); if (state.failed) return ;
-        match(input,BTICK,FOLLOW_BTICK_in_synpred3_SQLScriptStringParser425); if (state.failed) return ;
+        match(input,BTICK,FOLLOW_BTICK_in_synpred3_EllaStringParser423); if (state.failed) return ;
+        match(input,BTICK,FOLLOW_BTICK_in_synpred3_EllaStringParser425); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred3_SQLScriptStringParser
+    // $ANTLR end synpred3_EllaStringParser
 
-    // $ANTLR start synpred4_SQLScriptStringParser
-    public final void synpred4_SQLScriptStringParser_fragment() throws RecognitionException {   
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:114:4: ( ATSIGN LCURLY )
-        // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/sqlscript/compiler/SQLScriptStringParser.g:114:5: ATSIGN LCURLY
+    // $ANTLR start synpred4_EllaStringParser
+    public final void synpred4_EllaStringParser_fragment() throws RecognitionException {   
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:114:4: ( ATSIGN LCURLY )
+        // /home/panos/IdeaProjects/Ella/src/org/unbunt/sqlscript/compiler/EllaStringParser.g:114:5: ATSIGN LCURLY
         {
-        match(input,ATSIGN,FOLLOW_ATSIGN_in_synpred4_SQLScriptStringParser605); if (state.failed) return ;
-        match(input,LCURLY,FOLLOW_LCURLY_in_synpred4_SQLScriptStringParser607); if (state.failed) return ;
+        match(input,ATSIGN,FOLLOW_ATSIGN_in_synpred4_EllaStringParser605); if (state.failed) return ;
+        match(input,LCURLY,FOLLOW_LCURLY_in_synpred4_EllaStringParser607); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred4_SQLScriptStringParser
+    // $ANTLR end synpred4_EllaStringParser
 
     // Delegated rules
 
-    public final boolean synpred1_SQLScriptStringParser() {
+    public final boolean synpred1_EllaStringParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred1_SQLScriptStringParser_fragment(); // can never throw exception
+            synpred1_EllaStringParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -1887,11 +1887,11 @@ public class SQLScriptStringParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred4_SQLScriptStringParser() {
+    public final boolean synpred4_EllaStringParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred4_SQLScriptStringParser_fragment(); // can never throw exception
+            synpred4_EllaStringParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -1901,11 +1901,11 @@ public class SQLScriptStringParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred2_SQLScriptStringParser() {
+    public final boolean synpred2_EllaStringParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred2_SQLScriptStringParser_fragment(); // can never throw exception
+            synpred2_EllaStringParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -1915,11 +1915,11 @@ public class SQLScriptStringParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred3_SQLScriptStringParser() {
+    public final boolean synpred3_EllaStringParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred3_SQLScriptStringParser_fragment(); // can never throw exception
+            synpred3_EllaStringParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2002,7 +2002,7 @@ public class SQLScriptStringParser extends Parser {
                         int index13_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred4_SQLScriptStringParser()) ) {s = 8;}
+                        if ( (synpred4_EllaStringParser()) ) {s = 8;}
 
                         else if ( (true) ) {s = 5;}
 
@@ -2017,7 +2017,7 @@ public class SQLScriptStringParser extends Parser {
                         int index13_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred4_SQLScriptStringParser()) ) {s = 8;}
+                        if ( (synpred4_EllaStringParser()) ) {s = 8;}
 
                         else if ( (true) ) {s = 5;}
 
@@ -2081,13 +2081,13 @@ public class SQLScriptStringParser extends Parser {
     public static final BitSet FOLLOW_ATSIGN_in_embeddedVariable677 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_LCURLY_in_embeddedVariable689 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RCURLY_in_embeddedVariable701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SQUOT_in_synpred1_SQLScriptStringParser299 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_SQUOT_in_synpred1_SQLScriptStringParser301 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DQUOT_in_synpred2_SQLScriptStringParser361 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_DQUOT_in_synpred2_SQLScriptStringParser363 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BTICK_in_synpred3_SQLScriptStringParser423 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_BTICK_in_synpred3_SQLScriptStringParser425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ATSIGN_in_synpred4_SQLScriptStringParser605 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_LCURLY_in_synpred4_SQLScriptStringParser607 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SQUOT_in_synpred1_EllaStringParser299 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_SQUOT_in_synpred1_EllaStringParser301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DQUOT_in_synpred2_EllaStringParser361 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_DQUOT_in_synpred2_EllaStringParser363 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BTICK_in_synpred3_EllaStringParser423 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_BTICK_in_synpred3_EllaStringParser425 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ATSIGN_in_synpred4_EllaStringParser605 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_LCURLY_in_synpred4_EllaStringParser607 = new BitSet(new long[]{0x0000000000000002L});
 
 }

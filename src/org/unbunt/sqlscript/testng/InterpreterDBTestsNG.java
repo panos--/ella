@@ -1,10 +1,10 @@
 package org.unbunt.sqlscript.testng;
 
 import org.testng.annotations.Test;
-import static org.unbunt.sqlscript.SQLScript.eval;
-import org.unbunt.sqlscript.exception.SQLScriptIOException;
-import org.unbunt.sqlscript.exception.SQLScriptParseException;
-import org.unbunt.sqlscript.exception.SQLScriptException;
+import static org.unbunt.sqlscript.Ella.eval;
+import org.unbunt.sqlscript.exception.EllaIOException;
+import org.unbunt.sqlscript.exception.EllaParseException;
+import org.unbunt.sqlscript.exception.EllaException;
 import static org.unbunt.sqlscript.testng.TestUtils.ensureType;
 
 import java.sql.Connection;
@@ -19,14 +19,14 @@ public class InterpreterDBTestsNG extends AbstractTest {
     public static final String PROPS_ORACLE = "oracle.properties";
 
     @Test
-    public void connectMysql() throws SQLScriptIOException, SQLScriptParseException, SQLException, SQLScriptException {
+    public void connectMysql() throws EllaIOException, EllaParseException, SQLException, EllaException {
         Object result = eval(String.format(".ConnMgr.createFromProps('%s', 'mysql');", propsMysql()));
         Connection conn = ensureType(Connection.class, result);
         conn.close();
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void connActivate() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void connActivate() throws EllaIOException, EllaParseException, EllaException {
         // TODO: Close connections
         eval("{\n" +
                 String.format("var conn1 := ConnMgr.createFromProps('%s', 'mysql');\n", propsMysql()) +
@@ -45,32 +45,32 @@ public class InterpreterDBTestsNG extends AbstractTest {
 
     @Test(dependsOnMethods = "connActivate")
     public void sqlLiteralVariableSubstitution()
-            throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+            throws EllaIOException, EllaParseException, EllaException {
         eval(file("sql-literal-variable-substitution"), propsMysql(), "mysql");
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void tx() throws SQLScriptIOException, SQLScriptParseException, SQLScriptException {
+    public void tx() throws EllaIOException, EllaParseException, EllaException {
         eval(file("tx"), propsMysql());
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void mysqlStmtKey() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void mysqlStmtKey() throws EllaIOException, EllaException, EllaParseException {
         eval(file("mysql-stmt-key"), propsMysql());
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void mysqlResSetUpdate() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void mysqlResSetUpdate() throws EllaIOException, EllaException, EllaParseException {
         eval(file("mysql-resset-update"), propsMysql());
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void mysqlResSetInsert() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void mysqlResSetInsert() throws EllaIOException, EllaException, EllaParseException {
         eval(file("mysql-resset-insert"), propsMysql());
     }
 
     @Test
-    public void connectOracle() throws SQLScriptIOException, SQLScriptParseException, SQLException, SQLScriptException {
+    public void connectOracle() throws EllaIOException, EllaParseException, SQLException, EllaException {
         Object result = eval(
                 String.format(".ConnMgr.createFromProps('%s', 'oracle');", propsOracle())
         );
@@ -79,37 +79,37 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleInsertSelectSimple() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleInsertSelectSimple() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-insert-select-simple"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleStmtFirst() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleStmtFirst() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-stmt-first"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleConnBatch() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleConnBatch() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-conn-batch"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleStmtBatch() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleStmtBatch() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-stmt-batch"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleStmtBatchNamed() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleStmtBatchNamed() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-stmt-batch-named"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleConnWithPrepared() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleConnWithPrepared() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-conn-with-prepared"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleConnWithPreparedNamed() throws SQLScriptIOException, SQLScriptException, SQLScriptParseException {
+    public void oracleConnWithPreparedNamed() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-conn-with-prepared-named"), propsOracle());
     }
 

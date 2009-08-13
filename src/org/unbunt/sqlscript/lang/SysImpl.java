@@ -32,7 +32,7 @@ public class SysImpl extends AbstractObj implements Sys {
             try {
                 includedScript = includingScript.createRelative(filename);
             } catch (IOException e) {
-                throw new SQLScriptRuntimeException("Failed to read sql script: " + filename + ": " +
+                throw new EllaRuntimeException("Failed to read sql script: " + filename + ": " +
                                                     e.getMessage(), e);
             }
 
@@ -43,7 +43,7 @@ public class SysImpl extends AbstractObj implements Sys {
             try {
                 block = ParserHelper.parseScript(parseScope, includedScript);
             } catch (GenericParseException e) {
-                throw new SQLScriptRuntimeException(e);
+                throw new EllaRuntimeException(e);
             }
 
             // TODO: Remember replaced env and only restore if unchanged
@@ -167,7 +167,7 @@ public class SysImpl extends AbstractObj implements Sys {
 
     protected static final NativeCall nativeThrow = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            throw new SQLScriptClientException(args[0]);
+            throw new EllaClientException(args[0]);
         }
     };
 
@@ -176,9 +176,9 @@ public class SysImpl extends AbstractObj implements Sys {
             EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
-            } catch (SQLScriptClientException e) {
+            } catch (EllaClientException e) {
                 engine.invoke(args[1], engine.getObjNull(), e.getException());
-            } catch (SQLScriptRuntimeException e) {
+            } catch (EllaRuntimeException e) {
                 engine.invoke(args[1], engine.getObjNull(), new JObject(e));
             }
             engine.setState(state);
@@ -214,9 +214,9 @@ public class SysImpl extends AbstractObj implements Sys {
             EngineState state = engine.getState();
             try {
                 engine.invoke(args[0], engine.getObjNull());
-            } catch (SQLScriptClientException e) {
+            } catch (EllaClientException e) {
                 engine.invoke(args[1], engine.getObjNull(), e.getException());
-            } catch (SQLScriptRuntimeException e) {
+            } catch (EllaRuntimeException e) {
                 engine.invoke(args[1], engine.getObjNull(), new JObject(e));
             } finally {
                 Obj savedVal = null;

@@ -1,18 +1,18 @@
 package org.unbunt.sqlscript.exception;
 
-public class SQLScriptRuntimeException extends GenericRuntimeException {
-    public SQLScriptRuntimeException() {
+public class EllaRuntimeException extends GenericRuntimeException {
+    public EllaRuntimeException() {
     }
 
-    public SQLScriptRuntimeException(Throwable cause) {
+    public EllaRuntimeException(Throwable cause) {
         super(cause);
     }
 
-    public SQLScriptRuntimeException(String message) {
+    public EllaRuntimeException(String message) {
         super(message);
     }
 
-    public SQLScriptRuntimeException(String message, Throwable cause) {
+    public EllaRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
 }
