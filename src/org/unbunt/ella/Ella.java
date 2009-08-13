@@ -18,6 +18,7 @@ import org.unbunt.ella.compiler.antlr.LazyTokenStream;
 import org.unbunt.ella.compiler.statement.Block;
 import org.unbunt.ella.compiler.support.Scope;
 import org.unbunt.ella.engine.EllaEngine;
+import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
 import org.unbunt.ella.support.Drivers;
@@ -38,10 +39,10 @@ import java.util.List;
 /**
  * Main interface for executing programs written in the EllaScript programming language. Also implements a
  * <code>main</code> method providing a command line interface which allows for the compilation, tree generation
- * and execution of EllaScript programs. 
+ * and execution of EllaScript programs.
  */
 public class Ella {
-    protected DefaultContext context;
+    protected Context context;
     protected SimpleResource script;
     protected String scriptName;
 
@@ -60,7 +61,7 @@ public class Ella {
         this(new DefaultContext(), script);
     }
 
-    public Ella(DefaultContext context, SimpleResource script) {
+    public Ella(Context context, SimpleResource script) {
         this.context = context;
         this.script = script;
         this.scriptName = script.getFilename();
@@ -564,6 +565,10 @@ public class Ella {
             usage(parser);
         }
 
+        if (pargs.showUsage) {
+            usage(parser);
+        }
+
         String file = pargs.args.isEmpty() ? null : pargs.args.get(0);
         if (pargs.possiblyInteractive && file == null) {
             pargs.interactive = true;
@@ -620,25 +625,25 @@ public class Ella {
             }
             context.addSQLResultListener(new SimpleSQLResultListener(System.out));
 
-            Ella interp = new Ella(context, script);
+            Ella ella = new Ella(context, script);
             if (pargs.compile) {
-                interp.compile();
+                ella.compile();
             }
             else {
                 if (pargs.verbose) {
                     // TODO: Provide functionality
                 }
                 if (pargs.interactive) {
-                    interp.executeInteractive();
+                    ella.executeInteractive();
                 }
                 else if (pargs.ast) {
-                    interp.showAST();
+                    ella.showAST();
                 }
                 else if (pargs.large) {
-                    interp.executeIncremental();
+                    ella.executeIncremental();
                 }
                 else {
-                    interp.execute();
+                    ella.execute();
                 }
             }
         } catch (EllaIOException e) {
@@ -683,6 +688,9 @@ public class Ella {
 
         @Option(name = "-i", usage = "operate in interactive mode")
         public boolean interactive = false;
+
+        @Option(name = "-h", aliases = "-help", usage = "prints this message")
+        public boolean showUsage = false;
 
         /**
          * This option is intended to be used by wrapper scripts to indicate that interactive mode should
