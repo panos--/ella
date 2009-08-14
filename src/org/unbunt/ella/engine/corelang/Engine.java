@@ -9,6 +9,11 @@ import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.LoopBreakException;
 import org.unbunt.ella.exception.LoopContinueException;
 
+/**
+ * Represents the native interface to be implemented by a virtual machine for the ella language.
+ * <p>
+ * The native interface is the API element used by native objects to interact with the execution engine.
+ */
 public interface Engine extends SQLResultProvider {
     boolean isClosureReturnInProgress();
 
@@ -26,6 +31,17 @@ public interface Engine extends SQLResultProvider {
 
     Obj invokeOnReceiver(Obj call, Obj context, Obj receiver, Obj... args);
 
+    /**
+     * Invokes the given object.
+     *
+     * @param call the activatable object to be invoked.
+     * @param context the activation context the object is to be invoked with. May be <code>null</code>.
+     * @param args the arguments passed as part of the invocation.
+     * @return a value to be used a the result of the evaluation. May by <code>null</code>, to indicate the value
+     *         of last evaluation should be preserved.
+     * @throws ClosureTerminatedException indicates the invocation has to end abruptly because of a return operation
+     *                                    triggered from inside a block closure.
+     */
     Obj invoke(Obj call, Obj context, Obj... args) throws ClosureTerminatedException;
 
     Obj invoke(PrimitiveCall prim, Obj context, Obj... args);

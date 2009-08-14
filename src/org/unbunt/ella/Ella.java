@@ -18,6 +18,7 @@ import org.unbunt.ella.compiler.antlr.LazyTokenStream;
 import org.unbunt.ella.compiler.statement.Block;
 import org.unbunt.ella.compiler.support.Scope;
 import org.unbunt.ella.engine.EllaEngine;
+import org.unbunt.ella.engine.EllaCPSEngine;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
@@ -457,11 +458,11 @@ public class Ella {
     }
 
     protected Object runBlock() throws EllaException {
-        return engine.process(block);
+        return engine.eval(block);
     }
 
     protected void initEngine() {
-        engine = EllaEngine.create(context);
+        engine = EllaCPSEngine.create(context);
     }
 
     protected void finish() {
