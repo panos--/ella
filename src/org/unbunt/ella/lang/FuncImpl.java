@@ -1,16 +1,15 @@
 package org.unbunt.ella.lang;
 
 import org.unbunt.ella.engine.corelang.ProtoRegistry;
-import org.unbunt.ella.engine.*;
 import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.compiler.support.Function;
 import org.unbunt.ella.engine.context.Context;
 
-public class Func extends AbstractObj implements Call {
+public class FuncImpl extends AbstractObj implements Func {
     protected Function function;
 
-    public Func(Function function) {
+    public FuncImpl(Function function) {
         this.function = function;
     }
 

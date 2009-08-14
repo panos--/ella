@@ -2,7 +2,6 @@ package org.unbunt.ella.lang.sql;
 
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.*;
-import org.unbunt.ella.engine.*;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.compiler.support.RawSQL;

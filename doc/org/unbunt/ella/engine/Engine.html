@@ -190,7 +190,7 @@ Interface Engine</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#invoke(org.unbunt.ella.lang.Clos, org.unbunt.ella.engine.corelang.Obj...)">invoke</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="class in org.unbunt.ella.lang">Clos</A>&nbsp;clos,
+<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#invoke(org.unbunt.ella.lang.ClosImpl, org.unbunt.ella.engine.corelang.Obj...)">invoke</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="class in org.unbunt.ella.lang">Clos</A>&nbsp;clos,
        <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>...&nbsp;args)</CODE>
 
 <BR>
@@ -199,7 +199,7 @@ Interface Engine</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#invoke(org.unbunt.ella.lang.Func, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)">invoke</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Func.html" title="class in org.unbunt.ella.lang">Func</A>&nbsp;func,
+<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#invoke(org.unbunt.ella.lang.FuncImpl, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)">invoke</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Func.html" title="class in org.unbunt.ella.lang">Func</A>&nbsp;func,
        <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>&nbsp;context,
        <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>&nbsp;receiver,
        <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>...&nbsp;args)</CODE>
@@ -329,7 +329,7 @@ Interface Engine</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#trigger(org.unbunt.ella.lang.Clos, org.unbunt.ella.engine.corelang.Obj...)">trigger</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="class in org.unbunt.ella.lang">Clos</A>&nbsp;clos,
+<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#trigger(org.unbunt.ella.lang.ClosImpl, org.unbunt.ella.engine.corelang.Obj...)">trigger</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="class in org.unbunt.ella.lang">Clos</A>&nbsp;clos,
         <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>...&nbsp;args)</CODE>
 
 <BR>
@@ -338,7 +338,7 @@ Interface Engine</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#trigger(org.unbunt.ella.lang.Func, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)">trigger</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Func.html" title="class in org.unbunt.ella.lang">Func</A>&nbsp;func,
+<TD><CODE><B><A HREF="../../../../org/unbunt/ella/engine/Engine.html#trigger(org.unbunt.ella.lang.FuncImpl, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)">trigger</A></B>(<A HREF="../../../../org/unbunt/ella/lang/Func.html" title="class in org.unbunt.ella.lang">Func</A>&nbsp;func,
         <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>&nbsp;context,
         <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>&nbsp;receiver,
         <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A>...&nbsp;args)</CODE>
@@ -475,7 +475,7 @@ void <B>trigger</B>(<A HREF="../../../../org/unbunt/ella/engine/corelang/NativeC
 </DL>
 <HR>
 
-<A NAME="trigger(org.unbunt.ella.lang.Clos, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
+<A NAME="trigger(org.unbunt.ella.lang.ClosImpl, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
 trigger</H3>
 <PRE>
 void <B>trigger</B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="class in org.unbunt.ella.lang">Clos</A>&nbsp;clos,
@@ -490,7 +490,7 @@ void <B>trigger</B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="
 </DL>
 <HR>
 
-<A NAME="trigger(org.unbunt.ella.lang.Func, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
+<A NAME="trigger(org.unbunt.ella.lang.FuncImpl, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
 trigger</H3>
 <PRE>
 void <B>trigger</B>(<A HREF="../../../../org/unbunt/ella/lang/Func.html" title="class in org.unbunt.ella.lang">Func</A>&nbsp;func,
@@ -575,7 +575,7 @@ invoke</H3>
 </DL>
 <HR>
 
-<A NAME="invoke(org.unbunt.ella.lang.Clos, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
+<A NAME="invoke(org.unbunt.ella.lang.ClosImpl, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
 invoke</H3>
 <PRE>
 <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A> <B>invoke</B>(<A HREF="../../../../org/unbunt/ella/lang/Clos.html" title="class in org.unbunt.ella.lang">Clos</A>&nbsp;clos,
@@ -593,7 +593,7 @@ invoke</H3>
 </DL>
 <HR>
 
-<A NAME="invoke(org.unbunt.ella.lang.Func, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
+<A NAME="invoke(org.unbunt.ella.lang.FuncImpl, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj, org.unbunt.ella.engine.corelang.Obj...)"><!-- --></A><H3>
 invoke</H3>
 <PRE>
 <A HREF="../../../../org/unbunt/ella/engine/corelang/Obj.html" title="interface in org.unbunt.ella.engine.corelang">Obj</A> <B>invoke</B>(<A HREF="../../../../org/unbunt/ella/lang/Func.html" title="class in org.unbunt.ella.lang">Func</A>&nbsp;func,

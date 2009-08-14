@@ -96,11 +96,11 @@ import java.util.Set;
  *      </tr>
  *      <tr>
  *          <td>Clos</td>
- *          <td>{@link org.unbunt.ella.lang.Clos.ClosProto}</td>
+ *          <td>{@link org.unbunt.ella.lang.ClosImpl.ClosProto}</td>
  *      </tr>
  *      <tr>
  *          <td>Func</td>
- *          <td>{@link org.unbunt.ella.lang.Func.FuncProto}</td>
+ *          <td>{@link org.unbunt.ella.lang.FuncImpl.FuncProto}</td>
  *      </tr>
  *      <tr>
  *          <td>JArray</td>
@@ -202,8 +202,8 @@ public class DefaultContext implements Context {
         Dict.registerInContext(this);
         SysImpl.registerInContext(this);
         BoolImpl.registerInContext(this);
-        Clos.registerInContext(this);
-        Func.registerInContext(this);
+        ClosImpl.registerInContext(this);
+        FuncImpl.registerInContext(this);
         JMethod.registerInContext(this);
         JArray.registerInContext(this);
         JClass.registerInContext(this);
@@ -247,8 +247,8 @@ public class DefaultContext implements Context {
         mainEnv.add("Bool", ensureObject(BoolImpl.BoolProto.OBJECT_ID));
         mainEnv.add("true", objTrue);
         mainEnv.add("false", objFalse);
-        mainEnv.add("Clos", ensureObject(Clos.ClosProto.OBJECT_ID));
-        mainEnv.add("Func", ensureObject(Func.FuncProto.OBJECT_ID));
+        mainEnv.add("Clos", ensureObject(ClosImpl.ClosProto.OBJECT_ID));
+        mainEnv.add("Func", ensureObject(FuncImpl.FuncProto.OBJECT_ID));
         mainEnv.add("JArray", ensureObject(JArray.JArrayProto.OBJECT_ID));
         mainEnv.add("JClass", ensureObject(JClass.JClassProto.OBJECT_ID));
         mainEnv.add("ConnMgr", ensureObject(ConnMgrImpl.OBJECT_ID));

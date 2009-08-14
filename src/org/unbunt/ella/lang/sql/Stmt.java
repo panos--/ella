@@ -7,7 +7,7 @@ import org.unbunt.ella.compiler.ParserHelper;
 import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.RawSQL;
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.Engine;
+import org.unbunt.ella.engine.corelang.Engine;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.ClosureTerminatedException;

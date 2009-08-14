@@ -3,7 +3,6 @@ package org.unbunt.ella.lang;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.LoopBreakException;
 import org.unbunt.ella.exception.LoopContinueException;
-import org.unbunt.ella.engine.*;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.Consts.SLOT_CLONE_INIT;
 import static org.unbunt.ella.engine.corelang.Consts.SLOT_PARENT;

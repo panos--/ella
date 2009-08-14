@@ -4,15 +4,14 @@ import org.unbunt.ella.compiler.support.BlockClosure;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.LoopBreakException;
 import org.unbunt.ella.exception.LoopContinueException;
-import org.unbunt.ella.engine.*;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
 
-public class Clos extends AbstractObj implements Call {
+public class ClosImpl extends AbstractObj implements Clos {
     protected BlockClosure closure;
 
-    public Clos(BlockClosure closure) {
+    public ClosImpl(BlockClosure closure) {
         this.closure = closure;
     }
 

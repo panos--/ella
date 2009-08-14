@@ -2,11 +2,7 @@ package org.unbunt.ella.lang;
 
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.NumberNotComparableException;
-import org.unbunt.ella.engine.*;
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.corelang.AbstractObj;
-import org.unbunt.ella.engine.corelang.NativeCall;
-import org.unbunt.ella.engine.corelang.ProtoRegistry;
+import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
 

@@ -1,6 +1,5 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.engine.*;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.lang.NativeWrapper;
 import org.unbunt.ella.engine.corelang.ObjUtils;

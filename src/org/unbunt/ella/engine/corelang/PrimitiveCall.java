@@ -1,7 +1,7 @@
 package org.unbunt.ella.engine.corelang;
 
 import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.engine.Engine;
+import org.unbunt.ella.engine.corelang.Engine;
 
 public class PrimitiveCall extends AbstractObj implements Call {
     public static enum Type {

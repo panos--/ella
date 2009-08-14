@@ -248,7 +248,7 @@ public class EllaEngine implements ExpressionVisitor, ContinuationVisitor, Engin
     public void processExpression(FunctionDefinitionExpression functionDefinitionExpression) {
         Function func = functionDefinitionExpression.getFunction();
         String funcName = func.getName();
-        val = new Func(func);
+        val = new FuncImpl(func);
         if (funcName != null) {
             if (functionDefinitionExpression.isDeclareVariable()) {
                 env.add(functionDefinitionExpression.getVariable(), val);
@@ -270,7 +270,7 @@ public class EllaEngine implements ExpressionVisitor, ContinuationVisitor, Engin
         clos.setHomeOffset(env.getClosureHomeOffset());
         clos.setHomeCont(env.getClosureHomeCont());
 
-        val = new Clos(clos);
+        val = new ClosImpl(clos);
         clos.setEnv(env);
 
         next = CONT;

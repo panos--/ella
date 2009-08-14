@@ -1,6 +1,5 @@
 package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.ella.engine.Engine;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 
 public interface Call extends Obj {

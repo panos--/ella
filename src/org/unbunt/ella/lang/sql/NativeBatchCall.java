@@ -1,6 +1,6 @@
 package org.unbunt.ella.lang.sql;
 
-import org.unbunt.ella.engine.Engine;
+import org.unbunt.ella.engine.corelang.Engine;
 import org.unbunt.ella.engine.corelang.Obj;
 import org.unbunt.ella.engine.corelang.NativeCall;
 import org.unbunt.ella.exception.ClosureTerminatedException;

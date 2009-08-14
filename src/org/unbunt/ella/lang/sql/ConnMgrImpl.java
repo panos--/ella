@@ -2,7 +2,7 @@ package org.unbunt.ella.lang.sql;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.Engine;
+import org.unbunt.ella.engine.corelang.Engine;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.ClosureTerminatedException;
