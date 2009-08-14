@@ -12,7 +12,5 @@ org.unbunt.ella.engine.environment
 org.unbunt.ella.exception
 org.unbunt.ella.lang
 org.unbunt.ella.lang.sql
-org.unbunt.ella.support
-org.unbunt.ella.testng
+org.unbunt.ella.resource
 org.unbunt.ella.utils
-org.unbunt.ella.utils.res

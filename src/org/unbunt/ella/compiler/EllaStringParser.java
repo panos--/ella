@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaStringParser.g 2009-08-13 23:58:46
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaStringParser.g 2009-08-14 23:39:16
 
 	package org.unbunt.ella.compiler;
 	
