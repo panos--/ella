@@ -17,7 +17,7 @@ import org.unbunt.ella.exception.GenericParseException;
 import org.unbunt.ella.exception.EllaIOException;
 import org.unbunt.ella.exception.EllaParseException;
 import org.unbunt.ella.exception.EllaRuntimeException;
-import org.unbunt.ella.utils.res.SimpleResource;
+import org.unbunt.ella.resource.SimpleResource;
 
 import java.io.*;
 

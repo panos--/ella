@@ -1,4 +1,4 @@
-package org.unbunt.ella.utils.res;
+package org.unbunt.ella.resource;
 
 import static org.unbunt.ella.utils.PathUtil.concatPaths;
 import static org.unbunt.ella.utils.PathUtil.isAbsPath;

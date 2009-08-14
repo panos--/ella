@@ -1,4 +1,4 @@
-package org.unbunt.ella.utils.res;
+package org.unbunt.ella.resource;
 
 import java.io.File;
 import java.io.IOException;

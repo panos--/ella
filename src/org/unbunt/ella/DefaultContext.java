@@ -13,7 +13,7 @@ import org.unbunt.ella.lang.sql.Conn;
 import org.unbunt.ella.lang.sql.ConnMgrImpl;
 import org.unbunt.ella.lang.sql.ResSet;
 import org.unbunt.ella.lang.sql.Stmt;
-import org.unbunt.ella.utils.res.SimpleResource;
+import org.unbunt.ella.resource.SimpleResource;
 
 import java.sql.ResultSet;
 import java.util.Arrays;

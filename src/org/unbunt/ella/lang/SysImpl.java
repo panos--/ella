@@ -9,7 +9,7 @@ import org.unbunt.ella.engine.environment.*;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.compiler.statement.Block;
 import static org.unbunt.ella.utils.StringUtils.join;
-import org.unbunt.ella.utils.res.SimpleResource;
+import org.unbunt.ella.resource.SimpleResource;
 import org.unbunt.ella.engine.context.Context;
 
 import java.io.IOException;

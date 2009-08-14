@@ -6,7 +6,7 @@ import org.unbunt.ella.engine.corelang.Null;
 import org.unbunt.ella.engine.corelang.Obj;
 import org.unbunt.ella.engine.corelang.Bool;
 import org.unbunt.ella.engine.corelang.Sys;
-import org.unbunt.ella.utils.res.SimpleResource;
+import org.unbunt.ella.resource.SimpleResource;
 
 public interface Context extends SQLResultProvider {
     void registerProto(int objectID, int protoID);

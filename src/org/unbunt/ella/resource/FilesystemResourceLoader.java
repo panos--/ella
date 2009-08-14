@@ -1,6 +1,6 @@
-package org.unbunt.ella.utils.res;
+package org.unbunt.ella.resource;
 
-import org.unbunt.ella.utils.res.SimpleResourceLoader;
+import org.unbunt.ella.resource.SimpleResourceLoader;
 
 import java.io.File;
 import java.io.IOException;

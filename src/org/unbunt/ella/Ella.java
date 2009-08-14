@@ -22,12 +22,12 @@ import org.unbunt.ella.engine.EllaCPSEngine;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
-import org.unbunt.ella.support.Drivers;
+import org.unbunt.ella.lang.sql.Drivers;
 import static org.unbunt.ella.utils.StringUtils.join;
-import org.unbunt.ella.utils.res.FilesystemResource;
-import org.unbunt.ella.utils.res.FilesystemResourceLoader;
-import org.unbunt.ella.utils.res.SimpleResource;
-import org.unbunt.ella.utils.res.StringResource;
+import org.unbunt.ella.resource.FilesystemResource;
+import org.unbunt.ella.resource.FilesystemResourceLoader;
+import org.unbunt.ella.resource.SimpleResource;
+import org.unbunt.ella.resource.StringResource;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -548,7 +548,7 @@ public class Ella {
         parser.printUsage(System.err);
         System.err.println();
         System.err.println("Known drivers:");
-        for (Drivers driver : Drivers.values()) {
+        for (Drivers driver : DBUtils.getKnownDrivers()) {
             System.err.print(driver);
             System.err.print(": ");
             System.err.println(join((Object[])driver.getDriverClasses()));

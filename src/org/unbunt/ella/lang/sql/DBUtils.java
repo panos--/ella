@@ -3,7 +3,6 @@ package org.unbunt.ella.lang.sql;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.unbunt.ella.exception.DBConnectionFailedException;
-import org.unbunt.ella.support.Drivers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -120,5 +119,9 @@ public class DBUtils {
         ds.setConnectionProperties(props);
 
         return ds;
+    }
+
+    public static Drivers[] getKnownDrivers() {
+        return Drivers.values();
     }
 }
