@@ -1,4 +1,4 @@
-import org.unbunt.ella.testng.*;
+import org.unbunt.ellatest.*;
 
 fun assert(expected, actual) {
 	if (expected != actual) {

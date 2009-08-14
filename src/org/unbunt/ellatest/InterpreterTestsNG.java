@@ -1,4 +1,4 @@
-package org.unbunt.ella.testng;
+package org.unbunt.ellatest;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
@@ -7,7 +7,7 @@ import org.unbunt.ella.Ella;
 import static org.unbunt.ella.Ella.eval;
 import static org.unbunt.ella.Ella.evalIncremental;
 import org.unbunt.ella.exception.*;
-import static org.unbunt.ella.testng.TestUtils.ensureType;
+import static org.unbunt.ellatest.TestUtils.ensureType;
 
 import java.util.ArrayList;
 import java.util.Date;

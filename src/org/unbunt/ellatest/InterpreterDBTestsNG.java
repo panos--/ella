@@ -1,14 +1,16 @@
-package org.unbunt.ella.testng;
+package org.unbunt.ellatest;
 
+import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 import static org.unbunt.ella.Ella.eval;
+import org.unbunt.ella.exception.EllaException;
 import org.unbunt.ella.exception.EllaIOException;
 import org.unbunt.ella.exception.EllaParseException;
-import org.unbunt.ella.exception.EllaException;
-import static org.unbunt.ella.testng.TestUtils.ensureType;
+import static org.unbunt.ellatest.TestUtils.ensureType;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @Test(groups = { "interpreter-db" }, dependsOnGroups = "interpreter")
 public class InterpreterDBTestsNG extends AbstractTest {
@@ -41,6 +43,28 @@ public class InterpreterDBTestsNG extends AbstractTest {
                 "}\n" +
                 "}\n"
         );
+    }
+
+    @SuppressWarnings({"unchecked", "ConstantConditions"})
+    @Test(dependsOnMethods = "connectMysql")
+    public void connAutoClose() throws EllaParseException, EllaIOException, EllaException, SQLException {
+        Object result = eval(file("conn-auto-close"), propsMysql());
+        assertNotNull(result);
+        assertTrue(result instanceof List, "Expected list of connections - got " + result.getClass());
+        List<Object> connections = (List<Object>) result;
+        assertFalse(connections.isEmpty(), "List of connections is empty - at least one connection expected");
+        int nopen = 0;
+        for (Object elem : connections) {
+            assertNotNull(elem);
+            assertTrue(elem instanceof Connection);
+            Connection connection = (Connection) elem;
+            if (!connection.isClosed()) {
+                nopen++;
+            }
+        }
+        assertEquals(nopen, 0, "Connection auto-close broken: " +
+                               nopen + " out of " + connections.size() + " " +
+                               "connections still open");
     }
 
     @Test(dependsOnMethods = "connActivate")

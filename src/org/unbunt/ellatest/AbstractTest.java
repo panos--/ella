@@ -1,4 +1,4 @@
-package org.unbunt.ella.testng;
+package org.unbunt.ellatest;
 
 import java.io.File;
 import java.io.FileReader;

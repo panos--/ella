@@ -2,7 +2,6 @@ package org.unbunt.ella.lang.sql;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.corelang.Engine;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.ClosureTerminatedException;
@@ -14,9 +13,13 @@ import org.unbunt.ella.lang.Str;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Set;
+import java.util.HashSet;
 
 public class ConnMgrImpl extends AbstractObj implements ConnMgr {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+
+    protected Set<Connection> connections = new HashSet<Connection>();
 
     /**
      * Forwards a slot call to another object
@@ -116,7 +119,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
 
     protected static NativeCall nativeCreateFromProps = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            ConnMgrImpl mgr = ensureType(ConnMgrImpl.class, context);
+            ConnMgrImpl thiz = ensureType(ConnMgrImpl.class, context);
 
             // TODO: make propsFile relative to current script file
             Str propsFile;
@@ -166,9 +169,11 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
             Conn conn = new Conn(jdbcConn);
 
             // Activate connection if none active yet
-            if (mgr.getSlot(engine.getContext(), Str.SYM_active) instanceof Null) {
-                mgr.setSlot(engine.getContext(), Str.SYM_active, conn);
+            if (thiz.getSlot(engine.getContext(), Str.SYM_active) instanceof Null) {
+                thiz.setSlot(engine.getContext(), Str.SYM_active, conn);
             }
+
+            thiz.connections.add(jdbcConn);
 
             return conn;
         }
@@ -199,6 +204,10 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
      */
     public Obj activate(Obj conn) {
         return slots.put(Str.SYM_active, conn);
+    }
+
+    public Set<Connection> getConnections() {
+        return connections;
     }
 
     /**

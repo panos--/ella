@@ -1,4 +1,4 @@
-package org.unbunt.ella.testng;
+package org.unbunt.ellatest;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTreeNodeStream;

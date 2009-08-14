@@ -17,14 +17,14 @@ import org.unbunt.ella.engine.corelang.RawSQLObj;
 import org.unbunt.ella.utils.StringUtils;
 
 import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, ContinuationVisitor, Engine {
-    @SuppressWarnings({"UnusedDeclaration"})
-    private static final boolean STEP = false;
-
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final static Log logger = LogFactory.getLog(EllaCPSEngine.class);
     protected final boolean trace = logger.isTraceEnabled();
 
     protected Context context;
@@ -45,6 +45,11 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     protected Statement stmt;
     protected Obj val;
     protected Env env;
+
+    protected final static boolean CONT = true;
+    protected final static boolean EVAL = false;
+
+    protected boolean next;
 
     // TODO: dynamically increase cont stack size to allow non-tail-recursion to occur up until the heap runs out
     protected int MAX_CONT_STACK = 4096;
@@ -73,11 +78,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
 
         return val == null ? null : val.toJavaObject();
     }
-
-    protected final static boolean CONT = true;
-    protected final static boolean EVAL = false;
-
-    protected boolean next;
 
     @SuppressWarnings({"PointlessBooleanExpression"})
     protected void process() throws EllaRuntimeException {
@@ -866,7 +866,17 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     public void finish() throws EllaRuntimeException {
         logger.debug("Finishing");
 
-        // TODO: automatically close connections known to ConnMgr
+        Set<Connection> connections = getObjConnMgr().getConnections();
+        for (Connection connection : connections) {
+            try {
+                if (connection.isClosed()) {
+                    continue;
+                }
+                connection.close();
+            } catch (SQLException e) {
+                logger.warn("Closing connection failed:", e);
+            }
+        }
     }
 
     public boolean isFinished() {

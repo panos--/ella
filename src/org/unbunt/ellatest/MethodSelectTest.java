@@ -1,4 +1,4 @@
-package org.unbunt.ella.testng;
+package org.unbunt.ellatest;
 
 public class MethodSelectTest {
     public String foo(byte foo) {
