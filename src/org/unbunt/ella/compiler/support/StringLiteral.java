@@ -2,6 +2,9 @@ package org.unbunt.ella.compiler.support;
 
 import java.util.List;
 
+/**
+ * Represents the compiled form of string literal of the EllaScript language.
+ */
 public class StringLiteral {
     protected String startDelim;
     protected String endDelim;

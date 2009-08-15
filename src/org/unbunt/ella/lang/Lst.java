@@ -1,30 +1,44 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.exception.LoopBreakException;
-import org.unbunt.ella.exception.LoopContinueException;
-import org.unbunt.ella.exception.EllaRuntimeException;
-import org.unbunt.ella.lang.NativeWrapper;
+import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
-import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.exception.ClosureTerminatedException;
+import org.unbunt.ella.exception.EllaRuntimeException;
+import org.unbunt.ella.exception.LoopBreakException;
+import org.unbunt.ella.exception.LoopContinueException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents an EllaScript object wrapping a List object.
+ */
 public class Lst extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final List<Obj> value;
 
+    /**
+     * Creates a new empty Lst.
+     */
     public Lst() {
         this(10);
     }
 
+    /**
+     * Creates a new empty Lst with the given capacity
+     * @param capacity the capacity.
+     */
     public Lst(int capacity) {
         value = new ArrayList<Obj>(capacity);
     }
 
+    /**
+     * Creates a new Lst wrapping the given list.
+     *
+     * @param wrappedList the list to wrap.
+     */
     public Lst(List<Obj> wrappedList) {
         this.value = wrappedList;
     }
@@ -58,11 +72,19 @@ public class Lst extends AbstractObj {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         LstProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, LstProto.OBJECT_ID);
     }
 
+    /**
+     * Represents the implicit parent object for Lst objects.
+     */
     public static class LstProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -224,6 +246,11 @@ public class Lst extends AbstractObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

@@ -13,8 +13,11 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Represents an EllaScript wrapping a JDBC connection.
+ */
 public class Conn extends AbstractObj {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final Connection connection;
 
@@ -24,6 +27,11 @@ public class Conn extends AbstractObj {
     protected boolean keepResources = false;
     protected List<Stmt> managedStatements = null;
 
+    /**
+     * Creates a new Conn object wrapping the given connection.
+     *
+     * @param connection the connection to wrap.
+     */
     public Conn(Connection connection) {
         this.connection = connection;
     }
@@ -54,6 +62,11 @@ public class Conn extends AbstractObj {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         ConnProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, ConnProto.OBJECT_ID);
@@ -64,6 +77,9 @@ public class Conn extends AbstractObj {
         return connection;
     }
 
+    /**
+     * Represents the implicit parent object of Conn objects.
+     */
     public static class ConnProto extends AbstractObj {
 
         protected static final NativeCall nativeExecStmt = new NativeCall() {
@@ -312,6 +328,11 @@ public class Conn extends AbstractObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

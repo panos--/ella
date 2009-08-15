@@ -1,17 +1,17 @@
 package org.unbunt.ella.engine.environment;
 
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.environment.Env;
-import org.unbunt.ella.engine.environment.DynamicVariableResolver;
-import org.unbunt.ella.engine.continuations.Continuation;
-import org.unbunt.ella.compiler.support.Variable;
 import org.unbunt.ella.compiler.support.Scope;
+import org.unbunt.ella.compiler.support.Variable;
+import org.unbunt.ella.engine.continuations.Continuation;
+import org.unbunt.ella.engine.corelang.Obj;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
- * TODO: Remove caching - there is the CachingVariableResolver for a reason...
+ * Represents a dynamic environment which tries to resolve relevant variables by their name instead of their lexical
+ * address. Relevant variables are variables that have been declared <i>before</i> the dynamic environment was
+ * installed.
  */
 public class DynamicEnv extends AbstractEnv {
     protected DynamicVariableResolver resolver;
@@ -21,6 +21,12 @@ public class DynamicEnv extends AbstractEnv {
     protected Map<String, Obj> vars = new HashMap<String, Obj>();
     protected int boundaryAddress;
 
+    /**
+     * Creates a new dynamic environment which uses the given resolver to resolve relevant variables.
+     *
+     * @param parent the parent environment of the new environment.
+     * @param resolver the resolver to use.
+     */
     public DynamicEnv(Env parent, DynamicVariableResolver resolver) {
         super(parent);
         this.resolver = resolver;

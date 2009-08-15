@@ -6,6 +6,9 @@ import org.unbunt.ella.engine.corelang.Obj;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * Helper class providing methods for wrapping Java objects in EllaScript objects an vice versa.
+ */
 public class NativeWrapper {
     public static Obj wrap(int i) {
         return new NNum(i);

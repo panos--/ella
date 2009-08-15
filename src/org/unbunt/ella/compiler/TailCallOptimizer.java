@@ -7,15 +7,26 @@ import org.unbunt.ella.compiler.stmtbase.Statement;
 
 import java.util.List;
 
+/**
+ * Searches for tail-recursive function calls in EllaScript programs and marks them with information
+ * usable by an interpreting engine to eleminate tail-calls.
+ */
 public class TailCallOptimizer {
-    public static final TailCallOptimizer instance = new TailCallOptimizer();
+    protected static final TailCallOptimizer instance = new TailCallOptimizer();
 
     protected ExpressionVisitor searcher;
 
-    public TailCallOptimizer() {
+    protected TailCallOptimizer() {
         searcher = new SearchingVisitor();
     }
 
+    /**
+     * Performs tail-recursion analysis on the given EllaScript program. During the analysis no modification of the
+     * code takes place with the exception that tail-call sites are marked as such. This information may or may not
+     * be used by an interpreter.
+     *
+     * @param block the program to analyze.
+     */
     public static void process(Block block) {
         instance.runOn(block);
     }

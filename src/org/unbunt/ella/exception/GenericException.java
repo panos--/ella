@@ -1,14 +1,5 @@
 package org.unbunt.ella.exception;
 
-import org.unbunt.ella.exception.ExceptionUtils;
-
-/**
- * User: tweiss
- * Date: 10.04.2008
- * Time: 13:05:21
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
- */
 public class GenericException extends Exception {
     public GenericException() {
     }

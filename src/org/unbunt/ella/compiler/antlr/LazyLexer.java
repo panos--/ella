@@ -2,6 +2,13 @@ package org.unbunt.ella.compiler.antlr;
 
 import org.antlr.runtime.*;
 
+/**
+ * Base class for lexers that whish to use the lazy lexing infrastructure.
+ * <p>
+ * This lexer, by default, associates every generated token with it's corresponding text
+ * so that it is available without having to read it from a stream that might already have
+ * the relevant text discarded.
+ */
 public abstract class LazyLexer extends Lexer {
     protected LazyLexer() {
     }
@@ -16,7 +23,10 @@ public abstract class LazyLexer extends Lexer {
 
     /** Return a token from this source; i.e., match a token on the char
      *  stream.
+     * <p>
+     * Additionally the token's text is associated with the token.
      */
+    @Override
     public Token nextToken() {
         while (true) {
             state.token = null;

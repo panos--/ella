@@ -1,5 +1,8 @@
 package org.unbunt.ella.compiler.statement;
 
+/**
+ * Represents the visitor component of the visitor pattern realized for statement objects.
+ */
 public interface ExpressionVisitor {
     void processExpression(Block blockExpression);
 

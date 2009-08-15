@@ -5,11 +5,17 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/**
+ * Represents an SQL statement containing named parameters.
+ */
 public class RawParamedSQL {
     protected StringBuilder statement;
     protected Map<String, List<Integer>> paramIndices;
     protected int paramIndex;
 
+    /**
+     * Creates a new empty statement object.
+     */
     public RawParamedSQL() {
         statement = new StringBuilder();
         paramIndices = new HashMap<String, List<Integer>>();
@@ -33,10 +39,21 @@ public class RawParamedSQL {
         indices.add(++paramIndex);
     }
 
+    /**
+     * Returns the statement text of the SQL statement with occurrances of named parameters replaced by positional
+     * parameters.
+     *
+     * @return the statement text.
+     */
     public String getStatement() {
         return statement.toString();
     }
 
+    /**
+     * Returns a mapping of parameters names to their corresponding positional parameter indices.
+     *
+     * @return the mapping.
+     */
     public Map<String, List<Integer>> getParameters() {
         return paramIndices;
     }

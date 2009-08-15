@@ -1,10 +1,11 @@
 package org.unbunt.ella.compiler.support;
 
-import org.unbunt.ella.compiler.support.SQLStringSyntaxRules;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Defines various string syntax rules as well as rule dependent operations on strings.
+ */
 public enum SQLStringType {
     sql92(new SQLStringSyntaxRules(true, true, false, false, false)),
     oracle(new SQLStringSyntaxRules(true, true, false, true, false), "ora"),

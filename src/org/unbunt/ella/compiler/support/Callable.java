@@ -2,10 +2,12 @@ package org.unbunt.ella.compiler.support;
 
 import org.unbunt.ella.compiler.stmtbase.Statement;
 import org.unbunt.ella.engine.environment.Env;
-import org.unbunt.ella.compiler.support.Variable;
 
 import java.util.List;
 
+/**
+ * Represents activatable objects.
+ */
 public interface Callable {
     List<Variable> getArguments();
 

@@ -7,8 +7,11 @@ import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.lang.NNumeric;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 
+/**
+ * Base class for the various statement batch calls.
+ */
 abstract class NativeBatchCall extends NativeCall {
-    public static final int DEFAULT_BATCH_SIZE = 1000;
+    protected static final int DEFAULT_BATCH_SIZE = 1000;
 
     public final Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
         Obj closure;

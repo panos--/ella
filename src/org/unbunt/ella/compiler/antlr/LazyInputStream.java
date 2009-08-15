@@ -8,6 +8,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a <code>CharStream</code> implementation which reads characters from a given stream
+ * lazily when they are requested instead of eagerly on instanciation. In addition any characters
+ * no longer needed are discarded by this char stream.
+ */
 public class LazyInputStream implements CharStream {
     protected static Log logger = LogFactory.getLog(LazyInputStream.class);
     protected static boolean trace = logger.isTraceEnabled();
@@ -39,10 +44,20 @@ public class LazyInputStream implements CharStream {
     protected List<Integer> bufferOffsets = new ArrayList<Integer>();
 //    protected int bufferOffset = -1;
 
+    /**
+     * Creates a new <code>LazyInputStream</code> reading characters from the given <code>Reader</code>.
+     *
+     * @param input the character source.
+     */
     public LazyInputStream(Reader input) {
         this.input = new BufferedReader(input);
     }
 
+    /**
+     * Creates a new <code>LazyInputStream</code> reading characters from the given input stream.
+     *
+     * @param input the character source.
+     */
     public LazyInputStream(InputStream input) {
         this(new InputStreamReader(input));
     }
@@ -192,10 +207,6 @@ public class LazyInputStream implements CharStream {
         CharStreamState state = markers.get(marker);
         markDepth = marker - 1;
         if (markDepth == 0) {
-//            if (bufferOffset == -1) {
-//                buf.unbuffer();
-//            }
-//            if (bufferOffset == -1 || state.pos < bufferOffset) {
             if (bufferOffsets.isEmpty() || state.pos < bufferOffsets.get(0)) {
                 if (trace) {
                     logger.trace("releasing look-back");
@@ -211,6 +222,18 @@ public class LazyInputStream implements CharStream {
         }
     }
 
+    /**
+     * Instructs this input stream to start buffering. Contrary to the stack like (LIFO) semantics achieved with the
+     * <code>mark</code> and <code>release</code>/<code>rewind</code> methods the buffering is done using
+     * queue like (FIFO) semantics.
+     * <p>
+     * For every call to this method there must be a matching call to the unbuffer method to release the buffered
+     * characters.
+     *
+     * @return a handle marking this buffer's start. For ease of use with other components this handle is identical
+     *         with the current offset in the stream.
+     * @see #unbuffer(int)
+     */
     public int buffer() {
         if (trace) {
             logger.trace("Start buffering");
@@ -218,22 +241,21 @@ public class LazyInputStream implements CharStream {
         int offs = index();
         if (bufferOffsets.isEmpty()) {
             buf.buffer();
-//            bufferOffset = offs;
-        }
-        else if (bufferOffsets.get(bufferOffsets.size() - 1) > offs) {
-            new Object().hashCode();
         }
         bufferOffsets.add(offs);
         return offs;
     }
 
+    /**
+     * Releases the specified buffer. If there are no markers registered within this stream and there is no buffer
+     * starting at a smaller offset in the stream the characters buffered for the specified handle are released up
+     * to the next buffer or the current offset in the stream, whichever comes first.
+     *
+     * @param buffer the handle specifying the buffer to release.
+     */
     public void unbuffer(int buffer) {
         if (bufferOffsets.isEmpty()) {
             return;
-        }
-
-        if (buffer == 28) {
-            new Object().hashCode();
         }
 
         // FIXME: This suffers from poor performance (complexity of O(n) where O(1) is desirable)
@@ -278,7 +300,6 @@ public class LazyInputStream implements CharStream {
             if (trace) {
                 logger.trace("Stop buffering");
             }
-//            bufferOffset = -1;
             if (markDepth == 0) {
                 buf.unbuffer();
             }
@@ -323,12 +344,14 @@ public class LazyInputStream implements CharStream {
 		}
     }
 
+    /**
+     * Consumes the next character.
+     */
     public void consume() {
         if (pos >= read && !readTo(pos)) {
             return;
         }
 
-//        char c = buf.charAt(pos);
         char c = buf.poll(pos);
 
         if (c == '\n') {

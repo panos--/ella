@@ -1,5 +1,8 @@
 package org.unbunt.ella.compiler.support;
 
+/**
+ * Represents the compiled form of functions of the EllaScript language.
+ */
 public class Function extends AbstractCallable implements Callable {
     protected String name = null;
 

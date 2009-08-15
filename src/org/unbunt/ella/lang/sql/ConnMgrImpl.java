@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * Represents a default implementation of the EllaScript core object <code>ConnMgr</code>.
+ */
 public class ConnMgrImpl extends AbstractObj implements ConnMgr {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -179,6 +182,9 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
         }
     };
 
+    /**
+     * Creates a new connection manager.
+     */
     public ConnMgrImpl() {
         slots.put(Str.SYM_active, new NullImpl());
         slots.put(Str.SYM_activate, nativeActivate);
@@ -234,6 +240,11 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         Base.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

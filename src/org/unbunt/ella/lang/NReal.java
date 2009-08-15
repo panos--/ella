@@ -1,19 +1,17 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.exception.*;
-import org.unbunt.ella.engine.corelang.*;
-import org.unbunt.ella.lang.NumUtils;
-import static org.unbunt.ella.lang.NumUtils.toBigInteger;
-import static org.unbunt.ella.lang.NumUtils.toBigDecimal;
-import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.corelang.*;
+import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
+import org.unbunt.ella.exception.*;
+import static org.unbunt.ella.lang.NumUtils.toBigDecimal;
+import static org.unbunt.ella.lang.NumUtils.toBigInteger;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Native script object representing floating point values.
- * Uses Java's double primitive internally.
+ * Represents an EllaScript object wrapping a <code>double</code> value.
  *
  * NOTE: We do not implement special script objects to represent double's special values like NaN and infinity.
  *       Instead we rely on Java's native handling of these values on operations with values of other types
@@ -21,17 +19,25 @@ import java.math.BigInteger;
  *       operations and follow the Java principle that any operation involving NaN will result in NaN extending
  *       this principle to also apply for operations involving BigInteger or BigDecimal and one of the double
  *       infinity values.
- *
+ * <p>
  *       By not representing the special values by special objects we avoid the nessessity of having to check for
  *       NaN (and the others). On the other hand we have to check for them on comparison operations to stay consistent
  *       with the Java Language Specification. Depending on the usage scenario either way could prove better or worse
  *       than the other.
  */
 public class NReal extends AbstractObj implements NNumeric {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    /**
+     * The wrapped value.
+     */
     public final double value;
 
+    /**
+     * Creates a new NReal wrapping the given value.
+     *
+     * @param value the value to wrap.
+     */
     public NReal(double value) {
         this.value = value;
     }
@@ -280,11 +286,20 @@ public class NReal extends AbstractObj implements NNumeric {
         return OBJECT_ID;
     }
 
+
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         NRealProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, NRealProto.OBJECT_ID);
     }
 
+    /**
+     * Represents the implicit parent object for NReal objects.
+     */
     public static final class NRealProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -364,49 +379,6 @@ public class NReal extends AbstractObj implements NNumeric {
             }
         };
 
-        /*
-        protected static final NativeCall nativeGreaterThan = new NativeCall() {
-            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(NReal.class, context);
-                NNumeric arg = ensureType(NNumeric.class, args[0]);
-                return thiz.compareTo(arg) > 0 ? engine.getObjTrue() : engine.getObjFalse();
-            }
-        };
-
-        protected static final NativeCall nativeGreaterOrEqual = new NativeCall() {
-            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(NReal.class, context);
-                NNumeric arg = ensureType(NNumeric.class, args[0]);
-                if (Double.isNaN(thiz.value)) {
-                    return engine.getObjFalse();
-                }
-                return thiz.compareTo(arg) >= 0 ? engine.getObjTrue() : engine.getObjFalse();
-            }
-        };
-
-        protected static final NativeCall nativeLessThan = new NativeCall() {
-            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(NReal.class, context);
-                NNumeric arg = ensureType(NNumeric.class, args[0]);
-                if (Double.isNaN(thiz.value)) {
-                    return engine.getObjFalse();
-                }
-                return thiz.compareTo(arg) < 0 ? engine.getObjTrue() : engine.getObjFalse();
-            }
-        };
-
-        protected static final NativeCall nativeLessOrEqual = new NativeCall() {
-            public Obj call(EllaEngine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                NReal thiz = ensureType(NReal.class, context);
-                NNumeric arg = ensureType(NNumeric.class, args[0]);
-                if (Double.isNaN(thiz.value)) {
-                    return engine.getObjFalse();
-                }
-                return thiz.compareTo(arg) <= 0 ? engine.getObjTrue() : engine.getObjFalse();
-            }
-        };
-        */
-
         protected static final NativeCall nativeIsNaN = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NReal thiz = ensureType(NReal.class, context);
@@ -448,14 +420,6 @@ public class NReal extends AbstractObj implements NNumeric {
             slots.put(Str.SYM_isInfinity, nativeIsInfinity);
             slots.put(Str.SYM_isPositiveInfinity, nativeIsPositiveInfinity);
             slots.put(Str.SYM_isNegativeInfinity, nativeIsNegativeInfinity);
-
-            // Override behaviour from NNumericProto for special handling of NaN
-            /*
-            slots.put(Str.SYM__gt, nativeGreaterThan);
-            slots.put(Str.SYM__ge, nativeGreaterOrEqual);
-            slots.put(Str.SYM__lt, nativeLessThan);
-            slots.put(Str.SYM__le, nativeLessOrEqual);
-            */
         }
 
         @Override
@@ -463,6 +427,11 @@ public class NReal extends AbstractObj implements NNumeric {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             NNumericProto.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, NNumericProto.OBJECT_ID);

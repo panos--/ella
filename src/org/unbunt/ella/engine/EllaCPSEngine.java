@@ -24,12 +24,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Represents an interpreter for EllaScript programs modeled after the continuation-passing-style.
+ */
 public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, ContinuationVisitor, Engine {
     protected final static Log logger = LogFactory.getLog(EllaCPSEngine.class);
     protected final boolean trace = logger.isTraceEnabled();
 
     protected Context context;
-    protected boolean finished = false;
+    protected boolean exited = false;
 
     public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
     public static final Obj SLOT_INIT = Consts.SLOT_INIT;
@@ -39,6 +42,12 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         this.env = context.getEnv();
     }
 
+    /**
+     * Creates a new engine with the given execution context.
+     *
+     * @param context the execution context to use.
+     * @return the newly created engine.
+     */
     public static EllaEngine create(Context context) {
         return new EllaCPSEngine(context);
     }
@@ -725,7 +734,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
                     val = args[0];
                 }
                 pc = 0;
-                finished = true;
+                exited = true;
                 break;
             default:
                 throw new EllaRuntimeException("Unhandled primitive: " + primitive);
@@ -864,7 +873,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         return context.getObjTrue().equals(value) || (!(value instanceof Bool) && !(value instanceof Null));
     }
 
-    public void finish() throws EllaRuntimeException {
+    public void finish() {
         logger.debug("Finishing");
 
         Set<Connection> connections = getObjConnMgr().getConnections();
@@ -880,8 +889,8 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         }
     }
 
-    public boolean isFinished() {
-        return finished;
+    public boolean isExited() {
+        return exited;
     }
 
     // native interface
@@ -950,17 +959,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         next = EVAL;
     }
 
-    /**
-     * Calls the given callable object so that "this" is set to the given context and "super" lookups start at
-     * the given receiver.
-     * Does have an effect only on calls to Func objects.
-     *
-     * @param call the callable
-     * @param context "this" context
-     * @param receiver "super"
-     * @param args arguments passed to callable
-     * @return result of the invocation
-     */
     public Obj invokeOnReceiver(Obj call, Obj context, Obj receiver, Obj... args) {
         Call c = ObjUtils.ensureType(Call.class, call);
         return c.call(this, context, receiver, args);

@@ -154,7 +154,7 @@ public class Ella {
             StringBuilder buf = new StringBuilder();
             boolean incompleteString = false;
             int stringType = -1;
-            while (!engine.isFinished()) {
+            while (!engine.isExited()) {
                 boolean continued = buf.length() != 0;
 
                 String prompt = "=>";
@@ -240,12 +240,22 @@ public class Ella {
         }
     }
 
+    /**
+     * Executes the EllaScript program incrementally. This mode is intended to be used for large programs as it
+     * requires only a limited amount of memory since only one statement from the program is compiled and executed
+     * at a time.
+     *
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if an exception is thrown from the program.
+     */
     public Object executeIncremental() throws EllaIOException, EllaParseException, EllaException {
         initParserIncremental();
         initEngine();
         try {
             Object result = null;
-            while (parseTokensIncremental() && !engine.isFinished()) {
+            while (parseTokensIncremental() && !engine.isExited()) {
                 if (tree == null) {
                     continue;
                 }
@@ -259,6 +269,14 @@ public class Ella {
         }
     }
 
+    /**
+     * Executes the EllaScript program.
+     *
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if an exception is thrown from the program.
+     */
     public Object execute()
             throws EllaIOException, EllaParseException, EllaException {
         tokenize();
@@ -267,6 +285,13 @@ public class Ella {
         return run();
     }
 
+    /**
+     * Compiles the EllaScript program.
+     *
+     * @return the executable form of the program.
+     * @throws EllaIOException if reading the program fails.
+     * @throws EllaParseException if compilation of the program fails.
+     */
     public Block compile() throws EllaIOException, EllaParseException {
         tokenize();
         parseTokens();
@@ -274,6 +299,15 @@ public class Ella {
         return block;
     }
 
+    /**
+     * Compiles the EllaScript program into an abstract syntax tree and generates a visual representation of it.
+     * <p>
+     * FIXME: Currently this is done in a platform specific way since it relies on the <code>dot</code> and
+     *        <code>xdg-open</code> programs, which are not available on all platforms supporting Java.
+     *
+     * @throws EllaIOException if reading the program fails.
+     * @throws EllaParseException if compilation of the program fails.
+     */
     public void showAST() throws EllaIOException, EllaParseException {
         tokenize();
         parseTokens();
@@ -469,48 +503,126 @@ public class Ella {
      * Static methods / Main program
      */
 
+    /**
+     * Evaluates the given EllaScript program in incremental mode.
+     *
+     * @param script the file containing the program to execute.
+     * @param args arguments to pass to the program.
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if the program throws an exception.
+     * @see #executeIncremental()
+     */
     public static Object evalIncremental(File script, Object... args)
-            throws EllaIOException, EllaException, EllaParseException {
+            throws EllaIOException, EllaParseException, EllaException {
         return evalIncremental(script, new DefaultContext(args));
     }
 
-    public static Object evalIncremental(File script, DefaultContext context)
-            throws EllaIOException, EllaException, EllaParseException {
+    /**
+     * Evaluates the given EllaScript program in incremental mode using the given execution context.
+     *
+     * @param script the file containing the program to execute.
+     * @param context the context the program is to be executed within.
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if the program throws an exception.
+     * @see #executeIncremental()
+     */
+    public static Object evalIncremental(File script, Context context)
+            throws EllaIOException, EllaParseException, EllaException {
         SimpleResource res = new FilesystemResource(script);
         Ella interp = new Ella(context, res);
         return interp.executeIncremental();
     }
 
+    /**
+     * Evaluates the given EllaScript program.
+     *
+     * @param script the file containing the program to execute.
+     * @param args arguments to pass to the program.
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if the program throws an exception.
+     */
     public static Object eval(File script, Object... args)
             throws EllaIOException, EllaParseException, EllaException {
         return eval(script, new DefaultContext(args));
     }
 
-    protected static Object eval(File script, DefaultContext context)
+    /**
+     * Evaluates the given EllaScript program using the given execution context.
+     *
+     * @param script the file containing the program to execute.
+     * @param context the context the program is to be executed within.
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if the program throws an exception.
+     */
+    protected static Object eval(File script, Context context)
             throws EllaIOException, EllaParseException, EllaException {
         SimpleResource res = new FilesystemResource(script);
         Ella interp = new Ella(context, res);
         return interp.execute();
     }
 
+    /**
+     * Evaluates the given EllaScript program.
+     *
+     * @param script the source code of the program to execute.
+     * @param args arguments to pass to the program.
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if the program throws an exception.
+     */
     public static Object eval(String script, Object... args)
             throws EllaIOException, EllaParseException, EllaException {
         return eval(script, new DefaultContext(args));
     }
 
-    protected static Object eval(String script, DefaultContext context)
+    /**
+     * Evaluates the given EllaScript program using the given execution context.
+     *
+     * @param script the source code the program to execute.
+     * @param context the context the program is to be executed within.
+     * @return the result of the evaluation of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     * @throws EllaException if the program throws an exception.
+     */
+    protected static Object eval(String script, Context context)
             throws EllaIOException, EllaParseException, EllaException {
         SimpleResource res = new StringResource(script);
         Ella interp = new Ella(context, res);
         return interp.execute();
     }
 
+    /**
+     * Compiles the given EllaScript program into an executable form.
+     *
+     * @param script the file containing the program to compile.
+     * @return the executable form of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     */
     public static Block compile(File script) throws EllaIOException, EllaParseException {
         SimpleResource res = new FilesystemResource(script);
         Ella interp = new Ella(res);
         return interp.compile();
     }
 
+    /**
+     * Compiles the given EllaScript program into an executable form.
+     *
+     * @param script the souce code of the program to compile.
+     * @return the executable form of the program.
+     * @throws EllaIOException if reading the program file fails.
+     * @throws EllaParseException if compilation of the program fails.
+     */
     public static Block compile(String script) throws EllaIOException, EllaParseException {
         SimpleResource res = new StringResource(script);
         Ella interp = new Ella(res);
@@ -549,6 +661,11 @@ public class Ella {
         System.exit(1);
     }
 
+    /**
+     * Provides a command line interface to the EllaScript interpreter.
+     *
+     * @param args the command line arguments.
+     */
     public static void main(String[] args) {
         Args pargs = new Args();
         CmdLineParser parser = new CmdLineParser(pargs);

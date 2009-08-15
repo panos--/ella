@@ -5,19 +5,31 @@ import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
 
+/**
+ * Represents a default implementation of the EllaScript core object <code>Bool</code>.
+ */
 public class BoolImpl extends AbstractObj implements Bool {
     protected final boolean value;
 
+    /**
+     * Creates a new Bool object wrapping the given boolean value.
+     * @param value
+     */
     public BoolImpl(boolean value) {
         this.value = value;
     }
 
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         BoolProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, BoolProto.OBJECT_ID);
@@ -57,9 +69,12 @@ public class BoolImpl extends AbstractObj implements Bool {
         return "" + value;
     }
 
+    /**
+     * Represents the implicit parent object of Bool objects.
+     */
     public static class BoolProto extends AbstractObj implements NativeObj {
 
-        public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+        protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return engine.toBoolean(args[0]) ? engine.getObjTrue() : engine.getObjFalse();
             }
@@ -113,6 +128,11 @@ public class BoolImpl extends AbstractObj implements Bool {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

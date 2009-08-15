@@ -8,7 +8,9 @@ import org.apache.commons.logging.LogFactory;
 import java.util.*;
 
 /**
- * TODO: currently backed by a linked list - compare with an implementation backed by TreeList (commons collections)
+ * Represents a <code>TokenStream</code> implementation which reads tokens from a given <code>TokenSource</code>
+ * lazily when they are requested instead of eagerly on instanciation. In addition tokens that are no longer needed
+ * are discarded by this token stream.
  */
 public class LazyTokenStream implements TokenStream {
     protected Log logger = LogFactory.getLog(getClass());
@@ -40,17 +42,21 @@ public class LazyTokenStream implements TokenStream {
 
     protected List<ExtendedCursorableLinkedList.Cursor> markers = new ArrayList<ExtendedCursorableLinkedList.Cursor>();
 
+    /**
+     * Creates a new <code>LazyTokenStream</code>. With this constructor a token source has to be specified
+     * separatly via the {@link #setTokenSource(org.antlr.runtime.TokenSource)} method.
+     */
     public LazyTokenStream() {
     }
 
+    /**
+     * Creates a new <code>LazyTokenStream</code> reading tokens from the given token source.
+     *
+     * @param tokenSource the token source to read tokens from.
+     */
     public LazyTokenStream(TokenSource tokenSource) {
         this();
         setTokenSource(tokenSource);
-    }
-
-    public LazyTokenStream(TokenSource tokenSource, int channel) {
-        this(tokenSource);
-        this.channel = channel;
     }
 
     /**
@@ -145,6 +151,9 @@ public class LazyTokenStream implements TokenStream {
         return token != null ? token.getType() : -1;
     }
 
+    /**
+     * Consumes the next token.
+     */
     public void consume() {
         skipOffChannelTokens(posCursor);
         if (posCursor.hasNext()) {
@@ -192,6 +201,13 @@ public class LazyTokenStream implements TokenStream {
         return i;
     }
 
+    /**
+     * Collects the tokens associated with the given token channel starting from the first look-ahead token up to the
+     * next token associated with the default token channel. Returns the collected tokens' text in a string.
+     *
+     * @param collectChannel the token channel to collect tokens for.
+     * @return a string made up from the text of the collected tokens.
+     */
     public String collectOffChannelTokenText(int collectChannel) {
         ExtendedCursorableLinkedList.Cursor cursor = tokens.cursor(posCursor);
         collectBuffer.setLength(0);
@@ -264,15 +280,12 @@ public class LazyTokenStream implements TokenStream {
     }
 
     /**
-     * Get a token at an absolute index i; 0..n-1.  This is really only
-     * needed for profiling and debugging and token stream rewriting.
-     * If you don't want to buffer up tokens, then this method makes no
-     * sense for you.  Naturally you can't use the rewrite stream feature.
-     * I believe DebugTokenStream can easily be altered to not use
-     * this method, removing the dependency.
+     * Unsupported operation. Do not use.
+     *
+     * @throws UnsupportedOperationException in case you cannot resist to use this method.
      */
     public Token get(int i) {
-        throw new RuntimeException("Unsupported operation");
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 
     /**
@@ -406,9 +419,9 @@ public class LazyTokenStream implements TokenStream {
     }
 
     /**
-     * Only makes sense for streams that buffer everything up probably, but
-     * might be useful to display the entire stream or for testing.  This
-     * value includes a single EOF.
+     * Unsupported operation. Do not use.
+     *
+     * @throws UnsupportedOperationException in case you cannot resist to use this method.
      */
     public int size() {
         throw new UnsupportedOperationException();
@@ -437,6 +450,11 @@ public class LazyTokenStream implements TokenStream {
         return tokenSource;
     }
 
+    /**
+     * Installs the given token source as the token source to read tokens from. Implicitly resets this token stream.
+     *
+     * @param tokenSource the token source read tokens from.
+     */
     public void setTokenSource(TokenSource tokenSource) {
         if (trace) {
             logger.trace("setTokenSource: " + tokenSource);
@@ -457,6 +475,13 @@ public class LazyTokenStream implements TokenStream {
         }
     }
 
+    /**
+     * Allows to replace the current token source with the given one. This token stream's state is preserved.
+     * Any look-ahead is discarded.
+     *
+     * @param tokenSource the token source to read tokens from.
+     * @return the token source replaced by the given one.
+     */
     public TokenSource replaceTokenSource(TokenSource tokenSource) {
         if (trace) {
             logger.trace("replaceTokenSource: " + tokenSource);
@@ -468,6 +493,9 @@ public class LazyTokenStream implements TokenStream {
         return oldTokenSource;
     }
 
+    /**
+     * Discards any look-ahead. That is tokens that have been read but not consumed.
+     */
     public void discardLookAhead() {
         if (trace) {
             logger.trace("discarding look-ahead");
@@ -534,38 +562,58 @@ public class LazyTokenStream implements TokenStream {
         discarded += n;
     }
 
+    /**
+     * Instructs this token stream to associate tokens of the given type with the given token channel.
+     *
+     * @param ttype the token type.
+     * @param channel the token channel.
+     */
     public void setTokenTypeChannel(int ttype, int channel) {
         channelOverride.put(ttype, channel);
 	}
 
+    /**
+     * Instructs this token stream to discard any tokens of the given type when they are encountered.
+     *
+     * @param tokenType the token type.
+     */
     public void discardTokenType(int tokenType) {
         discardTypes.add(tokenType);
     }
 
+    /**
+     * Returns <code>true</code> if tokens not associated with the default token channel are discarded by this token
+     * stream.
+     *
+     * @return <code>true</code> if tokens are discarded.
+     */
     public boolean isDiscardOffChannelTokens() {
         return discardOffChannelTokens;
     }
 
+    /**
+     * Instructs this token stream to discard any tokens not associated with the default token channel when they
+     * are encountered depending on the value of the given parameter.
+     *
+     * @param discardOffChannelTokens if <code>true</code>, tokens will be discarded.
+     */
     public void setDiscardOffChannelTokens(boolean discardOffChannelTokens) {
         this.discardOffChannelTokens = discardOffChannelTokens;
     }
 
     /**
-     * Return the text of all tokens from start to stop, inclusive.
-     * If the stream does not buffer all the tokens then it can just
-     * return "" or null;  Users should not access $ruleLabel.text in
-     * an action of course in that case.
+     * Unsupported operation. Do not use.
+     *
+     * @throws UnsupportedOperationException in case you cannot resist to use this method.
      */
     public String toString(int start, int stop) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Because the user is not required to use a token with an index stored
-     * in it, we must provide a means for two token objects themselves to
-     * indicate the start/end location.  Most often this will just delegate
-     * to the other toString(int,int).  This is also parallel with
-     * the TreeNodeStream.toString(Object,Object).
+     * Unsupported operation. Do not use.
+     *
+     * @throws UnsupportedOperationException in case you cannot resist to use this method.
      */
     public String toString(Token start, Token stop) {
         throw new UnsupportedOperationException();

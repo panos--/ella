@@ -1,12 +1,10 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.exception.EllaRuntimeException;
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.corelang.AbstractObj;
-import org.unbunt.ella.engine.corelang.ProtoRegistry;
-import org.unbunt.ella.lang.NativeWrapper;
-import org.unbunt.ella.lang.ReflectionUtils;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.corelang.AbstractObj;
+import org.unbunt.ella.engine.corelang.Obj;
+import org.unbunt.ella.engine.corelang.ProtoRegistry;
+import org.unbunt.ella.exception.EllaRuntimeException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,12 +14,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents an EllaScript object wrapping an arbitrary Java object.
+ */
 public class JObject extends AbstractObj {
     protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    /**
+     * The wrapped object.
+     */
     public final Object value;
+
+    /**
+     * The type of the wrapped object.
+     */
     public final Class<?> clazz;
 
+    /**
+     * Creates a new JObject wrapping the given Java object.
+     *
+     * @param value the Java object to wrap.
+     */
     public JObject(Object value) {
         this.value = value;
         this.clazz = value.getClass();
@@ -172,6 +185,11 @@ public class JObject extends AbstractObj {
         return value.hashCode();
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         Base.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

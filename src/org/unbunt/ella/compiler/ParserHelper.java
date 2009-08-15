@@ -21,21 +21,44 @@ import java.io.*;
 /**
  * Helper class providing static methods for:
  * <ul>
- * <li>complete scripts</li>
- * <li>SQL literals for named parameters</li>
+ * <li>parsing complete scripts</li>
+ * <li>parsing SQL literals for named parameters</li>
  * </ul>
  */
 public class ParserHelper {
     protected static ThreadLocalParser threadLocalParser = new ThreadLocalParser();
 
+    /**
+     * Compiles the given EllaScript program into an executable form.
+     *
+     * @param initialScope the scope information to use during compilation.
+     * @param filename the name of the file containing the program to compile.
+     * @return the executable representation of the program.
+     * @throws GenericParseException if any errors occur during compilation of the program.
+     */
     public static Block parseScript(Scope initialScope, String filename) throws GenericParseException {
         return threadLocalParser.get().scriptParser.parse(initialScope, filename);
     }
 
-    public static Block parseScript(Scope initialScope, SimpleResource fileResource) throws GenericParseException {
-        return threadLocalParser.get().scriptParser.parse(initialScope, fileResource);
+    /**
+     * Compiles the given EllaScript program into an executable form.
+     *
+     * @param initialScope the scope information to use during compilation.
+     * @param resource the resource containing the program to compile.
+     * @return the executable representation of the program.
+     * @throws GenericParseException if any errors occur during compilation of the program.
+     */
+    public static Block parseScript(Scope initialScope, SimpleResource resource) throws GenericParseException {
+        return threadLocalParser.get().scriptParser.parse(initialScope, resource);
     }
 
+    /**
+     * Parses the given sql statement for named parameters.
+     *
+     * @param stmt the sql statement.
+     * @return the sql statement and it's named parameters.
+     * @throws GenericParseException if any errors occur during parsing of the statement.
+     */
     public static RawParamedSQL parseParamedSQLLiteral(RawSQL stmt) throws GenericParseException {
         return threadLocalParser.get().paramedSQLLiteralParser.parse(stmt);
     }

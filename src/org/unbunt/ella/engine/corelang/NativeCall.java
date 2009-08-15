@@ -1,8 +1,10 @@
 package org.unbunt.ella.engine.corelang;
 
 import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.engine.corelang.Engine;
 
+/**
+ * Base class for native activatable EllaScript objects.
+ */
 public abstract class NativeCall extends AbstractObj implements Call {
     // NOTE: Here we have a circular dependency between EllaEngine and NativeCall
     // TODO: Break up by using interface instead of concrete class

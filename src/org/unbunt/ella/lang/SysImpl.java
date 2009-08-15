@@ -14,6 +14,9 @@ import org.unbunt.ella.engine.context.Context;
 
 import java.io.IOException;
 
+/**
+ * Represents a default implementation of the EllaScript core object <code>Sys</code>.
+ */
 public class SysImpl extends AbstractObj implements Sys {
     protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
@@ -269,6 +272,11 @@ public class SysImpl extends AbstractObj implements Sys {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
         if (!ctx.hasObject(OBJECT_ID)) {

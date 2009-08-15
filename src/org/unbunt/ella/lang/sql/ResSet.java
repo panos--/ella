@@ -13,17 +13,30 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+/**
+ * Represents an EllaScript object wrapping a JDBC ResultSet.
+ */
 public class ResSet extends AbstractObj {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final ResultSet resultSet;
     protected final JObject wrappedResultSet;
 
+    /**
+     * Creates a new ResSet wrapping the given result set.
+     *
+     * @param resultSet the result set to wrap.
+     */
     public ResSet(ResultSet resultSet) {
         this.resultSet = resultSet;
         this.wrappedResultSet = new JObject(resultSet);
     }
 
+    /**
+     * Closes the wrapped result set.
+     *
+     * @throws SQLException if a database error occurs.
+     */
     public void close() throws SQLException {
         resultSet.close();
     }
@@ -47,6 +60,11 @@ public class ResSet extends AbstractObj {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         ResSetProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, ResSetProto.OBJECT_ID);

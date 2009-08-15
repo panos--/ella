@@ -1,7 +1,6 @@
 package org.unbunt.ella.lang;
 
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.lang.NativeWrapper;
 import org.unbunt.ella.engine.corelang.Null;
 import org.unbunt.ella.engine.corelang.Obj;
 import org.unbunt.ella.exception.CheckedClassCastException;
@@ -16,6 +15,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Helper class providing various methods for handling tasks related the use of Java's reflection API.
+ */
 public class ReflectionUtils {
     public static Pattern CLASS_NAME_PATTERN = Pattern.compile("(?:.*\\.)?(.*?);?$");
 

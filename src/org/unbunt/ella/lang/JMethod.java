@@ -12,9 +12,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+/**
+ * Represents an EllaScript object wrapping a set of Java methods.
+ */
 public class JMethod extends NativeCall {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    /**
+     * The wrapped Java methods.
+     */
     public final Method[] methods;
 
     /**
@@ -24,6 +30,11 @@ public class JMethod extends NativeCall {
      */
     protected final boolean selected;
 
+    /**
+     * Creates a new JMethod wrapping the given methods.
+     *
+     * @param methods the methods to wrap.
+     */
     public JMethod(Method[] methods) {
         this(methods, false);
     }
@@ -75,6 +86,11 @@ public class JMethod extends NativeCall {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         JMethodProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, JMethodProto.OBJECT_ID);

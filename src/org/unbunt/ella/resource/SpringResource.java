@@ -6,13 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.File;
 
-/**
- * User: tweiss
- * Date: 18.09.2008
- * Time: 06:40:11
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
- */
 public class SpringResource implements SimpleResource {
     protected Resource resource;
 

@@ -5,15 +5,29 @@ import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
 
+/**
+ * Represents the <code>null</code> value in the EllaScript language.
+ */
 public class NullImpl extends AbstractObj implements NativeObj, Null {
     public static int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    /**
+     * A hint to the type this null value was intended to have.
+     */
     public final Class<?> typeHint;
 
+    /**
+     * Creates a new null value.
+     */
     public NullImpl() {
         this(null);
     }
 
+    /**
+     * Creates a new null value with the given class indiciating it's intended type.
+     *
+     * @param typeHint the type hint.
+     */
     public NullImpl(Class<?> typeHint) {
         this.typeHint = typeHint;
     }
@@ -24,7 +38,7 @@ public class NullImpl extends AbstractObj implements NativeObj, Null {
      * NOTE: out of null.
      * TODO: Maybe we should throw an expception instead of just returning null...
      */
-    public static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
+    protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             return engine.getObjNull();
         }
@@ -38,6 +52,11 @@ public class NullImpl extends AbstractObj implements NativeObj, Null {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         NullProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, NullProto.OBJECT_ID);

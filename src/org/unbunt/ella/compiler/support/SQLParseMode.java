@@ -1,7 +1,8 @@
 package org.unbunt.ella.compiler.support;
 
-import org.unbunt.ella.compiler.support.SQLStringType;
-
+/**
+ * Helper representing a parse mode for SQL statements.
+ */
 public class SQLParseMode {
     protected SQLStringType stringType;
 

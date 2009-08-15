@@ -1,11 +1,9 @@
 package org.unbunt.ella.lang;
 
+import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.EllaRuntimeException;
-import org.unbunt.ella.lang.NativeWrapper;
-import org.unbunt.ella.engine.corelang.*;
-import org.unbunt.ella.lang.ReflectionUtils;
-import org.unbunt.ella.engine.context.Context;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;
@@ -14,17 +12,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: possibly make JClass a subclass of JObject
- * User: tweiss
- * Date: 23.04.2009
- * Time: 08:36:57
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
+ * Represents an EllaScript object wrapping a Java class.
  */
 public class JClass extends AbstractObj implements NativeObj {
+    /**
+     * The wrapped class.
+     */
     public final Class<?> clazz;
 
-    public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+    protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
             Object result = null;
             Class<?> cls = ((JClass) context).clazz;
@@ -68,16 +64,26 @@ public class JClass extends AbstractObj implements NativeObj {
         }
     };
 
+    /**
+     * Creates a new JClass wrapping the specified class.
+     *
+     * @param clazz the class to wrap.
+     */
     public JClass(Class<?> clazz) {
         this.clazz = clazz;
     }
 
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         JClassProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, JClassProto.OBJECT_ID);
@@ -232,14 +238,10 @@ public class JClass extends AbstractObj implements NativeObj {
     }
 
     /**
- * User: tweiss
-     * Date: 23.04.2009
-     * Time: 08:41:45
-     * <p/>
-     * Copyright: (c) 2007 marketoolz GmbH
+     * Represents the implicit parent object for JClass objects.
      */
     public static class JClassProto extends AbstractObj implements NativeObj {
-        public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+        protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 ClassLoader loader = engine.getClass().getClassLoader();
                 try {
@@ -260,6 +262,11 @@ public class JClass extends AbstractObj implements NativeObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

@@ -11,17 +11,18 @@ import org.unbunt.ella.engine.context.Context;
 import java.util.Map;
 
 /**
- * User: tweiss
- * Date: 14.07.2009
- * Time: 08:24:02
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
+ * Represents an EllaScript object wrapping another EllaScript object for use as associative array.
  */
 public class Dict extends AbstractObj {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected final Obj value;
 
+    /**
+     * Creates a new Dict wrapping the given object.
+     *
+     * @param value the object to wrap.
+     */
     public Dict(Obj value) {
         this.value = value;
     }
@@ -48,11 +49,19 @@ public class Dict extends AbstractObj {
         return value.hashCode();
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         DictProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, DictProto.OBJECT_ID);
     }
 
+    /**
+     * Represents the implicit parent object of Dict objects.
+     */
     public static class DictProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -141,6 +150,11 @@ public class Dict extends AbstractObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

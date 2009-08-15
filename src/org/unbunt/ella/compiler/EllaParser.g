@@ -190,7 +190,11 @@ tokens {
 		throw new MismatchedTokenException(ttype, input);
 	}
 	
-	// indicates end of file condition in incremental parsing mode
+	/**
+	 * Returns <code>true</code> if the end of file has been reached in incremental parsing mode.
+	 *
+	 * @return <code>true</code> if end of file has been reached.
+	 */
 	public boolean isEOF() {
 		return eof;
 	}

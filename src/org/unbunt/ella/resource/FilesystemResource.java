@@ -8,13 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * User: tweiss
- * Date: 18.09.2008
- * Time: 06:25:36
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
- */
 public class FilesystemResource implements SimpleResource {
     protected String path;
 

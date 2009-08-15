@@ -1,14 +1,19 @@
 package org.unbunt.ella.engine.corelang;
 
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.corelang.Obj;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Base class for EllaScript objects.
+ */
 public abstract class AbstractObj implements Obj {
     protected Map<Obj, Obj> slots = new HashMap<Obj, Obj>();
 
+    /**
+     * Creates a new, empty EllaScript object.
+     */
     public AbstractObj() {
     }
 

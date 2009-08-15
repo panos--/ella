@@ -1,9 +1,11 @@
 package org.unbunt.ella.engine.environment;
 
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.environment.Env;
 import org.unbunt.ella.compiler.support.Variable;
+import org.unbunt.ella.engine.corelang.Obj;
 
+/**
+ * Represents a static environment with additional support for locating variables by name.
+ */
 public class StaticSearchableEnv extends StaticEnv implements SearchableEnv {
     /**
      * Tells this env to stop normal variable lookups (return null instead) so that this environment
@@ -50,6 +52,12 @@ public class StaticSearchableEnv extends StaticEnv implements SearchableEnv {
         }
     }
 
+    /**
+     * Returns <code>true</code> if normal variable lookups stop when reaching this environment (return null instead)
+     * so that this environment can be searched manually via the methods of the SearchEnv interface.
+     *
+     * @return <code>true</code> as indicated. 
+     */
     public boolean isStopHere() {
         return stopHere;
     }

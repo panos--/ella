@@ -1,21 +1,31 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.exception.*;
-import org.unbunt.ella.engine.corelang.*;
-import org.unbunt.ella.lang.NumUtils;
-import static org.unbunt.ella.lang.NumUtils.toBigInteger;
-import static org.unbunt.ella.lang.NumUtils.toBigDecimal;
-import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.corelang.*;
+import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
+import org.unbunt.ella.exception.*;
+import static org.unbunt.ella.lang.NumUtils.toBigDecimal;
+import static org.unbunt.ella.lang.NumUtils.toBigInteger;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * Represents an EllaScript object wrapping a BigInteger value.
+ */
 public class NBigNum extends AbstractObj implements NNumeric {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    /**
+     * The wrapped value.
+     */
     public final BigInteger value;
 
+    /**
+     * Creates a new NBigNum wrapping the given value.
+     *
+     * @param value the value to wrap.
+     */
     public NBigNum(BigInteger value) {
         this.value = value;
     }
@@ -210,11 +220,20 @@ public class NBigNum extends AbstractObj implements NNumeric {
         return OBJECT_ID;
     }
 
+
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         NBigNumProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, NBigNumProto.OBJECT_ID);
     }
 
+    /**
+     * Represents the implicit parent object for NBigNum objects.
+     */
     public static final class NBigNumProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -312,6 +331,11 @@ public class NBigNum extends AbstractObj implements NNumeric {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             NNumericProto.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, NNumericProto.OBJECT_ID);

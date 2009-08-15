@@ -1,19 +1,14 @@
 package org.unbunt.ella.lang;
 
+import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.corelang.*;
+import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.LoopBreakException;
 import org.unbunt.ella.exception.LoopContinueException;
-import org.unbunt.ella.lang.NativeWrapper;
-import org.unbunt.ella.engine.corelang.*;
-import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
-import org.unbunt.ella.engine.context.Context;
 
 /**
- * User: tweiss
- * Date: 14.07.2009
- * Time: 07:46:28
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
+ * Represents a numeric range.
  */
 public class NRange extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
@@ -21,6 +16,12 @@ public class NRange extends AbstractObj {
     protected final long start;
     protected final long stop;
 
+    /**
+     * Creates a new NRange with the given range.
+     *
+     * @param start the range start.
+     * @param stop the range end.
+     */
     public NRange(long start, long stop) {
         this.start = start;
         this.stop = stop;
@@ -56,11 +57,19 @@ public class NRange extends AbstractObj {
         return "Range[" + start + ", " + stop + "]";
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         NRangeProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, NRangeProto.OBJECT_ID);
     }
 
+    /**
+     * Represents the implicit parent object for NRange objects.
+     */
     public static final class NRangeProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -137,6 +146,11 @@ public class NRange extends AbstractObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

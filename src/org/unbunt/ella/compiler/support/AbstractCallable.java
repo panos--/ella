@@ -5,6 +5,9 @@ import org.unbunt.ella.engine.environment.Env;
 
 import java.util.List;
 
+/**
+ * Base class for activatable objects.
+ */
 public class AbstractCallable implements Callable {
     protected List<Variable> arguments = null;
     protected int argCount = 0;

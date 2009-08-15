@@ -1,18 +1,24 @@
 package org.unbunt.ella.engine.environment;
 
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.environment.DynamicVariableResolver;
-import org.unbunt.ella.engine.environment.WritableVariableResolver;
 import org.unbunt.ella.compiler.support.Variable;
+import org.unbunt.ella.engine.corelang.Obj;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * Provides a caching mechanism for dynamic variable resolvers.
+ */
 public class CachingVariableResolver implements WritableVariableResolver {
     protected final DynamicVariableResolver realResolver;
 
     protected final Map<String, Obj> cache = new HashMap<String, Obj>();
 
+    /**
+     * Creates a new CachingVariableResolver using the given resolver as the base resolver.
+     *
+     * @param realResolver the base resolver.
+     */
     public CachingVariableResolver(DynamicVariableResolver realResolver) {
         this.realResolver = realResolver;
     }

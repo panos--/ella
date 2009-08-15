@@ -11,11 +11,22 @@ import static org.unbunt.ella.lang.NumUtils.toBigInteger;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * Represents an EllaScript object wrapping a <code>long</code> value.
+ */
 public class NNum extends AbstractObj implements NNumeric {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
+    /**
+     * The wrapped value.
+     */
     public final long value;
 
+    /**
+     * Creates a new NNum wrapping the given value.
+     *
+     * @param value the value to wrap.
+     */
     public NNum(long value) {
         this.value = value;
     }
@@ -186,11 +197,19 @@ public class NNum extends AbstractObj implements NNumeric {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         NNumProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, NNumProto.OBJECT_ID);
     }
 
+    /**
+     * Represents the implicit parent object for NNum objects.
+     */
     public static final class NNumProto extends AbstractObj implements NativeObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -275,7 +294,7 @@ public class NNum extends AbstractObj implements NNumeric {
             }
         };
 
-        public static final Call nativeTo = new NativeCall() {
+        protected static final Call nativeTo = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 NNum numStart = ensureType(NNum.class, context);
                 NNum numStop = ensureType(NNum.class, args[0]);
@@ -335,6 +354,11 @@ public class NNum extends AbstractObj implements NNumeric {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             NNumericProto.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, NNumericProto.OBJECT_ID);

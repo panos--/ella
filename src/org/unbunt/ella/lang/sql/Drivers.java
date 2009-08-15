@@ -1,5 +1,8 @@
 package org.unbunt.ella.lang.sql;
 
+/**
+ * Collection of drivers known to the system.
+ */
 public enum Drivers {
     oracle ("oracle.jdbc.OracleDriver"),
     postgresql ("org.postgresql.Driver"),
@@ -11,6 +14,11 @@ public enum Drivers {
         this.driverClasses = driverClasses;
     }
 
+    /**
+     * Returns the class names known for this driver.
+     *
+     * @return the class names.
+     */
     public String[] getDriverClasses() {
         return driverClasses;
     }

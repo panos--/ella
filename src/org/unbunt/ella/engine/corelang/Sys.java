@@ -1,6 +1,7 @@
 package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.ella.engine.corelang.Obj;
-
+/**
+ * Represents the Sys core object.
+ */
 public interface Sys extends Obj {
 }

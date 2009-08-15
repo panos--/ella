@@ -1,5 +1,8 @@
 package org.unbunt.ella.compiler.support;
 
+/**
+ * Helper for defining string syntax rules for SQL parse modes.
+ */
 public class SQLStringSyntaxRules {
     public final boolean doubleQuote;
     public final boolean singleQuote;

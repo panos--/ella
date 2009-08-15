@@ -7,6 +7,9 @@ import org.unbunt.ella.engine.context.Context;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents an EllaScript object wrapping <code>String</code> values.
+ */
 public class Str extends AbstractObj {
     protected static Map<String, Str> pool = new HashMap<String, Str>();
 
@@ -114,23 +117,41 @@ public class Str extends AbstractObj {
     public static final Str SYM_withNamed = toSym("withNamed");
     public static final Str SYM_withPrepared = toSym("withPrepared");
 
+    /**
+     * The wrapped value.
+     */
     public final String value;
 
+    /**
+     * Creates a new Str wrapping the given value.
+     *
+     * @param value the value to wrap.
+     */
     public Str(String value) {
         this.value = value;
     }
 
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         StrProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, StrProto.OBJECT_ID);
     }
 
+    /**
+     * Returns the wrapped String value.
+     *
+     * @return the wrapped value.
+     */
     public String getValue() {
         return value;
     }
@@ -157,6 +178,11 @@ public class Str extends AbstractObj {
         return value;
     }
 
+    /**
+     * Does semantically the same as {@link String#intern()} just for EllaScript string objects.
+     *
+     * @return the canonical Str object matching this Str object.
+     */
     public synchronized Str intern() {
         Str interned = pool.get(value);
         if (interned != null) {
@@ -167,18 +193,28 @@ public class Str extends AbstractObj {
         return this;
     }
 
+    /**
+     * Creates a symbol from the given String.
+     *
+     * @param name the String.
+     * @return the symbol.
+     * @see #intern()
+     */
     public static Str toSym(String name) {
         return new Str(name).intern();
     }
 
+    /**
+     * Represents the implicit parent object for Str objects.
+     */
     public static class StrProto extends AbstractObj implements NativeObj {
-        public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+        protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(args[0].toString());
             }
         };
 
-        public static final NativeCall nativeAdd = new NativeCall() {
+        protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(((Str) context).value + args[0].toString());
             }
@@ -194,6 +230,11 @@ public class Str extends AbstractObj {
             slots.put(SYM__plus, nativeAdd);
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

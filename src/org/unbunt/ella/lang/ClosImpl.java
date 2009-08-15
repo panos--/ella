@@ -8,9 +8,17 @@ import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
 
+/**
+ * Represents a default implementation of the EllaScript core object <code>Clos</code>.
+ */
 public class ClosImpl extends AbstractObj implements Clos {
     protected BlockClosure closure;
 
+    /**
+     * Creates a new Clos wrapping the given closure.
+     *
+     * @param closure the closure to wrap.
+     */
     public ClosImpl(BlockClosure closure) {
         this.closure = closure;
     }
@@ -21,6 +29,11 @@ public class ClosImpl extends AbstractObj implements Clos {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         ClosProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, ClosProto.OBJECT_ID);
@@ -42,6 +55,9 @@ public class ClosImpl extends AbstractObj implements Clos {
         return closure;
     }
 
+    /**
+     * Represents the implicit parent object for Clos objects.
+     */
     public static class ClosProto extends AbstractObj {
         protected static final NativeCall nativeWhileTrue = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
@@ -76,6 +92,11 @@ public class ClosImpl extends AbstractObj implements Clos {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

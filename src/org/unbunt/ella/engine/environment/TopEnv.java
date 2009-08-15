@@ -1,16 +1,16 @@
 package org.unbunt.ella.engine.environment;
 
-import org.unbunt.ella.engine.continuations.Continuation;
-import org.unbunt.ella.exception.EllaRuntimeException;
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.environment.Env;
-import org.unbunt.ella.compiler.support.Variable;
 import org.unbunt.ella.compiler.support.Scope;
+import org.unbunt.ella.compiler.support.Variable;
+import org.unbunt.ella.engine.continuations.Continuation;
+import org.unbunt.ella.engine.corelang.Obj;
+import org.unbunt.ella.exception.EllaRuntimeException;
 
 import java.util.ArrayList;
 
 /**
- * Acts as global environment. Any variable reference not resolved by the compiler will be passed to this environment,
+ * Acts as top-level environment for storing undefined variables.
+ * Any variable reference not resolved by the compiler will be passed to this environment,
  * except if caught ealier by a dynamic environment.
  */
 public class TopEnv implements Env {
@@ -26,6 +26,17 @@ public class TopEnv implements Env {
         return get(var, var.address);
     }
 
+    /**
+     * Returns the value associated with the given variable. Uses the given lexical address during lookup
+     * of the variable.
+     * <p>
+     * If the given variable was not defined previously, a warning will be issued and the variable will be initialized
+     * with a default value.
+     *
+     * @param var the variable.
+     * @param addr the variable's lexical address.
+     * @return the variable's associated value.
+     */
     public Obj get(Variable var, int addr) {
         addr &= 0xFFFF;
         resizeFor(addr);

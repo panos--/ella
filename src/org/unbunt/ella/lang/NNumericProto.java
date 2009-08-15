@@ -6,8 +6,11 @@ import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
 
+/**
+ * Represents an EllaScript object acting as implicit parent object for every numeric EllaScript object.
+ */
 public class NNumericProto extends AbstractObj {
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected static final NativeCall nativeNumValue = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -233,6 +236,11 @@ public class NNumericProto extends AbstractObj {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         Base.registerInContext(ctx);
         if (!ctx.hasObject(OBJECT_ID)) {

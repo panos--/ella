@@ -11,6 +11,9 @@ import org.unbunt.ella.engine.context.Context;
 
 import java.util.Map;
 
+/**
+ * Represents the root of the EllaScript object hierarchy. Every EllaScript objects uses this object as parent object.
+ */
 public class Base extends AbstractObj {
     protected static final Call nativeEquals = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -118,6 +121,11 @@ public class Base extends AbstractObj {
         slots.put(Str.SYM_removeSlot, nativeRemoveSlot);
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         if (!ctx.hasObject(OBJECT_ID)) {
             ctx.registerObject(new Base());

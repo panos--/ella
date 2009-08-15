@@ -6,6 +6,10 @@ import org.unbunt.ella.exception.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * Helper class providing various support methods for working with numeric values in the context of the
+ * EllaScript language.
+ */
 public class NumUtils {
     public static final BigInteger MAX_DOUBLE = toBigIntegerUnguarded(Double.MAX_VALUE);
 

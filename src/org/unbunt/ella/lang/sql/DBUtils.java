@@ -8,6 +8,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Helper class providing utility methods for interaction with databases.
+ */
 public class DBUtils {
     public static DriverManagerDataSource createDataSourceFromProps(String propsFile,
                                                                     String user, String pass,

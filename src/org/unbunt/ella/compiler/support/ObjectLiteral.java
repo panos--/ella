@@ -5,6 +5,9 @@ import org.unbunt.ella.compiler.stmtbase.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the compiled form of object literals of the EllaScript language.
+ */
 public class ObjectLiteral {
     public static class SlotEntry {
         public Expression key;

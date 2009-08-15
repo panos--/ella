@@ -1,30 +1,53 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.lang.NativeWrapper;
-import org.unbunt.ella.engine.corelang.ObjUtils;
-import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.corelang.*;
+import org.unbunt.ella.exception.ClosureTerminatedException;
 
 import java.lang.reflect.Array;
 
+/**
+ * Represents an EllaScript object wrapping native Java arrays.
+ */
 public class JArray extends AbstractObj {
+    /**
+     * The wrapped Java array.
+     */
     public final Object array;
+
+    /**
+     * The length of the wrapped array.
+     */
     public final int length;
+
+    /**
+     * A numeric EllaScript object representing the length of the wrapped array.
+     */
     public final NNum lengthObj;
 
+    /**
+     * Creates a new JArray wrapping the given array with the specified length.
+     *
+     * @param array the array to wrap.
+     * @param length the length of the array.
+     */
     public JArray(Object array, int length) {
         this.array = array;
         this.length = length;
         this.lengthObj = new NNum(length);
     }
 
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void registerInContext(Context ctx) {
         JArrayProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, JArrayProto.OBJECT_ID);
@@ -44,14 +67,10 @@ public class JArray extends AbstractObj {
     }
 
     /**
- * User: tweiss
-     * Date: 28.04.2009
-     * Time: 08:23:56
-     * <p/>
-     * Copyright: (c) 2007 marketoolz GmbH
+     * Represents the implicit parent object of JArray objects.
      */
     public static class JArrayProto extends AbstractObj implements NativeObj {
-        public static final NativeCall nativeEach = new NativeCall() {
+        protected static final NativeCall nativeEach = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Obj code = args[0];
@@ -67,7 +86,7 @@ public class JArray extends AbstractObj {
             }
         };
 
-        public static final NativeCall nativeGet = new NativeCall() {
+        protected static final NativeCall nativeGet = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
@@ -77,7 +96,7 @@ public class JArray extends AbstractObj {
             }
         };
 
-        public static final NativeCall nativeSet = new NativeCall() {
+        protected static final NativeCall nativeSet = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 JArray ctx = (JArray) context;
                 Object array = ctx.array;
@@ -90,7 +109,7 @@ public class JArray extends AbstractObj {
             }
         };
 
-        public static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
+        protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 Class componentType;
                 int length = 0;
@@ -140,6 +159,11 @@ public class JArray extends AbstractObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

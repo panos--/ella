@@ -1,13 +1,15 @@
 package org.unbunt.ella.engine.environment;
 
-import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.environment.Env;
-import org.unbunt.ella.engine.continuations.Continuation;
-import org.unbunt.ella.compiler.support.Variable;
 import org.unbunt.ella.compiler.support.Scope;
+import org.unbunt.ella.compiler.support.Variable;
+import org.unbunt.ella.engine.continuations.Continuation;
+import org.unbunt.ella.engine.corelang.Obj;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a standard environment following the lexical addressing scheme.
+ */
 public class StaticEnv extends AbstractEnv {
     protected ArrayList<Obj> values = new ArrayList<Obj>();
     protected ArrayList<Variable> vars = new ArrayList<Variable>();
@@ -18,6 +20,11 @@ public class StaticEnv extends AbstractEnv {
     protected int closureHomeOffset = -1;
     protected Continuation closureHomeCont = null;
 
+    /**
+     * Creates a new static environment.
+     *
+     * @param parent the environment to use as parent environment.
+     */
     public StaticEnv(Env parent) {
         super(parent);
     }

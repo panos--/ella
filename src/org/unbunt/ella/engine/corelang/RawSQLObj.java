@@ -6,6 +6,9 @@ import org.unbunt.ella.engine.context.Context;
 
 import java.util.Map;
 
+/**
+ * Represents an EllaScript object wrapping an SQL statement.
+ */
 public class RawSQLObj implements Obj, RawSQL {
     protected String statement;
     protected SQLParseMode parseMode;

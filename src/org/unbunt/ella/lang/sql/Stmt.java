@@ -20,11 +20,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents an EllaScript object wrapping an SQL statement.
+ */
 public class Stmt extends AbstractObj {
     protected static final Log logger = LogFactory.getLog(Stmt.class);
     protected static final boolean trace = logger.isTraceEnabled();
 
-    public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
+    protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     protected RawSQL rawStatement;
     protected RawParamedSQL rawParamedStatement = null;
@@ -45,6 +48,13 @@ public class Stmt extends AbstractObj {
 
     protected boolean initialized = false;
 
+    /**
+     * Creates a new Stmt.
+     *
+     * @param rawStatement the SQL statement to wrap.
+     * @param connection the connection associated with the SQL statement.
+     * @param managedExternal a flag indicating if this object's resources are to be managed from an external entity.
+     */
     public Stmt(RawSQL rawStatement, Connection connection, boolean managedExternal) {
         this.rawStatement = rawStatement;
         this.connection = connection;
@@ -67,6 +77,11 @@ public class Stmt extends AbstractObj {
         close();
     }
 
+    /**
+     * Tells this object that any resources aquired and held open can now be released.
+     *
+     * @throws SQLException if a database error occurs.
+     */
     public void leaveExternalManagedMode() throws SQLException {
         managedExternal = false;
         keepResources = false;
@@ -376,6 +391,11 @@ public class Stmt extends AbstractObj {
         return OBJECT_ID;
     }
 
+    /**
+     * Registers this EllaScript object within the given execution context.
+     *
+     * @param ctx the execution context to register this object in.
+     */
     public static void regiserInContext(Context ctx) {
         StmtProto.registerInContext(ctx);
         ctx.registerProto(OBJECT_ID, StmtProto.OBJECT_ID);
@@ -386,6 +406,9 @@ public class Stmt extends AbstractObj {
         return statement != null ? statement : preparedStatement != null ? preparedStatement : null;
     }
 
+    /**
+     * Represents the implicit parent object for Stmt objects.
+     */
     public static class StmtProto extends AbstractObj {
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -644,7 +667,7 @@ public class Stmt extends AbstractObj {
             }
         };
 
-        public StmtProto() {
+        protected StmtProto() {
             slots.put(Str.SYM_do, nativeDo);
             slots.put(Str.SYM_exec, nativeExec);
             slots.put(Str.SYM_each, nativeEach);
@@ -664,6 +687,11 @@ public class Stmt extends AbstractObj {
             return OBJECT_ID;
         }
 
+        /**
+         * Registers this EllaScript object within the given execution context.
+         *
+         * @param ctx the execution context to register this object in.
+         */
         public static void registerInContext(Context ctx) {
             Base.registerInContext(ctx);
             ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);

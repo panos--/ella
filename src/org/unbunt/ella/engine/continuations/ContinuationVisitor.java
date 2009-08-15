@@ -1,5 +1,8 @@
 package org.unbunt.ella.engine.continuations;
 
+/**
+ * Represents the visitor component of the visitor pattern realized for continuation objects.
+ */
 public interface ContinuationVisitor {
     void processContinuation(EndCont endCont);
 
