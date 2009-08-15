@@ -1,7 +1,5 @@
 package org.unbunt.ella.exception;
 
-import org.unbunt.ella.exception.GenericException;
-
 public class GenericParseException extends GenericException {
     public GenericParseException() {
     }

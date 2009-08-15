@@ -4,7 +4,6 @@ import org.antlr.runtime.*;
 import org.apache.commons.collections.list.CursorableLinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unbunt.ella.compiler.antlr.ExtendedCursorableLinkedList;
 
 import java.util.*;
 

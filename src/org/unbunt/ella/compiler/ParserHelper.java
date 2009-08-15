@@ -13,10 +13,7 @@ import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.SQLParseMode;
 import org.unbunt.ella.compiler.support.Scope;
 import org.unbunt.ella.compiler.support.RawSQL;
-import org.unbunt.ella.exception.GenericParseException;
-import org.unbunt.ella.exception.EllaIOException;
-import org.unbunt.ella.exception.EllaParseException;
-import org.unbunt.ella.exception.EllaRuntimeException;
+import org.unbunt.ella.exception.*;
 import org.unbunt.ella.resource.SimpleResource;
 
 import java.io.*;
@@ -39,7 +36,7 @@ public class ParserHelper {
         return threadLocalParser.get().scriptParser.parse(initialScope, fileResource);
     }
 
-    public static RawParamedSQL parseParamedSQLLiteral(RawSQL stmt) throws RecognitionException {
+    public static RawParamedSQL parseParamedSQLLiteral(RawSQL stmt) throws GenericParseException {
         return threadLocalParser.get().paramedSQLLiteralParser.parse(stmt);
     }
 
@@ -91,32 +88,19 @@ public class ParserHelper {
 
                 EllaLexer lexer = new EllaLexer(input);
                 TokenStream tokens = new LazyTokenStream(lexer);
-
-                EllaParser parser;
-                try {
-                    parser = new EllaParser(tokens);
-                } catch (RuntimeRecognitionException re) {
-                    RecognitionException e = (RecognitionException) re.getCause();
-                    throw new EllaParseException("Failed to parse sql script: " + filename + ": " +
-                                                        lexer.getErrorHeader(e) + " " +
-                                                        lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                                        e);
-                }
+                EllaParser parser = new EllaParser(tokens);
 
                 EllaParser.script_return r;
                 try {
-                    r = parser.script();
-                } catch (RecognitionException e) {
-                    throw new EllaParseException("Failed to parse sql script: " + filename + ": " +
-                                                      parser.getErrorHeader(e) + " " +
-                                                      parser.getErrorMessage(e, parser.getTokenNames()),
-                                                      e);
-                } catch (RuntimeRecognitionException re) {
-                    RecognitionException e = (RecognitionException) re.getCause();
-                    throw new EllaParseException("Failed to parse sql script: " + filename + ": " +
-                                                        lexer.getErrorHeader(e) + " " +
-                                                        lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                                        e);
+                    r = parser.parseScript();
+                } catch (EllaRecognitionException e) {
+                    RecognitionException re = e.getCause();
+                    throw new EllaRecognitionException("Failed to parse sql script: " + filename + ": " +
+                                                      parser.getErrorHeader(re) + " " +
+                                                      parser.getErrorMessage(re, parser.getTokenNames()),
+                                                      re);
+                } catch (EllaParseException e) {
+                    throw new EllaParseException("Failed to parse sql script: " + filename + ": " + e.getMessage(), e);
                 }
 
                 CommonTree tree = (CommonTree) r.getTree();
@@ -126,15 +110,14 @@ public class ParserHelper {
 
                 EllaWalker walker = new EllaWalker(nodes);
                 try {
-                    block = walker.parseIncremental(initialScope);
+                    block = walker.walkScript(initialScope);
                     TailCallOptimizer.process(block);
-                } catch (RecognitionException e) {
-                    throw new EllaParseException("Failed to parse sql script: " + filename + ": " +
-                                                      walker.getErrorHeader(e) + " " +
-                                                      walker.getErrorMessage(e, walker.getTokenNames()),
-                                                      e);
-                } catch (RuntimeException e) {
-                    throw new EllaRuntimeException(e.getMessage(), e);
+                } catch (EllaRecognitionException e) {
+                    RecognitionException re = e.getCause();
+                    throw new EllaRecognitionException("Failed to parse sql script: " + filename + ": " +
+                                                      walker.getErrorHeader(re) + " " +
+                                                      walker.getErrorMessage(re, walker.getTokenNames()),
+                                                      re);
                 }
             } catch (EllaIOException e) {
                 throw new GenericParseException(e);
@@ -159,14 +142,27 @@ public class ParserHelper {
             walker = new EllaWalker(null);
         }
 
-        public RawParamedSQL parse(RawSQL stmt) throws RecognitionException {
-            LazyInputStream chars = new LazyInputStream(new ByteArrayInputStream(stmt.getStatement().getBytes()));
-            lexer.setCharStream(chars);
-            tokens.setTokenSource(lexer);
-            Tree tree = parser.parseParamedSQLLiteral(tokens, new SQLParseMode(stmt.getParseMode().getStringType()));
-            TreeNodeStream nodes = new CommonTreeNodeStream(tree);
-            walker.setTreeNodeStream(nodes);
-            return walker.parseParamedSQLLiteral(nodes);
+        public RawParamedSQL parse(RawSQL stmt) throws GenericParseException {
+            try {
+                try {
+                    LazyInputStream chars = new LazyInputStream(new ByteArrayInputStream(stmt.getStatement().getBytes()));
+                    lexer.setCharStream(chars);
+                    tokens.setTokenSource(lexer);
+                    Tree tree = parser.parseParamedSQLLiteral(tokens, new SQLParseMode(stmt.getParseMode().getStringType()));
+                    TreeNodeStream nodes = new CommonTreeNodeStream(tree);
+                    walker.setTreeNodeStream(nodes);
+                    return walker.parseParamedSQLLiteral(nodes);
+                } catch (EllaRecognitionException e) {
+                    RecognitionException re = e.getCause();
+                    throw new EllaRecognitionException("Failed to parse sql literal for named parameters: " +
+                                                       re.getMessage(), re);
+                } catch (EllaRuntimeException e) {
+                    throw new EllaParseException("Failed to parse sql literal for named parameters: " +
+                                                 e.getMessage(), e);
+                }
+            } catch (EllaParseException e) {
+                throw new GenericParseException(e);
+            }
         }
     }
 }

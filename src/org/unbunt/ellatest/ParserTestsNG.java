@@ -11,7 +11,9 @@ import org.unbunt.ella.compiler.antlr.LazyInputStream;
 import org.unbunt.ella.compiler.antlr.LazyTokenStream;
 import org.unbunt.ella.compiler.*;
 import org.unbunt.ella.exception.EllaIOException;
+import org.unbunt.ella.exception.EllaRecognitionException;
 import org.unbunt.ella.exception.EllaParseException;
+import org.unbunt.ella.exception.GenericParseException;
 import org.unbunt.ella.engine.corelang.RawSQLObj;
 import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.SQLParseMode;
@@ -72,7 +74,7 @@ public class ParserTestsNG extends AbstractTest {
     }
 
     @Test
-    public void sqlNamedParamsStdWithSeparateParser() throws RecognitionException {
+    public void sqlNamedParamsStdWithSeparateParser() throws RecognitionException, EllaParseException {
         String sql = "select *, :, 42::real, a: b:, :param, ':noparam' from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
                 "select *, :, 42::real, a: b:, ?, ':noparam' from foo where bar = ? or baz = ? ; ";
@@ -96,7 +98,7 @@ public class ParserTestsNG extends AbstractTest {
     }
 
     @Test
-    public void sqlNamedParamsMySQLWithSeparateParser() throws RecognitionException {
+    public void sqlNamedParamsMySQLWithSeparateParser() throws RecognitionException, EllaParseException {
         String sql = "select :foo, *, :, 42::real, a: b:, :param, `:noparam` from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
                 "select ?, *, :, 42::real, a: b:, ?, `:noparam` from foo where bar = ? or baz = ? ; ";
@@ -121,7 +123,7 @@ public class ParserTestsNG extends AbstractTest {
     }
 
     @Test
-    public void sqlNamedParamsStdThreadLocalParser() throws RecognitionException {
+    public void sqlNamedParamsStdThreadLocalParser() throws GenericParseException {
         String sql = "select *, :, 42::real, a: b:, :param, ':noparam' from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
                 "select *, :, 42::real, a: b:, ?, ':noparam' from foo where bar = ? or baz = ? ; ";
@@ -136,7 +138,7 @@ public class ParserTestsNG extends AbstractTest {
     }
 
     @Test
-    public void sqlNamedParamsMySQLWithThreadLocalParser() throws RecognitionException {
+    public void sqlNamedParamsMySQLWithThreadLocalParser() throws GenericParseException {
         String sql = "select :foo, *, :, 42::real, a: b:, :param, `:noparam` from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
                 "select ?, *, :, 42::real, a: b:, ?, `:noparam` from foo where bar = ? or baz = ? ; ";
@@ -158,7 +160,7 @@ public class ParserTestsNG extends AbstractTest {
 
     @Test
     public void sqlLiteralParamedEmbeddedVars()
-            throws EllaIOException, EllaParseException, IOException, RecognitionException {
+            throws EllaIOException, EllaRecognitionException, IOException, RecognitionException, GenericParseException {
         // Here we parse an SQL literal containing several embedded variables for named parameters
         // and expect to not be parsed as such.
         // Thereby we verify the involved lexers to be set up correctly.

@@ -59,20 +59,13 @@ tokens {
 	import org.unbunt.ella.compiler.support.SQLModeToken;
 	import org.unbunt.ella.compiler.UnexpectedEOFException;
 	import org.unbunt.ella.exception.EllaRuntimeException;
+	import org.unbunt.ella.exception.EllaParseException;
+	import org.unbunt.ella.exception.EllaRecognitionException;
 	
 	import org.unbunt.ella.compiler.support.SQLParseMode;
 	import org.unbunt.ella.compiler.support.SQLStringSyntaxRules;
 	import org.unbunt.ella.compiler.support.SQLStringType;
 }
-
-/*
-@lexer::header {
-	package org.unbunt.ella;
-
-	import org.antlr.runtime.tree.CommonTree;
-	import org.unbunt.ella.exception.RuntimeRecognitionException;
-}
-*/
 
 @parser::members {	
 	protected boolean eof = false;
@@ -80,23 +73,80 @@ tokens {
 	protected boolean parseSQLParams = false;
 	
 	/**
+	 * Entry point for parsing a complete EllaScript program.
+	 *
+	 * @returns EllaParser.script_return the compiled script.
+ 	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
+	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
+	 */
+	public EllaParser.script_return parseScript() throws EllaParseException {
+		try {
+			return script();
+		} catch (RecognitionException e) {
+			throw new EllaRecognitionException(e);
+		} catch (RuntimeRecognitionException re) {
+			RecognitionException e = (RecognitionException) re.getCause();
+			throw new EllaRecognitionException(e);
+		} catch (EllaRuntimeException e) {
+			throw new EllaParseException(e);
+		}
+	}
+	
+	/**
+	 * Entry point for incremental parsing of an EllaScript program.
+	 * Parses one statement at a time and returns the compiled form of the
+	 * parsed statement. The next call to this method will parse the next
+	 * statement.
+	 * <p>
+	 * If the end of the script has been reached a call to <code>isEOF</code>
+	 * will return <code>true</code>.
+	 *
+	 * @returns EllaParser.script_return the compiled statement.
+  	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
+	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
+	 */
+	public EllaParser.scriptIncremental_return parseScriptIncremental() throws EllaParseException {
+		try {
+			return scriptIncremental();
+		} catch (RecognitionException e) {
+			throw new EllaRecognitionException(e);
+		} catch (RuntimeRecognitionException re) {
+			RecognitionException e = (RecognitionException) re.getCause();
+			throw new EllaRecognitionException(e);
+		} catch (EllaRuntimeException e) {
+			throw new EllaParseException(e);
+		}
+	}
+	
+	/**
 	 * Public entry point for parsing an sql statement for embedded named parameters.
 	 * 
 	 * @return Tree the generated AST
-	 * @see org.unbunt.ella.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
+  	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
+	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
+	 * @see org.unbunt.ella.compiler.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
 	 */
-	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws RecognitionException {
-		setTokenStream(input); // implicitly resets this instance
-		
-		SQLStringType oldStringType = stringType;
-		stringType = parseMode.getStringType();
+	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws EllaParseException {
 		try {
-			parseSQLParams = true;
-			sqlLiteralParamed_return result = sqlLiteralParamed();
-			return (Tree)result.getTree();
-		} finally {
-			stringType = oldStringType;
-			parseSQLParams = false;
+			setTokenStream(input); // implicitly resets this instance
+			
+			SQLStringType oldStringType = stringType;
+			stringType = parseMode.getStringType();
+			try {
+				parseSQLParams = true;
+				sqlLiteralParamed_return result = sqlLiteralParamed();
+				return (Tree)result.getTree();
+			} finally {
+				stringType = oldStringType;
+				parseSQLParams = false;
+			}
+		} catch (RecognitionException e) {
+			throw new EllaRecognitionException(e);
+		} catch (RuntimeRecognitionException re) {
+			RecognitionException e = (RecognitionException) re.getCause();
+			throw new EllaRecognitionException(e);
+		} catch (EllaRuntimeException e) {
+			throw new EllaParseException(e);
 		}
 	}
 

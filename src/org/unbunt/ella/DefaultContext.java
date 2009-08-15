@@ -171,7 +171,7 @@ public class DefaultContext implements Context {
      * The program arguments are made available to the programs executed within this context under the
      * <code>ARGV</code> name as an object of type <code>Lst</code>.
      *
-     * @param args the object to be used as program arguments
+     * @param args the objects to be used as program arguments
      * @see org.unbunt.ella.lang.Lst
      */
     public DefaultContext(Object[] args) {

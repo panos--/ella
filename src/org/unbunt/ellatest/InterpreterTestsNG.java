@@ -328,7 +328,7 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
-    public void numFailOnNaNToBigReal() throws EllaIOException, EllaParseException {
+    public void numFailOnNaNToBigReal() throws EllaIOException, EllaRecognitionException {
         try {
             eval(".(0 / 0.0).bigRealValue();");
         } catch (Exception e) {

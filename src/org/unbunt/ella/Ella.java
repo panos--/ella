@@ -17,17 +17,17 @@ import org.unbunt.ella.compiler.antlr.LazyInputStream;
 import org.unbunt.ella.compiler.antlr.LazyTokenStream;
 import org.unbunt.ella.compiler.statement.Block;
 import org.unbunt.ella.compiler.support.Scope;
-import org.unbunt.ella.engine.EllaEngine;
 import org.unbunt.ella.engine.EllaCPSEngine;
+import org.unbunt.ella.engine.EllaEngine;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
 import org.unbunt.ella.lang.sql.Drivers;
-import static org.unbunt.ella.utils.StringUtils.join;
 import org.unbunt.ella.resource.FilesystemResource;
 import org.unbunt.ella.resource.FilesystemResourceLoader;
 import org.unbunt.ella.resource.SimpleResource;
 import org.unbunt.ella.resource.StringResource;
+import static org.unbunt.ella.utils.StringUtils.join;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -58,10 +58,27 @@ public class Ella {
     protected EllaEngine engine = null;
     protected Block block; // the parsed script to be run by the engine
 
+    /**
+     * Creates a new Ella instance for compilation or execution of the EllaScript program
+     * specified by the given resource.
+     * <p>
+     * The program is to be executed in an context made up by a fresh instance of class
+     * <code>DefaultContext</code>.
+     *
+     * @param script the resource representing the EllaScript program to compile or execute.
+     * @see org.unbunt.ella.DefaultContext
+     */
     public Ella(SimpleResource script) {
         this(new DefaultContext(), script);
     }
 
+    /**
+     * Creates a new Ella instance for compilation or execution of the EllaScript program
+     * specified by the given resource within the given context.
+     *
+     * @param context the context to execute the EllaScript program in.
+     * @param script the resource representing the EllaScript program to compile or execute.
+     */
     public Ella(Context context, SimpleResource script) {
         this.context = context;
         this.script = script;
@@ -115,7 +132,20 @@ public class Ella {
         Signal.handle(new Signal("INT"), signalHandler);
     }
 
-    public void executeInteractive() throws EllaIOException, EllaParseException, EllaRuntimeException {
+    /**
+     * Executes an EllaScript program in interactive mode. In this mode the user is presented a shell-like
+     * console interface where arbitrary EllaScript statements can be entered. As soon as a statement has been entered
+     * completely and submitted by pressing <code>RETURN</code>, the statement will be executed.
+     * <p>
+     * Execution finishes when <code>EOF</code> if read or execution is terminated explicitly via the respective
+     * function of the EllaScript language.
+     * <p>
+     * In this mode input is always read from the standard input stream. The script resource given to this Ella object
+     * via one of it's constructors is not used.
+     *
+     * @throws EllaIOException if reading from standard input fails.
+     */
+    public void executeInteractive() throws EllaIOException {
         initInteractive();
         initEngine();
 
@@ -174,7 +204,7 @@ public class Ella {
                         parseTokens();
                         parseTreeIncremental();
                         runBlock();
-                    } catch (EllaParseException e) {
+                    } catch (EllaRecognitionException e) {
                         if (e.isCausedBy(UnterminatedStringException.class)) {
                             UnterminatedStringException ex = e.getCause(UnterminatedStringException.class);
                             stringType = ex.getStringType();
@@ -210,8 +240,7 @@ public class Ella {
         }
     }
 
-    public Object executeIncremental()
-            throws EllaIOException, EllaParseException, EllaRuntimeException, EllaException {
+    public Object executeIncremental() throws EllaIOException, EllaParseException, EllaException {
         initParserIncremental();
         initEngine();
         try {
@@ -231,7 +260,7 @@ public class Ella {
     }
 
     public Object execute()
-            throws EllaIOException, EllaParseException, EllaRuntimeException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException {
         tokenize();
         parseTokens();
         parseTree();
@@ -245,7 +274,7 @@ public class Ella {
         return block;
     }
 
-    public void showAST() throws EllaIOException, EllaParseException, EllaRuntimeException {
+    public void showAST() throws EllaIOException, EllaParseException {
         tokenize();
         parseTokens();
 
@@ -280,12 +309,12 @@ public class Ella {
             }
 
             if (result != 0) {
-                throw new Exception("dot command failed");
+                throw new EllaIOException("dot command failed");
             }
 
             Runtime.getRuntime().exec(new String[] { "xdg-open", pngFile.getPath() });
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new EllaIOException(e);
         }
     }
 
@@ -309,43 +338,31 @@ public class Ella {
         tokens = new LazyTokenStream(lexer);
     }
 
-    protected void parseTokens() throws EllaParseException, EllaRuntimeException {
-        try {
-            if (parser == null) {
-                parser = new EllaParser(tokens);
-            }
-            else {
-                parser.setTokenStream(tokens);
-            }
-        } catch (RuntimeRecognitionException re) {
-            RecognitionException e = (RecognitionException) re.getCause();
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              lexer.getErrorHeader(e) + " " +
-                                              lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                              e);
+    protected void parseTokens() throws EllaParseException {
+        if (parser == null) {
+            parser = new EllaParser(tokens);
+        }
+        else {
+            parser.setTokenStream(tokens);
         }
 
         EllaParser.script_return r;
         try {
-            r = parser.script();
-        } catch (RecognitionException e) {
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              parser.getErrorHeader(e) + " " +
-                                              parser.getErrorMessage(e, parser.getTokenNames()),
-                                              e);
-        } catch (RuntimeRecognitionException re) {
-            RecognitionException e = (RecognitionException) re.getCause();
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              lexer.getErrorHeader(e) + " " +
-                                              lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                              e);
+            r = parser.parseScript();
+        } catch (EllaRecognitionException e) {
+            RecognitionException re = e.getCause();
+            throw new EllaRecognitionException("Failed to parse sql script: " + scriptName + ": " +
+                                              parser.getErrorHeader(re) + " " +
+                                              parser.getErrorMessage(re, parser.getTokenNames()),
+                                              re);
+        } catch (EllaParseException e) {
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " + e.getMessage(), e);
         }
 
         tree = (CommonTree) r.getTree();
     }
 
-    protected void initParserIncremental()
-            throws EllaParseException, EllaRuntimeException, EllaIOException {
+    protected void initParserIncremental() throws EllaIOException {
         InputStream stream;
         try {
             stream = script.getInputStream();
@@ -356,42 +373,26 @@ public class Ella {
         initParserIncremental(stream);
     }
 
-    protected void initParserIncremental(InputStream stream)
-            throws EllaParseException, EllaRuntimeException {
+    protected void initParserIncremental(InputStream stream) {
         LazyInputStream input = new LazyInputStream(stream);
 
         lexer = new EllaLexer(input);
         tokens = new LazyTokenStream(lexer);
-
-        try {
-            parser = new EllaParser(tokens);
-        } catch (RuntimeRecognitionException re) {
-            RecognitionException e = (RecognitionException) re.getCause();
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              lexer.getErrorHeader(e) + " " +
-                                              lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                              e);
-        }
+        parser = new EllaParser(tokens);
     }
 
-    protected boolean parseTokensIncremental()
-            throws EllaParseException, EllaRuntimeException {
+    protected boolean parseTokensIncremental() throws EllaParseException {
         EllaParser.scriptIncremental_return r;
         try {
-            r = parser.scriptIncremental();
-        } catch (RecognitionException e) {
-            e.printStackTrace();
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              parser.getErrorHeader(e) + " " +
-                                              parser.getErrorMessage(e, parser.getTokenNames()),
-                                              e);
-        } catch (RuntimeRecognitionException re) {
-            RecognitionException e = (RecognitionException) re.getCause();
-            re.printStackTrace();
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              lexer.getErrorHeader(e) + " " +
-                                              lexer.getErrorMessage(e, lexer.getTokenNames()),
-                                              e);
+            r = parser.parseScriptIncremental();
+        } catch (EllaRecognitionException e) {
+            RecognitionException re = e.getCause();
+            throw new EllaRecognitionException("Failed to parse sql script: " + scriptName + ": " +
+                                              parser.getErrorHeader(re) + " " +
+                                              parser.getErrorMessage(re, parser.getTokenNames()),
+                                              re);
+        } catch (EllaParseException e) {
+            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " + e.getMessage(), e);
         }
 
         tree = (CommonTree) r.getTree();
@@ -399,29 +400,26 @@ public class Ella {
         return !parser.isEOF();
     }
 
-    protected void parseTree() throws EllaParseException, EllaRuntimeException {
+    protected void parseTree() throws EllaRecognitionException {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
         nodes.setTokenStream(tokens);
 
         EllaWalker walker = new EllaWalker(nodes);
         try {
-            block = walker.parse(context.getEnv().toScope());
+            block = walker.walkScript(context.getEnv().toScope());
             TailCallOptimizer.process(block);
-        } catch (RecognitionException e) {
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              walker.getErrorHeader(e) + " " +
-                                              walker.getErrorMessage(e, walker.getTokenNames()),
-                                              e);
-        } catch (EllaRuntimeException e) {
-            throw e;
-        } catch (RuntimeException e) {
-            throw new EllaRuntimeException(e.getMessage(), e);
+        } catch (EllaRecognitionException e) {
+            RecognitionException re = e.getCause();
+            throw new EllaRecognitionException("Failed to parse sql script: " + scriptName + ": " +
+                                              walker.getErrorHeader(re) + " " +
+                                              walker.getErrorMessage(re, walker.getTokenNames()),
+                                              re);
         }
     }
 
     protected Scope savedScope = null;
 
-    protected void parseTreeIncremental() throws EllaParseException, EllaRuntimeException {
+    protected void parseTreeIncremental() throws EllaRecognitionException {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
         nodes.setTokenStream(tokens);
 
@@ -430,21 +428,16 @@ public class Ella {
             if (savedScope == null) {
                 savedScope = context.getEnv().toScope();
             }
-            block = walker.parseIncremental(savedScope);
+            block = walker.walkScript(savedScope);
             savedScope = block.getScope();
 
             TailCallOptimizer.process(block);
-        } catch (RecognitionException e) {
-            throw new EllaParseException("Failed to parse sql script: " + scriptName + ": " +
-                                              walker.getErrorHeader(e) + " " +
-                                              walker.getErrorMessage(e, walker.getTokenNames()),
-                                              e);
-        } catch (EllaRuntimeException e) {
-            throw e;
-        } catch (RuntimeException e) {
-            throw new EllaRuntimeException(e.getMessage(), e);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (EllaRecognitionException e) {
+            RecognitionException re = e.getCause();
+            throw new EllaRecognitionException("Failed to parse sql script: " + scriptName + ": " +
+                                              walker.getErrorHeader(re) + " " +
+                                              walker.getErrorMessage(re, walker.getTokenNames()),
+                                              re);
         }
     }
 

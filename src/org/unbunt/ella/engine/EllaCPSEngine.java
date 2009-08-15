@@ -7,6 +7,7 @@ import org.unbunt.ella.compiler.stmtbase.Expression;
 import org.unbunt.ella.compiler.stmtbase.Statement;
 import org.unbunt.ella.compiler.support.*;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.context.SQLResultListener;
 import org.unbunt.ella.engine.continuations.*;
 import org.unbunt.ella.engine.environment.Env;
 import org.unbunt.ella.engine.environment.StaticEnv;
@@ -1119,6 +1120,14 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
 
     public void notifyUpdateCount(int updateCount) {
         context.notifyUpdateCount(updateCount);
+    }
+
+    public void addSQLResultListener(SQLResultListener listener) {
+        context.addSQLResultListener(listener);
+    }
+
+    public void removeSQLResultListener(SQLResultListener listener) {
+        context.removeSQLResultListener(listener);
     }
 
     public Sys getObjSys() {

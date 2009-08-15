@@ -33,13 +33,37 @@ scope Block {
 @members {
 	protected final static int POS_RHS = 1;
 	protected final static int POS_LHS = 2;
+
+	/**
+	 * Public entry point to parse an abstract syntax tree representing an EllaScript program
+	 * into a representation which can be interpreted by the <code>EllaCPSEngine</code> engine.
+	 *
+	 * @param scope the scope information to use during compilation.
+	 * @return the executable representation of the abstract syntax tree.
+	 * @throws EllaRecognitionException in case of parse errors.
+	 */
+	public Block walkScript(Scope scope) throws EllaRecognitionException {
+		try {
+			return script(scope);
+		} catch (RecognitionException e) {
+			throw new EllaRecognitionException(e);
+		}
+	}
 	
 	/**
-	 * Public entry point for named parameter parsing in sql statements.
+	 * Public entry point for named parameter parsing in sql statements from the given abstract syntax tree.
+	 *
+	 * @param input the tree node stream to read the abstract syntax tree representing an sql statement from.
+	 * @return the sql statement with it's named parameters.
+	 * @throws EllaRecognitionException in case of parse errors.
 	 */
-    	public RawParamedSQL parseParamedSQLLiteral(TreeNodeStream input) throws RecognitionException {
-            setTreeNodeStream(input); // implicitly resets this walker instance
-            return sqlLiteralParamed();
+    	public RawParamedSQL parseParamedSQLLiteral(TreeNodeStream input) throws EllaRecognitionException {
+		try {
+			setTreeNodeStream(input); // implicitly resets this walker instance
+			return sqlLiteralParamed();
+		} catch (RecognitionException e) {
+			throw new EllaRecognitionException(e);
+		}
         }
 
         /*
@@ -68,18 +92,6 @@ scope Block {
 			   (e.approximateLineInfo?"after ":"")+"line "+e.line+":"+e.charPositionInLine;
 	}
 
-	public Block walk(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
-		return parse(scope);
-	}
-
-	public Block parse(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
-		return script(scope);
-	}
-	
-	public Block parseIncremental(Scope scope) throws RecognitionException, EllaRuntimeException, RuntimeException {
-		return scriptIncremental(scope);
-	}
-	
 	protected boolean verbose = false;
 
 	private void print(String msg) {
@@ -132,12 +144,6 @@ scope Block, Scope;
 	$value = (Block)$Block::block;
 }
 	:	statement*
-	;
-
-// Depricated: Entry point for incremental script parsing - takes a saved scope as argument which is used as initial scope
-// This now just calls the script rule. We now always need a given scope.
-scriptIncremental [ Scope scope ] returns [ Block value ]
-	:	script[$scope] { $value = $script.value; }
 	;
 
 statement

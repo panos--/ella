@@ -1,23 +1,18 @@
 package org.unbunt.ella.lang.sql;
 
-import org.antlr.runtime.RecognitionException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.unbunt.ella.compiler.ParserHelper;
 import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.RawSQL;
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.corelang.Engine;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
-import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.exception.LoopBreakException;
-import org.unbunt.ella.exception.LoopContinueException;
-import org.unbunt.ella.exception.EllaRuntimeException;
+import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.Base;
+import org.unbunt.ella.lang.NativeWrapper;
 import org.unbunt.ella.lang.PlainObj;
 import org.unbunt.ella.lang.Str;
-import org.unbunt.ella.lang.NativeWrapper;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -336,7 +331,7 @@ public class Stmt extends AbstractObj {
         RawParamedSQL paramedStmt;
         try {
             paramedStmt = ParserHelper.parseParamedSQLLiteral(rawStatement);
-        } catch (RecognitionException e) {
+        } catch (GenericParseException e) {
             throw new EllaRuntimeException("Failed to parse SQL statement: " +
                                                 rawStatement.getStatement(), e);
         }
