@@ -1,19 +1,18 @@
 package org.unbunt.ella.engine.continuations;
 
-import org.unbunt.ella.engine.continuations.ContinuationVisitor;
 import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.corelang.PrimitiveCall;
+import org.unbunt.ella.engine.corelang.Primitive;
 
 public class PrimitiveCont implements Continuation {
-    protected PrimitiveCall primitive;
+    protected Primitive primitive;
     protected Obj context;
 
-    public PrimitiveCont(PrimitiveCall primitive, Obj context) {
+    public PrimitiveCont(Primitive primitive, Obj context) {
         this.primitive = primitive;
         this.context = context;
     }
 
-    public PrimitiveCall getPrimitive() {
+    public Primitive getPrimitive() {
         return primitive;
     }
 

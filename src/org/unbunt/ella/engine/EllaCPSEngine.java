@@ -9,16 +9,15 @@ import org.unbunt.ella.compiler.support.*;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.context.SQLResultListener;
 import org.unbunt.ella.engine.continuations.*;
+import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.engine.environment.Env;
 import org.unbunt.ella.engine.environment.StaticEnv;
-import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.*;
-import org.unbunt.ella.engine.corelang.RawSQLObj;
 import org.unbunt.ella.utils.StringUtils;
 
-import java.sql.ResultSet;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -34,8 +33,15 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     protected Context context;
     protected boolean exited = false;
 
-    public static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
-    public static final Obj SLOT_INIT = Consts.SLOT_INIT;
+    protected static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
+    protected static final Obj SLOT_INIT = Consts.SLOT_INIT;
+
+    protected static final int PRIM_ID            = Primitive.CODE_ID;
+    protected static final int PRIM_NI            = Primitive.CODE_NI;
+    protected static final int PRIM_LOOP          = Primitive.CODE_LOOP;
+    protected static final int PRIM_LOOP_BREAK    = Primitive.CODE_LOOP_BREAK;
+    protected static final int PRIM_LOOP_CONTINUE = Primitive.CODE_LOOP_CONTINUE;
+    protected static final int PRIM_EXIT          = Primitive.CODE_EXIT;
 
     protected EllaCPSEngine(Context context) {
         this.context = context;
@@ -543,11 +549,11 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     public void processContinuation(CallCont callCont) {
         // TODO: merge if-branches as far as possible
         // TODO: replace if-else by switch by introducing class ids (if possible enum-based)
-        if (val instanceof PrimitiveCall) {
-            cont[pc] = new PrimitiveCont((PrimitiveCall) val, callCont.getContext());
+        if (val instanceof Primitive) {
+            cont[pc] = new PrimitiveCont((Primitive) val, callCont.getContext());
         }
-        else if (val instanceof NativeCall) {
-            cont[pc] = new NativeCont((NativeCall) val, callCont.getContext());
+        else if (val instanceof Native) {
+            cont[pc] = new NativeCont((Native) val, callCont.getContext());
         }
         else if (val instanceof Func) {
             Function func = ((Func) val).getFunction();
@@ -672,7 +678,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
 
     public void processContinuation(TriggeredNativeCont triggeredNativeCont) {
         pc--;
-        NativeCall nat = triggeredNativeCont.getNative();
+        Native nat = triggeredNativeCont.getNative();
         Obj context = triggeredNativeCont.getContext();
         Obj[] args = triggeredNativeCont.getArgs();
         // XXX: Should ClosureTerminatedException be handled here?
@@ -694,42 +700,41 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     public void processContinuation(PrimitiveCont primitiveCont) {
         pc--;
         Obj[] args = ((Args) val).args;
-        processPrimitive(primitiveCont.getPrimitive().type, primitiveCont.getContext(), args);
+        processPrimitive(primitiveCont.getPrimitive(), primitiveCont.getContext(), args);
         next = CONT;
     }
 
     public void processContinuation(TriggeredPrimitiveCont triggeredPrimitiveCont) {
         pc--;
-        PrimitiveCall prim = triggeredPrimitiveCont.getPrimitive();
+        Primitive prim = triggeredPrimitiveCont.getPrimitive();
         Obj context = triggeredPrimitiveCont.getContext();
         Obj[] args = triggeredPrimitiveCont.getArgs();
-        processPrimitive(prim.type, context, args);
+        processPrimitive(prim, context, args);
         next = CONT;
     }
 
-    protected void processPrimitive(PrimitiveCall.Type primitive, Obj context, Obj... args) {
-        switch (primitive) {
-            case ID: {
+    protected void processPrimitive(Primitive primitive, Obj context, Obj... args) {
+        switch (primitive.getCode()) {
+            case PRIM_ID: {
                 Obj o2 = args[0];
                 val = context == o2 ? getObjTrue() : getObjFalse();
                 break;
             }
-            case NI: {
+            case PRIM_NI: {
                 Obj o2 = args[0];
                 val = context != o2 ? getObjTrue() : getObjFalse();
                 break;
             }
-            case LOOP:
+            case PRIM_LOOP:
                 cont[++pc] = new LoopCont();
                 break;
-            case LOOP_BREAK:
+            case PRIM_LOOP_BREAK:
                 cont[++pc] = new LoopBreakCont();
                 break;
-            case LOOP_CONTINUE:
+            case PRIM_LOOP_CONTINUE:
                 cont[++pc] = new LoopContinueCont();
                 break;
-            case EXIT:
-//                System.out.println("Computation finished. Exiting...");
+            case PRIM_EXIT:
                 if (args.length > 0) {
                     val = args[0];
                 }
@@ -907,12 +912,12 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         call.trigger(this, context, args);
     }
 
-    public void trigger(PrimitiveCall prim, Obj context, Obj... args) {
+    public void trigger(Primitive prim, Obj context, Obj... args) {
         cont[++pc] = new TriggeredPrimitiveCont(prim, context, args);
         next = CONT;
     }
 
-    public void trigger(NativeCall nat, Obj context, Obj... args) {
+    public void trigger(Native nat, Obj context, Obj... args) {
         cont[++pc] = new TriggeredNativeCont(nat, context, args);
         next = CONT;
     }
@@ -969,12 +974,12 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         return c.call(this, context, args);
     }
 
-    public Obj invoke(PrimitiveCall prim, Obj context, Obj... args) {
-        processPrimitive(prim.type, context, args);
+    public Obj invoke(Primitive prim, Obj context, Obj... args) {
+        processPrimitive(prim, context, args);
         return val;
     }
 
-    public Obj invoke(NativeCall nat, Obj context, Obj... args) {
+    public Obj invoke(Native nat, Obj context, Obj... args) {
         Obj result = nat.call(this, context, args);
         if (result == null) {
             return val; // XXX: better return getObjNull()?

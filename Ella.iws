@@ -33,7 +33,7 @@
     <splitter proportion="0.5" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="/home/panos/.IntelliJIdea70/system/coverage/Ella$Unit tests (TestNG)$org.unbunt.ellatest.es" NAME="org.unbunt.ellatest Coverage Results" MODIFIED="1250375091318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider">
+    <SUITE FILE_PATH="/home/panos/.IntelliJIdea70/system/coverage/Ella$Unit tests (TestNG)$org.unbunt.ellatest.es" NAME="org.unbunt.ellatest Coverage Results" MODIFIED="1250419097643" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider">
       <FILTER>org.unbunt.ella.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="/home/panos/.IntelliJIdea70/system/coverage/Ella$Unit tests (TestNG)$org.unbunt.ella.testng.es" NAME="org.unbunt.ella.testng Coverage Results" MODIFIED="1250280650268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider">
@@ -125,8 +125,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -139,10 +139,50 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NumUtils.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/NumUtils.java">
+      <file leaf-file-name="Primitive.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitive.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="1" selection-start="280" selection-end="280" vertical-scroll-proportion="0.16513762">
+            <state line="5" column="105" selection-start="197" selection-end="197" vertical-scroll-proportion="0.13761468">
+              <folding>
+                <element signature="docComment;method#getCode#0;class#Primitive#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Native.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Native.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="17" selection-start="192" selection-end="192" vertical-scroll-proportion="0.16513762">
+              <folding>
+                <element signature="docComment;class#Native#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ObjUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/ObjUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="54" selection-start="308" selection-end="308" vertical-scroll-proportion="0.16513762">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Consts.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Consts.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="27" selection-start="287" selection-end="287" vertical-scroll-proportion="0.22018349">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Context.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/context/Context.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="17" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.44036698">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,86 +190,81 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleResource.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SimpleResource.java">
+      <file leaf-file-name="Primitives.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitives.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.08256881">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleResourceLoader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SimpleResourceLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.08256881">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilesystemResource.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/FilesystemResource.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.08256881">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilesystemResourceLoader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/FilesystemResourceLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.110091746">
+            <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.22018349">
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#getCode#0;class#Primitives#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpringResource.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SpringResource.java">
+      <file leaf-file-name="EllaCPSEngine.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/EllaCPSEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="158" selection-end="158" vertical-scroll-proportion="0.08256881">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpringResourceLoader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SpringResourceLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.24770643">
+            <state line="46" column="31" selection-start="1943" selection-end="1943" vertical-scroll-proportion="-24.484404">
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="docComment;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="docComment;method#create#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#isClosureReturnInProgress#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#isExited#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="docComment;method#invokeSlotIfPresent#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#getVal#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#setVal#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#getEnv#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#setEnv#0;class#EllaCPSEngine#0" expanded="true" />
+                <element signature="method#getContext#0;class#EllaCPSEngine#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StdinResource.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StdinResource.java">
+      <file leaf-file-name="Str.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Str.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.110091746">
-              <folding />
+            <state line="145" column="113" selection-start="7218" selection-end="7218" vertical-scroll-proportion="0.46972477">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#Str#0" expanded="true" />
+                <element signature="docComment;field#value#0;class#Str#0" expanded="true" />
+                <element signature="docComment;method#Str#0;class#Str#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#Str#0" expanded="true" />
+                <element signature="docComment;method#registerInContext#0;class#Str#0" expanded="true" />
+                <element signature="docComment;method#getValue#0;class#Str#0" expanded="true" />
+                <element signature="method#getValue#0;class#Str#0" expanded="true" />
+                <element signature="docComment;method#intern#0;class#Str#0" expanded="true" />
+                <element signature="docComment;method#toSym#0;class#Str#0" expanded="true" />
+                <element signature="docComment;class#StrProto#0;class#Str#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#StrProto#0;class#Str#0" expanded="true" />
+                <element signature="docComment;method#registerInContext#0;class#StrProto#0;class#Str#0" expanded="true" />
+                <element signature="method#getNativeConstructor#0;class#StrProto#0;class#Str#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StreamResource.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StreamResource.java">
+      <file leaf-file-name="Base.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Base.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.110091746">
-              <folding />
+            <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.1045872">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#Base#0" expanded="true" />
+                <element signature="docComment;method#registerInContext#0;class#Base#0" expanded="true" />
+                <element signature="method#getObjectID#0;class#Base#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StringResource.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StringResource.java">
+      <file leaf-file-name="DefaultContext.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/DefaultContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="13" selection-start="86" selection-end="86" vertical-scroll-proportion="0.110091746">
+            <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.79816514">
               <folding />
             </state>
           </provider>
@@ -248,9 +283,9 @@
     <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaParser.java" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaWalker.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaLexer.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaWalker.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaParser.java" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -1200,8 +1235,8 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -1280,6 +1315,13 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -1346,13 +1388,6 @@
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -1667,7 +1702,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960477" order="4" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935917" order="6" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27123696" order="0" x="513" y="87" width="373" height="875" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2704918" order="0" x="513" y="87" width="373" height="875" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24200913" order="14" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="5" />
@@ -1748,9 +1783,191 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/NumUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="1" selection-start="280" selection-end="280" vertical-scroll-proportion="0.018159807">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SimpleResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SimpleResourceLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/FilesystemResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/FilesystemResourceLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SpringResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="158" selection-end="158" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SpringResourceLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.07263923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StdinResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.07263923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StreamResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.07263923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/PlainObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="113" selection-start="800" selection-end="914" vertical-scroll-proportion="0.3087167">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StringResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="13" selection-start="86" selection-end="86" vertical-scroll-proportion="0.07263923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/NativeObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="145" selection-end="145" vertical-scroll-proportion="0.05447942">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Call.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="17" selection-start="175" selection-end="175" vertical-scroll-proportion="0.09079903">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/NativeCall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="26" selection-start="268" selection-end="268" vertical-scroll-proportion="0.10895884">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/continuations/NativeCont.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="17" selection-start="372" selection-end="372" vertical-scroll-proportion="0.2542373">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getNative#0;class#NativeCont#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/continuations/TriggeredNativeCont.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="17" selection-start="454" selection-end="454" vertical-scroll-proportion="0.2905569">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/AbstractObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="22" selection-start="207" selection-end="207" vertical-scroll-proportion="0.09068924">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/continuations/PrimitiveCont.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="20" selection-start="414" selection-end="414" vertical-scroll-proportion="0.2542373">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/continuations/TriggeredPrimitiveCont.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="20" selection-start="496" selection-end="496" vertical-scroll-proportion="0.2905569">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="17" selection-start="690" selection-end="690" vertical-scroll-proportion="0.2905569">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#Engine#0" expanded="true" />
+            <element signature="docComment;method#invoke#2;class#Engine#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/SysImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="292" column="0" selection-start="12223" selection-end="12223" vertical-scroll-proportion="0.65617436">
+          <folding>
+            <element signature="docComment;class#SysImpl#0" expanded="true" />
+            <element signature="docComment;method#registerInContext#0;class#SysImpl#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/EllaCPSEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="31" selection-start="1943" selection-end="1943" vertical-scroll-proportion="-24.484404">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="docComment;method#create#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#isClosureReturnInProgress#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#isExited#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="docComment;method#invokeSlotIfPresent#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#getVal#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#setVal#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#getEnv#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#setEnv#0;class#EllaCPSEngine#0" expanded="true" />
+            <element signature="method#getContext#0;class#EllaCPSEngine#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Str.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="4" selection-start="9424" selection-end="9424" vertical-scroll-proportion="0.8568807">
+        <state line="145" column="113" selection-start="7218" selection-end="7218" vertical-scroll-proportion="0.46972477">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#Str#0" expanded="true" />
@@ -1770,327 +1987,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Base.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.1045872">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#Base#0" expanded="true" />
+            <element signature="docComment;method#registerInContext#0;class#Base#0" expanded="true" />
+            <element signature="method#getObjectID#0;class#Base#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/ObjUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="54" selection-start="308" selection-end="308" vertical-scroll-proportion="0.16513762">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Consts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="27" selection-start="287" selection-end="287" vertical-scroll-proportion="0.22018349">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/context/Context.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="17" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.44036698">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/DefaultContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="254" column="47" selection-start="8915" selection-end="8915" vertical-scroll-proportion="0.32477063">
+        <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.79816514">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Bool.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Native.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="115" selection-end="115" vertical-scroll-proportion="0.08256881">
-          <folding />
+        <state line="6" column="17" selection-start="192" selection-end="192" vertical-scroll-proportion="0.16513762">
+          <folding>
+            <element signature="docComment;class#Native#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/NullImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitive.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="467" selection-end="547" vertical-scroll-proportion="0.44036698">
+        <state line="5" column="105" selection-start="197" selection-end="197" vertical-scroll-proportion="0.13761468">
+          <folding>
+            <element signature="docComment;method#getCode#0;class#Primitive#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitives.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.22018349">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#NullImpl#0" expanded="true" />
-            <element signature="docComment;field#typeHint#0;class#NullImpl#0" expanded="true" />
-            <element signature="docComment;method#NullImpl#0;class#NullImpl#0" expanded="true" />
-            <element signature="docComment;method#NullImpl#1;class#NullImpl#0" expanded="true" />
-            <element signature="docComment;field#NATIVE_CONSTRUCTOR#0;class#NullImpl#0" expanded="true" />
-            <element signature="method#getTypeHint#0;class#NullImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#NullImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#NullImpl#0" expanded="true" />
-            <element signature="method#getNativeConstructor#0;class#NullImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#NullProto#0;class#NullImpl#0" expanded="true" />
+            <element signature="method#getCode#0;class#Primitives#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/sql/Conn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="323" column="14" selection-start="12618" selection-end="12618" vertical-scroll-proportion="0.86238533">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#Conn#0" expanded="true" />
-            <element signature="docComment;method#Conn#0;class#Conn#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#Conn#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#Conn#0" expanded="true" />
-            <element signature="docComment;class#ConnProto#0;class#Conn#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#ConnProto#0;class#Conn#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#ConnProto#0;class#Conn#0" expanded="true" />
-            <element signature="docComment;class#StmtBatch#0;class#Conn#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Null.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="29" selection-start="242" selection-end="242" vertical-scroll-proportion="0.22018349">
-          <folding>
-            <element signature="docComment;class#Null#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Sys.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="34" selection-start="80" selection-end="80" vertical-scroll-proportion="0.08256881">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/NativeCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="22" selection-start="191" selection-end="191" vertical-scroll-proportion="0.13761468">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/environment/MainEnv.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="265" selection-end="265" vertical-scroll-proportion="0.13761468">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/PrimitiveCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="docComment;class#PrimitiveCall#0" expanded="true" />
-            <element signature="docComment;class#Type#0;class#PrimitiveCall#0" expanded="true" />
-            <element signature="docComment;field#type#0;class#PrimitiveCall#0" expanded="true" />
-            <element signature="docComment;field#code#0;class#PrimitiveCall#0" expanded="true" />
-            <element signature="docComment;method#PrimitiveCall#0;class#PrimitiveCall#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/environment/StaticEnv.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="66" selection-start="820" selection-end="820" vertical-scroll-proportion="-1.2293578">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#StaticEnv#0" expanded="true" />
-            <element signature="method#setContext#0;class#StaticEnv#0" expanded="true" />
-            <element signature="method#getContext#0;class#StaticEnv#0" expanded="true" />
-            <element signature="method#getReceiver#0;class#StaticEnv#0" expanded="true" />
-            <element signature="method#setReceiver#0;class#StaticEnv#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/environment/StaticSearchableEnv.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="46" selection-start="1712" selection-end="1712" vertical-scroll-proportion="0.58715594">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#StaticSearchableEnv#0" expanded="true" />
-            <element signature="docComment;field#stopHere#0;class#StaticSearchableEnv#0" expanded="true" />
-            <element signature="method#isStopHere#0;class#StaticSearchableEnv#0" expanded="true" />
-            <element signature="method#setStopHere#0;class#StaticSearchableEnv#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/exception/GenericException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.027522936">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/exception/GenericRuntimeException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.027522936">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/BoolImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="248" selection-end="344" vertical-scroll-proportion="0.16513762">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#BoolImpl#0" expanded="true" />
-            <element signature="docComment;method#BoolImpl#0;class#BoolImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#BoolImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#BoolImpl#0" expanded="true" />
-            <element signature="method#isTrue#0;class#BoolImpl#0" expanded="true" />
-            <element signature="method#getValue#0;class#BoolImpl#0" expanded="true" />
-            <element signature="docComment;class#BoolProto#0;class#BoolImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#BoolProto#0;class#BoolImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#BoolProto#0;class#BoolImpl#0" expanded="true" />
-            <element signature="method#getNativeConstructor#0;class#BoolProto#0;class#BoolImpl#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/ClosImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="4" selection-start="3029" selection-end="3209" vertical-scroll-proportion="0.559633">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#ClosImpl#0" expanded="true" />
-            <element signature="docComment;method#ClosImpl#0;class#ClosImpl#0" expanded="true" />
-            <marker date="1250374637000" expanded="true" signature="912:945" placeholder="{...}" />
-            <element signature="docComment;method#registerInContext#0;class#ClosImpl#0" expanded="true" />
-            <element signature="method#getClosure#0;class#ClosImpl#0" expanded="true" />
-            <element signature="docComment;class#ClosProto#0;class#ClosImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#ClosProto#0;class#ClosImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#ClosProto#0;class#ClosImpl#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/JMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="0" selection-start="3277" selection-end="3277" vertical-scroll-proportion="-0.5412844">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#JMethod#0" expanded="true" />
-            <element signature="docComment;field#methods#0;class#JMethod#0" expanded="true" />
-            <element signature="docComment;field#selected#0;class#JMethod#0" expanded="true" />
-            <element signature="docComment;method#JMethod#0;class#JMethod#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#JMethod#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#JMethod#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#JMethodProto#0;class#JMethod#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Lst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="248" column="4" selection-start="8931" selection-end="9111" vertical-scroll-proportion="0.74311924">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#Lst#0" expanded="true" />
-            <element signature="docComment;method#Lst#0;class#Lst#0" expanded="true" />
-            <element signature="docComment;method#Lst#1;class#Lst#0" expanded="true" />
-            <element signature="docComment;method#Lst#2;class#Lst#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#Lst#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#Lst#0" expanded="true" />
-            <element signature="docComment;class#LstProto#0;class#Lst#0" expanded="true" />
-            <element signature="method#getNativeConstructor#0;class#LstProto#0;class#Lst#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#LstProto#0;class#Lst#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#LstProto#0;class#Lst#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/FuncImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="4" selection-start="2457" selection-end="2637" vertical-scroll-proportion="0.559633">
-          <folding>
-            <element signature="docComment;class#FuncImpl#0" expanded="true" />
-            <element signature="docComment;method#FuncImpl#0;class#FuncImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#FuncImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#FuncImpl#0" expanded="true" />
-            <element signature="method#getFunction#0;class#FuncImpl#0" expanded="true" />
-            <element signature="docComment;class#FuncProto#0;class#FuncImpl#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#FuncProto#0;class#FuncImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#FuncProto#0;class#FuncImpl#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/NRange.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="4" selection-start="4843" selection-end="5023" vertical-scroll-proportion="0.6146789">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#NRange#0" expanded="true" />
-            <element signature="docComment;method#NRange#0;class#NRange#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#NRange#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#NRange#0" expanded="true" />
-            <element signature="docComment;class#NRangeProto#0;class#NRange#0" expanded="true" />
-            <element signature="method#getNativeConstructor#0;class#NRangeProto#0;class#NRange#0" expanded="true" />
-            <element signature="method#getObjectID#0;class#NRangeProto#0;class#NRange#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#NRangeProto#0;class#NRange#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/SysImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="278" column="7" selection-start="11725" selection-end="11725" vertical-scroll-proportion="0.49541286">
-          <folding>
-            <element signature="docComment;class#SysImpl#0" expanded="true" />
-            <element signature="docComment;method#registerInContext#0;class#SysImpl#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/NumUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="1" selection-start="280" selection-end="280" vertical-scroll-proportion="0.16513762">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SimpleResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.08256881">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SimpleResourceLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.08256881">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/FilesystemResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="259" selection-end="259" vertical-scroll-proportion="0.08256881">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/FilesystemResourceLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.110091746">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SpringResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="158" selection-end="158" vertical-scroll-proportion="0.08256881">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/SpringResourceLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.24770643">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StdinResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.110091746">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StreamResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.110091746">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StringResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="86" selection-end="86" vertical-scroll-proportion="0.110091746">
-          <folding />
         </state>
       </provider>
     </entry>

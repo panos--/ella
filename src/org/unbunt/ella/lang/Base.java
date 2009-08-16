@@ -1,13 +1,13 @@
 package org.unbunt.ella.lang;
 
-import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.exception.LoopBreakException;
-import org.unbunt.ella.exception.LoopContinueException;
+import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.Consts.SLOT_CLONE_INIT;
 import static org.unbunt.ella.engine.corelang.Consts.SLOT_PARENT;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
-import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.exception.ClosureTerminatedException;
+import org.unbunt.ella.exception.LoopBreakException;
+import org.unbunt.ella.exception.LoopContinueException;
 
 import java.util.Map;
 
@@ -35,11 +35,9 @@ public class Base extends AbstractObj {
 
             Obj call = args[0];
 
-            engine.invoke(PrimitiveCall.Type.LOOP.primitive, engine.getObjNull());
-
             for (Map.Entry<Obj, Obj> entry : context.getSlots().entrySet()) {
                 try {
-                    engine.invoke(call, context, entry.getKey(), entry.getValue());
+                    engine.invokeInLoop(call, context, entry.getKey(), entry.getValue());
                 } catch (LoopBreakException e) {
                     break;
                 } catch (LoopContinueException e) {
@@ -106,8 +104,8 @@ public class Base extends AbstractObj {
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     private Base() {
-        slots.put(Str.SYM__id, PrimitiveCall.Type.ID.primitive);
-        slots.put(Str.SYM__ni, PrimitiveCall.Type.NI.primitive);
+        slots.put(Str.SYM__id, Primitives.ID);
+        slots.put(Str.SYM__ni, Primitives.NI);
         slots.put(Str.SYM__eq, nativeEquals);
         slots.put(Str.SYM__ne, nativeNotEquals);
         slots.put(Str.SYM__logic_and, nativeAnd);
@@ -133,6 +131,11 @@ public class Base extends AbstractObj {
             // to avoid circular dependency between PlainObj and Base we trigger registration of
             // Base as proto (implicit parent) of PlainObj here, not in PlainObj itself
             ctx.registerProto(PlainObj.OBJECT_ID, OBJECT_ID);
+
+            // same for Str and StrProto
+            ctx.registerProto(Str.StrProto.OBJECT_ID, OBJECT_ID);
+            ctx.registerObject(new Str.StrProto());
+            ctx.registerProto(Str.OBJECT_ID, Str.StrProto.OBJECT_ID);
         }
     }
 

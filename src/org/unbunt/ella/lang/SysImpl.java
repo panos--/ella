@@ -154,10 +154,9 @@ public class SysImpl extends AbstractObj implements Sys {
 
     protected static final NativeCall nativeLoop = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-            engine.invoke(PrimitiveCall.Type.LOOP.primitive, engine.getObjNull());
             while (true) {
                 try {
-                    engine.invoke(args[0], engine.getObjNull());
+                    engine.invokeInLoop(args[0], engine.getObjNull());
                 } catch (LoopContinueException e) {
                     continue;
                 } catch (LoopBreakException e) {
@@ -289,9 +288,9 @@ public class SysImpl extends AbstractObj implements Sys {
         slots.put(Str.SYM_includeFile, nativeIncludeFile);
         slots.put(Str.SYM_importPackage, nativeImportPackage);
         slots.put(Str.SYM_loop, nativeLoop);
-        slots.put(Str.SYM__break, PrimitiveCall.Type.LOOP_BREAK.primitive);
-        slots.put(Str.SYM__continue, PrimitiveCall.Type.LOOP_CONTINUE.primitive);
-        slots.put(Str.SYM__exit, PrimitiveCall.Type.EXIT.primitive);
+        slots.put(Str.SYM__break, Primitives.LOOP_BREAK);
+        slots.put(Str.SYM__continue, Primitives.LOOP_CONTINUE);
+        slots.put(Str.SYM__exit, Primitives.EXIT);
         slots.put(Str.SYM_ifThen, nativeIfThen);
         slots.put(Str.SYM_throw, nativeThrow);
         slots.put(Str.SYM_raise, nativeThrow);

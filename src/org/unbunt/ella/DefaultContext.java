@@ -183,6 +183,7 @@ public class DefaultContext implements Context {
     }
 
     protected void initProtos() {
+        Base.registerInContext(this);
         Str.registerInContext(this);
         NullImpl.registerInContext(this);
 
@@ -190,7 +191,6 @@ public class DefaultContext implements Context {
         // during initialization of other objects
         objNull = ensureType(NullImpl.class, ensureObject(NullImpl.OBJECT_ID));
 
-        Base.registerInContext(this);
         PlainObj.registerInContext(this);
         Args.registerInContext(this);
         NNum.registerInContext(this);

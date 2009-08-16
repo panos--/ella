@@ -143,8 +143,7 @@ public class Str extends AbstractObj {
      * @param ctx the execution context to register this object in.
      */
     public static void registerInContext(Context ctx) {
-        StrProto.registerInContext(ctx);
-        ctx.registerProto(OBJECT_ID, StrProto.OBJECT_ID);
+        // NOTE: Nothing to do here registration is done from Base.registerInContext to avoid circular dependency
     }
 
     /**
@@ -156,6 +155,7 @@ public class Str extends AbstractObj {
         return value;
     }
 
+    @SuppressWarnings({"CastToConcreteClass"})
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -216,7 +216,8 @@ public class Str extends AbstractObj {
 
         protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-                return new Str(((Str) context).value + args[0].toString());
+                Str thiz = ObjUtils.ensureType(Str.class, context);
+                return new Str(thiz.value + args[0].toString());
             }
         };
 
@@ -226,7 +227,7 @@ public class Str extends AbstractObj {
             return OBJECT_ID;
         }
 
-        private StrProto() {
+        protected StrProto() {
             slots.put(SYM__plus, nativeAdd);
         }
 
@@ -235,12 +236,9 @@ public class Str extends AbstractObj {
          *
          * @param ctx the execution context to register this object in.
          */
+        @SuppressWarnings({"UnusedDeclaration"})
         public static void registerInContext(Context ctx) {
-            Base.registerInContext(ctx);
-            ctx.registerProto(OBJECT_ID, Base.OBJECT_ID);
-            if (!ctx.hasObject(OBJECT_ID)) {
-                ctx.registerObject(new StrProto());
-            }
+            // NOTE: Nothing to do here registration is done from Base.registerInContext to avoid circular dependency
         }
 
         public Call getNativeConstructor() {

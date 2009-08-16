@@ -1,18 +1,18 @@
 package org.unbunt.ella.engine.continuations;
 
+import org.unbunt.ella.engine.corelang.Native;
 import org.unbunt.ella.engine.corelang.Obj;
-import org.unbunt.ella.engine.corelang.NativeCall;
 
 public class NativeCont implements Continuation {
-    protected NativeCall nat;
+    protected Native nat;
     protected Obj context;
 
-    public NativeCont(NativeCall nat, Obj context) {
+    public NativeCont(Native nat, Obj context) {
         this.nat = nat;
         this.context = context;
     }
 
-    public NativeCall getNative() {
+    public Native getNative() {
         return nat;
     }
 

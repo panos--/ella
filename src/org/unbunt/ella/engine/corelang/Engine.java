@@ -48,7 +48,7 @@ public interface Engine extends SQLResultProvider {
      * @param context the activation context the primitive call is to be invoked with. May be <code>null</code>.
      * @param args the arguments passed as part of the invocation.
      */
-    void trigger(PrimitiveCall prim, Obj context, Obj... args);
+    void trigger(Primitive prim, Obj context, Obj... args);
 
     /**
      * Triggers activation of the given native call.
@@ -58,7 +58,7 @@ public interface Engine extends SQLResultProvider {
      * @param context the activation context the native call is to be invoked with. May be <code>null</code>.
      * @param args the arguments passed as part of the invocation.
      */
-    void trigger(NativeCall nat, Obj context, Obj... args);
+    void trigger(Native nat, Obj context, Obj... args);
 
     /**
      * Triggers activation of the given block closure.
@@ -118,7 +118,7 @@ public interface Engine extends SQLResultProvider {
      * @return a value to be used as the result of the evaluation. May be <code>null</code>, to indicate the value
      *         of last evaluation should be preserved.
      */
-    Obj invoke(PrimitiveCall prim, Obj context, Obj... args);
+    Obj invoke(Primitive prim, Obj context, Obj... args);
 
     /**
      * Invokes the given native call.
@@ -131,7 +131,7 @@ public interface Engine extends SQLResultProvider {
      * @throws ClosureTerminatedException indicates the invocation has to end abruptly because of a return operation
      *                                    triggered from inside a block closure.
      */
-    Obj invoke(NativeCall nat, Obj context, Obj... args);
+    Obj invoke(Native nat, Obj context, Obj... args);
 
     /**
      * Invokes the given block closure.
