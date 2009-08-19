@@ -125,8 +125,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -139,48 +139,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Ella.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Ella.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.346247">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Readline.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///home/panos/java-lib/libreadline-java-0.8.0/src/org/gnu/readline/Readline.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="307" column="27" selection-start="9624" selection-end="9624" vertical-scroll-proportion="0.018159807">
+            <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.029296875">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReadlineLibrary.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///home/panos/java-lib/libreadline-java-0.8.0/src/org/gnu/readline/ReadlineLibrary.java">
+      <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="8" selection-start="1822" selection-end="1822" vertical-scroll-proportion="0.32808718">
+            <state line="2" column="20" selection-start="114" selection-end="114" vertical-scroll-proportion="0.05859375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InterpreterDBTestsNG.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ellatest/InterpreterDBTestsNG.java">
+      <file leaf-file-name="SimpleSQLResultListener.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/SimpleSQLResultListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="144" column="52" selection-start="5981" selection-end="5981" vertical-scroll-proportion="0.65254235">
+            <state line="343" column="54" selection-start="14449" selection-end="14449" vertical-scroll-proportion="0.41992188">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SysImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/SysImpl.java">
+      <file leaf-file-name="Reader.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/io/Reader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="12" selection-start="1190" selection-end="1190" vertical-scroll-proportion="0.018159807">
+            <state line="139" column="24" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.33203125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnMgrImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/sql/ConnMgrImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="65" column="0" selection-start="2488" selection-end="2488" vertical-scroll-proportion="0.70703125">
               <folding />
             </state>
           </provider>
@@ -189,7 +187,7 @@
       <file leaf-file-name="Primitives.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitives.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.018159807">
+            <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.029296875">
               <folding />
             </state>
           </provider>
@@ -216,7 +214,7 @@
       <file leaf-file-name="Base.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Base.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="0.779661">
+            <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.2578125">
               <folding />
             </state>
           </provider>
@@ -225,7 +223,7 @@
       <file leaf-file-name="DefaultContext.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/DefaultContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.018159807">
+            <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.029296875">
               <folding />
             </state>
           </provider>
@@ -354,6 +352,88 @@
           <option name="myItemId" value="Libraries" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="&lt; 1.6 &gt;" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="&lt; 1.6 &gt;" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="&lt; 1.6 &gt;" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Libraries" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="&lt; 1.6 &gt;" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/usr/lib/jvm/java-6-sun/jre/lib/rt.jar!/java/io" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -366,6 +446,24 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ella" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/panos/IdeaProjects/SQLScript/test" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -1038,8 +1136,8 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -1083,7 +1181,7 @@
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
   </component>
-  <component name="RunManager" selected="TestNG.Unit tests (TestNG)">
+  <component name="RunManager" selected="Application.Ella">
     <tempConfiguration default="false" name="Test" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.utils.Test" />
       <option name="VM_PARAMETERS" value="" />
@@ -1108,6 +1206,23 @@
         <option name="Make" value="false" />
       </method>
     </tempConfiguration>
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -1165,23 +1280,6 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1207,7 +1305,7 @@
     <configuration default="false" name="Ella" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
-      <option name="PROGRAM_PARAMETERS" value="-verbose test/test.sql" />
+      <option name="PROGRAM_PARAMETERS" value="test/test.sql" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1231,7 +1329,7 @@
     <configuration default="false" name="Ella Interactive" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
-      <option name="PROGRAM_PARAMETERS" value="-verbose -props cfg/mysql.properties -i" />
+      <option name="PROGRAM_PARAMETERS" value="-props cfg/mysql.properties -i" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1255,7 +1353,7 @@
     <configuration default="false" name="Ella Incremental" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
-      <option name="PROGRAM_PARAMETERS" value="-large -verbose -type mysql -props cfg/db.properties test/test.sql" />
+      <option name="PROGRAM_PARAMETERS" value="-large -type mysql -props cfg/db.properties test/test.sql" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1423,13 +1521,13 @@
       </method>
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="Application.Test" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Ella" />
-      <item index="2" class="java.lang.String" itemvalue="Application.Ella Interactive" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Ella Incremental" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Ella AST Viewer" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Ella Compile" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Ella Test" />
+      <item index="0" class="java.lang.String" itemvalue="Application.Ella" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Ella Interactive" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Ella Incremental" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Ella AST Viewer" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Ella Compile" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Ella Test" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Test" />
       <item index="7" class="java.lang.String" itemvalue="TestNG.Unit tests (TestNG)" />
       <item index="8" class="java.lang.String" itemvalue="TestNG.Unit tests (specific method)" />
     </list>
@@ -1485,8 +1583,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
+    <frame x="-4" y="25" width="1409" height="1004" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -1494,7 +1592,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32" order="1" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35428572" order="3" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35381114" order="3" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="11" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
@@ -1504,12 +1602,12 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960477" order="4" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935917" order="6" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26920208" order="0" x="513" y="87" width="373" height="875" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26740742" order="0" x="513" y="87" width="373" height="875" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28424656" order="14" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="5" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="15" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31314287" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3128555" order="2" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" order="5" x="0" y="25" width="1400" height="1000" />
       <window_info id="simpleUML" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Message Pane" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="9" />
@@ -1586,34 +1684,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/PlainObj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="113" selection-start="800" selection-end="914" vertical-scroll-proportion="0.3087167">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/resource/StringResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="86" selection-end="86" vertical-scroll-proportion="0.07263923">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/NativeObj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="145" selection-end="145" vertical-scroll-proportion="0.05447942">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Call.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="17" selection-start="175" selection-end="175" vertical-scroll-proportion="0.09079903">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/NativeCall.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="26" selection-start="268" selection-end="268" vertical-scroll-proportion="0.10895884">
@@ -1744,16 +1814,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///home/panos/java-lib/libreadline-java-0.8.0/src/org/gnu/readline/Readline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="307" column="27" selection-start="9624" selection-end="9624" vertical-scroll-proportion="0.018072288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///home/panos/java-lib/libreadline-java-0.8.0/src/org/gnu/readline/ReadlineLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="8" selection-start="1822" selection-end="1822" vertical-scroll-proportion="0.5018248">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ellatest/InterpreterDBTestsNG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="52" selection-start="5981" selection-end="5981" vertical-scroll-proportion="0.98357666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/SysImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="12" selection-start="1190" selection-end="1190" vertical-scroll-proportion="0.018159807">
+        <state line="29" column="12" selection-start="1190" selection-end="1190" vertical-scroll-proportion="0.027372263">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitives.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.018159807">
+        <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.029296875">
           <folding />
         </state>
       </provider>
@@ -1774,45 +1865,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Base.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="0.779661">
+        <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.2578125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/DefaultContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.018159807">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/panos/java-lib/libreadline-java-0.8.0/src/org/gnu/readline/ReadlineLibrary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="8" selection-start="1822" selection-end="1822" vertical-scroll-proportion="0.32808718">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///home/panos/java-lib/libreadline-java-0.8.0/src/org/gnu/readline/Readline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="307" column="27" selection-start="9624" selection-end="9624" vertical-scroll-proportion="0.018159807">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ellatest/InterpreterDBTestsNG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="144" column="52" selection-start="5981" selection-end="5981" vertical-scroll-proportion="0.65254235">
+        <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.029296875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.346247">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.029296875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/sql/ConnMgrImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="0" selection-start="2488" selection-end="2488" vertical-scroll-proportion="0.70703125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="20" selection-start="114" selection-end="114" vertical-scroll-proportion="0.05859375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/io/Reader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="24" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.33203125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/SimpleSQLResultListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="343" column="54" selection-start="14449" selection-end="14449" vertical-scroll-proportion="0.41992188">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,4 +1,3 @@
-import java.util.*;
-
-var a := new ArrayList();
-.print(a);
+.ConnMgr.create('jdbc:mysql://wxp/pharmaplace_de', 'test', 'f00bar!@', 'mysql');
+show tables;
+select * from dates;

@@ -341,7 +341,7 @@ public class SimpleSQLResultListener implements SQLResultListener {
                         char[] buf = new char[256];
                         Reader reader = rs.getCharacterStream(i);
                         int read = reader.read(buf, 0, buf.length);
-                        stringVal = String.copyValueOf(buf, 0, read);
+                        stringVal = read == -1 ? "" : String.copyValueOf(buf, 0, read);
                         reader.close();
                         break;
                     }

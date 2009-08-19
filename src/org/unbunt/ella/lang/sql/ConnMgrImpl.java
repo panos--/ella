@@ -112,7 +112,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
             Conn conn = new Conn(jdbcConn);
 
             // Activate connection if none active yet
-            if (mgr.getSlot(engine.getContext(), Str.SYM_active) == null) {
+            if (mgr.getSlot(engine.getContext(), Str.SYM_active) instanceof Null) {
                 mgr.setSlot(engine.getContext(), Str.SYM_active, conn);
             }
 
