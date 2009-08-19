@@ -5,6 +5,8 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.DOTTreeGenerator;
 import org.antlr.stringtemplate.StringTemplate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.gnu.readline.Readline;
 import org.gnu.readline.ReadlineLibrary;
 import org.kohsuke.args4j.Argument;
@@ -43,6 +45,8 @@ import java.util.List;
  * and execution of EllaScript programs.
  */
 public class Ella {
+    protected static Log logger = LogFactory.getLog(Ella.class);
+
     protected Context context;
     protected SimpleResource script;
     protected String scriptName;
@@ -105,7 +109,7 @@ public class Ella {
                 Readline.load(lib);
                 break;
             } catch (UnsatisfiedLinkError ignored) {
-                System.err.println("Readling lib " + lib.getName() + " not found...");
+                logger.trace("Readline lib " + lib.getName() + " not found...");
             } catch (Exception ignored) {
             }
         }
