@@ -8,6 +8,7 @@ import org.unbunt.ella.exception.EllaIOException;
 import org.unbunt.ella.exception.EllaParseException;
 import static org.unbunt.ellatest.TestUtils.ensureType;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -150,7 +151,10 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     protected static String props(String file) {
-        return PROPS_PATH + file;
+        String path = PROPS_PATH + file;
+        String pathLocal = path + ".local";
+        File fileLocal = new File(pathLocal);
+        return fileLocal.exists() ? pathLocal : path;
     }
 
 }

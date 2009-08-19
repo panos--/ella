@@ -34,7 +34,8 @@ Project Layout
 
 bin/		Shell scripts.
 cfg/		Sample database connection properties files.
-dist/		JAR file and libraries.
+dist/		Executable JAR file.
+dist/lib/	Libraries used by the executable JAR file.
 doc/		Auto-generated API documentation.
 lib/		Libraries used in the project.
 out/		Target directory for .class files.
