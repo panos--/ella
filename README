@@ -3,6 +3,9 @@ Ella - An interpreter for the EllaScript programming language
 Usage
 =====
 
+This EllaScript interpreter requires a Java 6 Runtime Environment to run.
+It was tested with the Sun JDK 1.6.0 only.
+
 Unix/Linux
 ----------
 
