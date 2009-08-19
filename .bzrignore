@@ -14,3 +14,4 @@ src/Test.java
 *.essModel
 ella.properties
 ella.xml
+./cfg/*.local

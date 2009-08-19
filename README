@@ -1,0 +1,27 @@
+Ella - An interpreter for the EllaScript programming language
+
+Usage
+=====
+
+Unix/Linux
+----------
+
+A shell script, called "ella", for running the interpreter can be found
+in the "bin" directory.
+
+This defaults to starting in interactive mode when no filename is given
+and standard input is a TTY.
+
+Running "ella -h" gives a help message.
+
+Other Systems
+-------------
+
+The Ella interpreter can also be run directly by executing the provided
+JAR file, "Ella.jar", to be found in the "dist" directory.
+
+This way, when no filename is given, the script to be run is read from
+standard input. Interactive mode has to be activated explicitly via the
+"-i" command line switch.
+
+Running "java -jar Ella.jar -h" gives a help message.

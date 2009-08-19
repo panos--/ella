@@ -788,7 +788,7 @@ public class Ella {
                 usage = "show AST instead of executing script (not available in interactive and large file modes)")
         public boolean ast = false;
 
-        @Option(name = "-verbose", usage = "echo executed statements")
+//        @Option(name = "-verbose", usage = "echo executed statements")
         public boolean verbose = false;
 
         @Option(name = "-large", usage = "optimize for large files")

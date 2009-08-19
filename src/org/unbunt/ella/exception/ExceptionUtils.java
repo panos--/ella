@@ -1,12 +1,5 @@
 package org.unbunt.ella.exception;
 
-/**
- * User: tweiss
- * Date: 17.04.2008
- * Time: 06:42:24
- * <p/>
- * Copyright: (c) 2007 marketoolz GmbH
- */
 public class ExceptionUtils {
     public static boolean isCausedBy(Throwable t, Class... classes) {
         Throwable cause = t;
