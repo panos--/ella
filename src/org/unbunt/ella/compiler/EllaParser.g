@@ -75,7 +75,7 @@ tokens {
 	/**
 	 * Entry point for parsing a complete EllaScript program.
 	 *
-	 * @returns EllaParser.script_return the compiled script.
+	 * @return EllaParser.script_return the compiled script.
  	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
 	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
 	 */
@@ -101,7 +101,7 @@ tokens {
 	 * If the end of the script has been reached a call to <code>isEOF</code>
 	 * will return <code>true</code>.
 	 *
-	 * @returns EllaParser.script_return the compiled statement.
+	 * @return EllaParser.script_return the compiled statement.
   	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
 	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
 	 */

@@ -260,7 +260,8 @@ public interface Engine extends SQLResultProvider {
 
     /**
      * Returns the execution context associated with the evaluated EllaScript program.
-     * @return
+     * 
+     * @return the context.
      */
     Context getContext();
 

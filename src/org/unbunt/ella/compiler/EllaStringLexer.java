@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaStringLexer.g 2009-08-16 12:37:29
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaStringLexer.g 2009-08-19 08:19:44
 
 	package org.unbunt.ella.compiler;
 	
@@ -870,7 +870,7 @@ public class EllaStringLexer extends LazyLexer {
                         s = -1;
                         if ( (LA2_4=='$') && (((atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 5;}
 
-                        else if ( ((LA2_4>='0' && LA2_4<='9')||(LA2_4>='A' && LA2_4<='Z')||LA2_4=='_'||(LA2_4>='a' && LA2_4<='z')||(LA2_4>='\u0080' && LA2_4<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 4;}
+                        else if ( ((LA2_4>='0' && LA2_4<='9')||(LA2_4>='A' && LA2_4<='Z')||LA2_4=='_'||(LA2_4>='a' && LA2_4<='z')||(LA2_4>='\u0080' && LA2_4<='\uFFFF')) && (((atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 4;}
 
                          
                         input.seek(index2_4);
@@ -900,7 +900,7 @@ public class EllaStringLexer extends LazyLexer {
                         s = -1;
                         if ( (LA2_1=='$') ) {s = 2;}
 
-                        else if ( ((LA2_1>='A' && LA2_1<='Z')||LA2_1=='_'||(LA2_1>='a' && LA2_1<='z')||(LA2_1>='\u0080' && LA2_1<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 3;}
+                        else if ( ((LA2_1>='A' && LA2_1<='Z')||LA2_1=='_'||(LA2_1>='a' && LA2_1<='z')||(LA2_1>='\u0080' && LA2_1<='\uFFFF')) && ((((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||(atStart)||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))||((!atStart)&&(quoteStyle == DOLQUOT))))) {s = 3;}
 
                          
                         input.seek(index2_1);

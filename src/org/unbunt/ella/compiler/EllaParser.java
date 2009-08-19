@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g 2009-08-16 12:37:39
+// $ANTLR 3.1.2 /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g 2009-08-19 08:19:52
 
 	package org.unbunt.ella.compiler;
 
@@ -198,7 +198,7 @@ public class EllaParser extends Parser {
     	/**
     	 * Entry point for parsing a complete EllaScript program.
     	 *
-    	 * @returns EllaParser.script_return the compiled script.
+    	 * @return EllaParser.script_return the compiled script.
      	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
     	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
     	 */
@@ -224,7 +224,7 @@ public class EllaParser extends Parser {
     	 * If the end of the script has been reached a call to <code>isEOF</code>
     	 * will return <code>true</code>.
     	 *
-    	 * @returns EllaParser.script_return the compiled statement.
+    	 * @return EllaParser.script_return the compiled statement.
       	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
     	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
     	 */
@@ -2173,7 +2173,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, sqlExpression, identifier
+                            // elements: identifier, identifier, sqlExpression
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2254,7 +2254,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, expressionNoSQL, identifier, scriptAssignRest
+                            // elements: expressionNoSQL, identifier, identifier, scriptAssignRest
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2348,7 +2348,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, sqlExpression
+                            // elements: sqlExpression, identifier
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2412,7 +2412,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: identifier, scriptAssignRest, expressionNoSQL
+                            // elements: identifier, expressionNoSQL, scriptAssignRest
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -2482,7 +2482,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, scriptAssignRest
+                    // elements: scriptAssignRest, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2727,7 +2727,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier, identifier
+                    // elements: identifier, identifier, expressionNoSQL
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2788,7 +2788,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier
+                    // elements: identifier, expressionNoSQL
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2929,7 +2929,7 @@ public class EllaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: argumentsDef, identifier, block
+            // elements: identifier, block, argumentsDef
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3054,7 +3054,7 @@ public class EllaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: identifier, argumentsDef, block
+            // elements: block, argumentsDef, identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3737,7 +3737,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: parenExpression, block, scriptIfElse
+                            // elements: parenExpression, scriptIfElse, block
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -3896,7 +3896,7 @@ public class EllaParser extends Parser {
                     {
 
                     // AST REWRITE
-                    // elements: block, parenExpression
+                    // elements: parenExpression, block
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4074,7 +4074,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: scriptCatch, scriptFinally, block
+                            // elements: block, scriptFinally, scriptCatch
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -4738,7 +4738,7 @@ public class EllaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block, identifierList, scriptFor
+            // elements: identifierList, scriptFor, expression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6333,7 +6333,7 @@ public class EllaParser extends Parser {
 
 
                             // AST REWRITE
-                            // elements: conditionalExpression, expressionNoSQL
+                            // elements: expressionNoSQL, conditionalExpression
                             // token labels: 
                             // rule labels: retval
                             // token list labels: 
@@ -6471,7 +6471,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: identifier, expression, identifier
+                    // elements: expression, identifier, identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -7008,7 +7008,7 @@ public class EllaParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: andCondition, orCondition
+            	    // elements: orCondition, andCondition
             	    // token labels: 
             	    // rule labels: retval
             	    // token list labels: 
@@ -7183,7 +7183,7 @@ public class EllaParser extends Parser {
 
 
             	    // AST REWRITE
-            	    // elements: eqCondition, andCondition
+            	    // elements: andCondition, eqCondition
             	    // token labels: 
             	    // rule labels: retval
             	    // token list labels: 
@@ -9511,7 +9511,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: simpleExpression, argumentsList
+                    // elements: argumentsList, simpleExpression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10696,7 +10696,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: sqlWS, sqlToken
+                    // elements: sqlToken, sqlWS
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10830,7 +10830,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws1, ws2, RPAREN, LPAREN, sqlPart
+                    // elements: RPAREN, ws1, ws2, sqlPart, LPAREN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -10978,7 +10978,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: LCURLY, sqlPart, ws2, ws1, RCURLY
+                    // elements: ws2, LCURLY, sqlPart, RCURLY, ws1
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11126,7 +11126,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ws2, sqlPart, ws1, RSQUARE, LSQUARE
+                    // elements: ws1, ws2, sqlPart, RSQUARE, LSQUARE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11837,7 +11837,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expressionNoSQL, identifier
+                    // elements: identifier, expressionNoSQL
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11887,7 +11887,7 @@ public class EllaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: stringLiteral, expressionNoSQL
+                    // elements: expressionNoSQL, stringLiteral
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
