@@ -25,3 +25,16 @@ standard input. Interactive mode has to be activated explicitly via the
 "-i" command line switch.
 
 Running "java -jar Ella.jar -h" gives a help message.
+
+Project Layout
+==============
+
+bin/		Shell scripts.
+cfg/		Sample database connection properties files.
+dist/		JAR file and libraries.
+doc/		Auto-generated API documentation.
+lib/		Libraries used in the project.
+out/		Target directory for .class files.
+src/		Source code.
+test/		Ad-hoc test scripts.
+test/ng/	Test scripts used in unit tests.
