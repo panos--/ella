@@ -125,8 +125,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -142,7 +142,7 @@
       <file leaf-file-name="Ella.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.029296875">
+            <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.027985075">
               <folding />
             </state>
           </provider>
@@ -151,7 +151,7 @@
       <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="20" selection-start="114" selection-end="114" vertical-scroll-proportion="0.05859375">
+            <state line="2" column="20" selection-start="34" selection-end="34" vertical-scroll-proportion="0.05597015">
               <folding />
             </state>
           </provider>
@@ -160,7 +160,7 @@
       <file leaf-file-name="SimpleSQLResultListener.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/SimpleSQLResultListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="343" column="54" selection-start="14449" selection-end="14449" vertical-scroll-proportion="0.41992188">
+            <state line="343" column="54" selection-start="14449" selection-end="14449" vertical-scroll-proportion="0.31343284">
               <folding />
             </state>
           </provider>
@@ -169,7 +169,7 @@
       <file leaf-file-name="Reader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/io/Reader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="24" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.33203125">
+            <state line="139" column="24" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.027985075">
               <folding />
             </state>
           </provider>
@@ -178,7 +178,7 @@
       <file leaf-file-name="ConnMgrImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/sql/ConnMgrImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="0" selection-start="2488" selection-end="2488" vertical-scroll-proportion="0.70703125">
+            <state line="65" column="0" selection-start="2488" selection-end="2488" vertical-scroll-proportion="0.027985075">
               <folding />
             </state>
           </provider>
@@ -187,7 +187,7 @@
       <file leaf-file-name="Primitives.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitives.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.029296875">
+            <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.027985075">
               <folding />
             </state>
           </provider>
@@ -214,7 +214,7 @@
       <file leaf-file-name="Base.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Base.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.2578125">
+            <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.2313433">
               <folding />
             </state>
           </provider>
@@ -223,7 +223,7 @@
       <file leaf-file-name="DefaultContext.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/DefaultContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.029296875">
+            <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.027985075">
               <folding />
             </state>
           </provider>
@@ -243,8 +243,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaParser.java" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaWalker.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaLexer.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/org/unbunt/ella/compiler/EllaWalker.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -1136,8 +1136,8 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -1206,22 +1206,21 @@
         <option name="Make" value="false" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
-      <option name="hostname" />
-      <option name="port" />
-      <option name="username" />
-      <option name="password" />
-      <option name="command" />
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -1234,6 +1233,13 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
@@ -1264,18 +1270,12 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
+    <configuration default="true" type="org.itbikers.idea.ssh.ui.rundebug.SSHRunDebugConfigType" factoryName="SSH">
+      <option name="hostname" />
+      <option name="port" />
+      <option name="username" />
+      <option name="password" />
+      <option name="command" />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -1521,13 +1521,13 @@
       </method>
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="Application.Ella" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Ella Interactive" />
-      <item index="2" class="java.lang.String" itemvalue="Application.Ella Incremental" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Ella AST Viewer" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Ella Compile" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Ella Test" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="0" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Ella" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Ella Interactive" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Ella Incremental" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Ella AST Viewer" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Ella Compile" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Ella Test" />
       <item index="7" class="java.lang.String" itemvalue="TestNG.Unit tests (TestNG)" />
       <item index="8" class="java.lang.String" itemvalue="TestNG.Unit tests (specific method)" />
     </list>
@@ -1596,7 +1596,7 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="11" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32762557" order="13" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3272727" order="13" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32914287" order="6" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981357" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
@@ -1842,9 +1842,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.027985075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="20" selection-start="34" selection-end="34" vertical-scroll-proportion="0.05597015">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/io/Reader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="24" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.027985075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/sql/ConnMgrImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="0" selection-start="2488" selection-end="2488" vertical-scroll-proportion="0.027985075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/engine/corelang/Primitives.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.029296875">
+        <state line="8" column="38" selection-start="271" selection-end="271" vertical-scroll-proportion="0.027985075">
           <folding />
         </state>
       </provider>
@@ -1865,49 +1893,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/Base.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.2578125">
+        <state line="137" column="69" selection-start="5540" selection-end="5540" vertical-scroll-proportion="1.2313433">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/DefaultContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.029296875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/Ella.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="0" selection-start="3800" selection-end="3800" vertical-scroll-proportion="0.029296875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/lang/sql/ConnMgrImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2488" selection-end="2488" vertical-scroll-proportion="0.70703125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="20" selection-start="114" selection-end="114" vertical-scroll-proportion="0.05859375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/io/Reader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="24" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.33203125">
+        <state line="273" column="43" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.027985075">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/unbunt/ella/SimpleSQLResultListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="343" column="54" selection-start="14449" selection-end="14449" vertical-scroll-proportion="0.41992188">
+        <state line="343" column="54" selection-start="14449" selection-end="14449" vertical-scroll-proportion="0.31343284">
           <folding />
         </state>
       </provider>
