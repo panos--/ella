@@ -2,17 +2,9 @@
 
 	package org.unbunt.ella.compiler;
 
-	import org.antlr.runtime.tree.CommonTree;
-	import org.unbunt.ella.compiler.antlr.LazyLexer;
-	import org.unbunt.ella.compiler.RuntimeRecognitionException;
-
-
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+	import org.antlr.runtime.*;
+import org.antlr.runtime.tree.CommonTree;
+import org.unbunt.ella.compiler.antlr.LazyLexer;
 public class EllaLexer extends LazyLexer {
     public static final int EXPONENT=38;
     public static final int OP_LE=79;
@@ -116,91 +108,91 @@ public class EllaLexer extends LazyLexer {
     public static final int STRING=4;
 
     	protected CommonTree currentStringTree = null;
-    	
+
     	protected int lastStringStartMarker = -1;
-    	
+
     	protected boolean allowQQuote = false;
     	protected boolean allowDollarQuote = false;
-    	
+
     	protected boolean allowSpecialSQLSep = false;
-    	
+
     	protected boolean escapeSeparators = false;
-    	
+
     	/**
     	 * At signs in identifier clash with embedded variable syntax in sql literals.
     	 * This flag allows to disable at signs in identifiers when parsing sql literals.
     	 */
     	protected boolean allowAtSignInIdentifier = true;
-    	
+
     	protected boolean allowEmbeddedVariables = true;
-    	
+
     	protected int whitespaceChannel = HIDDEN;
 
     	@Override
     	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
     		throw new RuntimeRecognitionException(e);
     	}
-    	
+
     	protected int getLastStringStartMarker() {
     		return lastStringStartMarker;
     	}
-    	
+
     	protected void setLastStringStartMarker(int lastStringStartMarker) {
     		this.lastStringStartMarker = lastStringStartMarker;
     	}
-    	
+
     	protected void setAllowQQuote(boolean allowQQuote) {
     		this.allowQQuote = allowQQuote;
     	}
-    	
+
     	protected boolean isAllowQQuote() {
     		return allowQQuote;
     	}
-    	
+
     	protected void setAllowDollarQuote(boolean allowDollarQuote) {
     		this.allowDollarQuote = allowDollarQuote;
     	}
-    	
+
     	protected boolean isAllowDollarQuote() {
     		return allowDollarQuote;
     	}
-    	
+
     	protected void setAllowAtSignInIdentifier(boolean allow) {
     		this.allowAtSignInIdentifier = allow;
     	}
-    	
+
     	protected boolean isAllowAtSignInIdentifier() {
     		return allowAtSignInIdentifier;
     	}
-    	
+
     	protected void setAllowEmbeddedVariables(boolean allow) {
     		this.allowEmbeddedVariables = allow;
     	}
-    	
+
     	protected boolean isAllowEmbeddedVariables() {
     		return allowEmbeddedVariables;
     	}
-    	
+
     	protected void setIgnoreWhitespace(boolean ignore) {
     		whitespaceChannel = ignore ? HIDDEN : DEFAULT_TOKEN_CHANNEL;
     	}
-    	
+
     	protected void setEscapeSeparators(boolean escape) {
     		escapeSeparators = escape;
     	}
-    	
+
     	protected boolean isEscapeSeparators() {
     		return escapeSeparators;
     	}
-    	
+
     	protected void setAllowSpecialSQLSep(boolean allow) {
     		this.allowSpecialSQLSep = allow;
     	}
-    	
+
     	protected boolean isAllowSpecialSQLSep() {
     		return allowSpecialSQLSep;
     	}
-    	
+
     	/*
     	protected void mTokens() {
     		((LazyInputStream) input).buffer();
@@ -213,7 +205,7 @@ public class EllaLexer extends LazyLexer {
     // delegates
     // delegators
 
-    public EllaLexer() {;} 
+    public EllaLexer() {;}
     public EllaLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
@@ -257,7 +249,7 @@ public class EllaLexer extends LazyLexer {
               				}
               			}
               			_channel = HIDDEN;
-              		
+
             }
 
             }
@@ -321,7 +313,7 @@ public class EllaLexer extends LazyLexer {
             } while (true);
 
             if ( state.backtracking==0 ) {
-               _channel = HIDDEN; 
+               _channel = HIDDEN;
             }
 
             }
@@ -339,7 +331,7 @@ public class EllaLexer extends LazyLexer {
         try {
             int _type = STR_SQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-             lastStringStartMarker = input.mark(); 
+             lastStringStartMarker = input.mark();
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:150:2: ( '\\'' )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:150:4: '\\''
             {
@@ -360,7 +352,7 @@ public class EllaLexer extends LazyLexer {
         try {
             int _type = STR_DQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-             lastStringStartMarker = input.mark(); 
+             lastStringStartMarker = input.mark();
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:155:2: ( '\"' )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:155:4: '\"'
             {
@@ -381,7 +373,7 @@ public class EllaLexer extends LazyLexer {
         try {
             int _type = STR_BTICK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-             lastStringStartMarker = input.mark(); 
+             lastStringStartMarker = input.mark();
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:160:2: ( '`' )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:160:4: '`'
             {
@@ -402,7 +394,7 @@ public class EllaLexer extends LazyLexer {
         try {
             int _type = STR_QQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-             lastStringStartMarker = input.mark(); 
+             lastStringStartMarker = input.mark();
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:165:2: ({...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\'' )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:165:4: {...}? => ( 'N' | 'n' )? ( 'Q' | 'q' ) '\\''
             {
@@ -464,7 +456,7 @@ public class EllaLexer extends LazyLexer {
         try {
             int _type = STR_DOLQUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-             lastStringStartMarker = input.mark(); 
+             lastStringStartMarker = input.mark();
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:174:2: ({...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:174:4: {...}? => ( DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR )
             {
@@ -749,7 +741,7 @@ public class EllaLexer extends LazyLexer {
                     }
 
                     if ( state.backtracking==0 ) {
-                       _type = FLOAT; 
+                       _type = FLOAT;
                     }
 
                     }
@@ -789,7 +781,7 @@ public class EllaLexer extends LazyLexer {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                       _type = INT; 
+                       _type = INT;
                     }
 
                     }
@@ -2689,7 +2681,7 @@ public class EllaLexer extends LazyLexer {
                       			if (escapeSeparators) {
                       				_type = WS;
                       			}
-                      		
+
                     }
 
                     }
@@ -2733,7 +2725,7 @@ public class EllaLexer extends LazyLexer {
                       			// active at one time so that this rule will always be triggered
                       			// after an sql literal if the special separator is activated.
                       			allowSpecialSQLSep = false;
-                      		
+
                     }
 
                     }
@@ -2797,7 +2789,7 @@ public class EllaLexer extends LazyLexer {
             } while (true);
 
             if ( state.backtracking==0 ) {
-               _channel = whitespaceChannel; 
+               _channel = whitespaceChannel;
             }
 
             }
@@ -2820,7 +2812,7 @@ public class EllaLexer extends LazyLexer {
             {
             match('\n'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               _channel = whitespaceChannel; 
+               _channel = whitespaceChannel;
             }
 
             }
@@ -3334,7 +3326,7 @@ public class EllaLexer extends LazyLexer {
     }
 
     // $ANTLR start synpred1_EllaLexer
-    public final void synpred1_EllaLexer_fragment() throws RecognitionException {   
+    public final void synpred1_EllaLexer_fragment() throws RecognitionException {
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:201:10: ( ( DIGIT )+ '.' DIGIT )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaLexer.g:201:11: ( DIGIT )+ '.' DIGIT
         {
@@ -3450,10 +3442,10 @@ public class EllaLexer extends LazyLexer {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
-                    case 0 : 
+                    case 0 :
                         int LA9_1 = input.LA(1);
 
-                         
+
                         int index9_1 = input.index();
                         input.rewind();
                         s = -1;
@@ -3463,7 +3455,7 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 2;
 
-                         
+
                         input.seek(index9_1);
                         if ( s>=0 ) return s;
                         break;
@@ -3538,10 +3530,10 @@ public class EllaLexer extends LazyLexer {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
-                    case 0 : 
+                    case 0 :
                         int LA20_0 = input.LA(1);
 
-                         
+
                         int index20_0 = input.index();
                         input.rewind();
                         s = -1;
@@ -3565,7 +3557,7 @@ public class EllaLexer extends LazyLexer {
 
                         else if ( (LA20_0=='@') && ((!allowAtSignInIdentifier))) {s = 10;}
 
-                         
+
                         input.seek(index20_0);
                         if ( s>=0 ) return s;
                         break;
@@ -4155,10 +4147,10 @@ public class EllaLexer extends LazyLexer {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
-                    case 0 : 
+                    case 0 :
                         int LA24_8 = input.LA(1);
 
-                         
+
                         int index24_8 = input.index();
                         input.rewind();
                         s = -1;
@@ -4172,157 +4164,157 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 46;
 
-                         
+
                         input.seek(index24_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 1 :
                         int LA24_216 = input.LA(1);
 
-                         
+
                         int index24_216 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_216=='n') && ((false))) {s = 217;}
 
-                         
+
                         input.seek(index24_216);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
+                    case 2 :
                         int LA24_215 = input.LA(1);
 
-                         
+
                         int index24_215 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_215=='i') && ((false))) {s = 216;}
 
-                         
+
                         input.seek(index24_215);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
+                    case 3 :
                         int LA24_214 = input.LA(1);
 
-                         
+
                         int index24_214 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_214=='n') && ((false))) {s = 215;}
 
-                         
+
                         input.seek(index24_214);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
+                    case 4 :
                         int LA24_213 = input.LA(1);
 
-                         
+
                         int index24_213 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_213=='r') && ((false))) {s = 214;}
 
-                         
+
                         input.seek(index24_213);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 5 :
                         int LA24_212 = input.LA(1);
 
-                         
+
                         int index24_212 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_212=='a') && ((false))) {s = 213;}
 
-                         
+
                         input.seek(index24_212);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 6 :
                         int LA24_211 = input.LA(1);
 
-                         
+
                         int index24_211 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_211=='w') && ((false))) {s = 212;}
 
-                         
+
                         input.seek(index24_211);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
+                    case 7 :
                         int LA24_210 = input.LA(1);
 
-                         
+
                         int index24_210 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_210==' ') && ((false))) {s = 211;}
 
-                         
+
                         input.seek(index24_210);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
+                    case 8 :
                         int LA24_209 = input.LA(1);
 
-                         
+
                         int index24_209 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_209=='e') && ((false))) {s = 210;}
 
-                         
+
                         input.seek(index24_209);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
+                    case 9 :
                         int LA24_224 = input.LA(1);
 
-                         
+
                         int index24_224 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_224==' ') && ((false))) {s = 225;}
 
-                         
+
                         input.seek(index24_224);
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
+                    case 10 :
                         int LA24_223 = input.LA(1);
 
-                         
+
                         int index24_223 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_223=='t') && ((false))) {s = 224;}
 
-                         
+
                         input.seek(index24_223);
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
+                    case 11 :
                         int LA24_222 = input.LA(1);
 
-                         
+
                         int index24_222 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_222=='u') && ((false))) {s = 223;}
 
-                         
+
                         input.seek(index24_222);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
+                    case 12 :
                         int LA24_62 = input.LA(1);
 
-                         
+
                         int index24_62 = input.index();
                         input.rewind();
                         s = -1;
@@ -4338,92 +4330,92 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 95;
 
-                         
+
                         input.seek(index24_62);
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
+                    case 13 :
                         int LA24_221 = input.LA(1);
 
-                         
+
                         int index24_221 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_221=='o') && ((false))) {s = 222;}
 
-                         
+
                         input.seek(index24_221);
                         if ( s>=0 ) return s;
                         break;
-                    case 14 : 
+                    case 14 :
                         int LA24_220 = input.LA(1);
 
-                         
+
                         int index24_220 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_220=='b') && ((false))) {s = 221;}
 
-                         
+
                         input.seek(index24_220);
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
+                    case 15 :
                         int LA24_219 = input.LA(1);
 
-                         
+
                         int index24_219 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_219=='a') && ((false))) {s = 220;}
 
-                         
+
                         input.seek(index24_219);
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
+                    case 16 :
                         int LA24_218 = input.LA(1);
 
-                         
+
                         int index24_218 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_218==' ') && ((false))) {s = 219;}
 
-                         
+
                         input.seek(index24_218);
                         if ( s>=0 ) return s;
                         break;
-                    case 17 : 
+                    case 17 :
                         int LA24_217 = input.LA(1);
 
-                         
+
                         int index24_217 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_217=='g') && ((false))) {s = 218;}
 
-                         
+
                         input.seek(index24_217);
                         if ( s>=0 ) return s;
                         break;
-                    case 18 : 
+                    case 18 :
                         int LA24_165 = input.LA(1);
 
-                         
+
                         int index24_165 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_165=='t') && ((false))) {s = 181;}
 
-                         
+
                         input.seek(index24_165);
                         if ( s>=0 ) return s;
                         break;
-                    case 19 : 
+                    case 19 :
                         int LA24_0 = input.LA(1);
 
-                         
+
                         int index24_0 = input.index();
                         input.rewind();
                         s = -1;
@@ -4527,248 +4519,248 @@ public class EllaLexer extends LazyLexer {
 
                         else if ( (LA24_0=='\t'||(LA24_0>='\f' && LA24_0<='\r')||LA24_0==' ') ) {s = 50;}
 
-                         
+
                         input.seek(index24_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 20 : 
+                    case 20 :
                         int LA24_207 = input.LA(1);
 
-                         
+
                         int index24_207 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_207=='b') && ((false))) {s = 208;}
 
-                         
+
                         input.seek(index24_207);
                         if ( s>=0 ) return s;
                         break;
-                    case 21 : 
+                    case 21 :
                         int LA24_208 = input.LA(1);
 
-                         
+
                         int index24_208 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_208=='l') && ((false))) {s = 209;}
 
-                         
+
                         input.seek(index24_208);
                         if ( s>=0 ) return s;
                         break;
-                    case 22 : 
+                    case 22 :
                         int LA24_205 = input.LA(1);
 
-                         
+
                         int index24_205 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_205=='s') && ((false))) {s = 206;}
 
-                         
+
                         input.seek(index24_205);
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
+                    case 23 :
                         int LA24_206 = input.LA(1);
 
-                         
+
                         int index24_206 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_206=='a') && ((false))) {s = 207;}
 
-                         
+
                         input.seek(index24_206);
                         if ( s>=0 ) return s;
                         break;
-                    case 24 : 
+                    case 24 :
                         int LA24_199 = input.LA(1);
 
-                         
+
                         int index24_199 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_199=='d') && ((false))) {s = 203;}
 
-                         
+
                         input.seek(index24_199);
                         if ( s>=0 ) return s;
                         break;
-                    case 25 : 
+                    case 25 :
                         int LA24_203 = input.LA(1);
 
-                         
+
                         int index24_203 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_203=='i') && ((false))) {s = 205;}
 
-                         
+
                         input.seek(index24_203);
                         if ( s>=0 ) return s;
                         break;
-                    case 26 : 
+                    case 26 :
                         int LA24_181 = input.LA(1);
 
-                         
+
                         int index24_181 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_181=='o') && ((false))) {s = 193;}
 
-                         
+
                         input.seek(index24_181);
                         if ( s>=0 ) return s;
                         break;
-                    case 27 : 
+                    case 27 :
                         int LA24_193 = input.LA(1);
 
-                         
+
                         int index24_193 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_193==' ') && ((false))) {s = 199;}
 
-                         
+
                         input.seek(index24_193);
                         if ( s>=0 ) return s;
                         break;
-                    case 28 : 
+                    case 28 :
                         int LA24_246 = input.LA(1);
 
-                         
+
                         int index24_246 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_246=='o') && ((false))) {s = 247;}
 
-                         
+
                         input.seek(index24_246);
                         if ( s>=0 ) return s;
                         break;
-                    case 29 : 
+                    case 29 :
                         int LA24_245 = input.LA(1);
 
-                         
+
                         int index24_245 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_245=='p') && ((false))) {s = 246;}
 
-                         
+
                         input.seek(index24_245);
                         if ( s>=0 ) return s;
                         break;
-                    case 30 : 
+                    case 30 :
                         int LA24_248 = input.LA(1);
 
-                         
+
                         int index24_248 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_248=='d') && ((false))) {s = 249;}
 
-                         
+
                         input.seek(index24_248);
                         if ( s>=0 ) return s;
                         break;
-                    case 31 : 
+                    case 31 :
                         int LA24_247 = input.LA(1);
 
-                         
+
                         int index24_247 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_247=='n') && ((false))) {s = 248;}
 
-                         
+
                         input.seek(index24_247);
                         if ( s>=0 ) return s;
                         break;
-                    case 32 : 
+                    case 32 :
                         int LA24_242 = input.LA(1);
 
-                         
+
                         int index24_242 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_242=='r') && ((false))) {s = 243;}
 
-                         
+
                         input.seek(index24_242);
                         if ( s>=0 ) return s;
                         break;
-                    case 33 : 
+                    case 33 :
                         int LA24_241 = input.LA(1);
 
-                         
+
                         int index24_241 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_241=='r') && ((false))) {s = 242;}
 
-                         
+
                         input.seek(index24_241);
                         if ( s>=0 ) return s;
                         break;
-                    case 34 : 
+                    case 34 :
                         int LA24_244 = input.LA(1);
 
-                         
+
                         int index24_244 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_244=='s') && ((false))) {s = 245;}
 
-                         
+
                         input.seek(index24_244);
                         if ( s>=0 ) return s;
                         break;
-                    case 35 : 
+                    case 35 :
                         int LA24_243 = input.LA(1);
 
-                         
+
                         int index24_243 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_243=='e') && ((false))) {s = 244;}
 
-                         
+
                         input.seek(index24_243);
                         if ( s>=0 ) return s;
                         break;
-                    case 36 : 
+                    case 36 :
                         int LA24_254 = input.LA(1);
 
-                         
+
                         int index24_254 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_254=='o') && ((false))) {s = 255;}
 
-                         
+
                         input.seek(index24_254);
                         if ( s>=0 ) return s;
                         break;
-                    case 37 : 
+                    case 37 :
                         int LA24_253 = input.LA(1);
 
-                         
+
                         int index24_253 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_253=='t') && ((false))) {s = 254;}
 
-                         
+
                         input.seek(index24_253);
                         if ( s>=0 ) return s;
                         break;
-                    case 38 : 
+                    case 38 :
                         int LA24_256 = input.LA(1);
 
-                         
+
                         int index24_256 = input.index();
                         input.rewind();
                         s = -1;
@@ -4776,92 +4768,92 @@ public class EllaLexer extends LazyLexer {
 
                         else if ( (LA24_256=='F') && ((false))) {s = 258;}
 
-                         
+
                         input.seek(index24_256);
                         if ( s>=0 ) return s;
                         break;
-                    case 39 : 
+                    case 39 :
                         int LA24_255 = input.LA(1);
 
-                         
+
                         int index24_255 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_255==' ') && ((false))) {s = 256;}
 
-                         
+
                         input.seek(index24_255);
                         if ( s>=0 ) return s;
                         break;
-                    case 40 : 
+                    case 40 :
                         int LA24_250 = input.LA(1);
 
-                         
+
                         int index24_250 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_250=='n') && ((false))) {s = 251;}
 
-                         
+
                         input.seek(index24_250);
                         if ( s>=0 ) return s;
                         break;
-                    case 41 : 
+                    case 41 :
                         int LA24_249 = input.LA(1);
 
-                         
+
                         int index24_249 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_249=='i') && ((false))) {s = 250;}
 
-                         
+
                         input.seek(index24_249);
                         if ( s>=0 ) return s;
                         break;
-                    case 42 : 
+                    case 42 :
                         int LA24_252 = input.LA(1);
 
-                         
+
                         int index24_252 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_252==' ') && ((false))) {s = 253;}
 
-                         
+
                         input.seek(index24_252);
                         if ( s>=0 ) return s;
                         break;
-                    case 43 : 
+                    case 43 :
                         int LA24_251 = input.LA(1);
 
-                         
+
                         int index24_251 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_251=='g') && ((false))) {s = 252;}
 
-                         
+
                         input.seek(index24_251);
                         if ( s>=0 ) return s;
                         break;
-                    case 44 : 
+                    case 44 :
                         int LA24_229 = input.LA(1);
 
-                         
+
                         int index24_229 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_229=='e') && ((false))) {s = 230;}
 
-                         
+
                         input.seek(index24_229);
                         if ( s>=0 ) return s;
                         break;
-                    case 45 : 
+                    case 45 :
                         int LA24_110 = input.LA(1);
 
-                         
+
                         int index24_110 = input.index();
                         input.rewind();
                         s = -1;
@@ -4877,144 +4869,144 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 95;
 
-                         
+
                         input.seek(index24_110);
                         if ( s>=0 ) return s;
                         break;
-                    case 46 : 
+                    case 46 :
                         int LA24_230 = input.LA(1);
 
-                         
+
                         int index24_230 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_230=='x') && ((false))) {s = 231;}
 
-                         
+
                         input.seek(index24_230);
                         if ( s>=0 ) return s;
                         break;
-                    case 47 : 
+                    case 47 :
                         int LA24_231 = input.LA(1);
 
-                         
+
                         int index24_231 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_231=='e') && ((false))) {s = 232;}
 
-                         
+
                         input.seek(index24_231);
                         if ( s>=0 ) return s;
                         break;
-                    case 48 : 
+                    case 48 :
                         int LA24_232 = input.LA(1);
 
-                         
+
                         int index24_232 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_232=='r') && ((false))) {s = 233;}
 
-                         
+
                         input.seek(index24_232);
                         if ( s>=0 ) return s;
                         break;
-                    case 49 : 
+                    case 49 :
                         int LA24_225 = input.LA(1);
 
-                         
+
                         int index24_225 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_225=='n') && ((false))) {s = 226;}
 
-                         
+
                         input.seek(index24_225);
                         if ( s>=0 ) return s;
                         break;
-                    case 50 : 
+                    case 50 :
                         int LA24_226 = input.LA(1);
 
-                         
+
                         int index24_226 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_226=='o') && ((false))) {s = 227;}
 
-                         
+
                         input.seek(index24_226);
                         if ( s>=0 ) return s;
                         break;
-                    case 51 : 
+                    case 51 :
                         int LA24_227 = input.LA(1);
 
-                         
+
                         int index24_227 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_227==' ') && ((false))) {s = 228;}
 
-                         
+
                         input.seek(index24_227);
                         if ( s>=0 ) return s;
                         break;
-                    case 52 : 
+                    case 52 :
                         int LA24_228 = input.LA(1);
 
-                         
+
                         int index24_228 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_228=='l') && ((false))) {s = 229;}
 
-                         
+
                         input.seek(index24_228);
                         if ( s>=0 ) return s;
                         break;
-                    case 53 : 
+                    case 53 :
                         int LA24_237 = input.LA(1);
 
-                         
+
                         int index24_237 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_237=='e') && ((false))) {s = 238;}
 
-                         
+
                         input.seek(index24_237);
                         if ( s>=0 ) return s;
                         break;
-                    case 54 : 
+                    case 54 :
                         int LA24_238 = input.LA(1);
 
-                         
+
                         int index24_238 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_238==' ') && ((false))) {s = 239;}
 
-                         
+
                         input.seek(index24_238);
                         if ( s>=0 ) return s;
                         break;
-                    case 55 : 
+                    case 55 :
                         int LA24_239 = input.LA(1);
 
-                         
+
                         int index24_239 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_239=='c') && ((false))) {s = 240;}
 
-                         
+
                         input.seek(index24_239);
                         if ( s>=0 ) return s;
                         break;
-                    case 56 : 
+                    case 56 :
                         int LA24_61 = input.LA(1);
 
-                         
+
                         int index24_61 = input.index();
                         input.rewind();
                         s = -1;
@@ -5030,79 +5022,79 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 95;
 
-                         
+
                         input.seek(index24_61);
                         if ( s>=0 ) return s;
                         break;
-                    case 57 : 
+                    case 57 :
                         int LA24_240 = input.LA(1);
 
-                         
+
                         int index24_240 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_240=='o') && ((false))) {s = 241;}
 
-                         
+
                         input.seek(index24_240);
                         if ( s>=0 ) return s;
                         break;
-                    case 58 : 
+                    case 58 :
                         int LA24_233 = input.LA(1);
 
-                         
+
                         int index24_233 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_233==' ') && ((false))) {s = 234;}
 
-                         
+
                         input.seek(index24_233);
                         if ( s>=0 ) return s;
                         break;
-                    case 59 : 
+                    case 59 :
                         int LA24_234 = input.LA(1);
 
-                         
+
                         int index24_234 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_234=='r') && ((false))) {s = 235;}
 
-                         
+
                         input.seek(index24_234);
                         if ( s>=0 ) return s;
                         break;
-                    case 60 : 
+                    case 60 :
                         int LA24_235 = input.LA(1);
 
-                         
+
                         int index24_235 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_235=='u') && ((false))) {s = 236;}
 
-                         
+
                         input.seek(index24_235);
                         if ( s>=0 ) return s;
                         break;
-                    case 61 : 
+                    case 61 :
                         int LA24_236 = input.LA(1);
 
-                         
+
                         int index24_236 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (LA24_236=='l') && ((false))) {s = 237;}
 
-                         
+
                         input.seek(index24_236);
                         if ( s>=0 ) return s;
                         break;
-                    case 62 : 
+                    case 62 :
                         int LA24_111 = input.LA(1);
 
-                         
+
                         int index24_111 = input.index();
                         input.rewind();
                         s = -1;
@@ -5118,14 +5110,14 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 95;
 
-                         
+
                         input.seek(index24_111);
                         if ( s>=0 ) return s;
                         break;
-                    case 63 : 
+                    case 63 :
                         int LA24_144 = input.LA(1);
 
-                         
+
                         int index24_144 = input.index();
                         input.rewind();
                         s = -1;
@@ -5137,14 +5129,14 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 56;
 
-                         
+
                         input.seek(index24_144);
                         if ( s>=0 ) return s;
                         break;
-                    case 64 : 
+                    case 64 :
                         int LA24_113 = input.LA(1);
 
-                         
+
                         int index24_113 = input.index();
                         input.rewind();
                         s = -1;
@@ -5160,14 +5152,14 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 95;
 
-                         
+
                         input.seek(index24_113);
                         if ( s>=0 ) return s;
                         break;
-                    case 65 : 
+                    case 65 :
                         int LA24_109 = input.LA(1);
 
-                         
+
                         int index24_109 = input.index();
                         input.rewind();
                         s = -1;
@@ -5175,14 +5167,14 @@ public class EllaLexer extends LazyLexer {
 
                         else if ( (true) ) {s = 95;}
 
-                         
+
                         input.seek(index24_109);
                         if ( s>=0 ) return s;
                         break;
-                    case 66 : 
+                    case 66 :
                         int LA24_7 = input.LA(1);
 
-                         
+
                         int index24_7 = input.index();
                         input.rewind();
                         s = -1;
@@ -5194,14 +5186,14 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 56;
 
-                         
+
                         input.seek(index24_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 67 : 
+                    case 67 :
                         int LA24_25 = input.LA(1);
 
-                         
+
                         int index24_25 = input.index();
                         input.rewind();
                         s = -1;
@@ -5211,14 +5203,14 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 87;
 
-                         
+
                         input.seek(index24_25);
                         if ( s>=0 ) return s;
                         break;
-                    case 68 : 
+                    case 68 :
                         int LA24_87 = input.LA(1);
 
-                         
+
                         int index24_87 = input.index();
                         input.rewind();
                         s = -1;
@@ -5226,14 +5218,14 @@ public class EllaLexer extends LazyLexer {
 
                         else if ( ((!allowAtSignInIdentifier)) ) {s = 47;}
 
-                         
+
                         input.seek(index24_87);
                         if ( s>=0 ) return s;
                         break;
-                    case 69 : 
+                    case 69 :
                         int LA24_57 = input.LA(1);
 
-                         
+
                         int index24_57 = input.index();
                         input.rewind();
                         s = -1;
@@ -5245,14 +5237,14 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 56;
 
-                         
+
                         input.seek(index24_57);
                         if ( s>=0 ) return s;
                         break;
-                    case 70 : 
+                    case 70 :
                         int LA24_49 = input.LA(1);
 
-                         
+
                         int index24_49 = input.index();
                         input.rewind();
                         s = -1;
@@ -5260,7 +5252,7 @@ public class EllaLexer extends LazyLexer {
 
                         else s = 107;
 
-                         
+
                         input.seek(index24_49);
                         if ( s>=0 ) return s;
                         break;
@@ -5272,6 +5264,6 @@ public class EllaLexer extends LazyLexer {
             throw nvae;
         }
     }
- 
+
 
 }

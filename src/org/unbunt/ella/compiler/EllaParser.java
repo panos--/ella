@@ -2,31 +2,20 @@
 
 	package org.unbunt.ella.compiler;
 
-	import java.util.Map;
-	import java.util.HashMap;
-	import java.util.Deque;
-	import java.util.ArrayDeque;
-
-	import org.unbunt.ella.compiler.antlr.LazyTokenStream;
-	import org.unbunt.ella.compiler.support.SQLModeToken;
-	import org.unbunt.ella.compiler.UnexpectedEOFException;
-	import org.unbunt.ella.exception.EllaRuntimeException;
-	import org.unbunt.ella.exception.EllaParseException;
-	import org.unbunt.ella.exception.EllaRecognitionException;
-	
-	import org.unbunt.ella.compiler.support.SQLParseMode;
-	import org.unbunt.ella.compiler.support.SQLStringSyntaxRules;
-	import org.unbunt.ella.compiler.support.SQLStringType;
-
-
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-
+	import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
+import org.unbunt.ella.compiler.antlr.LazyTokenStream;
+import org.unbunt.ella.compiler.support.SQLModeToken;
+import org.unbunt.ella.compiler.support.SQLParseMode;
+import org.unbunt.ella.compiler.support.SQLStringType;
+import org.unbunt.ella.exception.EllaParseException;
+import org.unbunt.ella.exception.EllaRecognitionException;
+import org.unbunt.ella.exception.EllaRuntimeException;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 public class EllaParser extends Parser {
     public static final String[] tokenNames = new String[] {
@@ -175,9 +164,9 @@ public class EllaParser extends Parser {
         }
         public EllaParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-             
+
         }
-        
+
     protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
     public void setTreeAdaptor(TreeAdaptor adaptor) {
@@ -190,11 +179,11 @@ public class EllaParser extends Parser {
     public String[] getTokenNames() { return EllaParser.tokenNames; }
     public String getGrammarFileName() { return "/home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g"; }
 
-    	
+
     	protected boolean eof = false;
-    	
+
     	protected boolean parseSQLParams = false;
-    	
+
     	/**
     	 * Entry point for parsing a complete EllaScript program.
     	 *
@@ -214,7 +203,7 @@ public class EllaParser extends Parser {
     			throw new EllaParseException(e);
     		}
     	}
-    	
+
     	/**
     	 * Entry point for incremental parsing of an EllaScript program.
     	 * Parses one statement at a time and returns the compiled form of the
@@ -240,19 +229,19 @@ public class EllaParser extends Parser {
     			throw new EllaParseException(e);
     		}
     	}
-    	
+
     	/**
     	 * Public entry point for parsing an sql statement for embedded named parameters.
-    	 * 
+    	 *
     	 * @return Tree the generated AST
       	 * @throws org.unbunt.ella.exception.EllaRecognitionException when parse errors occur due to invalid syntax.
     	 * @throws org.unbunt.ella.exception.EllaParseException when generic errors occur.
-    	 * @see org.unbunt.ella.compiler.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream) 
+    	 * @see org.unbunt.ella.compiler.EllaWalker#parseParamedSQLLiteral(org.antlr.runtime.tree.TreeNodeStream)
     	 */
     	public Tree parseParamedSQLLiteral(TokenStream input, SQLParseMode parseMode) throws EllaParseException {
     		try {
     			setTokenStream(input); // implicitly resets this instance
-    			
+
     			SQLStringType oldStringType = stringType;
     			stringType = parseMode.getStringType();
     			try {
@@ -281,16 +270,16 @@ public class EllaParser extends Parser {
     	protected boolean sqlSlashLineSep = false;
 
     	protected Deque<Boolean> lineSepStack = new ArrayDeque<Boolean>(16);
-    	
+
     	protected SQLStringType stringType = SQLStringType.sql92;
-    	
+
     	protected Deque<SQLStringType> parseModeStack = new ArrayDeque<SQLStringType>(16);
-    	
+
     	protected void enterBlock() {
     		lineSepStack.push(sqlSlashLineSep);
     		parseModeStack.push(stringType);
     	}
-    	
+
     	protected void leaveBlock() {
     		sqlSlashLineSep = lineSepStack.pop();
     		stringType = parseModeStack.pop();
@@ -301,7 +290,7 @@ public class EllaParser extends Parser {
     	public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
     		throw e;
     	}
-    	
+
     	// stop on first parser error
     	@Override
     	protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
@@ -312,7 +301,7 @@ public class EllaParser extends Parser {
     		}
     		throw new MismatchedTokenException(ttype, input);
     	}
-    	
+
     	/**
     	 * Returns <code>true</code> if the end of file has been reached in incremental parsing mode.
     	 *
@@ -321,7 +310,7 @@ public class EllaParser extends Parser {
     	public boolean isEOF() {
     		return eof;
     	}
-    	
+
     	protected CommonTree parseString() throws RecognitionException {
     		LazyTokenStream tokens = (LazyTokenStream) input;
     		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
@@ -333,21 +322,21 @@ public class EllaParser extends Parser {
     		strLexer.setAllowEmbeddedVariables(lexer.isAllowEmbeddedVariables());
     		tokens.replaceTokenSource(strLexer);
     		EllaStringParser strParser = new EllaStringParser(tokens);
-    		
+
     		// rewind input to string start
     		chars.rewind(lastStringStartMarker);
 
     		EllaStringParser.string_return result = strParser.string();
-    		
+
     		// remember generated tree, emit() uses it later on to attach it to the current token
     		CommonTree tree = (CommonTree)result.getTree();
-    		
+
     		// set our lexer as token source in the token stream again
     		tokens.replaceTokenSource(lexer);
-    		
+
     		return tree;
     	}
-    	
+
     	protected void releaseStringStartMarker() {
     		LazyTokenStream tokens = (LazyTokenStream) input;
     		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
@@ -375,7 +364,7 @@ public class EllaParser extends Parser {
 
         CommonTree EOF2_tree=null;
 
-         enterBlock(); 
+         enterBlock();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:246:2: ( ( topStatement )* EOF )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:246:4: ( topStatement )* EOF
@@ -428,7 +417,7 @@ public class EllaParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock(); 
+               leaveBlock();
             }
         }
 
@@ -461,7 +450,7 @@ public class EllaParser extends Parser {
 
         CommonTree EOF4_tree=null;
 
-         enterBlock(); 
+         enterBlock();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:252:2: ( topStatement | EOF )
             int alt2=2;
@@ -506,7 +495,7 @@ public class EllaParser extends Parser {
                     adaptor.addChild(root_0, EOF4_tree);
                     }
                     if ( state.backtracking==0 ) {
-                       eof = true; 
+                       eof = true;
                     }
 
                     }
@@ -521,7 +510,7 @@ public class EllaParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock(); 
+               leaveBlock();
             }
         }
 
@@ -1173,12 +1162,12 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_LCURLY=new RewriteRuleTokenStream(adaptor,"token LCURLY");
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
-         enterBlock(); 
+         enterBlock();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:294:2: ( LCURLY ( statement )* RCURLY -> ^( BLOCK ( statement )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:294:4: LCURLY ( statement )* RCURLY
             {
-            LCURLY22=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_block419); if (state.failed) return retval; 
+            LCURLY22=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_block419); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY22);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:294:11: ( statement )*
@@ -1211,18 +1200,18 @@ public class EllaParser extends Parser {
                 }
             } while (true);
 
-            RCURLY24=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_block424); if (state.failed) return retval; 
+            RCURLY24=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_block424); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY24);
 
 
 
             // AST REWRITE
             // elements: statement
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -1258,7 +1247,7 @@ public class EllaParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock(); 
+               leaveBlock();
             }
         }
 
@@ -1298,15 +1287,15 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_KW_SQL=new RewriteRuleTokenStream(adaptor,"token KW_SQL");
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_topStatement=new RewriteRuleSubtreeStream(adaptor,"rule topStatement");
-         enterBlock(); 
+         enterBlock();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:300:2: ( KW_SQL LCURLY ( topStatement )* RCURLY -> ^( BLOCK ( topStatement )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:300:4: KW_SQL LCURLY ( topStatement )* RCURLY
             {
-            KW_SQL25=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlBlock454); if (state.failed) return retval; 
+            KW_SQL25=(Token)match(input,KW_SQL,FOLLOW_KW_SQL_in_sqlBlock454); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_SQL.add(KW_SQL25);
 
-            LCURLY26=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlBlock456); if (state.failed) return retval; 
+            LCURLY26=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlBlock456); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY26);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:300:18: ( topStatement )*
@@ -1339,18 +1328,18 @@ public class EllaParser extends Parser {
                 }
             } while (true);
 
-            RCURLY28=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlBlock461); if (state.failed) return retval; 
+            RCURLY28=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlBlock461); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY28);
 
 
 
             // AST REWRITE
             // elements: topStatement
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -1386,7 +1375,7 @@ public class EllaParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock(); 
+               leaveBlock();
             }
         }
 
@@ -2140,7 +2129,7 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:345:5: OP_DEFINE ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
                     {
-                    OP_DEFINE50=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssign624); if (state.failed) return retval; 
+                    OP_DEFINE50=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssign624); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE50);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:346:4: ( sqlExpression -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier sqlExpression ) ) | expressionNoSQL ( scriptAssignRest )? -> ^( DECLARE_ASSIGN ^( DECLARE identifier ) ^( ASSIGN identifier expressionNoSQL ) ) ( scriptAssignRest )? )
@@ -2174,11 +2163,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: identifier, identifier, sqlExpression
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2255,11 +2244,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: expressionNoSQL, identifier, identifier, scriptAssignRest
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2315,7 +2304,7 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:349:5: EQUALS ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
                     {
-                    EQUALS54=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssign698); if (state.failed) return retval; 
+                    EQUALS54=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssign698); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS54);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:350:4: ( sqlExpression -> ^( ASSIGN identifier sqlExpression ) | expressionNoSQL ( scriptAssignRest )? -> ^( ASSIGN identifier expressionNoSQL ) ( scriptAssignRest )? )
@@ -2349,11 +2338,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: sqlExpression, identifier
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2413,11 +2402,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: identifier, expressionNoSQL, scriptAssignRest
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2483,11 +2472,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: scriptAssignRest, identifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2581,7 +2570,7 @@ public class EllaParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:358:5: COMMA scriptAssignNoSQL
             	    {
-            	    COMMA59=(Token)match(input,COMMA,FOLLOW_COMMA_in_scriptAssignRest783); if (state.failed) return retval; 
+            	    COMMA59=(Token)match(input,COMMA,FOLLOW_COMMA_in_scriptAssignRest783); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA59);
 
             	    pushFollow(FOLLOW_scriptAssignNoSQL_in_scriptAssignRest785);
@@ -2608,11 +2597,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: scriptAssignNoSQL
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2715,7 +2704,7 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:363:5: OP_DEFINE expressionNoSQL
                     {
-                    OP_DEFINE62=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssignNoSQL808); if (state.failed) return retval; 
+                    OP_DEFINE62=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_scriptAssignNoSQL808); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE62);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_scriptAssignNoSQL810);
@@ -2728,11 +2717,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier, identifier, expressionNoSQL
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2776,7 +2765,7 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:364:5: EQUALS expressionNoSQL
                     {
-                    EQUALS64=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssignNoSQL836); if (state.failed) return retval; 
+                    EQUALS64=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_scriptAssignNoSQL836); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS64);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_scriptAssignNoSQL838);
@@ -2789,11 +2778,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier, expressionNoSQL
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2818,16 +2807,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:365:8: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:365:8:
                     {
 
                     // AST REWRITE
                     // elements: identifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -2905,7 +2894,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:370:2: ( KW_FUN identifier argumentsDef block -> ^( FUNC_DEF identifier ( argumentsDef )? block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:370:4: KW_FUN identifier argumentsDef block
             {
-            KW_FUN66=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDefStmt878); if (state.failed) return retval; 
+            KW_FUN66=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDefStmt878); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_FUN.add(KW_FUN66);
 
             pushFollow(FOLLOW_identifier_in_scriptFuncDefStmt880);
@@ -2930,11 +2919,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: identifier, block, argumentsDef
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3013,7 +3002,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:374:2: ( KW_FUN ( identifier )? argumentsDef block -> ^( FUNC_DEF ( identifier )? ( argumentsDef )? block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:374:4: KW_FUN ( identifier )? argumentsDef block
             {
-            KW_FUN70=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDef908); if (state.failed) return retval; 
+            KW_FUN70=(Token)match(input,KW_FUN,FOLLOW_KW_FUN_in_scriptFuncDef908); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_FUN.add(KW_FUN70);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:374:11: ( identifier )?
@@ -3055,11 +3044,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: block, argumentsDef, identifier
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3140,7 +3129,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:378:2: ( LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:378:4: LPAREN ( identifierList -> ^( ARGS identifierList ) | ) RPAREN
             {
-            LPAREN74=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsDef940); if (state.failed) return retval; 
+            LPAREN74=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsDef940); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN74);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:379:3: ( identifierList -> ^( ARGS identifierList ) | )
@@ -3174,11 +3163,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifierList
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3202,14 +3191,14 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:381:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:381:3:
                     {
                     }
                     break;
 
             }
 
-            RPAREN76=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsDef966); if (state.failed) return retval; 
+            RPAREN76=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsDef966); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN76);
 
 
@@ -3346,12 +3335,12 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_RCURLY=new RewriteRuleTokenStream(adaptor,"token RCURLY");
         RewriteRuleSubtreeStream stream_blockArgumentsDef=new RewriteRuleSubtreeStream(adaptor,"rule blockArgumentsDef");
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
-         enterBlock(); 
+         enterBlock();
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:392:2: ( LCURLY blockArgumentsDef ( statement )* RCURLY -> ^( BLOCK_CLOSURE ( blockArgumentsDef )? ^( BLOCK ( statement )* ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:392:4: LCURLY blockArgumentsDef ( statement )* RCURLY
             {
-            LCURLY80=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_blockClosure1006); if (state.failed) return retval; 
+            LCURLY80=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_blockClosure1006); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY80);
 
             pushFollow(FOLLOW_blockArgumentsDef_in_blockClosure1008);
@@ -3390,18 +3379,18 @@ public class EllaParser extends Parser {
                 }
             } while (true);
 
-            RCURLY83=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_blockClosure1013); if (state.failed) return retval; 
+            RCURLY83=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_blockClosure1013); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY83);
 
 
 
             // AST REWRITE
             // elements: statement, blockArgumentsDef
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3451,7 +3440,7 @@ public class EllaParser extends Parser {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
             if ( state.backtracking==0 ) {
-               leaveBlock(); 
+               leaveBlock();
             }
         }
 
@@ -3515,18 +3504,18 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifierList.add(identifierList84.getTree());
-                    DOUBLE_ARROW85=(Token)match(input,DOUBLE_ARROW,FOLLOW_DOUBLE_ARROW_in_blockArgumentsDef1042); if (state.failed) return retval; 
+                    DOUBLE_ARROW85=(Token)match(input,DOUBLE_ARROW,FOLLOW_DOUBLE_ARROW_in_blockArgumentsDef1042); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_DOUBLE_ARROW.add(DOUBLE_ARROW85);
 
 
 
                     // AST REWRITE
                     // elements: identifierList
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3668,7 +3657,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:405:2: ( KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:405:4: KW_IF parenExpression block ( KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ) ) )
             {
-            KW_IF89=(Token)match(input,KW_IF,FOLLOW_KW_IF_in_scriptIfElse1081); if (state.failed) return retval; 
+            KW_IF89=(Token)match(input,KW_IF,FOLLOW_KW_IF_in_scriptIfElse1081); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_IF.add(KW_IF89);
 
             pushFollow(FOLLOW_parenExpression_in_scriptIfElse1083);
@@ -3704,7 +3693,7 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:406:5: KW_ELSE ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
                     {
-                    KW_ELSE92=(Token)match(input,KW_ELSE,FOLLOW_KW_ELSE_in_scriptIfElse1091); if (state.failed) return retval; 
+                    KW_ELSE92=(Token)match(input,KW_ELSE,FOLLOW_KW_ELSE_in_scriptIfElse1091); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_KW_ELSE.add(KW_ELSE92);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:407:4: ( scriptIfElse -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE ^( BLOCK scriptIfElse ) ) ) ) | block -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"ifThen\"] ) ^( ARGS parenExpression ^( BLOCK_CLOSURE block ) ^( BLOCK_CLOSURE block ) ) ) )
@@ -3738,11 +3727,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: parenExpression, scriptIfElse, block
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3822,11 +3811,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: block, block, parenExpression
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -3892,16 +3881,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:424:5: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:424:5:
                     {
 
                     // AST REWRITE
                     // elements: parenExpression, block
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4008,7 +3997,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:432:2: ( KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:432:4: KW_TRY block ( scriptCatch ( scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatchFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch scriptFinally ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryCatch\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptCatch ) ) ) | scriptFinally -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"tryFinally\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) scriptFinally ) ) )
             {
-            KW_TRY95=(Token)match(input,KW_TRY,FOLLOW_KW_TRY_in_scriptTry1339); if (state.failed) return retval; 
+            KW_TRY95=(Token)match(input,KW_TRY,FOLLOW_KW_TRY_in_scriptTry1339); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_TRY.add(KW_TRY95);
 
             pushFollow(FOLLOW_block_in_scriptTry1341);
@@ -4075,11 +4064,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: block, scriptFinally, scriptCatch
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4131,16 +4120,16 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:438:10: 
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:438:10:
                             {
 
                             // AST REWRITE
                             // elements: block, scriptCatch
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4209,11 +4198,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: block, scriptFinally
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4321,10 +4310,10 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:451:2: ( KW_CATCH LPAREN identifier RPAREN block -> ^( BLOCK_CLOSURE ^( ARGS identifier ) block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:451:4: KW_CATCH LPAREN identifier RPAREN block
             {
-            KW_CATCH100=(Token)match(input,KW_CATCH,FOLLOW_KW_CATCH_in_scriptCatch1558); if (state.failed) return retval; 
+            KW_CATCH100=(Token)match(input,KW_CATCH,FOLLOW_KW_CATCH_in_scriptCatch1558); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_CATCH.add(KW_CATCH100);
 
-            LPAREN101=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptCatch1560); if (state.failed) return retval; 
+            LPAREN101=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptCatch1560); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN101);
 
             pushFollow(FOLLOW_identifier_in_scriptCatch1562);
@@ -4333,7 +4322,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(identifier102.getTree());
-            RPAREN103=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptCatch1564); if (state.failed) return retval; 
+            RPAREN103=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptCatch1564); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN103);
 
             pushFollow(FOLLOW_block_in_scriptCatch1566);
@@ -4346,11 +4335,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: identifier, block
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4425,7 +4414,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:455:2: ( KW_FINALLY block -> ^( BLOCK_CLOSURE block ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:455:4: KW_FINALLY block
             {
-            KW_FINALLY105=(Token)match(input,KW_FINALLY,FOLLOW_KW_FINALLY_in_scriptFinally1591); if (state.failed) return retval; 
+            KW_FINALLY105=(Token)match(input,KW_FINALLY,FOLLOW_KW_FINALLY_in_scriptFinally1591); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_FINALLY.add(KW_FINALLY105);
 
             pushFollow(FOLLOW_block_in_scriptFinally1593);
@@ -4438,11 +4427,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: block
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4508,7 +4497,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:459:2: ( KW_THROW expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"raise\"] ) ^( ARGS expression ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:459:4: KW_THROW expression
             {
-            KW_THROW107=(Token)match(input,KW_THROW,FOLLOW_KW_THROW_in_scriptThrow1614); if (state.failed) return retval; 
+            KW_THROW107=(Token)match(input,KW_THROW,FOLLOW_KW_THROW_in_scriptThrow1614); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_THROW.add(KW_THROW107);
 
             pushFollow(FOLLOW_expression_in_scriptThrow1616);
@@ -4521,11 +4510,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: expression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4627,7 +4616,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:466:2: ( KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block -> ^( CALL ^( SLOT expression $scriptFor) ^( ARGS ^( BLOCK_CLOSURE ^( ARGS identifierList ) block ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:466:4: KW_FOR ( identifier -> identifier | -> IDENTIFIER[\"each\"] ) LPAREN identifierList COLON expression RPAREN block
             {
-            KW_FOR109=(Token)match(input,KW_FOR,FOLLOW_KW_FOR_in_scriptFor1668); if (state.failed) return retval; 
+            KW_FOR109=(Token)match(input,KW_FOR,FOLLOW_KW_FOR_in_scriptFor1668); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_FOR.add(KW_FOR109);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:467:3: ( identifier -> identifier | -> IDENTIFIER[\"each\"] )
@@ -4661,11 +4650,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4681,16 +4670,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:468:6: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:468:6:
                     {
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4708,7 +4697,7 @@ public class EllaParser extends Parser {
 
             }
 
-            LPAREN111=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptFor1696); if (state.failed) return retval; 
+            LPAREN111=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_scriptFor1696); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN111);
 
             pushFollow(FOLLOW_identifierList_in_scriptFor1698);
@@ -4717,7 +4706,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifierList.add(identifierList112.getTree());
-            COLON113=(Token)match(input,COLON,FOLLOW_COLON_in_scriptFor1700); if (state.failed) return retval; 
+            COLON113=(Token)match(input,COLON,FOLLOW_COLON_in_scriptFor1700); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_COLON.add(COLON113);
 
             pushFollow(FOLLOW_expression_in_scriptFor1702);
@@ -4726,7 +4715,7 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_expression.add(expression114.getTree());
-            RPAREN115=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptFor1704); if (state.failed) return retval; 
+            RPAREN115=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_scriptFor1704); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN115);
 
             pushFollow(FOLLOW_block_in_scriptFor1706);
@@ -4739,11 +4728,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: identifierList, scriptFor, expression, block
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4847,7 +4836,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:480:2: ( KW_WHILE parenExpression block -> ^( CALL ^( SLOT ^( BLOCK_CLOSURE ^( BLOCK parenExpression ) ) IDENTIFIER[\"whileTrue\"] ) ^( ARGS ^( BLOCK_CLOSURE block ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:480:4: KW_WHILE parenExpression block
             {
-            KW_WHILE117=(Token)match(input,KW_WHILE,FOLLOW_KW_WHILE_in_scriptWhile1762); if (state.failed) return retval; 
+            KW_WHILE117=(Token)match(input,KW_WHILE,FOLLOW_KW_WHILE_in_scriptWhile1762); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_WHILE.add(KW_WHILE117);
 
             pushFollow(FOLLOW_parenExpression_in_scriptWhile1764);
@@ -4866,11 +4855,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: parenExpression, block
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -4976,18 +4965,18 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:488:2: ( KW_BREAK -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_break\"] ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:488:4: KW_BREAK
             {
-            KW_BREAK120=(Token)match(input,KW_BREAK,FOLLOW_KW_BREAK_in_scriptBreak1822); if (state.failed) return retval; 
+            KW_BREAK120=(Token)match(input,KW_BREAK,FOLLOW_KW_BREAK_in_scriptBreak1822); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_BREAK.add(KW_BREAK120);
 
 
 
             // AST REWRITE
-            // elements: 
-            // token labels: 
+            // elements:
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5060,18 +5049,18 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:492:2: ( KW_CONTINUE -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_continue\"] ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:492:4: KW_CONTINUE
             {
-            KW_CONTINUE121=(Token)match(input,KW_CONTINUE,FOLLOW_KW_CONTINUE_in_scriptContinue1849); if (state.failed) return retval; 
+            KW_CONTINUE121=(Token)match(input,KW_CONTINUE,FOLLOW_KW_CONTINUE_in_scriptContinue1849); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_CONTINUE.add(KW_CONTINUE121);
 
 
 
             // AST REWRITE
-            // elements: 
-            // token labels: 
+            // elements:
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5146,7 +5135,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:497:2: ( KW_RETURN ( expression )? -> ^( RETURN ( expression )? ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:497:4: KW_RETURN ( expression )?
             {
-            KW_RETURN122=(Token)match(input,KW_RETURN,FOLLOW_KW_RETURN_in_scriptReturn1877); if (state.failed) return retval; 
+            KW_RETURN122=(Token)match(input,KW_RETURN,FOLLOW_KW_RETURN_in_scriptReturn1877); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_RETURN.add(KW_RETURN122);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:497:14: ( expression )?
@@ -5176,11 +5165,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: expression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5251,7 +5240,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:501:2: ( KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:501:4: KW_EXIT ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
             {
-            KW_EXIT124=(Token)match(input,KW_EXIT,FOLLOW_KW_EXIT_in_scriptExit1900); if (state.failed) return retval; 
+            KW_EXIT124=(Token)match(input,KW_EXIT,FOLLOW_KW_EXIT_in_scriptExit1900); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_EXIT.add(KW_EXIT124);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:502:3: ( expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ^( ARGS expression ) ) | -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"_exit\"] ) ) )
@@ -5285,11 +5274,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: expression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5331,16 +5320,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:506:6: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:506:6:
                     {
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5437,7 +5426,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:512:2: ( KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:512:4: KW_IMPORT javaIdentifier ( DOT javaIdentifier )* ( DOT OP_MUL -> ^( IMPORT_PACKAGE ( javaIdentifier )+ ) | KW_AS identifier -> ^( IMPORT_CLASS ^( AS identifier ) ( javaIdentifier )+ ) | -> ^( IMPORT_CLASS ( javaIdentifier )+ ) )
             {
-            KW_IMPORT126=(Token)match(input,KW_IMPORT,FOLLOW_KW_IMPORT_in_scriptImport1983); if (state.failed) return retval; 
+            KW_IMPORT126=(Token)match(input,KW_IMPORT,FOLLOW_KW_IMPORT_in_scriptImport1983); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_IMPORT.add(KW_IMPORT126);
 
             pushFollow(FOLLOW_javaIdentifier_in_scriptImport1985);
@@ -5467,7 +5456,7 @@ public class EllaParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:513:5: DOT javaIdentifier
             	    {
-            	    DOT128=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport1991); if (state.failed) return retval; 
+            	    DOT128=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport1991); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) stream_DOT.add(DOT128);
 
             	    pushFollow(FOLLOW_javaIdentifier_in_scriptImport1993);
@@ -5515,21 +5504,21 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:514:5: DOT OP_MUL
                     {
-                    DOT130=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport2002); if (state.failed) return retval; 
+                    DOT130=(Token)match(input,DOT,FOLLOW_DOT_in_scriptImport2002); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_DOT.add(DOT130);
 
-                    OP_MUL131=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_scriptImport2004); if (state.failed) return retval; 
+                    OP_MUL131=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_scriptImport2004); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_MUL.add(OP_MUL131);
 
 
 
                     // AST REWRITE
                     // elements: javaIdentifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5562,7 +5551,7 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:515:5: KW_AS identifier
                     {
-                    KW_AS132=(Token)match(input,KW_AS,FOLLOW_KW_AS_in_scriptImport2020); if (state.failed) return retval; 
+                    KW_AS132=(Token)match(input,KW_AS,FOLLOW_KW_AS_in_scriptImport2020); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_KW_AS.add(KW_AS132);
 
                     pushFollow(FOLLOW_identifier_in_scriptImport2022);
@@ -5575,11 +5564,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: javaIdentifier, identifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5619,16 +5608,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:516:7: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:516:7:
                     {
 
                     // AST REWRITE
                     // elements: javaIdentifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5707,7 +5696,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:521:2: ( KW_INCLUDE expression -> ^( CALL ^( SLOT IDENTIFIER[\"Sys\"] IDENTIFIER[\"includeFile\"] ) ^( ARGS expression ) ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:521:4: KW_INCLUDE expression
             {
-            KW_INCLUDE134=(Token)match(input,KW_INCLUDE,FOLLOW_KW_INCLUDE_in_scriptInclude2067); if (state.failed) return retval; 
+            KW_INCLUDE134=(Token)match(input,KW_INCLUDE,FOLLOW_KW_INCLUDE_in_scriptInclude2067); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_KW_INCLUDE.add(KW_INCLUDE134);
 
             pushFollow(FOLLOW_expression_in_scriptInclude2069);
@@ -5720,11 +5709,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: expression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6233,7 +6222,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifier.add(identifier149.getTree());
-                    OP_DEFINE150=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpressionNoSQL2249); if (state.failed) return retval; 
+                    OP_DEFINE150=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpressionNoSQL2249); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE150);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_assignExpressionNoSQL2251);
@@ -6246,11 +6235,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: expressionNoSQL, identifier, identifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6321,7 +6310,7 @@ public class EllaParser extends Parser {
                         case 1 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:572:5: EQUALS expressionNoSQL
                             {
-                            EQUALS153=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpressionNoSQL2282); if (state.failed) return retval; 
+                            EQUALS153=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpressionNoSQL2282); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS153);
 
                             pushFollow(FOLLOW_expressionNoSQL_in_assignExpressionNoSQL2284);
@@ -6334,11 +6323,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: expressionNoSQL, conditionalExpression
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6363,16 +6352,16 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:573:9: 
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:573:9:
                             {
 
                             // AST REWRITE
                             // elements: conditionalExpression
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6459,7 +6448,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifier.add(identifier155.getTree());
-                    OP_DEFINE156=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpression2324); if (state.failed) return retval; 
+                    OP_DEFINE156=(Token)match(input,OP_DEFINE,FOLLOW_OP_DEFINE_in_assignExpression2324); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_DEFINE.add(OP_DEFINE156);
 
                     pushFollow(FOLLOW_expression_in_assignExpression2326);
@@ -6472,11 +6461,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: expression, identifier, identifier
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6547,7 +6536,7 @@ public class EllaParser extends Parser {
                         case 1 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:580:5: EQUALS expression
                             {
-                            EQUALS159=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpression2357); if (state.failed) return retval; 
+                            EQUALS159=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assignExpression2357); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS159);
 
                             pushFollow(FOLLOW_expression_in_assignExpression2359);
@@ -6560,11 +6549,11 @@ public class EllaParser extends Parser {
 
                             // AST REWRITE
                             // elements: expression, conditionalExpression
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6589,16 +6578,16 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:581:8: 
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:581:8:
                             {
 
                             // AST REWRITE
                             // elements: conditionalExpression
-                            // token labels: 
+                            // token labels:
                             // rule labels: retval
-                            // token list labels: 
-                            // rule list labels: 
-                            // wildcard labels: 
+                            // token list labels:
+                            // rule list labels:
+                            // wildcard labels:
                             if ( state.backtracking==0 ) {
                             retval.tree = root_0;
                             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6699,7 +6688,7 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:587:5: QUESTION conditionalResult COLON conditionalResult
                     {
-                    QUESTION162=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_conditionalExpression2402); if (state.failed) return retval; 
+                    QUESTION162=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_conditionalExpression2402); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_QUESTION.add(QUESTION162);
 
                     pushFollow(FOLLOW_conditionalResult_in_conditionalExpression2404);
@@ -6708,7 +6697,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_conditionalResult.add(conditionalResult163.getTree());
-                    COLON164=(Token)match(input,COLON,FOLLOW_COLON_in_conditionalExpression2406); if (state.failed) return retval; 
+                    COLON164=(Token)match(input,COLON,FOLLOW_COLON_in_conditionalExpression2406); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_COLON.add(COLON164);
 
                     pushFollow(FOLLOW_conditionalResult_in_conditionalExpression2408);
@@ -6721,11 +6710,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: conditionalResult, orCondition, conditionalResult
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6801,16 +6790,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:597:5: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:597:5:
                     {
 
                     // AST REWRITE
                     // elements: orCondition
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6962,11 +6951,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: andCondition
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -6996,7 +6985,7 @@ public class EllaParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:609:5: OP_OR andCondition
             	    {
-            	    OP_OR169=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_orCondition2553); if (state.failed) return retval; 
+            	    OP_OR169=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_orCondition2553); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) stream_OP_OR.add(OP_OR169);
 
             	    pushFollow(FOLLOW_andCondition_in_orCondition2555);
@@ -7009,11 +6998,11 @@ public class EllaParser extends Parser {
 
             	    // AST REWRITE
             	    // elements: orCondition, andCondition
-            	    // token labels: 
+            	    // token labels:
             	    // rule labels: retval
-            	    // token list labels: 
-            	    // rule list labels: 
-            	    // wildcard labels: 
+            	    // token list labels:
+            	    // rule list labels:
+            	    // wildcard labels:
             	    if ( state.backtracking==0 ) {
             	    retval.tree = root_0;
             	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7137,11 +7126,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: eqCondition
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7171,7 +7160,7 @@ public class EllaParser extends Parser {
             	case 1 :
             	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:618:5: OP_AND eqCondition
             	    {
-            	    OP_AND172=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_andCondition2633); if (state.failed) return retval; 
+            	    OP_AND172=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_andCondition2633); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) stream_OP_AND.add(OP_AND172);
 
             	    pushFollow(FOLLOW_eqCondition_in_andCondition2635);
@@ -7184,11 +7173,11 @@ public class EllaParser extends Parser {
 
             	    // AST REWRITE
             	    // elements: andCondition, eqCondition
-            	    // token labels: 
+            	    // token labels:
             	    // rule labels: retval
-            	    // token list labels: 
-            	    // rule list labels: 
-            	    // wildcard labels: 
+            	    // token list labels:
+            	    // rule list labels:
+            	    // wildcard labels:
             	    if ( state.backtracking==0 ) {
             	    retval.tree = root_0;
             	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7388,7 +7377,7 @@ public class EllaParser extends Parser {
                         case 1 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:6: op= OP_EQ
                             {
-                            op=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_eqCondition2709); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_eqCondition2709); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_EQ.add(op);
 
 
@@ -7397,7 +7386,7 @@ public class EllaParser extends Parser {
                         case 2 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:15: op= OP_NE
                             {
-                            op=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_eqCondition2713); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_eqCondition2713); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_NE.add(op);
 
 
@@ -7406,7 +7395,7 @@ public class EllaParser extends Parser {
                         case 3 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:24: op= OP_ID
                             {
-                            op=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_eqCondition2717); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_eqCondition2717); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_ID.add(op);
 
 
@@ -7415,7 +7404,7 @@ public class EllaParser extends Parser {
                         case 4 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:33: op= OP_NI
                             {
-                            op=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_eqCondition2721); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_eqCondition2721); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_NI.add(op);
 
 
@@ -7424,7 +7413,7 @@ public class EllaParser extends Parser {
                         case 5 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:42: op= OP_GT
                             {
-                            op=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_eqCondition2725); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_eqCondition2725); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_GT.add(op);
 
 
@@ -7433,7 +7422,7 @@ public class EllaParser extends Parser {
                         case 6 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:51: op= OP_GE
                             {
-                            op=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_eqCondition2729); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_eqCondition2729); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_GE.add(op);
 
 
@@ -7442,7 +7431,7 @@ public class EllaParser extends Parser {
                         case 7 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:60: op= OP_LT
                             {
-                            op=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_eqCondition2733); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_eqCondition2733); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_LT.add(op);
 
 
@@ -7451,7 +7440,7 @@ public class EllaParser extends Parser {
                         case 8 :
                             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:627:69: op= OP_LE
                             {
-                            op=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_eqCondition2737); if (state.failed) return retval; 
+                            op=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_eqCondition2737); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_OP_LE.add(op);
 
 
@@ -7470,11 +7459,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: binaryExpression, binaryExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7500,16 +7489,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:629:7: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:629:7:
                     {
 
                     // AST REWRITE
                     // elements: binaryExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7588,11 +7577,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: addExpression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7660,11 +7649,11 @@ public class EllaParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: identifierNoOps, addExpression
-                    	    // token labels: 
+                    	    // token labels:
                     	    // rule labels: retval
-                    	    // token list labels: 
-                    	    // rule list labels: 
-                    	    // wildcard labels: 
+                    	    // token list labels:
+                    	    // rule list labels:
+                    	    // wildcard labels:
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7704,7 +7693,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:637:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:637:3:
                     {
                     }
                     break;
@@ -7773,11 +7762,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: multExpression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7850,7 +7839,7 @@ public class EllaParser extends Parser {
                     	        case 1 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:642:7: op= OP_ADD
                     	            {
-                    	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2853); if (state.failed) return retval; 
+                    	            op=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_addExpression2853); if (state.failed) return retval;
                     	            if ( state.backtracking==0 ) stream_OP_ADD.add(op);
 
 
@@ -7859,7 +7848,7 @@ public class EllaParser extends Parser {
                     	        case 2 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:642:17: op= OP_SUB
                     	            {
-                    	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2857); if (state.failed) return retval; 
+                    	            op=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_addExpression2857); if (state.failed) return retval;
                     	            if ( state.backtracking==0 ) stream_OP_SUB.add(op);
 
 
@@ -7878,11 +7867,11 @@ public class EllaParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: multExpression
-                    	    // token labels: 
+                    	    // token labels:
                     	    // rule labels: retval
-                    	    // token list labels: 
-                    	    // rule list labels: 
-                    	    // wildcard labels: 
+                    	    // token list labels:
+                    	    // rule list labels:
+                    	    // wildcard labels:
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -7922,7 +7911,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:644:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:644:3:
                     {
                     }
                     break;
@@ -7992,11 +7981,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: unaryExpression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8078,7 +8067,7 @@ public class EllaParser extends Parser {
                     	        case 1 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:649:7: op= OP_MUL
                     	            {
-                    	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2913); if (state.failed) return retval; 
+                    	            op=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_multExpression2913); if (state.failed) return retval;
                     	            if ( state.backtracking==0 ) stream_OP_MUL.add(op);
 
 
@@ -8087,7 +8076,7 @@ public class EllaParser extends Parser {
                     	        case 2 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:649:17: op= OP_DIV
                     	            {
-                    	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2917); if (state.failed) return retval; 
+                    	            op=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_multExpression2917); if (state.failed) return retval;
                     	            if ( state.backtracking==0 ) stream_OP_DIV.add(op);
 
 
@@ -8096,7 +8085,7 @@ public class EllaParser extends Parser {
                     	        case 3 :
                     	            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:649:27: op= OP_MOD
                     	            {
-                    	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2921); if (state.failed) return retval; 
+                    	            op=(Token)match(input,OP_MOD,FOLLOW_OP_MOD_in_multExpression2921); if (state.failed) return retval;
                     	            if ( state.backtracking==0 ) stream_OP_MOD.add(op);
 
 
@@ -8115,11 +8104,11 @@ public class EllaParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: unaryExpression
-                    	    // token labels: 
+                    	    // token labels:
                     	    // rule labels: retval
-                    	    // token list labels: 
-                    	    // rule list labels: 
-                    	    // wildcard labels: 
+                    	    // token list labels:
+                    	    // rule list labels:
+                    	    // wildcard labels:
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8159,7 +8148,7 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:651:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:651:3:
                     {
                     }
                     break;
@@ -8273,7 +8262,7 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:655:4: exclam= EXCLAM unaryExpression
                     {
-                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_unaryExpression2960); if (state.failed) return retval; 
+                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_unaryExpression2960); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
 
                     pushFollow(FOLLOW_unaryExpression_in_unaryExpression2962);
@@ -8286,11 +8275,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: unaryExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8317,7 +8306,7 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:656:4: op_sub= OP_SUB unaryExpression
                     {
-                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_unaryExpression2980); if (state.failed) return retval; 
+                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_unaryExpression2980); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
 
                     pushFollow(FOLLOW_unaryExpression_in_unaryExpression2982);
@@ -8330,11 +8319,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: unaryExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8371,11 +8360,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: callExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8448,11 +8437,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: simpleExpression
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8514,11 +8503,11 @@ public class EllaParser extends Parser {
 
                     	    // AST REWRITE
                     	    // elements: callExpressionSuffix
-                    	    // token labels: 
+                    	    // token labels:
                     	    // rule labels: retval
-                    	    // token list labels: 
-                    	    // rule list labels: 
-                    	    // wildcard labels: 
+                    	    // token list labels:
+                    	    // rule list labels:
+                    	    // wildcard labels:
                     	    if ( state.backtracking==0 ) {
                     	    retval.tree = root_0;
                     	    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8548,16 +8537,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:664:9: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:664:9:
                     {
 
                     // AST REWRITE
                     // elements: simpleExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8638,11 +8627,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: callSuffix
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8684,11 +8673,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: slotSuffix
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8725,11 +8714,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: indexSuffix
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -8995,7 +8984,7 @@ public class EllaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:688:3: 
+                            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:688:3:
                             {
                             }
                             break;
@@ -9077,11 +9066,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: slotSuffix
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9122,11 +9111,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: callSuffix
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9157,16 +9146,16 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:695:8: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:695:8:
                     {
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9449,18 +9438,18 @@ public class EllaParser extends Parser {
                 case 9 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:708:4: tokThis= KW_THIS
                     {
-                    tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3326); if (state.failed) return retval; 
+                    tokThis=(Token)match(input,KW_THIS,FOLLOW_KW_THIS_in_simpleExpression3326); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_KW_THIS.add(tokThis);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9493,7 +9482,7 @@ public class EllaParser extends Parser {
                 case 11 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:710:4: tokNew= KW_NEW simpleExpression argumentsList
                     {
-                    tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3349); if (state.failed) return retval; 
+                    tokNew=(Token)match(input,KW_NEW,FOLLOW_KW_NEW_in_simpleExpression3349); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_KW_NEW.add(tokNew);
 
                     pushFollow(FOLLOW_simpleExpression_in_simpleExpression3351);
@@ -9512,11 +9501,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: argumentsList, simpleExpression
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9597,11 +9586,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: sqlLiteralPrefixed
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9674,11 +9663,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: sqlLiteral
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9751,11 +9740,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: sqlLiteralPrefixed
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9837,11 +9826,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: sqlStmtRest
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -9892,7 +9881,7 @@ public class EllaParser extends Parser {
 
 
 
-        	
+
         	LazyTokenStream tokens = (LazyTokenStream) input;
         	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
         	lexer.setAllowEmbeddedVariables(false);
@@ -9976,11 +9965,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: sqlStmtRest
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10270,7 +10259,7 @@ public class EllaParser extends Parser {
         	lexer.setAllowQQuote(stringType.hasQQuote());
         	lexer.setAllowDollarQuote(stringType.hasDollarQuote());
         	lexer.setAllowAtSignInIdentifier(false);
-        	
+
         	// XXX: Hack - when reparsing an sql statement for named parameters
         	// XXX: characters might have been introduced by variable substituation
         	// XXX: which normally would be treated as statement separators but must
@@ -10346,7 +10335,7 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:824:24: EOF
                     {
-                    EOF231=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3570); if (state.failed) return retval; 
+                    EOF231=(Token)match(input,EOF,FOLLOW_EOF_in_sqlStmtRest3570); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_EOF.add(EOF231);
 
 
@@ -10359,11 +10348,11 @@ public class EllaParser extends Parser {
 
             // AST REWRITE
             // elements: sqlHiddenWS, sqlPart
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10413,7 +10402,7 @@ public class EllaParser extends Parser {
               	lexer.setAllowDollarQuote(false);
               	lexer.setAllowAtSignInIdentifier(true);
               	lexer.setEscapeSeparators(false);
-              	
+
               	if (sqlSlashLineSep) {
               		// NOTE: The SEP rule in the lexer disables the allowSpecialSQLSep after every
               		//       matched separator. This happens once here as part of the look-ahead.
@@ -10516,10 +10505,10 @@ public class EllaParser extends Parser {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "sqlPart", "parseSQLParams");
                     }
-                    COLON232=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3650); if (state.failed) return retval; 
+                    COLON232=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3650); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_COLON.add(COLON232);
 
-                    WORD233=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3652); if (state.failed) return retval; 
+                    WORD233=(Token)match(input,WORD,FOLLOW_WORD_in_sqlPart3652); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_WORD.add(WORD233);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:840:50: ( sqlWS )*
@@ -10556,11 +10545,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: sqlWS
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10588,10 +10577,10 @@ public class EllaParser extends Parser {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "sqlPart", "parseSQLParams");
                     }
-                    COLON235=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3678); if (state.failed) return retval; 
+                    COLON235=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3678); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_COLON.add(COLON235);
 
-                    COLON236=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3680); if (state.failed) return retval; 
+                    COLON236=(Token)match(input,COLON,FOLLOW_COLON_in_sqlPart3680); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_COLON.add(COLON236);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:841:52: ( sqlWS )*
@@ -10628,11 +10617,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: sqlWS, COLON, COLON
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10697,11 +10686,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: sqlToken, sqlWS
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10725,7 +10714,7 @@ public class EllaParser extends Parser {
                 case 4 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:843:4: LPAREN (ws1+= sqlWS )* ( sqlPart )* RPAREN (ws2+= sqlWS )*
                     {
-                    LPAREN240=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3717); if (state.failed) return retval; 
+                    LPAREN240=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_sqlPart3717); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN240);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:843:14: (ws1+= sqlWS )*
@@ -10791,7 +10780,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    RPAREN242=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3727); if (state.failed) return retval; 
+                    RPAREN242=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_sqlPart3727); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN242);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:843:42: (ws2+= sqlWS )*
@@ -10831,11 +10820,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: RPAREN, ws1, ws2, sqlPart, LPAREN
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
+                    // token list labels:
                     // rule list labels: ws1, ws2
-                    // wildcard labels: 
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -10873,7 +10862,7 @@ public class EllaParser extends Parser {
                 case 5 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:844:4: LCURLY (ws1+= sqlWS )* ( sqlPart )* RCURLY (ws2+= sqlWS )*
                     {
-                    LCURLY243=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3755); if (state.failed) return retval; 
+                    LCURLY243=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_sqlPart3755); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY243);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:844:14: (ws1+= sqlWS )*
@@ -10939,7 +10928,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    RCURLY245=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3765); if (state.failed) return retval; 
+                    RCURLY245=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_sqlPart3765); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY245);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:844:42: (ws2+= sqlWS )*
@@ -10979,11 +10968,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: ws2, LCURLY, sqlPart, RCURLY, ws1
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
+                    // token list labels:
                     // rule list labels: ws1, ws2
-                    // wildcard labels: 
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11021,7 +11010,7 @@ public class EllaParser extends Parser {
                 case 6 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:845:4: LSQUARE (ws1+= sqlWS )* ( sqlPart )* RSQUARE (ws2+= sqlWS )*
                     {
-                    LSQUARE246=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3793); if (state.failed) return retval; 
+                    LSQUARE246=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_sqlPart3793); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE246);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:845:15: (ws1+= sqlWS )*
@@ -11087,7 +11076,7 @@ public class EllaParser extends Parser {
                         }
                     } while (true);
 
-                    RSQUARE248=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3803); if (state.failed) return retval; 
+                    RSQUARE248=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_sqlPart3803); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE248);
 
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:845:44: (ws2+= sqlWS )*
@@ -11127,11 +11116,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: ws1, ws2, sqlPart, RSQUARE, LSQUARE
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
+                    // token list labels:
                     // rule list labels: ws1, ws2
-                    // wildcard labels: 
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11263,16 +11252,16 @@ public class EllaParser extends Parser {
 
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:857:2: ( -> {hasWhitespace}? ->)
-            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:858:3: 
+            // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:858:3:
             {
 
             // AST REWRITE
-            // elements: 
-            // token labels: 
+            // elements:
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11602,7 +11591,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:877:2: ( LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY -> ^( OBJ ( objectSlot )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:877:4: LCURLY ( objectSlot ( COMMA objectSlot )* ( COMMA )* | ) RCURLY
             {
-            LCURLY256=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3962); if (state.failed) return retval; 
+            LCURLY256=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral3962); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LCURLY.add(LCURLY256);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:878:3: ( objectSlot ( COMMA objectSlot )* ( COMMA )* | )
@@ -11653,7 +11642,7 @@ public class EllaParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:878:16: COMMA objectSlot
                     	    {
-                    	    COMMA258=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3970); if (state.failed) return retval; 
+                    	    COMMA258=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3970); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA258);
 
                     	    pushFollow(FOLLOW_objectSlot_in_objectLiteral3972);
@@ -11686,7 +11675,7 @@ public class EllaParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:878:35: COMMA
                     	    {
-                    	    COMMA260=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3976); if (state.failed) return retval; 
+                    	    COMMA260=(Token)match(input,COMMA,FOLLOW_COMMA_in_objectLiteral3976); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA260);
 
 
@@ -11702,25 +11691,25 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:880:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:880:3:
                     {
                     }
                     break;
 
             }
 
-            RCURLY261=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral3989); if (state.failed) return retval; 
+            RCURLY261=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral3989); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY261);
 
 
 
             // AST REWRITE
             // elements: objectSlot
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11825,7 +11814,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_identifier.add(identifier262.getTree());
-                    COLON263=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4013); if (state.failed) return retval; 
+                    COLON263=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4013); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_COLON.add(COLON263);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4015);
@@ -11838,11 +11827,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifier, expressionNoSQL
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11875,7 +11864,7 @@ public class EllaParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_stringLiteral.add(stringLiteral265.getTree());
-                    COLON266=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4032); if (state.failed) return retval; 
+                    COLON266=(Token)match(input,COLON,FOLLOW_COLON_in_objectSlot4032); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_COLON.add(COLON266);
 
                     pushFollow(FOLLOW_expressionNoSQL_in_objectSlot4034);
@@ -11888,11 +11877,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: expressionNoSQL, stringLiteral
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -11971,7 +11960,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:891:2: ( LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE -> ^( ARRAY ( expressionNoSQL )* ) )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:891:4: LSQUARE ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | ) RSQUARE
             {
-            LSQUARE268=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4055); if (state.failed) return retval; 
+            LSQUARE268=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_arrayLiteral4055); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE268);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:892:3: ( expressionNoSQL ( COMMA expressionNoSQL )* ( COMMA )* | )
@@ -12022,7 +12011,7 @@ public class EllaParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:892:21: COMMA expressionNoSQL
                     	    {
-                    	    COMMA270=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4063); if (state.failed) return retval; 
+                    	    COMMA270=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4063); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA270);
 
                     	    pushFollow(FOLLOW_expressionNoSQL_in_arrayLiteral4065);
@@ -12055,7 +12044,7 @@ public class EllaParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:892:45: COMMA
                     	    {
-                    	    COMMA272=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4069); if (state.failed) return retval; 
+                    	    COMMA272=(Token)match(input,COMMA,FOLLOW_COMMA_in_arrayLiteral4069); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA272);
 
 
@@ -12071,25 +12060,25 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:894:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:894:3:
                     {
                     }
                     break;
 
             }
 
-            RSQUARE273=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_arrayLiteral4082); if (state.failed) return retval; 
+            RSQUARE273=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_arrayLiteral4082); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE273);
 
 
 
             // AST REWRITE
             // elements: expressionNoSQL
-            // token labels: 
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12168,7 +12157,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:900:2: ( LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:900:4: LPAREN ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | ) RPAREN
             {
-            LPAREN274=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4104); if (state.failed) return retval; 
+            LPAREN274=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_argumentsList4104); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN274);
 
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:901:3: ( expressionNoSQL ( COMMA expressionNoSQL )* -> ^( ARGS ( expressionNoSQL )+ ) | )
@@ -12213,7 +12202,7 @@ public class EllaParser extends Parser {
                     	case 1 :
                     	    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:901:22: COMMA expressionNoSQL
                     	    {
-                    	    COMMA276=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4113); if (state.failed) return retval; 
+                    	    COMMA276=(Token)match(input,COMMA,FOLLOW_COMMA_in_argumentsList4113); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA276);
 
                     	    pushFollow(FOLLOW_expressionNoSQL_in_argumentsList4115);
@@ -12235,11 +12224,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: expressionNoSQL
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12270,14 +12259,14 @@ public class EllaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:903:3: 
+                    // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:903:3:
                     {
                     }
                     break;
 
             }
 
-            RPAREN278=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsList4138); if (state.failed) return retval; 
+            RPAREN278=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_argumentsList4138); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN278);
 
 
@@ -12370,18 +12359,18 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:908:4: exclam= EXCLAM
                     {
-                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4152); if (state.failed) return retval; 
+                    exclam=(Token)match(input,EXCLAM,FOLLOW_EXCLAM_in_identifier4152); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_EXCLAM.add(exclam);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12399,18 +12388,18 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:909:4: op_sub= OP_SUB
                     {
-                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifier4165); if (state.failed) return retval; 
+                    op_sub=(Token)match(input,OP_SUB,FOLLOW_OP_SUB_in_identifier4165); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_SUB.add(op_sub);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12438,11 +12427,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifierNoUnary
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12621,18 +12610,18 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:914:4: op_eq= OP_EQ
                     {
-                    op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4193); if (state.failed) return retval; 
+                    op_eq=(Token)match(input,OP_EQ,FOLLOW_OP_EQ_in_identifierNoUnary4193); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_EQ.add(op_eq);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12650,18 +12639,18 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:915:4: op_ne= OP_NE
                     {
-                    op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4206); if (state.failed) return retval; 
+                    op_ne=(Token)match(input,OP_NE,FOLLOW_OP_NE_in_identifierNoUnary4206); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_NE.add(op_ne);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12679,18 +12668,18 @@ public class EllaParser extends Parser {
                 case 3 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:916:4: op_id= OP_ID
                     {
-                    op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4219); if (state.failed) return retval; 
+                    op_id=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_identifierNoUnary4219); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_ID.add(op_id);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12708,18 +12697,18 @@ public class EllaParser extends Parser {
                 case 4 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:917:4: op_ni= OP_NI
                     {
-                    op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4232); if (state.failed) return retval; 
+                    op_ni=(Token)match(input,OP_NI,FOLLOW_OP_NI_in_identifierNoUnary4232); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_NI.add(op_ni);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12737,18 +12726,18 @@ public class EllaParser extends Parser {
                 case 5 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:918:4: op_gt= OP_GT
                     {
-                    op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4245); if (state.failed) return retval; 
+                    op_gt=(Token)match(input,OP_GT,FOLLOW_OP_GT_in_identifierNoUnary4245); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_GT.add(op_gt);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12766,18 +12755,18 @@ public class EllaParser extends Parser {
                 case 6 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:919:4: op_ge= OP_GE
                     {
-                    op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4258); if (state.failed) return retval; 
+                    op_ge=(Token)match(input,OP_GE,FOLLOW_OP_GE_in_identifierNoUnary4258); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_GE.add(op_ge);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12795,18 +12784,18 @@ public class EllaParser extends Parser {
                 case 7 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:920:4: op_lt= OP_LT
                     {
-                    op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4271); if (state.failed) return retval; 
+                    op_lt=(Token)match(input,OP_LT,FOLLOW_OP_LT_in_identifierNoUnary4271); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_LT.add(op_lt);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12824,18 +12813,18 @@ public class EllaParser extends Parser {
                 case 8 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:921:4: op_le= OP_LE
                     {
-                    op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4284); if (state.failed) return retval; 
+                    op_le=(Token)match(input,OP_LE,FOLLOW_OP_LE_in_identifierNoUnary4284); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_LE.add(op_le);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12853,18 +12842,18 @@ public class EllaParser extends Parser {
                 case 9 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:922:4: op_mul= OP_MUL
                     {
-                    op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4297); if (state.failed) return retval; 
+                    op_mul=(Token)match(input,OP_MUL,FOLLOW_OP_MUL_in_identifierNoUnary4297); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_MUL.add(op_mul);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12882,18 +12871,18 @@ public class EllaParser extends Parser {
                 case 10 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:923:4: op_div= OP_DIV
                     {
-                    op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4310); if (state.failed) return retval; 
+                    op_div=(Token)match(input,OP_DIV,FOLLOW_OP_DIV_in_identifierNoUnary4310); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_DIV.add(op_div);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12911,18 +12900,18 @@ public class EllaParser extends Parser {
                 case 11 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:924:4: op_add= OP_ADD
                     {
-                    op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4323); if (state.failed) return retval; 
+                    op_add=(Token)match(input,OP_ADD,FOLLOW_OP_ADD_in_identifierNoUnary4323); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_ADD.add(op_add);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12940,18 +12929,18 @@ public class EllaParser extends Parser {
                 case 12 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:925:4: op_and= OP_AND
                     {
-                    op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4336); if (state.failed) return retval; 
+                    op_and=(Token)match(input,OP_AND,FOLLOW_OP_AND_in_identifierNoUnary4336); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_AND.add(op_and);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -12969,18 +12958,18 @@ public class EllaParser extends Parser {
                 case 13 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:926:4: op_or= OP_OR
                     {
-                    op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4349); if (state.failed) return retval; 
+                    op_or=(Token)match(input,OP_OR,FOLLOW_OP_OR_in_identifierNoUnary4349); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_OP_OR.add(op_or);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13008,11 +12997,11 @@ public class EllaParser extends Parser {
 
                     // AST REWRITE
                     // elements: identifierNoOps
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13094,18 +13083,18 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:932:6: word= WORD
                     {
-                    word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4380); if (state.failed) return retval; 
+                    word=(Token)match(input,WORD,FOLLOW_WORD_in_identifierNoOps4380); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_WORD.add(word);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13123,18 +13112,18 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:933:5: IDENTIFIER
                     {
-                    IDENTIFIER281=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4392); if (state.failed) return retval; 
+                    IDENTIFIER281=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierNoOps4392); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_IDENTIFIER.add(IDENTIFIER281);
 
 
 
                     // AST REWRITE
                     // elements: IDENTIFIER
-                    // token labels: 
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13201,7 +13190,7 @@ public class EllaParser extends Parser {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:938:2: ( EMB_VAR_START id= identifier RCURLY -> EMBEDDED_VAR[$id.start] )
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:938:4: EMB_VAR_START id= identifier RCURLY
             {
-            EMB_VAR_START282=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4412); if (state.failed) return retval; 
+            EMB_VAR_START282=(Token)match(input,EMB_VAR_START,FOLLOW_EMB_VAR_START_in_embeddedVar4412); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_EMB_VAR_START.add(EMB_VAR_START282);
 
             pushFollow(FOLLOW_identifier_in_embeddedVar4416);
@@ -13210,18 +13199,18 @@ public class EllaParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_identifier.add(id.getTree());
-            RCURLY283=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVar4418); if (state.failed) return retval; 
+            RCURLY283=(Token)match(input,RCURLY,FOLLOW_RCURLY_in_embeddedVar4418); if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_RCURLY.add(RCURLY283);
 
 
 
             // AST REWRITE
-            // elements: 
-            // token labels: 
+            // elements:
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13335,7 +13324,7 @@ public class EllaParser extends Parser {
 
 
         	CommonTree result = null;
-        	
+
         	LazyTokenStream tokens = (LazyTokenStream) input;
         	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 
@@ -13364,11 +13353,11 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:956:6: STR_SQUOT
                     {
-                    STR_SQUOT285=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4546); if (state.failed) return retval; 
+                    STR_SQUOT285=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_stringLiteral4546); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT285);
 
                     if ( state.backtracking==0 ) {
-                       lexer.setAllowEmbeddedVariables(false); 
+                       lexer.setAllowEmbeddedVariables(false);
                     }
 
                     }
@@ -13376,7 +13365,7 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:957:5: STR_DQUOT
                     {
-                    STR_DQUOT286=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4554); if (state.failed) return retval; 
+                    STR_DQUOT286=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_stringLiteral4554); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT286);
 
 
@@ -13386,17 +13375,17 @@ public class EllaParser extends Parser {
             }
 
             if ( state.backtracking==0 ) {
-               result = parseString(); 
+               result = parseString();
             }
 
 
             // AST REWRITE
-            // elements: 
-            // token labels: 
+            // elements:
+            // token labels:
             // rule labels: retval
-            // token list labels: 
-            // rule list labels: 
-            // wildcard labels: 
+            // token list labels:
+            // rule list labels:
+            // wildcard labels:
             if ( state.backtracking==0 ) {
             retval.tree = root_0;
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13477,7 +13466,7 @@ public class EllaParser extends Parser {
         RewriteRuleTokenStream stream_STR_BTICK=new RewriteRuleTokenStream(adaptor,"token STR_BTICK");
         RewriteRuleTokenStream stream_STR_SQUOT=new RewriteRuleTokenStream(adaptor,"token STR_SQUOT");
 
-         CommonTree result = null; 
+         CommonTree result = null;
         try {
             // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:963:2: ( ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK | {...}? STR_QQUOT | {...}? STR_DOLQUOT ) -> ^() | ({...}? STR_SQUOT | {...}? STR_DQUOT | {...}? STR_BTICK ) )
             int alt98=2;
@@ -13601,7 +13590,7 @@ public class EllaParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasSingleQuote()");
                             }
-                            STR_SQUOT287=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4588); if (state.failed) return retval; 
+                            STR_SQUOT287=(Token)match(input,STR_SQUOT,FOLLOW_STR_SQUOT_in_sqlStringLiteral4588); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_STR_SQUOT.add(STR_SQUOT287);
 
 
@@ -13614,7 +13603,7 @@ public class EllaParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasDoubleQuote()");
                             }
-                            STR_DQUOT288=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4596); if (state.failed) return retval; 
+                            STR_DQUOT288=(Token)match(input,STR_DQUOT,FOLLOW_STR_DQUOT_in_sqlStringLiteral4596); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_STR_DQUOT.add(STR_DQUOT288);
 
 
@@ -13627,7 +13616,7 @@ public class EllaParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasBackTick()");
                             }
-                            STR_BTICK289=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4605); if (state.failed) return retval; 
+                            STR_BTICK289=(Token)match(input,STR_BTICK,FOLLOW_STR_BTICK_in_sqlStringLiteral4605); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_STR_BTICK.add(STR_BTICK289);
 
 
@@ -13640,7 +13629,7 @@ public class EllaParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasQQuote()");
                             }
-                            STR_QQUOT290=(Token)match(input,STR_QQUOT,FOLLOW_STR_QQUOT_in_sqlStringLiteral4614); if (state.failed) return retval; 
+                            STR_QQUOT290=(Token)match(input,STR_QQUOT,FOLLOW_STR_QQUOT_in_sqlStringLiteral4614); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_STR_QQUOT.add(STR_QQUOT290);
 
 
@@ -13653,7 +13642,7 @@ public class EllaParser extends Parser {
                                 if (state.backtracking>0) {state.failed=true; return retval;}
                                 throw new FailedPredicateException(input, "sqlStringLiteral", "stringType.hasDollarQuote()");
                             }
-                            STR_DOLQUOT291=(Token)match(input,STR_DOLQUOT,FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4622); if (state.failed) return retval; 
+                            STR_DOLQUOT291=(Token)match(input,STR_DOLQUOT,FOLLOW_STR_DOLQUOT_in_sqlStringLiteral4622); if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_STR_DOLQUOT.add(STR_DOLQUOT291);
 
 
@@ -13663,17 +13652,17 @@ public class EllaParser extends Parser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       result = parseString(); 
+                       result = parseString();
                     }
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13775,7 +13764,7 @@ public class EllaParser extends Parser {
                     }
 
                     if ( state.backtracking==0 ) {
-                       releaseStringStartMarker(); 
+                       releaseStringStartMarker();
                     }
 
                     }
@@ -13844,18 +13833,18 @@ public class EllaParser extends Parser {
                 case 1 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:976:4: KW_TRUE
                     {
-                    KW_TRUE295=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4681); if (state.failed) return retval; 
+                    KW_TRUE295=(Token)match(input,KW_TRUE,FOLLOW_KW_TRUE_in_booleanLiteral4681); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_KW_TRUE.add(KW_TRUE295);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13873,18 +13862,18 @@ public class EllaParser extends Parser {
                 case 2 :
                     // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:977:4: KW_FALSE
                     {
-                    KW_FALSE296=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4691); if (state.failed) return retval; 
+                    KW_FALSE296=(Token)match(input,KW_FALSE,FOLLOW_KW_FALSE_in_booleanLiteral4691); if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_KW_FALSE.add(KW_FALSE296);
 
 
 
                     // AST REWRITE
-                    // elements: 
-                    // token labels: 
+                    // elements:
+                    // token labels:
                     // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
+                    // token list labels:
+                    // rule list labels:
+                    // wildcard labels:
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -13997,13 +13986,13 @@ public class EllaParser extends Parser {
               			String directive = (dir!=null?dir.getText():null);
               			String argument = (arg!=null?arg.getText():null);
               			String value = valId == null ? (valWord!=null?valWord.getText():null) : (valId!=null?valId.getText():null);
-              			
+
               			// TODO: throw RecognitionException instead of EllaRuntimeException
-              			
+
               			if (!"set".equals(directive)) {
               				throw new EllaRuntimeException("Unknown parse directive: " + directive);
               			}
-              			
+
               			if ("quotes".equals(argument)) {
               				try {
               					this.stringType = SQLStringType.valueOf(("" + value).toLowerCase());
@@ -14030,7 +14019,7 @@ public class EllaParser extends Parser {
               			else {
               				throw new EllaRuntimeException("Invalid argument to parse directive: " + argument);
               			}
-              		
+
             }
 
             }
@@ -14055,7 +14044,7 @@ public class EllaParser extends Parser {
     // $ANTLR end "parseDirective"
 
     // $ANTLR start synpred1_EllaParser
-    public final void synpred1_EllaParser_fragment() throws RecognitionException {   
+    public final void synpred1_EllaParser_fragment() throws RecognitionException {
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:686:5: ( LCURLY )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:686:6: LCURLY
         {
@@ -14066,7 +14055,7 @@ public class EllaParser extends Parser {
     // $ANTLR end synpred1_EllaParser
 
     // $ANTLR start synpred2_EllaParser
-    public final void synpred2_EllaParser_fragment() throws RecognitionException {   
+    public final void synpred2_EllaParser_fragment() throws RecognitionException {
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:694:5: ( LPAREN | LCURLY )
         // /home/panos/IdeaProjects/SQLScript/src/org/unbunt/ella/compiler/EllaParser.g:
         {
@@ -16073,10 +16062,10 @@ public class EllaParser extends Parser {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
-                    case 0 : 
+                    case 0 :
                         int LA61_1 = input.LA(1);
 
-                         
+
                         int index61_1 = input.index();
                         input.rewind();
                         s = -1;
@@ -16084,7 +16073,7 @@ public class EllaParser extends Parser {
 
                         else if ( (true) ) {s = 2;}
 
-                         
+
                         input.seek(index61_1);
                         if ( s>=0 ) return s;
                         break;
@@ -16179,10 +16168,10 @@ public class EllaParser extends Parser {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
-                    case 0 : 
+                    case 0 :
                         int LA63_1 = input.LA(1);
 
-                         
+
                         int index63_1 = input.index();
                         input.rewind();
                         s = -1;
@@ -16190,14 +16179,14 @@ public class EllaParser extends Parser {
 
                         else if ( (true) ) {s = 3;}
 
-                         
+
                         input.seek(index63_1);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 1 :
                         int LA63_2 = input.LA(1);
 
-                         
+
                         int index63_2 = input.index();
                         input.rewind();
                         s = -1;
@@ -16205,7 +16194,7 @@ public class EllaParser extends Parser {
 
                         else if ( (true) ) {s = 3;}
 
-                         
+
                         input.seek(index63_2);
                         if ( s>=0 ) return s;
                         break;
@@ -16280,10 +16269,10 @@ public class EllaParser extends Parser {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
-                    case 0 : 
+                    case 0 :
                         int LA81_6 = input.LA(1);
 
-                         
+
                         int index81_6 = input.index();
                         input.rewind();
                         s = -1;
@@ -16291,14 +16280,14 @@ public class EllaParser extends Parser {
 
                         else if ( (true) ) {s = 2;}
 
-                         
+
                         input.seek(index81_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 1 :
                         int LA81_7 = input.LA(1);
 
-                         
+
                         int index81_7 = input.index();
                         input.rewind();
                         s = -1;
@@ -16306,7 +16295,7 @@ public class EllaParser extends Parser {
 
                         else if ( (true) ) {s = 2;}
 
-                         
+
                         input.seek(index81_7);
                         if ( s>=0 ) return s;
                         break;
@@ -16318,7 +16307,7 @@ public class EllaParser extends Parser {
             throw nvae;
         }
     }
- 
+
 
     public static final BitSet FOLLOW_topStatement_in_script231 = new BitSet(new long[]{0xC4FE5C0000800000L,0x000000102000000AL});
     public static final BitSet FOLLOW_EOF_in_script234 = new BitSet(new long[]{0x0000000000000002L});
