@@ -163,6 +163,28 @@ public class Lst extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeAddAll = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Lst thiz = ensureType(Lst.class, context);
+                Lst values = ensureType(Lst.class, args[0]);
+
+                try {
+                    thiz.value.addAll(values.value);
+                } catch (UnsupportedOperationException e) {
+                    throw new EllaRuntimeException(e);
+                } catch (ClassCastException e) {
+                    throw new EllaRuntimeException(e);
+                } catch (NullPointerException e) {
+                    // NOTE: should not happen as script objects are never null
+                    throw new EllaRuntimeException(e);
+                } catch (IllegalArgumentException e) {
+                    throw new EllaRuntimeException(e);
+                }
+
+                return thiz;
+            }
+        };
+
         protected static final NativeCall nativeRemove = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Lst thiz = ensureType(Lst.class, context);
@@ -227,14 +249,34 @@ public class Lst extends AbstractObj {
             }
         };
 
+        /**
+         * TODO: Write unit test
+         */
+        protected static final NativeCall nativeJoin = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Lst thiz = ensureType(Lst.class, context);
+                String joiner = args[0].toString();
+                StringBuilder buf = new StringBuilder();
+                for (Obj obj : thiz.value) {
+                    if (buf.length() > 0) {
+                        buf.append(joiner);
+                    }
+                    buf.append(obj.toString());
+                }
+                return new Str(buf.toString());
+            }
+        };
+
         private LstProto() {
             slots.put(Str.SYM_clone, nativeClone);
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
             slots.put(Str.SYM_add, nativeAdd);
+            slots.put(Str.SYM_addAll, nativeAddAll);
             slots.put(Str.SYM_remove, nativeRemove);
             slots.put(Str.SYM_size, nativeSize);
             slots.put(Str.SYM_each, nativeEach);
+            slots.put(Str.SYM_join, nativeJoin);
         }
 
         public Call getNativeConstructor() {

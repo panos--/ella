@@ -15,10 +15,12 @@ import org.unbunt.ella.lang.PlainObj;
 import org.unbunt.ella.lang.Str;
 
 import java.math.BigDecimal;
-import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date; // NOTE: it is essential to have this import before the java.sql.* import
+import java.sql.*;
+import static java.lang.String.format;
 
 /**
  * Represents an EllaScript object wrapping an SQL statement.
@@ -92,11 +94,23 @@ public class Stmt extends AbstractObj {
         if (paramed) {
             initPrepared();
             addParams();
-            return preparedStatement.execute();
+            logger.info(getParamedQuery());
+            boolean isResult;
+            Date t1 = new Date();
+            isResult = preparedStatement.execute();
+            Date t2 = new Date();
+            logger.info(format("query took %.3f seconds", 1d * (t2.getTime() - t1.getTime()) / 1000));
+            return isResult;
         }
         else {
             init();
-            return statement.execute(rawStatement.getStatement());
+            logger.info(rawStatement.getStatement());
+            boolean isResult;
+            Date t1 = new Date();
+            isResult = statement.execute(rawStatement.getStatement());
+            Date t2 = new Date();
+            logger.info(format("query took %.3f seconds", 1d * (t2.getTime() - t1.getTime()) / 1000));
+            return isResult;
         }
     }
 

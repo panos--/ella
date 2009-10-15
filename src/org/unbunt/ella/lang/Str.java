@@ -34,6 +34,7 @@ public class Str extends AbstractObj {
     public static final Str SYM__logic_or = toSym("||");
     public static final Str SYM__logic_not = toSym("!");
     public static final Str SYM_add = toSym("add");
+    public static final Str SYM_addAll = toSym("addAll");
     public static final Str SYM_activate = toSym("activate");
     public static final Str SYM_active = toSym("active");
     public static final Str SYM_batch = toSym("batch");
@@ -73,6 +74,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_isInfinity = toSym("isInfinity");
     public static final Str SYM_isPositiveInfinity = toSym("isPositiveInfinity");
     public static final Str SYM_isNegativeInfinity = toSym("isNegativeInfinity");
+    public static final Str SYM_join = toSym("join");
     public static final Str SYM_key = toSym("key");
     public static final Str SYM_length = toSym("length");
     public static final Str SYM_loop = toSym("loop");
