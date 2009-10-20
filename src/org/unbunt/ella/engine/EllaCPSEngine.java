@@ -83,6 +83,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
             process();
         } catch (ArrayIndexOutOfBoundsException e) {
             if (pc >= MAX_CONT_STACK) {
+                // TODO: throw an exception explicitly indicating this engine being in an unusable state
                 throw new EllaRuntimeException("Continuation stack overflow", e);
             }
             else {
@@ -90,9 +91,38 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
             }
         } catch (EllaRuntimeException e) {
             throw new EllaException(e);
+        } finally {
+            if (pc > 0) {
+                // Environment may not have been reset correctly if there are still continuations lying on the stack,
+                // so do this now or else a later reinvocation of this engine instance may fail with absurd errors.
+                cleanup();
+            }
         }
 
         return val == null ? null : val.toJavaObject();
+    }
+
+    protected void cleanup() {
+        for (int i = 1; i <= pc; i++) {
+            Continuation c = cont[i];
+            if (c instanceof BlockCont) {
+                BlockCont bc = (BlockCont) c;
+                if (bc.getSavedEnv() != null) {
+                    env = bc.getSavedEnv();
+                    break;
+                }
+            }
+            else if (c instanceof ClosRetCont) {
+                ClosRetCont crc = (ClosRetCont) c;
+                env = crc.getSavedEnv();
+                break;
+            }
+            else if (c instanceof FunRetCont) {
+                FunRetCont frc = (FunRetCont) c;
+                env = frc.getSavedEnv();
+                break;
+            }
+        }
     }
 
     @SuppressWarnings({"PointlessBooleanExpression"})
