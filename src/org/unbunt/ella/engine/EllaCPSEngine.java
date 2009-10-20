@@ -227,7 +227,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     }
 
     public void processExpression(DeclareVariableExpression declareVariableExpression) {
-        env.extend(declareVariableExpression.getVariable());
+        env.add(declareVariableExpression.getVariable(), getObjNull());
         next = CONT;
     }
 
