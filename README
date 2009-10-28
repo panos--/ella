@@ -42,3 +42,11 @@ out/		Target directory for .class files.
 src/		Source code.
 test/		Ad-hoc test scripts.
 test/ng/	Test scripts used in unit tests.
+
+Build System Setup
+==================
+
+Before building the sources for the first time it is advisable
+to run the supplied shell script "dev-setup.sh" once. This will
+install dependencies not found in public maven repositories into
+the local repository.
