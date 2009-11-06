@@ -140,8 +140,10 @@
         <configuration>
           <archive>
             <manifest>
-              <addClasspath>true</addClasspath>
               <mainClass>org.unbunt.ella.Ella</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>../lib/</classpathPrefix>
+              <!--<useUniqueVersions>true</useUniqueVersions>--> <!-- -SNAPSHOT vs. -TIMESTAMP -->
             </manifest>
           </archive>
         </configuration>
@@ -151,16 +153,35 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.2-beta-4</version>
         <configuration>
+          <!--
           <descriptorRefs>
             <descriptorRef>bin</descriptorRef>
             <descriptorRef>src</descriptorRef>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
+          -->
+          <!--
+          <descriptorRefs>
+            <descriptorRef>bin</descriptorRef>
+          </descriptorRefs>
+          -->
+          <descriptors>
+            <descriptor>src/main/assembly/bin-dist.xml</descriptor>
+          </descriptors>
+          <!-- archive section does not really have any effect... -->
+          <!-- relying on jar plugin (above) instead. -->
+          <!--
           <archive>
             <manifest>
               <mainClass>org.unbunt.ella.Ella</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>../lib/</classpathPrefix>
+          -->
+              <!--<useUniqueVersions>true</useUniqueVersions>--> <!-- -SNAPSHOT vs. -TIMESTAMP -->
+          <!--
             </manifest>
           </archive>
+          -->
         </configuration>
         <executions>
           <execution>
@@ -168,6 +189,7 @@
             <phase>package</phase> <!-- append to the packaging phase. -->
             <goals>
               <goal>single</goal> <!-- goals == mojos -->
+              <goal>directory-single</goal> <!-- goals == mojos -->
             </goals>
           </execution>
         </executions>
