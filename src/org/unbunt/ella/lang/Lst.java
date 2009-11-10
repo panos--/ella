@@ -267,6 +267,26 @@ public class Lst extends AbstractObj {
             }
         };
 
+        /**
+         * TODO: Write unit test
+         */
+        protected static final NativeCall nativeMap = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Lst thiz = ensureType(Lst.class, context);
+                Obj call = args[0];
+                for (int i = 0; i < thiz.value.size(); i++) {
+                    try {
+                        thiz.value.set(i, engine.invokeInLoop(call, thiz, thiz.value.get(i)));
+                    } catch (LoopBreakException e) {
+                        break;
+                    } catch (LoopContinueException e) {
+                        continue;
+                    }
+                }
+                return thiz;
+            }
+        };
+
         private LstProto() {
             slots.put(Str.SYM_clone, nativeClone);
             slots.put(Str.SYM_get, nativeGet);
@@ -277,6 +297,7 @@ public class Lst extends AbstractObj {
             slots.put(Str.SYM_size, nativeSize);
             slots.put(Str.SYM_each, nativeEach);
             slots.put(Str.SYM_join, nativeJoin);
+            slots.put(Str.SYM_map, nativeMap);
         }
 
         public Call getNativeConstructor() {

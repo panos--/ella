@@ -78,6 +78,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_key = toSym("key");
     public static final Str SYM_length = toSym("length");
     public static final Str SYM_loop = toSym("loop");
+    public static final Str SYM_map = toSym("map");
     public static final Str SYM_neg = toSym("neg");
     public static final Str SYM_new = toSym("new");
     public static final Str SYM_noop = toSym("noop");
