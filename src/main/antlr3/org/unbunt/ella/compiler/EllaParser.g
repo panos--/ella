@@ -7,7 +7,7 @@ options {
 	// NOTE: k = 2 works but is actually quite a bit slower than k=*,
 	// NOTE: so we stick to the latter one for now.
 	//k = 2;
-	k = *;
+	//k = *; // commented out as it breaks the antlr maven plugin (defaults to * anyway)
 }
 
 tokens {

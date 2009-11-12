@@ -1,3 +1,4 @@
+*.sw[nop]
 out/*
 src/com/marketoolz/ella/classes
 src/com/marketoolz/ella/__Test___input.txt
