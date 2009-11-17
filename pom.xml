@@ -14,9 +14,10 @@
   </properties>
   <dependencies>
     <dependency>
+      <!-- NOTE: Version 3.1.3 would suffice but it has to be in sync with the antlr3-maven-plugin -->
       <groupId>org.antlr</groupId>
       <artifactId>antlr-runtime</artifactId>
-      <version>3.1.3</version>
+      <version>3.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>args4j</groupId>
@@ -138,9 +139,14 @@
         </executions>
       </plugin>
       <plugin>
+        <!-- using the snapshot version of 3.2 since it fixes a bug in 3.1.3-1 where
+           - the plugin wouldn't notice changes to grammar files.
+           - 3.2 is not yet final but the last few commit messages indicate it should
+           - be pretty stable already
+          -->
         <groupId>org.antlr</groupId>
         <artifactId>antlr3-maven-plugin</artifactId>
-        <version>3.1.3-1</version>
+        <version>3.2-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -237,7 +243,37 @@
     </plugins>
   </reporting>
 
+  <pluginRepositories>
+    <!-- for antlr3-maven-plugin -->
+    <pluginRepository>
+      <id>antlr-snapshot</id>
+      <name>ANTLR Testing Snapshot Repository</name>
+      <url>http://antlr.org/antlr-snapshot</url>
+    </pluginRepository>
+    <!-- not nessessary, but we leave it here for reference -->
+    <!--
+    <pluginRepository>
+      <id>local</id>
+      <name>Local</name>
+      <url>file://${project.basedir}/maven/repository</url>
+    </pluginRepository>
+    -->
+  </pluginRepositories>
+
   <repositories>
+    <!-- for antlr-runtime in a version matching the one of the antlr3-maven-plugin -->
+    <repository>
+      <id>antlr-snapshot</id>
+      <name>ANTLR Testing Snapshot Repository</name>
+      <url>http://antlr.org/antlr-snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <!--<updatePolicy>always</updatePolicy>-->
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
     <repository>
       <id>local</id>
       <name>Local</name>
