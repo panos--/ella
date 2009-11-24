@@ -1,283 +1,403 @@
-<!-- vi:et:ts=2 sw=2
+<!-- vi:et:ts=4 sw=4
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.unbunt.ella</groupId>
-  <artifactId>ella</artifactId>
-  <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
-  <name>ella</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <dependency>
-      <!-- NOTE: Version 3.1.3 would suffice but it has to be in sync with the antlr3-maven-plugin -->
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr-runtime</artifactId>
-      <version>3.2-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>args4j</groupId>
-      <artifactId>args4j</artifactId>
-      <version>2.0.12</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
-    </dependency> 
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.1.1</version>
-    </dependency> 
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.15</version>
-      <exclusions>
-        <exclusion>
-          <groupId>com.sun.jmx</groupId>
-          <artifactId>jmxri</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.jms</groupId>
-          <artifactId>jms</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.sun.jdmk</groupId>
-          <artifactId>jmxtools</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency> 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.10</version>
-    </dependency> 
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>8.3-603.jdbc4</version>
-    </dependency> 
-    <dependency>
-      <groupId>com.oracle</groupId>
-      <artifactId>ojdbc6</artifactId>
-      <version>11.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>2.5.6</version>
-    </dependency> 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>2.5.6</version>
-    </dependency> 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>2.5.6</version>
-    </dependency> 
-    <dependency>
-      <groupId>org.gnu</groupId>
-      <artifactId>readline</artifactId>
-      <version>0.8.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>5.9</version>
-      <scope>test</scope>
-      <classifier>jdk15</classifier>
-    </dependency>
-  </dependencies>
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <!-- version 2.2 is buggy -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.2-beta-4</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.unbunt.ella</groupId>
+    <artifactId>ella</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1-SNAPSHOT</version>
+    <name>ella</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <!-- NOTE: Version 3.1.3 would suffice but it has to be in sync with the antlr3-maven-plugin -->
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+            <version>3.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>args4j</groupId>
+            <artifactId>args4j</artifactId>
+            <version>2.0.12</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.15</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.3-603.jdbc4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gnu</groupId>
+            <artifactId>readline</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.9</version>
+            <scope>test</scope>
+            <classifier>jdk15</classifier>
+        </dependency>
+    </dependencies>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- version 2.2 is buggy -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2-beta-4</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>build-classpath</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>build-classpath</goal>
-            </goals>
-            <configuration>
-              <outputFile>${project.build.directory}/classpath</outputFile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <!-- using the snapshot version of 3.2 since it fixes a bug in 3.1.3-1 where
-           - the plugin wouldn't notice changes to grammar files.
-           - 3.2 is not yet final but the last few commit messages indicate it should
-           - be pretty stable already
-          -->
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr3-maven-plugin</artifactId>
-        <version>3.2-SNAPSHOT</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>antlr</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <includes>
-            <include>**/*TestsNG.java</include>
-          </includes>
-          <excludes>
-            <exclude>**/InterpreterDBTestsNG.java</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>org.unbunt.ella.Ella</mainClass>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>../lib/</classpathPrefix>
-              <!--<useUniqueVersions>true</useUniqueVersions>--> <!-- -SNAPSHOT vs. -TIMESTAMP -->
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2-beta-4</version>
-        <configuration>
-          <!--
-          <descriptorRefs>
-            <descriptorRef>bin</descriptorRef>
-            <descriptorRef>src</descriptorRef>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          -->
-          <!--
-          <descriptorRefs>
-            <descriptorRef>bin</descriptorRef>
-          </descriptorRefs>
-          -->
-          <descriptors>
-            <descriptor>src/main/assembly/bin-dist.xml</descriptor>
-          </descriptors>
-          <!-- archive section does not really have any effect... -->
-          <!-- relying on jar plugin (above) instead. -->
-          <!--
-          <archive>
-            <manifest>
-              <mainClass>org.unbunt.ella.Ella</mainClass>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>../lib/</classpathPrefix>
-          -->
-              <!--<useUniqueVersions>true</useUniqueVersions>--> <!-- -SNAPSHOT vs. -TIMESTAMP -->
-          <!--
-            </manifest>
-          </archive>
-          -->
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- append to the packaging phase. -->
-            <goals>
-              <goal>single</goal> <!-- goals == mojos -->
-              <goal>directory-single</goal> <!-- goals == mojos -->
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-classpath</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>build-classpath</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.directory}/classpath</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!--
+                 - NOTE: Using the snapshot version of 3.2 since it fixes a bug in 3.1.3-1 where the plugin wouldn't
+                 - notice changes to grammar files. 3.2 is not yet final but the last few commit messages indicate it
+                 - should be pretty stable already
+                 - NOTE (2): This plugin generates files in a directory layout that is not exactly compatible with
+                 - ANTLRWorks. Specifically, the token files are not generated in the same directory as the Java
+                 - sources and currently there doesn't seem to be a way to change this behaviour or to make ANTLRWorks
+                 - work with this layout (or maybe I'm just blind and missing something obvious). To accommodate this
+                 - we just copy the tokens files into the directory where the Java sources are generated by using
+                 - the maven-resources-plugin below. That way ANTLRWorks is able to pick them up when that directory
+                 - has been specified as it's output directory.
+                 - NOTE (3): Specifying the full path the grammars via the sourceDirectory tag and also explicitly
+                 - specifying the outputDirectory does not help to work around this issue.
+                -->
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr3-maven-plugin</artifactId>
+                <version>3.2-SNAPSHOT</version>
+                <configuration>
+                    <!--<sourceDirectory>${basedir}/src/main/antlr3/org/unbunt/ella/compiler</sourceDirectory>-->
+                    <!--<outputDirectory>${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler</outputDirectory>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!--
+                 - NOTE: This plugin execution is required for ANTLRWorks to be usable within this
+                 - antlr3-maven-plugin setup. See the comment at that plugin definition above.
+                 - NOTE (2): We are intentionally using the antrun plugin here instead of the resources plugin because
+                 - we copy the tokens files twice. Once before the antlr plugin is run from the place where ANTLRWorks
+                 - expects and generates them to make the antlr plugin aware of potential changes and once the other
+                 - way around. This scheme requires us to preserve modification times on the copied tokens files as
+                 - otherwise the antlr plugin will always consider the generated grammars to be out of date. The
+                 - resources plugin doesn't provide such an option.
+                 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <id>antlr-tokens-from-antlrworks</id>
+                        <!--
+                         - XXX: bound to the initialize phase to ensure it is run _before_ the antlr plugin
+                         - (which is run in the generate-sources phase)
+                         -->
+                        <phase>initialize</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${basedir}/target/generated-sources/antlr3"
+                                        preservelastmodified="true" verbose="true">
+                                    <fileset dir="${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler">
+                                        <include name="*.tokens"/>
+                                    </fileset>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>antlr-tokens-to-antlrworks</id>
+                        <!--
+                         - XXX: bound to the process-sources phase to ensure it is run _after_ the antlr plugin
+                         - (which is run in the generate-sources phase)
+                         -->
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler"
+                                        preservelastmodified="true" verbose="true">
+                                    <fileset dir="${basedir}/target/generated-sources/antlr3">
+                                        <include name="*.tokens"/>
+                                    </fileset>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <execution>
+                        <id>antlr-tokens-from-antlrworks</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/generated-sources/antlr3</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler</directory>
+                                    <includes>
+                                        <include>*.tokens</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>antlr-tokens-to-antlrworks</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/target/generated-sources/antlr3</directory>
+                                    <includes>
+                                        <include>*.tokens</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*TestsNG.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/InterpreterDBTestsNG.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.unbunt.ella.Ella</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>../lib/</classpathPrefix>
+                            <!--<useUniqueVersions>true</useUniqueVersions>--> <!-- -SNAPSHOT vs. -TIMESTAMP -->
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-4</version>
+                <configuration>
+                    <!--
+                    <descriptorRefs>
+                      <descriptorRef>bin</descriptorRef>
+                      <descriptorRef>src</descriptorRef>
+                      <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    -->
+                    <!--
+                    <descriptorRefs>
+                      <descriptorRef>bin</descriptorRef>
+                    </descriptorRefs>
+                    -->
+                    <descriptors>
+                        <descriptor>src/main/assembly/bin-dist.xml</descriptor>
+                    </descriptors>
+                    <!-- archive section does not really have any effect... -->
+                    <!-- relying on jar plugin (above) instead. -->
+                    <!--
+                    <archive>
+                      <manifest>
+                        <mainClass>org.unbunt.ella.Ella</mainClass>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>../lib/</classpathPrefix>
+                    -->
+                    <!--<useUniqueVersions>true</useUniqueVersions>--> <!-- -SNAPSHOT vs. -TIMESTAMP -->
+                    <!--
+                      </manifest>
+                    </archive>
+                    -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- this is used for inheritance merges -->
+                        <phase>package</phase>
+                        <!-- append to the packaging phase. -->
+                        <goals>
+                            <goal>single</goal>
+                            <!-- goals == mojos -->
+                            <goal>directory-single</goal>
+                            <!-- goals == mojos -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </reporting>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
 
-  <pluginRepositories>
-    <!-- for antlr3-maven-plugin -->
-    <pluginRepository>
-      <id>antlr-snapshot</id>
-      <name>ANTLR Testing Snapshot Repository</name>
-      <url>http://antlr.org/antlr-snapshot</url>
-    </pluginRepository>
-    <!-- not nessessary, but we leave it here for reference -->
-    <!--
-    <pluginRepository>
-      <id>local</id>
-      <name>Local</name>
-      <url>file://${project.basedir}/maven/repository</url>
-    </pluginRepository>
-    -->
-  </pluginRepositories>
+    <pluginRepositories>
+        <!-- for antlr3-maven-plugin -->
+        <pluginRepository>
+            <id>antlr-snapshot</id>
+            <name>ANTLR Testing Snapshot Repository</name>
+            <url>http://antlr.org/antlr-snapshot</url>
+        </pluginRepository>
+        <!-- not nessessary, but we leave it here for reference -->
+        <!--
+        <pluginRepository>
+          <id>local</id>
+          <name>Local</name>
+          <url>file://${project.basedir}/maven/repository</url>
+        </pluginRepository>
+        -->
+    </pluginRepositories>
 
-  <repositories>
-    <!-- for antlr-runtime in a version matching the one of the antlr3-maven-plugin -->
-    <repository>
-      <id>antlr-snapshot</id>
-      <name>ANTLR Testing Snapshot Repository</name>
-      <url>http://antlr.org/antlr-snapshot</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <!--<updatePolicy>always</updatePolicy>-->
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-    <repository>
-      <id>local</id>
-      <name>Local</name>
-      <url>file://${project.basedir}/maven/repository</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <!-- for antlr-runtime in a version matching the one of the antlr3-maven-plugin -->
+        <repository>
+            <id>antlr-snapshot</id>
+            <name>ANTLR Testing Snapshot Repository</name>
+            <url>http://antlr.org/antlr-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <!--<updatePolicy>always</updatePolicy>-->
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>local</id>
+            <name>Local</name>
+            <url>file://${project.basedir}/maven/repository</url>
+        </repository>
+    </repositories>
 </project>
