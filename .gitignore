@@ -20,3 +20,4 @@ target/*
 src/main/config/mysql.properties
 src/main/config/pg.properties
 src/main/config/oracle.properties
+/ella.iws
