@@ -15,7 +15,7 @@ import java.util.List;
 
 @Test(groups = { "interpreter-db" }, dependsOnGroups = "interpreter")
 public class InterpreterDBTestsNG extends AbstractTest {
-    public static final String PROPS_PATH = "cfg/";
+    public static final String PROPS_PATH = "src/main/config/";
 
     public static final String PROPS_MYSQL = "mysql.properties";
     public static final String PROPS_PGSQL = "pg.properties";
