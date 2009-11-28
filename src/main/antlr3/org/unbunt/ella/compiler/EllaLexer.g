@@ -17,6 +17,7 @@ options {
 @lexer::members {
 	protected CommonTree currentStringTree = null;
 	
+	protected boolean inString = false;
 	protected int lastStringStartMarker = -1;
 	
 	protected boolean allowQQuote = false;
@@ -39,6 +40,14 @@ options {
 	@Override
 	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
 		throw new RuntimeRecognitionException(e);
+	}
+	
+	protected void markStringStart() {
+		if (inString) {
+			return;
+		}
+		inString = true;
+		lastStringStartMarker = input.mark();
 	}
 	
 	protected int getLastStringStartMarker() {
@@ -101,6 +110,14 @@ options {
 		return allowSpecialSQLSep;
 	}
 	
+	protected void setInString(boolean inString) {
+		this.inString = inString;
+	}
+	
+	protected boolean isInString() {
+		return this.inString;
+	}
+	
 	/*
 	protected void mTokens() {
 		((LazyInputStream) input).buffer();
@@ -146,22 +163,22 @@ LINE_COMMENT
 	;
 
 STR_SQUOT
-@init { lastStringStartMarker = input.mark(); }
+@init { markStringStart(); }
 	:	'\''
 	;
 	
 STR_DQUOT
-@init { lastStringStartMarker = input.mark(); }
+@init { markStringStart(); }
 	:	'"'
 	;
 
 STR_BTICK
-@init { lastStringStartMarker = input.mark(); }
+@init { markStringStart(); }
 	:	'`'
 	;
 
 STR_QQUOT
-@init { lastStringStartMarker = input.mark(); }
+@init { markStringStart(); }
 	:	{allowQQuote}?=> ('N'|'n')? ('Q'|'q') '\''
 	;
 
@@ -170,7 +187,7 @@ STR_QQUOT
  *        the dollar appearing in the IDENTIFIER_SPECIAL rule.
  */
 STR_DOLQUOT
-@init { lastStringStartMarker = input.mark(); }
+@init { markStringStart(); }
 	:	{allowDollarQuote}?=> (DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR)
 	;
 

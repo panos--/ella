@@ -222,6 +222,8 @@ tokens {
 		// set our lexer as token source in the token stream again
 		tokens.replaceTokenSource(lexer);
 		
+		lexer.setInString(false);
+		
 		return tree;
 	}
 	
@@ -230,6 +232,7 @@ tokens {
 		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 		CharStream chars = lexer.getCharStream();
 		chars.release(lexer.getLastStringStartMarker());
+		lexer.setInString(false);
 	}
 }
 
@@ -959,6 +962,7 @@ stringLiteral
 	;
 
 sqlStringLiteral
+options { k = 1; }
 @init { CommonTree result = null; }
 	:	( {stringType.hasSingleQuote()}?	STR_SQUOT
 		| {stringType.hasDoubleQuote()}?	STR_DQUOT

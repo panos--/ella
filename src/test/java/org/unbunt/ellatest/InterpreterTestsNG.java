@@ -23,6 +23,13 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @Test
+    public void emptyStringLiteral() throws EllaParseException, EllaIOException, EllaException {
+        // NOTE: This is actually a parser test, but we run it to check the resulting value here.
+        Object result = eval(".'';");
+        assertEquals(result, "");
+    }
+
+    @Test
     public void blockScope() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
