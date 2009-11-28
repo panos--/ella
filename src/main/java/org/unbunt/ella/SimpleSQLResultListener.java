@@ -216,6 +216,12 @@ public class SimpleSQLResultListener implements SQLResultListener {
                 colWidths[i] = Math.max(lastWidth, currWidth);
             }
         }
+        for (int i = 0; i < colWidths.length; i++) {
+            int colWidth = colWidths[i];
+            if (colWidth == 0) {
+                colWidths[i] = 1;
+            }
+        }
 
         rs.beforeFirst();
 
