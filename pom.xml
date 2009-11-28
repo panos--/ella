@@ -193,7 +193,7 @@
                         <configuration>
                             <tasks>
                                 <copy todir="${basedir}/target/generated-sources/antlr3"
-                                        preservelastmodified="true" verbose="true">
+                                        preservelastmodified="true" verbose="true" failonerror="false">
                                     <fileset dir="${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler">
                                         <include name="*.tokens"/>
                                     </fileset>
