@@ -65,7 +65,8 @@ options {
 	}
 }
 
-string	:	start=SQUOT       { stringType = SQUOT; }   (content1+=singleQuoteContent)* endt=SQUOT		-> ^(STRING STRING_START[$start] $content1* STRING_END[$endt])
+string
+	:	start=SQUOT       { stringType = SQUOT; }   (content1+=singleQuoteContent)* endt=SQUOT		-> ^(STRING STRING_START[$start] $content1* STRING_END[$endt])
 	|	start=DQUOT       { stringType = DQUOT; }   (content2+=doubleQuoteContent)* endt=DQUOT		-> ^(STRING STRING_START[$start] $content2* STRING_END[$endt])
 	|	start=BTICK       { stringType = BTICK; }   (content3+=backTickContent)*    endt=BTICK		-> ^(STRING STRING_START[$start] $content3* STRING_END[$endt])
 	|	start=QQUOT_START { stringType = QQUOT; }   (content4+=unquotedContent)*    end=qQuoteEnd	-> ^(STRING STRING_START[$start] $content4* STRING_END[$end.token])

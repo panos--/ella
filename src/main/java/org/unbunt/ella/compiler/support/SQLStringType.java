@@ -7,10 +7,12 @@ import java.util.Map;
  * Defines various string syntax rules as well as rule dependent operations on strings.
  */
 public enum SQLStringType {
-    sql92(new SQLStringSyntaxRules(true, true, false, false, false)),
-    oracle(new SQLStringSyntaxRules(true, true, false, true, false), "ora"),
-    postgresql(new SQLStringSyntaxRules(true, true, false, false, true), "postgres", "pg"),
-    mysql(new SQLStringSyntaxRules(true, true, true, false, false));
+    _single(new SQLStringSyntaxRules(false, true, false, false, false), "single"),
+    _double (new SQLStringSyntaxRules(true, false, false, false, false), "double"),
+    sql92 (new SQLStringSyntaxRules(true, true, false, false, false)),
+    oracle (new SQLStringSyntaxRules(true, true, false, true, false), "ora"),
+    postgresql (new SQLStringSyntaxRules(true, true, false, false, true), "postgres", "pg"),
+    mysql (new SQLStringSyntaxRules(true, true, true, false, false));
 
     private final SQLStringSyntaxRules rules;
     private final String[] aliases;

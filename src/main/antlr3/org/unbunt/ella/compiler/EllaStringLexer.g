@@ -8,6 +8,7 @@ tokens {
 	STRING;
 	QUOTTED_IDENFITIER;
 	QQUOT;
+	QQUOT_END;
 	CHARS;
 	STRING_START;
 	STRING_CONTENT;
@@ -141,12 +142,14 @@ DQUOT
 
 SQUOT
 @after {
-	if (atStart) { quoteStyle = SQUOT; }
-	if (atStart) { atStart = false; }
-	
-	// handle qquote end delimiter
-	if (quoteStyle == QQUOT && matchQQuoteDelim((char)input.LT(-2))) {
-		// System.out.println("got qquote end");
+	if (atStart) {
+		quoteStyle = SQUOT;
+		atStart = false;
+	}
+	else if (quoteStyle == QQUOT && matchQQuoteDelim((char)input.LT(-2))) { // handle qquote end delimiter
+		// TODO: pull into separate lexer ruls guarded by semantic predicate
+		// TODO: this way we should be able to put ending delimiter into
+		// TODO: separate token without duplicating it.
 		if (lastToken == null) {
 			throw new RuntimeException("should not happen");
 		}
@@ -171,10 +174,6 @@ QQUOT_START
 	:	{atStart}?=> ('N'|'n')? ('Q'|'q') SQUOT delim=QQUOT_DELIM { quoteStyle = QQUOT; setQQuoteDelim($delim); }
 	;
 
-QQUOT_END
-	:	{false}?=> 'just to disable warning'
-	;
-
 fragment
 QQUOT_DELIM
 	:	~(' '|'\t'|'\n')
@@ -194,6 +193,7 @@ DOLQUOT
 	else {
 		input.rewind(marker);
 		char dollar = (char)input.LT(1);
+		input.consume();
 		state.text = "" + dollar;
 		state.type = CHAR;
 	}
@@ -214,7 +214,7 @@ DOLQUOT_TAG
 
 fragment
 DOLQUOT_TAG_START
-	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\uffff' | '_')
+	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\ufffd' | '_')
 	;
 
 fragment
@@ -240,5 +240,5 @@ WORD_CHAR
 	:	('a'..'z' | 'A'..'Z' | '_')
 	;
 
-CHAR	:	'\u0000'..'\uffff'
+CHAR	:	'\u0000'..'\ufffd'
 	;

@@ -1,1 +1,2 @@
-var sel := sql select :id;
+\set quotes=pg;
+select $x$foo$y$;

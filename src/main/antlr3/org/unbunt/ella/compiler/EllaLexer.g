@@ -5,6 +5,12 @@ options {
 	tokenVocab = EllaStringParser;
 }
 
+tokens {
+	STR_DOLQUOT;
+	INT;
+	FLOAT;
+}
+
 @lexer::header {
 	package org.unbunt.ella.compiler;
 
@@ -19,9 +25,12 @@ options {
 	
 	protected boolean inString = false;
 	protected int lastStringStartMarker = -1;
-	
-	protected boolean allowQQuote = false;
-	protected boolean allowDollarQuote = false;
+
+	protected boolean allowStringSingleQuote = true;	
+	protected boolean allowStringDoubleQuote = true;
+	protected boolean allowStringBacktick = false;
+	protected boolean allowStringQQuote = false;
+	protected boolean allowStringDollarQuote = false;
 	
 	protected boolean allowSpecialSQLSep = false;
 	
@@ -50,30 +59,61 @@ options {
 		lastStringStartMarker = input.mark();
 	}
 	
-	protected int getLastStringStartMarker() {
-		return lastStringStartMarker;
+	protected void rewindStringStart() {
+		assert lastStringStartMarker != -1;
+		input.rewind(lastStringStartMarker);
+		lastStringStartMarker = -1;
+		inString = false;
 	}
 	
-	protected void setLastStringStartMarker(int lastStringStartMarker) {
-		this.lastStringStartMarker = lastStringStartMarker;
+	protected void unmarkStringStart() {
+		if (lastStringStartMarker != -1) {
+			input.release(lastStringStartMarker);
+			lastStringStartMarker = -1;
+		}
+		inString = false;
 	}
-	
-	protected void setAllowQQuote(boolean allowQQuote) {
-		this.allowQQuote = allowQQuote;
-	}
-	
-	protected boolean isAllowQQuote() {
-		return allowQQuote;
-	}
-	
-	protected void setAllowDollarQuote(boolean allowDollarQuote) {
-		this.allowDollarQuote = allowDollarQuote;
-	}
-	
-	protected boolean isAllowDollarQuote() {
-		return allowDollarQuote;
-	}
-	
+
+    protected boolean isAllowStringSingleQuote() {
+        return allowStringSingleQuote;
+    }
+
+    protected void setAllowStringSingleQuote(boolean allowStringSingleQuote) {
+        this.allowStringSingleQuote = allowStringSingleQuote;
+    }
+
+    protected boolean isAllowStringDoubleQuote() {
+        return allowStringDoubleQuote;
+    }
+
+    protected void setAllowStringDoubleQuote(boolean allowStringDoubleQuote) {
+        this.allowStringDoubleQuote = allowStringDoubleQuote;
+    }
+
+    protected boolean isAllowStringBacktick() {
+        return allowStringBacktick;
+    }
+
+    protected void setAllowStringBacktick(boolean allowStringBacktick) {
+        this.allowStringBacktick = allowStringBacktick;
+    }
+
+    protected boolean isAllowStringQQuote() {
+        return allowStringQQuote;
+    }
+
+    protected void setAllowStringQQuote(boolean allowStringQQuote) {
+        this.allowStringQQuote = allowStringQQuote;
+    }
+
+    protected boolean isAllowStringDollarQuote() {
+        return allowStringDollarQuote;
+    }
+
+    protected void setAllowStringDollarQuote(boolean allowStringDollarQuote) {
+        this.allowStringDollarQuote = allowStringDollarQuote;
+    }
+
 	protected void setAllowAtSignInIdentifier(boolean allow) {
 		this.allowAtSignInIdentifier = allow;
 	}
@@ -117,14 +157,6 @@ options {
 	protected boolean isInString() {
 		return this.inString;
 	}
-	
-	/*
-	protected void mTokens() {
-		((LazyInputStream) input).buffer();
-		super.mTokens();
-		new Object().hashCode();
-	}
-	*/
 }
 
 // NOTE: handles nested comments
@@ -164,71 +196,39 @@ LINE_COMMENT
 
 STR_SQUOT
 @init { markStringStart(); }
-	:	'\''
+	:	{allowStringSingleQuote}?=> '\''
+	;
+SQUOT
+	:	{!allowStringSingleQuote}?=> '\'' { $type = IDENTIFIER; }
 	;
 	
 STR_DQUOT
 @init { markStringStart(); }
-	:	'"'
+	:	{allowStringDoubleQuote}?=> '"'
+	;
+DQUOT
+	:	{!allowStringDoubleQuote}?=> '"' { $type = IDENTIFIER; }
 	;
 
 STR_BTICK
 @init { markStringStart(); }
-	:	'`'
+	:	{allowStringBacktick}?=> '`'
+	;
+BTICK
+	:	{!allowStringBacktick}?=> '`' { $type = IDENTIFIER; }
 	;
 
 STR_QQUOT
 @init { markStringStart(); }
-	:	{allowQQuote}?=> ('N'|'n')? ('Q'|'q') '\''
+	:	{allowStringQQuote}?=> ('N'|'n')? ('Q'|'q') '\''
 	;
 
-/*
- * FIXME: The ANTLR lexer doesn't end up in this rule since it somehow prioritizes
- *        the dollar appearing in the IDENTIFIER_SPECIAL rule.
- */
-STR_DOLQUOT
-@init { markStringStart(); }
-	:	{allowDollarQuote}?=> (DDOLLAR | DOLLAR DOLQUOT_TAG DOLLAR)
-	;
-
-fragment
-DDOLLAR	:	'$$'
-	;
-
-fragment
-DOLLAR	:	'$'
-	;
-
-fragment
-DOLQUOT_TAG
-	:	DOLQUOT_TAG_START DOLQUOT_TAG_END*
-	;
-
-fragment
-DOLQUOT_TAG_START
-	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\ufffd' | '_') // NOTE: \uFFFE and \uFFFF aren't valid unicode characters
-	;
-
-fragment
-DOLQUOT_TAG_END
-	:	DOLQUOT_TAG_START
-	|	DIGIT
-	;
+// NOTE: Rules for parsing dollar quoted strings are embedded into IDENTIFIER rule
+//       (since dollar signs are part of the identifier syntax in the normal EllaScript syntax).
 
 NUMBER	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' DIGIT+ EXPONENT? { $type = FLOAT; }
 	|	DIGIT+ { $type = INT; }
 	;
-
-INT	:	{false}?=> 'just to disable warning about no lexer rule corresponding to INT';
-FLOAT	:	{false}?=> 'just to disable warning about no lexer rule corresponding to FLOAT';
-
-/*
-INT	:	DIGIT+
-	;
-
-FLOAT	:	(DIGIT+ '.' DIGIT)=> DIGIT+ '.' DIGIT+ EXPONENT?
-	;
-*/
 
 fragment
 EXPONENT:	('e'|'E') ('-'|'+')? DIGIT+
@@ -328,10 +328,6 @@ BACKSLASH
 	:	'\\'
 	;
 
-/*
- *
- */
-
 DOUBLE_ARROW
 	:	'=>'
 	;
@@ -421,14 +417,22 @@ DOT	:	'.'
 COMMA	:	','
 	;
 
-fragment
-SIMPLE_IDENTIFIER
-	:	(WORD_CHAR | '_') (WORD_CHAR | '_' | DIGIT)*
+IDENTIFIER
+	:	(WORD_CHAR | IDENTIFIER_SPECIAL_START) IDENTIFIER_REST*
+	|	{!allowAtSignInIdentifier && allowStringDollarQuote}?=>
+			{ markStringStart(); }
+			DOLQUOT_START
+			{ $type = STR_DOLQUOT; }
+	|	{allowAtSignInIdentifier || !allowStringDollarQuote}?=>
+			DOLLAR (DOLLAR | IDENTIFIER_REST)*
+	|	'.' '.'+
 	;
 
-IDENTIFIER
-	:	(WORD_CHAR | IDENTIFIER_SPECIAL_START) (WORD_CHAR | IDENTIFIER_SPECIAL | DIGIT)*
-	|	'.' '.'+
+fragment
+IDENTIFIER_REST
+	:	WORD_CHAR
+	|	IDENTIFIER_SPECIAL
+	|	DIGIT
 	;
 
 fragment
@@ -439,13 +443,43 @@ IDENTIFIER_SPECIAL_START
 		 * This predicate allows to disable at signs in identifiers when parsing sql literals.
 		 */
 		{allowAtSignInIdentifier}?=> '@'
-	|	'^'|'&'|'_'|'|'|DOLLAR
+	|	'^'|'&'|'_'|'|'
 	;
 
 fragment
 IDENTIFIER_SPECIAL
 	:	IDENTIFIER_SPECIAL_START
 	|	'!'|'?'
+	;
+
+fragment
+DOLQUOT_START
+	:	DDOLLAR
+	|	DOLLAR DOLQUOT_TAG DOLLAR
+	;
+
+fragment
+DDOLLAR	:	'$$'
+	;
+
+fragment
+DOLLAR	:	'$'
+	;
+
+fragment
+DOLQUOT_TAG
+	:	DOLQUOT_TAG_START DOLQUOT_TAG_END*
+	;
+
+fragment
+DOLQUOT_TAG_START
+	:	('A'..'Z' | 'a'..'z' | '\u0080'..'\ufffd' | '_') // NOTE: \uFFFE and \uFFFF aren't valid unicode characters
+	;
+
+fragment
+DOLQUOT_TAG_END
+	:	DOLQUOT_TAG_START
+	|	DIGIT
 	;
 
 SQL_SPECIAL_CHAR

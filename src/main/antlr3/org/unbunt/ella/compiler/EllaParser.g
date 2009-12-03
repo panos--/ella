@@ -73,6 +73,28 @@ tokens {
 	protected boolean parseSQLParams = false;
 	
 	/**
+	 * Initialize lexer establishing standard EllaScript syntax.
+	 */
+	protected void initLexer() {
+		LazyTokenStream tokens = (LazyTokenStream) input;
+		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
+		
+		// string syntax
+		lexer.setAllowStringSingleQuote(true);
+		lexer.setAllowStringDoubleQuote(true);
+		lexer.setAllowStringBacktick(false);
+		lexer.setAllowStringQQuote(false);
+		lexer.setAllowStringDollarQuote(false);
+		
+		// other state and behaviour
+		lexer.setInString(false);
+		lexer.setAllowAtSignInIdentifier(true);
+		lexer.setAllowEmbeddedVariables(true);
+		lexer.setIgnoreWhitespace(true);
+		lexer.setEscapeSeparators(false);
+	}
+	
+	/**
 	 * Entry point for parsing a complete EllaScript program.
 	 *
 	 * @return EllaParser.script_return the compiled script.
@@ -81,6 +103,7 @@ tokens {
 	 */
 	public EllaParser.script_return parseScript() throws EllaParseException {
 		try {
+			initLexer();
 			return script();
 		} catch (RecognitionException e) {
 			throw new EllaRecognitionException(e);
@@ -107,6 +130,7 @@ tokens {
 	 */
 	public EllaParser.scriptIncremental_return parseScriptIncremental() throws EllaParseException {
 		try {
+			initLexer();
 			return scriptIncremental();
 		} catch (RecognitionException e) {
 			throw new EllaRecognitionException(e);
@@ -203,7 +227,6 @@ tokens {
 		LazyTokenStream tokens = (LazyTokenStream) input;
 		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 		CharStream chars = lexer.getCharStream();
-		int lastStringStartMarker = lexer.getLastStringStartMarker();
 
 		// call string parser to handle the string
 		EllaStringLexer strLexer = new EllaStringLexer(chars);
@@ -211,8 +234,9 @@ tokens {
 		tokens.replaceTokenSource(strLexer);
 		EllaStringParser strParser = new EllaStringParser(tokens);
 		
-		// rewind input to string start
-		chars.rewind(lastStringStartMarker);
+		// rewind input to string start so that the string parser will see
+		// the token that introduces the string literal
+		lexer.rewindStringStart();
 
 		EllaStringParser.string_return result = strParser.string();
 		
@@ -222,17 +246,7 @@ tokens {
 		// set our lexer as token source in the token stream again
 		tokens.replaceTokenSource(lexer);
 		
-		lexer.setInString(false);
-		
 		return tree;
-	}
-	
-	protected void releaseStringStartMarker() {
-		LazyTokenStream tokens = (LazyTokenStream) input;
-		EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
-		CharStream chars = lexer.getCharStream();
-		chars.release(lexer.getLastStringStartMarker());
-		lexer.setInString(false);
 	}
 }
 
@@ -250,8 +264,8 @@ script
 	;
 
 scriptIncremental
-@init { enterBlock(); }
-@after { leaveBlock(); }
+//@init { enterBlock(); }
+//@after { leaveBlock(); }
 	:	topStatement
 	|	EOF { eof = true; }
 	;
@@ -766,8 +780,6 @@ sqlStmtName
 /*
  * Parser rule for that part of an SQL statement that follows after the initial introducer word.
  * Sets up the sql mode in the lexer. Because of backtracking this has to be done here, not earlier.
- * Therefore whitespace occurring directly after the introducer word has to be collected manually
- * via the sqlHiddenWS rule.
  *
  * TODO: Leave comments embedded in the statement intact (at least in oracle these can hold meta information
  *       relevant to the statement. Currently comments are kept intact only in the whitespace after
@@ -778,10 +790,16 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	LazyTokenStream tokens = (LazyTokenStream) input;
 	EllaLexer lexer = (EllaLexer) tokens.getTokenSource();
 
+	// Activate SQL mode in lexer
 	lexer.setIgnoreWhitespace(false);
-	lexer.setAllowQQuote(stringType.hasQQuote());
-	lexer.setAllowDollarQuote(stringType.hasDollarQuote());
 	lexer.setAllowAtSignInIdentifier(false);
+	
+	// Establish string syntax of chosen SQL dialect
+	lexer.setAllowStringSingleQuote(stringType.hasSingleQuote());
+	lexer.setAllowStringDoubleQuote(stringType.hasDoubleQuote());
+	lexer.setAllowStringBacktick(stringType.hasBackTick());
+	lexer.setAllowStringQQuote(stringType.hasQQuote());
+	lexer.setAllowStringDollarQuote(stringType.hasDollarQuote());
 	
 	// XXX: Hack - when reparsing an sql statement for named parameters
 	// XXX: characters might have been introduced by variable substituation
@@ -802,13 +820,23 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 		lexer.setEscapeSeparators(true);
 		lexer.setAllowSpecialSQLSep(true);
 	}
+	
+	lexer.unmarkStringStart();
+	tokens.discardLookAhead();
+	retval.start = input.LT(1);
 }
 @after {
-	lexer.setIgnoreWhitespace(true);
-	lexer.setAllowQQuote(false);
-	lexer.setAllowDollarQuote(false);
+	// Re-activate EllaScript mode in lexer
 	lexer.setAllowAtSignInIdentifier(true);
+	lexer.setIgnoreWhitespace(true);
 	lexer.setEscapeSeparators(false);
+	
+	// Restore EllaScript string syntax
+	lexer.setAllowStringSingleQuote(true);
+	lexer.setAllowStringDoubleQuote(true);
+	lexer.setAllowStringBacktick(false);
+	lexer.setAllowStringQQuote(false);
+	lexer.setAllowStringDollarQuote(false);
 	
 	if (sqlSlashLineSep) {
 		// NOTE: The SEP rule in the lexer disables the allowSpecialSQLSep after every
@@ -824,13 +852,13 @@ sqlStmtRest [ CommonTree sqlStmtName ]
 	tokens.discardLookAhead();
 }
 	:	// NOTE: EOF token required for named parameter parsing where separators are not generated
-		sqlHiddenWS sqlPart* EOF? -> ^(SQL
+		sqlWS* sqlPart* EOF? -> ^(SQL
 						// here we generate a special token in the result tree
 						// to which we attach any parse mode information.
 						// this iformation can be used later on, e.g. when reparsing
 						// for named parameters.
 						{adaptor.create(new SQLModeToken(SQL_MODE, new SQLParseMode(stringType)))}
-						{$sqlStmtName} sqlHiddenWS? sqlPart*)
+						{$sqlStmtName} sqlWS* sqlPart*)
 	;
 
 /*
@@ -848,7 +876,8 @@ sqlPart
 	|	LSQUARE ws1+=sqlWS* sqlPart* RSQUARE ws2+=sqlWS*	-> LSQUARE $ws1* sqlPart* RSQUARE $ws2*
 	;
 
-sqlWS	:	WS
+sqlWS
+	:	WS
 	|	NL
 	;
 
@@ -964,6 +993,14 @@ stringLiteral
 sqlStringLiteral
 options { k = 1; }
 @init { CommonTree result = null; }
+	:	( STR_SQUOT
+		| STR_DQUOT
+		| STR_BTICK
+		| STR_QQUOT
+		| STR_DOLQUOT
+		) { result = parseString(); } -> ^( {result} )
+	;
+	/*
 	:	( {stringType.hasSingleQuote()}?	STR_SQUOT
 		| {stringType.hasDoubleQuote()}?	STR_DQUOT
 		| {stringType.hasBackTick()}?		STR_BTICK
@@ -975,6 +1012,7 @@ options { k = 1; }
 		| {!stringType.hasBackTick()}?    STR_BTICK
 		) { releaseStringStartMarker(); }
 	;
+	*/
 
 booleanLiteral
 	:	KW_TRUE  -> TRUE
