@@ -158,7 +158,16 @@ public class SimpleSQLResultListener implements SQLResultListener {
                         currWidth = 6;
                         break;
                     case Types.OTHER:       // ?
-                        currWidth = "<UNKNOWN>".length();
+                        // PostgreSQL JDBC driver returns type OTHER for raw string literals.
+                        // In this cases the returned object is of type String, so we try and
+                        // check this, overriding the OTHER type in this case.
+                        Object other = rs.getObject(i);
+                        if (other != null && other instanceof String) {
+                            currWidth = ((String)other).length();
+                        }
+                        else {
+                            currWidth = "<UNKNOWN>".length();
+                        }
                         break;
                     case Types.JAVA_OBJECT: // Object
                         currWidth = rs.getObject(i).toString().length();
@@ -320,7 +329,14 @@ public class SimpleSQLResultListener implements SQLResultListener {
                         stringVal = "<NULL>";
                         break;
                     case Types.OTHER:       // ?
-                        stringVal = "<UNKNOWN>";
+                        // Work around PostgreSQL-specific behaviour (see above).
+                        Object other = rs.getObject(i);
+                        if (other != null && other instanceof String) {
+                            stringVal = (String) other;
+                        }
+                        else {
+                            stringVal = "<UNKNOWN>";
+                        }
                         break;
                     case Types.JAVA_OBJECT: // Object
                         stringVal = rs.getObject(i).toString();
