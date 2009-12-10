@@ -258,8 +258,8 @@ tokens {
 }
 
 script
-@init { enterBlock(); }
-@after { leaveBlock(); }
+//@init { enterBlock(); }
+//@after { leaveBlock(); }
 	:	topStatement* EOF
 	;
 
