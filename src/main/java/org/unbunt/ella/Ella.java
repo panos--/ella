@@ -227,7 +227,7 @@ public class Ella {
                     }
                 } catch (Exception e) {
                     System.err.println("ERROR: " + e.getMessage());
-                    e.printStackTrace();
+                    logger.debug(e.getMessage(), e);
                 }
 
                 // keep current statement buffer in case it was an incomplete statement
@@ -638,7 +638,7 @@ public class Ella {
         System.err.println(msg);
 
         if (e != null) {
-            e.printStackTrace();
+            logger.debug(msg, e);
         }
 
         System.exit(err);

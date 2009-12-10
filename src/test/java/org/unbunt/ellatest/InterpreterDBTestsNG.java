@@ -95,6 +95,48 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test
+    public void connectPostgresql() throws EllaParseException, EllaIOException, EllaException, SQLException {
+        Object result = eval(".ConnMgr.createFromProps(ARGV[0]);", propsPG());
+        Connection conn = ensureType(Connection.class, result);
+        conn.close();
+    }
+
+    @Test(dependsOnMethods = "connectPostgresql")
+    public void postgresqlStringSingleQuoted() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(".ConnMgr.createFromProps(ARGV[0]);" +
+                             ".(sql select 'foobar' as foo).first().foo;", propsPG());
+        assertEquals(result, "foobar");
+    }
+
+    @Test(dependsOnMethods = "connectPostgresql")
+    public void postgresqlStringDollarQuoted() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(".ConnMgr.createFromProps(ARGV[0]); " +
+                             "\\set quotes=pg; " +
+                             ".(sql select $$foo)bar$$ as foo).first().foo;",
+                             propsPG());
+        assertEquals(result, "foo)bar");
+    }
+
+    @Test(dependsOnMethods = "connectPostgresql")
+    public void postgresqlStringDollarQuotedTag() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(".ConnMgr.createFromProps(ARGV[0]); " +
+                             "\\set quotes=pg; " +
+                             ".(sql select $tag$foo)bar$tag$ as foo).first().foo;",
+                             propsPG());
+        assertEquals(result, "foo)bar");
+    }
+
+    @Test(dependsOnMethods = "connectPostgresql")
+    public void postgresqlStringDollarQuotedVarSubst() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(".ConnMgr.createFromProps(ARGV[0]); " +
+                             "\\set quotes=pg; " +
+                             "var foo := 'foobar'; " +
+                             ".(sql select $tag$foo@{foo})bar$tag$ as foo).first().foo;",
+                             propsPG());
+        assertEquals(result, "foofoobar)bar");
+    }
+
+    @Test
     public void connectOracle() throws EllaIOException, EllaParseException, SQLException, EllaException {
         Object result = eval(
                 String.format(".ConnMgr.createFromProps('%s', 'oracle');", propsOracle())
@@ -108,9 +150,47 @@ public class InterpreterDBTestsNG extends AbstractTest {
         eval(file("oracle-insert-select-simple"), propsOracle());
     }
 
-    @Test(dependsOnMethods = "connectOracle")
+    @Test(dependsOnMethods = "oracleInsertSelectSimple")
     public void oracleStmtFirst() throws EllaIOException, EllaException, EllaParseException {
         eval(file("oracle-stmt-first"), propsOracle());
+    }
+
+    @Test(dependsOnMethods = "oracleStmtFirst")
+    public void oracleQQuotedStringAlphaDelim() throws EllaParseException, EllaIOException, EllaException {
+        String code = ".ConnMgr.createFromProps(ARGV[0]); " +
+                      "\\set quotes=ora; " +
+                      ".(sql select q'Xfoo')barX' as str from dual).first().STR;";
+        Object result = eval(code, propsOracle());
+        assertEquals(result, "foo')bar");
+    }
+
+    @Test(dependsOnMethods = "oracleStmtFirst")
+    public void oracleQQuotedStringSquotDelim() throws EllaParseException, EllaIOException, EllaException {
+        String code = ".ConnMgr.createFromProps(ARGV[0]); " +
+                      "\\set quotes=ora; " +
+                      ".(sql select q''foo')bar'' as str from dual).first().STR;";
+        Object result = eval(code, propsOracle());
+        assertEquals(result, "foo')bar");
+    }
+
+    @Test(dependsOnMethods = "oracleStmtFirst")
+    public void oracleQQuotedStringCurlyDelim() throws EllaParseException, EllaIOException, EllaException {
+        String code = ".ConnMgr.createFromProps(ARGV[0]); " +
+                      "\\set quotes=ora; " +
+                      ".(sql select q'{x'xx''zz}yy@'}' as str from dual).first().STR;";
+        Object result = eval(code, propsOracle());
+        assertEquals(result, "x'xx''zz}yy@'");
+    }
+
+    @Test(dependsOnMethods = "oracleQQuotedStringCurlyDelim")
+    public void oracleQQuotedStringCurlyDelimVarSubst() throws EllaParseException, EllaIOException, EllaException {
+        String code = ".ConnMgr.createFromProps(ARGV[0]); " +
+                      "\\set quotes=ora; " +
+                      "var foo := 'foobar'; " +
+                      "var baz := 'qux';" +
+                      ".(sql select q'{x@{foo}'xx''zz@{baz}}yy@'}' as str from dual).first().STR;";
+        Object result = eval(code, propsOracle());
+        assertEquals(result, "xfoobar'xx''zzqux}yy@'");
     }
 
     @Test(dependsOnMethods = "connectOracle")

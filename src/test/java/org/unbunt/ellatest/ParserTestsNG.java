@@ -5,19 +5,20 @@ import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.Tree;
 import org.antlr.runtime.tree.TreeNodeStream;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 import static org.unbunt.ella.Ella.compile;
+import org.unbunt.ella.compiler.*;
 import org.unbunt.ella.compiler.antlr.LazyInputStream;
 import org.unbunt.ella.compiler.antlr.LazyTokenStream;
-import org.unbunt.ella.compiler.*;
-import org.unbunt.ella.exception.EllaIOException;
-import org.unbunt.ella.exception.EllaRecognitionException;
-import org.unbunt.ella.exception.EllaParseException;
-import org.unbunt.ella.exception.GenericParseException;
-import org.unbunt.ella.engine.corelang.RawSQLObj;
 import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.SQLParseMode;
 import org.unbunt.ella.compiler.support.SQLStringType;
+import org.unbunt.ella.engine.corelang.RawSQLObj;
+import org.unbunt.ella.exception.EllaIOException;
+import org.unbunt.ella.exception.EllaParseException;
+import org.unbunt.ella.exception.EllaRecognitionException;
+import org.unbunt.ella.exception.GenericParseException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -43,12 +44,31 @@ public class ParserTestsNG extends AbstractTest {
         compile("\\set quotes=mysql; select * from foo where bar = `foo)bla`;");
     }
 
-    /*
-     * FIXME: Disabled. Does currently not work. See comment in STR_DOLQUOT rule of EllaLexer.
-     */
-    @Test(enabled = false)
+    @Test
     public void sqlStringPostgresDollar() throws EllaIOException, EllaParseException {
-        compile("\\set quotes=pg; select * from foo where bar = $$bla)blubb$$ or baz = $xyz$foo}bar$xzy$;");
+        compile("\\set quotes=pg; select * from foo where bar = $$bla)blubb$$ or baz = $xyz$foo}bar$xyz$;");
+    }
+
+    @Test
+    public void sqlStringPostgresDollarUnterminated() throws EllaParseException, EllaIOException {
+        boolean success = false;
+
+        try {
+            compile("\\set quotes=pg; select $abc$foo)bar$def$;");
+        } catch (EllaParseException e) {
+            if (!e.isCausedBy(UnterminatedStringException.class)) {
+                throw e;
+            }
+            UnterminatedStringException use = e.getCause(UnterminatedStringException.class);
+            assertEquals(use.getStringType(), EllaStringParser.DOLQUOT,
+                         "UnterminatedStringException correctly thrown, " +
+                         "but with invalid string type - expected DOLQUOT");
+            success = true;
+        }
+
+        if (!success) {
+            assertTrue(false, "Unterminated dollar quoted string not correctly reported");
+        }
     }
 
     @Test

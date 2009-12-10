@@ -146,22 +146,12 @@ SQUOT
 		quoteStyle = SQUOT;
 		atStart = false;
 	}
-	else if (quoteStyle == QQUOT && matchQQuoteDelim((char)input.LT(-2))) { // handle qquote end delimiter
-		// TODO: pull into separate lexer ruls guarded by semantic predicate
-		// TODO: this way we should be able to put ending delimiter into
-		// TODO: separate token without duplicating it.
-		if (lastToken == null) {
-			throw new RuntimeException("should not happen");
-		}
-		// last emitted token contains our ending delimiter
-		Token t = lastToken;
-		t.setText(t.getText().substring(0, t.getText().length() - 1));
-		state.type = QQUOT_END;
-		state.text = ((char)input.LT(-2)) + "'";
-		state.tokenStartCharIndex--;
-		state.tokenStartCharPositionInLine--;
-	}
 }
+	:	{atStart || quoteStyle != QQUOT}?=> SQUOT_FRAG
+	;
+
+fragment
+SQUOT_FRAG
 	:	'\''
 	;
 
@@ -171,12 +161,34 @@ BTICK
 	;
 
 QQUOT_START
-	:	{atStart}?=> ('N'|'n')? ('Q'|'q') SQUOT delim=QQUOT_DELIM { quoteStyle = QQUOT; setQQuoteDelim($delim); }
+	:	{atStart}?=> ('N'|'n')? ('Q'|'q') SQUOT_FRAG delim=QQUOT_DELIM {
+			atStart = false;
+			quoteStyle = QQUOT;
+			setQQuoteDelim($delim);
+		}
+	;
+
+QQUOT_CONTENT
+	:	{quoteStyle == QQUOT}?=>
+		({!matchQQuoteDelim((char)input.LA(1)) || input.LA(2) != '\''}?=> ~'@')+ { $type = CHAR; }
+	;
+
+QQUOT_END
+	:	{quoteStyle == QQUOT && matchQQuoteDelim((char)input.LA(1))}?=> QQUOT_DELIM SQUOT_FRAG
 	;
 
 fragment
 QQUOT_DELIM
 	:	~(' '|'\t'|'\n')
+	;
+
+EMBVAR
+	:	{quoteStyle == QQUOT}?=>
+		( '@{' varname=VARNAME_FRAG '}' { state.text = $varname.text; }
+		| '@{}' { state.text = "@"; $type = CHAR; }
+		| '@{' { $type = CHAR; }
+		| '@' { $type = CHAR; }
+		)
 	;
 
 DOLQUOT
@@ -202,8 +214,10 @@ DOLQUOT
 	|	{atStart}?=> '$' stag=DOLQUOT_TAG '$'	{ dollarQuoteDelim = $stag.getText(); }
 			{ quoteStyle = DOLQUOT; matched = true; }
 	|	{!atStart}?=> {quoteStyle == DOLQUOT}?=> (
-			'$' etag=DOLQUOT_TAG '$'	{ endDelim = $etag.getText(); }
-			{ matched = endDelim == dollarQuoteDelim || (endDelim != null && endDelim.equals(dollarQuoteDelim)); }
+			'$' etag=DOLQUOT_TAG '$' {
+				endDelim = $etag.getText();
+				matched = endDelim != null && endDelim.equals(dollarQuoteDelim);
+			}
 		)
 	;
 
@@ -223,16 +237,25 @@ DOLQUOT_TAG_END
 	|	'0'..'9'
 	;
 
-ATSIGN	:	'@' { if (!allowEmbeddedVariables) { $type = CHAR; } }
+ATSIGN
+	:	{allowEmbeddedVariables && quoteStyle != QQUOT}?=> '@' //{ if (!allowEmbeddedVariables) { $type = CHAR; } }
 	;
 
-LCURLY	:	'{'
+LCURLY
+	:	{quoteStyle != QQUOT}?=> '{'
 	;
 
-RCURLY	:	'}'
+RCURLY
+	:	{quoteStyle != QQUOT}?=> '}'
 	;
 
-VARNAME	:	(WORD_CHAR) (WORD_CHAR | '0'..'9')*
+VARNAME
+	:	{quoteStyle != QQUOT}?=> VARNAME_FRAG
+	;
+
+fragment
+VARNAME_FRAG
+	:	(WORD_CHAR) (WORD_CHAR | '0'..'9')*
 	;
 
 fragment
@@ -240,5 +263,5 @@ WORD_CHAR
 	:	('a'..'z' | 'A'..'Z' | '_')
 	;
 
-CHAR	:	'\u0000'..'\ufffd'
+CHAR:	'\u0000'..'\ufffd'
 	;

@@ -42,7 +42,9 @@ public abstract class LazyLexer extends Lexer {
             int bufOffs = in.buffer();
             try {
                 mTokens();
-                state.text = in.substring(state.tokenStartCharIndex, getCharIndex()-1);
+                if (state.text == null) {
+                    state.text = in.substring(state.tokenStartCharIndex, getCharIndex()-1);
+                }
                 if ( state.token==null ) {
                     emit();
                 }
