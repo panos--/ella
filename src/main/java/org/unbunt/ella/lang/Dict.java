@@ -96,7 +96,8 @@ public class Dict extends AbstractObj {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Dict thiz = ensureType(Dict.class, context);
                 Obj slot = args[0];
-                return thiz.value.getSlot(engine.getContext(), slot);
+                Obj value = thiz.value.getSlot(engine.getContext(), slot);
+                return value == null ? engine.getObjNull() : value;
             }
         };
 

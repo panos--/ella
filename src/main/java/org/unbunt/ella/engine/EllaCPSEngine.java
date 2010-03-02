@@ -691,6 +691,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         Obj[] args = ((Args) val).args;
         try {
             Obj result = nativeCont.getNative().call(this, context, args);
+            // Native functions are allowed to return null to indicate preservation of the current value to be desired
             if (result != null) {
                 val = result;
             }
