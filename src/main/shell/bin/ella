@@ -2,10 +2,31 @@
 
 ME="$0"
 MYDIR="`dirname "$ME"`"
-APPDIR="`dirname "$MYDIR"`"
-JAR="$APPDIR/dist/Ella.jar"
+
+set -e
+
+ME="$0"
+BINDIR="`dirname "$ME"`"
+
+case "$BINDIR" in
+	/*) ;;
+	*)
+		cd "$BINDIR"
+		BINDIR="$PWD"
+		cd -
+	;;
+esac
+
+APPDIR="`dirname "$BINDIR"`"
+JAR="$APPDIR/libexec/ella-${project.version}.jar"
+LIBDIR="$APPDIR/lib"
+
+CP="$JAR"
+for i in "$LIBDIR"/*.jar; do
+	CP="$CP:$i"
+done
 
 # request interactive mode if stdin is a tty
 test -t 0 && opt_int=-I || opt_int=
 
-exec java $JAVA_OPTS -jar "$JAR" $opt_int "$@"
+exec java $JAVA_OPTS -cp "$CP" org.unbunt.ella.Ella $opt_int "$@"

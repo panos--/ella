@@ -36,6 +36,8 @@
         <include>LICENSE*</include>
         <include>NOTICE*</include>
       </includes>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
     </fileSet>
     <fileSet>
       <directory>${project.build.directory}</directory>
@@ -43,14 +45,18 @@
       <includes>
         <include>*.jar</include>
       </includes>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
     </fileSet>
     <fileSet>
       <directory>${project.build.directory}/site</directory>
       <outputDirectory>docs</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/src/main/shell</directory>
+      <directory>${project.basedir}/target/filtered-sources/shell</directory>
       <outputDirectory>/</outputDirectory>
+      <fileMode>0755</fileMode>
+      <directoryMode>0755</directoryMode>
     </fileSet>
   </fileSets>
   <dependencySets>
@@ -59,6 +65,8 @@
       <unpack>false</unpack>
       <scope>runtime</scope>
       <useProjectArtifact>false</useProjectArtifact>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
     </dependencySet>
   </dependencySets>
 </assembly>
