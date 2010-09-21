@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/shell" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/antlr3" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.git" />
       <excludeFolder url="file://$MODULE_DIR$/target/archive-tmp" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/ella-0.1-SNAPSHOT-bin" />
@@ -23,15 +24,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
-      <library name="org.antlr:antlr-runtime:3.2-SNAPSHOT">
+      <library name="org.antlr:antlr-runtime:3.2">
         <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2-SNAPSHOT/antlr-runtime-3.2-SNAPSHOT.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2-SNAPSHOT/antlr-runtime-3.2-SNAPSHOT-javadoc.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2-SNAPSHOT/antlr-runtime-3.2-SNAPSHOT-sources.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -295,6 +296,7 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Unnamed" level="project" />
     <orderEntryProperties />
   </component>
 </module>

@@ -18,7 +18,7 @@
             <!-- NOTE: Version 3.1.3 would suffice but it has to be in sync with the antlr3-maven-plugin -->
             <groupId>org.antlr</groupId>
             <artifactId>antlr-runtime</artifactId>
-            <version>3.2-SNAPSHOT</version>
+            <version>3.2</version>
         </dependency>
         <dependency>
             <groupId>args4j</groupId>
@@ -177,7 +177,7 @@
                 -->
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr3-maven-plugin</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2</version>
                 <configuration>
                     <!--<sourceDirectory>${basedir}/src/main/antlr3/org/unbunt/ella/compiler</sourceDirectory>-->
                     <!--<outputDirectory>${basedir}/target/generated-sources/antlr3/org/unbunt/ella/compiler</outputDirectory>-->
@@ -408,11 +408,13 @@
 
     <pluginRepositories>
         <!-- for antlr3-maven-plugin -->
+        <!--
         <pluginRepository>
             <id>antlr-snapshot</id>
             <name>ANTLR Testing Snapshot Repository</name>
             <url>http://antlr.org/antlr-snapshot</url>
         </pluginRepository>
+        -->
         <!-- not nessessary, but we leave it here for reference -->
         <!--
         <pluginRepository>
@@ -425,18 +427,22 @@
 
     <repositories>
         <!-- for antlr-runtime in a version matching the one of the antlr3-maven-plugin -->
+        <!--
         <repository>
             <id>antlr-snapshot</id>
             <name>ANTLR Testing Snapshot Repository</name>
             <url>http://antlr.org/antlr-snapshot</url>
             <snapshots>
                 <enabled>true</enabled>
+                -->
                 <!--<updatePolicy>always</updatePolicy>-->
+                <!--
             </snapshots>
             <releases>
                 <enabled>false</enabled>
             </releases>
         </repository>
+        -->
         <repository>
             <id>local</id>
             <name>Local</name>
