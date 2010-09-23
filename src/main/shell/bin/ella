@@ -1,19 +1,27 @@
 #!/bin/sh
 
-ME="$0"
-MYDIR="`dirname "$ME"`"
-
 set -e
 
 ME="$0"
-BINDIR="`dirname "$ME"`"
+REAL_ME="$ME"
+
+while [ -h "$REAL_ME" ]; do
+	LINK_TARGET="`readlink "$REAL_ME"`"
+	case "$LINK_TARGET" in
+		/*) ;;
+		*) LINK_TARGET="`dirname "$REAL_ME"`/$LINK_TARGET"
+	esac
+	REAL_ME="$LINK_TARGET"
+done
+
+BINDIR="`dirname "$REAL_ME"`"
 
 case "$BINDIR" in
 	/*) ;;
 	*)
 		cd "$BINDIR"
 		BINDIR="$PWD"
-		cd -
+		cd - >/dev/null
 	;;
 esac
 
