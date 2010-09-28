@@ -6,16 +6,20 @@ endif
 
 syn case match
 
+syn match ellaIdentifier "[a-zA-Z_][a-zA-Z0-9_]*" contained
+
 syn keyword ellaStatement sql SQL return exit
 syn keyword ellaConditional if else break continue
-syn keyword ellaRepeat for while
+syn keyword ellaRepeat while
 syn keyword ellaException try catch finally throw
 syn keyword ellaInclude include import as
 syn keyword ellaBoolean true false
 syn keyword ellaConstant null
 syn keyword ellaTypedef this super
 syn keyword ellaOperator new
-syn keyword ellaStorageClass var fun
+
+syn keyword ellaRepeat for nextgroup=ellaIdentifier skipwhite skipempty
+syn keyword ellaStorageClass var fun nextgroup=ellaIdentifier skipwhite skipempty
 
 EllaHiLink ellaStatement Statement
 EllaHiLink ellaConditional Conditional
@@ -27,3 +31,4 @@ EllaHiLink ellaConstant Constant
 EllaHiLink ellaTypedef Typedef
 EllaHiLink ellaOperator Operator
 EllaHiLink ellaStorageClass StorageClass
+EllaHiLink ellaIdentifier Identifier
