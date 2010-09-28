@@ -430,4 +430,9 @@ public class InterpreterTestsNG extends AbstractTest {
     public void dict() throws EllaParseException, EllaIOException, EllaException {
         eval(file("dict"));
     }
+
+    @Test
+    public void stringProto() throws EllaParseException, EllaIOException, EllaException {
+        eval(file("string-proto"));
+    }
 }

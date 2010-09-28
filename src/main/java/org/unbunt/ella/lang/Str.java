@@ -47,6 +47,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_cloneInit = toSym("cloneInit");
     public static final Str SYM_close = toSym("close");
     public static final Str SYM_commit = toSym("commit");
+    public static final Str SYM_cr = toSym("cr");
     public static final Str SYM_create = toSym("create");
     public static final Str SYM_createFromProps = toSym("createFromProps");
     public static final Str SYM_createStmt = toSym("createStmt");
@@ -60,6 +61,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_explicitSlot = toSym("explicitSlot");
     public static final Str SYM_finish = toSym("finish");
     public static final Str SYM_first = toSym("first");
+    public static final Str SYM_fromCharCode = toSym("fromCharCode");
     public static final Str SYM_get = toSym("get");
     public static final Str SYM_getQueryString = toSym("getQueryString");
     public static final Str SYM_has = toSym("has");
@@ -77,10 +79,13 @@ public class Str extends AbstractObj {
     public static final Str SYM_join = toSym("join");
     public static final Str SYM_key = toSym("key");
     public static final Str SYM_length = toSym("length");
+    public static final Str SYM_lf = toSym("lf");
     public static final Str SYM_loop = toSym("loop");
     public static final Str SYM_map = toSym("map");
     public static final Str SYM_neg = toSym("neg");
     public static final Str SYM_new = toSym("new");
+    public static final Str SYM_nl = toSym("nl");
+    public static final Str SYM_crlf = toSym("crlf");
     public static final Str SYM_noop = toSym("noop");
     public static final Str SYM_not = toSym("not");
     public static final Str SYM_numValue = toSym("numValue");
@@ -212,6 +217,8 @@ public class Str extends AbstractObj {
      * Represents the implicit parent object for Str objects.
      */
     public static class StrProto extends AbstractObj implements NativeObj {
+        protected static final String NEWLINE = System.getProperty("line.separator");
+
         protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
                 return new Str(args[0].toString());
@@ -225,6 +232,14 @@ public class Str extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeFromCharCode = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                NNumeric codeObj = ObjUtils.ensureType(NNumeric.class, args[0]);
+                int code = codeObj.intValue();
+                return new Str(Character.toString((char) code));
+            }
+        };
+
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         public int getObjectID() {
@@ -232,7 +247,12 @@ public class Str extends AbstractObj {
         }
 
         protected StrProto() {
+            slots.put(SYM_lf, Str.toSym("\n"));
+            slots.put(SYM_cr, Str.toSym("\r"));
+            slots.put(SYM_crlf, Str.toSym("\r\n"));
+            slots.put(SYM_nl, Str.toSym(NEWLINE));
             slots.put(SYM__plus, nativeAdd);
+            slots.put(SYM_fromCharCode, nativeFromCharCode);
         }
 
         /**
