@@ -197,6 +197,23 @@ public class NNum extends AbstractObj implements NNumeric {
         return OBJECT_ID;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        NNum nNum = (NNum) o;
+
+        return value == nNum.value;
+    }
+
+    public int hashCode() {
+        return (int) (value ^ (value >>> 32));
+    }
+
     /**
      * Registers this EllaScript object within the given execution context.
      *

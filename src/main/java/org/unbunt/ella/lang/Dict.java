@@ -9,6 +9,7 @@ import org.unbunt.ella.exception.LoopBreakException;
 import org.unbunt.ella.engine.context.Context;
 
 import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Represents an EllaScript object wrapping another EllaScript object for use as associative array.
@@ -134,6 +135,37 @@ public class Dict extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeMap = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Dict thiz = ensureType(Dict.class, context);
+                Clos clos = ensureType(Clos.class, args[0]);
+                Obj _null = engine.getObjNull();
+
+                Map<Obj, Obj> slots = thiz.value.getSlots();
+                Dict result = new Dict(new PlainObj());
+                Map<Obj, Obj> resultSlots = result.value.getSlots();
+                for (Map.Entry<Obj, Obj> entry : slots.entrySet()) {
+                    try {
+                        resultSlots.put(entry.getKey(),
+                                        engine.invokeInLoop(clos, _null, entry.getKey(), entry.getValue()));
+                    } catch (LoopContinueException e) {
+                        continue;
+                    } catch (LoopBreakException e) {
+                        break;
+                    }
+                }
+
+                return result;
+            }
+        };
+
+        public static final NativeCall nativeValues = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Dict thiz = ensureType(Dict.class, context);
+                return new Lst(new ArrayList<Obj>(thiz.value.getSlots().values()));
+            }
+        };
+
         // NOTE: this is added to Base, not DictProto
         protected static final NativeCall nativeToDict = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -144,6 +176,8 @@ public class Dict extends AbstractObj {
         private DictProto() {
             slots.put(Str.SYM_each, nativeEach);
             slots.put(Str.SYM_size, nativeSize);
+            slots.put(Str.SYM_map, nativeMap);
+            slots.put(Str.SYM_values, nativeValues);
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
             slots.put(Str.SYM_has, nativeHas);

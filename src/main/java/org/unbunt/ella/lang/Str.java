@@ -115,6 +115,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_type = toSym("type");
     public static final Str SYM_update = toSym("update");
     public static final Str SYM_valueOf = toSym("valueOf");
+    public static final Str SYM_values = toSym("values");
     public static final Str SYM_whileTrue = toSym("whileTrue");
     public static final Str SYM_with = toSym("with");
     public static final Str SYM_withNamed = toSym("withNamed");

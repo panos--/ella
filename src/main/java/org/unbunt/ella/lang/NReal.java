@@ -286,6 +286,25 @@ public class NReal extends AbstractObj implements NNumeric {
         return OBJECT_ID;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        NReal nReal = (NReal) o;
+
+        return Double.compare(nReal.value, value) == 0;
+    }
+
+    public int hashCode() {
+        long temp = value != +0.0d
+                    ? Double.doubleToLongBits(value)
+                    : 0L;
+        return (int) (temp ^ (temp >>> 32));
+    }
 
     /**
      * Registers this EllaScript object within the given execution context.

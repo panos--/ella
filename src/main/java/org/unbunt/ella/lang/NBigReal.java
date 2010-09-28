@@ -211,6 +211,25 @@ public class NBigReal extends AbstractObj implements NNumeric {
         return OBJECT_ID;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        NBigReal nBigReal = (NBigReal) o;
+
+        return value == null
+               ? nBigReal.value == null
+               : value.equals(nBigReal.value);
+    }
+
+    public int hashCode() {
+        return value == null ? 0 : value.hashCode();
+    }
+
     /**
      * Registers this EllaScript object within the given execution context.
      *
