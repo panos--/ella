@@ -425,4 +425,9 @@ public class InterpreterTestsNG extends AbstractTest {
         Object result = evalIncremental(file("incremental-env-retain"));
         assertEquals(result, new ArrayList<Object>());
     }
+
+    @Test
+    public void dict() throws EllaParseException, EllaIOException, EllaException {
+        eval(file("dict"));
+    }
 }

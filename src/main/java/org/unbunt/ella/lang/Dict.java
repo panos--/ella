@@ -67,7 +67,7 @@ public class Dict extends AbstractObj {
 
         protected static final NativeCall NATIVE_CONSTRUCTOR = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
-                return new Dict(args[0]);
+                return new Dict(args.length == 0 ? new PlainObj() : args[0]);
             }
         };
 
@@ -89,6 +89,13 @@ public class Dict extends AbstractObj {
                 }
 
                 return null;
+            }
+        };
+
+        protected static final NativeCall nativeSize = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Dict thiz = ensureType(Dict.class, context);
+                return new NNum(thiz.value.getSlots().size());
             }
         };
 
@@ -136,6 +143,7 @@ public class Dict extends AbstractObj {
 
         private DictProto() {
             slots.put(Str.SYM_each, nativeEach);
+            slots.put(Str.SYM_size, nativeSize);
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_set, nativeSet);
             slots.put(Str.SYM_has, nativeHas);

@@ -31,3 +31,24 @@ var objDict := obj.toDict();
 for (k,v : objDict) {
 	print("k=@{k} v=@{v}");
 }
+
+-- And now for the real unit tests...
+
+fun assert(actual, expected, msg) {
+	if (expected != actual) {
+		throw "assertion failed: @{msg}: expected=@{expected} actual=@{actual}";
+	}
+}
+
+{
+    var d;
+
+    var d = new Dict();
+    assert(d.size(), 0, 'd.size(), 0');
+    d['foo'] = 'bar';
+    d['baz'] = 'qux';
+    assert(d.size(), 2, 'd.size(), 2');
+    d['bla'] = 'fasel';
+    assert(d.size(), 3, 'd.size(), 3');
+    print('dict tests passed');
+}
