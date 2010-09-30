@@ -1,7 +1,12 @@
-if (foo {=> }) {
+if ({=> true; }.eval()) {
+	sql {
+		select * from foo;
+		{
+			select * from foo;
+		}
+	}
 }
-
-fun foo() {
+fun foo(foo, bar, bla, blubb) {
     select foo from bar;
     sql {
         select foo from bar;
@@ -13,6 +18,7 @@ fun foo() {
     }
     select foo from bar;
 }
+select * from foo;
 
 for foo() {
     sql {
