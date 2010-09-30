@@ -1,3 +1,8 @@
+
+var baz := fun () {
+	{
+	}
+};
 if ({=> true; }.eval()) {
 	sql {
 		select * from foo;
@@ -19,6 +24,7 @@ fun foo(foo, bar, bla, blubb) {
     select foo from bar;
 }
 select * from foo;
+var foo := 'foo';
 
 for foo() {
     sql {

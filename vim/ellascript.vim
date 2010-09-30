@@ -21,6 +21,11 @@ syn keyword ellaOperator new
 syn keyword ellaRepeat for nextgroup=ellaIdentifier skipwhite skipempty
 syn keyword ellaStorageClass var fun nextgroup=ellaIdentifier skipwhite skipempty
 
+syn region ellaSingleQuoteString matchgroup=String start="'" end="'"
+syn region ellaDoubleQuoteString matchgroup=String start=/"/ end=/"/
+
+syn cluster ellaConstants contains=ellaSingleQuoteString,ellaDoubleQuoteString
+
 EllaHiLink ellaStatement Statement
 EllaHiLink ellaConditional Conditional
 EllaHiLink ellaRepeat Repeat
@@ -32,3 +37,5 @@ EllaHiLink ellaTypedef Typedef
 EllaHiLink ellaOperator Operator
 EllaHiLink ellaStorageClass StorageClass
 EllaHiLink ellaIdentifier Identifier
+EllaHiLink ellaSingleQuoteString String
+EllaHiLink ellaDoubleQuoteString String
