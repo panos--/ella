@@ -125,6 +125,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_with = toSym("with");
     public static final Str SYM_withNamed = toSym("withNamed");
     public static final Str SYM_withPrepared = toSym("withPrepared");
+    public static final Str SYM_withResult = toSym("withResult");
 
     /**
      * The wrapped value.

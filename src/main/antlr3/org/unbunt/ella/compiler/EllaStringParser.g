@@ -74,21 +74,21 @@ string
 	;
 
 singleQuoteContent
-	:	(SQUOT SQUOT)=> q=SQUOT SQUOT	-> STRING_CONTENT[$q]
+	:	(SQUOT SQUOT)=> esc=SQUOT q=SQUOT	-> STRING_ESCAPE[$esc] STRING_CONTENT[$q]
 	|	genericContent
 	|	q=DQUOT				-> STRING_CONTENT[$q]
 	|	q=BTICK				-> STRING_CONTENT[$q]
 	;
 
 doubleQuoteContent
-	:	(DQUOT DQUOT)=> q=DQUOT DQUOT	-> STRING_CONTENT[$q]
+	:	(DQUOT DQUOT)=> esc=DQUOT q=DQUOT	-> STRING_ESCAPE[$esc] STRING_CONTENT[$q]
 	|	genericContent
 	|	q=SQUOT				-> STRING_CONTENT[$q]
 	|	q=BTICK				-> STRING_CONTENT[$q]
 	;
 
 backTickContent
-	:	(BTICK BTICK)=> q=BTICK BTICK	-> STRING_CONTENT[$q]
+	:	(BTICK BTICK)=> esc=BTICK q=BTICK	-> STRING_ESCAPE[$esc] STRING_CONTENT[$q]
 	|	genericContent
 	|	q=SQUOT				-> STRING_CONTENT[$q]
 	|	q=DQUOT				-> STRING_CONTENT[$q]

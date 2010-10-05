@@ -617,18 +617,20 @@ keyword returns [ String value ]
 	;
 
 stringLiteral returns [ StringLiteral value ]
-@init { List<Object> parts = new ArrayList<Object>(); }
-	:	^(STRING start=STRING_START
-			( str=STRING_CONTENT    { parts.add($str.text); }
-			| var=embeddedVarRef { parts.add($var.value); }
+@init { $value = new StringLiteral(); }
+	:	^(STRING start=STRING_START  { $value.setStartDelim($start.text); }
+			( esc=STRING_ESCAPE  { $value.add(new StringEscape($esc.text)); }
+			| str=STRING_CONTENT { $value.add($str.text); }
+			| var=embeddedVarRef { $value.add($var.value); }
 			)*
-			end=STRING_END)
-		{ $value = new StringLiteral($start.text, $end.text, parts); }
+			end=STRING_END { $value.setEndDelim($end.text); })
 	;
 
 identifierStringLiteral returns [ StringLiteral value ]
-@init { List<Object> parts = new ArrayList<Object>(); }
-	:	id=identifier { parts.add($id.value); $value = new StringLiteral("'", "'", parts); }
+	:	id=identifier {
+			$value = new StringLiteral("'", "'");
+			$value.add($id.value);
+		}
 	;
 
 booleanLiteral returns [ boolean value ]

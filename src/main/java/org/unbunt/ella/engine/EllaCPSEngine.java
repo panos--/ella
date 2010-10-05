@@ -12,6 +12,8 @@ import org.unbunt.ella.engine.continuations.*;
 import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.engine.environment.Env;
 import org.unbunt.ella.engine.environment.StaticEnv;
+import org.unbunt.ella.engine.environment.EnvVariableInterpolator;
+import org.unbunt.ella.engine.environment.EscapingVariableInterpolator;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.*;
 import org.unbunt.ella.utils.StringUtils;
@@ -46,6 +48,8 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     protected EllaCPSEngine(Context context) {
         this.context = context;
         this.env = context.getEnv();
+        this.envVariableInterpolator = new EnvVariableInterpolator(env);
+        this.escapingVariableInterpolator = new EscapingVariableInterpolator(envVariableInterpolator);
     }
 
     /**
@@ -61,6 +65,9 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     protected Statement stmt;
     protected Obj val;
     protected Env env;
+
+    protected final EnvVariableInterpolator envVariableInterpolator;
+    protected final EscapingVariableInterpolator escapingVariableInterpolator;
 
     protected final static boolean CONT = true;
     protected final static boolean EVAL = false;
@@ -203,7 +210,8 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
             buf.append(str);
         }
 
-        val = new Str(buf.toString());
+        envVariableInterpolator.setEnv(env);
+        val = new Str(stringLiteral.toString(envVariableInterpolator));
         next = CONT;
     }
 
@@ -214,24 +222,14 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
 
         SQLParseMode parseMode = sqlLiteralExpression.getParseMode();
         SQLStringType stringType = parseMode.getStringType();
+        envVariableInterpolator.setEnv(env);
+        escapingVariableInterpolator.setStringType(stringType);
 
         StringBuilder buf = new StringBuilder();
         for (Object part : sqlLiteralExpression.getParts()) {
             if (part instanceof StringLiteral) {
                 StringLiteral string = (StringLiteral) part;
-                String strStartDelim = string.getStartDelim();
-                String strEndDelim = string.getEndDelim();
-                buf.append(strStartDelim);
-                for (Object strPart : ((StringLiteral) part).getParts()) {
-                    if (strPart instanceof Variable) {
-                        String strValue = env.get((Variable)strPart).toString();
-                        buf.append(stringType.escape(strValue, strStartDelim));
-                    }
-                    else {
-                        buf.append(strPart.toString());
-                    }
-                }
-                buf.append(strEndDelim);
+                buf.append(string.toSource(escapingVariableInterpolator));
             }
             else if (part instanceof Variable) {
                 // TODO: For non-string values (Str) we should possibly evaluate the object's toString() slot

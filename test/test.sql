@@ -1,1 +1,1 @@
-select 'foo' as foo;
+select 'foo''bar' as foo from dual;

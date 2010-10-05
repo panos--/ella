@@ -499,6 +499,28 @@ public class Stmt extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeWithResult = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Stmt thiz = ensureType(Stmt.class, context);
+                Obj closure = args[0];
+                Null _null = engine.getObjNull();
+                try {
+                    ResultSet rs = thiz.query();
+                    ResSet resSet = new ResSet(rs);
+                    engine.invoke(closure, _null, resSet);
+                } catch (SQLException e) {
+                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                } finally {
+                    try {
+                        thiz.close();
+                    } catch (SQLException ignored) {
+                    }
+                }
+
+                return null;
+            }
+        };
+
         // NOTE: This has to be improved. Result should be wrapped into special object.
         protected static final NativeCall nativeFirst = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
@@ -693,6 +715,7 @@ public class Stmt extends AbstractObj {
             slots.put(Str.SYM_batch, nativeBatch);
             slots.put(Str.SYM_batchNamed, nativeBatchNamed);
             slots.put(Str.SYM_withPrepared, nativeWithPrepared);
+            slots.put(Str.SYM_withResult, nativeWithResult);
             slots.put(Str.SYM_getQueryString, nativeGetQueryString);
         }
 
