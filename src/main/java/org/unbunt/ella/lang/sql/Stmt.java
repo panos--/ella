@@ -439,7 +439,6 @@ public class Stmt extends AbstractObj {
                         int updateCount = thiz.getStatement().getUpdateCount();
                         engine.notifyUpdateCount(updateCount);
                     }
-
                 } catch (SQLException e) {
                     throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {

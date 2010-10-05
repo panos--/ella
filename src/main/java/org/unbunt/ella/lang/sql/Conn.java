@@ -95,7 +95,10 @@ public class Conn extends AbstractObj {
                     return engine.getObjNull();
                 }
                 else {
-                    Stmt stmt = new Stmt(rawStmt, thiz.connection, true);
+                    Stmt stmt = new Stmt(rawStmt, thiz.connection, thiz.keepResources);
+                    if (thiz.keepResources) {
+                        thiz.managedStatements.add(stmt);
+                    }
                     return engine.invokeSlot(stmt, Str.SYM_do);
                 }
             }
