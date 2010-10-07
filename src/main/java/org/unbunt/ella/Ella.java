@@ -30,6 +30,7 @@ import org.unbunt.ella.resource.FilesystemResourceLoader;
 import org.unbunt.ella.resource.SimpleResource;
 import org.unbunt.ella.resource.StringResource;
 import static org.unbunt.ella.utils.StringUtils.join;
+import org.unbunt.ella.utils.StmtBatch;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -706,53 +707,65 @@ public class Ella {
             scriptArgs = new String[0];
         }
 
-        DriverManagerDataSource ds = null;
-        if (pargs.url != null && pargs.properties != null) {
-            usage(parser);
-        }
-        try {
-            if (pargs.properties != null) {
-                ds = DBUtils.createDataSourceFromProps(pargs.properties, pargs.user, pargs.pass, pargs.driver);
-            }
-            else if (pargs.url != null) {
-                ds = DBUtils.createDataSource(pargs.url, pargs.user, pargs.pass, pargs.driver);
-            }
-        } catch (DBConnectionFailedException e) {
-            die("Could not connect database: " + e.getMessage());
-        }
-
-        Connection conn = null;
-        if (ds != null) {
-            try {
-                conn = ds.getConnection();
-            } catch (SQLException e) {
-                die("Could not connect database: " + e.getMessage());
-            }
-        }
-
         try {
             FilesystemResourceLoader loader = new FilesystemResourceLoader();
             SimpleResource script = file == null ? loader.getStdinResource() : loader.getResource(file);
 
             DefaultContext context = new DefaultContext(scriptArgs);
-            if (conn != null) {
-                context.getObjConnMgr().activate(conn);
-            }
-            context.addSQLResultListener(new SimpleSQLResultListener(System.out));
-
             Ella ella = new Ella(context, script);
+
+            if (pargs.verbose) {
+                // TODO: Provide functionality
+            }
+
             if (pargs.compile) {
                 ella.compile();
+                return;
             }
-            else {
-                if (pargs.verbose) {
-                    // TODO: Provide functionality
+            else if (pargs.ast) {
+                ella.showAST();
+                return;
+            }
+
+            DriverManagerDataSource ds = null;
+            if (pargs.url != null && pargs.properties != null) {
+                usage(parser);
+            }
+            try {
+                if (pargs.properties != null) {
+                    ds = DBUtils.createDataSourceFromProps(pargs.properties, pargs.user, pargs.pass, pargs.driver);
                 }
+                else if (pargs.url != null) {
+                    ds = DBUtils.createDataSource(pargs.url, pargs.user, pargs.pass, pargs.driver);
+                }
+            } catch (DBConnectionFailedException e) {
+                die("Could not connect database: " + e.getMessage());
+            }
+
+            Connection conn = null;
+            if (ds != null) {
+                try {
+                    conn = ds.getConnection();
+                } catch (SQLException e) {
+                    die("Could not connect database: " + e.getMessage());
+                }
+            }
+
+            try {
+                StmtBatch batch = null;
+                if (conn != null) {
+                    if (pargs.batch > 1) {
+                        batch = new StmtBatch(conn, pargs.batch);
+                        context.getObjConnMgr().activate(conn, batch);
+                    }
+                    else {
+                        context.getObjConnMgr().activate(conn);
+                    }
+                }
+                context.addSQLResultListener(new SimpleSQLResultListener(System.out));
+
                 if (pargs.interactive) {
                     ella.executeInteractive();
-                }
-                else if (pargs.ast) {
-                    ella.showAST();
                 }
                 else if (pargs.large) {
                     ella.executeIncremental();
@@ -760,7 +773,16 @@ public class Ella {
                 else {
                     ella.execute();
                 }
+
+                if (batch != null) {
+                    batch.finish();
+                }
+            } finally {
+                try { if (conn != null) { conn.close(); } }
+                catch (Exception ignored) {}
             }
+        } catch (SQLException e) {
+            die(e.getMessage(), e, 2);
         } catch (EllaIOException e) {
             die(e.getMessage(), e, 2);
         } catch (EllaParseException e) {
@@ -797,6 +819,9 @@ public class Ella {
 
         @Option(name = "-large", usage = "optimize for large files")
         public boolean large = false;
+
+        @Option(name = "-batch", usage = "activate batch mode with the given size")
+        public int batch = 0;
 
         @Option(name = "-c", usage = "compile only")
         public boolean compile = false;

@@ -6,10 +6,10 @@ import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.compiler.support.RawSQL;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.utils.StmtBatch;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +34,18 @@ public class Conn extends AbstractObj {
      */
     public Conn(Connection connection) {
         this.connection = connection;
+    }
+
+    /**
+     * Creates a new Conn object wrapping the given connection that is started in batch mode.
+     *
+     * @param connection the connection to wrap.
+     * @param batch the batch processor.
+     */
+    public Conn(Connection connection, StmtBatch batch) {
+        this.connection = connection;
+        this.batchStmt = batch;
+        this.batchActive = true;
     }
 
     protected void enterManagedMode() {
@@ -154,6 +166,7 @@ public class Conn extends AbstractObj {
                 if (thiz.batchActive) {
                     System.err.println("Warning: Batch execution already activated.");
                     engine.invoke(closure, engine.getObjNull());
+                    return null;
                 }
 
                 ConnMgr mgr = engine.getObjConnMgr();
@@ -343,42 +356,4 @@ public class Conn extends AbstractObj {
         }
     }
 
-    /**
-     * TODO: Observer notification on batch execution
-     */
-    protected static class StmtBatch {
-        protected Statement statement;
-        protected int batchSize;
-        protected int currentBatchSize = 0;
-
-        public StmtBatch(Statement statement, int batchSize) {
-            this.statement = statement;
-            this.batchSize = batchSize;
-        }
-
-        public void add(String query) throws SQLException {
-            statement.addBatch(query);
-            if (++currentBatchSize % batchSize == 0) {
-                execute();
-                currentBatchSize = 0;
-            }
-        }
-
-        public void finish() throws SQLException {
-            if (currentBatchSize == 0) {
-                return;
-            }
-
-            execute();
-        }
-
-        public void close() throws SQLException {
-            statement.close();
-        }
-
-        protected void execute() throws SQLException {
-            statement.executeBatch();
-        }
-
-    }
 }

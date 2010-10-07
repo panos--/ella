@@ -10,6 +10,7 @@ import org.unbunt.ella.exception.EllaRuntimeException;
 import org.unbunt.ella.lang.Base;
 import org.unbunt.ella.lang.NullImpl;
 import org.unbunt.ella.lang.Str;
+import org.unbunt.ella.utils.StmtBatch;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -202,6 +203,10 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
         return activate(new Conn(connection));
     }
 
+    public Obj activate(Connection connection, StmtBatch batch) {
+        return activate(new Conn(connection, batch));
+    }
+
     /**
      * Activates the given connection.
      *
@@ -209,6 +214,7 @@ public class ConnMgrImpl extends AbstractObj implements ConnMgr {
      * @return the values previously associated with the active connection slot in the ConnMgr object
      */
     public Obj activate(Obj conn) {
+        assert conn != null;
         return slots.put(Str.SYM_active, conn);
     }
 

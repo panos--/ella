@@ -1,5 +1,7 @@
 package org.unbunt.ella.engine.corelang;
 
+import org.unbunt.ella.utils.StmtBatch;
+
 import java.sql.Connection;
 import java.util.Set;
 
@@ -14,6 +16,15 @@ public interface ConnMgr extends Obj {
      * @return the previously active connection.
      */
     Obj activate(Connection connection);
+
+    /**
+     * Activates the given connection in batch mode.
+     *
+     * @param connection the connection to activate.
+     * @param batch the batch processor.
+     * @return the previously active connection.
+     */
+    Obj activate(Connection connection, StmtBatch batch);
 
     /**
      * Activates the given connection.
