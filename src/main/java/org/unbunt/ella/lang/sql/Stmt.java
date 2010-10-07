@@ -270,7 +270,14 @@ public class Stmt extends AbstractObj {
         if (param != null
             || !(wrappedParam instanceof Null)
             || (typeHint = ((Null) wrappedParam).getTypeHint()) == null) {
-            preparedStatement.setObject(idx, param);
+            if (param instanceof java.util.Date) {
+                // the oracle jdbc driver throws an exception when passing a java.util.Date object to setObject()...
+                // so we take care of this here.
+                preparedStatement.setTimestamp(idx, new Timestamp(((java.util.Date) param).getTime()));
+            }
+            else {
+                preparedStatement.setObject(idx, param);
+            }
             return;
         }
 

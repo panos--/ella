@@ -3,6 +3,7 @@ package org.unbunt.ella.utils;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -21,8 +22,8 @@ import java.math.BigDecimal;
 public class ResultSetPrinter {
     protected final PrintStream out;
 
-    public ResultSetPrinter(PrintStream out) {
-        this.out = out;
+    public ResultSetPrinter(OutputStream out) {
+        this.out = new PrintStream(out);
     }
 
     /**
@@ -108,7 +109,13 @@ public class ResultSetPrinter {
                     case Types.NUMERIC:     // BigDecimal
                     case Types.DECIMAL: {   // BigDecimal
                         BigDecimal val = rs.getBigDecimal(i);
-                        currWidth = String.format("%g", val).length();
+                        int scale = val.scale();
+                        if (scale <= 0) {
+                            currWidth = String.format("%d", val.toBigIntegerExact()).length();
+                        }
+                        else {
+                            currWidth = String.format("%g", val).length();
+                        }
                         break;
                     }
                     case Types.CHAR:        // String
@@ -280,7 +287,13 @@ public class ResultSetPrinter {
                     case Types.NUMERIC:     // BigDecimal
                     case Types.DECIMAL: {   // BigDecimal
                         BigDecimal val = rs.getBigDecimal(i);
-                        out.printf(" %" + colWidth + "g |", val);
+                        int scale = val.scale();
+                        if (scale <= 0) {
+                            out.printf(" %" + colWidth + "d |", val.toBigIntegerExact());
+                        }
+                        else {
+                            out.printf(" %" + colWidth + "g |", val);
+                        }
                         break;
                     }
                     case Types.CHAR:        // String
