@@ -2,6 +2,8 @@ package org.unbunt.ella.lang;
 
 import org.unbunt.ella.exception.ClosureTerminatedException;
 import org.unbunt.ella.exception.EllaRuntimeException;
+import org.unbunt.ella.exception.LoopBreakException;
+import org.unbunt.ella.exception.LoopContinueException;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.context.Context;
@@ -59,8 +61,36 @@ public class Args extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeSize = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Args thiz = ensureType(Args.class, context);
+                return new NNum(thiz.args.length);
+            }
+        };
+
+        protected static final NativeCall nativeEach = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Args thiz = ensureType(Args.class, context);
+                Obj clos = args[0];
+
+                for (Obj arg : thiz.args) {
+                    try {
+                        engine.invokeInLoop(clos, engine.getObjNull(), arg);
+                    } catch (LoopBreakException e) {
+                        break;
+                    } catch (LoopContinueException e) {
+                        continue;
+                    }
+                }
+
+                return null;
+            }
+        };
+
         private ArgsProto() {
             slots.put(Str.SYM_get, nativeGet);
+            slots.put(Str.SYM_size, nativeSize);
+            slots.put(Str.SYM_each, nativeEach);
         }
 
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
