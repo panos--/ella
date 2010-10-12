@@ -12,6 +12,8 @@ import org.unbunt.ella.engine.context.Context;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Represents an EllaScript object wrapping a JDBC ResultSet.
@@ -186,9 +188,30 @@ public class ResSet extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeValues = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                ResSet thiz = ensureType(ResSet.class, context);
+                Context ctx = engine.getContext();
+
+                try {
+                    ResultSet rs = thiz.resultSet;
+                    ResultSetMetaData metaData = rs.getMetaData();
+                    int ncols = metaData.getColumnCount();
+                    List<Obj> values = new ArrayList<Obj>(ncols);
+                    for (int i = 1; i <= ncols; i++) {
+                        values.add(NativeWrapper.wrap(ctx, rs.getObject(i)));
+                    }
+                    return new Lst(values);
+                } catch (SQLException e) {
+                    throw new EllaRuntimeException(e);
+                }
+            }
+        };
+
         private ResSetProto() {
             slots.put(Str.SYM_get, nativeGet);
             slots.put(Str.SYM_each, nativeEach);
+            slots.put(Str.SYM_values, nativeValues);
             slots.put(Str.SYM_update, nativeUpdate);
             slots.put(Str.SYM_insert, nativeInsert);
         }

@@ -43,6 +43,10 @@ public class Lst extends AbstractObj {
         this.value = wrappedList;
     }
 
+    public List<Obj> getValue() {
+        return value;
+    }
+
     @SuppressWarnings({"CastToConcreteClass"})
     public boolean equals(Object o) {
         if (this == o) return true;

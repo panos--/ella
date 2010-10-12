@@ -36,6 +36,7 @@ public class Str extends AbstractObj {
     public static final Str SYM__logic_not = toSym("!");
     public static final Str SYM_add = toSym("add");
     public static final Str SYM_addAll = toSym("addAll");
+    public static final Str SYM_addParams = toSym("addParams");
     public static final Str SYM_activate = toSym("activate");
     public static final Str SYM_active = toSym("active");
     public static final Str SYM_associateConnection = toSym("associateConnection");
@@ -93,6 +94,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_noop = toSym("noop");
     public static final Str SYM_not = toSym("not");
     public static final Str SYM_numValue = toSym("numValue");
+    public static final Str SYM_onAfterExecute = toSym("onAfterExecute");
     public static final Str SYM_parent = toSym("parent");
     public static final Str SYM_print = toSym("print");
     public static final Str SYM_raise = toSym("raise");
@@ -130,6 +132,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_whileTrue = toSym("whileTrue");
     public static final Str SYM_with = toSym("with");
     public static final Str SYM_withNamed = toSym("withNamed");
+    public static final Str SYM_withParams = toSym("withParams");
     public static final Str SYM_withPrepared = toSym("withPrepared");
     public static final Str SYM_withResult = toSym("withResult");
 

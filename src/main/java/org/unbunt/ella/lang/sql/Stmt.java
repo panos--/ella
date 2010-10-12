@@ -9,10 +9,7 @@ import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.*;
-import org.unbunt.ella.lang.Base;
-import org.unbunt.ella.lang.NativeWrapper;
-import org.unbunt.ella.lang.PlainObj;
-import org.unbunt.ella.lang.Str;
+import org.unbunt.ella.lang.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -630,6 +627,16 @@ public class Stmt extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeWithParams = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Stmt thiz = ensureType(Stmt.class, context);
+                Lst params = ensureType(Lst.class, args[0]);
+                List<Obj> paramsList = params.getValue();
+                thiz.setParams(paramsList.toArray(new Obj[paramsList.size()]));
+                return thiz;
+            }
+        };
+
         protected static final NativeCall nativeWithNamed = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Stmt thiz = ensureType(Stmt.class, context);
@@ -652,7 +659,7 @@ public class Stmt extends AbstractObj {
                     thiz.initPrepared();
                     ParamBatch batch = new ParamBatch(thiz, batchSize);
                     engine.invoke(closure, engine.getObjNull(), batch);
-                    batch.finish();
+                    engine.invokeSlot(batch, Str.SYM_finish);
                 } catch (SQLException e) {
                     throw new EllaRuntimeException("Batch execution failed: " + e, e);
                 } finally {
@@ -733,6 +740,7 @@ public class Stmt extends AbstractObj {
             slots.put(Str.SYM_eachKey, nativeEachKey);
             slots.put(Str.SYM_key, nativeKey);
             slots.put(Str.SYM_with, nativeWith);
+            slots.put(Str.SYM_withParams, nativeWithParams);
             slots.put(Str.SYM_withNamed, nativeWithNamed);
             slots.put(Str.SYM_batch, nativeBatch);
             slots.put(Str.SYM_batchNamed, nativeBatchNamed);
@@ -763,15 +771,58 @@ public class Stmt extends AbstractObj {
         protected Stmt stmt;
         protected int batchSize;
         protected int currentBatchSize = 0;
+        protected int executedStatements = 0;
+
+        protected boolean addBatch(Obj[] params) throws SQLException {
+            this.stmt.addBatch(params);
+            if (++this.currentBatchSize % this.batchSize == 0) {
+                this.stmt.execBatch();
+                this.executedStatements += this.currentBatchSize;
+                this.currentBatchSize = 0;
+                return true;
+            }
+            return false;
+        }
+
+        protected boolean finish() throws SQLException {
+            if (currentBatchSize == 0) {
+                return false;
+            }
+
+            stmt.execBatch();
+            this.executedStatements += this.currentBatchSize;
+            this.currentBatchSize = 0;
+            return true;
+        }
 
         protected static NativeCall nativeAdd = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 ParamBatch thiz = ensureType(ParamBatch.class, context);
                 try {
-                    thiz.stmt.addBatch(args);
-                    if (++thiz.currentBatchSize % thiz.batchSize == 0) {
-                        thiz.stmt.execBatch();
-                        thiz.currentBatchSize = 0;
+                    if (thiz.addBatch(args)) {
+                        Obj execCallback = thiz.getSlot(engine.getContext(), Str.SYM_onAfterExecute);
+                        if (execCallback != null) {
+                            engine.invoke(execCallback, engine.getObjNull(), new NNum(thiz.executedStatements));
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new EllaRuntimeException(e);
+                }
+                return thiz;
+            }
+        };
+
+        protected static NativeCall nativeAddParams = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                ParamBatch thiz = ensureType(ParamBatch.class, context);
+                Lst params = ensureType(Lst.class, args[0]);
+                List<Obj> paramsList = params.getValue();
+                try {
+                    if (thiz.addBatch(paramsList.toArray(new Obj[paramsList.size()]))) {
+                        Obj execCallback = thiz.getSlot(engine.getContext(), Str.SYM_onAfterExecute);
+                        if (execCallback != null) {
+                            engine.invoke(execCallback, engine.getObjNull(), new NNum(thiz.executedStatements));
+                        }
                     }
                 } catch (SQLException e) {
                     throw new EllaRuntimeException(e);
@@ -784,7 +835,12 @@ public class Stmt extends AbstractObj {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 ParamBatch thiz = ensureType(ParamBatch.class, context);
                 try {
-                    thiz.finish();
+                    if (thiz.finish()) {
+                        Obj execCallback = thiz.getSlot(engine.getContext(), Str.SYM_onAfterExecute);
+                        if (execCallback != null) {
+                            engine.invoke(execCallback, engine.getObjNull(), new NNum(thiz.executedStatements));
+                        }
+                    }
                 } catch (SQLException e) {
                     throw new EllaRuntimeException(e);
                 }
@@ -796,15 +852,8 @@ public class Stmt extends AbstractObj {
             this.stmt = stmt;
             this.batchSize = batchSize;
             slots.put(Str.SYM_add, nativeAdd);
+            slots.put(Str.SYM_addParams, nativeAddParams);
             slots.put(Str.SYM_finish, nativeFinish);
-        }
-
-        protected void finish() throws SQLException {
-            if (currentBatchSize == 0) {
-                return;
-            }
-
-            stmt.execBatch();
         }
     }
 
@@ -828,6 +877,7 @@ public class Stmt extends AbstractObj {
         public NamedParamBatch(Stmt stmt, int batchSize) {
             super(stmt, batchSize);
             slots.put(Str.SYM_add, nativeAdd);
+            slots.put(Str.SYM_addParams, nativeAdd);
         }
     }
 

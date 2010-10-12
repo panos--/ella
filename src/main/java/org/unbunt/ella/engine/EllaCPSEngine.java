@@ -904,7 +904,9 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     }
 
     public boolean toBoolean(Obj value) {
-        return context.getObjTrue().equals(value) || (!(value instanceof Bool) && !(value instanceof Null));
+        return value != null
+               && context.getObjTrue().equals(value)
+               || (!(value instanceof Bool) && !(value instanceof Null));
     }
 
     public void finish() {
