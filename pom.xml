@@ -12,7 +12,14 @@
     <url>http://maven.apache.org</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.finalVersion>${project.version}-r${buildNumber}</project.finalVersion>
     </properties>
+    <scm>
+      <connection>scm:git:http://localhost/dummy</connection>
+      <developerConnection>scm:git:http://localhost/dummy</developerConnection>
+      <tag>HEAD</tag>
+      <url>http://localhost/dummy</url>
+    </scm>
     <dependencies>
         <dependency>
             <!-- NOTE: Version 3.1.3 would suffice but it has to be in sync with the antlr3-maven-plugin -->
@@ -110,6 +117,8 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}-${project.finalVersion}</finalName>
+
         <resources>
             <resource>
                 <directory>src/main/shell</directory>
@@ -117,10 +126,17 @@
                 <targetPath>../filtered-sources/shell</targetPath>
             </resource>
             <resource>
+                <directory>src/main/java</directory>
+                <filtering>true</filtering>
+                <targetPath>../filtered-sources/java</targetPath>
+            </resource>
+            <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
+
+        <sourceDirectory>target/filtered-sources/java</sourceDirectory>
 
 <!--
         <filters>
@@ -382,6 +398,30 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <!-- official version -->
+                <!--<version>1.0-beta-4</version>-->
+                <!-- Inpofficial fork with git support from http://github.com/astubbs/buildnumber-maven-plugin -->
+                <version>1.0-beta-5-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <!--<format>{0}</format>-->
+                    <!--<items>-->
+                        <!--<item>timestamp</item>-->
+                    <!--</items>-->
+                </configuration>
             </plugin>
         </plugins>
     </build>

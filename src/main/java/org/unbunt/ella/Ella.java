@@ -48,6 +48,9 @@ import java.util.List;
 public class Ella {
     protected static Log logger = LogFactory.getLog(Ella.class);
 
+    public static final String NAME = "${pom.artifactId}";
+    public static final String VERSION = "${project.finalVersion}";
+
     protected Context context;
     protected SimpleResource script;
     protected String scriptName;
@@ -654,6 +657,8 @@ public class Ella {
     }
 
     protected static void usage(CmdLineParser parser) {
+        version();
+        System.err.println();
         System.err.println("usage: Ella [-url|-props] OPTION... {-i | [-large] [FILE]} [ARG]...");
         parser.printUsage(System.err);
         System.err.println();
@@ -664,6 +669,10 @@ public class Ella {
             System.err.println(join((Object[])driver.getDriverClasses()));
         }
         System.exit(1);
+    }
+
+    protected static void version() {
+        System.err.println(NAME + " " + VERSION);
     }
 
     /**
@@ -683,6 +692,11 @@ public class Ella {
 
         if (pargs.showUsage) {
             usage(parser);
+        }
+
+        if (pargs.showVersion) {
+            version();
+            System.exit(0);
         }
 
         String file = pargs.args.isEmpty() ? null : pargs.args.get(0);
@@ -839,6 +853,9 @@ public class Ella {
          */
         @Option(name = "-I")
         public boolean possiblyInteractive = false;
+
+        @Option(name = "-version", usage = "show version number")
+        public boolean showVersion = false;
 
         @Argument
         public List<String> args = new ArrayList<String>();
