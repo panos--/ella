@@ -1,9 +1,9 @@
-fun get_last_month() {
-    import java.util.Calendar;
+var srcConn := ConnMgr.createFromProps(ARGV[0]);
+var dstConn := ConnMgr.createFromProps(ARGV[1]);
 
-    var cal := Calendar.instance;
-    cal.set(Calendar.MONTH.toInteger(), (cal.get(Calendar.MONTH.toInteger()) - 1).toInteger());
-    cal.set(Calendar.DAY_OF_MONTH.toInteger(), cal.getActualMaximum(Calendar.DAY_OF_MONTH.toInteger()).toInteger());
-
-    return cal;
+fun withConnDo(conn, stmt) {
+    stmt.associateConnection(conn).do();
 }
+
+.withConnDo(srcConn, (sql select synonym_name from user_synonyms));
+.withConnDo(dstConn, (sql select synonym_name from user_synonyms));

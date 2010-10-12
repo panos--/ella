@@ -69,6 +69,10 @@ public class Conn extends AbstractObj {
         }
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     @Override
     public int getObjectID() {
         return OBJECT_ID;

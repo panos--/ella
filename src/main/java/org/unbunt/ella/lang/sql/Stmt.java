@@ -407,6 +407,13 @@ public class Stmt extends AbstractObj {
         return statement != null ? statement : preparedStatement;
     }
 
+    protected void setConnection(Connection connection) {
+        if (this.initialized) {
+            throw new EllaRuntimeException("Cannot set connection. Statement is already initialized.");
+        }
+        this.connection = connection;
+    }
+
     @Override
     public int getObjectID() {
         return OBJECT_ID;
@@ -702,6 +709,15 @@ public class Stmt extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeAssociateConnection = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Stmt thiz = ensureType(Stmt.class, context);
+                Conn conn = ensureType(Conn.class, args[0]);
+                thiz.setConnection(conn.getConnection());
+                return thiz;
+            }
+        };
+
         protected static final NativeCall nativeGetQueryString = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Stmt thiz = ensureType(Stmt.class, context);
@@ -722,6 +738,7 @@ public class Stmt extends AbstractObj {
             slots.put(Str.SYM_batchNamed, nativeBatchNamed);
             slots.put(Str.SYM_withPrepared, nativeWithPrepared);
             slots.put(Str.SYM_withResult, nativeWithResult);
+            slots.put(Str.SYM_associateConnection, nativeAssociateConnection);
             slots.put(Str.SYM_getQueryString, nativeGetQueryString);
         }
 

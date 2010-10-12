@@ -15,6 +15,7 @@
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/dependency-maven-plugin-markers" />
       <excludeFolder url="file://$MODULE_DIR$/target/ella-0.1-SNAPSHOT-bin" />
+      <excludeFolder url="file://$MODULE_DIR$/target/ella-0.1-SNAPSHOT-r180d119-bin" />
       <excludeFolder url="file://$MODULE_DIR$/target/ella-0.1-SNAPSHOT-r5adaa32-bin" />
       <excludeFolder url="file://$MODULE_DIR$/target/filtered-sources" />
       <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />

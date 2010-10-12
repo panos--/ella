@@ -6,6 +6,7 @@ import org.unbunt.ella.engine.context.Context;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Locale;
 
 /**
  * Represents an EllaScript object wrapping <code>String</code> values.
@@ -37,12 +38,14 @@ public class Str extends AbstractObj {
     public static final Str SYM_addAll = toSym("addAll");
     public static final Str SYM_activate = toSym("activate");
     public static final Str SYM_active = toSym("active");
+    public static final Str SYM_associateConnection = toSym("associateConnection");
     public static final Str SYM_batch = toSym("batch");
     public static final Str SYM_batchNamed = toSym("batchNamed");
     public static final Str SYM_begin = toSym("begin");
     public static final Str SYM_bigNumValue = toSym("bigNumValue");
     public static final Str SYM_bigRealValue = toSym("bigRealValue");
     public static final Str SYM_call = toSym("call");
+    public static final Str SYM_charAt = toSym("charAt");
     public static final Str SYM_clone = toSym("clone");
     public static final Str SYM_cloneInit = toSym("cloneInit");
     public static final Str SYM_close = toSym("close");
@@ -113,7 +116,9 @@ public class Str extends AbstractObj {
     public static final Str SYM_toFloat = toSym("toFloat");
     public static final Str SYM_toInteger = toSym("toInteger");
     public static final Str SYM_toLong = toSym("toLong");
+    public static final Str SYM_toLower = toSym("toLower");
     public static final Str SYM_toShort = toSym("toShort");
+    public static final Str SYM_toUpper = toSym("toUpper");
     public static final Str SYM_tryCatch = toSym("tryCatch");
     public static final Str SYM_tryCatchFinally = toSym("tryCatchFinally");
     public static final Str SYM_tryFinally = toSym("tryFinally");
@@ -234,6 +239,35 @@ public class Str extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeLength = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ObjUtils.ensureType(Str.class, context);
+                return new NNum(thiz.value.length());
+            }
+        };
+
+        protected static final NativeCall nativeCharAt = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ObjUtils.ensureType(Str.class, context);
+                NNumeric index = ObjUtils.ensureType(NNumeric.class, args[0]);
+                return new Str("" + thiz.value.charAt(index.intValue()));
+            }
+        };
+
+        protected static final NativeCall nativeToUpper = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ObjUtils.ensureType(Str.class, context);
+                return new Str(thiz.value.toUpperCase());
+            }
+        };
+
+        protected static final NativeCall nativeToLower = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ObjUtils.ensureType(Str.class, context);
+                return new Str(thiz.value.toLowerCase());
+            }
+        };
+
         protected static final NativeCall nativeFromCharCode = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
                 NNumeric codeObj = ObjUtils.ensureType(NNumeric.class, args[0]);
@@ -254,6 +288,10 @@ public class Str extends AbstractObj {
             slots.put(SYM_crlf, Str.toSym("\r\n"));
             slots.put(SYM_nl, Str.toSym(NEWLINE));
             slots.put(SYM__plus, nativeAdd);
+            slots.put(SYM_length, nativeLength);
+            slots.put(SYM_charAt, nativeCharAt);
+            slots.put(SYM_toUpper, nativeToUpper);
+            slots.put(SYM_toLower, nativeToLower);
             slots.put(SYM_fromCharCode, nativeFromCharCode);
         }
 
