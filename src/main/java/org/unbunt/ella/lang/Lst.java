@@ -287,6 +287,27 @@ public class Lst extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeFilter = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Lst thiz = ensureType(Lst.class, context);
+                Obj trueObj = engine.getObjTrue();
+                Obj call = args[0];
+                Lst result = new Lst(thiz.value.size());
+                for (Obj obj : thiz.value) {
+                    try {
+                        if (trueObj.equals(engine.invokeInLoop(call, thiz, obj))) {
+                            result.value.add(obj);
+                        }
+                    } catch (LoopBreakException e) {
+                        break;
+                    } catch (LoopContinueException e) {
+                        continue;
+                    }
+                }
+                return result;
+            }
+        };
+
         private LstProto() {
             slots.put(Str.SYM_clone, nativeClone);
             slots.put(Str.SYM_get, nativeGet);
@@ -298,6 +319,7 @@ public class Lst extends AbstractObj {
             slots.put(Str.SYM_each, nativeEach);
             slots.put(Str.SYM_join, nativeJoin);
             slots.put(Str.SYM_map, nativeMap);
+            slots.put(Str.SYM_filter, nativeFilter);
         }
 
         public Call getNativeConstructor() {

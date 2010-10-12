@@ -125,18 +125,18 @@
                 <filtering>true</filtering>
                 <targetPath>../filtered-sources/shell</targetPath>
             </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <filtering>true</filtering>
-                <targetPath>../filtered-sources/java</targetPath>
-            </resource>
+            <!--<resource>-->
+                <!--<directory>src/main/java</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<targetPath>../filtered-sources/java</targetPath>-->
+            <!--</resource>-->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
 
-        <sourceDirectory>target/filtered-sources/java</sourceDirectory>
+        <!--<sourceDirectory>target/filtered-sources/java</sourceDirectory>-->
 
 <!--
         <filters>

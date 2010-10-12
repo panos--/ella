@@ -384,6 +384,10 @@ public class InterpreterTestsNG extends AbstractTest {
         assertEquals(result, expected);
     }
 
+    public void arrayFilter() throws EllaParseException, EllaIOException, EllaException {
+        eval(file("array-filter"));
+    }
+
     @SuppressWarnings({"ConstantConditions"})
     @Test
     public void exceptions() throws EllaIOException, EllaParseException {
