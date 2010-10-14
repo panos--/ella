@@ -88,8 +88,12 @@ public class Stmt extends AbstractObj {
     }
 
     protected boolean execute() throws SQLException {
+        return execute(false);
+    }
+
+    protected boolean execute(boolean scrollable) throws SQLException {
         if (paramed) {
-            initPrepared();
+            initPrepared(scrollable);
             addParams();
             logger.info(getParamedQuery());
             boolean isResult;
@@ -100,7 +104,7 @@ public class Stmt extends AbstractObj {
             return isResult;
         }
         else {
-            init();
+            init(scrollable);
             logger.info(rawStatement.getStatement());
             boolean isResult;
             Date t1 = new Date();
@@ -113,12 +117,12 @@ public class Stmt extends AbstractObj {
 
     protected ResultSet query() throws SQLException {
         if (paramed) {
-            initPrepared();
+            initPrepared(false);
             addParams();
             return preparedStatement.executeQuery();
         }
         else {
-            init();
+            init(false);
             return statement.executeQuery(rawStatement.getStatement());
         }
     }
@@ -131,7 +135,7 @@ public class Stmt extends AbstractObj {
             return preparedStatement.getGeneratedKeys();
         }
         else {
-            init();
+            init(false);
             statement.executeUpdate(rawStatement.getStatement(), Statement.RETURN_GENERATED_KEYS);
             return statement.getGeneratedKeys();
         }
@@ -153,7 +157,7 @@ public class Stmt extends AbstractObj {
         preparedStatement.executeBatch();
     }
 
-    protected void init() throws SQLException {
+    protected void init(boolean scrollable) throws SQLException {
         if (initialized) {
             if (keepResources) {
                 return;
@@ -163,30 +167,26 @@ public class Stmt extends AbstractObj {
             }
         }
 
-        // create statement downgrading result set features as nessassary
-        try {
-            if (trace) {
-                logger.trace("connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)");
-            }
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLFeatureNotSupportedException e) {
+        if (scrollable) {
+            // create statement downgrading result set features as nessassary
             try {
-                if (trace) {
-                    logger.trace("connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)");
+                statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            } catch (SQLFeatureNotSupportedException e) {
+                try {
+                    statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                } catch (SQLFeatureNotSupportedException e2) {
+                    statement = connection.createStatement();
                 }
-                statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            } catch (SQLFeatureNotSupportedException e2) {
-                if (trace) {
-                    logger.trace("connection.createStatement()");
-                }
-                statement = connection.createStatement();
             }
+        }
+        else {
+            statement = connection.createStatement();
         }
 
         initialized = true;
     }
 
-    protected void initPrepared() throws SQLException {
+    protected void initPrepared(boolean scrollable) throws SQLException {
         if (initialized) {
             if (keepResources) {
                 return;
@@ -197,16 +197,23 @@ public class Stmt extends AbstractObj {
         }
 
         String sql = getParamedQuery();
-        try {
-            preparedStatement =
-                    connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLFeatureNotSupportedException e) {
+        if (scrollable) {
             try {
-                preparedStatement =
-                        connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            } catch (SQLFeatureNotSupportedException e2) {
-                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement = connection.prepareStatement(sql,
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_UPDATABLE);
+            } catch (SQLFeatureNotSupportedException e) {
+                try {
+                    preparedStatement = connection.prepareStatement(sql,
+                                                                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                    ResultSet.CONCUR_READ_ONLY);
+                } catch (SQLFeatureNotSupportedException e2) {
+                    preparedStatement = connection.prepareStatement(sql);
+                }
             }
+        }
+        else {
+            preparedStatement = connection.prepareStatement(sql);
         }
 
         initialized = true;
@@ -656,7 +663,7 @@ public class Stmt extends AbstractObj {
                 Stmt thiz = ensureType(Stmt.class, context);
 
                 try {
-                    thiz.initPrepared();
+                    thiz.initPrepared(false);
                     ParamBatch batch = new ParamBatch(thiz, batchSize);
                     engine.invoke(closure, engine.getObjNull(), batch);
                     engine.invokeSlot(batch, Str.SYM_finish);
@@ -680,7 +687,7 @@ public class Stmt extends AbstractObj {
 
                 try {
                     thiz.parseParams();
-                    thiz.initPrepared();
+                    thiz.initPrepared(false);
                     NamedParamBatch batch = new NamedParamBatch(thiz, batchSize);
                     engine.invoke(closure, engine.getObjNull(), batch);
                     batch.finish();
