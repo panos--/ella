@@ -448,7 +448,7 @@ public class Stmt extends AbstractObj {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Stmt thiz = ensureType(Stmt.class, context);
                 try {
-                    boolean hasResult = thiz.execute();
+                    boolean hasResult = thiz.execute(true);
                     if (hasResult) {
                         ResultSet rs = thiz.getStatement().getResultSet(); // NOTE: rs closed implicitly with statement
                         engine.notifyResultSet(rs);

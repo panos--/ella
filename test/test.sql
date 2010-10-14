@@ -1,1 +1,1 @@
-.exec([ '/bin/bash', '-c', "./test.sh" ]);
+show tables;
