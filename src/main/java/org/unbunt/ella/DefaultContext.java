@@ -19,6 +19,9 @@ import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  * Default implementation of the <code>Context</context> interface.
@@ -130,6 +133,10 @@ import java.util.Set;
 public class DefaultContext implements Context {
     protected String scriptFilename = "<unknown>";
     protected SimpleResource scriptResource = null;
+
+    protected InputStream inputStream = System.in;
+    protected PrintStream outputStream = System.out;
+    protected PrintStream errorStream = System.err;
 
     protected Env env;
 
@@ -392,7 +399,30 @@ public class DefaultContext implements Context {
         this.scriptResource = scriptResource;
     }
 
-    /*
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
+
+    public PrintStream getOutputStream() {
+        return outputStream;
+    }
+
+    public void setOutputStream(PrintStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public PrintStream getErrorStream() {
+        return errorStream;
+    }
+
+    public void setErrorStream(PrintStream errorStream) {
+        this.errorStream = errorStream;
+    }
+/*
      * SQL Result listener support
      */
 

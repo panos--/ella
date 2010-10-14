@@ -232,6 +232,16 @@ public class ReflectionUtils {
 
     protected static Method getBestMatchingMethod(Method method1, Method method2, Class[] args, Object[] values) {
         int weight = getBestMatchingArgs(method1.getParameterTypes(), method2.getParameterTypes(), args, values);
+        if (weight == 0) {
+            if (method1.getReturnType().isAssignableFrom(method2.getReturnType())) {
+                return method2;
+            }
+            else if (method2.getReturnType().isAssignableFrom(method2.getReturnType())) {
+                return method1;
+            }
+
+            return null;
+        }
         return weight < 0 ? method1 : weight > 0 ? method2 : null;
     }
 

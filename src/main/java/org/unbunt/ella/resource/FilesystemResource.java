@@ -34,7 +34,10 @@ public class FilesystemResource implements SimpleResource {
         }
 
         String parentPath = file.isDirectory() ? file.getPath() : file.getParent();
-        String newPath = parentPath == null ? path : concatPaths(parentPath, path);
+        if (parentPath == null) {
+            parentPath = ".";
+        }
+        String newPath = concatPaths(parentPath, path);
         return new FilesystemResource(newPath);
     }
 

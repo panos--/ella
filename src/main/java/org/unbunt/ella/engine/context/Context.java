@@ -8,6 +8,10 @@ import org.unbunt.ella.engine.corelang.Bool;
 import org.unbunt.ella.engine.corelang.Sys;
 import org.unbunt.ella.resource.SimpleResource;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 /**
  * Represents the execution context of EllaScript programs.
  * <p>
@@ -131,4 +135,16 @@ public interface Context extends SQLResultProvider {
      * @return a <code>Bool</code> instance representing <code>false</code>.
      */
     Bool getObjFalse();
+
+    InputStream getInputStream();
+
+    void setInputStream(InputStream inputStream);
+
+    PrintStream getOutputStream();
+
+    void setOutputStream(PrintStream outputStream);
+
+    PrintStream getErrorStream();
+
+    void setErrorStream(PrintStream errorStream);
 }

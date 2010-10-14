@@ -25,14 +25,14 @@ import java.util.ArrayList;
 public class SysImpl extends AbstractObj implements Sys {
     protected static final NativeCall nativePrint = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-            System.out.println(join(" ", (Object[]) args));
+            engine.getContext().getOutputStream().println(join(" ", (Object[]) args));
             return engine.getObjNull();
         }
     };
 
     protected static final NativeCall nativePut = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-            System.out.print(join(" ", (Object[]) args));
+            engine.getContext().getOutputStream().print(join(" ", (Object[]) args));
             return engine.getObjNull();
         }
     };
@@ -334,8 +334,10 @@ public class SysImpl extends AbstractObj implements Sys {
                 throw new EllaRuntimeException(e.getMessage(), e);
             }
 
-            BackgroundStreamCopy stdoutCopy = new BackgroundStreamCopy(p.getInputStream(), System.out);
-            BackgroundStreamCopy stderrCopy = new BackgroundStreamCopy(p.getErrorStream(), System.err);
+            BackgroundStreamCopy stdoutCopy =
+                    new BackgroundStreamCopy(p.getInputStream(), engine.getContext().getOutputStream());
+            BackgroundStreamCopy stderrCopy =
+                    new BackgroundStreamCopy(p.getErrorStream(), engine.getContext().getErrorStream());
             stdoutCopy.start();
             stderrCopy.start();
 

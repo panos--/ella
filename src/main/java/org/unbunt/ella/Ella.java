@@ -776,7 +776,7 @@ public class Ella {
                         context.getObjConnMgr().activate(conn);
                     }
                 }
-                context.addSQLResultListener(new SimpleSQLResultListener(System.out));
+                context.addSQLResultListener(new SimpleSQLResultListener(context.getOutputStream()));
 
                 if (pargs.interactive) {
                     ella.executeInteractive();
