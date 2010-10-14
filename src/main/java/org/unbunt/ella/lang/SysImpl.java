@@ -25,6 +25,13 @@ public class SysImpl extends AbstractObj implements Sys {
         }
     };
 
+    protected static final NativeCall nativePut = new NativeCall() {
+        public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
+            System.out.print(join(" ", (Object[]) args));
+            return engine.getObjNull();
+        }
+    };
+
     protected static final NativeCall nativeIncludeFile = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             Context ctx = engine.getContext();
@@ -285,6 +292,7 @@ public class SysImpl extends AbstractObj implements Sys {
 
     public SysImpl() {
         slots.put(Str.SYM_print, nativePrint);
+        slots.put(Str.SYM_put, nativePut);
         slots.put(Str.SYM_includeFile, nativeIncludeFile);
         slots.put(Str.SYM_importPackage, nativeImportPackage);
         slots.put(Str.SYM_loop, nativeLoop);
