@@ -9,10 +9,15 @@ import org.unbunt.ella.engine.environment.*;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.compiler.statement.Block;
 import static org.unbunt.ella.utils.StringUtils.join;
+import org.unbunt.ella.utils.BackgroundStreamCopy;
 import org.unbunt.ella.resource.SimpleResource;
 import org.unbunt.ella.engine.context.Context;
 
 import java.io.IOException;
+import java.io.File;
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Represents a default implementation of the EllaScript core object <code>Sys</code>.
@@ -272,6 +277,113 @@ public class SysImpl extends AbstractObj implements Sys {
         }
     };
 
+    protected static final NativeCall nativeExec = new NativeCall() {
+        public Obj call(Engine engine, Obj context, Obj... args) {
+            Object command = args[0].toJavaObject();
+            String[] envp = null;
+            File dir = null;
+
+            if (args.length > 1) {
+                envp = toStringArray(args[1].toJavaObject());
+                if (envp == null) {
+                    throw new IllegalArgumentException("Invalid argument");
+                }
+
+                if (args.length > 2) {
+                    Object odir = args[2].toJavaObject();
+                    if (odir instanceof String) {
+                        dir = new File((String) odir);
+                    }
+                    else if (odir instanceof File) {
+                        dir = (File) odir;
+                    }
+                    else if (odir != null) {
+                        throw new IllegalArgumentException("Invalid argument");
+                    }
+                }
+            }
+
+            String[] cmdarr = toStringArray(command);
+            Runtime r = Runtime.getRuntime();
+            Process p;
+            try {
+                if (cmdarr == null) {
+                    String cmdstr = command == null ? null : command.toString();
+                    if (envp != null && dir != null) {
+                        p = r.exec(cmdstr, envp, dir);
+                    }
+                    else if (envp != null && dir == null) {
+                        p = r.exec(cmdstr, envp);
+                    }
+                    else {
+                        p = r.exec(cmdstr);
+                    }
+                }
+                else {
+                    if (envp != null && dir != null) {
+                        p = r.exec(cmdarr, envp, dir);
+                    }
+                    else if (envp != null && dir == null) {
+                        p = r.exec(cmdarr, envp);
+                    }
+                    else {
+                        p = r.exec(cmdarr);
+                    }
+                }
+            } catch (IOException e) {
+                throw new EllaRuntimeException(e.getMessage(), e);
+            }
+
+            BackgroundStreamCopy stdoutCopy = new BackgroundStreamCopy(p.getInputStream(), System.out);
+            BackgroundStreamCopy stderrCopy = new BackgroundStreamCopy(p.getErrorStream(), System.err);
+            stdoutCopy.start();
+            stderrCopy.start();
+
+            Integer exitValue = null;
+            while (exitValue == null) {
+                try {
+                    exitValue = p.waitFor();
+                } catch (InterruptedException ignored) {
+                }
+            }
+
+            while (!(stdoutCopy.isFinished() && stderrCopy.isFinished())) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ignored) {
+                }
+            }
+
+            return new NNum(exitValue);
+        }
+
+        protected String[] toStringArray(Object object) {
+            String[] result = null;
+
+            if (object instanceof String[]) {
+                result = (String[]) object;
+            }
+            else if (object instanceof Object[]) {
+                Object[] oarr = (Object[]) object;
+                result = new String[oarr.length];
+                for (int i = 0; i < oarr.length; i++) {
+                    Object o = oarr[i];
+                    result[i] = o == null ? null : o.toString();
+                }
+            }
+            else if (object instanceof Collection) {
+                Collection ocoll = (Collection) object;
+                List<String> scoll = new ArrayList<String>(ocoll.size());
+                for (Object o : ocoll) {
+                    scoll.add(o == null ? null : o.toString());
+                }
+                result = scoll.toArray(new String[scoll.size()]);
+            }
+
+            return result;
+        }
+    };
+
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {
@@ -309,5 +421,6 @@ public class SysImpl extends AbstractObj implements Sys {
         slots.put(Str.SYM_scriptResource, nativeScriptResource);
         slots.put(Str.SYM_explicitSlot, nativeExplicitSlot);
         slots.put(Str.SYM_noop, nativeNoop);
+        slots.put(Str.SYM_exec, nativeExec);
     }
 }
