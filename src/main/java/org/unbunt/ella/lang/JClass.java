@@ -31,11 +31,11 @@ public class JClass extends AbstractObj implements NativeObj {
                 } catch (NoSuchMethodException e) {
                     throw new EllaRuntimeException(e);
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+                    throw ReflectionUtils.wrapInvocationTargetException(e);
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    throw new EllaRuntimeException(e);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    throw new EllaRuntimeException(e);
                 }
             }
 
@@ -53,11 +53,11 @@ public class JClass extends AbstractObj implements NativeObj {
             try {
                 result = ctor.newInstance(NativeWrapper.unwrap(args));
             } catch (InstantiationException e) {
-                e.printStackTrace();
+                throw new EllaRuntimeException(e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new EllaRuntimeException(e);
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                throw ReflectionUtils.wrapInvocationTargetException(e);
             }
 
             return result instanceof Obj ? (Obj) result : NativeWrapper.wrap(engine.getContext(), result);
@@ -127,7 +127,7 @@ public class JClass extends AbstractObj implements NativeObj {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by getter -> re-throw as script exception
-                throw new EllaRuntimeException(e.getCause());
+                throw ReflectionUtils.wrapInvocationTargetException(e);
             }
         }
 
@@ -178,7 +178,7 @@ public class JClass extends AbstractObj implements NativeObj {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by setter -> re-throw as script exception
-                throw new EllaRuntimeException(e.getCause());
+                throw ReflectionUtils.wrapInvocationTargetException(e);
             }
         }
 

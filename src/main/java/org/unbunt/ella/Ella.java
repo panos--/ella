@@ -802,9 +802,27 @@ public class Ella {
         } catch (EllaParseException e) {
             die(e.getMessage(), e, 3);
         } catch (EllaException e) {
-            die("Unhandled exception: " + e.getClass().getName() +
-                (e.getMessage() == null ? "" : ": " + e.getMessage()),
-                e, 4);
+            Throwable cause = e.getCause();
+            String msg = cause.getMessage();
+            if (cause.getCause() != null && (msg == null || msg.length() == 0)) {
+                msg = cause.getCause().getMessage();
+            }
+            String name = cause.getClass().getSimpleName();
+            if (name.length() == 0) {
+                name = cause.getClass().getName();
+            }
+            String error;
+            if (cause instanceof EllaRuntimeException && msg != null && msg.length() > 0) {
+                error = msg;
+            }
+            else {
+                error = name;
+                if (msg != null && msg.length() > 0) {
+                    error += ": " + msg;
+                }
+            }
+
+            die("Unhandled exception: " + error, e, 4);
         }
     }
 

@@ -328,7 +328,7 @@ public class NReal extends AbstractObj implements NNumeric {
                     NNumeric arg = (NNumeric)args[0];
                     return new NReal(arg.doubleValue());
                 } catch (ClassCastException e) {
-                    throw new EllaRuntimeException();
+                    throw new EllaRuntimeException(e);
                 }
             }
         };

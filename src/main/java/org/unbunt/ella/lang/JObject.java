@@ -4,7 +4,6 @@ import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.AbstractObj;
 import org.unbunt.ella.engine.corelang.Obj;
 import org.unbunt.ella.engine.corelang.ProtoRegistry;
-import org.unbunt.ella.exception.EllaRuntimeException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -71,7 +70,7 @@ public class JObject extends AbstractObj {
                 // access to getter denied by vm -> act as if no getter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by getter -> re-throw as script exception
-                throw new EllaRuntimeException(e.getCause());
+                throw ReflectionUtils.wrapInvocationTargetException(e);
             }
         }
 
@@ -112,7 +111,7 @@ public class JObject extends AbstractObj {
                 // access to setter denied by vm -> act as if no setter method was found;
             } catch (InvocationTargetException e) {
                 // exception thrown by setter -> re-throw as script exception
-                throw new EllaRuntimeException(e.getCause());
+                throw ReflectionUtils.wrapInvocationTargetException(e);
             }
         }
 

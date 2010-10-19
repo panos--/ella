@@ -1,2 +1,3 @@
-.out.println('foobar');
-.err.println('blablubb');
+import java.lang.Integer;
+
+.Integer.valueOf('abc');

@@ -541,4 +541,15 @@ public class ReflectionUtils {
         }
         return NativeWrapper.wrap(ctx, result);
     }
+
+    @SuppressWarnings({"ThrowableInstanceNeverThrown"})
+    public static EllaRuntimeException wrapInvocationTargetException(InvocationTargetException e) {
+        Throwable cause = e.getCause();
+        Class<? extends Throwable> causeClass = cause.getClass();
+        String name = causeClass.getSimpleName();
+        if (name.length() == 0) {
+            name = causeClass.getName();
+        }
+        return new EllaRuntimeException(name + ": " + cause.getMessage(), e);
+    }
 }

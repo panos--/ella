@@ -68,7 +68,7 @@ public class JMethod extends NativeCall {
         } catch (RuntimeException e) {
             throw new EllaRuntimeException(e);
         } catch (InvocationTargetException e) {
-            throw new EllaRuntimeException(e);
+            throw ReflectionUtils.wrapInvocationTargetException(e);
         } catch (IllegalAccessException e) {
             throw new EllaRuntimeException(e);
         } catch (CheckedClassCastException e) {
