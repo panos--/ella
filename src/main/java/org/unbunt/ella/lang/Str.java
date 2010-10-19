@@ -1,12 +1,11 @@
 package org.unbunt.ella.lang;
 
+import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.exception.ClosureTerminatedException;
-import org.unbunt.ella.engine.context.Context;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Locale;
 
 /**
  * Represents an EllaScript object wrapping <code>String</code> values.
@@ -60,6 +59,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_eachKey = toSym("eachKey");
     public static final Str SYM_eachRow = toSym("eachRow");
     public static final Str SYM_eachSlot = toSym("eachSlot");
+    public static final Str SYM_err = toSym("err");
     public static final Str SYM_exec = toSym("exec");
     public static final Str SYM_execStmt = toSym("execStmt");
     public static final Str SYM_explicitSlot = toSym("explicitSlot");
@@ -74,6 +74,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_importPackage = toSym("importPackage");
     public static final Str SYM_if = toSym("if");
     public static final Str SYM_ifThen = toSym("ifThen");
+    public static final Str SYM_in = toSym("in");
     public static final Str SYM_includeFile = toSym("includeFile");
     public static final Str SYM_init = toSym("init");
     public static final Str SYM_insert = toSym("insert");
@@ -94,6 +95,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_noop = toSym("noop");
     public static final Str SYM_not = toSym("not");
     public static final Str SYM_numValue = toSym("numValue");
+    public static final Str SYM_out = toSym("out");
     public static final Str SYM_onAfterExecute = toSym("onAfterExecute");
     public static final Str SYM_parent = toSym("parent");
     public static final Str SYM_print = toSym("print");
@@ -162,6 +164,7 @@ public class Str extends AbstractObj {
      *
      * @param ctx the execution context to register this object in.
      */
+    @SuppressWarnings({"UnusedDeclaration"})
     public static void registerInContext(Context ctx) {
         // NOTE: Nothing to do here registration is done from Base.registerInContext to avoid circular dependency
     }

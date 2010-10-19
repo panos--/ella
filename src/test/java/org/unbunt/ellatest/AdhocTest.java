@@ -1,7 +1,5 @@
 package org.unbunt.ellatest;
 
-import org.unbunt.ella.resource.FilesystemResource;
-
 import java.io.IOException;
 
 /**
@@ -13,12 +11,5 @@ import java.io.IOException;
  */
 public class AdhocTest {
     public static void main(String[] args) throws IOException {
-        Integer i = null;
-        if (i instanceof Integer) {
-
-        }
-
-        FilesystemResource fsr = new FilesystemResource("foo");
-        FilesystemResource foo = fsr.createRelative("bar");
     }
 }

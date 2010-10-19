@@ -15,9 +15,7 @@ import org.unbunt.ella.engine.context.Context;
 
 import java.io.IOException;
 import java.io.File;
-import java.util.Collection;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Represents a default implementation of the EllaScript core object <code>Sys</code>.
@@ -278,6 +276,7 @@ public class SysImpl extends AbstractObj implements Sys {
     };
 
     protected static final NativeCall nativeExec = new NativeCall() {
+        @SuppressWarnings({"ConstantConditions"})
         public Obj call(Engine engine, Obj context, Obj... args) {
             Object command = args[0].toJavaObject();
             String[] envp = null;
@@ -386,6 +385,30 @@ public class SysImpl extends AbstractObj implements Sys {
         }
     };
 
+    protected static abstract class DynamicSlot {
+        public abstract Obj get(Context ctx);
+    }
+
+    protected static final DynamicSlot dynSlotIn = new DynamicSlot() {
+        public Obj get(Context ctx) {
+            return new JObject(ctx.getInputStream());
+        }
+    };
+
+    protected static final DynamicSlot dynSlotOut = new DynamicSlot() {
+        public Obj get(Context ctx) {
+            return new JObject(ctx.getOutputStream());
+        }
+    };
+
+    protected static final DynamicSlot dynSlotErr = new DynamicSlot() {
+        public Obj get(Context ctx) {
+            return new JObject(ctx.getErrorStream());
+        }
+    };
+
+    protected Map<Obj, DynamicSlot> dynSlots = new HashMap<Obj, DynamicSlot>();
+
     public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
     public int getObjectID() {
@@ -424,5 +447,22 @@ public class SysImpl extends AbstractObj implements Sys {
         slots.put(Str.SYM_explicitSlot, nativeExplicitSlot);
         slots.put(Str.SYM_noop, nativeNoop);
         slots.put(Str.SYM_exec, nativeExec);
+
+        dynSlots.put(Str.SYM_in, dynSlotIn);
+        dynSlots.put(Str.SYM_out, dynSlotOut);
+        dynSlots.put(Str.SYM_err, dynSlotErr);
+    }
+
+    @Override
+    public Obj getSlot(Context ctx, Obj key) {
+        Obj value = super.getSlot(ctx, key);
+        if (value != null) {
+            return value;
+        }
+        DynamicSlot dynSlot = dynSlots.get(key);
+        if (dynSlot != null) {
+            return dynSlot.get(ctx);
+        }
+        return null;
     }
 }
