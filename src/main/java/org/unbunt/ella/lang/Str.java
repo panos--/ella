@@ -2,6 +2,7 @@ package org.unbunt.ella.lang;
 
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
+import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.ClosureTerminatedException;
 
 import java.util.HashMap;
@@ -113,6 +114,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_size = toSym("size");
     public static final Str SYM_start = toSym("start");
     public static final Str SYM_stop = toSym("stop");
+    public static final Str SYM_substring = toSym("substring");
     public static final Str SYM_throw = toSym("throw");
     public static final Str SYM_to = toSym("to");
     public static final Str SYM_toByte = toSym("toByte");
@@ -241,45 +243,54 @@ public class Str extends AbstractObj {
 
         protected static final NativeCall nativeAdd = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-                Str thiz = ObjUtils.ensureType(Str.class, context);
+                Str thiz = ensureType(Str.class, context);
                 return new Str(thiz.value + args[0].toString());
             }
         };
 
         protected static final NativeCall nativeLength = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
-                Str thiz = ObjUtils.ensureType(Str.class, context);
+                Str thiz = ensureType(Str.class, context);
                 return new NNum(thiz.value.length());
             }
         };
 
         protected static final NativeCall nativeCharAt = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
-                Str thiz = ObjUtils.ensureType(Str.class, context);
-                NNumeric index = ObjUtils.ensureType(NNumeric.class, args[0]);
+                Str thiz = ensureType(Str.class, context);
+                NNumeric index = ensureType(NNumeric.class, args[0]);
                 return new Str("" + thiz.value.charAt(index.intValue()));
             }
         };
 
         protected static final NativeCall nativeToUpper = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
-                Str thiz = ObjUtils.ensureType(Str.class, context);
+                Str thiz = ensureType(Str.class, context);
                 return new Str(thiz.value.toUpperCase());
             }
         };
 
         protected static final NativeCall nativeToLower = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
-                Str thiz = ObjUtils.ensureType(Str.class, context);
+                Str thiz = ensureType(Str.class, context);
                 return new Str(thiz.value.toLowerCase());
             }
         };
 
         protected static final NativeCall nativeFromCharCode = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) {
-                NNumeric codeObj = ObjUtils.ensureType(NNumeric.class, args[0]);
+                NNumeric codeObj = ensureType(NNumeric.class, args[0]);
                 int code = codeObj.intValue();
                 return new Str(Character.toString((char) code));
+            }
+        };
+
+        protected static final NativeCall nativeSubstring = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ensureType(Str.class, context);
+                NNumeric beginIndex = ensureType(NNumeric.class, args[0]);
+                NNumeric endIndex = ensureType(NNumeric.class, args[1]);
+                return new Str(thiz.value.substring(beginIndex.intValue(), endIndex.intValue()));
             }
         };
 
@@ -299,6 +310,7 @@ public class Str extends AbstractObj {
             slots.put(SYM_charAt, nativeCharAt);
             slots.put(SYM_toUpper, nativeToUpper);
             slots.put(SYM_toLower, nativeToLower);
+            slots.put(SYM_substring, nativeSubstring);
             slots.put(SYM_fromCharCode, nativeFromCharCode);
         }
 
