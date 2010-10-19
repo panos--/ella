@@ -439,4 +439,17 @@ public class InterpreterTestsNG extends AbstractTest {
     public void stringProto() throws EllaParseException, EllaIOException, EllaException {
         eval(file("string-proto"));
     }
+
+    /**
+     * TODO: Fix the bug triggered by this test.
+     *
+     * @throws EllaParseException
+     * @throws EllaIOException
+     * @throws EllaException
+     */
+    @Test(enabled = false)
+    public void bugTryFinallyReturn() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(file("bug-try-finally-return"));
+        assertEquals(result, 42l);
+    }
 }
