@@ -294,6 +294,38 @@ public class Str extends AbstractObj {
             }
         };
 
+        protected static final NativeCall nativeGreaterThan = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ensureType(Str.class, context);
+                Str arg = ensureType(Str.class, args[0]);
+                return thiz.value.compareTo(arg.value) > 0 ? engine.getObjTrue() : engine.getObjFalse();
+            }
+        };
+
+        protected static final NativeCall nativeGreaterOrEqual = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ensureType(Str.class, context);
+                Str arg = ensureType(Str.class, args[0]);
+                return thiz.value.compareTo(arg.value) >= 0 ? engine.getObjTrue() : engine.getObjFalse();
+            }
+        };
+
+        protected static final NativeCall nativeLessThan = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ensureType(Str.class, context);
+                Str arg = ensureType(Str.class, args[0]);
+                return thiz.value.compareTo(arg.value) < 0 ? engine.getObjTrue() : engine.getObjFalse();
+            }
+        };
+
+        protected static final NativeCall nativeLessOrEqual = new NativeCall() {
+            public Obj call(Engine engine, Obj context, Obj... args) {
+                Str thiz = ensureType(Str.class, context);
+                Str arg = ensureType(Str.class, args[0]);
+                return thiz.value.compareTo(arg.value) <= 0 ? engine.getObjTrue() : engine.getObjFalse();
+            }
+        };
+
         public static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
         public int getObjectID() {
@@ -305,6 +337,10 @@ public class Str extends AbstractObj {
             slots.put(SYM_cr, Str.toSym("\r"));
             slots.put(SYM_crlf, Str.toSym("\r\n"));
             slots.put(SYM_nl, Str.toSym(NEWLINE));
+            slots.put(SYM__gt, nativeGreaterThan);
+            slots.put(SYM__ge, nativeGreaterOrEqual);
+            slots.put(SYM__lt, nativeLessThan);
+            slots.put(SYM__le, nativeLessOrEqual);
             slots.put(SYM__plus, nativeAdd);
             slots.put(SYM_length, nativeLength);
             slots.put(SYM_charAt, nativeCharAt);

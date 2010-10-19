@@ -17,4 +17,9 @@ fun assert(actual, expected, msg) {
     import java.lang.System;
     var nl := System.getProperty('line.separator');
     assert(Str.nl, nl, 'Str.nl == nl');
+
+    assert('a' < 'b', true, 'a < b');
+    assert('a' > 'b', false, 'a > b');
+    assert('b' > 'a', true, 'b > a');
+    assert('b' < 'a', false, 'b < a');
 }
