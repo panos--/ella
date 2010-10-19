@@ -179,7 +179,15 @@ public class Stmt extends AbstractObj {
             }
         }
         else {
-            statement = connection.createStatement();
+            try {
+                statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+            } catch (SQLFeatureNotSupportedException e) {
+                try {
+                    statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                } catch (SQLFeatureNotSupportedException e2) {
+                    statement = connection.createStatement();
+                }
+            }
         }
 
         initialized = true;
@@ -212,7 +220,19 @@ public class Stmt extends AbstractObj {
             }
         }
         else {
-            preparedStatement = connection.prepareStatement(sql);
+            try {
+                preparedStatement = connection.prepareStatement(sql,
+                                                                ResultSet.TYPE_FORWARD_ONLY,
+                                                                ResultSet.CONCUR_UPDATABLE);
+            } catch (SQLFeatureNotSupportedException e) {
+                try {
+                    preparedStatement = connection.prepareStatement(sql,
+                                                                    ResultSet.TYPE_FORWARD_ONLY,
+                                                                    ResultSet.CONCUR_READ_ONLY);
+                } catch (SQLFeatureNotSupportedException e2) {
+                    preparedStatement = connection.prepareStatement(sql);
+                }
+            }
         }
 
         initialized = true;

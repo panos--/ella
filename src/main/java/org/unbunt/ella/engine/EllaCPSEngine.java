@@ -229,6 +229,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         for (Object part : sqlLiteralExpression.getParts()) {
             if (part instanceof StringLiteral) {
                 StringLiteral string = (StringLiteral) part;
+                escapingVariableInterpolator.setDelim(string.getStartDelim());
                 buf.append(string.toSource(escapingVariableInterpolator));
             }
             else if (part instanceof Variable) {
@@ -673,12 +674,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         next = EVAL;
     }
 
-    protected boolean closureReturnInProgress = false;
-
-    public boolean isClosureReturnInProgress() {
-        return closureReturnInProgress;
-    }
-
     public void processContinuation(NativeCont nativeCont) {
         // NOTE: The next flag has to be set _before_ invoking the call to allow the invoked method to modify it
         //       without getting overridden.
@@ -694,8 +689,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
                 val = result;
             }
         } catch (ClosureTerminatedException ignored) {
-            // XXX: is this correct??? - it is ReturnCont has already cleaned up the cont stack
-            closureReturnInProgress = false;
         } catch (ControlFlowException e) {
             throw e;
         } catch (EllaRuntimeException e) {
@@ -1027,7 +1020,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         }
 
         if (pc < callFrame) {
-            closureReturnInProgress = true;
             throw new ClosureTerminatedException();
         }
 
@@ -1043,7 +1035,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         }
 
         if (pc < callFrame) {
-            closureReturnInProgress = true;
             throw new ClosureTerminatedException();
         }
 
@@ -1102,7 +1093,6 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         }
 
         if (pc < callFrame) {
-            closureReturnInProgress = true;
             throw new ClosureTerminatedException();
         }
 

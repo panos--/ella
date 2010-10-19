@@ -15,8 +15,6 @@ import org.unbunt.ella.exception.LoopContinueException;
  * The native interface is the API element used by native objects to interact with the execution engine.
  */
 public interface Engine extends SQLResultProvider {
-    boolean isClosureReturnInProgress();
-
     /**
      * Returns the boolean value corresponding to the given EllaScript object.
      * <p>
@@ -260,7 +258,7 @@ public interface Engine extends SQLResultProvider {
 
     /**
      * Returns the execution context associated with the evaluated EllaScript program.
-     * 
+     *
      * @return the context.
      */
     Context getContext();

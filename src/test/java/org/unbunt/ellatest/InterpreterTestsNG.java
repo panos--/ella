@@ -22,14 +22,12 @@ public class InterpreterTestsNG extends AbstractTest {
         // nothing to do, yet
     }
 
-    @Test
     public void emptyStringLiteral() throws EllaParseException, EllaIOException, EllaException {
         // NOTE: This is actually a parser test, but we run it to check the resulting value here.
         Object result = eval(".'';");
         assertEquals(result, "");
     }
 
-    @Test
     public void blockScope() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
@@ -42,7 +40,6 @@ public class InterpreterTestsNG extends AbstractTest {
         assertTrue((Long)result == 23, "Variable not of assigned value");
     }
 
-    @Test
     public void javaIntegration() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
@@ -97,7 +94,6 @@ public class InterpreterTestsNG extends AbstractTest {
         );
     }
 
-    @Test
     public void inheritance() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
@@ -133,7 +129,6 @@ public class InterpreterTestsNG extends AbstractTest {
         assertTrue(((Number)result).intValue() == 42, "This invoked from super did not execute correct method");
     }
 
-    @Test
     public void blockClosures() throws EllaIOException, EllaParseException {
         Object result;
 
@@ -229,7 +224,6 @@ public class InterpreterTestsNG extends AbstractTest {
                    "Nested block closure returns to wrong home function");
     }
 
-    @Test
     public void loops() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
@@ -256,7 +250,6 @@ public class InterpreterTestsNG extends AbstractTest {
                    "Loop does not honour continue statement");
     }
 
-    @Test
     public void args() throws EllaIOException, EllaParseException, EllaException {
         int arg = 42;
         Object result = eval(".ARGV[0];", arg);
@@ -264,7 +257,6 @@ public class InterpreterTestsNG extends AbstractTest {
         assertTrue(num.intValue() == arg, "Passing argument to script failed");
     }
 
-    @Test
     public void evalFile() throws EllaIOException, EllaParseException, EllaException {
         int arg = 42;
         Object result = eval(file("eval-file"), arg);
@@ -272,69 +264,57 @@ public class InterpreterTestsNG extends AbstractTest {
         assertTrue(num.intValue() == arg, "Passing argument to script failed");
     }
 
-    @Test
     public void includeFile() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file"));
     }
 
-    @Test
     public void includeFileClosureUpdate() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-closure-update"));
     }
 
-    @Test
     public void includeFileClosureAfterDynamic()
             throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-closure-after-dynamic"));
     }
 
-    @Test
     public void includeFileDynenv() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-dynenv"));
     }
 
-    @Test
     public void includeFileClosureTerminated() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-closure-terminated"));
     }
 
-    @Test
     public void includeFileNested() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-nested"));
     }
 
-    @Test
     public void includeFileNestedResource() throws EllaIOException, EllaParseException, EllaException {
         eval(file("include-file-nested-resource"));
     }
 
-    @Test
     public void floatVsIntSlotDistinction() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("float-vs-int-slot-distinction"));
         assertEquals(((Number) result).intValue(), 3);
     }
 
-    @Test
     @SuppressWarnings({"UnnecessaryUnboxing"})
     public void floatLiteral() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(".1.23;");
         assertEquals(((Double) result).doubleValue(), 1.23d);
     }
 
-    @Test
     @SuppressWarnings({"UnnecessaryUnboxing"})
     public void numPropagateInfinity() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(".(1 / 0.0) * 1.bigRealValue();");
         assertEquals(Double.POSITIVE_INFINITY, ((Double)result).doubleValue());
     }
 
-    @Test
     public void numPropagateNaN() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(".(0 / 0.0) * 1.bigRealValue();");
         assertTrue(Double.isNaN((Double)result));
     }
 
-    @Test
     public void numFailOnNaNToBigReal() throws EllaIOException, EllaRecognitionException {
         try {
             eval(".(0 / 0.0).bigRealValue();");
@@ -345,12 +325,10 @@ public class InterpreterTestsNG extends AbstractTest {
         assertTrue(false, "No exception thrown on NaN to BigDecimal conversion");
     }
 
-    @Test
     public void numDoubleSpecials() throws EllaIOException, EllaParseException, EllaException {
         eval(file("num-double-specials"));
     }
 
-    @Test
     public void operatorPrecedence() throws EllaIOException, EllaParseException, EllaException {
         Object result;
 
@@ -361,18 +339,15 @@ public class InterpreterTestsNG extends AbstractTest {
         assertEquals(result, 20l, "Broken precedance rules with + vs. generic binary operators");
     }
 
-    @Test
     public void numBigReal() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("num-bigreal"));
         assertEquals(result, "success");
     }
 
-    @Test
     public void hostIntegrationMethodSelect() throws EllaIOException, EllaParseException, EllaException {
         eval(file("host-integration-method-select"));
     }
 
-    @Test
     public void array() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("array"));
         List<Long> expected = new ArrayList<Long>(5);
@@ -389,7 +364,6 @@ public class InterpreterTestsNG extends AbstractTest {
     }
 
     @SuppressWarnings({"ConstantConditions"})
-    @Test
     public void exceptions() throws EllaIOException, EllaParseException {
         EllaException ex = null;
         try {
@@ -402,54 +376,48 @@ public class InterpreterTestsNG extends AbstractTest {
         assertEquals(ex.getMessage(), "intentionally-uncaught-exception");
     }
 
-    @Test
     public void whileExit() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("while-exit"));
         assertEquals(result, 42l);
     }
 
-    @Test
     public void nativeClone() throws EllaIOException, EllaParseException, EllaException {
         eval(file("native-clone"));
     }
 
-    @Test
     public void numRange() throws EllaIOException, EllaParseException, EllaException {
         eval(file("num-range"));
     }
 
-    @Test
     public void typeCheck() throws EllaIOException, EllaParseException, EllaException {
         Object result = eval(file("type-check"));
         assertEquals(result, 42l);
     }
 
-    @Test
     public void incrementalEnvRetain() throws EllaIOException, EllaException, EllaParseException {
         Object result = evalIncremental(file("incremental-env-retain"));
         assertEquals(result, new ArrayList<Object>());
     }
 
-    @Test
     public void dict() throws EllaParseException, EllaIOException, EllaException {
         eval(file("dict"));
     }
 
-    @Test
     public void stringProto() throws EllaParseException, EllaIOException, EllaException {
         eval(file("string-proto"));
     }
 
-    /**
-     * TODO: Fix the bug triggered by this test.
-     *
-     * @throws EllaParseException
-     * @throws EllaIOException
-     * @throws EllaException
-     */
-    @Test(enabled = false)
     public void bugTryFinallyReturn() throws EllaParseException, EllaIOException, EllaException {
-        Object result = eval(file("bug-try-finally-return"));
-        assertEquals(result, 42l);
+        eval(file("bug-try-finally-return"));
+    }
+
+    public void bugIfFalseReturnNull() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(file("bug-if-false-return-null"));
+        assertNull(result);
+    }
+
+    public void bugWhileFalseReturnNull() throws EllaParseException, EllaIOException, EllaException {
+        Object result = eval(file("bug-while-false-return-null"));
+        assertNull(result);
     }
 }

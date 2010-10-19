@@ -158,6 +158,9 @@ public class SysImpl extends AbstractObj implements Sys {
             else if (args.length > 2) {
                 engine.trigger(args[2], context);
             }
+            else {
+                return engine.getObjNull();
+            }
             return null;
         }
     };
@@ -201,50 +204,32 @@ public class SysImpl extends AbstractObj implements Sys {
     protected static final NativeCall nativeTryFinally = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             EngineState state = engine.getState();
+            Obj result = null;
             try {
-                engine.invoke(args[0], engine.getObjNull());
+                result = engine.invoke(args[0], engine.getObjNull());
             } finally {
-                Obj savedVal = null;
-                try {
-                    if (engine.isClosureReturnInProgress()) {
-                        savedVal = engine.getVal();
-                    }
-                    engine.invoke(args[1], engine.getObjNull());
-                } finally {
-                    if (savedVal != null) {
-                        engine.setVal(savedVal);
-                    }
-                }
+                engine.invoke(args[1], engine.getObjNull());
             }
             engine.setState(state);
-            return null;
+            return result;
         }
     };
 
     protected static final NativeCall nativeTryCatchFinally = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
             EngineState state = engine.getState();
+            Obj result = null;
             try {
-                engine.invoke(args[0], engine.getObjNull());
+                result = engine.invoke(args[0], engine.getObjNull());
             } catch (EllaClientException e) {
-                engine.invoke(args[1], engine.getObjNull(), e.getException());
+                result = engine.invoke(args[1], engine.getObjNull(), e.getException());
             } catch (EllaRuntimeException e) {
-                engine.invoke(args[1], engine.getObjNull(), new JObject(e));
+                result = engine.invoke(args[1], engine.getObjNull(), new JObject(e));
             } finally {
-                Obj savedVal = null;
-                try {
-                    if (engine.isClosureReturnInProgress()) {
-                        savedVal = engine.getVal();
-                    }
-                    engine.invoke(args[2], engine.getObjNull());
-                } finally {
-                    if (savedVal != null) {
-                        engine.setVal(savedVal);
-                    }
-                }
+                engine.invoke(args[2], engine.getObjNull());
             }
             engine.setState(state);
-            return null;
+            return result;
         }
     };
 

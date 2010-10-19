@@ -63,7 +63,7 @@ public class ClosImpl extends AbstractObj implements Clos {
             public Obj call(Engine engine, Obj context, Obj... args) {
                 Call cond = ensureType(Call.class, context);
                 Obj _null = engine.getObjNull();
-                Obj result = null;
+                Obj result = _null;
                 while (true) {
                     Obj condValue = cond.call(engine, null);
                     if (!engine.toBoolean(condValue)) {

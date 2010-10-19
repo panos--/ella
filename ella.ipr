@@ -543,7 +543,6 @@
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
-        <option name="Run Maven goal" value="true" />
         <option name="Make" value="true" />
       </method>
     </configuration>

@@ -34,22 +34,18 @@ public class ParserTestsNG extends AbstractTest {
      * NOTE: embedded unbalanced parens.
      */
 
-    @Test
     public void sqlStringOracleQQuote() throws EllaIOException, EllaParseException {
         compile("\\set quotes=oracle; select * from foo where bar = q'Xfoo')barX';");
     }
 
-    @Test
     public void sqlStringMysqlBacktick() throws EllaIOException, EllaParseException {
         compile("\\set quotes=mysql; select * from foo where bar = `foo)bla`;");
     }
 
-    @Test
     public void sqlStringPostgresDollar() throws EllaIOException, EllaParseException {
         compile("\\set quotes=pg; select * from foo where bar = $$bla)blubb$$ or baz = $xyz$foo}bar$xyz$;");
     }
 
-    @Test
     public void sqlStringPostgresDollarUnterminated() throws EllaParseException, EllaIOException {
         boolean success = false;
 
@@ -71,12 +67,10 @@ public class ParserTestsNG extends AbstractTest {
         }
     }
 
-    @Test
     public void assignSingleSQL() throws EllaIOException, EllaParseException {
         compile("var foo := sql select * from foo;");
     }
 
-    @Test
     public void assignMultiSQL() throws EllaIOException, EllaParseException {
         compile("var foo = 'bla', bar = (sql select * from foo), bla = 'blubb';");
     }
@@ -93,7 +87,6 @@ public class ParserTestsNG extends AbstractTest {
                 "");
     }
 
-    @Test
     public void sqlNamedParamsStdWithSeparateParser() throws RecognitionException, EllaParseException {
         String sql = "select *, :, 42::real, a: b:, :param, ':noparam' from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
@@ -117,7 +110,6 @@ public class ParserTestsNG extends AbstractTest {
         assertEquals(result.getParameters(), expectedParams);
     }
 
-    @Test
     public void sqlNamedParamsMySQLWithSeparateParser() throws RecognitionException, EllaParseException {
         String sql = "select :foo, *, :, 42::real, a: b:, :param, `:noparam` from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
@@ -142,7 +134,6 @@ public class ParserTestsNG extends AbstractTest {
         assertEquals(result.getParameters(), expectedParams);
     }
 
-    @Test
     public void sqlNamedParamsStdThreadLocalParser() throws GenericParseException {
         String sql = "select *, :, 42::real, a: b:, :param, ':noparam' from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
@@ -157,7 +148,6 @@ public class ParserTestsNG extends AbstractTest {
         assertEquals(result.getParameters(), expectedParams);
     }
 
-    @Test
     public void sqlNamedParamsMySQLWithThreadLocalParser() throws GenericParseException {
         String sql = "select :foo, *, :, 42::real, a: b:, :param, `:noparam` from foo where bar = :qux or baz = :qux ; ";
         String expectedStatement =
@@ -173,12 +163,10 @@ public class ParserTestsNG extends AbstractTest {
         assertEquals(result.getParameters(), expectedParams);
     }
 
-    @Test
     public void sqlLiteralLookAheadDiscard() throws EllaIOException, EllaParseException {
         compile(file("sql-literal-look-ahead-discard"));
     }
 
-    @Test
     public void sqlLiteralParamedEmbeddedVars()
             throws EllaIOException, EllaRecognitionException, IOException, RecognitionException, GenericParseException {
         // Here we parse an SQL literal containing several embedded variables for named parameters

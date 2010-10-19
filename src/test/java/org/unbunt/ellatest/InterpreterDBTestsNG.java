@@ -21,7 +21,6 @@ public class InterpreterDBTestsNG extends AbstractTest {
     public static final String PROPS_PGSQL = "pg.properties";
     public static final String PROPS_ORACLE = "oracle.properties";
 
-    @Test
     public void connectMysql() throws EllaIOException, EllaParseException, SQLException, EllaException {
         Object result = eval(String.format(".ConnMgr.createFromProps('%s', 'mysql');", propsMysql()));
         Connection conn = ensureType(Connection.class, result);
@@ -94,7 +93,6 @@ public class InterpreterDBTestsNG extends AbstractTest {
         eval(file("mysql-resset-insert"), propsMysql());
     }
 
-    @Test
     public void connectPostgresql() throws EllaParseException, EllaIOException, EllaException, SQLException {
         Object result = eval(".ConnMgr.createFromProps(ARGV[0]);", propsPG());
         Connection conn = ensureType(Connection.class, result);
@@ -136,7 +134,6 @@ public class InterpreterDBTestsNG extends AbstractTest {
         assertEquals(result, "foofoobar)bar");
     }
 
-    @Test
     public void connectOracle() throws EllaIOException, EllaParseException, SQLException, EllaException {
         Object result = eval(
                 String.format(".ConnMgr.createFromProps('%s', 'oracle');", propsOracle())
