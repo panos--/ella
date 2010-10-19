@@ -3,10 +3,9 @@ package org.unbunt.ella.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Statement;
-import java.sql.SQLException;
 import java.sql.Connection;
-import java.util.Date;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
      * TODO: Observer notification on batch execution
@@ -52,11 +51,9 @@ public class StmtBatch {
     protected void execute() throws SQLException {
         if (logger.isInfoEnabled()) {
             logger.info("Executing batch with {} statements", currentBatchSize);
-            Date t1 = new Date();
+            StopWatch timer = new StopWatch(3);
             statement.executeBatch();
-            Date t2 = new Date();
-            double dt = ((double) t2.getTime() - t1.getTime()) / 1000;
-            dt = (double) Math.round(dt * 1000) / 1000;
+            double dt = timer.stop();
             double dts = dt / currentBatchSize;
             dts = (double) Math.round(dts * 1000) / 1000;
             logger.info("Batch execution of {} statements took {} seconds ({} seconds per statement)",

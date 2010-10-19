@@ -10,6 +10,7 @@ import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.*;
+import org.unbunt.ella.utils.StopWatch;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -97,20 +98,18 @@ public class Stmt extends AbstractObj {
             addParams();
             logger.info(getParamedQuery());
             boolean isResult;
-            Date t1 = new Date();
+            StopWatch timer = new StopWatch();
             isResult = preparedStatement.execute();
-            Date t2 = new Date();
-            logger.info(format("query took %.3f seconds", 1d * (t2.getTime() - t1.getTime()) / 1000));
+            logger.info(format("query took %.3f seconds", timer.stop()));
             return isResult;
         }
         else {
             init(scrollable);
             logger.info(rawStatement.getStatement());
             boolean isResult;
-            Date t1 = new Date();
+            StopWatch timer = new StopWatch();
             isResult = statement.execute(rawStatement.getStatement());
-            Date t2 = new Date();
-            logger.info(format("query took %.3f seconds", 1d * (t2.getTime() - t1.getTime()) / 1000));
+            logger.info(format("query took %.3f seconds", timer.stop()));
             return isResult;
         }
     }
