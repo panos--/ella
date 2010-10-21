@@ -22,7 +22,7 @@ public class JClass extends AbstractObj implements NativeObj {
 
     protected static final Call NATIVE_CONSTRUCTOR = new NativeCall() {
         public Obj call(Engine engine, Obj context, Obj[] args) throws ClosureTerminatedException {
-            Object result = null;
+            Object result;
             Class<?> cls = ((JClass) context).clazz;
 
             if (args.length == 0) {
@@ -60,7 +60,7 @@ public class JClass extends AbstractObj implements NativeObj {
                 throw ReflectionUtils.wrapInvocationTargetException(e);
             }
 
-            return result instanceof Obj ? (Obj) result : NativeWrapper.wrap(engine.getContext(), result);
+            return result instanceof Obj ? (Obj) result : new JObject(result);
         }
     };
 
