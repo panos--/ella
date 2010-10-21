@@ -953,6 +953,7 @@ identifierNoUnary
 	| op_le=OP_LE		-> IDENTIFIER[$op_le]
 	| op_mul=OP_MUL		-> IDENTIFIER[$op_mul]
 	| op_div=OP_DIV		-> IDENTIFIER[$op_div]
+	| op_mod=OP_MOD		-> IDENTIFIER[$op_mod]
 	| op_add=OP_ADD		-> IDENTIFIER[$op_add]
 	| op_and=OP_AND		-> IDENTIFIER[$op_and]
 	| op_or=OP_OR		-> IDENTIFIER[$op_or]
