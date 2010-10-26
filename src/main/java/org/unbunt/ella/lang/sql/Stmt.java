@@ -457,6 +457,11 @@ public class Stmt extends AbstractObj {
         return statement != null ? statement : preparedStatement != null ? preparedStatement : null;
     }
 
+
+    public String toString() {
+        return getParamedQuery();
+    }
+
     /**
      * Represents the implicit parent object for Stmt objects.
      */
