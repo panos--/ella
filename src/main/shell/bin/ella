@@ -29,7 +29,30 @@ APPDIR="`dirname "$BINDIR"`"
 JAR="$APPDIR/libexec/ella-${project.version}.jar"
 LIBDIR="$APPDIR/lib"
 
-CP="$JAR"
+usage() {
+	echo >&2 "usage: `basename "$ME"` [-cp CLASSPATH] [ELLA_OPTION...]"
+	exit 1
+}
+
+CUSTOM_CLASSPATH=
+if [ $# != 0 ]; then
+	case "$1" in
+		-cp|-classpath)
+			shift
+			[ $# != 0 ] || usage
+			CUSTOM_CLASSPATH="$1"
+			shift
+			;;
+		-h)
+			echo >&2 "Note: A custom classpath can be specified with -cp as the first option"
+			;;
+	esac
+fi
+
+test "x$CUSTOM_CLASSPATH" = x \
+	&& CP="$JAR" \
+	|| CP="$CUSTOM_CLASSPATH:$JAR"
+
 for i in "$LIBDIR"/*.jar; do
 	CP="$CP:$i"
 done

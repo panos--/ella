@@ -28,7 +28,32 @@ esac
 PRJDIR="`dirname "$BINDIR"`"
 DSTDIR="$PRJDIR/target"
 
-CP="$DSTDIR/classes:`cat "$DSTDIR/classpath"`"
+usage() {
+	echo >&2 "usage: `basename "$ME"` [-cp CLASSPATH] [ELLA_OPTION...]"
+	exit 1
+}
+
+CUSTOM_CLASSPATH=
+if [ $# != 0 ]; then
+	case "$1" in
+		-cp|-classpath)
+			shift
+			[ $# != 0 ] || usage
+			CUSTOM_CLASSPATH="$1"
+			shift
+			;;
+		-h)
+			echo >&2 "Note: A custom classpath can be specified with -cp as the first option"
+			;;
+	esac
+fi
+
+ELLA_CLASSPATH="$DSTDIR/classes:`cat "$DSTDIR/classpath"`"
+
+test "x$CUSTOM_CLASSPATH" = x \
+	&& CP="$ELLA_CLASSPATH" \
+	|| CP="$CUSTOM_CLASSPATH:$ELLA_CLASSPATH"
+
 MAIN_CLASS=org.unbunt.ella.Ella
 
 # request interactive mode if stdin is a tty
