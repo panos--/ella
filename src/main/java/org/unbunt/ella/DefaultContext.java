@@ -14,6 +14,7 @@ import org.unbunt.ella.lang.sql.ConnMgrImpl;
 import org.unbunt.ella.lang.sql.ResSet;
 import org.unbunt.ella.lang.sql.Stmt;
 import org.unbunt.ella.resource.SimpleResource;
+import org.slf4j.Logger;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -159,6 +160,7 @@ public class DefaultContext implements Context {
 
     protected Object[] args;
 
+    protected ContextLogger logger;
     protected LogLevel logLevel = LogLevel.info;
     protected boolean traceEnabled = false;
     protected boolean debugEnabled = false;
@@ -191,6 +193,7 @@ public class DefaultContext implements Context {
         this.args = args;
         Arrays.fill(objectProtos, null);
         Arrays.fill(objects, null);
+        logger = new OutputStreamContextLogger();
         initProtos();
         initEnv();
     }
@@ -428,7 +431,8 @@ public class DefaultContext implements Context {
     public void setErrorStream(PrintStream errorStream) {
         this.errorStream = errorStream;
     }
-/*
+
+    /*
      * SQL Result listener support
      */
 
@@ -454,42 +458,37 @@ public class DefaultContext implements Context {
         }
     }
 
+    /*
+     * Logging methods of Context interface
+     */
+
     public void trace(String msg, Object... args) {
         if (traceEnabled) {
-            log(errorStream, msg, args);
+            logger.trace(msg, args);
         }
     }
 
     public void debug(String msg, Object... args) {
         if (debugEnabled) {
-            log(errorStream, msg, args);
+            logger.debug(msg, args);
         }
     }
 
     public void info(String msg, Object... args) {
         if (infoEnabled) {
-            log(outputStream, msg, args);
+            logger.info(msg, args);
         }
     }
 
     public void warn(String msg, Object... args) {
         if (warnEnabled) {
-            log(errorStream, msg, args);
+            logger.warn(msg, args);
         }
     }
 
     public void error(String msg, Object... args) {
         if (errorEnabled) {
-            log(errorStream, msg, args);
-        }
-    }
-
-    protected void log(PrintStream out, String msg, Object[] args) {
-        if (args.length == 0) {
-            out.println(msg);
-        }
-        else {
-            out.println(String.format(msg, (Object[]) args));
+            logger.error(msg, args);
         }
     }
 
@@ -525,5 +524,101 @@ public class DefaultContext implements Context {
 
     public LogLevel getLogLevel() {
         return logLevel;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = new SLF4JContextLogger(logger);
+    }
+
+    protected static interface ContextLogger {
+        public void trace(String msg, Object[] args);
+        public void debug(String msg, Object[] args);
+        public void info(String msg, Object[] args);
+        public void warn(String msg, Object[] args);
+        public void error(String msg, Object[] args);
+    }
+
+    protected class OutputStreamContextLogger implements ContextLogger {
+        public void trace(String msg, Object[] args) {
+            log(errorStream, msg, args);
+        }
+
+        public void debug(String msg, Object[] args) {
+            log(errorStream, msg, args);
+        }
+
+        public void info(String msg, Object[] args) {
+            log(outputStream, msg, args);
+        }
+
+        public void warn(String msg, Object[] args) {
+            log(errorStream, msg, args);
+        }
+
+        public void error(String msg, Object[] args) {
+            log(errorStream, msg, args);
+        }
+
+        protected void log(PrintStream out, String msg, Object[] args) {
+            if (args.length == 0) {
+                out.println(msg);
+            }
+            else {
+                out.println(String.format(msg, (Object[]) args));
+            }
+        }
+    }
+
+    protected static class SLF4JContextLogger implements ContextLogger {
+        protected final Logger logger;
+
+        public SLF4JContextLogger(Logger logger) {
+            this.logger = logger;
+        }
+
+        public void trace(String msg, Object[] args) {
+            if (args.length == 0) {
+                logger.trace(msg);
+            }
+            else {
+                logger.trace(String.format(msg, (Object[]) args));
+            }
+        }
+
+        public void debug(String msg, Object[] args) {
+            if (args.length == 0) {
+                logger.debug(msg);
+            }
+            else {
+                logger.debug(String.format(msg, (Object[]) args));
+            }
+        }
+
+        public void info(String msg, Object[] args) {
+            if (args.length == 0) {
+                logger.info(msg);
+            }
+            else {
+                logger.info(String.format(msg, (Object[]) args));
+            }
+        }
+
+        public void warn(String msg, Object[] args) {
+            if (args.length == 0) {
+                logger.warn(msg);
+            }
+            else {
+                logger.warn(String.format(msg, (Object[]) args));
+            }
+        }
+
+        public void error(String msg, Object[] args) {
+            if (args.length == 0) {
+                logger.error(msg);
+            }
+            else {
+                logger.error(String.format(msg, (Object[]) args));
+            }
+        }
     }
 }

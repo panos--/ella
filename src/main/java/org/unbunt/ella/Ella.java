@@ -739,6 +739,7 @@ public class Ella {
 
             if (pargs.log) {
                 Logger ellaLogger = LoggerFactory.getLogger("ella");
+                context.setLogger(ellaLogger);
                 context.setOutputStream(
                         new PrintStream(new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.info)));
                 context.setErrorStream(
