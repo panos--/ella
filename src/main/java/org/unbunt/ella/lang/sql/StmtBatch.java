@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
-     * TODO: Observer notification on batch execution
+ * TODO: Observer notification on batch execution
  */
 public class StmtBatch {
     protected final Context context;

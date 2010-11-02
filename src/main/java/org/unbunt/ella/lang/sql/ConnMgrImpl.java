@@ -10,12 +10,11 @@ import org.unbunt.ella.exception.EllaRuntimeException;
 import org.unbunt.ella.lang.Base;
 import org.unbunt.ella.lang.NullImpl;
 import org.unbunt.ella.lang.Str;
-import org.unbunt.ella.lang.sql.StmtBatch;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a default implementation of the EllaScript core object <code>ConnMgr</code>.
