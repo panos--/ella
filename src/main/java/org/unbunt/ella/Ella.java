@@ -5,14 +5,14 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.DOTTreeGenerator;
 import org.antlr.stringtemplate.StringTemplate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.gnu.readline.Readline;
 import org.gnu.readline.ReadlineLibrary;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.unbunt.ella.compiler.*;
 import org.unbunt.ella.compiler.antlr.LazyInputStream;
@@ -25,12 +25,13 @@ import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
 import org.unbunt.ella.lang.sql.Drivers;
+import org.unbunt.ella.lang.sql.StmtBatch;
 import org.unbunt.ella.resource.FilesystemResource;
 import org.unbunt.ella.resource.FilesystemResourceLoader;
 import org.unbunt.ella.resource.SimpleResource;
 import org.unbunt.ella.resource.StringResource;
+import org.unbunt.ella.utils.SLF4JOutputStream;
 import static org.unbunt.ella.utils.StringUtils.join;
-import org.unbunt.ella.utils.StmtBatch;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -46,7 +47,7 @@ import java.util.List;
  * and execution of EllaScript programs.
  */
 public class Ella {
-    protected static Log logger = LogFactory.getLog(Ella.class);
+    private static final Logger logger = LoggerFactory.getLogger(Ella.class);
 
     public static final String NAME = "${pom.artifactId}";
     public static final String VERSION = "${project.finalVersion}";
@@ -113,7 +114,7 @@ public class Ella {
                 Readline.load(lib);
                 break;
             } catch (UnsatisfiedLinkError ignored) {
-                logger.trace("Readline lib " + lib.getName() + " not found...");
+                logger.trace("Readline lib {} not found...", lib.getName());
             } catch (Exception ignored) {
             }
         }
@@ -732,6 +733,18 @@ public class Ella {
                 // TODO: Provide functionality
             }
 
+            if (pargs.quiet) {
+                context.setLogLevel(Context.LogLevel.warn);
+            }
+
+            if (pargs.log) {
+                Logger ellaLogger = LoggerFactory.getLogger("ella");
+                context.setOutputStream(
+                        new PrintStream(new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.info)));
+                context.setErrorStream(
+                        new PrintStream(new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.warn)));
+            }
+
             if (pargs.compile) {
                 ella.compile();
                 return;
@@ -769,7 +782,7 @@ public class Ella {
                 StmtBatch batch = null;
                 if (conn != null) {
                     if (pargs.batch > 1) {
-                        batch = new StmtBatch(conn, pargs.batch);
+                        batch = new StmtBatch(context, conn, pargs.batch);
                         context.getObjConnMgr().activate(conn, batch);
                     }
                     else {
@@ -812,6 +825,7 @@ public class Ella {
                 name = cause.getClass().getName();
             }
             String error;
+            //noinspection InstanceofInterfaces
             if (cause instanceof EllaRuntimeException && msg != null && msg.length() > 0) {
                 error = msg;
             }
@@ -848,6 +862,12 @@ public class Ella {
 
 //        @Option(name = "-verbose", usage = "echo executed statements")
         public boolean verbose = false;
+
+        @Option(name = "-quiet", usage = "don't echo SQL statements, don't print informational messages")
+        public boolean quiet = false;
+
+        @Option(name = "-log", usage = "route all output through the SLF4J logging system")
+        public boolean log = false;
 
         @Option(name = "-large", usage = "optimize for large files")
         public boolean large = false;

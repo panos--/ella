@@ -30,7 +30,7 @@ public class SimpleSQLResultListener implements SQLResultListener {
      * @param out the output stream to write SQL results to.
      */
     public SimpleSQLResultListener(OutputStream out) {
-        this.out = new PrintStream(out);
+        this.out = out instanceof PrintStream ? (PrintStream) out : new PrintStream(out);
         this.resultSetPrinter = new ResultSetPrinter(this.out);
     }
 

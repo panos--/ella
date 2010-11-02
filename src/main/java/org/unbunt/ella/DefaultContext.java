@@ -15,13 +15,12 @@ import org.unbunt.ella.lang.sql.ResSet;
 import org.unbunt.ella.lang.sql.Stmt;
 import org.unbunt.ella.resource.SimpleResource;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 /**
  * Default implementation of the <code>Context</context> interface.
@@ -159,6 +158,13 @@ public class DefaultContext implements Context {
     protected Obj[] objects = new Obj[64];
 
     protected Object[] args;
+
+    protected LogLevel logLevel = LogLevel.info;
+    protected boolean traceEnabled = false;
+    protected boolean debugEnabled = false;
+    protected boolean infoEnabled = true;
+    protected boolean warnEnabled = true;
+    protected boolean errorEnabled = true;
 
     /**
      * Creates a DefaultContext with an empty set of program arguments exposed in the environment.
@@ -446,5 +452,78 @@ public class DefaultContext implements Context {
         for (SQLResultListener listener : sqlResultListeners) {
             listener.updateCount(updateCount);
         }
+    }
+
+    public void trace(String msg, Object... args) {
+        if (traceEnabled) {
+            log(errorStream, msg, args);
+        }
+    }
+
+    public void debug(String msg, Object... args) {
+        if (debugEnabled) {
+            log(errorStream, msg, args);
+        }
+    }
+
+    public void info(String msg, Object... args) {
+        if (infoEnabled) {
+            log(outputStream, msg, args);
+        }
+    }
+
+    public void warn(String msg, Object... args) {
+        if (warnEnabled) {
+            log(errorStream, msg, args);
+        }
+    }
+
+    public void error(String msg, Object... args) {
+        if (errorEnabled) {
+            log(errorStream, msg, args);
+        }
+    }
+
+    protected void log(PrintStream out, String msg, Object[] args) {
+        if (args.length == 0) {
+            out.println(msg);
+        }
+        else {
+            out.println(String.format(msg, (Object[]) args));
+        }
+    }
+
+    public boolean isTraceEnabled() {
+        return traceEnabled;
+    }
+
+    public boolean isDebugEnabled() {
+        return debugEnabled;
+    }
+
+    public boolean isInfoEnabled() {
+        return infoEnabled;
+    }
+
+    public boolean isWarnEnabled() {
+        return warnEnabled;
+    }
+
+    public boolean isErrorEnabled() {
+        return errorEnabled;
+    }
+
+    public void setLogLevel(LogLevel logLevel) {
+        this.logLevel = logLevel;
+        int logLevelOrdinal = logLevel.ordinal();
+        traceEnabled = logLevelOrdinal <= LogLevel.trace.ordinal();
+        debugEnabled = logLevelOrdinal <= LogLevel.debug.ordinal();
+        infoEnabled = logLevelOrdinal <= LogLevel.info.ordinal();
+        warnEnabled = logLevelOrdinal <= LogLevel.warn.ordinal();
+        errorEnabled = logLevelOrdinal <= LogLevel.error.ordinal();
+    }
+
+    public LogLevel getLogLevel() {
+        return logLevel;
     }
 }

@@ -1,7 +1,7 @@
-package org.unbunt.ella.utils;
+package org.unbunt.ella.lang.sql;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.utils.StopWatch;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,23 +11,23 @@ import java.sql.Statement;
      * TODO: Observer notification on batch execution
  */
 public class StmtBatch {
-    private static final Logger logger = LoggerFactory.getLogger(StmtBatch.class);
-
-    protected Statement statement;
-    protected int batchSize;
+    protected final Context context;
+    protected final Statement statement;
+    protected final int batchSize;
     protected int currentBatchSize = 0;
 
-    public StmtBatch(Connection connection, int batchSize) throws SQLException {
-        this(connection.createStatement(), batchSize);
+    public StmtBatch(Context context, Connection connection, int batchSize) throws SQLException {
+        this(context, connection.createStatement(), batchSize);
     }
 
-    public StmtBatch(Statement statement, int batchSize) {
+    public StmtBatch(Context context, Statement statement, int batchSize) {
+        this.context = context;
         this.statement = statement;
         this.batchSize = batchSize;
     }
 
     public void add(String query) throws SQLException {
-        logger.info("Batch: {}", query);
+        context.info("Batch: %s", query);
 
         statement.addBatch(query);
         if (++currentBatchSize % batchSize == 0) {
@@ -49,15 +49,15 @@ public class StmtBatch {
     }
 
     protected void execute() throws SQLException {
-        if (logger.isInfoEnabled()) {
-            logger.info("Executing batch with {} statements", currentBatchSize);
+        if (context.isInfoEnabled()) {
+            context.info("Executing batch with %d statements", currentBatchSize);
             StopWatch timer = new StopWatch(3);
             statement.executeBatch();
             double dt = timer.stop();
             double dts = dt / currentBatchSize;
             dts = (double) Math.round(dts * 1000) / 1000;
-            logger.info("Batch execution of {} statements took {} seconds ({} seconds per statement)",
-                        new Object[] { currentBatchSize, dt, dts});
+            context.info("Batch execution of %d statements took %.3f seconds (%.3f seconds per statement)",
+                         currentBatchSize, dt, dts);
         }
         else {
             statement.executeBatch();

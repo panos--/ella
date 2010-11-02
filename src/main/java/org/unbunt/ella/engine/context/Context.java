@@ -1,15 +1,10 @@
 package org.unbunt.ella.engine.context;
 
+import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.engine.environment.Env;
-import org.unbunt.ella.engine.corelang.ConnMgr;
-import org.unbunt.ella.engine.corelang.Null;
-import org.unbunt.ella.engine.corelang. Obj;
-import org.unbunt.ella.engine.corelang.Bool;
-import org.unbunt.ella.engine.corelang.Sys;
 import org.unbunt.ella.resource.SimpleResource;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
@@ -147,4 +142,27 @@ public interface Context extends SQLResultProvider {
     PrintStream getErrorStream();
 
     void setErrorStream(PrintStream errorStream);
+
+    public enum LogLevel {
+        trace,
+        debug,
+        info,
+        warn,
+        error
+    }
+
+    void trace(String msg, Object... args);
+    void debug(String msg, Object... args);
+    void info(String msg, Object... args);
+    void warn(String msg, Object... args);
+    void error(String msg, Object... args);
+
+    boolean isTraceEnabled();
+    boolean isDebugEnabled();
+    boolean isInfoEnabled();
+    boolean isWarnEnabled();
+    boolean isErrorEnabled();
+
+    void setLogLevel(LogLevel logLevel);
+    LogLevel getLogLevel();
 }

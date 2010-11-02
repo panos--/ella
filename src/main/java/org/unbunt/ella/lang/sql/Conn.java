@@ -1,7 +1,5 @@
 package org.unbunt.ella.lang.sql;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.unbunt.ella.compiler.support.RawSQL;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
@@ -9,7 +7,6 @@ import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.Base;
 import org.unbunt.ella.lang.Str;
-import org.unbunt.ella.utils.StmtBatch;
 import org.unbunt.ella.utils.StopWatch;
 
 import java.sql.Connection;
@@ -101,8 +98,6 @@ public class Conn extends AbstractObj {
      * Represents the implicit parent object of Conn objects.
      */
     public static class ConnProto extends AbstractObj {
-        protected static final Logger logger = LoggerFactory.getLogger(ConnProto.class);
-
         protected static final NativeCall nativeExecStmt = new NativeCall() {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Conn thiz = ensureType(Conn.class, context);
@@ -183,7 +178,7 @@ public class Conn extends AbstractObj {
 
                 try {
                     thiz.batchActive = true;
-                    thiz.batchStmt = new StmtBatch(thiz.connection.createStatement(), batchSize);
+                    thiz.batchStmt = new StmtBatch(engine.getContext(), thiz.connection.createStatement(), batchSize);
                     try {
                         engine.invoke(closure, engine.getObjNull());
                     } finally {
@@ -225,6 +220,7 @@ public class Conn extends AbstractObj {
         protected static final NativeCall nativeTx = new NativeCall() {
             @SuppressWarnings({"ThrowFromFinallyBlock"})
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
+                Context engineContext = engine.getContext();
                 Conn thiz = ensureType(Conn.class, context);
                 Obj closure = args[0];
 
@@ -238,7 +234,7 @@ public class Conn extends AbstractObj {
                             // TODO: Possibly make use of savepoints if supported by the driver
                             throw new EllaRuntimeException("Already in a transaction");
                         }
-                        logger.info("transaction begin");
+                        engineContext.info("transaction begin");
                         thiz.connection.setAutoCommit(false);
                     } catch (SQLException e) {
                         throw new EllaRuntimeException(e);
@@ -257,10 +253,10 @@ public class Conn extends AbstractObj {
                         // Intentionally catching any RuntimeException to avoid missing relevant errors.
                         failed = true;
                         try {
-                            logger.info("transaction roll back");
+                            engineContext.info("transaction roll back");
                             StopWatch timer = new StopWatch(3);
                             conn.rollback();
-                            logger.info("transaction roll back finished in {} seconds", timer.stop());
+                            engineContext.info("transaction roll back finished in %.3f seconds", timer.stop());
                             throw e; // rethrow exception after successfull rollback
                         } catch (SQLException e1) {
                             // NOTE: We consider a failed rollback a serious error, so we throw a new exception.
@@ -273,10 +269,10 @@ public class Conn extends AbstractObj {
                     } finally {
                         if (!failed) {
                             try {
-                                logger.info("transaction commit");
+                                engineContext.info("transaction commit");
                                 StopWatch timer = new StopWatch(3);
                                 conn.commit();
-                                logger.info("transaction commit finished in {} seconds", timer.stop());
+                                engineContext.info("transaction commit finished in %.3f seconds", timer.stop());
                             } catch (SQLException e) {
                                 // finally block abruptly completed here, but not a problem in this case as the throw
                                 // statement is the last statement in the block anyway

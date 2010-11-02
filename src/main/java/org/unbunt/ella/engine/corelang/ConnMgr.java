@@ -1,6 +1,6 @@
 package org.unbunt.ella.engine.corelang;
 
-import org.unbunt.ella.utils.StmtBatch;
+import org.unbunt.ella.lang.sql.StmtBatch;
 
 import java.sql.Connection;
 import java.util.Set;

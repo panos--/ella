@@ -1,7 +1,5 @@
 package org.unbunt.ella.lang.sql;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.unbunt.ella.compiler.ParserHelper;
 import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.RawSQL;
@@ -12,20 +10,18 @@ import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.*;
 import org.unbunt.ella.utils.StopWatch;
 
+import static java.lang.String.format;
 import java.math.BigDecimal;
+import java.util.Date; // NOTE: it is essential to have this import before the java.sql.* import
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Date; // NOTE: it is essential to have this import before the java.sql.* import
 import java.sql.*;
-import static java.lang.String.format;
 
 /**
  * Represents an EllaScript object wrapping an SQL statement.
  */
 public class Stmt extends AbstractObj {
-    protected static final Log logger = LogFactory.getLog(Stmt.class);
-    protected static final boolean trace = logger.isTraceEnabled();
 
     protected static final int OBJECT_ID = ProtoRegistry.generateObjectID();
 
@@ -88,28 +84,28 @@ public class Stmt extends AbstractObj {
         close();
     }
 
-    protected boolean execute() throws SQLException {
-        return execute(false);
+    protected boolean execute(Context context) throws SQLException {
+        return execute(context, false);
     }
 
-    protected boolean execute(boolean scrollable) throws SQLException {
+    protected boolean execute(Context context, boolean scrollable) throws SQLException {
         if (paramed) {
             initPrepared(scrollable);
             addParams();
-            logger.info(getParamedQuery());
+            context.info(getParamedQuery());
             boolean isResult;
             StopWatch timer = new StopWatch();
             isResult = preparedStatement.execute();
-            logger.info(format("query took %.3f seconds", timer.stop()));
+            context.info(format("query took %.3f seconds", timer.stop()));
             return isResult;
         }
         else {
             init(scrollable);
-            logger.info(rawStatement.getStatement());
+            context.info(rawStatement.getStatement());
             boolean isResult;
             StopWatch timer = new StopWatch();
             isResult = statement.execute(rawStatement.getStatement());
-            logger.info(format("query took %.3f seconds", timer.stop()));
+            context.info(format("query took %.3f seconds", timer.stop()));
             return isResult;
         }
     }
@@ -472,7 +468,7 @@ public class Stmt extends AbstractObj {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Stmt thiz = ensureType(Stmt.class, context);
                 try {
-                    boolean hasResult = thiz.execute(true);
+                    boolean hasResult = thiz.execute(engine.getContext(), true);
                     if (hasResult) {
                         ResultSet rs = thiz.getStatement().getResultSet(); // NOTE: rs closed implicitly with statement
                         engine.notifyResultSet(rs);
@@ -497,7 +493,7 @@ public class Stmt extends AbstractObj {
             public Obj call(Engine engine, Obj context, Obj... args) throws ClosureTerminatedException {
                 Stmt thiz = ensureType(Stmt.class, context);
                 try {
-                    thiz.execute();
+                    thiz.execute(engine.getContext());
                 } catch (SQLException e) {
                     throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
                 } finally {

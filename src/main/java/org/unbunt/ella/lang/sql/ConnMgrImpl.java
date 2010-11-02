@@ -10,7 +10,7 @@ import org.unbunt.ella.exception.EllaRuntimeException;
 import org.unbunt.ella.lang.Base;
 import org.unbunt.ella.lang.NullImpl;
 import org.unbunt.ella.lang.Str;
-import org.unbunt.ella.utils.StmtBatch;
+import org.unbunt.ella.lang.sql.StmtBatch;
 
 import java.sql.Connection;
 import java.sql.SQLException;

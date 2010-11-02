@@ -21,7 +21,7 @@ public class ScrollableResultSetPrinter {
     protected final PrintStream out;
 
     public ScrollableResultSetPrinter(OutputStream out) {
-        this.out = new PrintStream(out);
+        this.out = out instanceof PrintStream ? (PrintStream) out : new PrintStream(out);
     }
 
     /**
