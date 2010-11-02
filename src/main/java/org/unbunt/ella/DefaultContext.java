@@ -1,8 +1,7 @@
 package org.unbunt.ella;
 
 import org.unbunt.ella.compiler.support.Variable;
-import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.context.SQLResultListener;
+import org.unbunt.ella.engine.context.*;
 import org.unbunt.ella.engine.corelang.*;
 import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.engine.environment.DynamicVariableResolver;
@@ -193,7 +192,7 @@ public class DefaultContext implements Context {
         this.args = args;
         Arrays.fill(objectProtos, null);
         Arrays.fill(objects, null);
-        logger = new OutputStreamContextLogger();
+        logger = new VolatileOutputStreamContextLogger();
         initProtos();
         initEnv();
     }
@@ -526,23 +525,11 @@ public class DefaultContext implements Context {
         return logLevel;
     }
 
-    public void setLogger(Logger logger) {
-        this.logger = new SLF4JContextLogger(logger);
+    public void setLogger(ContextLogger logger) {
+        this.logger = logger;
     }
 
-    public void addLogger(Logger logger) {
-        this.logger = new DupContextLogger(this.logger, new SLF4JContextLogger(logger));
-    }
-
-    protected static interface ContextLogger {
-        public void trace(String msg, Object[] args);
-        public void debug(String msg, Object[] args);
-        public void info(String msg, Object[] args);
-        public void warn(String msg, Object[] args);
-        public void error(String msg, Object[] args);
-    }
-
-    protected class OutputStreamContextLogger implements ContextLogger {
+    protected class VolatileOutputStreamContextLogger implements ContextLogger {
         public void trace(String msg, Object[] args) {
             log(errorStream, msg, args);
         }
@@ -573,91 +560,4 @@ public class DefaultContext implements Context {
         }
     }
 
-    protected static class SLF4JContextLogger implements ContextLogger {
-        protected final Logger logger;
-
-        public SLF4JContextLogger(Logger logger) {
-            this.logger = logger;
-        }
-
-        public void trace(String msg, Object[] args) {
-            if (args.length == 0) {
-                logger.trace(msg);
-            }
-            else {
-                logger.trace(String.format(msg, (Object[]) args));
-            }
-        }
-
-        public void debug(String msg, Object[] args) {
-            if (args.length == 0) {
-                logger.debug(msg);
-            }
-            else {
-                logger.debug(String.format(msg, (Object[]) args));
-            }
-        }
-
-        public void info(String msg, Object[] args) {
-            if (args.length == 0) {
-                logger.info(msg);
-            }
-            else {
-                logger.info(String.format(msg, (Object[]) args));
-            }
-        }
-
-        public void warn(String msg, Object[] args) {
-            if (args.length == 0) {
-                logger.warn(msg);
-            }
-            else {
-                logger.warn(String.format(msg, (Object[]) args));
-            }
-        }
-
-        public void error(String msg, Object[] args) {
-            if (args.length == 0) {
-                logger.error(msg);
-            }
-            else {
-                logger.error(String.format(msg, (Object[]) args));
-            }
-        }
-    }
-
-    protected static class DupContextLogger implements ContextLogger {
-        protected final ContextLogger baseLogger;
-        protected final ContextLogger logger;
-
-        public DupContextLogger(ContextLogger baseLogger, ContextLogger logger) {
-            this.baseLogger = baseLogger;
-            this.logger = logger;
-        }
-
-        public void trace(String msg, Object[] args) {
-            baseLogger.trace(msg, args);
-            logger.trace(msg, args);
-        }
-
-        public void debug(String msg, Object[] args) {
-            baseLogger.debug(msg, args);
-            logger.debug(msg, args);
-        }
-
-        public void info(String msg, Object[] args) {
-            baseLogger.info(msg, args);
-            logger.info(msg, args);
-        }
-
-        public void warn(String msg, Object[] args) {
-            baseLogger.warn(msg, args);
-            logger.warn(msg, args);
-        }
-
-        public void error(String msg, Object[] args) {
-            baseLogger.error(msg, args);
-            logger.error(msg, args);
-        }
-    }
 }

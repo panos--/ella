@@ -22,6 +22,9 @@ import org.unbunt.ella.compiler.support.Scope;
 import org.unbunt.ella.engine.EllaCPSEngine;
 import org.unbunt.ella.engine.EllaEngine;
 import org.unbunt.ella.engine.context.Context;
+import org.unbunt.ella.engine.context.SLF4JContextLogger;
+import org.unbunt.ella.engine.context.DupContextLogger;
+import org.unbunt.ella.engine.context.PrintStreamLogger;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
 import org.unbunt.ella.lang.sql.Drivers;
@@ -742,10 +745,14 @@ public class Ella {
                 Logger ellaLogger = LoggerFactory.getLogger("ella");
 
                 if (pargs.logonly) {
-                    context.setLogger(ellaLogger);
+                    context.setLogger(new SLF4JContextLogger(ellaLogger));
                 }
                 else {
-                    context.addLogger(ellaLogger);
+                    context.setLogger(
+                            new DupContextLogger(
+                                    new PrintStreamLogger(context.getOutputStream(), context.getErrorStream()),
+                                    new SLF4JContextLogger(ellaLogger))
+                    );
                 }
 
                 SLF4JOutputStream slf4jOutputStream =

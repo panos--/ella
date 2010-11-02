@@ -167,6 +167,5 @@ public interface Context extends SQLResultProvider {
     void setLogLevel(LogLevel logLevel);
     LogLevel getLogLevel();
 
-    void setLogger(Logger logger);
-    void addLogger(Logger logger);
+    void setLogger(ContextLogger logger);
 }
