@@ -530,6 +530,10 @@ public class DefaultContext implements Context {
         this.logger = new SLF4JContextLogger(logger);
     }
 
+    public void addLogger(Logger logger) {
+        this.logger = new DupContextLogger(this.logger, new SLF4JContextLogger(logger));
+    }
+
     protected static interface ContextLogger {
         public void trace(String msg, Object[] args);
         public void debug(String msg, Object[] args);
@@ -619,6 +623,41 @@ public class DefaultContext implements Context {
             else {
                 logger.error(String.format(msg, (Object[]) args));
             }
+        }
+    }
+
+    protected static class DupContextLogger implements ContextLogger {
+        protected final ContextLogger baseLogger;
+        protected final ContextLogger logger;
+
+        public DupContextLogger(ContextLogger baseLogger, ContextLogger logger) {
+            this.baseLogger = baseLogger;
+            this.logger = logger;
+        }
+
+        public void trace(String msg, Object[] args) {
+            baseLogger.trace(msg, args);
+            logger.trace(msg, args);
+        }
+
+        public void debug(String msg, Object[] args) {
+            baseLogger.debug(msg, args);
+            logger.debug(msg, args);
+        }
+
+        public void info(String msg, Object[] args) {
+            baseLogger.info(msg, args);
+            logger.info(msg, args);
+        }
+
+        public void warn(String msg, Object[] args) {
+            baseLogger.warn(msg, args);
+            logger.warn(msg, args);
+        }
+
+        public void error(String msg, Object[] args) {
+            baseLogger.error(msg, args);
+            logger.error(msg, args);
         }
     }
 }

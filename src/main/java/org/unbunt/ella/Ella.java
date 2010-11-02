@@ -31,6 +31,7 @@ import org.unbunt.ella.resource.FilesystemResourceLoader;
 import org.unbunt.ella.resource.SimpleResource;
 import org.unbunt.ella.resource.StringResource;
 import org.unbunt.ella.utils.SLF4JOutputStream;
+import org.unbunt.ella.utils.DupOutputStream;
 import static org.unbunt.ella.utils.StringUtils.join;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
@@ -737,13 +738,34 @@ public class Ella {
                 context.setLogLevel(Context.LogLevel.warn);
             }
 
-            if (pargs.log) {
+            if (pargs.log || pargs.logonly) {
                 Logger ellaLogger = LoggerFactory.getLogger("ella");
-                context.setLogger(ellaLogger);
-                context.setOutputStream(
-                        new PrintStream(new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.info)));
-                context.setErrorStream(
-                        new PrintStream(new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.warn)));
+
+                if (pargs.logonly) {
+                    context.setLogger(ellaLogger);
+                }
+                else {
+                    context.addLogger(ellaLogger);
+                }
+
+                SLF4JOutputStream slf4jOutputStream =
+                        new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.info);
+                SLF4JOutputStream slf4jErrorStream =
+                        new SLF4JOutputStream(ellaLogger, SLF4JOutputStream.Priority.warn);
+                OutputStream outputStream = pargs.logonly
+                                            ? slf4jOutputStream
+                                            : new DupOutputStream(new OutputStream[] {
+                                                    context.getOutputStream(),
+                                                    slf4jOutputStream
+                                            });
+                OutputStream errorStream = pargs.logonly
+                                           ? slf4jErrorStream
+                                           : new DupOutputStream(new OutputStream[] {
+                                                   context.getErrorStream(),
+                                                   slf4jErrorStream
+                                           });
+                context.setOutputStream(new PrintStream(outputStream));
+                context.setErrorStream(new PrintStream(errorStream));
             }
 
             if (pargs.compile) {
@@ -867,8 +889,11 @@ public class Ella {
         @Option(name = "-quiet", usage = "don't echo SQL statements, don't print informational messages")
         public boolean quiet = false;
 
-        @Option(name = "-log", usage = "route all output through the SLF4J logging system")
+        @Option(name = "-log", usage = "log all output")
         public boolean log = false;
+
+        @Option(name = "-logonly", usage = "route all output through the SLF4J logging system")
+        public boolean logonly = false;
 
         @Option(name = "-large", usage = "optimize for large files")
         public boolean large = false;
