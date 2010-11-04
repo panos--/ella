@@ -1,7 +1,5 @@
 package org.unbunt.ella.engine.context;
 
-import org.unbunt.ella.ContextLogger;
-
 import java.io.PrintStream;
 
 /**

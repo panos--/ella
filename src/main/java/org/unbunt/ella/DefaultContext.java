@@ -13,7 +13,6 @@ import org.unbunt.ella.lang.sql.ConnMgrImpl;
 import org.unbunt.ella.lang.sql.ResSet;
 import org.unbunt.ella.lang.sql.Stmt;
 import org.unbunt.ella.resource.SimpleResource;
-import org.slf4j.Logger;
 
 import java.io.InputStream;
 import java.io.PrintStream;

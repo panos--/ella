@@ -23,6 +23,8 @@ import org.unbunt.ella.engine.EllaCPSEngine;
 import org.unbunt.ella.engine.EllaEngine;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.context.PrintStreamLogger;
+import org.unbunt.ella.engine.context.DupContextLogger;
+import org.unbunt.ella.engine.context.SLF4JContextLogger;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
 import org.unbunt.ella.lang.sql.Drivers;
