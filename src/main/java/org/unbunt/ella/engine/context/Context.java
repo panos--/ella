@@ -3,6 +3,7 @@ package org.unbunt.ella.engine.context;
 import org.unbunt.ella.engine.corelang.*;
 import org.unbunt.ella.engine.environment.Env;
 import org.unbunt.ella.resource.SimpleResource;
+import org.unbunt.ella.ContextLogger;
 import org.slf4j.Logger;
 
 import java.io.InputStream;
