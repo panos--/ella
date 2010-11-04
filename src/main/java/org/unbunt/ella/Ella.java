@@ -643,25 +643,19 @@ public class Ella {
     }
 
     @SuppressWarnings({"UnusedDeclaration"})
-    protected static void die(String msg, Exception e, int err) {
-        System.err.println(msg);
+    protected static void err(Context context, String msg, Exception e) {
+        context.error(msg);
 
         if (e != null) {
-            logger.debug(msg, e);
+            context.debug(msg, e);
         }
-
-        System.exit(err);
     }
 
-    protected static void die(String msg, int err) {
-        die(msg, null, err);
+    protected static void err(Context context, String msg) {
+        err(context, msg, null);
     }
 
-    protected static void die(String msg) {
-        die(msg, 1);
-    }
-
-    protected static void usage(CmdLineParser parser) {
+    protected static int usage(CmdLineParser parser) {
         version();
         System.err.println();
         System.err.println("usage: Ella [-url|-props] OPTION... {-i | [-large] [FILE]} [ARG]...");
@@ -673,35 +667,30 @@ public class Ella {
             System.err.print(": ");
             System.err.println(join((Object[])driver.getDriverClasses()));
         }
-        System.exit(1);
+        return 1;
     }
 
     protected static void version() {
         System.err.println(NAME + " " + VERSION);
     }
 
-    /**
-     * Provides a command line interface to the EllaScript interpreter.
-     *
-     * @param args the command line arguments.
-     */
-    public static void main(String[] args) {
+    protected static int run(String[] args) {
         Args pargs = new Args();
         CmdLineParser parser = new CmdLineParser(pargs);
         try {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
-            usage(parser);
+            return usage(parser);
         }
 
         if (pargs.showUsage) {
-            usage(parser);
+            return usage(parser);
         }
 
         if (pargs.showVersion) {
             version();
-            System.exit(0);
+            return 0;
         }
 
         String file = pargs.args.isEmpty() ? null : pargs.args.get(0);
@@ -710,11 +699,11 @@ public class Ella {
         }
         if (pargs.interactive) {
             if (file != null || pargs.ast || pargs.large) {
-                usage(parser);
+                return usage(parser);
             }
         }
         else if (pargs.large && pargs.ast) {
-            usage(parser);
+            return usage(parser);
         }
 
         String[] scriptArgs;
@@ -726,11 +715,11 @@ public class Ella {
             scriptArgs = new String[0];
         }
 
+        DefaultContext context = new DefaultContext(scriptArgs);
         try {
             FilesystemResourceLoader loader = new FilesystemResourceLoader();
             SimpleResource script = file == null ? loader.getStdinResource() : loader.getResource(file);
 
-            DefaultContext context = new DefaultContext(scriptArgs);
             Ella ella = new Ella(context, script);
 
             if (pargs.verbose) {
@@ -777,16 +766,16 @@ public class Ella {
 
             if (pargs.compile) {
                 ella.compile();
-                return;
+                return 0;
             }
             else if (pargs.ast) {
                 ella.showAST();
-                return;
+                return 0;
             }
 
             DriverManagerDataSource ds = null;
             if (pargs.url != null && pargs.properties != null) {
-                usage(parser);
+                return usage(parser);
             }
             try {
                 if (pargs.properties != null) {
@@ -796,7 +785,8 @@ public class Ella {
                     ds = DBUtils.createDataSource(pargs.url, pargs.user, pargs.pass, pargs.driver);
                 }
             } catch (DBConnectionFailedException e) {
-                die("Could not connect database: " + e.getMessage());
+                err(context, "Could not connect database: " + e.getMessage());
+                return 1;
             }
 
             Connection conn = null;
@@ -804,7 +794,8 @@ public class Ella {
                 try {
                     conn = ds.getConnection();
                 } catch (SQLException e) {
-                    die("Could not connect database: " + e.getMessage());
+                    err(context, "Could not connect database: " + e.getMessage());
+                    return 1;
                 }
             }
 
@@ -839,11 +830,14 @@ public class Ella {
                 catch (Exception ignored) {}
             }
         } catch (SQLException e) {
-            die(e.getMessage(), e, 2);
+            err(context, e.getMessage(), e);
+            return 2;
         } catch (EllaIOException e) {
-            die(e.getMessage(), e, 2);
+            err(context, e.getMessage(), e);
+            return 2;
         } catch (EllaParseException e) {
-            die(e.getMessage(), e, 3);
+            err(context, e.getMessage(), e);
+            return 3;
         } catch (EllaException e) {
             Throwable cause = e.getCause();
             String msg = cause.getMessage();
@@ -866,8 +860,20 @@ public class Ella {
                 }
             }
 
-            die("Unhandled exception: " + error, e, 4);
+            err(context, "Unhandled exception: " + error, e);
+            return 4;
         }
+
+        return 0;
+    }
+
+    /**
+     * Provides a command line interface to the EllaScript interpreter.
+     *
+     * @param args the command line arguments.
+     */
+    public static void main(String[] args) {
+        System.exit(run(args));
     }
 
     protected static class Args {
