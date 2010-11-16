@@ -24,6 +24,13 @@ public class DBUtils {
                                                   e.getMessage(), e);
         }
 
+        return createDataSourceFromProps(props, user, pass, classOrType);
+    }
+
+    public static DriverManagerDataSource createDataSourceFromProps(Properties props,
+                                                                    String user, String pass,
+                                                                    String classOrType)
+            throws DBConnectionFailedException {
         // canonicalize user/username property
         if (props.getProperty("username") != null && props.getProperty("user") == null) {
             props.setProperty("user", props.getProperty("username"));
