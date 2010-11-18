@@ -73,9 +73,10 @@ public class Ella {
     protected OutputStream outputStream = System.out;
     protected OutputStream errorStream = System.err;
 
-    protected Context currentContext = null;
     protected Connection currentConnection = null;
     protected StmtBatch currentBatch = null;
+
+    protected ELLA ella = null;
 
     public Ella(String script) {
         this(script, new String[0]);
@@ -132,7 +133,7 @@ public class Ella {
                                         DatabaseException {
         ELLA ella = createELLA();
 
-        Context context = currentContext;
+        Context context = ella.getContext();
 
         context.setInputStream(inputStream);
         context.setOutputStream(new PrintStream(outputStream));
@@ -211,6 +212,8 @@ public class Ella {
     }
 
     protected void cleanup() throws DatabaseException {
+        ella = null;
+
         if (currentBatch != null) {
             try {
                 currentBatch.finish();
@@ -238,9 +241,12 @@ public class Ella {
     }
 
     protected Object exec(ExecType execType) throws EllaParseException, EllaIOException, DBConnectionFailedException,
-                                                    DataSourceInitializationException, DatabaseException, EllaException {
+                                                    DataSourceInitializationException, DatabaseException, EllaException,
+                                                    EllaStoppedException {
+        ELLA ella = null;
         try {
-            ELLA ella = prepareELLA();
+            ella = prepareELLA();
+            this.ella = ella;
             try {
                 switch (execType) {
                     case INTERACTIVE:
@@ -256,8 +262,8 @@ public class Ella {
                 cleanup();
             }
         } catch (DatabaseException e) {
-            if (currentContext != null) {
-                currentContext.error(e.getMessage());
+            if (ella != null) {
+                ella.getContext().error(e.getMessage());
             }
             throw e;
         } catch (EllaException e) {
@@ -283,8 +289,8 @@ public class Ella {
             }
 
             msg = "Unhandled exception: " + error;
-            if (currentContext != null) {
-                currentContext.error(msg);
+            if (ella != null) {
+                ella.getContext().error(msg);
             }
 
             throw e;
@@ -302,24 +308,28 @@ public class Ella {
     }
 
     public Object execute() throws EllaIOException, DBConnectionFailedException, DataSourceInitializationException,
-                                   EllaParseException, EllaException, DatabaseException {
+                                   EllaParseException, EllaException, DatabaseException, EllaStoppedException {
         return exec(ExecType.DEFAULT);
     }
 
     public void executeInteractive()
             throws EllaIOException, DBConnectionFailedException, DataSourceInitializationException,
-                   DatabaseException, EllaParseException, EllaException {
+                   DatabaseException, EllaParseException, EllaException, EllaStoppedException {
         exec(ExecType.INTERACTIVE);
     }
 
     public void executeIncremental()
             throws EllaIOException, DBConnectionFailedException, DataSourceInitializationException,
-                   DatabaseException, EllaParseException, EllaException {
+                   DatabaseException, EllaParseException, EllaException, EllaStoppedException {
         exec(ExecType.INCREMENTAL);
     }
 
-    public Context getCurrentContext() {
-        return currentContext;
+    public void stop() {
+        ELLA ella = this.ella;
+        if (ella == null) {
+            return;
+        }
+        ella.stop();
     }
 
     public boolean isLogOutput() {
@@ -421,7 +431,7 @@ public class Ella {
      * @see #executeIncremental()
      */
     public static Object evalIncremental(File script, Object... args)
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         return evalIncremental(script, new DefaultContext(args));
     }
 
@@ -437,7 +447,7 @@ public class Ella {
      * @see #executeIncremental()
      */
     public static Object evalIncremental(File script, Context context)
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         SimpleResource res = new FilesystemResource(script);
         ELLA interp = new ELLA(context, res);
         return interp.executeIncremental();
@@ -454,7 +464,7 @@ public class Ella {
      * @throws EllaException if the program throws an exception.
      */
     public static Object eval(File script, Object... args)
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         return eval(script, new DefaultContext(args));
     }
 
@@ -469,7 +479,7 @@ public class Ella {
      * @throws EllaException if the program throws an exception.
      */
     protected static Object eval(File script, Context context)
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         SimpleResource res = new FilesystemResource(script);
         ELLA interp = new ELLA(context, res);
         return interp.execute();
@@ -486,7 +496,7 @@ public class Ella {
      * @throws EllaException if the program throws an exception.
      */
     public static Object eval(String script, Object... args)
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         return eval(script, new DefaultContext(args));
     }
 
@@ -501,7 +511,7 @@ public class Ella {
      * @throws EllaException if the program throws an exception.
      */
     protected static Object eval(String script, Context context)
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         SimpleResource res = new StringResource(script);
         ELLA interp = new ELLA(context, res);
         return interp.execute();
@@ -684,6 +694,8 @@ public class Ella {
             return 2;
         } catch (DatabaseException e) {
             return 2;
+        } catch (EllaStoppedException e) {
+            return 5;
         }
 
         return 0;
@@ -734,7 +746,7 @@ public class Ella {
         public boolean large = false;
 
         @Option(name = "-batch", usage = "activate batch mode with the given size")
-        public int batch = 0;
+        public int batch = 1;
 
         @Option(name = "-c", usage = "compile only")
         public boolean compile = false;
@@ -973,7 +985,8 @@ public class Ella {
          * @throws EllaParseException if compilation of the program fails.
          * @throws EllaException if an exception is thrown from the program.
          */
-        public Object executeIncremental() throws EllaIOException, EllaParseException, EllaException {
+        public Object executeIncremental()
+                throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
             initParserIncremental();
             initEngine();
             try {
@@ -1001,7 +1014,7 @@ public class Ella {
          * @throws EllaException if an exception is thrown from the program.
          */
         public Object execute()
-                throws EllaIOException, EllaParseException, EllaException {
+                throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
             tokenize();
             parseTokens();
             parseTree();
@@ -1198,7 +1211,7 @@ public class Ella {
             }
         }
 
-        protected Object run() throws EllaException {
+        protected Object run() throws EllaException, EllaStoppedException {
             initEngine();
             try {
                 return runBlock();
@@ -1207,8 +1220,16 @@ public class Ella {
             }
         }
 
-        protected Object runBlock() throws EllaException {
+        protected Object runBlock() throws EllaException, EllaStoppedException {
             return engine.eval(block);
+        }
+
+        public void stop() {
+            EllaEngine engine = this.engine;
+            if (engine == null) {
+                return;
+            }
+            engine.stop();
         }
 
         protected void initEngine() {
@@ -1220,6 +1241,11 @@ public class Ella {
                 return;
             }
             engine.finish();
+            engine = null;
+        }
+
+        public Context getContext() {
+            return context;
         }
     }
 }

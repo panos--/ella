@@ -370,6 +370,18 @@ public class SysImpl extends AbstractObj implements Sys {
         }
     };
 
+    protected static final NativeCall nativeSleep = new NativeCall() {
+        public Obj call(Engine engine, Obj context, Obj... args) {
+            NNumeric millis = ObjUtils.ensureType(NNumeric.class, args[0]);
+            try {
+                Thread.sleep(millis.longValue());
+            } catch (InterruptedException e) {
+                return engine.getObjFalse();
+            }
+            return engine.getObjTrue();
+        }
+    };
+
     protected static abstract class DynamicSlot {
         public abstract Obj get(Context ctx);
     }
@@ -432,6 +444,7 @@ public class SysImpl extends AbstractObj implements Sys {
         slots.put(Str.SYM_explicitSlot, nativeExplicitSlot);
         slots.put(Str.SYM_noop, nativeNoop);
         slots.put(Str.SYM_exec, nativeExec);
+        slots.put(Str.SYM_sleep, nativeSleep);
 
         dynSlots.put(Str.SYM_in, dynSlotIn);
         dynSlots.put(Str.SYM_out, dynSlotOut);

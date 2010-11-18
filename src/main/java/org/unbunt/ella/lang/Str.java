@@ -112,6 +112,7 @@ public class Str extends AbstractObj {
     public static final Str SYM_select = toSym("select");
     public static final Str SYM_set = toSym("set");
     public static final Str SYM_size = toSym("size");
+    public static final Str SYM_sleep = toSym("sleep");
     public static final Str SYM_start = toSym("start");
     public static final Str SYM_stop = toSym("stop");
     public static final Str SYM_substring = toSym("substring");

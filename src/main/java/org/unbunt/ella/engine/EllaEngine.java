@@ -3,6 +3,7 @@ package org.unbunt.ella.engine;
 import org.unbunt.ella.compiler.statement.Block;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.exception.EllaException;
+import org.unbunt.ella.exception.EllaStoppedException;
 
 /**
  * Interface representing an EllaScript execution engine.
@@ -15,7 +16,12 @@ public interface EllaEngine {
      * @return the result of the evaluation.
      * @throws EllaException if the evaluated program throws an exception it doesn't catch.
      */
-    Object eval(Block block) throws EllaException;
+    Object eval(Block block) throws EllaException, EllaStoppedException;
+
+    /**
+     * Signals this engine to stop script execution as soon as possible.
+     */
+    void stop();
 
     /**
      * Instructs this engine to perform any cleanup that might be nessessary after a program evaluation, such as

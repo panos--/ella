@@ -6,6 +6,7 @@ import static org.unbunt.ella.Ella.eval;
 import org.unbunt.ella.exception.EllaException;
 import org.unbunt.ella.exception.EllaIOException;
 import org.unbunt.ella.exception.EllaParseException;
+import org.unbunt.ella.exception.EllaStoppedException;
 import static org.unbunt.ellatest.TestUtils.ensureType;
 
 import java.io.File;
@@ -21,14 +22,15 @@ public class InterpreterDBTestsNG extends AbstractTest {
     public static final String PROPS_PGSQL = "pg.properties";
     public static final String PROPS_ORACLE = "oracle.properties";
 
-    public void connectMysql() throws EllaIOException, EllaParseException, SQLException, EllaException {
+    public void connectMysql()
+            throws EllaIOException, EllaParseException, SQLException, EllaException, EllaStoppedException {
         Object result = eval(String.format(".ConnMgr.createFromProps('%s', 'mysql');", propsMysql()));
         Connection conn = ensureType(Connection.class, result);
         conn.close();
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void connActivate() throws EllaIOException, EllaParseException, EllaException {
+    public void connActivate() throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         // TODO: Close connections
         eval("{\n" +
                 String.format("var conn1 := ConnMgr.createFromProps('%s', 'mysql');\n", propsMysql()) +
@@ -47,7 +49,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
 
     @SuppressWarnings({"unchecked", "ConstantConditions"})
     @Test(dependsOnMethods = "connectMysql")
-    public void connAutoClose() throws EllaParseException, EllaIOException, EllaException, SQLException {
+    public void connAutoClose()
+            throws EllaParseException, EllaIOException, EllaException, SQLException, EllaStoppedException {
         Object result = eval(file("conn-auto-close"), propsMysql());
         assertNotNull(result);
         assertTrue(result instanceof List, "Expected list of connections - got " + result.getClass());
@@ -69,45 +72,48 @@ public class InterpreterDBTestsNG extends AbstractTest {
 
     @Test(dependsOnMethods = "connActivate")
     public void sqlLiteralVariableSubstitution()
-            throws EllaIOException, EllaParseException, EllaException {
+            throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         eval(file("sql-literal-variable-substitution"), propsMysql(), "mysql");
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void tx() throws EllaIOException, EllaParseException, EllaException {
+    public void tx() throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         eval(file("tx"), propsMysql());
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void mysqlStmtKey() throws EllaIOException, EllaException, EllaParseException {
+    public void mysqlStmtKey() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("mysql-stmt-key"), propsMysql());
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void mysqlResSetUpdate() throws EllaIOException, EllaException, EllaParseException {
+    public void mysqlResSetUpdate() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("mysql-resset-update"), propsMysql());
     }
 
     @Test(dependsOnMethods = "connectMysql")
-    public void mysqlResSetInsert() throws EllaIOException, EllaException, EllaParseException {
+    public void mysqlResSetInsert() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("mysql-resset-insert"), propsMysql());
     }
 
-    public void connectPostgresql() throws EllaParseException, EllaIOException, EllaException, SQLException {
+    public void connectPostgresql()
+            throws EllaParseException, EllaIOException, EllaException, SQLException, EllaStoppedException {
         Object result = eval(".ConnMgr.createFromProps(ARGV[0]);", propsPG());
         Connection conn = ensureType(Connection.class, result);
         conn.close();
     }
 
     @Test(dependsOnMethods = "connectPostgresql")
-    public void postgresqlStringSingleQuoted() throws EllaParseException, EllaIOException, EllaException {
+    public void postgresqlStringSingleQuoted()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         Object result = eval(".ConnMgr.createFromProps(ARGV[0]);" +
                              ".(sql select 'foobar' as foo).first().foo;", propsPG());
         assertEquals(result, "foobar");
     }
 
     @Test(dependsOnMethods = "connectPostgresql")
-    public void postgresqlStringDollarQuoted() throws EllaParseException, EllaIOException, EllaException {
+    public void postgresqlStringDollarQuoted()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         Object result = eval(".ConnMgr.createFromProps(ARGV[0]); " +
                              "\\set quotes=pg; " +
                              ".(sql select $$foo)bar$$ as foo).first().foo;",
@@ -116,7 +122,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "connectPostgresql")
-    public void postgresqlStringDollarQuotedTag() throws EllaParseException, EllaIOException, EllaException {
+    public void postgresqlStringDollarQuotedTag()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         Object result = eval(".ConnMgr.createFromProps(ARGV[0]); " +
                              "\\set quotes=pg; " +
                              ".(sql select $tag$foo)bar$tag$ as foo).first().foo;",
@@ -125,7 +132,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "connectPostgresql")
-    public void postgresqlStringDollarQuotedVarSubst() throws EllaParseException, EllaIOException, EllaException {
+    public void postgresqlStringDollarQuotedVarSubst()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         Object result = eval(".ConnMgr.createFromProps(ARGV[0]); " +
                              "\\set quotes=pg; " +
                              "var foo := 'foobar'; " +
@@ -134,7 +142,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
         assertEquals(result, "foofoobar)bar");
     }
 
-    public void connectOracle() throws EllaIOException, EllaParseException, SQLException, EllaException {
+    public void connectOracle()
+            throws EllaIOException, EllaParseException, SQLException, EllaException, EllaStoppedException {
         Object result = eval(
                 String.format(".ConnMgr.createFromProps('%s', 'oracle');", propsOracle())
         );
@@ -143,17 +152,19 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleInsertSelectSimple() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleInsertSelectSimple()
+            throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-insert-select-simple"), propsOracle());
     }
 
     @Test(dependsOnMethods = "oracleInsertSelectSimple")
-    public void oracleStmtFirst() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleStmtFirst() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-stmt-first"), propsOracle());
     }
 
     @Test(dependsOnMethods = "oracleStmtFirst")
-    public void oracleQQuotedStringAlphaDelim() throws EllaParseException, EllaIOException, EllaException {
+    public void oracleQQuotedStringAlphaDelim()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         String code = ".ConnMgr.createFromProps(ARGV[0]); " +
                       "\\set quotes=ora; " +
                       ".(sql select q'Xfoo')barX' as str from dual).first().STR;";
@@ -162,7 +173,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "oracleStmtFirst")
-    public void oracleQQuotedStringSquotDelim() throws EllaParseException, EllaIOException, EllaException {
+    public void oracleQQuotedStringSquotDelim()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         String code = ".ConnMgr.createFromProps(ARGV[0]); " +
                       "\\set quotes=ora; " +
                       ".(sql select q''foo')bar'' as str from dual).first().STR;";
@@ -171,7 +183,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "oracleStmtFirst")
-    public void oracleQQuotedStringCurlyDelim() throws EllaParseException, EllaIOException, EllaException {
+    public void oracleQQuotedStringCurlyDelim()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         String code = ".ConnMgr.createFromProps(ARGV[0]); " +
                       "\\set quotes=ora; " +
                       ".(sql select q'{x'xx''zz}yy@'}' as str from dual).first().STR;";
@@ -180,7 +193,8 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "oracleQQuotedStringCurlyDelim")
-    public void oracleQQuotedStringCurlyDelimVarSubst() throws EllaParseException, EllaIOException, EllaException {
+    public void oracleQQuotedStringCurlyDelimVarSubst()
+            throws EllaParseException, EllaIOException, EllaException, EllaStoppedException {
         String code = ".ConnMgr.createFromProps(ARGV[0]); " +
                       "\\set quotes=ora; " +
                       "var foo := 'foobar'; " +
@@ -191,27 +205,28 @@ public class InterpreterDBTestsNG extends AbstractTest {
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleConnBatch() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleConnBatch() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-conn-batch"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleStmtBatch() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleStmtBatch() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-stmt-batch"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleStmtBatchNamed() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleStmtBatchNamed() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-stmt-batch-named"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleConnWithPrepared() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleConnWithPrepared() throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-conn-with-prepared"), propsOracle());
     }
 
     @Test(dependsOnMethods = "connectOracle")
-    public void oracleConnWithPreparedNamed() throws EllaIOException, EllaException, EllaParseException {
+    public void oracleConnWithPreparedNamed()
+            throws EllaIOException, EllaException, EllaParseException, EllaStoppedException {
         eval(file("oracle-conn-with-prepared-named"), propsOracle());
     }
 

@@ -33,6 +33,7 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     protected final boolean trace = logger.isTraceEnabled();
 
     protected Context context;
+    protected volatile boolean stop = false;
     protected boolean exited = false;
 
     protected static final Obj SLOT_PARENT = Consts.SLOT_PARENT;
@@ -79,7 +80,10 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     protected Continuation[] cont = new Continuation[MAX_CONT_STACK];
     protected int pc;
 
-    public Object eval(Block block) throws EllaException {
+    public Object eval(Block block) throws EllaException, EllaStoppedException {
+        stop = false;
+        exited = false;
+
         next = EVAL;
         stmt = block;
         val = null;
@@ -96,6 +100,8 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
             else {
                 throw e;
             }
+        } catch (EllaInterruptedException e) {
+            throw new EllaStoppedException(e);
         } catch (EllaRuntimeException e) {
             throw new EllaException(e);
         } finally {
@@ -107,6 +113,10 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
         }
 
         return val == null ? null : val.toJavaObject();
+    }
+
+    public void stop() {
+        stop = true;
     }
 
     protected void cleanup() {
@@ -163,6 +173,9 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     }
 
     protected void eval() {
+        if (stop) {
+            throw new EllaInterruptedException();
+        }
         stmt.accept(this);
     }
 
@@ -400,6 +413,9 @@ public class EllaCPSEngine implements EllaEngine, ExpressionVisitor, Continuatio
     }
 
     protected void cont() {
+        if (stop) {
+            throw new EllaInterruptedException();
+        }
         cont[pc].accept(this);
     }
 
