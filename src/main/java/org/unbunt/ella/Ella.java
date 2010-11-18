@@ -406,8 +406,8 @@ public class Ella {
     }
 
     /*
-    * Static methods / Main program
-    */
+     * Static methods for direct invocation of the interpreter
+     */
 
     /**
      * Evaluates the given EllaScript program in incremental mode.
@@ -534,6 +534,10 @@ public class Ella {
         ELLA interp = new ELLA(res);
         return interp.compile();
     }
+
+    /*
+     * Main program
+     */
 
     @SuppressWarnings({"UnusedDeclaration"})
     protected static void err(String msg, Exception e) {
@@ -755,6 +759,10 @@ public class Ella {
         @Argument
         public List<String> args = new ArrayList<String>();
     }
+
+    /**
+     * Raw interface to the actual interpreter.
+     */
     public static class ELLA {
         private static final Logger logger = LoggerFactory.getLogger(ELLA.class);
 
