@@ -478,7 +478,7 @@ public class Stmt extends AbstractObj {
                         engine.notifyUpdateCount(updateCount);
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -495,7 +495,7 @@ public class Stmt extends AbstractObj {
                 try {
                     thiz.execute(engine.getContext());
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -524,7 +524,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -546,7 +546,7 @@ public class Stmt extends AbstractObj {
                     ResSet resSet = new ResSet(rs);
                     engine.invoke(closure, _null, resSet);
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -582,7 +582,7 @@ public class Stmt extends AbstractObj {
                         return _null;
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -611,7 +611,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -636,7 +636,7 @@ public class Stmt extends AbstractObj {
                         return engine.getObjNull();
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Query failed: " + e.getMessage(), e);
+                    throw new EllaSQLException(thiz, e);
                 } finally {
                     try {
                         thiz.close();
@@ -688,7 +688,7 @@ public class Stmt extends AbstractObj {
                     engine.invoke(closure, engine.getObjNull(), batch);
                     engine.invokeSlot(batch, Str.SYM_finish);
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Batch execution failed: " + e, e);
+                    throw new EllaSQLException(thiz, "Batch execution failed: " + e, e);
                 } finally {
                     try {
                         thiz.close();
@@ -712,7 +712,7 @@ public class Stmt extends AbstractObj {
                     engine.invoke(closure, engine.getObjNull(), batch);
                     batch.finish();
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException("Batch execution failed " + e, e);
+                    throw new EllaSQLException(thiz, "Batch execution failed " + e, e);
                 } finally {
                     try {
                         thiz.close();
@@ -833,7 +833,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException(e);
+                    throw new EllaSQLException(thiz.stmt, "Batch execution failed: " + e, e);
                 }
                 return thiz;
             }
@@ -852,7 +852,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException(e);
+                    throw new EllaSQLException(thiz.stmt, "Batch execution failed: " + e, e);
                 }
                 return thiz;
             }
@@ -869,7 +869,7 @@ public class Stmt extends AbstractObj {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException(e);
+                    throw new EllaSQLException(thiz.stmt, "Batch execution failed: " + e, e);
                 }
                 return thiz;
             }
@@ -895,7 +895,7 @@ public class Stmt extends AbstractObj {
                         thiz.currentBatchSize = 0;
                     }
                 } catch (SQLException e) {
-                    throw new EllaRuntimeException(e);
+                    throw new EllaSQLException(thiz.stmt, "Batch execution failed: " + e, e);
                 }
                 return thiz;
             }
