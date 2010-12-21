@@ -176,6 +176,8 @@ public class Ella {
         context.setOutputStream(new PrintStream(outputStream));
         context.setErrorStream(new PrintStream(errorStream));
 
+        context.setLogLevel(logLevel);
+
         if (logOutput) {
             Logger ellaLogger = LoggerFactory.getLogger("ella");
 
@@ -665,7 +667,7 @@ public class Ella {
 
         try {
             if (pargs.verbose) {
-                // TODO: Provide functionality
+                ella.setLogLevel(Context.LogLevel.debug);
             }
 
             if (pargs.quiet) {
@@ -767,7 +769,7 @@ public class Ella {
                 usage = "show AST instead of executing script (not available in interactive and large file modes)")
         public boolean ast = false;
 
-//        @Option(name = "-verbose", usage = "echo executed statements")
+        @Option(name = "-verbose", usage = "print debugging information in addition to normal output")
         public boolean verbose = false;
 
         @Option(name = "-quiet", usage = "don't echo SQL statements, don't print informational messages")
@@ -1024,6 +1026,11 @@ public class Ella {
          */
         public Object executeIncremental()
                 throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
+            try {
+                context.debug("Executing script: %s", script.getPath());
+            } catch (IOException ignored) {
+            }
+
             initParserIncremental();
             initEngine();
             try {
@@ -1052,6 +1059,11 @@ public class Ella {
          */
         public Object execute()
                 throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
+            try {
+                context.debug("Executing script: %s", script.getPath());
+            } catch (IOException ignored) {
+            }
+
             tokenize();
             parseTokens();
             parseTree();

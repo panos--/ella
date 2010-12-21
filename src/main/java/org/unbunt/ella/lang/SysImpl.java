@@ -86,6 +86,11 @@ public class SysImpl extends AbstractObj implements Sys {
                                                     e.getMessage(), e);
             }
 
+            try {
+                ctx.debug("Including script: %s", includedScript.getPath());
+            } catch (IOException ignored) {
+            }
+
             Env savedEnv = engine.getEnv();
             Scope scope = savedEnv.toScope();
             Scope parseScope = new Scope(scope);
