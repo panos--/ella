@@ -173,8 +173,8 @@ public class Ella {
         Context context = ella.getContext();
 
         context.setInputStream(inputStream);
-        context.setOutputStream(new PrintStream(outputStream));
-        context.setErrorStream(new PrintStream(errorStream));
+        context.setOutputStream(new PrintStream(outputStream, true));
+        context.setErrorStream(new PrintStream(errorStream, true));
 
         context.setLogLevel(logLevel);
 
