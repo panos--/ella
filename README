@@ -1,10 +1,43 @@
 Ella - An interpreter for the EllaScript programming language
 
+About
+=====
+
+The EllaScript language is a scripting language intended to be used for
+scripting SQL.
+
+It's language structure is designed as being a superset of SQL, so that (in
+theory) every existing SQL script (written in a supported SQL dialect) should
+be a valid EllaScript program.
+
+In addition to SQL EllaScript provides all the language elements one would
+expect from a general purpose scripting language: variables, control
+statements, (higher order) functions, objects, etc.
+
+The language can be described as a prototype-based object-oriented language
+inspired by Smalltalk, Self, JavaScript and IO.
+
+The syntax and semantics of the language are designed with the goal of being
+easy to learn (which is difficult at the moment because of the lack of
+documentation) and easy to use.
+
+It runs on the Java Virtual Machine and allows to use Java classes and objects
+directly from EllaScript programs providing access to the full potential of the
+Java ecosystem where the Ella runtime library lacks functionality.
+
+Supported Database Systems
+==========================
+
+Ella uses JDBC for interaction with database systems. It supports every database
+system as long as it's SQL syntax is compatible with the SQL2003 standard.
+It has special support for MySQL, PostgreSQL and Oracle, supporting some of their
+syntactic specialties.
+
 Usage
 =====
 
 This EllaScript interpreter requires a Java 6 Runtime Environment to run.
-It was tested with the Sun JDK 1.6.0 only.
+It was tested with the Sun JDK/JRE 1.6.0 only.
 
 Unix/Linux
 ----------
@@ -21,24 +54,26 @@ Other Systems
 -------------
 
 The Ella interpreter can also be run directly by executing the provided
-JAR file, "Ella.jar", to be found in the "dist" directory.
+JAR file, "ella-0.1-SNAPSHOT.jar", to be found in the "libexec" directory
+of the distribution.
 
 This way, when no filename is given, the script to be run is read from
 standard input. Interactive mode has to be activated explicitly via the
 "-i" command line switch.
 
-Running "java -jar Ella.jar -h" gives a help message.
+Running "java -jar ella-0.1-SNAPSHOT.jar -h" gives a help message.
 
 Project Layout
 ==============
 
-bin/		Shell scripts.
-cfg/		Sample database connection properties files.
-dist/		Executable JAR file.
-dist/lib/	Libraries used by the executable JAR file.
-doc/		Auto-generated API documentation.
-lib/		Libraries used in the project.
-out/		Target directory for .class files.
-src/		Source code.
+The project uses the Maven 2 build system and follows the standard project
+layout closely.
+
+bin/		Unix shell scripts to invoke Ella from the build directory.
+maven/		Contains a local maven repository holding dependencies
+		not found in public repositories. Contains for example the
+		bundled oracle JDBC driver.
+src/		The project sources in the standard maven format.
+src/config/	Some example databse connection properties files.
 test/		Ad-hoc test scripts.
 test/ng/	Test scripts used in unit tests.
