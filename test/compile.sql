@@ -1,2 +1,5 @@
-\set quotes=pg;
-select $x$foo$y$;
+fun foo() {
+    print('bar');
+}
+
+var x := true ? 'foo' : fun () { return 'bar'; };

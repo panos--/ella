@@ -308,14 +308,16 @@ scriptIncremental
 	;
 
 topStatement
-	:	topStatementSep SEP!
+	:	(KW_FUN)=> scriptFuncDefStmt
+	|	topStatementSep SEP!
 	|	statementNoSep
 	|	SEP!
 	;
 
 statement
 options { k=3; }
-	:	statementSep SEP!
+	:	(KW_FUN)=> scriptFuncDefStmt
+	|	statementSep SEP!
 		//( (SEP)=> SEP!
 		//| (RCURLY)=> RCURLY
 		//| SEP!
@@ -379,8 +381,7 @@ scriptStmtSep
 	;
 
 scriptStmtNoSep
-	:	scriptFuncDefStmt
-	|	scriptIfElse
+	:	scriptIfElse
 	|	scriptTry
 	|	scriptFor
 	|	scriptWhile
@@ -608,14 +609,12 @@ expressionStmt
 expressionNoSQL
 options { k=3; }
 	:	expressionStmtNoSQL
-	|	scriptFuncDef
 	|	objectLiteral
 	;
 
 expression
 options { k=3; }
 	:	expressionStmt
-	|	scriptFuncDef
 	|	objectLiteral
 	|	sqlExpression
 	;
@@ -753,6 +752,7 @@ superSuffix [ Token superToken ]
 simpleExpression
 	:	parenExpression
 	|	blockClosure
+	|	scriptFuncDef
 	|	identifierNoUnary
 	|	stringLiteral
 	|	booleanLiteral
