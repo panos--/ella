@@ -59,8 +59,8 @@ import org.unbunt.ella.compiler.support.Scope;
 import org.unbunt.ella.engine.EllaCPSEngine;
 import org.unbunt.ella.engine.EllaEngine;
 import org.unbunt.ella.engine.context.Context;
-import org.unbunt.ella.engine.context.PrintStreamLogger;
 import org.unbunt.ella.engine.context.DupContextLogger;
+import org.unbunt.ella.engine.context.PrintStreamLogger;
 import org.unbunt.ella.engine.context.SLF4JContextLogger;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.sql.DBUtils;
@@ -68,7 +68,6 @@ import org.unbunt.ella.lang.sql.Drivers;
 import org.unbunt.ella.lang.sql.StmtBatch;
 import org.unbunt.ella.resource.*;
 import org.unbunt.ella.utils.*;
-import static org.unbunt.ella.utils.StringUtils.join;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -77,6 +76,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.unbunt.ella.utils.StringUtils.join;
 
 /**
  * Main interface for executing programs written in the EllaScript programming language. Also implements a
@@ -517,7 +518,7 @@ public class Ella {
      * @throws EllaParseException if compilation of the program fails.
      * @throws EllaException if the program throws an exception.
      */
-    protected static Object eval(File script, Context context)
+    public static Object eval(File script, Context context)
             throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         SimpleResource res = new FilesystemResource(script);
         ELLA interp = new ELLA(context, res);
@@ -549,7 +550,7 @@ public class Ella {
      * @throws EllaParseException if compilation of the program fails.
      * @throws EllaException if the program throws an exception.
      */
-    protected static Object eval(String script, Context context)
+    public static Object eval(String script, Context context)
             throws EllaIOException, EllaParseException, EllaException, EllaStoppedException {
         SimpleResource res = new StringResource(script);
         ELLA interp = new ELLA(context, res);

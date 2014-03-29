@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project relativePaths="true" version="4">
-  <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
-  </component>
+<project version="4">
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
   </component>
@@ -30,7 +27,6 @@
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
-    <option name="DEPLOY_AFTER_MAKE" value="0" />
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -46,7 +42,23 @@
       <entry name="?*.dtd" />
       <entry name="?*.tld" />
     </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="ella" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ella" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
+  <component name="CopyrightManager" default="" />
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
   </component>
@@ -67,6 +79,9 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -80,21 +95,20 @@
   </component>
   <component name="IdProvider" IDEtalkID="596C3DC5364024C16F02EFF1003421B9" />
   <component name="InspectionProjectProfileManager">
-    <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
-    <scopes />
     <profiles>
       <profile version="1.0" is_locked="false">
         <option name="myName" value="Project Default" />
         <option name="myLocal" value="false" />
-        <inspection_tool class="UnnecessaryContinue" level="WARNING" enabled="false" />
-        <inspection_tool class="UnnecessaryLocalVariable" level="WARNING" enabled="true">
-          <option name="m_ignoreImmediatelyReturnedVariables" value="true" />
-          <option name="m_ignoreAnnotatedVariables" value="false" />
+        <inspection_tool class="BadExpressionStatementJS" level="WARNING" enabled="false" />
+        <inspection_tool class="CastToConcreteClass" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="CheckTagEmptyBody" enabled="false" level="WARNING" enabled_by_default="false" />
+        <inspection_tool class="ClassReferencesSubclass" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="InstanceofChain" enabled="true" level="WARNING" enabled_by_default="true">
+          <option name="ignoreInstanceofOnLibraryClasses" value="false" />
         </inspection_tool>
-        <inspection_tool class="JpaQlInspection" level="INFO" enabled="true" />
-        <inspection_tool class="JpaQueryApiInspection" level="INFO" enabled="true" />
-        <inspection_tool class="JavaDoc" level="INFO" enabled="true">
+        <inspection_tool class="InstanceofInterfaces" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="InstanceofThis" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="JavaDoc" enabled="true" level="INFO" enabled_by_default="true">
           <option name="TOP_LEVEL_CLASS_OPTIONS">
             <value>
               <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
@@ -121,13 +135,20 @@
           </option>
           <option name="IGNORE_DEPRECATED" value="false" />
           <option name="IGNORE_JAVADOC_PERIOD" value="true" />
+          <option name="IGNORE_DUPLICATED_THROWS" value="false" />
+          <option name="IGNORE_POINT_TO_ITSELF" value="false" />
           <option name="myAdditionalJavadocTags" value="" />
         </inspection_tool>
-        <inspection_tool class="JpaModelErrorInspection" level="INFO" enabled="true" />
         <inspection_tool class="JpaDataSourceORMInspection" level="INFO" enabled="true" />
-        <inspection_tool class="BadExpressionStatementJS" level="WARNING" enabled="false" />
-        <inspection_tool class="CheckTagEmptyBody" level="WARNING" enabled="false" />
-        <inspection_tool class="groupsTestNG" level="WARNING" enabled="true">
+        <inspection_tool class="JpaModelErrorInspection" level="INFO" enabled="true" />
+        <inspection_tool class="JpaQlInspection" level="INFO" enabled="true" />
+        <inspection_tool class="JpaQueryApiInspection" level="INFO" enabled="true" />
+        <inspection_tool class="UnnecessaryContinue" enabled="false" level="WARNING" enabled_by_default="false" />
+        <inspection_tool class="UnnecessaryLocalVariable" enabled="true" level="WARNING" enabled_by_default="true">
+          <option name="m_ignoreImmediatelyReturnedVariables" value="true" />
+          <option name="m_ignoreAnnotatedVariables" value="false" />
+        </inspection_tool>
+        <inspection_tool class="groupsTestNG" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="groups">
             <value>
               <list size="3">
@@ -138,21 +159,11 @@
             </value>
           </option>
         </inspection_tool>
-        <inspection_tool class="InstanceofChain" level="WARNING" enabled="true" />
-        <inspection_tool class="CastToConcreteClass" level="WARNING" enabled="true" />
-        <inspection_tool class="ClassReferencesSubclass" level="WARNING" enabled="true" />
-        <inspection_tool class="InstanceofInterfaces" level="WARNING" enabled="true" />
-        <inspection_tool class="InstanceofThis" level="WARNING" enabled="true" />
       </profile>
     </profiles>
-    <list size="0" />
-  </component>
-  <component name="JavacSettings">
-    <option name="DEBUGGING_INFO" value="true" />
-    <option name="GENERATE_NO_WARNINGS" value="false" />
-    <option name="DEPRECATION" value="true" />
-    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
-    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+    <option name="PROJECT_PROFILE" value="Project Default" />
+    <option name="USE_PROJECT_PROFILE" value="true" />
+    <version value="1.0" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -311,17 +322,16 @@
     <option name="USE_CLIENT_FILTER" value="true" />
     <option name="CLIENT" value="" />
   </component>
-  <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ella.iml" filepath="$PROJECT_DIR$/ella.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="Ella AST Viewer" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella AST Viewer" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-ast test/tree.sql" />
@@ -341,12 +351,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Run Maven goal" value="false" />
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="test/test.sql" />
@@ -366,11 +373,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella Interactive" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella Interactive" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-props src/main/config/mysql.properties -i" />
@@ -390,11 +395,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella Incremental" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella Incremental" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-props src/main/config/mysql.properties -large test/test.sql" />
@@ -414,11 +417,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella Compile" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella Compile" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-c test/compile.sql" />
@@ -432,11 +433,9 @@
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella MySQL" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella MySQL" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-props src/main/config/mysql.properties test/test.sql" />
@@ -456,11 +455,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella Oracle" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella Oracle" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-props src/main/config/oracle.properties test/test.sql" />
@@ -480,11 +477,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Ella PostgreSQL" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Ella PostgreSQL" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.unbunt.ella.Ella" />
       <option name="VM_PARAMETERS" value="-ea -Xmx256M" />
       <option name="PROGRAM_PARAMETERS" value="-props src/main/config/pg.properties test/test.sql" />
@@ -504,12 +499,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Unit tests" type="TestNG" factoryName="TestNG" enabled="true" merge="true">
-      <pattern value="org.unbunt.ella.*" />
+    <configuration default="false" name="Unit tests" type="TestNG" factoryName="TestNG">
       <module name="ella" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -526,10 +518,10 @@
       <option name="ANNOTATION_TYPE" value="JDK" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" value="" />
       <envs />
       <properties />
@@ -542,12 +534,9 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="Unit tests (specific method)" type="TestNG" factoryName="TestNG" enabled="true" merge="true">
-      <pattern value="org.unbunt.ella.*" />
+    <configuration default="false" name="Unit tests (specific method)" type="TestNG" factoryName="TestNG">
       <module name="ella" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -564,10 +553,10 @@
       <option name="ANNOTATION_TYPE" value="JDK" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
       </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" value="" />
       <envs />
       <properties />
@@ -580,10 +569,7 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Run Maven goal" value="true" />
-        <option name="Make" value="true" />
-      </method>
+      <method />
     </configuration>
   </component>
   <component name="ResourceManagerContainer">
@@ -631,6 +617,259 @@
     <option name="shortCycleTableSpecificationString" value="" />
   </component>
   <component name="libraryTable">
+    <library name="Maven: antlr:antlr:2.7.7">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: aopalliance:aopalliance:1.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: args4j:args4j:2.0.12">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/args4j/args4j/2.0.12/args4j-2.0.12.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/args4j/args4j/2.0.12/args4j-2.0.12-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/args4j/args4j/2.0.12/args4j-2.0.12-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.oracle:ojdbc6:11.2.0.1.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-collections:commons-collections:3.2.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-logging:commons-logging:1.1.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: javax.activation:activation:1.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: javax.mail:mail:1.4">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: junit:junit:3.8.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: log4j:log4j:1.2.15">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: mysql:mysql-connector-java:5.1.10">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.antlr:antlr-runtime:3.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.antlr:stringtemplate:3.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/stringtemplate/3.2/stringtemplate-3.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/stringtemplate/3.2/stringtemplate-3.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/stringtemplate/3.2/stringtemplate-3.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.gnu:readline:0.8.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/gnu/readline/0.8.0/readline-0.8.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/gnu/readline/0.8.0/readline-0.8.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/gnu/readline/0.8.0/readline-0.8.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.slf4j:slf4j-api:1.6.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.slf4j:slf4j-log4j12:1.6.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-beans:2.5.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/2.5.6/spring-beans-2.5.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/2.5.6/spring-beans-2.5.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/2.5.6/spring-beans-2.5.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-context:2.5.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/2.5.6/spring-context-2.5.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/2.5.6/spring-context-2.5.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/2.5.6/spring-context-2.5.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-core:2.5.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/2.5.6/spring-core-2.5.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/2.5.6/spring-core-2.5.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/2.5.6/spring-core-2.5.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-jdbc:2.5.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/2.5.6/spring-jdbc-2.5.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/2.5.6/spring-jdbc-2.5.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/2.5.6/spring-jdbc-2.5.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-tx:2.5.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/2.5.6/spring-tx-2.5.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/2.5.6/spring-tx-2.5.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/2.5.6/spring-tx-2.5.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.testng:testng:jdk15:5.9">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: postgresql:postgresql:8.3-603.jdbc4">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/postgresql/postgresql/8.3-603.jdbc4/postgresql-8.3-603.jdbc4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/postgresql/postgresql/8.3-603.jdbc4/postgresql-8.3-603.jdbc4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/postgresql/postgresql/8.3-603.jdbc4/postgresql-8.3-603.jdbc4-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Unnamed">
       <CLASSES />
       <JAVADOC />
@@ -639,8 +878,5 @@
       </SOURCES>
     </library>
   </component>
-  <UsedPathMacros>
-    <macro name="MAVEN_REPOSITORY" />
-  </UsedPathMacros>
 </project>
 
