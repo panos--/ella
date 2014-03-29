@@ -42,18 +42,19 @@ import org.unbunt.ella.compiler.support.RawParamedSQL;
 import org.unbunt.ella.compiler.support.RawSQL;
 import org.unbunt.ella.engine.context.Context;
 import org.unbunt.ella.engine.corelang.*;
-import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 import org.unbunt.ella.exception.*;
 import org.unbunt.ella.lang.*;
 import org.unbunt.ella.utils.StopWatch;
 
-import static java.lang.String.format;
 import java.math.BigDecimal;
 import java.util.Date; // NOTE: it is essential to have this import before the java.sql.* import
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.sql.*;
+
+import static java.lang.String.format;
+import static org.unbunt.ella.engine.corelang.ObjUtils.ensureType;
 
 /**
  * Represents an EllaScript object wrapping an SQL statement.
@@ -201,12 +202,14 @@ public class Stmt extends AbstractObj {
 
         if (scrollable) {
             // create statement downgrading result set features as nessassary
+            // NOTE: catching SQLException instead of SQLFeatureNotSupportedException since at least
+            //       Xerial SQLite JDBC driver incorrectly throws generic SQLException...
             try {
                 statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            } catch (SQLFeatureNotSupportedException e) {
+            } catch (SQLException e) {
                 try {
                     statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                } catch (SQLFeatureNotSupportedException e2) {
+                } catch (SQLException e2) {
                     statement = connection.createStatement();
                 }
             }
@@ -214,10 +217,10 @@ public class Stmt extends AbstractObj {
         else {
             try {
                 statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-            } catch (SQLFeatureNotSupportedException e) {
+            } catch (SQLException e) {
                 try {
                     statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                } catch (SQLFeatureNotSupportedException e2) {
+                } catch (SQLException e2) {
                     statement = connection.createStatement();
                 }
             }
